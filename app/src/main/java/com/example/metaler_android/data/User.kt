@@ -9,7 +9,7 @@ data class User(
     val job: String,
     val job_type: String,
     val job_detail: String,
-    val service_type: Int,
+    val service_type: String,
     val push_token: String,
     val device_model: String,
     val device_id: String,
