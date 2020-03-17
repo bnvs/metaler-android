@@ -1,9 +1,8 @@
 package com.example.metaler_android.data
 
 /**
-* Materials 와 Manufactures 탭에서
- * 게시물의 리스트를 보여주는데 사용하는
- * 데이터 클래스이다
+* Materials, Manufactures, Bookmarks, 내가쓴 글 확인 탭에서
+ * 게시물의 리스트를 보여주는데 사용하는 데이터 클래스이다
  * is_next 는 다음 페이지의 유무
  * post_count 는 게시글 총 개수
 * */
