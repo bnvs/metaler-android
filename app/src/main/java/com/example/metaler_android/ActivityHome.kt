@@ -27,6 +27,7 @@ class ActivityHome : AppCompatActivity() {
 
         //현재 액티비티 레이아웃의 기준이 되는 titleBarCard에 상태바 높이 만큼 top padding 을 줌 .
         titleBarCard.setPadding(0, statusBarHeight(this), 0, 0)
+        Log.d(TAG,"상태바 높이? : ${statusBarHeight(this)}")
 
 
     }
