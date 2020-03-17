@@ -508,7 +508,7 @@
                             android:id="@+id/myPageIcon"
                             android:layout_width="27dp"
                             android:layout_height="27dp"
-                            android:src="@drawable/ic_tapbar_bookmark_inactive_x3"
+                            android:src="@drawable/ic_tapbar_mypage_inactive_x3"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
