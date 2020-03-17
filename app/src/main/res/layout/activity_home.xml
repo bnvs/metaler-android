@@ -134,6 +134,7 @@
             app:cardBackgroundColor="@color/colorWhite"
             app:cardCornerRadius="10dp"
             app:cardElevation="5dp"
+            app:cardUseCompatPadding="true"
             >
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -196,7 +197,7 @@
 
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/manufactureRV"
+                    android:id="@+id/materialsRV"
                     android:layout_marginTop="10dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/materialsLine"
@@ -205,12 +206,108 @@
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-            
-
 
 
         </androidx.cardview.widget.CardView>
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/manufactureCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/materialsCard"
+        >
+
+        <androidx.cardview.widget.CardView
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginHorizontal="10dp"
+            app:cardBackgroundColor="@color/colorWhite"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="5dp"
+            app:cardUseCompatPadding="true"
+            >
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/manufactureIcon"
+                    android:layout_width="27dp"
+                    android:layout_height="27dp"
+                    android:src="@drawable/ic_manufacture_x3"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="15dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    />
+                <TextView
+                    android:id="@+id/manufactureTitleTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    android:textColor="#717171"
+                    android:text="가공"
+                    android:layout_marginLeft="5dp"
+                    app:layout_constraintBottom_toBottomOf="@id/manufactureIcon"
+                    app:layout_constraintTop_toTopOf="@id/manufactureIcon"
+                    app:layout_constraintStart_toEndOf="@id/manufactureIcon"
+                    />
+
+                <TextView
+                    android:id="@+id/manufactureEngTitleTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:textColor="#80717171"
+                    android:text="Manufacture"
+                    android:layout_marginLeft="5dp"
+                    app:layout_constraintStart_toEndOf="@id/manufactureTitleTxt"
+                    app:layout_constraintBottom_toBottomOf="@id/manufactureTitleTxt"
+                    />
+
+                <ImageView
+                    android:id="@+id/manufactureMoreBtn"
+                    android:layout_width="13dp"
+                    android:layout_height="13dp"
+                    android:src="@drawable/ic_more_arrow_x3"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/manufactureIcon"
+                    app:layout_constraintBottom_toBottomOf="@id/manufactureIcon"
+                    android:layout_marginRight="20dp"
+                    />
+                <View
+                    android:id="@+id/manufactureLine"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="?android:attr/listDivider"
+                    android:layout_marginTop="10dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/manufactureIcon"
+                    />
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/manufactureRV"
+                    android:layout_marginTop="10dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/manufactureLine"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </androidx.cardview.widget.CardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
