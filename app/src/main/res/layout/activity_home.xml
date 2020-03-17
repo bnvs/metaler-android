@@ -11,17 +11,16 @@
         android:id="@+id/profileCard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        >
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="200dp"
+            android:translationY="-30dp"
             app:cardCornerRadius="20dp"
             app:cardElevation="5dp"
-            android:translationY="-30dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -73,8 +72,7 @@
                 android:layout_gravity="center"
                 android:text="홈"
                 android:textColor="@color/colorWhite"
-                android:textSize="18sp"
-                />
+                android:textSize="18sp" />
 
         </androidx.cardview.widget.CardView>
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -128,91 +126,87 @@
         android:id="@+id/materialsCard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/profileCard"
         android:translationY="-60dp"
-        >
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/profileCard">
 
         <androidx.cardview.widget.CardView
 
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             android:layout_marginHorizontal="10dp"
             app:cardBackgroundColor="@color/colorWhite"
             app:cardCornerRadius="10dp"
             app:cardElevation="5dp"
             app:cardUseCompatPadding="true"
-            >
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
                 <ImageView
-                    android:id="@+id/materialsIcon"
+                    android:id="@+id/materialsCardIcon"
                     android:layout_width="27dp"
                     android:layout_height="27dp"
-                    android:src="@drawable/ic_materials_x3"
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="15dp"
+                    android:src="@drawable/ic_home_materials_x3"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    />
+                    app:layout_constraintTop_toTopOf="parent" />
+
                 <TextView
                     android:id="@+id/materialsTitleTxt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="18sp"
-                    android:textColor="#717171"
-                    android:text="재료"
                     android:layout_marginLeft="5dp"
-                    app:layout_constraintBottom_toBottomOf="@id/materialsIcon"
-                    app:layout_constraintTop_toTopOf="@id/materialsIcon"
-                    app:layout_constraintStart_toEndOf="@id/materialsIcon"
-                    />
+                    android:text="재료"
+                    android:textColor="#717171"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="@id/materialsCardIcon"
+                    app:layout_constraintStart_toEndOf="@id/materialsCardIcon"
+                    app:layout_constraintTop_toTopOf="@id/materialsCardIcon" />
 
                 <TextView
                     android:id="@+id/materialsEngTitleTxt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="12sp"
-                    android:textColor="#80717171"
-                    android:text="Materials"
                     android:layout_marginLeft="5dp"
-                    app:layout_constraintStart_toEndOf="@id/materialsTitleTxt"
+                    android:text="Materials"
+                    android:textColor="#80717171"
+                    android:textSize="12sp"
                     app:layout_constraintBottom_toBottomOf="@id/materialsTitleTxt"
-                    />
+                    app:layout_constraintStart_toEndOf="@id/materialsTitleTxt" />
 
                 <ImageView
                     android:id="@+id/materialsMoreBtn"
                     android:layout_width="13dp"
                     android:layout_height="13dp"
-                    android:src="@drawable/ic_more_arrow_x3"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/materialsIcon"
-                    app:layout_constraintBottom_toBottomOf="@id/materialsIcon"
                     android:layout_marginRight="20dp"
-                    />
+                    android:src="@drawable/ic_home_more_arrow_x3"
+                    app:layout_constraintBottom_toBottomOf="@id/materialsCardIcon"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/materialsCardIcon" />
+
                 <View
                     android:id="@+id/materialsLine"
                     android:layout_width="match_parent"
                     android:layout_height="0.5dp"
-                    android:background="?android:attr/listDivider"
                     android:layout_marginTop="10dp"
+                    android:background="?android:attr/listDivider"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/materialsIcon"
-                    />
+                    app:layout_constraintTop_toBottomOf="@id/materialsCardIcon" />
 
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/materialsRV"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/materialsLine"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    app:layout_constraintTop_toBottomOf="@id/materialsLine" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -227,90 +221,86 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:translationY="-70dp"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/materialsCard"
-        >
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/materialsCard">
 
         <androidx.cardview.widget.CardView
 
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             android:layout_marginHorizontal="10dp"
             app:cardBackgroundColor="@color/colorWhite"
             app:cardCornerRadius="10dp"
             app:cardElevation="5dp"
             app:cardUseCompatPadding="true"
-            >
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
                 <ImageView
-                    android:id="@+id/manufactureIcon"
+                    android:id="@+id/manufactureCardIcon"
                     android:layout_width="27dp"
                     android:layout_height="27dp"
-                    android:src="@drawable/ic_manufacture_x3"
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="15dp"
+                    android:src="@drawable/ic_home_manufacture_x3"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    />
+                    app:layout_constraintTop_toTopOf="parent" />
+
                 <TextView
                     android:id="@+id/manufactureTitleTxt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="18sp"
-                    android:textColor="#717171"
-                    android:text="가공"
                     android:layout_marginLeft="5dp"
-                    app:layout_constraintBottom_toBottomOf="@id/manufactureIcon"
-                    app:layout_constraintTop_toTopOf="@id/manufactureIcon"
-                    app:layout_constraintStart_toEndOf="@id/manufactureIcon"
-                    />
+                    android:text="가공"
+                    android:textColor="#717171"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="@id/manufactureCardIcon"
+                    app:layout_constraintStart_toEndOf="@id/manufactureCardIcon"
+                    app:layout_constraintTop_toTopOf="@id/manufactureCardIcon" />
 
                 <TextView
                     android:id="@+id/manufactureEngTitleTxt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="12sp"
-                    android:textColor="#80717171"
-                    android:text="Manufacture"
                     android:layout_marginLeft="5dp"
-                    app:layout_constraintStart_toEndOf="@id/manufactureTitleTxt"
+                    android:text="Manufacture"
+                    android:textColor="#80717171"
+                    android:textSize="12sp"
                     app:layout_constraintBottom_toBottomOf="@id/manufactureTitleTxt"
-                    />
+                    app:layout_constraintStart_toEndOf="@id/manufactureTitleTxt" />
 
                 <ImageView
                     android:id="@+id/manufactureMoreBtn"
                     android:layout_width="13dp"
                     android:layout_height="13dp"
-                    android:src="@drawable/ic_more_arrow_x3"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/manufactureIcon"
-                    app:layout_constraintBottom_toBottomOf="@id/manufactureIcon"
                     android:layout_marginRight="20dp"
-                    />
+                    android:src="@drawable/ic_home_more_arrow_x3"
+                    app:layout_constraintBottom_toBottomOf="@id/manufactureCardIcon"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/manufactureCardIcon" />
+
                 <View
                     android:id="@+id/manufactureLine"
                     android:layout_width="match_parent"
                     android:layout_height="0.5dp"
-                    android:background="?android:attr/listDivider"
                     android:layout_marginTop="10dp"
+                    android:background="?android:attr/listDivider"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/manufactureIcon"
-                    />
+                    app:layout_constraintTop_toBottomOf="@id/manufactureCardIcon" />
 
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/manufactureRV"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/manufactureLine"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    app:layout_constraintTop_toBottomOf="@id/manufactureLine" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -319,6 +309,204 @@
         </androidx.cardview.widget.CardView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/tapBarCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            app:cardBackgroundColor="@color/colorWhite"
+            app:cardElevation="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="10dp">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/homeBtn"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    app:layout_constraintEnd_toStartOf="@id/materialsBtn"
+                    app:layout_constraintHorizontal_weight="1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:id="@+id/homeIcon"
+                            android:layout_width="27dp"
+                            android:layout_height="27dp"
+                            android:src="@drawable/ic_tapbar_home_active_x3"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="홈"
+                            android:textColor="@color/colorActiveTapbar"
+                            android:textSize="10sp"
+                            android:textStyle="bold"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/homeIcon" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/materialsBtn"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    app:layout_constraintHorizontal_weight="1"
+                    app:layout_constraintStart_toEndOf="@id/homeBtn"
+                    app:layout_constraintEnd_toStartOf="@id/manufactureBtn"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:id="@+id/materialsIcon"
+                            android:layout_width="27dp"
+                            android:layout_height="27dp"
+                            android:src="@drawable/ic_tapbar_materials_inactive_x3"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="재료"
+                            android:textColor="@color/colorInactiveTapbar"
+                            android:textSize="10sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/materialsIcon" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/manufactureBtn"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    app:layout_constraintHorizontal_weight="1"
+                    app:layout_constraintStart_toEndOf="@id/materialsBtn"
+                    app:layout_constraintEnd_toStartOf="@id/bookmarkBtn"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:id="@+id/manufactureIcon"
+                            android:layout_width="27dp"
+                            android:layout_height="27dp"
+                            android:src="@drawable/ic_tapbar_manufacture_inactive_x3"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="가공"
+                            android:textColor="@color/colorInactiveTapbar"
+                            android:textSize="10sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/manufactureIcon" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/bookmarkBtn"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    app:layout_constraintHorizontal_weight="1"
+                    app:layout_constraintStart_toEndOf="@id/manufactureBtn"
+                    app:layout_constraintEnd_toStartOf="@id/myPageBtn"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:id="@+id/bookmarkIcon"
+                            android:layout_width="27dp"
+                            android:layout_height="27dp"
+                            android:src="@drawable/ic_tapbar_bookmark_inactive_x3"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="북마크"
+                            android:textColor="@color/colorInactiveTapbar"
+                            android:textSize="10sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/bookmarkIcon" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/myPageBtn"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_weight="1"
+                    app:layout_constraintStart_toEndOf="@id/bookmarkBtn"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:id="@+id/myPageIcon"
+                            android:layout_width="27dp"
+                            android:layout_height="27dp"
+                            android:src="@drawable/ic_tapbar_bookmark_inactive_x3"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="마이페이지"
+                            android:textColor="@color/colorInactiveTapbar"
+                            android:textSize="10sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/myPageIcon" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.cardview.widget.CardView>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
