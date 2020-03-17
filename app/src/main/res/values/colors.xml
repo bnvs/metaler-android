@@ -7,6 +7,9 @@
 
     <color name="colorGreyBG">#f5f4f7</color>
 
+    <color name="colorActiveTapbar">#6b5eb2</color>
+    <color name="colorInactiveTapbar">#d8d8d8</color>
+
     <color name="transparent">#00000000</color>
 
 </resources>
