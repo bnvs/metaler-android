@@ -6,10 +6,14 @@ package com.example.metaler_android.data
  * 데이터 클래스이다
 * */
 
+// TODO : PostDetail 과 Post 명명법이 적절한지 논의 필요
+
+// TODO : 스프레드 시트에 작성된 내용에 의하면, Post JSON 객체를 배열로 감싸서 반환하던데 그 이유가 무엇인지 질문
 data class PostDetail(
     val Post: List<Post>
 )
 
+// TODO : tags 가 두 개 들어있는데 둘 의 차이가 무엇인지?
 data class Post(
     val post_id: Int,
     val title: String,
