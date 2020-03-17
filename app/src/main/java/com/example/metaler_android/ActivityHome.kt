@@ -19,7 +19,7 @@ class ActivityHome : AppCompatActivity() {
         setContentView(R.layout.activity_home)
 
         //상태바 투명하게 바꾸는 코드 => 대신 해당 상태바 위치에 뷰가 위치할수있음
-        //상태바 뿐만 아니라 하단 소프트 버튼에도 영향끼침.. 상태바에도 뷰가 겹쳐버리는 문제발생
+        //상태바 뿐만 아니라 하단 소프트 버튼에도 영향끼침.. 상태바에도 뷰가 겹쳐버리는 문제발
         window.setFlags(
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
@@ -30,6 +30,8 @@ class ActivityHome : AppCompatActivity() {
         titleBarCard.setPadding(0, statusBarHeight(this), 0, 0)
         Log.d(TAG,"상태바 높이? : ${statusBarHeight(this)}")
 
+        //소프트키 올라온 높이만큼 전체 레이아웃 하단에 padding을 줌.
+        wrapConstraintLayout.setPadding(0,0,0,softMenuHeight(this))
 
     }
 
@@ -39,6 +41,15 @@ class ActivityHome : AppCompatActivity() {
 
         return if (resourceId > 0) context.resources.getDimensionPixelSize(resourceId)
         else 0
+    }
+
+    //하단 소프트키 높이 구함
+    private fun softMenuHeight(context: Context): Int {
+        val resourceId = context.resources.getIdentifier("navigation_bar_height", "dimen", "android")
+
+        var deviceHeight : Int = 0
+        return if (resourceId > 0){ context.resources.getDimensionPixelSize(resourceId)
+        }else 0
     }
 
 }
