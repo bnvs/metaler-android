@@ -72,7 +72,7 @@
                 android:layout_gravity="center"
                 android:text="홈"
                 android:textColor="@color/colorWhite"
-                android:textSize="18sp" />
+                android:textSize="" />
 
         </androidx.cardview.widget.CardView>
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -162,8 +162,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
+                    android:textStyle="bold"
                     android:text="재료"
-                    android:textColor="#717171"
+                    android:textColor="@color/colorDarkGrey"
                     android:textSize="18sp"
                     app:layout_constraintBottom_toBottomOf="@id/materialsCardIcon"
                     app:layout_constraintStart_toEndOf="@id/materialsCardIcon"
@@ -175,7 +176,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
                     android:text="Materials"
-                    android:textColor="#80717171"
+                    android:textColor="@color/colorGrey"
                     android:textSize="12sp"
                     app:layout_constraintBottom_toBottomOf="@id/materialsTitleTxt"
                     app:layout_constraintStart_toEndOf="@id/materialsTitleTxt" />
@@ -257,7 +258,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
                     android:text="가공"
-                    android:textColor="#717171"
+                    android:textColor="@color/colorDarkGrey"
+                    android:textStyle="bold"
                     android:textSize="18sp"
                     app:layout_constraintBottom_toBottomOf="@id/manufactureCardIcon"
                     app:layout_constraintStart_toEndOf="@id/manufactureCardIcon"
@@ -269,7 +271,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
                     android:text="Manufacture"
-                    android:textColor="#80717171"
+                    android:textColor="@color/colorGrey"
                     android:textSize="12sp"
                     app:layout_constraintBottom_toBottomOf="@id/manufactureTitleTxt"
                     app:layout_constraintStart_toEndOf="@id/manufactureTitleTxt" />
