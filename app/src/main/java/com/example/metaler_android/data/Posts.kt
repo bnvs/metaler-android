@@ -6,7 +6,7 @@ package com.example.metaler_android.data
  * is_next -> 다음 페이지의 유무
  * post_count -> 게시글 총 개수
  * posts -> 게시물 리스트 (서버에 요청한 개수의 게시물들이 들어있음)
-* */
+ * */
 
 data class Posts(
     val is_next: Boolean,

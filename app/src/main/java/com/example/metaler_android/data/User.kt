@@ -1,9 +1,9 @@
 package com.example.metaler_android.data
 
 /**
-* 카카오 로그인을 했을때 반환되는 정보 + 추가 정보(유저 입력)
+ * 카카오 로그인을 했을때 반환되는 정보 + 추가 정보(유저 입력)
  * metaler 자체 로그인/회원가입 api 에 전달하는 정보
-* */
+ * */
 
 data class User(
     val profile_nickname: String,
