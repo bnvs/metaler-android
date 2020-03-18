@@ -40,5 +40,7 @@ interface DataSource {
     fun getPosts(callback: LoadPostsCallback)
 
     fun getPostDetails(callback: LoadPostDetailsCallback)
-    
+
+    fun getComments(callback: LoadCommentsCallback)
+
 }
