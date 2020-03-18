@@ -38,7 +38,7 @@ interface RetrofitInterface {
     fun addUser(@Body user: User): Call<JSONObject>
 
     @POST("/categorys/{id}/posts")
-    fun createPost()
+    fun addPost()
 
     @POST("/uploadFile")
     fun uploadFile(): Call<JSONObject>
