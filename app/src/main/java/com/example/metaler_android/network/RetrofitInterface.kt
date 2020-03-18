@@ -37,6 +37,9 @@ interface RetrofitInterface {
     @POST("/uploadFile")
     fun uploadFile(): Call<JSONObject>
 
+    @POST("/users/{uid}/bookmarks")
+    fun setBookmark(): Call<String>
+
     @PUT("/categorys/{cid}/posts/{pid}")
     fun modifyPost()
 
