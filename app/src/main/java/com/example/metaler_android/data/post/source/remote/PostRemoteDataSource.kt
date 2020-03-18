@@ -14,11 +14,14 @@ class PostRemoteDataSource : PostDataSource{
         retrofitClient.getMaterialPosts().enqueue(object : Callback<Posts> {
             override fun onResponse(call: Call<Posts>, response: Response<Posts>) {
                 val posts: Posts? = response.body()
-                callback.onPostsLoaded(posts!!)
+                if (posts != null) {
+                    callback.onPostsLoaded(posts)
+                }else {
+                    callback.onDataNotAvailable()
+                }
             }
 
             override fun onFailure(call: Call<Posts>, t: Throwable) {
-                callback.onDataNotAvailable()
             }
 
         })
