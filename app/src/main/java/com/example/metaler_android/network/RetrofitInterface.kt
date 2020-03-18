@@ -1,12 +1,12 @@
 package com.example.metaler_android.network
 
-import com.example.metaler_android.data.Comment.Comments
-import com.example.metaler_android.data.HomePost.HomePosts
-import com.example.metaler_android.data.Job.Job
-import com.example.metaler_android.data.Material.Materials
-import com.example.metaler_android.data.Post.Posts
-import com.example.metaler_android.data.PostDetail.PostDetails
-import com.example.metaler_android.data.User.User
+import com.example.metaler_android.data.comment.Comments
+import com.example.metaler_android.data.homepost.HomePosts
+import com.example.metaler_android.data.job.Job
+import com.example.metaler_android.data.material.Materials
+import com.example.metaler_android.data.post.Posts
+import com.example.metaler_android.data.postdetail.PostDetails
+import com.example.metaler_android.data.user.User
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.http.*
