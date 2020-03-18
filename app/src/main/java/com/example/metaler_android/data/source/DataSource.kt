@@ -39,6 +39,11 @@ interface DataSource {
         fun onFailure()
     }
 
+    interface AddPostCallback {
+        fun onPostAdded()
+        fun onFailure()
+    }
+
     fun getHomePosts(callback: LoadHomePostsCallback)
     
     fun getMaterials(callback: LoadMaterialsCallback)
