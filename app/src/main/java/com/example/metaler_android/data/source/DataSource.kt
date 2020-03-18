@@ -38,4 +38,7 @@ interface DataSource {
     fun getMaterials(callback: LoadMaterialsCallback)
 
     fun getPosts(callback: LoadPostsCallback)
+
+    fun getPostDetails(callback: LoadPostDetailsCallback)
+    
 }
