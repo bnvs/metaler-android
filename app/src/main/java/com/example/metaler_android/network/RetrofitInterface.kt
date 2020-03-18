@@ -25,13 +25,13 @@ interface RetrofitInterface {
     @GET("/categories")
     fun getMaterials(@Body request: JSONObject): Call<Categories>
 
-    @GET("/materials/{id}/posts")
+    @GET("/categories/{id}/posts")
     fun getMaterialPosts(): Call<Posts>
 
-    @GET("/categorys/{cid}/posts/{pid}")
+    @GET("/categories/{cid}/posts/{pid}")
     fun getPostDetails(): Call<PostDetails>
 
-    @GET("/categorys/{cid}/posts/{pid}/comments")
+    @GET("/categories/{cid}/posts/{pid}/comments")
     fun getComments(): Call<Comments>
 
     @GET("/users/{uid}/bookmarks/{pid}")
@@ -40,13 +40,13 @@ interface RetrofitInterface {
     @GET("/users/job")
     fun getJob(): Call<Job>
 
-    @GET("/users/{uid}/categorys/{cid}/posts")
+    @GET("/users/{uid}/categories/{cid}/posts")
     fun getMyPosts(): Call<Posts>
 
-    @POST("/categorys/{id}/posts")
+    @POST("/categories/{id}/posts")
     fun addUser(@Body user: User): Call<JSONObject>
 
-    @POST("/categorys/{id}/posts")
+    @POST("/categories/{id}/posts")
     fun addPost()
 
     @POST("/uploadFile")
@@ -55,7 +55,7 @@ interface RetrofitInterface {
     @POST("/users/{uid}/bookmarks")
     fun addBookmark(): Call<String>
 
-    @PUT("/categorys/{cid}/posts/{pid}")
+    @PUT("/categories/{cid}/posts/{pid}")
     fun modifyPost()
 
     @PUT("/users/{id}/nickname")
@@ -64,7 +64,7 @@ interface RetrofitInterface {
     @PUT("/users/job")
     fun modifyJob()
 
-    @DELETE("/categorys/{cid}/posts/{pid}")
+    @DELETE("/categories/{cid}/posts/{pid}")
     fun deletePost()
 
     @DELETE("/users/{uid}/bookmarks/{pid}")
