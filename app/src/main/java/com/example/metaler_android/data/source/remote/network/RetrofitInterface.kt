@@ -1,4 +1,4 @@
-package com.example.metaler_android.network
+package com.example.metaler_android.data.source.remote.network
 
 import com.example.metaler_android.data.*
 import org.json.JSONObject

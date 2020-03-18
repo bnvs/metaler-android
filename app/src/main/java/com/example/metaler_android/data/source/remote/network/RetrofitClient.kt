@@ -1,4 +1,4 @@
-package com.example.metaler_android.network
+package com.example.metaler_android.data.source.remote.network
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
