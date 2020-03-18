@@ -45,4 +45,7 @@ interface RetrofitInterface {
 
     @DELETE("/categorys/{cid}/posts/{pid}")
     fun deletePost()
+
+    @DELETE("/users/{uid}/bookmarks/{pid}")
+    fun deleteBookmark()
 }
