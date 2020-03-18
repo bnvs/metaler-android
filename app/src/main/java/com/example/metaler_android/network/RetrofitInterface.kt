@@ -35,16 +35,16 @@ interface RetrofitInterface {
     fun getMyPosts(): Call<Posts>
 
     @POST("/categorys/{id}/posts")
-    fun setUser(@Body user: User): Call<JSONObject>
+    fun addUser(@Body user: User): Call<JSONObject>
 
     @POST("/categorys/{id}/posts")
-    fun setPost()
+    fun createPost()
 
     @POST("/uploadFile")
     fun uploadFile(): Call<JSONObject>
 
     @POST("/users/{uid}/bookmarks")
-    fun setBookmark(): Call<String>
+    fun addBookmark(): Call<String>
 
     @PUT("/categorys/{cid}/posts/{pid}")
     fun modifyPost()
