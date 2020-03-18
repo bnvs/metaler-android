@@ -8,4 +8,9 @@ interface DataSource {
         fun onHomePostsLoaded(homePosts: HomePosts)
         fun onDataNotAvailable()
     }
+
+    interface LoadPostsCallback {
+        fun onPostsLoaded(posts: Posts)
+        fun onDataNotAvailable()
+    }
 }
