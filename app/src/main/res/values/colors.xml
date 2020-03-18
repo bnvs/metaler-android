@@ -11,7 +11,7 @@
 
     <color name="colorGrey">#d8d8d8</color>
     <color name="colorDarkGrey">#717171</color>
-    <color name="colorLightGrey">#dadada</color>
+    <color name="colorLightGrey">#e3e3e3</color>
 
 <!--  필수 입력 사항 글자에 쓰이는 주의 안내 색상  -->
     <color name="colorCaution">#fa6400</color>
