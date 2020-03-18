@@ -49,6 +49,11 @@ interface DataSource {
         fun onFailure()
     }
 
+    interface AddBookmarkCallback {
+        fun onBookmarkAdded()
+        fun onFailure()
+    }
+
     fun getHomePosts(callback: LoadHomePostsCallback)
     
     fun getMaterials(callback: LoadMaterialsCallback)
