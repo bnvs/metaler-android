@@ -6,10 +6,7 @@ import com.example.metaler_android.data.PostDetails
 import com.example.metaler_android.data.Posts
 import org.json.JSONObject
 import retrofit2.Call
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.PUT
+import retrofit2.http.*
 
 /**
  * 해당 interface 에 기술된 명세들은
@@ -39,4 +36,7 @@ interface RetrofitInterface {
 
     @PUT("/categorys/{cid}/posts/{pid}")
     fun modifyPost()
+
+    @DELETE("/categorys/{cid}/posts/{pid}")
+    fun deletePost()
 }
