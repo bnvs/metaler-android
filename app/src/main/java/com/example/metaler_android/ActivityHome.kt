@@ -5,8 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.util.TypedValue
-import android.view.ViewGroup
-import android.view.WindowManager
+import android.view.*
 import android.widget.LinearLayout
 import kotlinx.android.synthetic.main.activity_home.*
 
@@ -30,8 +29,12 @@ class ActivityHome : AppCompatActivity() {
         titleBarCard.setPadding(0, statusBarHeight(this), 0, 0)
         Log.d(TAG,"상태바 높이? : ${statusBarHeight(this)}")
 
+
         //소프트키 올라온 높이만큼 전체 레이아웃 하단에 padding을 줌.
         wrapConstraintLayout.setPadding(0,0,0,softMenuHeight(this))
+
+        //        hasSoftMenu()
+
 
     }
 
@@ -51,5 +54,25 @@ class ActivityHome : AppCompatActivity() {
         return if (resourceId > 0){ context.resources.getDimensionPixelSize(resourceId)
         }else 0
     }
+
+//    //소프트키 버튼이 유무를 알아내는 함수 -> 사용안함
+//    private fun hasSoftMenu(): Boolean {
+//        //메뉴버튼 유무
+//        var hasMenuKey : Boolean = ViewConfiguration.get(getApplicationContext()).hasPermanentMenuKey()
+//
+//        //뒤로가기 버튼 유무
+//        var hasBackKey : Boolean = KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_BACK)
+//
+////        Log.d(TAG,"hasMenuKey? :${hasMenuKey} // hasBackKey? :${hasBackKey}")
+//
+//
+//        if(!hasMenuKey && !hasBackKey) {
+//            Log.d(TAG,"no hasMenuKey")
+//            return false
+//        } else {
+//            Log.d(TAG,"hasMenuKey ${hasMenuKey}   ${hasBackKey}")
+//            return true
+//        }
+//    }
 
 }
