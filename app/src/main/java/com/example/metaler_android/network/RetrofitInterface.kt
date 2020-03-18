@@ -6,6 +6,7 @@ import com.example.metaler_android.data.Posts
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.POST
 
 /**
  * 해당 interface 에 기술된 명세들은
@@ -20,5 +21,8 @@ interface RetrofitInterface {
 
     @GET("/materials")
     fun getMaterials(@Body access_token: String): Call<Materials>
+
+    @GET("/materials/{id}/posts")
+    fun getMaterialPosts(): Call<Posts>
 
 }
