@@ -1,6 +1,7 @@
 package com.example.metaler_android.data.source
 
 import com.example.metaler_android.data.*
+import org.json.JSONObject
 
 interface DataSource {
     interface LoadHomePostsCallback {
@@ -31,6 +32,11 @@ interface DataSource {
     interface LoadJobCallback {
         fun onJobLoaded(job: Job)
         fun onDataNotAvailable()
+    }
+
+    interface AddUserCallback {
+        fun onUserAdded(user: JSONObject)
+        fun onFailure()
     }
 
     fun getHomePosts(callback: LoadHomePostsCallback)
