@@ -2,6 +2,7 @@ package com.example.metaler_android.network
 
 import com.example.metaler_android.data.HomePosts
 import com.example.metaler_android.data.Materials
+import com.example.metaler_android.data.PostDetails
 import com.example.metaler_android.data.Posts
 import org.json.JSONObject
 import retrofit2.Call
@@ -25,6 +26,9 @@ interface RetrofitInterface {
 
     @GET("/materials/{id}/posts")
     fun getMaterialPosts(): Call<Posts>
+
+    @GET("/categorys/{cid}/posts/{pid}")
+    fun getPostDetails(): Call<PostDetails>
 
     @POST("/categorys/{id}/posts")
     fun setPost()
