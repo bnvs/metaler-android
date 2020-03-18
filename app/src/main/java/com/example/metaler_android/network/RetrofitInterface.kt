@@ -1,5 +1,21 @@
 package com.example.metaler_android.network
 
+import com.example.metaler_android.data.HomePosts
+import com.example.metaler_android.data.Materials
+import com.example.metaler_android.data.Posts
+import retrofit2.Call
+import retrofit2.http.Body
+import retrofit2.http.GET
+
+/**
+ * 해당 interface 에 기술된 명세들은
+ * retrofit 을 사용하여 HTTP API 로 전환된다.
+ * 반환되는 값은 Call<객체타입> 형태로 기술
+ * */
+
 interface RetrofitInterface {
-    // TODO : Retrofit 과 api 가 어떻게 데이터를 주고받을지 함수 작성
+
+    @GET("/home")
+    fun getHomePosts(@Body access_token: String): Call<HomePosts>
+
 }
