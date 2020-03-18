@@ -73,6 +73,61 @@
         </androidx.cardview.widget.CardView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/categoryCard"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/colorWhite"
+        app:layout_constraintDimensionRatio="1:0.3"
+        app:layout_constraintTop_toBottomOf="@id/titleBarCard">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/tagSearchBox"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="7dp"
+            android:elevation="0dp"
+            app:layout_constraintDimensionRatio="1:0.1"
+            app:cardCornerRadius="10dp"
+            app:cardBackgroundColor="@color/colorLightGrey"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <TextView
+                    android:id="@+id/tagInput"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="#태그검색"
+                    android:textSize="18sp"
+                    android:textColor="@color/colorDarkGrey"
+                    android:layout_marginLeft="7dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+                <ImageView
+                    android:id="@+id/tagInputDeleteBtn"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="@drawable/ic_tag_input_delete_x3"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginRight="7dp"
+                    />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
+
+
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/tapBarCard"
