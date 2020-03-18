@@ -32,4 +32,6 @@ interface DataSource {
         fun onJobLoaded(job: Job)
         fun onDataNotAvailable()
     }
+
+    fun getHomePosts(callback: LoadHomePostsCallback)
 }
