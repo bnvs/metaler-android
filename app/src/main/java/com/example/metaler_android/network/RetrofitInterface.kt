@@ -31,6 +31,9 @@ interface RetrofitInterface {
     @GET("/users/{uid}/bookmarks/{pid}")
     fun getBookmarks(): Call<Posts>
 
+    @GET("/users/job")
+    fun getJob(): Call<JSONObject>
+
     @POST("/categorys/{id}/posts")
     fun setPost()
 
