@@ -47,28 +47,28 @@
                     android:layout_width="27dp"
                     android:layout_height="27dp"
                     android:src="@drawable/ic_nav_back_x3"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"/>
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
                     android:id="@+id/searchBtn"
                     android:layout_width="27dp"
                     android:layout_height="27dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
+                    android:src="@drawable/ic_nav_search_x3"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    android:src="@drawable/ic_nav_search_x3"/>
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
                     android:id="@+id/writeBtn"
                     android:layout_width="27dp"
                     android:layout_height="27dp"
                     android:layout_marginRight="20dp"
-                    app:layout_constraintEnd_toStartOf="@id/searchBtn"
-                    app:layout_constraintTop_toTopOf="parent"
+                    android:src="@drawable/ic_nav_write_x3"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    android:src="@drawable/ic_nav_write_x3"/>
+                    app:layout_constraintEnd_toStartOf="@id/searchBtn"
+                    app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -78,7 +78,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="@color/colorWhite"
-        app:layout_constraintDimensionRatio="1:0.3"
+        app:layout_constraintDimensionRatio="1:0.23"
         app:layout_constraintTop_toBottomOf="@id/titleBarCard">
 
         <androidx.cardview.widget.CardView
@@ -88,43 +88,139 @@
             android:layout_marginHorizontal="20dp"
             android:layout_marginTop="7dp"
             android:elevation="0dp"
-            app:layout_constraintDimensionRatio="1:0.1"
-            app:cardCornerRadius="10dp"
             app:cardBackgroundColor="@color/colorLightGrey"
-            app:layout_constraintTop_toTopOf="parent"
+            app:cardCornerRadius="10dp"
+            app:layout_constraintDimensionRatio="1:0.1"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+            app:layout_constraintTop_toTopOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
+
                 <TextView
                     android:id="@+id/tagInput"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="#태그검색"
-                    android:textSize="18sp"
-                    android:textColor="@color/colorDarkGrey"
                     android:layout_marginLeft="7dp"
+                    android:text="#태그검색"
+                    android:textColor="@color/colorDarkGrey"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"/>
+                    app:layout_constraintTop_toTopOf="parent" />
+
                 <ImageView
                     android:id="@+id/tagInputDeleteBtn"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
-                    android:src="@drawable/ic_tag_input_delete_x3"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     android:layout_marginRight="7dp"
-                    />
+                    android:src="@drawable/ic_tag_input_delete_x3"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
 
+        <TextView
+            android:id="@+id/allBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/active_bar"
+            android:text="전체"
+            android:textColor="@color/colorLightGrey"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
+        <TextView
+            android:id="@+id/cooperBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/active_bar"
+            android:text="적동/황동"
+            android:textColor="@color/colorLightGrey"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/allBtn" />
 
+        <TextView
+            android:id="@+id/stainlessBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/active_bar"
+            android:text="스테인리스"
+            android:textColor="@color/colorLightGrey"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/cooperBtn" />
 
+        <TextView
+            android:id="@+id/aluminiumBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/active_bar"
+            android:text="알루미늄"
+            android:textColor="@color/colorLightGrey"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/stainlessBtn" />
+
+        <TextView
+            android:id="@+id/nickelBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/active_bar"
+            android:text="니켈/티타늄"
+            android:textColor="@color/colorLightGrey"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/aluminiumBtn" />
+
+        <TextView
+            android:id="@+id/steelBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/active_bar"
+            android:text="철"
+            android:textColor="@color/colorLightGrey"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/nickelBtn" />
+
+        <TextView
+            android:id="@+id/toolsBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/active_bar"
+            android:text="공구"
+            android:textColor="@color/colorLightGrey"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/steelBtn" />
+
+        <TextView
+            android:id="@+id/chemicalBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/active_bar"
+            android:text="화학 약품류"
+            android:textColor="@color/colorLightGrey"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/toolsBtn" />
+
+        <TextView
+            android:id="@+id/othersBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/active_bar"
+            android:text="기타"
+            android:textColor="@color/colorLightGrey"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/chemicalBtn" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
