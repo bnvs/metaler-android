@@ -67,4 +67,6 @@ interface DataSource {
     fun getJob(callback: LoadJobCallback)
 
     fun addUser(callback: AddUserCallback)
+
+    fun addPost(callback: AddPostCallback)
 }
