@@ -69,7 +69,7 @@ class ActivityMaterials : AppCompatActivity() {
     }
 
     //카테고리 버튼 뷰 속성을 비활성화 상태로 초기화하는 메소드
-    fun inactiveCategoryBtn() {
+    private fun inactiveCategoryBtn() {
         var categoryBtnArr  = arrayOf(allBtn,cooperBtn,stainlessBtn,aluminiumBtn,nickelBtn,steelBtn,toolsBtn,chemicalBtn,othersBtn)
 
         for (i in categoryBtnArr){
@@ -79,7 +79,7 @@ class ActivityMaterials : AppCompatActivity() {
     }
 
     //눌린 카테고리 버튼의 뷰 속성을 활성화 상태로 변경하는 메소드
-    fun activeCategoryBtn(categoryBtn : TextView){
+    private fun activeCategoryBtn(categoryBtn : TextView){
         categoryBtn.background = ContextCompat.getDrawable(this,R.drawable.active_bar)
         categoryBtn.setTextColor(ContextCompat.getColor(this,R.color.colorPurple))
     }
