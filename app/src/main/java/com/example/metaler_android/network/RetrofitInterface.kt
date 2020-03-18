@@ -31,6 +31,9 @@ interface RetrofitInterface {
     @GET("/users/job")
     fun getJob(): Call<Job>
 
+    @GET("/users/{uid}/categorys/{cid}/posts")
+    fun getMyPosts(): Call<Posts>
+
     @POST("/categorys/{id}/posts")
     fun setPost()
 
