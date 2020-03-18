@@ -1,9 +1,6 @@
 package com.example.metaler_android.data.source
 
-import com.example.metaler_android.data.HomePosts
-import com.example.metaler_android.data.Materials
-import com.example.metaler_android.data.PostDetails
-import com.example.metaler_android.data.Posts
+import com.example.metaler_android.data.*
 
 interface DataSource {
     interface LoadHomePostsCallback {
@@ -23,6 +20,11 @@ interface DataSource {
 
     interface LoadPostDetailsCallback {
         fun onPostDetailsLoaded(postDetails: PostDetails)
+        fun onDataNotAvailable()
+    }
+
+    interface LoadCommentsCallback {
+        fun onCommentsLoaded(comments: Comments)
         fun onDataNotAvailable()
     }
 }
