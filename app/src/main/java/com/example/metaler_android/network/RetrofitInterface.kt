@@ -3,6 +3,7 @@ package com.example.metaler_android.network
 import com.example.metaler_android.data.HomePosts
 import com.example.metaler_android.data.Materials
 import com.example.metaler_android.data.Posts
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -28,4 +29,6 @@ interface RetrofitInterface {
     @POST("/categorys/{id}/posts")
     fun setPost()
 
+    @POST("/uploadFile")
+    fun uploadFile(): Call<JSONObject>
 }
