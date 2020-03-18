@@ -35,6 +35,9 @@ interface RetrofitInterface {
     fun getMyPosts(): Call<Posts>
 
     @POST("/categorys/{id}/posts")
+    fun setUser(@Body user: User): Call<JSONObject>
+
+    @POST("/categorys/{id}/posts")
     fun setPost()
 
     @POST("/uploadFile")
