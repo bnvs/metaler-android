@@ -44,6 +44,11 @@ interface DataSource {
         fun onFailure()
     }
 
+    interface UploadFileCallback {
+        fun onFileUploaded()
+        fun onFailure()
+    }
+
     fun getHomePosts(callback: LoadHomePostsCallback)
     
     fun getMaterials(callback: LoadMaterialsCallback)
