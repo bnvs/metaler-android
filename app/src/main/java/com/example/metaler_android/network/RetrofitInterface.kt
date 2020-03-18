@@ -20,7 +20,7 @@ import retrofit2.http.*
 interface RetrofitInterface {
 
     @GET("/home")
-    fun getHomePosts(@Body access_token: String): Call<HomePosts>
+    fun getHomePosts(@Body request: JSONObject): Call<HomePosts>
 
     @GET("/materials")
     fun getMaterials(@Body access_token: String): Call<Materials>
