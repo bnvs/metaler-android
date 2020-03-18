@@ -27,4 +27,9 @@ interface DataSource {
         fun onCommentsLoaded(comments: Comments)
         fun onDataNotAvailable()
     }
+
+    interface LoadJobCallback {
+        fun onJobLoaded(job: Job)
+        fun onDataNotAvailable()
+    }
 }
