@@ -3,7 +3,7 @@ package com.example.metaler_android.network
 import com.example.metaler_android.data.comment.Comments
 import com.example.metaler_android.data.homepost.HomePosts
 import com.example.metaler_android.data.job.Job
-import com.example.metaler_android.data.material.Materials
+import com.example.metaler_android.data.category.Categories
 import com.example.metaler_android.data.post.Posts
 import com.example.metaler_android.data.postdetail.PostDetails
 import com.example.metaler_android.data.user.User
@@ -23,7 +23,7 @@ interface RetrofitInterface {
     fun getHomePosts(@Body request: JSONObject): Call<HomePosts>
 
     @GET("/categories")
-    fun getMaterials(@Body request: JSONObject): Call<Materials>
+    fun getMaterials(@Body request: JSONObject): Call<Categories>
 
     @GET("/materials/{id}/posts")
     fun getMaterialPosts(): Call<Posts>

@@ -1,7 +1,7 @@
 package com.example.metaler_android.data.post
 
 /**
- * Materials, Manufactures, Bookmarks, 내가쓴 글 확인 탭에서
+ * Categories, Manufactures, Bookmarks, 내가쓴 글 확인 탭에서
  * 게시물의 리스트를 보여주는데 사용하는 데이터 클래스
  * is_next -> 다음 페이지의 유무
  * post_count -> 게시글 총 개수

@@ -1,7 +1,7 @@
 package com.example.metaler_android.data.postdetail
 
 /**
- * Materials 와 Manufactures, Bookmarks, 내가쓴 글 확인 탭에서
+ * Categories 와 Manufactures, Bookmarks, 내가쓴 글 확인 탭에서
  * 게시물을 클릭하여 게시물 상세 내용을 조회할 때 사용하는 데이터 클래스
  * */
 

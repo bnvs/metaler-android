@@ -1,6 +1,6 @@
-package com.example.metaler_android.data.material
+package com.example.metaler_android.data.category
 
-data class Material(
+data class Category(
     val category_id: Int,
     val name: String,
     val image_url: String,
