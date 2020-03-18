@@ -9,6 +9,7 @@ import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.PUT
 
 /**
  * 해당 interface 에 기술된 명세들은
@@ -35,4 +36,7 @@ interface RetrofitInterface {
 
     @POST("/uploadFile")
     fun uploadFile(): Call<JSONObject>
+
+    @PUT("/categorys/{cid}/posts/{pid}")
+    fun modifyPost()
 }
