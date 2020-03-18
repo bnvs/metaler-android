@@ -71,4 +71,6 @@ interface DataSource {
     fun addPost(callback: AddPostCallback)
 
     fun uploadFile(callback: UploadFileCallback)
+
+    fun addBookmark(callback: AddBookmarkCallback)
 }
