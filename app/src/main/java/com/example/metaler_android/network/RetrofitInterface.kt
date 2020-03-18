@@ -18,4 +18,7 @@ interface RetrofitInterface {
     @GET("/home")
     fun getHomePosts(@Body access_token: String): Call<HomePosts>
 
+    @GET("/materials")
+    fun getMaterials(@Body access_token: String): Call<Materials>
+
 }
