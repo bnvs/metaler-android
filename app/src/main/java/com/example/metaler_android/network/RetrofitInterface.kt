@@ -1,9 +1,6 @@
 package com.example.metaler_android.network
 
-import com.example.metaler_android.data.HomePosts
-import com.example.metaler_android.data.Materials
-import com.example.metaler_android.data.PostDetails
-import com.example.metaler_android.data.Posts
+import com.example.metaler_android.data.*
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.http.*
@@ -32,7 +29,7 @@ interface RetrofitInterface {
     fun getBookmarks(): Call<Posts>
 
     @GET("/users/job")
-    fun getJob(): Call<JSONObject>
+    fun getJob(): Call<Job>
 
     @POST("/categorys/{id}/posts")
     fun setPost()
