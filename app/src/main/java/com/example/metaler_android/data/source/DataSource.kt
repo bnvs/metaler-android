@@ -43,4 +43,5 @@ interface DataSource {
 
     fun getComments(callback: LoadCommentsCallback)
 
+    fun getJob(callback: LoadJobCallback)
 }
