@@ -43,6 +43,9 @@ interface RetrofitInterface {
     @PUT("/categorys/{cid}/posts/{pid}")
     fun modifyPost()
 
+    @PUT("/users/{id}/nickname")
+    fun modifyNickname()
+
     @DELETE("/categorys/{cid}/posts/{pid}")
     fun deletePost()
 
