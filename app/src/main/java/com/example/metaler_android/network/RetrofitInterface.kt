@@ -25,4 +25,7 @@ interface RetrofitInterface {
     @GET("/materials/{id}/posts")
     fun getMaterialPosts(): Call<Posts>
 
+    @POST("/categorys/{id}/posts")
+    fun setPost()
+
 }
