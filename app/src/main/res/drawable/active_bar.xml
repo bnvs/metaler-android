@@ -12,10 +12,9 @@
             <stroke
                 android:width="2dp"
                 android:color="@color/colorPurple" />
-            <padding android:left="10dp"
-                android:right="10dp"
+            <padding
                 android:top="10dp"
-                android:bottom="10dp" />
+                 />
         </shape>
     </item>
 
