@@ -25,6 +25,9 @@ interface RetrofitInterface {
     @GET("/categorys/{cid}/posts/{pid}")
     fun getPostDetails(): Call<PostDetails>
 
+    @GET("/categorys/{cid}/posts/{pid}/comments")
+    fun getComments(): Call<Comments>
+
     @GET("/users/{uid}/bookmarks/{pid}")
     fun getBookmarks(): Call<Posts>
 
