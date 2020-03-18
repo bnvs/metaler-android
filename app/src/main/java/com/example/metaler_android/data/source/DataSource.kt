@@ -36,4 +36,6 @@ interface DataSource {
     fun getHomePosts(callback: LoadHomePostsCallback)
     
     fun getMaterials(callback: LoadMaterialsCallback)
+
+    fun getPosts(callback: LoadPostsCallback)
 }
