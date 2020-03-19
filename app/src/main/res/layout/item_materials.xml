@@ -72,6 +72,15 @@
                 app:layout_constraintTop_toTopOf="@id/userName"
                 app:layout_constraintBottom_toBottomOf="@id/userName"
                 />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/tagRV"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_marginBottom="10dp"
+                app:layout_constraintStart_toStartOf="@id/materialsTitle"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
