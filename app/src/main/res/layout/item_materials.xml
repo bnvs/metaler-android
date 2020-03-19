@@ -37,6 +37,16 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 />
+            <TextView
+                android:id="@+id/userName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="10sp"
+                android:textColor="@color/colorGrey"
+                android:text="작성자이름"
+                app:layout_constraintTop_toBottomOf="@id/materialsTitle"
+                app:layout_constraintStart_toStartOf="@id/materialsTitle"
+                />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
