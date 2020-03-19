@@ -60,6 +60,18 @@
                 app:layout_constraintTop_toTopOf="@id/userName"
                 app:layout_constraintBottom_toBottomOf="@id/userName"
                 />
+            <TextView
+                android:id="@+id/date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="10sp"
+                android:textColor="@color/colorGrey"
+                android:text="2020.10.10"
+                android:layout_marginLeft="4dp"
+                app:layout_constraintStart_toEndOf="@id/userNameLine"
+                app:layout_constraintTop_toTopOf="@id/userName"
+                app:layout_constraintBottom_toBottomOf="@id/userName"
+                />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
