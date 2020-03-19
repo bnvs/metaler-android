@@ -82,7 +82,17 @@
                 app:layout_constraintStart_toEndOf="@id/dislikeIcon"
                 app:layout_constraintTop_toTopOf="@id/tagRV"/>
 
-
+            <ImageView
+                android:id="@+id/likeIcon"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:src="@drawable/ic_list_thumbs_up_x3"
+                android:layout_marginLeft="5dp"
+                android:layout_marginBottom="10dp"
+                app:layout_constraintTop_toTopOf="@id/tagRV"
+                app:layout_constraintBottom_toBottomOf="@id/tagRV"
+                app:layout_constraintStart_toEndOf="@id/dislikeNum"
+                />
 
             <TextView
                 android:id="@+id/userName"
