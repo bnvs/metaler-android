@@ -9,7 +9,7 @@
 
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/materialsCard"
+        android:id="@+id/postsCard"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:elevation="2dp"
