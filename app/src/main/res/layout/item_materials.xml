@@ -71,6 +71,17 @@
                 app:layout_constraintTop_toTopOf="@id/tagRV"
                 app:layout_constraintBottom_toBottomOf="@id/tagRV"
                 app:layout_constraintStart_toStartOf="@id/img"/>
+            <TextView
+                android:id="@+id/dislikeNum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="10sp"
+                android:text="10"
+                android:textColor="@color/colorGrey"
+                android:layout_marginLeft="2dp"
+                app:layout_constraintStart_toEndOf="@id/dislikeIcon"
+                app:layout_constraintTop_toTopOf="@id/tagRV"/>
+
 
 
             <TextView
