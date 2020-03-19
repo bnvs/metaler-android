@@ -16,6 +16,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
+    <ImageView
+        android:id="@+id/tagDeleteBtn"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:src="@drawable/ic_tag_delete_x3"
+        android:layout_marginRight="5dp"
+        app:layout_constraintEnd_toEndOf="@id/tag"
+        app:layout_constraintTop_toTopOf="@id/tag"
+        app:layout_constraintBottom_toBottomOf="@id/tag"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
