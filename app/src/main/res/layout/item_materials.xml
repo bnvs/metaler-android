@@ -26,7 +26,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <TextView
-                android:id="@+id/materialsTitle"
+                android:id="@+id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="16sp"
@@ -38,6 +38,18 @@
                 android:ellipsize="end"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constrainedWidth="true"
+                app:layout_constraintEnd_toStartOf="@id/img"
+                />
+            <ImageView
+                android:id="@+id/img"
+                android:layout_width="42dp"
+                android:layout_height="42dp"
+                android:background="@color/colorLightPurple"
+                app:layout_constraintTop_toTopOf="@id/title"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginRight="20dp"
+                app:layout_constraintStart_toEndOf="@id/title"
                 />
             <TextView
                 android:id="@+id/userName"
@@ -46,8 +58,8 @@
                 android:textSize="10sp"
                 android:textColor="@color/colorGrey"
                 android:text="작성자이름"
-                app:layout_constraintTop_toBottomOf="@id/materialsTitle"
-                app:layout_constraintStart_toStartOf="@id/materialsTitle"
+                app:layout_constraintTop_toBottomOf="@id/title"
+                app:layout_constraintStart_toStartOf="@id/title"
                 />
             <TextView
                 android:id="@+id/userNameLine"
@@ -80,7 +92,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"
                 android:layout_marginBottom="10dp"
-                app:layout_constraintStart_toStartOf="@id/materialsTitle"
+                app:layout_constraintStart_toStartOf="@id/title"
                 app:layout_constraintBottom_toBottomOf="parent"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
