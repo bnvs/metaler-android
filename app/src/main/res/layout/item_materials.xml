@@ -34,6 +34,8 @@
                 android:text="제목이 보여지는 부분이다."
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="10dp"
+                android:maxLines="1"
+                android:ellipsize="end"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 />
