@@ -29,8 +29,13 @@
         tools:text="#가게이름홍대금속"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="10dp"
+        android:maxLines="1"
+        android:ellipsize="end"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
         app:layout_constraintTop_toBottomOf="@id/materialsTitle"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/materialsUserName"
         />
 
     <TextView
@@ -41,6 +46,7 @@
         android:textColor="@color/colorGrey"
         android:text="작성자이름"
         android:layout_marginRight="4dp"
+        app:layout_constraintStart_toEndOf="@id/materialsTag"
         app:layout_constraintTop_toTopOf="@id/materialsTag"
         app:layout_constraintBottom_toBottomOf="@id/materialsTag"
         app:layout_constraintEnd_toStartOf="@id/userNameLine"
