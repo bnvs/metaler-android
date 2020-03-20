@@ -97,6 +97,20 @@
                 app:layout_constraintStart_toStartOf="@id/userImg"
                 />
 
+            <TextView
+                android:id="@+id/content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                android:textSize="14sp"
+                android:textColor="@color/colorBlack"
+                android:layout_marginTop="12dp"
+                app:layout_constraintStart_toStartOf="@id/contentLine"
+                app:layout_constraintTop_toBottomOf="@id/contentImgRV"
+                tools:text="본문 내용입니다. 메탈러 스테인리스 카테고리의 어떤 한 게시글인데, 상세페이지로 들어갔을 때 레이아웃화면입니다. 상세페이지에는 탭바 없앴습니다."
+                />
+
+
 
 
 
