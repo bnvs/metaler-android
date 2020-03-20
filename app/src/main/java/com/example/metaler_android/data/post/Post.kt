@@ -11,7 +11,7 @@ data class Post(
     val nickname: Int,
     val date: String,
     val tags: List<String>,
-    val image_url: String,
+    val attach_url: String,
     val like: Int,
     val dis_like: Int,
     val is_bookmark: Boolean
