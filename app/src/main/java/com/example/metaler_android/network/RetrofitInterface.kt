@@ -74,6 +74,9 @@ interface RetrofitInterface {
     @PUT("/users/job")
     fun modifyJob()
 
+    @DELETE("/comments/{id}")
+    fun deleteComment(@Body request: JSONObject)
+
     @DELETE("/categories/{cid}/posts/{pid}")
     fun deletePost()
 
