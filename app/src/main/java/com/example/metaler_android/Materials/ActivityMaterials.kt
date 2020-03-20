@@ -1,14 +1,16 @@
-package com.example.metaler_android
+package com.example.metaler_android.Materials
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import com.example.metaler_android.ActivityHome
+import com.example.metaler_android.R
 import kotlinx.android.synthetic.main.activity_home.homeBtn
 import kotlinx.android.synthetic.main.activity_materials.*
 
-class ActivityMaterials : AppCompatActivity() {
+class ActivityMaterials : AppCompatActivity(), ContractMaterials.View {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,13 +76,19 @@ class ActivityMaterials : AppCompatActivity() {
 
         for (i in categoryBtnArr){
             i.setBackgroundResource(0)
-            i.setTextColor(ContextCompat.getColor(this,R.color.colorLightGrey))
+            i.setTextColor(ContextCompat.getColor(this,
+                R.color.colorLightGrey
+            ))
         }
     }
 
     //눌린 카테고리 버튼의 뷰 속성을 활성화 상태로 변경하는 메소드
     private fun activeCategoryBtn(categoryBtn : TextView){
-        categoryBtn.background = ContextCompat.getDrawable(this,R.drawable.active_bar)
-        categoryBtn.setTextColor(ContextCompat.getColor(this,R.color.colorPurple))
+        categoryBtn.background = ContextCompat.getDrawable(this,
+            R.drawable.active_bar
+        )
+        categoryBtn.setTextColor(ContextCompat.getColor(this,
+            R.color.colorPurple
+        ))
     }
 }
