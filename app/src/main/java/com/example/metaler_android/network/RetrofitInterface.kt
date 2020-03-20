@@ -10,6 +10,8 @@ import com.example.metaler_android.data.post.Posts
 import com.example.metaler_android.data.post.PostsRequest
 import com.example.metaler_android.data.postdetail.PostDetails
 import com.example.metaler_android.data.user.User
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.http.*
@@ -54,11 +56,14 @@ interface RetrofitInterface {
     @POST("/posts")
     fun addPost(@Body postRequest: PostRequest): Call<JSONObject>
 
+    @Multipart
+    @POST("/files")
+    fun addFile(@Part("access_token") access_token: RequestBody,
+                @Part("file") file: RequestBody,
+                @Part imageFile : MultipartBody.Part): Call<JSONObject>
+
     @POST("/categories/{id}/posts")
     fun addUser(@Body user: User): Call<JSONObject>
-
-    @POST("/uploadFile")
-    fun uploadFile(): Call<JSONObject>
 
     @POST("/users/{uid}/bookmarks")
     fun addBookmark(): Call<String>
