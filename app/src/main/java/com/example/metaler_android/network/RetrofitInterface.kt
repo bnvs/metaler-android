@@ -91,7 +91,7 @@ interface RetrofitInterface {
     fun modifyNickname(@Body request: NicknameRequest)
 
     @PUT("/users/jobs")
-    fun modifyJob()
+    fun modifyJob(@Body request: Jobs)
 
     @DELETE("/comments/{id}")
     fun deleteComment(@Path("id") id: String,
