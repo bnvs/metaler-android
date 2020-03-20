@@ -172,6 +172,17 @@
                 app:layout_constraintBottom_toBottomOf="@id/priceTxt"
                 app:layout_constraintStart_toEndOf="@id/price"
                 />
+            <TextView
+                android:id="@+id/priceType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textColor="@color/colorGrey"
+                android:layout_marginRight="10dp"
+                app:layout_constraintBottom_toBottomOf="@id/priceTxt"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:text="현금"
+                />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
