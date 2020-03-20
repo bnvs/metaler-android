@@ -71,8 +71,8 @@ interface RetrofitInterface {
     @PUT("/comments/{id}")
     fun modifyComment(@Body commentRequest: CommentRequest)
 
-    @PUT("/categories/{cid}/posts/{pid}")
-    fun modifyPost()
+    @PUT("/posts/{id}")
+    fun modifyPost(@Body postRequest: PostRequest)
 
     @PUT("/users/{id}/nickname")
     fun modifyNickname()
