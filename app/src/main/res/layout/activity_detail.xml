@@ -385,6 +385,15 @@
                 app:layout_constraintBottom_toBottomOf="@id/commentNumTxt"
                 />
 
+            <View
+                android:id="@+id/commentLine"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginTop="5dp"
+                android:background="?android:attr/listDivider"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/commentNumTxt" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
