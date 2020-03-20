@@ -65,7 +65,7 @@ interface RetrofitInterface {
                 @Part imageFile : MultipartBody.Part): Call<JSONObject>
 
     @POST("/posts/{id}/bookmarks")
-    fun addBookmark(@Body request: BookmarksRequest): Call<Bookmarks>
+    fun addBookmark(@Body request: JSONObject): Call<JSONObject>
 
     @POST("/categories/{id}/posts")
     fun addUser(@Body user: User): Call<JSONObject>
