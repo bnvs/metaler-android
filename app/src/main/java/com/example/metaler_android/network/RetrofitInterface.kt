@@ -62,6 +62,9 @@ interface RetrofitInterface {
     @POST("/users/{uid}/bookmarks")
     fun addBookmark(): Call<String>
 
+    @PUT("/comments/{id}")
+    fun modifyComment(@Body commentRequest: CommentRequest)
+
     @PUT("/categories/{cid}/posts/{pid}")
     fun modifyPost()
 
