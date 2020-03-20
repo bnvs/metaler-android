@@ -32,7 +32,7 @@
         />
 
     <TextView
-        android:id="@+id/userName"
+        android:id="@+id/materialsUserName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="12sp"
@@ -52,18 +52,18 @@
         android:textColor="@color/colorGrey"
         android:text="|"
         android:layout_marginRight="4dp"
-        app:layout_constraintEnd_toStartOf="@id/date"
-        app:layout_constraintTop_toTopOf="@id/userName"
+        app:layout_constraintEnd_toStartOf="@id/materialsDate"
+        app:layout_constraintTop_toTopOf="@id/materialsUserName"
         />
     <TextView
-        android:id="@+id/date"
+        android:id="@+id/materialsDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="12sp"
         android:textColor="@color/colorGrey"
         android:text="2020.10.10"
         android:layout_marginLeft="4dp"
-        app:layout_constraintTop_toTopOf="@id/userName"
+        app:layout_constraintTop_toTopOf="@id/materialsUserName"
         app:layout_constraintEnd_toEndOf="parent"
         />
 
