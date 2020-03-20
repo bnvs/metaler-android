@@ -348,7 +348,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/commentCard"
         android:layout_width="match_parent"
-        android:layout_height="500dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="7dp"
         app:cardBackgroundColor="@color/colorWhite"
         app:cardCornerRadius="15dp"
