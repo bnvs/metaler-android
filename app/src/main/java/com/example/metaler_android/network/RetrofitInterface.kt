@@ -38,13 +38,16 @@ interface RetrofitInterface {
         @Body request: PostsRequest): Call<Posts>
 
     @GET("/posts/{id}")
-    fun getPostDetails(@Body request: JSONObject): Call<PostDetails>
+    fun getPostDetails(@Path("id") id: String,
+                       @Body request: JSONObject): Call<PostDetails>
 
     @GET("/posts/{id}/comments")
-    fun getComments(@Body request: JSONObject): Call<Comments>
+    fun getComments(@Path("id") id: String,
+                    @Body request: JSONObject): Call<Comments>
 
     @GET("/bookmarks/{id}")
-    fun getBookmarks(@Body request: BookmarksRequest): Call<Bookmarks>
+    fun getBookmarks(@Path("id") id: String,
+                     @Body request: BookmarksRequest): Call<Bookmarks>
 
     @GET("/users/job")
     fun getJob(): Call<Job>
@@ -53,7 +56,8 @@ interface RetrofitInterface {
     fun getMyPosts(): Call<Posts>
 
     @POST("/posts/{id}/comments")
-    fun addComment(@Body commentRequest: CommentRequest)
+    fun addComment(@Path("id") id: String,
+                   @Body commentRequest: CommentRequest)
 
     @POST("/posts")
     fun addPost(@Body postRequest: PostRequest): Call<JSONObject>
@@ -65,16 +69,20 @@ interface RetrofitInterface {
                 @Part imageFile : MultipartBody.Part): Call<JSONObject>
 
     @POST("/posts/{id}/bookmarks")
-    fun addBookmark(@Body request: JSONObject): Call<JSONObject>
+    fun addBookmark(@Path("id") id: String,
+                    @Body request: JSONObject): Call<JSONObject>
 
     @POST("/categories/{id}/posts")
-    fun addUser(@Body user: User): Call<JSONObject>
+    fun addUser(@Path("id") id: String,
+                @Body user: User): Call<JSONObject>
 
     @PUT("/comments/{id}")
-    fun modifyComment(@Body commentRequest: CommentRequest)
+    fun modifyComment(@Path("id") id: String,
+                      @Body commentRequest: CommentRequest)
 
     @PUT("/posts/{id}")
-    fun modifyPost(@Body postRequest: PostRequest)
+    fun modifyPost(@Path("id") id: String,
+                   @Body postRequest: PostRequest)
 
     @PUT("/users/{id}/nickname")
     fun modifyNickname()
@@ -83,13 +91,16 @@ interface RetrofitInterface {
     fun modifyJob()
 
     @DELETE("/comments/{id}")
-    fun deleteComment(@Body request: JSONObject)
+    fun deleteComment(@Path("id") id: String,
+                      @Body request: JSONObject)
 
     @DELETE("/posts/{id}")
-    fun deletePost(@Body request: JSONObject)
+    fun deletePost(@Path("id") id: String,
+                   @Body request: JSONObject)
 
     @DELETE("/bookmarks/{id}")
-    fun deleteBookmark(@Body request: JSONObject)
+    fun deleteBookmark(@Path("id") id: String,
+                       @Body request: JSONObject)
 
     @DELETE("/users/{id}")
     fun deleteUser()
