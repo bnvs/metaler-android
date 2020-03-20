@@ -9,6 +9,7 @@
     <string name="like">적당해요</string>
     <string name="dislike">비싸요</string>
     <string name="comment_guide">작성된 댓글이 없습니다. 댓글을 입력해주세요.</string>
+    <string name="comment_num_guide">댓글 수</string>
     <string name="comment_input_guide">댓글을 입력해주세요.</string>
     <string name="register">등록</string>
 </resources>
