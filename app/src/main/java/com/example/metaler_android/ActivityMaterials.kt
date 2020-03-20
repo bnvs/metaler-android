@@ -41,6 +41,11 @@ class ActivityMaterials : AppCompatActivity() {
         stainlessBtn.setOnClickListener {
             inactiveCategoryBtn()
             activeCategoryBtn(stainlessBtn)
+
+            //상세페이지 레이아웃보려고 테스트용으로 추가함
+            val goToDetail = Intent(this, ActivityDetail::class.java)
+            startActivity(goToDetail)
+
         }
         aluminiumBtn.setOnClickListener {
             inactiveCategoryBtn()
