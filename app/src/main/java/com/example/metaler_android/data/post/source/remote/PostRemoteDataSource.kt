@@ -11,7 +11,7 @@ class PostRemoteDataSource : PostDataSource{
     private val retrofitClient = RetrofitClient.client
 
     override fun getPosts(callback: PostDataSource.LoadPostsCallback) {
-        retrofitClient.getMaterialPosts().enqueue(object : Callback<Posts> {
+        retrofitClient.getPosts().enqueue(object : Callback<Posts> {
             override fun onResponse(call: Call<Posts>, response: Response<Posts>) {
                 val posts: Posts? = response.body()
                 if (posts != null) {
