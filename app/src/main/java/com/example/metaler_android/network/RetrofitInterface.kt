@@ -10,6 +10,7 @@ import com.example.metaler_android.data.comment.CommentRequest
 import com.example.metaler_android.data.post.PostRequest
 import com.example.metaler_android.data.post.Posts
 import com.example.metaler_android.data.post.PostsRequest
+import com.example.metaler_android.data.post.UserPostsRequest
 import com.example.metaler_android.data.postdetail.PostDetails
 import com.example.metaler_android.data.user.User
 import okhttp3.MultipartBody
@@ -52,15 +53,15 @@ interface RetrofitInterface {
     @GET("/users/job")
     fun getJob(): Call<Job>
 
-    @GET("/users/{uid}/categories/{cid}/posts")
-    fun getMyPosts(): Call<Posts>
+    @GET("/users/posts")
+    fun getMyPosts(@Body request: UserPostsRequest): Call<Posts>
 
     @POST("/posts/{id}/comments")
     fun addComment(@Path("id") id: String,
                    @Body commentRequest: CommentRequest)
 
     @POST("/posts")
-    fun addPost(@Body postRequest: PostRequest): Call<JSONObject>
+    fun addPost(@Body request: PostRequest): Call<JSONObject>
 
     @Multipart
     @POST("/files")
@@ -78,13 +79,13 @@ interface RetrofitInterface {
 
     @PUT("/comments/{id}")
     fun modifyComment(@Path("id") id: String,
-                      @Body commentRequest: CommentRequest)
+                      @Body request: CommentRequest)
 
     @PUT("/posts/{id}")
     fun modifyPost(@Path("id") id: String,
-                   @Body postRequest: PostRequest)
+                   @Body request: PostRequest)
 
-    @PUT("/users/{id}/nickname")
+    @PUT("/users/nickname")
     fun modifyNickname()
 
     @PUT("/users/job")
