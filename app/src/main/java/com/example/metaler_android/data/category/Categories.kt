@@ -5,5 +5,5 @@ package com.example.metaler_android.data.category
  * */
 
 data class Categories(
-    val materials: List<Category>
+    val categories: List<Category>
 )
