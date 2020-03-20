@@ -140,7 +140,9 @@
         app:layout_constraintTop_toBottomOf="@id/contentCard">
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:paddingBottom="17dp"
+            >
             <TextView
                 android:id="@+id/priceTxt"
                 android:layout_width="wrap_content"
