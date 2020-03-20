@@ -1,5 +1,7 @@
 package com.example.metaler_android.network
 
+import com.example.metaler_android.data.bookmark.Bookmarks
+import com.example.metaler_android.data.bookmark.BookmarksRequest
 import com.example.metaler_android.data.comment.Comments
 import com.example.metaler_android.data.homepost.HomePosts
 import com.example.metaler_android.data.job.Job
@@ -41,8 +43,8 @@ interface RetrofitInterface {
     @GET("/posts/{id}/comments")
     fun getComments(@Body request: JSONObject): Call<Comments>
 
-    @GET("/users/{uid}/bookmarks/{pid}")
-    fun getBookmarks(): Call<Posts>
+    @GET("/bookmarks/{id}")
+    fun getBookmarks(@Body request: BookmarksRequest): Call<Bookmarks>
 
     @GET("/users/job")
     fun getJob(): Call<Job>
