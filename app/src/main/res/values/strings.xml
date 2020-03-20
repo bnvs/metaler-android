@@ -2,7 +2,7 @@
     <string name="app_name">metaler-android</string>
 
 
-<!--  activity_detail.xml에서 쓰이는 문자열  -->
+    <!--  activity_detail.xml에서 쓰이는 문자열  -->
     <string name="tag">태그</string>
     <string name="price">구매가격</string>
     <string name="won">원</string>
