@@ -5,6 +5,7 @@ import com.example.metaler_android.data.homepost.HomePosts
 import com.example.metaler_android.data.job.Job
 import com.example.metaler_android.data.category.Categories
 import com.example.metaler_android.data.post.Posts
+import com.example.metaler_android.data.post.PostsRequest
 import com.example.metaler_android.data.postdetail.PostDetails
 import com.example.metaler_android.data.user.User
 import org.json.JSONObject
@@ -28,7 +29,7 @@ interface RetrofitInterface {
     @GET("/posts")
     fun getPosts(
         @Query("category_type") category_type: String,
-        @Body request: JSONObject): Call<Posts>
+        @Body request: PostsRequest): Call<Posts>
 
     @GET("/categories/{cid}/posts/{pid}")
     fun getPostDetails(): Call<PostDetails>

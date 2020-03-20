@@ -1,6 +1,8 @@
 package com.example.metaler_android.data.post.source.remote
 
 import com.example.metaler_android.data.post.Posts
+import com.example.metaler_android.data.post.PostsCategory
+import com.example.metaler_android.data.post.PostsRequest
 import com.example.metaler_android.data.post.source.PostDataSource
 import com.example.metaler_android.network.RetrofitClient
 import org.json.JSONObject
@@ -11,8 +13,15 @@ import retrofit2.Response
 class PostRemoteDataSource : PostDataSource{
     private val retrofitClient = RetrofitClient.client
 
-    // 임시로 작성한 json object
-    var json: JSONObject = JSONObject()
+    // 임시로 작성한 매개변수
+    var pc: PostsCategory = PostsCategory(
+        "d",
+        1,
+        5,
+        "asdf",
+        "asdf")
+    var postsCategory = listOf(pc)
+    var json: PostsRequest = PostsRequest("asdfa", postsCategory)
 
     override fun getPosts(callback: PostDataSource.LoadPostsCallback) {
         retrofitClient.getPosts("material", json).enqueue(object : Callback<Posts> {
