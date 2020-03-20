@@ -34,8 +34,8 @@ interface RetrofitInterface {
     @GET("/posts/{id}")
     fun getPostDetails(@Body request: JSONObject): Call<PostDetails>
 
-    @GET("/categories/{cid}/posts/{pid}/comments")
-    fun getComments(): Call<Comments>
+    @GET("/posts/{id}/comments")
+    fun getComments(@Body request: JSONObject): Call<Comments>
 
     @GET("/users/{uid}/bookmarks/{pid}")
     fun getBookmarks(): Call<Posts>
