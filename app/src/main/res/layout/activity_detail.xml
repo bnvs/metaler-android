@@ -160,6 +160,7 @@
                 android:textSize="18sp"
                 android:textStyle="bold"
                 tools:text="100,000"
+                android:textColor="@color/colorDarkGrey"
                 app:layout_constraintBottom_toBottomOf="@id/priceTxt"
                 app:layout_constraintEnd_toStartOf="@id/wonTxt"
                 />
@@ -168,7 +169,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
-                android:textColor="@color/colorGrey"
+                android:textColor="@color/colorDarkGrey"
                 android:text="@string/won"
                 android:layout_marginRight="5dp"
                 app:layout_constraintBottom_toBottomOf="@id/priceTxt"
