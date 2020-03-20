@@ -51,7 +51,7 @@ interface RetrofitInterface {
     fun getBookmarks(@Path("id") id: String,
                      @Body request: BookmarksRequest): Call<Bookmarks>
 
-    @GET("/users/job")
+    @GET("/users/jobs")
     fun getJob(): Call<Job>
 
     @GET("/users/posts")
@@ -74,6 +74,7 @@ interface RetrofitInterface {
     fun addBookmark(@Path("id") id: String,
                     @Body request: JSONObject): Call<JSONObject>
 
+    // TODO : user 추가 함수 (회원가입 api)
     @POST("/categories/{id}/posts")
     fun addUser(@Path("id") id: String,
                 @Body user: User): Call<JSONObject>
@@ -89,7 +90,7 @@ interface RetrofitInterface {
     @PUT("/users/nickname")
     fun modifyNickname(@Body request: NicknameRequest)
 
-    @PUT("/users/job")
+    @PUT("/users/jobs")
     fun modifyJob()
 
     @DELETE("/comments/{id}")
