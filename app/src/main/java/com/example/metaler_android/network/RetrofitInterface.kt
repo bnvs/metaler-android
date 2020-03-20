@@ -23,7 +23,7 @@ interface RetrofitInterface {
     fun getHomePosts(@Body request: JSONObject): Call<HomePosts>
 
     @GET("/categories")
-    fun getMaterials(@Body request: JSONObject): Call<Categories>
+    fun getCategories(@Body request: JSONObject): Call<Categories>
 
     @GET("/categories/{id}/posts")
     fun getMaterialPosts(): Call<Posts>
