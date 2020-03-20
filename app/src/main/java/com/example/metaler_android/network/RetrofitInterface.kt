@@ -31,8 +31,8 @@ interface RetrofitInterface {
         @Query("category_type") category_type: String,
         @Body request: PostsRequest): Call<Posts>
 
-    @GET("/categories/{cid}/posts/{pid}")
-    fun getPostDetails(): Call<PostDetails>
+    @GET("/posts/{id}")
+    fun getPostDetails(@Body request: JSONObject): Call<PostDetails>
 
     @GET("/categories/{cid}/posts/{pid}/comments")
     fun getComments(): Call<Comments>
