@@ -64,11 +64,11 @@ interface RetrofitInterface {
                 @Part("file") file: RequestBody,
                 @Part imageFile : MultipartBody.Part): Call<JSONObject>
 
+    @POST("/posts/{id}/bookmarks")
+    fun addBookmark(@Body request: BookmarksRequest): Call<Bookmarks>
+
     @POST("/categories/{id}/posts")
     fun addUser(@Body user: User): Call<JSONObject>
-
-    @POST("/users/{uid}/bookmarks")
-    fun addBookmark(): Call<String>
 
     @PUT("/comments/{id}")
     fun modifyComment(@Body commentRequest: CommentRequest)
