@@ -216,6 +216,15 @@
                 app:layout_constraintStart_toStartOf="@id/dislikeTxt"
                 app:layout_constraintEnd_toEndOf="@id/dislikeTxt"
                 app:layout_constraintTop_toBottomOf="@id/dislikeTxt"/>
+            <ImageView
+                android:id="@+id/dislikeBtn"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/ic_detail_thumbs_down_inactive_x3"
+                android:layout_marginTop="10dp"
+                app:layout_constraintStart_toStartOf="@id/dislikeTxt"
+                app:layout_constraintEnd_toEndOf="@id/dislikeTxt"
+                app:layout_constraintTop_toBottomOf="@id/dislikeNum"/>
 
 
 
