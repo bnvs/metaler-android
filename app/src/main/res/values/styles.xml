@@ -3,9 +3,19 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimary">@color/colorPurple</item>
+        <item name="colorPrimaryDark">@color/colorDakrPurple</item>
         <item name="colorAccent">@color/colorAccent</item>
-    </style>
 
+        <!-- Status bar stuff. -->
+        <!-- 상태바 배경 색상 -->
+        <item name="android:statusBarColor">@color/colorWhite</item>
+        <!-- 상태바 글자 색상 -->
+        <item name="android:windowLightStatusBar">true</item>
+
+
+        <!-- No Title Bar-->
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
 </resources>
