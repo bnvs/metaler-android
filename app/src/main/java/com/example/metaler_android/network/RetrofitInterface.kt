@@ -88,8 +88,8 @@ interface RetrofitInterface {
     @DELETE("/posts/{id}")
     fun deletePost(@Body request: JSONObject)
 
-    @DELETE("/users/{uid}/bookmarks/{pid}")
-    fun deleteBookmark()
+    @DELETE("/bookmarks/{id}")
+    fun deleteBookmark(@Body request: JSONObject)
 
     @DELETE("/users/{id}")
     fun deleteUser()
