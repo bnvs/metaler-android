@@ -77,6 +77,17 @@
                 app:layout_constraintTop_toBottomOf="@id/userName"
                 />
 
+            <View
+                android:id="@+id/contentDivider"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginTop="12dp"
+                android:background="?android:attr/listDivider"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/userImg" />
+
+
+
 
 
 
