@@ -24,12 +24,28 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/contentCard"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="wrap_content"
             android:translationY="-4dp"
             android:background="@drawable/bottom_round_bg"
             app:layout_constraintTop_toBottomOf="@id/titleBarCard"
             app:layout_constraintStart_toStartOf="parent"
             >
+
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorDakrPurple"
+                android:textSize="18sp"
+                android:text="상세페이지 제목 보여줌"
+                android:textStyle="bold"
+                android:layout_marginTop="14dp"
+                android:layout_marginLeft="10dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
