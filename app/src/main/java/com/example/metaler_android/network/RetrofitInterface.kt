@@ -4,6 +4,7 @@ import com.example.metaler_android.data.comment.Comments
 import com.example.metaler_android.data.homepost.HomePosts
 import com.example.metaler_android.data.job.Job
 import com.example.metaler_android.data.category.Categories
+import com.example.metaler_android.data.comment.CommentRequest
 import com.example.metaler_android.data.post.Posts
 import com.example.metaler_android.data.post.PostsRequest
 import com.example.metaler_android.data.postdetail.PostDetails
@@ -45,6 +46,9 @@ interface RetrofitInterface {
 
     @GET("/users/{uid}/categories/{cid}/posts")
     fun getMyPosts(): Call<Posts>
+
+    @POST("/posts/{id}/comments")
+    fun addComment(@Body commentRequest: CommentRequest)
 
     @POST("/categories/{id}/posts")
     fun addUser(@Body user: User): Call<JSONObject>
