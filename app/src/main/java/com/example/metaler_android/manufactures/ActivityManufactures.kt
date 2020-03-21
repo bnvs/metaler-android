@@ -64,6 +64,13 @@ class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
             layoutManager = postLayoutManager
         }
 
+        // 홈 탭에서 보여줄 데이터 가져오기 시작
+        // 탭 바 아이콘에 클릭 리스너 달아줌
+        presenter.run {
+            start()
+            setTapBar(this@ActivityManufactures)
+        }
+
     }
 
     override fun showPosts() {
