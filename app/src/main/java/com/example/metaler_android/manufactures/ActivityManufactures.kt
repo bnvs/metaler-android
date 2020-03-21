@@ -125,21 +125,19 @@ class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
                     tags += "#$tag "
                 }
 
-                view.title.text = item.title
-                view.userName.text = item.nickname
-                view.date.text = item.date
-                view.dislikeNum.text = item.dis_like.toString()
-                view.likeNum.text = item.like.toString()
-
-                view.setOnClickListener { itemListener.onPostClick(item.post_id) }
-
-                view.bookmarkBtn.setOnClickListener { itemListener.onBookmarkButtonClick(item.post_id) }
-
-                if (item.is_bookmark) {
-                    view.bookmarkBtn.setImageResource(R.drawable.ic_list_bookmark_active_x3)
+                view.apply {
+                    title.text = item.title
+                    userName.text = item.nickname
+                    date.text = item.date
+                    // tagRV.text = tags
+                    dislikeNum.text = item.dis_like.toString()
+                    likeNum.text = item.like.toString()
+                    setOnClickListener { itemListener.onPostClick(item.post_id) }
+                    bookmarkBtn.setOnClickListener { itemListener.onBookmarkButtonClick(item.post_id) }
+                    if (item.is_bookmark) {
+                        bookmarkBtn.setImageResource(R.drawable.ic_list_bookmark_active_x3)
+                    }
                 }
-
-                // view.tagRV.text = tags
 
                 Glide.with(view)
                     .load(item.attach_url)
