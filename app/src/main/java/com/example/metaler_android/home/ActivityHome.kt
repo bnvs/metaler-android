@@ -93,13 +93,13 @@ class ActivityHome : AppCompatActivity(), ContractHome.View {
 
     // 재료 리사이클러뷰를 보여준다
     override fun showMaterialsList(materials: List<HomePost>) {
-        materialsAdapter.homePosts = materials
+        materialsAdapter.setHomePosts(materials)
         materialsAdapter.notifyDataSetChanged()
     }
 
     // 가공 리사이클러뷰를 보여준다
     override fun showManufacturesList(manufactures: List<HomePost>) {
-        manufacturesAdapter.homePosts = manufactures
+        manufacturesAdapter.setHomePosts(manufactures)
         materialsAdapter.notifyDataSetChanged()
     }
 
@@ -198,9 +198,13 @@ class ActivityHome : AppCompatActivity(), ContractHome.View {
      * */
     private class HomePostAdapter(
         private val postType: String,
-        var homePosts: List<HomePost>,
+        private var homePosts: List<HomePost>,
         private val itemListener: HomePostItemListener
     ) : RecyclerView.Adapter<HomePostAdapter.ViewHolder>() {
+
+        fun setHomePosts(list: List<HomePost>) {
+            this.homePosts = list
+        }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
             lateinit var inflatedView: View
