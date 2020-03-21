@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.metaler_android.materials.ActivityMaterials
 import com.example.metaler_android.R
-import com.example.metaler_android.data.homepost.HomePost
+import com.example.metaler_android.data.homeposts.HomePost
 import com.example.metaler_android.data.profile.Profile
 import com.example.metaler_android.detail.ActivityDetail
 import com.example.metaler_android.manufactures.ActivityManufactures

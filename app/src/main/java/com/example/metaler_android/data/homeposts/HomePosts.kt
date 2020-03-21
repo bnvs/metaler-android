@@ -1,4 +1,4 @@
-package com.example.metaler_android.data.homepost
+package com.example.metaler_android.data.homeposts
 
 /**
  * Home 탭에서

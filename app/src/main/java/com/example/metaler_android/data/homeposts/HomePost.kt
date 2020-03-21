@@ -1,4 +1,4 @@
-package com.example.metaler_android.data.homepost
+package com.example.metaler_android.data.homeposts
 
 /**
  * Home 탭에서 보여질 게시물 리스트의

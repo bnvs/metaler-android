@@ -3,7 +3,7 @@ package com.example.metaler_android.network
 import com.example.metaler_android.data.bookmark.Bookmarks
 import com.example.metaler_android.data.bookmark.BookmarksRequest
 import com.example.metaler_android.data.comments.Comments
-import com.example.metaler_android.data.homepost.HomePosts
+import com.example.metaler_android.data.homeposts.HomePosts
 import com.example.metaler_android.data.categories.Categories
 import com.example.metaler_android.data.comments.CommentsRequest
 import com.example.metaler_android.data.job.Jobs

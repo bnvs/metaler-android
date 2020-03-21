@@ -1,8 +1,8 @@
-package com.example.metaler_android.data.homepost.source
+package com.example.metaler_android.data.homeposts.source
 
-import com.example.metaler_android.data.homepost.HomePosts
+import com.example.metaler_android.data.homeposts.HomePosts
 
-interface HomePostDataSource {
+interface HomePostsDataSource {
 
     interface LoadHomePostsCallback {
         fun onHomePostsLoaded(homePosts: HomePosts)
