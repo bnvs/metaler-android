@@ -3,6 +3,7 @@
 
     <!--  activity_post_first.xml에서 쓰이는 문자열  -->
     <string name="next">다음</string>
+    <string name="category">카테고리</string>
     <string name="title">제목</string>
     <string name="post_price">가격</string>
     <string name="price_type">지불방식</string>
