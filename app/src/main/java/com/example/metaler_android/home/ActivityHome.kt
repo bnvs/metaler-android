@@ -23,8 +23,15 @@ class ActivityHome : AppCompatActivity(), ContractHome.View {
     val TAG = "ActivityHome"
 
     override lateinit var presenter: ContractHome.Presenter
-    private val materialsAdapter = HomePostAdapter("materials", ArrayList(0))
-    private val manufacturesAdapter = HomePostAdapter("manufactures", ArrayList(0))
+
+    private var itemListener: HomePostItemListener = object : HomePostItemListener {
+        override fun onHomePostClick(clickedHomePostId: Int) {
+            presenter.openPostDetail(clickedHomePostId)
+        }
+    }
+
+    private val materialsAdapter = HomePostAdapter("materials", ArrayList(0), itemListener)
+    private val manufacturesAdapter = HomePostAdapter("manufactures", ArrayList(0), itemListener)
     private val linearLayoutManager = LinearLayoutManager(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -138,8 +145,9 @@ class ActivityHome : AppCompatActivity(), ContractHome.View {
     }
 
     private class HomePostAdapter(
-        val postType: String,
-        var homePosts: List<HomePost>
+        private val postType: String,
+        var homePosts: List<HomePost>,
+        private val itemListener: HomePostItemListener
     ) : RecyclerView.Adapter<HomePostAdapter.ViewHolder>() {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -174,15 +182,21 @@ class ActivityHome : AppCompatActivity(), ContractHome.View {
                         view.materialsTitle.text = item.title
                         view.materialsUserName.text = item.nickname
                         view.materialsDate.text = item.date
+                        view.setOnClickListener { itemListener.onHomePostClick(item.post_id) }
                     }
                     "manufactures" -> {
                         view.manufactureTitle.text = item.title
                         view.manufactureUserName.text = item.nickname
                         view.manufactureDate.text = item.date
+                        view.setOnClickListener { itemListener.onHomePostClick(item.post_id) }
                     }
                 }
             }
         }
+    }
+
+    interface HomePostItemListener {
+        fun onHomePostClick(clickedHomePostId: Int)
     }
 
 }
