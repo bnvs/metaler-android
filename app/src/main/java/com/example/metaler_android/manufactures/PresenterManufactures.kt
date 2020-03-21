@@ -35,7 +35,7 @@ class PresenterManufactures(context: Context, val view: ContractManufactures.Vie
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun AddsearchTag() {
+    override fun addSearchTag() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 

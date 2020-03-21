@@ -38,7 +38,7 @@ interface ContractManufactures {
 
         fun openSearch()
 
-        fun AddsearchTag()
+        fun addSearchTag()
 
         fun clearSearchTagBar()
 
