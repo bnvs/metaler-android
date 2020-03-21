@@ -7,13 +7,13 @@ import com.example.metaler_android.R
 
 class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
 
-    override var presenter: ContractManufactures.Presenter
-        get() = TODO("not implemented") //To change initializer of created properties use File | Settings | File Templates.
-        set(value) {}
+    override lateinit var presenter: ContractManufactures.Presenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_manufacture)
+
+        presenter = PresenterManufactures()
     }
 
     override fun showPosts() {
