@@ -144,6 +144,11 @@ class ActivityHome : AppCompatActivity(), ContractHome.View {
         }
     }
 
+    /**
+     * 홈 탭의 리사이클러뷰에 사용할 어댑터입니다.
+     * postType 에 "materials" 또는 "manufactures" 문자열을 넣어
+     * inflating 할 리사이클러뷰 아이템 뷰를 구분할 수 있습니다.
+     * */
     private class HomePostAdapter(
         private val postType: String,
         var homePosts: List<HomePost>,
