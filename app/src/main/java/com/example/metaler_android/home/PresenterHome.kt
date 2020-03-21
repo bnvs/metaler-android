@@ -26,14 +26,14 @@ class PresenterHome(context: Context, val view: ContractHome.View) : ContractHom
     }
 
     override fun openMaterials() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        view.showMaterialsUi()
     }
 
     override fun openManufactures() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        view.showManufacturesUi()
     }
 
     override fun openPostDetail(postId: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        view.showPostDetailUi(postId)
     }
 }
