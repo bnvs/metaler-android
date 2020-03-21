@@ -23,7 +23,7 @@ class PresenterHome(context: Context, val view: ContractHome.View) : ContractHom
     }
 
     override fun loadProfile() {
-        profileRepository.getProfile(object : ProfileDataSource.LoadProfileCallback {
+        /*profileRepository.getProfile(object : ProfileDataSource.LoadProfileCallback {
             override fun onProfileloaded(profile: Profile) {
                 view.showProfile(profile)
             }
@@ -32,11 +32,11 @@ class PresenterHome(context: Context, val view: ContractHome.View) : ContractHom
                 TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
             }
 
-        })
+        })*/
     }
 
     override fun loadHomePost() {
-        homePostRepository.getHomePosts(object : HomePostDataSource.LoadHomePostsCallback {
+        /*homePostRepository.getHomePosts(object : HomePostDataSource.LoadHomePostsCallback {
             override fun onHomePostsLoaded(homePosts: HomePosts) {
                 view.showMaterialsList(homePosts.materials)
                 view.showManufacturesList(homePosts.manufactures)
@@ -46,7 +46,7 @@ class PresenterHome(context: Context, val view: ContractHome.View) : ContractHom
                 TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
             }
 
-        })
+        })*/
     }
 
     override fun openMaterials() {
