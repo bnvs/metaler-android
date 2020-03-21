@@ -3,7 +3,7 @@ package com.example.metaler_android.data.profile.source.remote
 import com.example.metaler_android.data.profile.source.ProfileDataSource
 import com.example.metaler_android.network.RetrofitClient
 
-class ProfileRemoteDataSource : ProfileDataSource {
+object ProfileRemoteDataSource : ProfileDataSource {
     private val retrofitClient = RetrofitClient.client
 
     override fun getProfile(callback: ProfileDataSource.LoadProfileCallback) {
