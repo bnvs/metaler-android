@@ -10,7 +10,7 @@ import com.example.metaler_android.materials.ActivityMaterials
 import com.example.metaler_android.R
 import kotlinx.android.synthetic.main.activity_home.*
 
-class ActivityHome : AppCompatActivity() {
+class ActivityHome : AppCompatActivity(), ContractHome.View {
 
     val TAG = "ActivityHome"
 
@@ -25,18 +25,12 @@ class ActivityHome : AppCompatActivity() {
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
         )
 
-
         //현재 액티비티 레이아웃의 기준이 되는 titleBarCard에 상태바 높이 만큼 top padding 을 줌 .
         titleBarCard.setPadding(0, statusBarHeight(this), 0, 0)
         Log.d(TAG,"상태바 높이? : ${statusBarHeight(this)}")
 
-
         //소프트키 올라온 높이만큼 전체 레이아웃 하단에 padding을 줌.
         wrapConstraintLayout.setPadding(0,0,0,softMenuHeight(this))
-
-        //        hasSoftMenu()
-
-
 
         //탭바의 각 버튼에 맞는 액티비티로 이동하는 클릭 리스너
         materialsBtn.setOnClickListener {
@@ -64,25 +58,5 @@ class ActivityHome : AppCompatActivity() {
         return if (resourceId > 0){ context.resources.getDimensionPixelSize(resourceId)
         }else 0
     }
-
-//    //소프트키 버튼이 유무를 알아내는 함수 -> 사용안함
-//    private fun hasSoftMenu(): Boolean {
-//        //메뉴버튼 유무
-//        var hasMenuKey : Boolean = ViewConfiguration.get(getApplicationContext()).hasPermanentMenuKey()
-//
-//        //뒤로가기 버튼 유무
-//        var hasBackKey : Boolean = KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_BACK)
-//
-////        Log.d(TAG,"hasMenuKey? :${hasMenuKey} // hasBackKey? :${hasBackKey}")
-//
-//
-//        if(!hasMenuKey && !hasBackKey) {
-//            Log.d(TAG,"no hasMenuKey")
-//            return false
-//        } else {
-//            Log.d(TAG,"hasMenuKey ${hasMenuKey}   ${hasBackKey}")
-//            return true
-//        }
-//    }
 
 }
