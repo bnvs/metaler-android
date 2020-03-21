@@ -28,7 +28,7 @@ class ActivityHome : AppCompatActivity(), ContractHome.View {
             this@ActivityHome
         )
 
-        // Set up
+        // Set up Buttons
         materialsMoreBtn.setOnClickListener { presenter.openMaterials() }
         manufactureMoreBtn.setOnClickListener { presenter.openManufactures() }
 
@@ -104,6 +104,7 @@ class ActivityHome : AppCompatActivity(), ContractHome.View {
         overridePendingTransition(0,0)
     }
 
+    // TODO : flag doesn't work. have to fix it
     private fun addFlags(intent: Intent) {
         intent.flags.apply {
             Intent.FLAG_ACTIVITY_NO_ANIMATION
