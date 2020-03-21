@@ -33,7 +33,7 @@ class PresenterHome(context: Context, val view: ContractHome.View) : ContractHom
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun openPostDetail() {
+    override fun openPostDetail(postId: Int) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }
