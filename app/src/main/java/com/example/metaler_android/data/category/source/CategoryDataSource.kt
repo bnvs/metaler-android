@@ -4,11 +4,11 @@ import com.example.metaler_android.data.category.Categories
 
 interface CategoryDataSource {
 
-    interface LoadMaterialsCallback {
+    interface LoadCategoriesCallback {
         fun onMaterialsLoaded(materials: Categories)
         fun onDataNotAvailable()
     }
 
-    fun getMaterials(callback: LoadMaterialsCallback)
+    fun getCatagories(callback: LoadCategoriesCallback)
 
 }
