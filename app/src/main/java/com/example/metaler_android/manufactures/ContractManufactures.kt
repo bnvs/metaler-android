@@ -1,5 +1,6 @@
 package com.example.metaler_android.manufactures
 
+import android.content.Context
 import com.example.metaler_android.BasePresenter
 import com.example.metaler_android.BaseView
 
@@ -10,10 +11,34 @@ import com.example.metaler_android.BaseView
 
 interface ContractManufactures {
     interface View : BaseView<Presenter> {
-        //
+        fun showPosts()
+
+        fun showPostDetailUi()
+
+        fun showSearchUi()
+
+        fun showSearchTags()
+
+        fun clearSearchTagBar()
+
+        fun deleteSearchTag()
+
+        fun setTapBarListener(context: Context)
     }
 
     interface Presenter : BasePresenter {
-        //
+        fun loadPosts()
+
+        fun openPostDetail()
+
+        fun openSearch()
+
+        fun AddsearchTag()
+
+        fun clearSearchTagBar()
+
+        fun deleteSearchTag()
+
+        fun setTapBar(context: Context)
     }
 }
