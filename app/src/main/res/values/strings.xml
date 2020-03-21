@@ -9,6 +9,8 @@
     <string name="post_price_guide">가격을 입력해주세요.</string>
     <string name="post_price">가격</string>
     <string name="price_type">지불방식</string>
+    <string name="card_type">카드</string>
+    <string name="cash_type">현금</string>
     <string name="add_img">추가한 이미지</string>
     <string name="add_img_guide">업로드한 이미지가 없습니다.</string>
     <string name="content">내용</string>
