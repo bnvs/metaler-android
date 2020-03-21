@@ -129,7 +129,7 @@ class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
                     title.text = item.title
                     userName.text = item.nickname
                     date.text = item.date
-                    // tagRV.text = tags
+                    // tagRV.text = tags TODO : 태그 보여주는 방식 논의 필요
                     dislikeNum.text = item.dis_like.toString()
                     likeNum.text = item.like.toString()
                     setOnClickListener { itemListener.onPostClick(item.post_id) }
