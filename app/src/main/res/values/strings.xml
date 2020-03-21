@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">metaler-android</string>
+
+
+    <!--  activity_detail.xml에서 쓰이는 문자열  -->
+    <string name="tag">태그</string>
+    <string name="price">구매가격</string>
+    <string name="won">원</string>
+    <string name="like">적당해요</string>
+    <string name="dislike">비싸요</string>
+    <string name="comment_guide">작성된 댓글이 없습니다. 댓글을 입력해주세요.</string>
+    <string name="comment_num_guide">댓글 수</string>
+    <string name="comment_input_guide">댓글을 입력해주세요.</string>
+    <string name="register">등록</string>
 </resources>

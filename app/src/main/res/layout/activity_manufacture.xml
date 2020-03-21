@@ -7,7 +7,6 @@
     tools:context=".ActivityMaterials">
 
 
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/categoryCard"
         android:layout_width="match_parent"
@@ -22,9 +21,9 @@
             android:layout_height="0dp"
             android:layout_marginHorizontal="20dp"
             android:layout_marginTop="11dp"
-            app:cardElevation="0dp"
             app:cardBackgroundColor="@color/colorLightGrey"
             app:cardCornerRadius="10dp"
+            app:cardElevation="0dp"
             app:layout_constraintDimensionRatio="1:0.1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -64,109 +63,9 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="7dp"
-            app:layout_constraintTop_toBottomOf="@id/tagSearchBox"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_goneMarginTop="7dp"
-            />
-
-        <TextView
-            android:id="@+id/allBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_marginLeft="10dp"
-            android:background="@drawable/active_bar"
-            android:text="전체"
-            android:textColor="@color/colorLightGrey"
-            app:layout_constraintTop_toBottomOf="@id/tagRV"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <TextView
-            android:id="@+id/cooperBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_marginLeft="10dp"
-            android:background="@drawable/active_bar"
-            android:text="적동/황동"
-            android:textColor="@color/colorLightGrey"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/allBtn" />
-
-        <TextView
-            android:id="@+id/stainlessBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_marginLeft="10dp"
-            android:background="@drawable/active_bar"
-            android:text="스테인리스"
-            android:textColor="@color/colorLightGrey"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/cooperBtn" />
-
-        <TextView
-            android:id="@+id/aluminiumBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_marginLeft="10dp"
-            android:background="@drawable/active_bar"
-            android:text="알루미늄"
-            android:textColor="@color/colorLightGrey"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/stainlessBtn" />
-
-        <TextView
-            android:id="@+id/nickelBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_marginLeft="10dp"
-            android:background="@drawable/active_bar"
-            android:text="니켈/티타늄"
-            android:textColor="@color/colorLightGrey"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/aluminiumBtn" />
-
-        <TextView
-            android:id="@+id/steelBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_marginLeft="10dp"
-            android:background="@drawable/active_bar"
-            android:text="철"
-            android:textColor="@color/colorLightGrey"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/nickelBtn" />
-
-        <TextView
-            android:id="@+id/toolsBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_marginLeft="10dp"
-            android:background="@drawable/active_bar"
-            android:text="공구"
-            android:textColor="@color/colorLightGrey"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/steelBtn" />
-
-        <TextView
-            android:id="@+id/chemicalBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_marginLeft="10dp"
-            android:background="@drawable/active_bar"
-            android:text="화학 약품류"
-            android:textColor="@color/colorLightGrey"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/toolsBtn" />
-
-        <TextView
-            android:id="@+id/othersBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_marginLeft="10dp"
-            android:background="@drawable/active_bar"
-            android:text="기타"
-            android:textColor="@color/colorLightGrey"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/chemicalBtn" />
+            app:layout_constraintTop_toBottomOf="@id/tagSearchBox"
+            app:layout_goneMarginTop="7dp" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -175,10 +74,9 @@
         android:id="@+id/postsRV"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/categoryCard"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/categoryCard" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/titleBarCard"
@@ -326,7 +224,7 @@
                             android:id="@+id/materialsIcon"
                             android:layout_width="27dp"
                             android:layout_height="27dp"
-                            android:src="@drawable/ic_tapbar_materials_active_x3"
+                            android:src="@drawable/ic_tapbar_materials_inactive_x3"
                             app:layout_constraintBottom_toTopOf="@id/materialsTxt"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -337,7 +235,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="재료"
-                            android:textColor="@color/colorActiveTapbar"
+                            android:textColor="@color/colorInactiveTapbar"
                             android:textSize="10sp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -363,7 +261,7 @@
                             android:id="@+id/manufactureIcon"
                             android:layout_width="27dp"
                             android:layout_height="27dp"
-                            android:src="@drawable/ic_tapbar_manufacture_inactive_x3"
+                            android:src="@drawable/ic_tapbar_manufacture_active_x3"
                             app:layout_constraintBottom_toTopOf="@id/manufactureTxt"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -374,7 +272,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="가공"
-                            android:textColor="@color/colorInactiveTapbar"
+                            android:textColor="@color/colorActiveTapbar"
                             android:textSize="10sp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
