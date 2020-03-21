@@ -1,8 +1,16 @@
 package com.example.metaler_android.manufactures
 
 import android.content.Context
+import com.example.metaler_android.data.post.source.PostRepository
 
-class PresenterManufactures : ContractManufactures.Presenter {
+class PresenterManufactures(context: Context, val view: ContractManufactures.View) : ContractManufactures.Presenter {
+
+    private val postRepository: PostRepository = PostRepository(context)
+
+    init {
+        view.presenter = this
+    }
+
     override fun start() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
