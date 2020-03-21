@@ -28,14 +28,24 @@ class PresenterHome(context: Context, val view: ContractHome.View) : ContractHom
             }
 
             override fun onFailure() {
-
+                
             }
 
         })
     }
 
     override fun loadHomePost() {
-        
+        homePostRepository.getHomePosts(object : HomePostDataSource.LoadHomePostsCallback {
+            override fun onHomePostsLoaded(homePosts: HomePosts) {
+                view.showMaterialsList(homePosts.materials)
+                view.showManufacturesList(homePosts.manufactures)
+            }
+
+            override fun onDataNotAvailable() {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+
+        })
     }
 
     override fun openMaterials() {
