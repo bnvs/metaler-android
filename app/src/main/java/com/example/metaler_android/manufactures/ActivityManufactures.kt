@@ -93,7 +93,8 @@ class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
     }
 
     private class PostAdapter(
-        var posts: List<Post>
+        var posts: List<Post>,
+        private val itemListener: PostItemListener
     ) : RecyclerView.Adapter<PostAdapter.ViewHolder>() {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -126,6 +127,10 @@ class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
                 view.dislikeNum.text = item.dis_like.toString()
                 view.likeNum.text = item.like.toString()
 
+                view.setOnClickListener { itemListener.onPostClick(item.post_id) }
+
+                view.bookmarkBtn.setOnClickListener { itemListener.onBookmarkButtonClick(item.post_id) }
+
                 if (item.is_bookmark) {
                     view.bookmarkBtn.setImageResource(R.drawable.ic_list_bookmark_active_x3)
                 }
@@ -137,6 +142,11 @@ class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
                     .into(view.img)
             }
         }
+    }
 
+    private interface PostItemListener {
+        fun onPostClick(clickedPostId: Int)
+
+        fun onBookmarkButtonClick(clickedPostId: Int)
     }
 }
