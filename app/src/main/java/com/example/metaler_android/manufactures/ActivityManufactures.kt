@@ -19,7 +19,11 @@ class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_manufacture)
 
-        presenter = PresenterManufactures()
+        // Create the presenter
+        presenter = PresenterManufactures(
+            this@ActivityManufactures,
+            this@ActivityManufactures
+        )
     }
 
     override fun showPosts() {
