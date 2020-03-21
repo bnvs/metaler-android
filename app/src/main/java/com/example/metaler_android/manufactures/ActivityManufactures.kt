@@ -79,6 +79,11 @@ class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
 
     }
 
+    override fun onResume() {
+        super.onResume()
+        presenter.start()
+    }
+
     override fun showPosts(posts: List<Post>) {
         postAdapter.setPosts(posts)
     }
