@@ -81,32 +81,28 @@ class ActivityHome : AppCompatActivity(), ContractHome.View {
 
     override fun showMaterialsUi() {
         val intent = Intent(this@ActivityHome, ActivityMaterials::class.java)
-        intent.flags.apply {
-            Intent.FLAG_ACTIVITY_NO_ANIMATION
-            Intent.FLAG_ACTIVITY_REORDER_TO_FRONT
-            Intent.FLAG_ACTIVITY_SINGLE_TOP
-        }
+        addFlags(intent)
         startActivity(intent)
     }
 
     override fun showManufacturesUi() {
         val intent = Intent(this@ActivityHome, ActivityManufactures::class.java)
-        intent.flags.apply {
-            Intent.FLAG_ACTIVITY_NO_ANIMATION
-            Intent.FLAG_ACTIVITY_REORDER_TO_FRONT
-            Intent.FLAG_ACTIVITY_SINGLE_TOP
-        }
+        addFlags(intent)
         startActivity(intent)
     }
 
     override fun showPostDetailUi() {
         val intent = Intent(this@ActivityHome, ActivityDetail::class.java)
+        addFlags(intent)
+        startActivity(intent)
+    }
+
+    fun addFlags(intent: Intent) {
         intent.flags.apply {
             Intent.FLAG_ACTIVITY_NO_ANIMATION
             Intent.FLAG_ACTIVITY_REORDER_TO_FRONT
             Intent.FLAG_ACTIVITY_SINGLE_TOP
         }
-        startActivity(intent)
     }
 
 }
