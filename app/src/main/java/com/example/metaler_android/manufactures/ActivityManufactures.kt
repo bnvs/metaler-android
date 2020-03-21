@@ -32,8 +32,12 @@ class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
             presenter.openPostDetail(clickedPostId)
         }
 
-        override fun onBookmarkButtonClick(clickedPostId: Int) {
-            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        override fun onBookmarkButtonClick(clickedPostId: Int, view: View, post: Post) {
+            if (!post.is_bookmark) {
+                view.bookmarkBtn.setImageResource(R.drawable.ic_list_bookmark_active_x3)
+            }else {
+                view.bookmarkBtn.setImageResource(R.drawable.ic_list_bookmark_inactive_x3)
+            }
         }
 
     }
@@ -153,7 +157,7 @@ class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
                     dislikeNum.text = item.dis_like.toString()
                     likeNum.text = item.like.toString()
                     setOnClickListener { itemListener.onPostClick(item.post_id) }
-                    bookmarkBtn.setOnClickListener { itemListener.onBookmarkButtonClick(item.post_id) }
+                    bookmarkBtn.setOnClickListener { itemListener.onBookmarkButtonClick(item.post_id, view, item) }
                     if (item.is_bookmark) {
                         bookmarkBtn.setImageResource(R.drawable.ic_list_bookmark_active_x3)
                     }
@@ -169,6 +173,6 @@ class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
     private interface PostItemListener {
         fun onPostClick(clickedPostId: Int)
 
-        fun onBookmarkButtonClick(clickedPostId: Int)
+        fun onBookmarkButtonClick(clickedPostId: Int, view: View, post: Post)
     }
 }
