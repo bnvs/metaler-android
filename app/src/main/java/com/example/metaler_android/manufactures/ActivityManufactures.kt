@@ -11,6 +11,7 @@ import com.example.metaler_android.data.post.Post
 import com.example.metaler_android.home.ActivityHome
 import com.example.metaler_android.materials.ActivityMaterials
 import com.example.metaler_android.util.PostAdapter
+import com.example.metaler_android.util.PostItemListener
 import kotlinx.android.synthetic.main.activity_manufacture.*
 import kotlinx.android.synthetic.main.item_posts_rv.view.*
 
@@ -135,11 +136,5 @@ class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
                 startActivity(it)
             }
         }*/
-    }
-
-    interface PostItemListener {
-        fun onPostClick(clickedPostId: Int)
-
-        fun onBookmarkButtonClick( view: View, clickedPostId: Int, isBookmark: Boolean, position: Int)
     }
 }
