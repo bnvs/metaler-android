@@ -25,12 +25,21 @@
             android:textColor="@color/colorDarkGrey"
             android:textSize="14sp"
             android:text="@string/shop_name"
+            android:layout_marginTop="5dp"
             android:layout_marginLeft="10dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             />
-
-
+        <TextView
+            android:id="@+id/shopNameGuideTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorAccent"
+            android:textSize="10sp"
+            android:text="@string/essential_point"
+            app:layout_constraintStart_toEndOf="@id/shopNameTxt"
+            app:layout_constraintTop_toTopOf="@id/shopNameTxt"
+            />
         <EditText
             android:id="@+id/shopNameInput"
             android:layout_width="match_parent"
