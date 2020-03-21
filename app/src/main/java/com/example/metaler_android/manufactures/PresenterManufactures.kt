@@ -40,6 +40,6 @@ class PresenterManufactures(context: Context, val view: ContractManufactures.Vie
     }
 
     override fun setTapBar(context: Context) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        view.setTapBarListener(context)
     }
 }
