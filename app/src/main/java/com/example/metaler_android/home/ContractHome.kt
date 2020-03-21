@@ -15,11 +15,23 @@ interface ContractHome {
         fun showMaterialsList()
 
         fun showManufacturesList()
+
+        fun showMaterialsUi()
+
+        fun showManufacturesUi()
+
+        fun showPostDetailUi()
     }
 
     interface Presenter : BasePresenter {
         fun loadProfile()
 
         fun loadHomePost()
+
+        fun openMaterials()
+
+        fun openManufactures()
+
+        fun openPostDetail()
     }
 }

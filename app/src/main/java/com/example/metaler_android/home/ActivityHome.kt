@@ -46,8 +46,6 @@ class ActivityHome : AppCompatActivity(), ContractHome.View {
             startActivity(goToMaterials)
         }
 
-
-
     }
 
     //상태바 높이 계산
@@ -76,6 +74,18 @@ class ActivityHome : AppCompatActivity(), ContractHome.View {
     }
 
     override fun showManufacturesList() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun showMaterialsUi() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun showManufacturesUi() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun showPostDetailUi() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
