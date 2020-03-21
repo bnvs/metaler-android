@@ -1,5 +1,6 @@
 package com.example.metaler_android.materials
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -13,9 +14,15 @@ import kotlinx.android.synthetic.main.activity_materials.*
 
 class ActivityMaterials : AppCompatActivity(), ContractMaterials.View {
 
+    val TAG = "ActivityMaterials"
+
+    override lateinit var presenter: ContractMaterials.Presenter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_materials)
+
+        presenter = PresenterMaterials()
 
         //탭바의 각 버튼에 맞는 액티비티로 이동하는 클릭 리스너
         homeBtn.setOnClickListener {
@@ -74,6 +81,30 @@ class ActivityMaterials : AppCompatActivity(), ContractMaterials.View {
             inactiveCategoryBtn()
             activeCategoryBtn(othersBtn)
         }
+    }
+
+    override fun showCategories() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun showPosts() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun showPostDetailUi() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun showSearchUi() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun showSearchTags() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun setTapBarListener(context: Context) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     //카테고리 버튼 뷰 속성을 비활성화 상태로 초기화하는 메소드
