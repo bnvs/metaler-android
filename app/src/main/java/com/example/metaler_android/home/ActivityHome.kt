@@ -81,12 +81,6 @@ class ActivityHome : AppCompatActivity(), ContractHome.View {
         //소프트키 올라온 높이만큼 전체 레이아웃 하단에 padding을 줌.
         wrapConstraintLayout.setPadding(0,0,0,softMenuHeight(this))
 
-        //탭바의 각 버튼에 맞는 액티비티로 이동하는 클릭 리스너
-        materialsBtn.setOnClickListener {
-            val goToMaterials = Intent(this, ActivityMaterials::class.java)
-            startActivity(goToMaterials)
-        }
-
     }
 
     override fun onResume() {
