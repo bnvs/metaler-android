@@ -20,7 +20,7 @@ interface ContractHome {
 
         fun showManufacturesUi()
 
-        fun showPostDetailUi()
+        fun showPostDetailUi(postId: Int)
     }
 
     interface Presenter : BasePresenter {
@@ -32,6 +32,6 @@ interface ContractHome {
 
         fun openManufactures()
 
-        fun openPostDetail()
+        fun openPostDetail(postId: Int)
     }
 }

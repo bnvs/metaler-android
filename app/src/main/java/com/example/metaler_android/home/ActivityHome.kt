@@ -91,8 +91,10 @@ class ActivityHome : AppCompatActivity(), ContractHome.View {
         startActivity(intent)
     }
 
-    override fun showPostDetailUi() {
-        val intent = Intent(this@ActivityHome, ActivityDetail::class.java)
+    override fun showPostDetailUi(postId: Int) {
+        val intent = Intent(this@ActivityHome, ActivityDetail::class.java).apply {
+            putExtra("postId", postId)
+        }
         addFlags(intent)
         startActivity(intent)
     }
