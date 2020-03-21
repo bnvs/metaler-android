@@ -33,17 +33,17 @@ class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
             presenter.openPostDetail(clickedPostId)
         }
 
-        override fun onBookmarkButtonClick(clickedPostId: Int, view: View, isBookmark: Boolean, position: Int) {
+        override fun onBookmarkButtonClick(view: View, clickedPostId: Int, isBookmark: Boolean, position: Int) {
             if (!isBookmark) {
                 view.bookmarkBtn.setImageResource(R.drawable.ic_list_bookmark_active_x3)
-                presenter.addBookmark()
+                presenter.addBookmark(clickedPostId)
                 postAdapter.apply {
                     setBookmark(position)
                     notifyDataSetChanged()
                 }
             }else {
                 view.bookmarkBtn.setImageResource(R.drawable.ic_list_bookmark_inactive_x3)
-                presenter.deleteBookmark()
+                presenter.deleteBookmark(clickedPostId)
                 postAdapter.apply {
                     setBookmark(position)
                     notifyDataSetChanged()
@@ -190,7 +190,7 @@ class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
                     likeNum.text = item.like.toString()
                     setOnClickListener { itemListener.onPostClick(item.post_id) }
                     bookmarkBtn.setOnClickListener {
-                        itemListener.onBookmarkButtonClick(item.post_id, view, item.is_bookmark, position)
+                        itemListener.onBookmarkButtonClick(view, item.post_id, item.is_bookmark, position)
                     }
                     if (item.is_bookmark) {
                         bookmarkBtn.setImageResource(R.drawable.ic_list_bookmark_active_x3)
@@ -207,6 +207,6 @@ class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
     private interface PostItemListener {
         fun onPostClick(clickedPostId: Int)
 
-        fun onBookmarkButtonClick(clickedPostId: Int, view: View, isBookmark: Boolean, position: Int)
+        fun onBookmarkButtonClick( view: View, clickedPostId: Int, isBookmark: Boolean, position: Int)
     }
 }

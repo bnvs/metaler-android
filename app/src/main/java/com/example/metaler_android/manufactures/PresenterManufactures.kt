@@ -19,15 +19,15 @@ class PresenterManufactures(context: Context, val view: ContractManufactures.Vie
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun openPostDetail(clickedPostId: Int) {
+    override fun openPostDetail(postId: Int) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun addBookmark() {
+    override fun addBookmark(postId: Int) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun deleteBookmark() {
+    override fun deleteBookmark(postId: Int) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 

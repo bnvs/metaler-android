@@ -29,11 +29,11 @@ interface ContractManufactures {
     interface Presenter : BasePresenter {
         fun loadPosts()
 
-        fun openPostDetail(clickedPostId: Int)
+        fun openPostDetail(postId: Int)
 
-        fun addBookmark()
+        fun addBookmark(postId: Int)
 
-        fun deleteBookmark()
+        fun deleteBookmark(postId: Int)
 
         fun openSearch()
 
