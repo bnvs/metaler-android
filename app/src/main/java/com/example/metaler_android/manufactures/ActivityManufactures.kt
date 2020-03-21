@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -92,8 +93,11 @@ class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
     private class PostAdapter(
         var posts: List<Post>
     ) : RecyclerView.Adapter<PostAdapter.ViewHolder>() {
+
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            val inflatedView = LayoutInflater.from(parent.context)
+                .inflate(R.layout.item_posts_rv, parent, false)
+            return ViewHolder(inflatedView)
         }
 
         override fun getItemCount(): Int {
@@ -106,7 +110,7 @@ class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
 
         inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             fun bind() {
-                
+
             }
         }
 
