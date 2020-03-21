@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.metaler_android.R
 import com.example.metaler_android.data.post.Post
 import com.example.metaler_android.home.ActivityHome
@@ -130,7 +131,10 @@ class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
                 }
 
                 // view.tagRV.text = tags
-                view.img
+
+                Glide.with(view)
+                    .load(item.attach_url)
+                    .into(view.img)
             }
         }
 
