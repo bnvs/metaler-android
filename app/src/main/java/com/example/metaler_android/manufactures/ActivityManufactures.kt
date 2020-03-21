@@ -93,9 +93,13 @@ class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
     }
 
     private class PostAdapter(
-        var posts: List<Post>,
+        private var posts: List<Post>,
         private val itemListener: PostItemListener
     ) : RecyclerView.Adapter<PostAdapter.ViewHolder>() {
+
+        fun setPosts(list: List<Post>) {
+            this.posts = list
+        }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
             val inflatedView = LayoutInflater.from(parent.context)
