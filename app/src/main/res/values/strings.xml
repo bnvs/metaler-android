@@ -5,12 +5,14 @@
     <string name="next">다음</string>
     <string name="category">카테고리</string>
     <string name="title">제목</string>
+    <string name="title_guide">제목을 입력해주세요.</string>
+    <string name="post_price_guide">가격을 입력해주세요.</string>
     <string name="post_price">가격</string>
     <string name="price_type">지불방식</string>
     <string name="add_img">추가한 이미지</string>
     <string name="add_img_guide">업로드한 이미지가 없습니다.</string>
     <string name="content">내용</string>
-    <string name="content_guide">내용을 입력해주세요.</string>
+    <string name="content_guide"><font size="14sp">내용을 입력해주세요.</font></string>
 
     <!--  activity_detail.xml에서 쓰이는 문자열  -->
     <string name="tag">태그</string>
