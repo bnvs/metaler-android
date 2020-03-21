@@ -82,6 +82,7 @@ class ActivityHome : AppCompatActivity(), ContractHome.View {
         presenter.start()
     }
 
+    // 사용자 프로필을 보여준다
     override fun showProfile(profile: Profile) {
         Glide.with(this@ActivityHome)
             .load(profile.profile_image_url)
@@ -90,26 +91,31 @@ class ActivityHome : AppCompatActivity(), ContractHome.View {
         profileEmail.text = profile.profile_email
     }
 
+    // 재료 리사이클러뷰를 보여준다
     override fun showMaterialsList(materials: List<HomePost>) {
         materialsAdapter.homePosts = materials
         materialsAdapter.notifyDataSetChanged()
     }
 
+    // 가공 리사이클러뷰를 보여준다
     override fun showManufacturesList(manufactures: List<HomePost>) {
         manufacturesAdapter.homePosts = manufactures
         materialsAdapter.notifyDataSetChanged()
     }
 
+    // 재료 탭으로 이동한다
     override fun showMaterialsUi() {
         val intent = Intent(this@ActivityHome, ActivityMaterials::class.java)
         startActivity(intent)
     }
 
+    // 가공 탭으로 이동한다
     override fun showManufacturesUi() {
         val intent = Intent(this@ActivityHome, ActivityManufactures::class.java)
         startActivity(intent)
     }
 
+    // 게시물 상세 내용 액티비티로 이동한다
     override fun showPostDetailUi(postId: Int) {
         val intent = Intent(this@ActivityHome, ActivityDetail::class.java).apply {
             putExtra("postId", postId)
@@ -118,6 +124,7 @@ class ActivityHome : AppCompatActivity(), ContractHome.View {
         overridePendingTransition(0,0)
     }
 
+    // 하단 탭 바에 리스너를 추가한다
     override fun setTapBarListener(context: Context) {
         homeIcon.setOnClickListener {
             Intent(context, ActivityHome::class.java).also {
@@ -152,6 +159,7 @@ class ActivityHome : AppCompatActivity(), ContractHome.View {
         }*/
     }
 
+    // 상태 바를 투명하게 하고, padding 을 조절한다
     override fun setTransparentStatusBar() {
         window.setFlags(
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
