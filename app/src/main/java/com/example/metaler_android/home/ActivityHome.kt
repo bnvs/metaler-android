@@ -24,6 +24,10 @@ class ActivityHome : AppCompatActivity(), ContractHome.View {
 
     override lateinit var presenter: ContractHome.Presenter
 
+    /**
+     * 홈 탭에서 보여지는 재료/가공 게시물 리사이클러뷰 아이템에 달아줄 클릭리스너입니다
+     * 아이템 클릭 시, 클릭한 게시물의 post_id 를 presenter 에 전달합니다.
+     * */
     private var itemListener: HomePostItemListener = object : HomePostItemListener {
         override fun onHomePostClick(clickedHomePostId: Int) {
             presenter.openPostDetail(clickedHomePostId)
