@@ -92,6 +92,10 @@ class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
         }*/
     }
 
+    /**
+     * 가공 탭의 리사이클러뷰에 사용할 어댑터입니다.
+     * 재료 탭의 리사이클러뷰에 재사용 가능하게 작성할 예정입니다
+     * */
     private class PostAdapter(
         private var posts: List<Post>,
         private val itemListener: PostItemListener
