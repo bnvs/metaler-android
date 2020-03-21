@@ -18,7 +18,8 @@ class PresenterHome(context: Context, val view: ContractHome.View) : ContractHom
     }
 
     override fun start() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        loadProfile()
+        loadHomePost()
     }
 
     override fun loadProfile() {
