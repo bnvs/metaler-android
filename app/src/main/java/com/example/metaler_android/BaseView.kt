@@ -9,5 +9,5 @@ package com.example.metaler_android
 interface BaseView<T> {
 
     var presenter: T
-    
+
 }
