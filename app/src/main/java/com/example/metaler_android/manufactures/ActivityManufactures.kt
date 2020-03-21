@@ -35,8 +35,10 @@ class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
         override fun onBookmarkButtonClick(clickedPostId: Int, view: View, post: Post) {
             if (!post.is_bookmark) {
                 view.bookmarkBtn.setImageResource(R.drawable.ic_list_bookmark_active_x3)
+                presenter.addBookmark()
             }else {
                 view.bookmarkBtn.setImageResource(R.drawable.ic_list_bookmark_inactive_x3)
+                presenter.deleteBookmark()
             }
         }
 

@@ -31,6 +31,10 @@ interface ContractManufactures {
 
         fun openPostDetail(clickedPostId: Int)
 
+        fun addBookmark()
+
+        fun deleteBookmark()
+
         fun openSearch()
 
         fun AddsearchTag()

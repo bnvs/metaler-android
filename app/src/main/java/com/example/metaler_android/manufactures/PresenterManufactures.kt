@@ -23,6 +23,14 @@ class PresenterManufactures(context: Context, val view: ContractManufactures.Vie
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
+    override fun addBookmark() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun deleteBookmark() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     override fun openSearch() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
