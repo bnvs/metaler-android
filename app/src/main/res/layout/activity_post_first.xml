@@ -71,6 +71,57 @@
             android:layout_marginRight="10dp"
             app:layout_constraintTop_toBottomOf="@id/categoryLine"
             />
+        <View
+            android:id="@+id/titleLine"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="?android:attr/listDivider"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/titleTxt" />
+
+        <TextView
+            android:id="@+id/priceTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorDarkGrey"
+            android:textSize="14sp"
+            android:text="@string/price"
+            android:layout_marginTop="6dp"
+            android:paddingBottom="6dp"
+            app:layout_constraintTop_toTopOf="@id/priceInput"
+            app:layout_constraintBottom_toBottomOf="@id/priceInput"
+            app:layout_constraintStart_toStartOf="@id/categoryTxt"/>
+        <EditText
+            android:id="@+id/priceInput"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/post_price_guide"
+            android:textSize="14sp"
+            android:ems="10"
+            android:inputType="number"
+            app:layout_constraintEnd_toStartOf="@id/wonTxt"
+            app:layout_constraintTop_toBottomOf="@id/titleLine"
+            />
+        <TextView
+            android:id="@+id/wonTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorDarkGrey"
+            android:textSize="14sp"
+            android:text="@string/won"
+            android:layout_marginTop="6dp"
+            android:paddingBottom="6dp"
+            android:layout_marginRight="10dp"
+            app:layout_constraintTop_toTopOf="@id/priceInput"
+            app:layout_constraintBottom_toBottomOf="@id/priceInput"
+            app:layout_constraintEnd_toEndOf="parent"/>
+        <View
+            android:id="@+id/priceLine"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="?android:attr/listDivider"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/priceTxt" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
