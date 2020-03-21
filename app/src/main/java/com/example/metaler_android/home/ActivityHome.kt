@@ -67,7 +67,7 @@ class ActivityHome : AppCompatActivity(), ContractHome.View {
         // Start to load profile and home posting data and show them
         presenter.start()
 
-        setTapBarListener()
+        setTapBarListener(this@ActivityHome)
 
         //상태바 투명하게 바꾸는 코드 => 대신 해당 상태바 위치에 뷰가 위치할수있음
         //상태바 뿐만 아니라 하단 소프트 버튼에도 영향끼침.. 상태바에도 뷰가 겹쳐버리는 문제발
@@ -107,35 +107,40 @@ class ActivityHome : AppCompatActivity(), ContractHome.View {
         }else 0
     }
 
-    private fun setTapBarListener() {
+    private fun setTapBarListener(context: Context) {
         homeIcon.setOnClickListener {
-            val intent = Intent(this@ActivityHome, ActivityHome::class.java)
-            addFlags(intent)
-            startActivity(intent)
+            Intent(context, ActivityHome::class.java).also {
+                addFlags(it)
+                startActivity(it)
+            }
         }
 
         materialsIcon.setOnClickListener {
-            val intent = Intent(this@ActivityHome, ActivityMaterials::class.java)
-            addFlags(intent)
-            startActivity(intent)
+            Intent(context, ActivityMaterials::class.java).also {
+                addFlags(it)
+                startActivity(it)
+            }
         }
 
         manufactureIcon.setOnClickListener {
-            val intent = Intent(this@ActivityHome, ActivityManufactures::class.java)
-            addFlags(intent)
-            startActivity(intent)
+            Intent(context, ActivityManufactures::class.java).also {
+                addFlags(it)
+                startActivity(it)
+            }
         }
 
         /*bookmarkIcon.setOnClickListener {
-            val intent = Intent(this@ActivityHome, ActivityBookmarks::class.java)
-            addFlags(intent)
-            startActivity(intent)
+            Intent(context, ActivityBookmarks::class.java).also {
+                addFlags(it)
+                startActivity(it)
+            }
         }
 
         myPageIcon.setOnClickListener {
-            val intent = Intent(this@ActivityHome, ActivityMyPage::class.java)
-            addFlags(intent)
-            startActivity(intent)
+            Intent(context, ActivityMyPage::class.java).also {
+                addFlags(it)
+                startActivity(it)
+            }
         }*/
     }
 
