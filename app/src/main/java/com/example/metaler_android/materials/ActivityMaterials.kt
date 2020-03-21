@@ -14,7 +14,7 @@ import kotlinx.android.synthetic.main.activity_materials.*
 
 class ActivityMaterials : AppCompatActivity(), ContractMaterials.View {
 
-    val TAG = "ActivityMaterials"
+    private val TAG = "ActivityMaterials"
 
     override lateinit var presenter: ContractMaterials.Presenter
 

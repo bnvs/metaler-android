@@ -7,7 +7,7 @@ import com.example.metaler_android.R
 
 class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
 
-    val TAG = "ActivityManufactures"
+    private val TAG = "ActivityManufactures"
 
     override lateinit var presenter: ContractManufactures.Presenter
 

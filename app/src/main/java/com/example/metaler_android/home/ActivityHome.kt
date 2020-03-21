@@ -21,7 +21,7 @@ import kotlinx.android.synthetic.main.item_home_materials_rv.view.*
 
 class ActivityHome : AppCompatActivity(), ContractHome.View {
 
-    val TAG = "ActivityHome"
+    private val TAG = "ActivityHome"
 
     override lateinit var presenter: ContractHome.Presenter
 
