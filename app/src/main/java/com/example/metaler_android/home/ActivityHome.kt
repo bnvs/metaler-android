@@ -8,8 +8,6 @@ import android.util.Log
 import android.view.*
 import com.example.metaler_android.materials.ActivityMaterials
 import com.example.metaler_android.R
-import com.example.metaler_android.data.homepost.source.HomePostRepository
-import com.example.metaler_android.data.profile.source.ProfileRepository
 import kotlinx.android.synthetic.main.activity_home.*
 
 class ActivityHome : AppCompatActivity(), ContractHome.View {
