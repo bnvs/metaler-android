@@ -14,6 +14,8 @@ class ActivityHome : AppCompatActivity(), ContractHome.View {
 
     val TAG = "ActivityHome"
 
+    override var presenter: ContractHome.Presenter = PresenterHome()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
@@ -57,6 +59,18 @@ class ActivityHome : AppCompatActivity(), ContractHome.View {
         var deviceHeight : Int = 0
         return if (resourceId > 0){ context.resources.getDimensionPixelSize(resourceId)
         }else 0
+    }
+
+    override fun showProfile() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun showMaterialsList() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun showManufacturesList() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
 }
