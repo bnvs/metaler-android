@@ -1,5 +1,7 @@
 package com.example.metaler_android.data.postdetail.source
 
-object PostDetailRepository {
-    //
+class PostDetailRepository : PostDetailDataSource {
+    override fun getPostDetails(callback: PostDetailDataSource.LoadPostDetailsCallback) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 }
