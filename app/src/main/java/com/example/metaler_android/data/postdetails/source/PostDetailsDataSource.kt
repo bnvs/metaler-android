@@ -1,8 +1,8 @@
-package com.example.metaler_android.data.postdetail.source
+package com.example.metaler_android.data.postdetails.source
 
-import com.example.metaler_android.data.postdetail.PostDetails
+import com.example.metaler_android.data.postdetails.PostDetails
 
-interface PostDetailDataSource {
+interface PostDetailsDataSource {
 
     interface LoadPostDetailsCallback {
         fun onPostDetailsLoaded(postDetails: PostDetails)

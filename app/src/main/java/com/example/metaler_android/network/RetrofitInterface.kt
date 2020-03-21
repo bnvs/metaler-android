@@ -11,7 +11,7 @@ import com.example.metaler_android.data.post.PostRequest
 import com.example.metaler_android.data.post.Posts
 import com.example.metaler_android.data.post.PostsRequest
 import com.example.metaler_android.data.post.UserPostsRequest
-import com.example.metaler_android.data.postdetail.PostDetails
+import com.example.metaler_android.data.postdetails.PostDetails
 import com.example.metaler_android.data.user.DeleteUserRequest
 import com.example.metaler_android.data.user.NicknameRequest
 import com.example.metaler_android.data.user.User

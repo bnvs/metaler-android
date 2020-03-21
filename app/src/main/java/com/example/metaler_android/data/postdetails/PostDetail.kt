@@ -1,4 +1,4 @@
-package com.example.metaler_android.data.postdetail
+package com.example.metaler_android.data.postdetails
 
 data class PostDetail(
     val post_id: Int,
