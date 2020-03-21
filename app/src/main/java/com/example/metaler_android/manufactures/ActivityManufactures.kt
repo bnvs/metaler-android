@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.metaler_android.R
@@ -44,6 +45,9 @@ class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
 
     }
 
+    private val postAdapter = PostAdapter(ArrayList(0), itemListener)
+    private val postLayoutManager = LinearLayoutManager(this)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_manufacture)
@@ -53,6 +57,13 @@ class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
             this@ActivityManufactures,
             this@ActivityManufactures
         )
+
+        // Set up posts recyclerView
+        postsRV.apply {
+            adapter = postAdapter
+            layoutManager = postLayoutManager
+        }
+
     }
 
     override fun showPosts() {
