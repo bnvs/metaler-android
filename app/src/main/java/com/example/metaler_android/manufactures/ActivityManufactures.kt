@@ -105,11 +105,11 @@ class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
         }
 
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-            holder.bind()
+            holder.bind(posts[position])
         }
 
         inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-            fun bind() {
+            fun bind(item: Post) {
 
             }
         }
