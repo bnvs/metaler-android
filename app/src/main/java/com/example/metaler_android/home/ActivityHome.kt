@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.metaler_android.materials.ActivityMaterials
 import com.example.metaler_android.R
@@ -21,6 +22,9 @@ class ActivityHome : AppCompatActivity(), ContractHome.View {
     val TAG = "ActivityHome"
 
     override lateinit var presenter: ContractHome.Presenter
+    private val materialsAdapter = HomePostAdapter("materials", ArrayList(0))
+    private val manufacturesAdapter = HomePostAdapter("manufactures", ArrayList(0))
+    private val linearLayoutManager = LinearLayoutManager(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,6 +39,18 @@ class ActivityHome : AppCompatActivity(), ContractHome.View {
         // Set up Buttons
         materialsMoreBtn.setOnClickListener { presenter.openMaterials() }
         manufactureMoreBtn.setOnClickListener { presenter.openManufactures() }
+
+        // Set up materials recyclerView
+        materialsRV.apply {
+            adapter = materialsAdapter
+            layoutManager = linearLayoutManager
+        }
+        
+        // Set up manufactures recyclerView
+        manufactureRV.apply {
+            adapter = manufacturesAdapter
+            layoutManager = linearLayoutManager
+        }
 
         //상태바 투명하게 바꾸는 코드 => 대신 해당 상태바 위치에 뷰가 위치할수있음
         //상태바 뿐만 아니라 하단 소프트 버튼에도 영향끼침.. 상태바에도 뷰가 겹쳐버리는 문제발
@@ -80,11 +96,13 @@ class ActivityHome : AppCompatActivity(), ContractHome.View {
     }
 
     override fun showMaterialsList(materials: List<HomePost>) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        materialsAdapter.homePosts = materials
+        materialsAdapter.notifyDataSetChanged()
     }
 
     override fun showManufacturesList(manufactures: List<HomePost>) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        manufacturesAdapter.homePosts = manufactures
+        materialsAdapter.notifyDataSetChanged()
     }
 
     override fun showMaterialsUi() {
@@ -119,7 +137,7 @@ class ActivityHome : AppCompatActivity(), ContractHome.View {
 
     private class HomePostAdapter(
         val postType: String,
-        val homePosts: List<HomePost>
+        var homePosts: List<HomePost>
     ) : RecyclerView.Adapter<HomePostAdapter.ViewHolder>() {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
