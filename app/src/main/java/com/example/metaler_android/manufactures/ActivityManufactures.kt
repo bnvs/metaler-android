@@ -29,7 +29,7 @@ class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
      * */
     private var itemListener: PostItemListener = object : PostItemListener {
         override fun onPostClick(clickedPostId: Int) {
-            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            presenter.openPostDetail(clickedPostId)
         }
 
         override fun onBookmarkButtonClick(clickedPostId: Int) {
