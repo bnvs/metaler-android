@@ -98,13 +98,11 @@ class ActivityHome : AppCompatActivity(), ContractHome.View {
 
     override fun showMaterialsUi() {
         val intent = Intent(this@ActivityHome, ActivityMaterials::class.java)
-        addFlags(intent)
         startActivity(intent)
     }
 
     override fun showManufacturesUi() {
         val intent = Intent(this@ActivityHome, ActivityManufactures::class.java)
-        addFlags(intent)
         startActivity(intent)
     }
 
@@ -112,7 +110,6 @@ class ActivityHome : AppCompatActivity(), ContractHome.View {
         val intent = Intent(this@ActivityHome, ActivityDetail::class.java).apply {
             putExtra("postId", postId)
         }
-        addFlags(intent)
         startActivity(intent)
         overridePendingTransition(0,0)
     }
@@ -120,21 +117,18 @@ class ActivityHome : AppCompatActivity(), ContractHome.View {
     override fun setTapBarListener(context: Context) {
         homeIcon.setOnClickListener {
             Intent(context, ActivityHome::class.java).also {
-                addFlags(it)
                 startActivity(it)
             }
         }
 
         materialsIcon.setOnClickListener {
             Intent(context, ActivityMaterials::class.java).also {
-                addFlags(it)
                 startActivity(it)
             }
         }
 
         manufactureIcon.setOnClickListener {
             Intent(context, ActivityManufactures::class.java).also {
-                addFlags(it)
                 startActivity(it)
             }
         }
@@ -166,15 +160,6 @@ class ActivityHome : AppCompatActivity(), ContractHome.View {
 
         //소프트키 올라온 높이만큼 전체 레이아웃 하단에 padding을 줌.
         wrapConstraintLayout.setPadding(0,0,0,softMenuHeight(this))
-    }
-
-    // TODO : flag doesn't work. have to fix it
-    private fun addFlags(intent: Intent) {
-        intent.flags.apply {
-            Intent.FLAG_ACTIVITY_NO_ANIMATION
-            Intent.FLAG_ACTIVITY_REORDER_TO_FRONT
-            Intent.FLAG_ACTIVITY_SINGLE_TOP
-        }
     }
 
     //상태바 높이 계산
