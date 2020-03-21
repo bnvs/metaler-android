@@ -4,7 +4,11 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import com.example.metaler_android.R
+import com.example.metaler_android.data.post.Post
 import com.example.metaler_android.home.ActivityHome
 import com.example.metaler_android.materials.ActivityMaterials
 import kotlinx.android.synthetic.main.activity_manufacture.*
@@ -83,5 +87,28 @@ class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
                 startActivity(it)
             }
         }*/
+    }
+
+    private class PostAdapter(
+        var posts: List<Post>
+    ) : RecyclerView.Adapter<PostAdapter.ViewHolder>() {
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        }
+
+        override fun getItemCount(): Int {
+            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        }
+
+        override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        }
+
+        inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+            fun bind() {
+                
+            }
+        }
+
     }
 }
