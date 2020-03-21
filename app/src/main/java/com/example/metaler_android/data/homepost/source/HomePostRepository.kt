@@ -6,8 +6,8 @@ import com.example.metaler_android.data.homepost.source.remote.HomePostsRemoteDa
 
 class HomePostRepository(context: Context) : HomePostDataSource{
 
-    val homePostsLocalDataSource = HomePostsLocalDataSource(context)
-    val homePostsRemoteDataSource = HomePostsRemoteDataSource
+    private val homePostsLocalDataSource = HomePostsLocalDataSource(context)
+    private val homePostsRemoteDataSource = HomePostsRemoteDataSource
 
     override fun getHomePosts(callback: HomePostDataSource.LoadHomePostsCallback) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
