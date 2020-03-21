@@ -1,7 +1,8 @@
-package com.example.metaler_android
+package com.example.metaler_android.postfirst
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.metaler_android.R
 
 class ActivityPostFirst : AppCompatActivity() {
 

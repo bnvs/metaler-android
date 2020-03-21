@@ -11,7 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ActivityPostFirst"></activity>
+        <activity android:name=".postfirst.ActivityPostFirst"></activity>
         <activity android:name=".manufactures.ActivityManufactures"></activity>
         <activity android:name=".detail.ActivityDetail" />
         <activity android:name=".materials.ActivityMaterials" />
