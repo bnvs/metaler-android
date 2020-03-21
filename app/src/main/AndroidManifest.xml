@@ -9,10 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ActivityManufacture"></activity>
-        <activity android:name=".ActivityDetail" />
-        <activity android:name=".Materials.ActivityMaterials" />
-        <activity android:name=".ActivityHome">
+        <activity android:name=".manufactures.ActivityManufacture"></activity>
+        <activity android:name=".detail.ActivityDetail" />
+        <activity android:name=".materials.ActivityMaterials" />
+        <activity android:name=".home.ActivityHome">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -1,4 +1,4 @@
-package com.example.metaler_android.Materials
+package com.example.metaler_android.materials
 
 interface ContractMaterials {
     interface View {

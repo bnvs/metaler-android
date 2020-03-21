@@ -1,12 +1,12 @@
-package com.example.metaler_android.Materials
+package com.example.metaler_android.materials
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
 import androidx.core.content.ContextCompat
-import com.example.metaler_android.ActivityDetail
-import com.example.metaler_android.ActivityHome
+import com.example.metaler_android.detail.ActivityDetail
+import com.example.metaler_android.home.ActivityHome
 import com.example.metaler_android.R
 import kotlinx.android.synthetic.main.activity_home.homeBtn
 import kotlinx.android.synthetic.main.activity_materials.*
