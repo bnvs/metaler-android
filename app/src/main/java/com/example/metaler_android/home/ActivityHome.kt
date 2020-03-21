@@ -36,7 +36,8 @@ class ActivityHome : AppCompatActivity(), ContractHome.View {
 
     private val materialsAdapter = HomePostAdapter("materials", ArrayList(0), itemListener)
     private val manufacturesAdapter = HomePostAdapter("manufactures", ArrayList(0), itemListener)
-    private val linearLayoutManager = LinearLayoutManager(this)
+    private val materialsLayoutManager = LinearLayoutManager(this)
+    private val manufacturesLayoutManager = LinearLayoutManager(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,13 +56,13 @@ class ActivityHome : AppCompatActivity(), ContractHome.View {
         // Set up materials recyclerView
         materialsRV.apply {
             adapter = materialsAdapter
-            layoutManager = linearLayoutManager
+            layoutManager = materialsLayoutManager
         }
 
         // Set up manufactures recyclerView
         manufactureRV.apply {
             adapter = manufacturesAdapter
-            layoutManager = linearLayoutManager
+            layoutManager = manufacturesLayoutManager
         }
 
         // Start to load profile and home posting data and show them
@@ -90,23 +91,6 @@ class ActivityHome : AppCompatActivity(), ContractHome.View {
     override fun onResume() {
         super.onResume()
         presenter.start()
-    }
-
-    //상태바 높이 계산
-    private fun statusBarHeight(context: Context): Int {
-        val resourceId = context.resources.getIdentifier("status_bar_height", "dimen", "android")
-
-        return if (resourceId > 0) context.resources.getDimensionPixelSize(resourceId)
-        else 0
-    }
-
-    //하단 소프트키 높이 구함
-    private fun softMenuHeight(context: Context): Int {
-        val resourceId = context.resources.getIdentifier("navigation_bar_height", "dimen", "android")
-
-        var deviceHeight : Int = 0
-        return if (resourceId > 0){ context.resources.getDimensionPixelSize(resourceId)
-        }else 0
     }
 
     override fun showProfile(profile: Profile) {
@@ -189,6 +173,23 @@ class ActivityHome : AppCompatActivity(), ContractHome.View {
             Intent.FLAG_ACTIVITY_REORDER_TO_FRONT
             Intent.FLAG_ACTIVITY_SINGLE_TOP
         }
+    }
+
+    //상태바 높이 계산
+    private fun statusBarHeight(context: Context): Int {
+        val resourceId = context.resources.getIdentifier("status_bar_height", "dimen", "android")
+
+        return if (resourceId > 0) context.resources.getDimensionPixelSize(resourceId)
+        else 0
+    }
+
+    //하단 소프트키 높이 구함
+    private fun softMenuHeight(context: Context): Int {
+        val resourceId = context.resources.getIdentifier("navigation_bar_height", "dimen", "android")
+
+        var deviceHeight : Int = 0
+        return if (resourceId > 0){ context.resources.getDimensionPixelSize(resourceId)
+        }else 0
     }
 
     /**
