@@ -1,11 +1,11 @@
 package com.example.metaler_android.data.profile.source
 
-import org.json.JSONObject
+import com.example.metaler_android.data.profile.Profile
 
 interface ProfileDataSource {
 
     interface LoadProfileCallback {
-        fun onProfileloaded(user: JSONObject)
+        fun onProfileloaded(profile: Profile)
         fun onFailure()
     }
 

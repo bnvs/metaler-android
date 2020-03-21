@@ -1,7 +1,11 @@
 package com.example.metaler_android.home
 
 import android.content.Context
+import com.example.metaler_android.data.homepost.HomePosts
+import com.example.metaler_android.data.homepost.source.HomePostDataSource
 import com.example.metaler_android.data.homepost.source.HomePostRepository
+import com.example.metaler_android.data.profile.Profile
+import com.example.metaler_android.data.profile.source.ProfileDataSource
 import com.example.metaler_android.data.profile.source.ProfileRepository
 
 class PresenterHome(context: Context, val view: ContractHome.View) : ContractHome.Presenter {
@@ -18,11 +22,20 @@ class PresenterHome(context: Context, val view: ContractHome.View) : ContractHom
     }
 
     override fun loadProfile() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        profileRepository.getProfile(object : ProfileDataSource.LoadProfileCallback {
+            override fun onProfileloaded(profile: Profile) {
+                view.showProfile(profile)
+            }
+
+            override fun onFailure() {
+
+            }
+
+        })
     }
 
     override fun loadHomePost() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        
     }
 
     override fun openMaterials() {
