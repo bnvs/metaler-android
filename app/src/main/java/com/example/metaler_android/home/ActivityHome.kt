@@ -105,22 +105,24 @@ class ActivityHome : AppCompatActivity(), ContractHome.View {
 
     // 재료 탭으로 이동한다
     override fun showMaterialsUi() {
-        val intent = Intent(this@ActivityHome, ActivityMaterials::class.java)
-        startActivity(intent)
+        Intent(this@ActivityHome, ActivityMaterials::class.java).also {
+            startActivity(it)
+        }
     }
 
     // 가공 탭으로 이동한다
     override fun showManufacturesUi() {
-        val intent = Intent(this@ActivityHome, ActivityManufactures::class.java)
-        startActivity(intent)
+        Intent(this@ActivityHome, ActivityManufactures::class.java).also {
+            startActivity(it)
+        }
     }
 
     // 게시물 상세 내용 액티비티로 이동한다
     override fun showPostDetailUi(postId: Int) {
-        val intent = Intent(this@ActivityHome, ActivityDetail::class.java).apply {
-            putExtra("postId", postId)
-        }
-        startActivity(intent)
+        Intent(this@ActivityHome, ActivityDetail::class.java)
+            .apply { putExtra("postId", postId) }
+            .also { startActivity(it) }
+        
         overridePendingTransition(0,0)
     }
 
