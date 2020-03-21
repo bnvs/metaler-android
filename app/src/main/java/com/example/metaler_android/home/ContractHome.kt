@@ -26,6 +26,8 @@ interface ContractHome {
         fun showPostDetailUi(postId: Int)
 
         fun setTapBarListener(context: Context)
+
+        fun setTransparentStatusBar()
     }
 
     interface Presenter : BasePresenter {
@@ -40,5 +42,7 @@ interface ContractHome {
         fun openPostDetail(postId: Int)
 
         fun setTapBar(context: Context)
+
+        fun setStatusBar()
     }
 }

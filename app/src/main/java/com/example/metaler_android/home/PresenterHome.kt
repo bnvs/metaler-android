@@ -29,7 +29,7 @@ class PresenterHome(context: Context, val view: ContractHome.View) : ContractHom
             }
 
             override fun onFailure() {
-                
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
             }
 
         })
@@ -63,5 +63,9 @@ class PresenterHome(context: Context, val view: ContractHome.View) : ContractHom
 
     override fun setTapBar(context: Context) {
         view.setTapBarListener(context)
+    }
+
+    override fun setStatusBar() {
+        view.setTransparentStatusBar()
     }
 }
