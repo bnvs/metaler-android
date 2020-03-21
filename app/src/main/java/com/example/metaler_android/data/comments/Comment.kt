@@ -1,4 +1,4 @@
-package com.example.metaler_android.data.comment
+package com.example.metaler_android.data.comments
 
 data class Comment(
     val comment_id: Int,

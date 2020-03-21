@@ -1,4 +1,4 @@
-package com.example.metaler_android.data.comment
+package com.example.metaler_android.data.comments
 
 /**
  * Categories 와 Manufactures, Bookmarks, 내가쓴 글 확인 탭에서

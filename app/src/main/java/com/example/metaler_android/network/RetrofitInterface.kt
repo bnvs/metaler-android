@@ -2,10 +2,10 @@ package com.example.metaler_android.network
 
 import com.example.metaler_android.data.bookmark.Bookmarks
 import com.example.metaler_android.data.bookmark.BookmarksRequest
-import com.example.metaler_android.data.comment.Comments
+import com.example.metaler_android.data.comments.Comments
 import com.example.metaler_android.data.homepost.HomePosts
 import com.example.metaler_android.data.categories.Categories
-import com.example.metaler_android.data.comment.CommentRequest
+import com.example.metaler_android.data.comments.CommentsRequest
 import com.example.metaler_android.data.job.Jobs
 import com.example.metaler_android.data.post.PostRequest
 import com.example.metaler_android.data.post.Posts
@@ -60,7 +60,7 @@ interface RetrofitInterface {
 
     @POST("/posts/{id}/comments")
     fun addComment(@Path("id") id: String,
-                   @Body commentRequest: CommentRequest)
+                   @Body commentRequest: CommentsRequest)
 
     @POST("/posts")
     fun addPost(@Body request: PostRequest): Call<JSONObject>
@@ -82,7 +82,7 @@ interface RetrofitInterface {
 
     @PUT("/comments/{id}")
     fun modifyComment(@Path("id") id: String,
-                      @Body request: CommentRequest)
+                      @Body request: CommentsRequest)
 
     @PUT("/posts/{id}")
     fun modifyPost(@Path("id") id: String,

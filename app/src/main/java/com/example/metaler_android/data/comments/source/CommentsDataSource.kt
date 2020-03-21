@@ -1,8 +1,8 @@
-package com.example.metaler_android.data.comment.source
+package com.example.metaler_android.data.comments.source
 
-import com.example.metaler_android.data.comment.Comments
+import com.example.metaler_android.data.comments.Comments
 
-interface CommentDataSource {
+interface CommentsDataSource {
    
     interface LoadCommentsCallback {
         fun onCommentsLoaded(comments: Comments)
