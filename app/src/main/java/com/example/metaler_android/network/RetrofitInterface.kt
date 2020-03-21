@@ -4,7 +4,7 @@ import com.example.metaler_android.data.bookmark.Bookmarks
 import com.example.metaler_android.data.bookmark.BookmarksRequest
 import com.example.metaler_android.data.comment.Comments
 import com.example.metaler_android.data.homepost.HomePosts
-import com.example.metaler_android.data.category.Categories
+import com.example.metaler_android.data.categories.Categories
 import com.example.metaler_android.data.comment.CommentRequest
 import com.example.metaler_android.data.job.Jobs
 import com.example.metaler_android.data.post.PostRequest

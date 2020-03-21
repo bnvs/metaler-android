@@ -1,8 +1,8 @@
-package com.example.metaler_android.data.category.source
+package com.example.metaler_android.data.categories.source
 
-import com.example.metaler_android.data.category.Categories
+import com.example.metaler_android.data.categories.Categories
 
-interface CategoryDataSource {
+interface CategoriesDataSource {
 
     interface LoadCategoriesCallback {
         fun onMaterialsLoaded(materials: Categories)

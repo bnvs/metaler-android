@@ -1,4 +1,4 @@
-package com.example.metaler_android.data.category
+package com.example.metaler_android.data.categories
 
 data class Category(
     val category_id: Int,
