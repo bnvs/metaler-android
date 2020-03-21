@@ -22,6 +22,22 @@ class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
 
     override lateinit var presenter: ContractManufactures.Presenter
 
+    /**
+     * 가공 탭에서 보여지는 가공 게시물 리사이클러뷰 아이템에 달아줄 클릭리스너입니다
+     * onPostClick -> 게시물을 클릭한 경우
+     * onBookmarkButtonClick -> 북마크 버튼을 클릭한 경우
+     * */
+    private var itemListener: PostItemListener = object : PostItemListener {
+        override fun onPostClick(clickedPostId: Int) {
+            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        }
+
+        override fun onBookmarkButtonClick(clickedPostId: Int) {
+            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        }
+
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_manufacture)
