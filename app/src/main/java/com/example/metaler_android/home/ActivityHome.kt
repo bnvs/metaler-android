@@ -177,17 +177,25 @@ class ActivityHome : AppCompatActivity(), ContractHome.View {
             private var view: View = itemView
 
             fun bind(item: HomePost) {
+
+                var tags = ""
+                for (tag in item.tags) {
+                    tags += " #$tag"
+                }
+
                 when(postType) {
                     "materials" -> {
                         view.materialsTitle.text = item.title
                         view.materialsUserName.text = item.nickname
                         view.materialsDate.text = item.date
+                        view.materialsTag.text = tags
                         view.setOnClickListener { itemListener.onHomePostClick(item.post_id) }
                     }
                     "manufactures" -> {
                         view.manufactureTitle.text = item.title
                         view.manufactureUserName.text = item.nickname
                         view.manufactureDate.text = item.date
+                        view.manufactureTag.text = tags
                         view.setOnClickListener { itemListener.onHomePostClick(item.post_id) }
                     }
                 }
