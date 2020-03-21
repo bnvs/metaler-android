@@ -7,6 +7,8 @@ import com.example.metaler_android.R
 
 class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
 
+    val TAG = "ActivityManufactures"
+
     override lateinit var presenter: ContractManufactures.Presenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
