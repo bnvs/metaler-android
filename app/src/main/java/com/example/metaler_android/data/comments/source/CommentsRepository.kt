@@ -1,6 +1,14 @@
 package com.example.metaler_android.data.comments.source
 
-class CommentsRepository : CommentsDataSource{
+import android.content.Context
+import com.example.metaler_android.data.comments.source.local.CommentsLocalDataSource
+import com.example.metaler_android.data.comments.source.remote.CommentsRemoteDataSource
+
+class CommentsRepository(context: Context) : CommentsDataSource{
+
+    val commentsLocalDataSource = CommentsLocalDataSource(context)
+    val commentsRemoteDataSource = CommentsRemoteDataSource
+
     override fun getComments(callback: CommentsDataSource.LoadCommentsCallback) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
