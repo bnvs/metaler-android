@@ -124,7 +124,11 @@ class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
                 view.date.text = item.date
                 view.dislikeNum.text = item.dis_like.toString()
                 view.likeNum.text = item.like.toString()
-                view.bookmarkBtn
+
+                if (item.is_bookmark) {
+                    view.bookmarkBtn.setImageResource(R.drawable.ic_list_bookmark_active_x3)
+                }
+
                 // view.tagRV.text = tags
                 view.img
             }
