@@ -101,7 +101,7 @@ class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
         }
 
         override fun getItemCount(): Int {
-            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            return posts.size
         }
 
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
