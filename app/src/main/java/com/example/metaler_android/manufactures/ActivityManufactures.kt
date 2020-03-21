@@ -33,13 +33,21 @@ class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
             presenter.openPostDetail(clickedPostId)
         }
 
-        override fun onBookmarkButtonClick(clickedPostId: Int, view: View, post: Post) {
-            if (!post.is_bookmark) {
+        override fun onBookmarkButtonClick(clickedPostId: Int, view: View, isBookmark: Boolean, position: Int) {
+            if (!isBookmark) {
                 view.bookmarkBtn.setImageResource(R.drawable.ic_list_bookmark_active_x3)
                 presenter.addBookmark()
+                postAdapter.apply {
+                    setBookmark(position)
+                    notifyDataSetChanged()
+                }
             }else {
                 view.bookmarkBtn.setImageResource(R.drawable.ic_list_bookmark_inactive_x3)
                 presenter.deleteBookmark()
+                postAdapter.apply {
+                    setBookmark(position)
+                    notifyDataSetChanged()
+                }
             }
         }
 
@@ -145,6 +153,10 @@ class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
             this.posts = list
         }
 
+        fun setBookmark(position: Int) {
+            posts[position].is_bookmark = !posts[position].is_bookmark
+        }
+
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
             val inflatedView = LayoutInflater.from(parent.context)
                 .inflate(R.layout.item_posts_rv, parent, false)
@@ -156,13 +168,13 @@ class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
         }
 
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-            holder.bind(posts[position])
+            holder.bind(posts[position], position)
         }
 
         inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             private var view: View = itemView
 
-            fun bind(item: Post) {
+            fun bind(item: Post, position: Int) {
 
                 var tags = ""
                 for (tag in item.tags) {
@@ -177,7 +189,9 @@ class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
                     dislikeNum.text = item.dis_like.toString()
                     likeNum.text = item.like.toString()
                     setOnClickListener { itemListener.onPostClick(item.post_id) }
-                    bookmarkBtn.setOnClickListener { itemListener.onBookmarkButtonClick(item.post_id, view, item) }
+                    bookmarkBtn.setOnClickListener {
+                        itemListener.onBookmarkButtonClick(item.post_id, view, item.is_bookmark, position)
+                    }
                     if (item.is_bookmark) {
                         bookmarkBtn.setImageResource(R.drawable.ic_list_bookmark_active_x3)
                     }
@@ -193,6 +207,6 @@ class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
     private interface PostItemListener {
         fun onPostClick(clickedPostId: Int)
 
-        fun onBookmarkButtonClick(clickedPostId: Int, view: View, post: Post)
+        fun onBookmarkButtonClick(clickedPostId: Int, view: View, isBookmark: Boolean, position: Int)
     }
 }

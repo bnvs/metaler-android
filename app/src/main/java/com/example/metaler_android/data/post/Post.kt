@@ -14,5 +14,5 @@ data class Post(
     val attach_url: String,
     val like: Int,
     val dis_like: Int,
-    val is_bookmark: Boolean
+    var is_bookmark: Boolean
 )
