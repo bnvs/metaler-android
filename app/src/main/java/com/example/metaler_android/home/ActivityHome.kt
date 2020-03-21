@@ -99,7 +99,7 @@ class ActivityHome : AppCompatActivity(), ContractHome.View {
         startActivity(intent)
     }
 
-    fun addFlags(intent: Intent) {
+    private fun addFlags(intent: Intent) {
         intent.flags.apply {
             Intent.FLAG_ACTIVITY_NO_ANIMATION
             Intent.FLAG_ACTIVITY_REORDER_TO_FRONT
