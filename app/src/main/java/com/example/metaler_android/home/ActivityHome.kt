@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.*
 import com.example.metaler_android.materials.ActivityMaterials
 import com.example.metaler_android.R
+import com.example.metaler_android.manufactures.ActivityManufactures
 import kotlinx.android.synthetic.main.activity_home.*
 
 class ActivityHome : AppCompatActivity(), ContractHome.View {
@@ -78,11 +79,23 @@ class ActivityHome : AppCompatActivity(), ContractHome.View {
     }
 
     override fun showMaterialsUi() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val intent = Intent(this@ActivityHome, ActivityMaterials::class.java)
+        intent.flags.apply {
+            Intent.FLAG_ACTIVITY_NO_ANIMATION
+            Intent.FLAG_ACTIVITY_REORDER_TO_FRONT
+            Intent.FLAG_ACTIVITY_SINGLE_TOP
+        }
+        startActivity(intent)
     }
 
     override fun showManufacturesUi() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val intent = Intent(this@ActivityHome, ActivityManufactures::class.java)
+        intent.flags.apply {
+            Intent.FLAG_ACTIVITY_NO_ANIMATION
+            Intent.FLAG_ACTIVITY_REORDER_TO_FRONT
+            Intent.FLAG_ACTIVITY_SINGLE_TOP
+        }
+        startActivity(intent)
     }
 
     override fun showPostDetailUi() {
