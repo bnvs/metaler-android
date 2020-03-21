@@ -241,18 +241,22 @@ class ActivityHome : AppCompatActivity(), ContractHome.View {
 
                 when(postType) {
                     "materials" -> {
-                        view.materialsTitle.text = item.title
-                        view.materialsUserName.text = item.nickname
-                        view.materialsDate.text = item.date
-                        view.materialsTag.text = tags
-                        view.setOnClickListener { itemListener.onHomePostClick(item.post_id) }
+                        view.apply {
+                            materialsTitle.text = item.title
+                            materialsUserName.text = item.nickname
+                            materialsDate.text = item.date
+                            materialsTag.text = tags
+                            setOnClickListener { itemListener.onHomePostClick(item.post_id) }
+                        }
                     }
                     "manufactures" -> {
-                        view.manufactureTitle.text = item.title
-                        view.manufactureUserName.text = item.nickname
-                        view.manufactureDate.text = item.date
-                        view.manufactureTag.text = tags
-                        view.setOnClickListener { itemListener.onHomePostClick(item.post_id) }
+                        view.apply {
+                            manufactureTitle.text = item.title
+                            manufactureUserName.text = item.nickname
+                            manufactureDate.text = item.date
+                            manufactureTag.text = tags
+                            setOnClickListener { itemListener.onHomePostClick(item.post_id) }
+                        }
                     }
                 }
             }
