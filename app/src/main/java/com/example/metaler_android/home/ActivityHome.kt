@@ -180,7 +180,7 @@ class ActivityHome : AppCompatActivity(), ContractHome.View {
 
                 var tags = ""
                 for (tag in item.tags) {
-                    tags += " #$tag"
+                    tags += "#$tag "
                 }
 
                 when(postType) {
