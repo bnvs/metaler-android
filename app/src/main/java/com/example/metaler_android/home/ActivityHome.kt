@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.*
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.metaler_android.materials.ActivityMaterials
 import com.example.metaler_android.R
 import com.example.metaler_android.data.homepost.HomePost
@@ -82,6 +83,9 @@ class ActivityHome : AppCompatActivity(), ContractHome.View {
     }
 
     override fun showProfile(profile: Profile) {
+        Glide.with(this@ActivityHome)
+            .load(profile.profile_image_url)
+            .into(profileImg)
         profileNickname.text = profile.profile_nickname
         profileEmail.text = profile.profile_email
     }
