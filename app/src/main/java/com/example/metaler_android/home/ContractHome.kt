@@ -3,6 +3,7 @@ package com.example.metaler_android.home
 import com.example.metaler_android.BasePresenter
 import com.example.metaler_android.BaseView
 import com.example.metaler_android.data.homepost.HomePost
+import com.example.metaler_android.data.profile.Profile
 
 /**
  * Contract interface 는
@@ -11,7 +12,7 @@ import com.example.metaler_android.data.homepost.HomePost
 
 interface ContractHome {
     interface View : BaseView<Presenter> {
-        fun showProfile()
+        fun showProfile(profile: Profile)
 
         fun showMaterialsList(materials: List<HomePost>)
 

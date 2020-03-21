@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.metaler_android.materials.ActivityMaterials
 import com.example.metaler_android.R
 import com.example.metaler_android.data.homepost.HomePost
+import com.example.metaler_android.data.profile.Profile
 import com.example.metaler_android.detail.ActivityDetail
 import com.example.metaler_android.manufactures.ActivityManufactures
 import kotlinx.android.synthetic.main.activity_home.*
@@ -45,7 +46,7 @@ class ActivityHome : AppCompatActivity(), ContractHome.View {
             adapter = materialsAdapter
             layoutManager = linearLayoutManager
         }
-        
+
         // Set up manufactures recyclerView
         manufactureRV.apply {
             adapter = manufacturesAdapter
@@ -91,8 +92,9 @@ class ActivityHome : AppCompatActivity(), ContractHome.View {
         }else 0
     }
 
-    override fun showProfile() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun showProfile(profile: Profile) {
+        profileNickname.text = profile.profile_nickname
+        profileEmail.text = profile.profile_email
     }
 
     override fun showMaterialsList(materials: List<HomePost>) {
