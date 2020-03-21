@@ -105,7 +105,7 @@ class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
         }
 
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            holder.bind()
         }
 
         inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
