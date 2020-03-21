@@ -21,6 +21,10 @@ interface ContractMaterials {
 
         fun showSearchTags()
 
+        fun clearSearchTagBar()
+
+        fun deleteSearchTag()
+
         fun setTapBarListener(context: Context)
     }
 
@@ -31,9 +35,17 @@ interface ContractMaterials {
 
         fun openPostDetail()
 
+        fun addBookmark(postId: Int)
+
+        fun deleteBookmark(postId: Int)
+
         fun openSearch()
 
-        fun searchTag()
+        fun addSearchTag()
+
+        fun clearSearchTagBar()
+
+        fun deleteSearchTag()
 
         fun setTapBar(context: Context)
     }

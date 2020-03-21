@@ -22,7 +22,10 @@ class ActivityMaterials : AppCompatActivity(), ContractMaterials.View {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_materials)
 
-        presenter = PresenterMaterials()
+        presenter = PresenterMaterials(
+            this@ActivityMaterials,
+            this@ActivityMaterials
+        )
 
         //탭바의 각 버튼에 맞는 액티비티로 이동하는 클릭 리스너
         homeBtn.setOnClickListener {
@@ -100,6 +103,14 @@ class ActivityMaterials : AppCompatActivity(), ContractMaterials.View {
     }
 
     override fun showSearchTags() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun clearSearchTagBar() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun deleteSearchTag() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 

@@ -122,7 +122,7 @@ class ActivityHome : AppCompatActivity(), ContractHome.View {
         Intent(this@ActivityHome, ActivityDetail::class.java)
             .apply { putExtra("postId", postId) }
             .also { startActivity(it) }
-        
+
         overridePendingTransition(0,0)
     }
 

@@ -24,11 +24,27 @@ class PresenterMaterials(context: Context, val view: ContractMaterials.View) : C
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
+    override fun addBookmark(postId: Int) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun deleteBookmark(postId: Int) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     override fun openSearch() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun searchTag() {
+    override fun addSearchTag() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun clearSearchTagBar() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun deleteSearchTag() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
