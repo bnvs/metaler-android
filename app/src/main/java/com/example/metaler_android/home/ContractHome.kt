@@ -1,5 +1,6 @@
 package com.example.metaler_android.home
 
+import android.content.Context
 import com.example.metaler_android.BasePresenter
 import com.example.metaler_android.BaseView
 import com.example.metaler_android.data.homepost.HomePost
@@ -23,6 +24,8 @@ interface ContractHome {
         fun showManufacturesUi()
 
         fun showPostDetailUi(postId: Int)
+
+        fun setTapBarListener(context: Context)
     }
 
     interface Presenter : BasePresenter {
@@ -35,5 +38,7 @@ interface ContractHome {
         fun openManufactures()
 
         fun openPostDetail(postId: Int)
+
+        fun setTapBar(context: Context)
     }
 }

@@ -60,4 +60,8 @@ class PresenterHome(context: Context, val view: ContractHome.View) : ContractHom
     override fun openPostDetail(postId: Int) {
         view.showPostDetailUi(postId)
     }
+
+    override fun setTapBar(context: Context) {
+        view.setTapBarListener(context)
+    }
 }
