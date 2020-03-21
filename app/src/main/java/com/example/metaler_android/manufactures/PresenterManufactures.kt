@@ -12,7 +12,7 @@ class PresenterManufactures(context: Context, val view: ContractManufactures.Vie
     }
 
     override fun start() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        loadPosts()
     }
 
     override fun loadPosts() {
