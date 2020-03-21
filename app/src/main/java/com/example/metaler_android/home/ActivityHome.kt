@@ -64,6 +64,9 @@ class ActivityHome : AppCompatActivity(), ContractHome.View {
             layoutManager = linearLayoutManager
         }
 
+        // Start to load profile and home posting data and show them
+        presenter.start()
+
         //상태바 투명하게 바꾸는 코드 => 대신 해당 상태바 위치에 뷰가 위치할수있음
         //상태바 뿐만 아니라 하단 소프트 버튼에도 영향끼침.. 상태바에도 뷰가 겹쳐버리는 문제발
         window.setFlags(
@@ -84,6 +87,11 @@ class ActivityHome : AppCompatActivity(), ContractHome.View {
             startActivity(goToMaterials)
         }
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        presenter.start()
     }
 
     //상태바 높이 계산
