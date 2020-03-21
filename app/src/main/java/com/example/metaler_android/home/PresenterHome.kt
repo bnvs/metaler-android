@@ -1,6 +1,11 @@
 package com.example.metaler_android.home
 
-class PresenterHome : ContractHome.Presenter {
+import com.example.metaler_android.data.homepost.source.HomePostRepository
+
+class PresenterHome(
+        private val homePostRepository: HomePostRepository,
+        private val view: ContractHome.View)
+    : ContractHome.Presenter {
 
     override fun start() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.

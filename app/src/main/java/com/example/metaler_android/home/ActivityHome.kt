@@ -8,17 +8,23 @@ import android.util.Log
 import android.view.*
 import com.example.metaler_android.materials.ActivityMaterials
 import com.example.metaler_android.R
+import com.example.metaler_android.data.homepost.source.HomePostRepository
 import kotlinx.android.synthetic.main.activity_home.*
 
 class ActivityHome : AppCompatActivity(), ContractHome.View {
 
     val TAG = "ActivityHome"
 
-    override var presenter: ContractHome.Presenter = PresenterHome()
+    override lateinit var presenter: ContractHome.Presenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
+
+        // Create the presenter
+        presenter = PresenterHome(
+            HomePostRepository,
+            this@ActivityHome)
 
         //상태바 투명하게 바꾸는 코드 => 대신 해당 상태바 위치에 뷰가 위치할수있음
         //상태바 뿐만 아니라 하단 소프트 버튼에도 영향끼침.. 상태바에도 뷰가 겹쳐버리는 문제발
