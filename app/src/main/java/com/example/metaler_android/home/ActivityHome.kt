@@ -1,13 +1,13 @@
-package com.example.metaler_android
+package com.example.metaler_android.home
 
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.util.TypedValue
 import android.view.*
-import android.widget.LinearLayout
+import com.example.metaler_android.materials.ActivityMaterials
+import com.example.metaler_android.R
 import kotlinx.android.synthetic.main.activity_home.*
 
 class ActivityHome : AppCompatActivity() {
