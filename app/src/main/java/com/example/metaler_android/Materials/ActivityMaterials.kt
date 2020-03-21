@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import com.example.metaler_android.ActivityDetail
 import com.example.metaler_android.ActivityHome
 import com.example.metaler_android.R
 import kotlinx.android.synthetic.main.activity_home.homeBtn
@@ -43,6 +44,11 @@ class ActivityMaterials : AppCompatActivity(), ContractMaterials.View {
         stainlessBtn.setOnClickListener {
             inactiveCategoryBtn()
             activeCategoryBtn(stainlessBtn)
+
+            //상세페이지 레이아웃보려고 테스트용으로 추가함
+            val goToDetail = Intent(this, ActivityDetail::class.java)
+            startActivity(goToDetail)
+
         }
         aluminiumBtn.setOnClickListener {
             inactiveCategoryBtn()
