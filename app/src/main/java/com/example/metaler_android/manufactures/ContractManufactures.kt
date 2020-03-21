@@ -3,6 +3,7 @@ package com.example.metaler_android.manufactures
 import android.content.Context
 import com.example.metaler_android.BasePresenter
 import com.example.metaler_android.BaseView
+import com.example.metaler_android.data.post.Post
 
 /**
  * Contract interface 는
@@ -11,7 +12,7 @@ import com.example.metaler_android.BaseView
 
 interface ContractManufactures {
     interface View : BaseView<Presenter> {
-        fun showPosts()
+        fun showPosts(posts: List<Post>)
 
         fun showPostDetailUi()
 

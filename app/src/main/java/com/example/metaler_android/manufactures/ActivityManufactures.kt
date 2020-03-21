@@ -81,8 +81,8 @@ class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
 
     }
 
-    override fun showPosts() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun showPosts(posts: List<Post>) {
+        postAdapter.setPosts(posts)
     }
 
     override fun showPostDetailUi() {
