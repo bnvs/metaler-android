@@ -13,6 +13,7 @@ import com.example.metaler_android.data.post.Post
 import com.example.metaler_android.home.ActivityHome
 import com.example.metaler_android.materials.ActivityMaterials
 import kotlinx.android.synthetic.main.activity_manufacture.*
+import kotlinx.android.synthetic.main.item_posts_rv.view.*
 
 class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
 
@@ -109,8 +110,23 @@ class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
         }
 
         inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+            private var view: View = itemView
+
             fun bind(item: Post) {
 
+                var tags = ""
+                for (tag in item.tags) {
+                    tags += "#$tag "
+                }
+
+                view.title.text = item.title
+                view.userName.text = item.nickname
+                view.date.text = item.date
+                view.dislikeNum.text = item.dis_like.toString()
+                view.likeNum.text = item.like.toString()
+                view.bookmarkBtn
+                // view.tagRV.text = tags
+                view.img
             }
         }
 
