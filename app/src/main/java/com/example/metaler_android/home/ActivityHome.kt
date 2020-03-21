@@ -6,11 +6,15 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import androidx.recyclerview.widget.RecyclerView
 import com.example.metaler_android.materials.ActivityMaterials
 import com.example.metaler_android.R
+import com.example.metaler_android.data.homepost.HomePost
 import com.example.metaler_android.detail.ActivityDetail
 import com.example.metaler_android.manufactures.ActivityManufactures
 import kotlinx.android.synthetic.main.activity_home.*
+import kotlinx.android.synthetic.main.item_home_manufacture_rv.view.*
+import kotlinx.android.synthetic.main.item_home_materials_rv.view.*
 
 class ActivityHome : AppCompatActivity(), ContractHome.View {
 
@@ -75,11 +79,11 @@ class ActivityHome : AppCompatActivity(), ContractHome.View {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun showMaterialsList() {
+    override fun showMaterialsList(materials: List<HomePost>) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun showManufacturesList() {
+    override fun showManufacturesList(manufactures: List<HomePost>) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
@@ -110,6 +114,54 @@ class ActivityHome : AppCompatActivity(), ContractHome.View {
             Intent.FLAG_ACTIVITY_NO_ANIMATION
             Intent.FLAG_ACTIVITY_REORDER_TO_FRONT
             Intent.FLAG_ACTIVITY_SINGLE_TOP
+        }
+    }
+
+    private class HomePostAdapter(
+        val postType: String,
+        val homePosts: List<HomePost>
+    ) : RecyclerView.Adapter<HomePostAdapter.ViewHolder>() {
+
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+            lateinit var inflatedView: View
+            when(postType) {
+                "materials" -> {
+                    inflatedView = LayoutInflater.from(parent.context)
+                    .inflate(R.layout.item_home_materials_rv, parent, false)
+                }
+                "manufactures" -> {
+                    inflatedView = LayoutInflater.from(parent.context)
+                        .inflate(R.layout.item_home_manufacture_rv, parent, false)
+                }
+            }
+            return ViewHolder(inflatedView)
+        }
+
+        override fun getItemCount(): Int {
+            return homePosts.size
+        }
+
+        override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+            holder.bind(homePosts[position])
+        }
+
+        inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+            private var view: View = itemView
+
+            fun bind(item: HomePost) {
+                when(postType) {
+                    "materials" -> {
+                        view.materialsTitle.text = item.title
+                        view.materialsUserName.text = item.nickname
+                        view.materialsDate.text = item.date
+                    }
+                    "manufactures" -> {
+                        view.manufactureTitle.text = item.title
+                        view.manufactureUserName.text = item.nickname
+                        view.manufactureDate.text = item.date
+                    }
+                }
+            }
         }
     }
 

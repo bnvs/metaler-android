@@ -2,6 +2,7 @@ package com.example.metaler_android.home
 
 import com.example.metaler_android.BasePresenter
 import com.example.metaler_android.BaseView
+import com.example.metaler_android.data.homepost.HomePost
 
 /**
  * Contract interface 는
@@ -12,9 +13,9 @@ interface ContractHome {
     interface View : BaseView<Presenter> {
         fun showProfile()
 
-        fun showMaterialsList()
+        fun showMaterialsList(materials: List<HomePost>)
 
-        fun showManufacturesList()
+        fun showManufacturesList(manufactures: List<HomePost>)
 
         fun showMaterialsUi()
 
