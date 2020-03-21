@@ -255,7 +255,7 @@ class ActivityHome : AppCompatActivity(), ContractHome.View {
         }
     }
 
-    interface HomePostItemListener {
+    private interface HomePostItemListener {
         fun onHomePostClick(clickedHomePostId: Int)
     }
 
