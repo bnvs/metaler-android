@@ -14,6 +14,8 @@ import kotlinx.android.synthetic.main.activity_materials.*
 
 class ActivityMaterials : AppCompatActivity(), ContractMaterials.View {
 
+    val TAG = "ActivityMaterials"
+
     override lateinit var presenter: ContractMaterials.Presenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
