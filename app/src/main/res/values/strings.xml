@@ -1,6 +1,14 @@
 <resources>
     <string name="app_name">metaler-android</string>
 
+    <!--  titleBarCard,tabBarCard 에서 쓰이는 문자열  -->
+    <string name="home">홈</string>
+    <string name="materials">재료</string>
+    <string name="manufactures">가공</string>
+    <string name="bookmark">북마크</string>
+    <string name="my_page">마이페이지</string>
+    
+
     <!--  activity_post_first.xml에서 쓰이는 문자열  -->
     <string name="next">다음</string>
     <string name="category">카테고리</string>
@@ -37,4 +45,14 @@
     <string name="comment_num_guide">댓글 수</string>
     <string name="comment_input_guide">댓글을 입력해주세요.</string>
     <string name="register">등록</string>
+    
+
+    <!--  activity_my_page.xml에서 쓰이는 문자열  -->
+    <string name="nickname_modify">별명 변경</string>
+    <string name="job_modify">소속 변경</string>
+    <string name="my_posts">내가 쓴 글 확인</string>
+    <string name="terms">이용약관 확인</string>
+    <string name="logout">로그아웃</string>
+    <string name="withdrawal">회원 탈퇴</string>
+
 </resources>
