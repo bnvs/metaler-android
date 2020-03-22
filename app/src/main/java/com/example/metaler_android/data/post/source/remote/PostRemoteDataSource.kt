@@ -10,7 +10,8 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class PostRemoteDataSource : PostDataSource{
+object PostRemoteDataSource : PostDataSource{
+
     private val retrofitClient = RetrofitClient.client
 
     // 임시로 작성한 매개변수

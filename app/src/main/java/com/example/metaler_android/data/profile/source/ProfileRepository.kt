@@ -6,8 +6,8 @@ import com.example.metaler_android.data.profile.source.remote.ProfileRemoteDataS
 
 class ProfileRepository (context: Context) : ProfileDataSource {
 
-    val profileRemoteDataSource = ProfileRemoteDataSource
-    val profileLocalDataSource = ProfileLocalDataSource(context)
+    private val profileRemoteDataSource = ProfileRemoteDataSource
+    private val profileLocalDataSource = ProfileLocalDataSource(context)
 
     override fun getProfile(callback: ProfileDataSource.LoadProfileCallback) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.

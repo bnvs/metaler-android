@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.metaler_android.materials.ActivityMaterials
 import com.example.metaler_android.R
-import com.example.metaler_android.data.homepost.HomePost
+import com.example.metaler_android.data.homeposts.HomePost
 import com.example.metaler_android.data.profile.Profile
 import com.example.metaler_android.detail.ActivityDetail
 import com.example.metaler_android.manufactures.ActivityManufactures
@@ -21,7 +21,7 @@ import kotlinx.android.synthetic.main.item_home_materials_rv.view.*
 
 class ActivityHome : AppCompatActivity(), ContractHome.View {
 
-    val TAG = "ActivityHome"
+    private val TAG = "ActivityHome"
 
     override lateinit var presenter: ContractHome.Presenter
 
@@ -93,34 +93,36 @@ class ActivityHome : AppCompatActivity(), ContractHome.View {
 
     // 재료 리사이클러뷰를 보여준다
     override fun showMaterialsList(materials: List<HomePost>) {
-        materialsAdapter.homePosts = materials
+        materialsAdapter.setHomePosts(materials)
         materialsAdapter.notifyDataSetChanged()
     }
 
     // 가공 리사이클러뷰를 보여준다
     override fun showManufacturesList(manufactures: List<HomePost>) {
-        manufacturesAdapter.homePosts = manufactures
+        manufacturesAdapter.setHomePosts(manufactures)
         materialsAdapter.notifyDataSetChanged()
     }
 
     // 재료 탭으로 이동한다
     override fun showMaterialsUi() {
-        val intent = Intent(this@ActivityHome, ActivityMaterials::class.java)
-        startActivity(intent)
+        Intent(this@ActivityHome, ActivityMaterials::class.java).also {
+            startActivity(it)
+        }
     }
 
     // 가공 탭으로 이동한다
     override fun showManufacturesUi() {
-        val intent = Intent(this@ActivityHome, ActivityManufactures::class.java)
-        startActivity(intent)
+        Intent(this@ActivityHome, ActivityManufactures::class.java).also {
+            startActivity(it)
+        }
     }
 
     // 게시물 상세 내용 액티비티로 이동한다
     override fun showPostDetailUi(postId: Int) {
-        val intent = Intent(this@ActivityHome, ActivityDetail::class.java).apply {
-            putExtra("postId", postId)
-        }
-        startActivity(intent)
+        Intent(this@ActivityHome, ActivityDetail::class.java)
+            .apply { putExtra("postId", postId) }
+            .also { startActivity(it) }
+
         overridePendingTransition(0,0)
     }
 
@@ -198,9 +200,13 @@ class ActivityHome : AppCompatActivity(), ContractHome.View {
      * */
     private class HomePostAdapter(
         private val postType: String,
-        var homePosts: List<HomePost>,
+        private var homePosts: List<HomePost>,
         private val itemListener: HomePostItemListener
     ) : RecyclerView.Adapter<HomePostAdapter.ViewHolder>() {
+
+        fun setHomePosts(list: List<HomePost>) {
+            this.homePosts = list
+        }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
             lateinit var inflatedView: View
@@ -237,25 +243,29 @@ class ActivityHome : AppCompatActivity(), ContractHome.View {
 
                 when(postType) {
                     "materials" -> {
-                        view.materialsTitle.text = item.title
-                        view.materialsUserName.text = item.nickname
-                        view.materialsDate.text = item.date
-                        view.materialsTag.text = tags
-                        view.setOnClickListener { itemListener.onHomePostClick(item.post_id) }
+                        view.apply {
+                            materialsTitle.text = item.title
+                            materialsUserName.text = item.nickname
+                            materialsDate.text = item.date
+                            materialsTag.text = tags
+                            setOnClickListener { itemListener.onHomePostClick(item.post_id) }
+                        }
                     }
                     "manufactures" -> {
-                        view.manufactureTitle.text = item.title
-                        view.manufactureUserName.text = item.nickname
-                        view.manufactureDate.text = item.date
-                        view.manufactureTag.text = tags
-                        view.setOnClickListener { itemListener.onHomePostClick(item.post_id) }
+                        view.apply {
+                            manufactureTitle.text = item.title
+                            manufactureUserName.text = item.nickname
+                            manufactureDate.text = item.date
+                            manufactureTag.text = tags
+                            setOnClickListener { itemListener.onHomePostClick(item.post_id) }
+                        }
                     }
                 }
             }
         }
     }
 
-    interface HomePostItemListener {
+    private interface HomePostItemListener {
         fun onHomePostClick(clickedHomePostId: Int)
     }
 

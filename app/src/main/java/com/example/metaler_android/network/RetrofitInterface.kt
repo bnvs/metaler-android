@@ -1,17 +1,17 @@
 package com.example.metaler_android.network
 
-import com.example.metaler_android.data.bookmark.Bookmarks
-import com.example.metaler_android.data.bookmark.BookmarksRequest
-import com.example.metaler_android.data.comment.Comments
-import com.example.metaler_android.data.homepost.HomePosts
-import com.example.metaler_android.data.category.Categories
-import com.example.metaler_android.data.comment.CommentRequest
+import com.example.metaler_android.data.bookmarks.Bookmarks
+import com.example.metaler_android.data.bookmarks.BookmarksRequest
+import com.example.metaler_android.data.comments.Comments
+import com.example.metaler_android.data.homeposts.HomePosts
+import com.example.metaler_android.data.categories.Categories
+import com.example.metaler_android.data.comments.CommentsRequest
 import com.example.metaler_android.data.job.Jobs
 import com.example.metaler_android.data.post.PostRequest
 import com.example.metaler_android.data.post.Posts
 import com.example.metaler_android.data.post.PostsRequest
 import com.example.metaler_android.data.post.UserPostsRequest
-import com.example.metaler_android.data.postdetail.PostDetails
+import com.example.metaler_android.data.postdetails.PostDetails
 import com.example.metaler_android.data.user.DeleteUserRequest
 import com.example.metaler_android.data.user.NicknameRequest
 import com.example.metaler_android.data.user.User
@@ -60,7 +60,7 @@ interface RetrofitInterface {
 
     @POST("/posts/{id}/comments")
     fun addComment(@Path("id") id: String,
-                   @Body commentRequest: CommentRequest)
+                   @Body commentRequest: CommentsRequest)
 
     @POST("/posts")
     fun addPost(@Body request: PostRequest): Call<JSONObject>
@@ -82,7 +82,7 @@ interface RetrofitInterface {
 
     @PUT("/comments/{id}")
     fun modifyComment(@Path("id") id: String,
-                      @Body request: CommentRequest)
+                      @Body request: CommentsRequest)
 
     @PUT("/posts/{id}")
     fun modifyPost(@Path("id") id: String,

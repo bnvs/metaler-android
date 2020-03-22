@@ -1,17 +1,13 @@
 package com.example.metaler_android.home
 
 import android.content.Context
-import com.example.metaler_android.data.homepost.HomePosts
-import com.example.metaler_android.data.homepost.source.HomePostDataSource
-import com.example.metaler_android.data.homepost.source.HomePostRepository
-import com.example.metaler_android.data.profile.Profile
-import com.example.metaler_android.data.profile.source.ProfileDataSource
+import com.example.metaler_android.data.homeposts.source.HomePostsRepository
 import com.example.metaler_android.data.profile.source.ProfileRepository
 
 class PresenterHome(context: Context, val view: ContractHome.View) : ContractHome.Presenter {
 
     private val profileRepository: ProfileRepository = ProfileRepository(context)
-    private val homePostRepository: HomePostRepository = HomePostRepository(context)
+    private val homePostRepository: HomePostsRepository = HomePostsRepository(context)
 
     init {
         view.presenter = this
@@ -36,7 +32,7 @@ class PresenterHome(context: Context, val view: ContractHome.View) : ContractHom
     }
 
     override fun loadHomePost() {
-        /*homePostRepository.getHomePosts(object : HomePostDataSource.LoadHomePostsCallback {
+        /*homePostRepository.getHomePosts(object : HomePostsDataSource.LoadHomePostsCallback {
             override fun onHomePostsLoaded(homePosts: HomePosts) {
                 view.showMaterialsList(homePosts.materials)
                 view.showManufacturesList(homePosts.manufactures)
