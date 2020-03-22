@@ -8,11 +8,11 @@ package com.example.metaler_android.data.post
 data class Post(
     val post_id: Int,
     val title: String,
-    val nickname: Int,
+    val nickname: String,
     val date: String,
     val tags: List<String>,
     val attach_url: String,
     val like: Int,
     val dis_like: Int,
-    val is_bookmark: Boolean
+    var is_bookmark: Boolean
 )

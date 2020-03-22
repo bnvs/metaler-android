@@ -15,11 +15,11 @@
         <activity android:name=".postfirst.ActivityPostFirst" />
         <activity android:name=".manufactures.ActivityManufactures" />
         <activity android:name=".detail.ActivityDetail" />
-        <activity android:name=".materials.ActivityMaterials" />
-        <activity android:name=".home.ActivityHome">
+        <activity android:name=".materials.ActivityMaterials"/>
+        <activity android:name=".home.ActivityHome"
+            android:launchMode="singleInstance">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
