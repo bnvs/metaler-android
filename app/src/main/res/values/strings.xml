@@ -7,7 +7,7 @@
     <string name="manufactures">가공</string>
     <string name="bookmark">북마크</string>
     <string name="my_page">마이페이지</string>
-    
+
 
     <!--  activity_post_first.xml에서 쓰이는 문자열  -->
     <string name="next">다음</string>
@@ -45,7 +45,7 @@
     <string name="comment_num_guide">댓글 수</string>
     <string name="comment_input_guide">댓글을 입력해주세요.</string>
     <string name="register">등록</string>
-    
+
 
     <!--  activity_my_page.xml에서 쓰이는 문자열  -->
     <string name="nickname_modify">별명 변경</string>
