@@ -54,10 +54,6 @@ class PresenterHome(context: Context, val view: ContractHome.View) : ContractHom
         view.setTransparentStatusBar()
     }
 
-    override fun initTapBarListener() {
-        view.setTapBarListener()
-    }
-
     override fun openHome() {
         view.showHomeUi()
     }

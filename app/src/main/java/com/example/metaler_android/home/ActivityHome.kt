@@ -72,9 +72,14 @@ class ActivityHome : AppCompatActivity(), ContractHome.View {
         // 상태 바(배터리,와이파이 아이콘 표시되는 곳) 투명하게함
         presenter.run{
             start()
-            initTapBarListener()
             setStatusBar()
         }
+
+        homeBtn.setOnClickListener { presenter.openHome() }
+        materialsBtn.setOnClickListener { presenter.openMaterials() }
+        manufactureBtn.setOnClickListener { presenter.openManufactures() }
+        bookmarkBtn.setOnClickListener { presenter.openBookmarks() }
+        myPageBtn.setOnClickListener { presenter.openMyPage() }
 
     }
 
@@ -111,19 +116,6 @@ class ActivityHome : AppCompatActivity(), ContractHome.View {
             .also { startActivity(it) }
 
         overridePendingTransition(0,0)
-    }
-
-    // 하단 탭 바에 리스너를 추가한다
-    override fun setTapBarListener() {
-        homeBtn.setOnClickListener { presenter.openHome() }
-
-        materialsBtn.setOnClickListener { presenter.openMaterials() }
-
-        manufactureBtn.setOnClickListener { presenter.openManufactures() }
-
-        bookmarkBtn.setOnClickListener { presenter.openBookmarks() }
-
-        myPageBtn.setOnClickListener { presenter.openMyPage() }
     }
 
     override fun showHomeUi() {

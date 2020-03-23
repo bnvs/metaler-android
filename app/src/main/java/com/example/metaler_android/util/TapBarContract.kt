@@ -5,8 +5,6 @@ import android.content.Context
 interface TapBarContract {
 
     interface View {
-        fun setTapBarListener()
-
         fun showHomeUi()
 
         fun showMaterialsUi()
@@ -19,8 +17,6 @@ interface TapBarContract {
     }
 
     interface Presenter {
-        fun initTapBarListener()
-
         fun openHome()
 
         fun openMaterials()
