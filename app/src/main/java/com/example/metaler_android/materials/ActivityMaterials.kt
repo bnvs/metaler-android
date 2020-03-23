@@ -4,7 +4,9 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.metaler_android.home.ActivityHome
 import com.example.metaler_android.R
 import com.example.metaler_android.bookmark.ActivityBookmark
@@ -157,6 +159,30 @@ class ActivityMaterials : AppCompatActivity(), ContractMaterials.View {
         manufactureBtn.setOnClickListener { presenter.openManufactures() }
         bookmarkBtn.setOnClickListener { presenter.openBookmarks() }
         myPageBtn.setOnClickListener { presenter.openMyPage() }
+    }
+
+    /**
+     * 재료 탭의 카테고리 리사이클러뷰에 사용할 어댑터입니다.
+     * */
+    private class CategoryAdapter : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
+        override fun onCreateViewHolder(
+            parent: ViewGroup,
+            viewType: Int
+        ): CategoryAdapter.ViewHolder {
+            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        }
+
+        override fun getItemCount(): Int {
+            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        }
+
+        override fun onBindViewHolder(holder: CategoryAdapter.ViewHolder, position: Int) {
+            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        }
+
+        inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+            //
+        }
     }
 
 }
