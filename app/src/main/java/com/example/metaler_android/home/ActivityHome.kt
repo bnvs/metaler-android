@@ -11,10 +11,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.metaler_android.materials.ActivityMaterials
 import com.example.metaler_android.R
+import com.example.metaler_android.bookmark.ActivityBookmark
 import com.example.metaler_android.data.homeposts.HomePost
 import com.example.metaler_android.data.profile.Profile
 import com.example.metaler_android.detail.ActivityDetail
 import com.example.metaler_android.manufactures.ActivityManufactures
+import com.example.metaler_android.mypage.ActivityMyPage
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.item_home_manufacture_rv.view.*
 import kotlinx.android.synthetic.main.item_home_materials_rv.view.*
@@ -133,15 +135,15 @@ class ActivityHome : AppCompatActivity(), ContractHome.View {
     }
 
     override fun showBookmarksUi() {
-        /*Intent(this@ActivityHome, ActivityBookmarks::class.java).also {
+        Intent(this@ActivityHome, ActivityBookmark::class.java).also {
             startActivity(it)
-        }*/
+        }
     }
 
     override fun showMyPageUi() {
-        /*Intent(this@ActivityHome, ActivityMyPage::class.java).also {
+        Intent(this@ActivityHome, ActivityMyPage::class.java).also {
             startActivity(it)
-        }*/
+        }
     }
 
     // 상태 바를 투명하게 하고, padding 을 조절한다
