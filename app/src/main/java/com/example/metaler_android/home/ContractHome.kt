@@ -1,10 +1,10 @@
 package com.example.metaler_android.home
 
-import android.content.Context
 import com.example.metaler_android.BasePresenter
 import com.example.metaler_android.BaseView
 import com.example.metaler_android.data.homeposts.HomePost
 import com.example.metaler_android.data.profile.Profile
+import com.example.metaler_android.util.TapBarContract
 
 /**
  * Contract interface 는
@@ -12,36 +12,24 @@ import com.example.metaler_android.data.profile.Profile
  * */
 
 interface ContractHome {
-    interface View : BaseView<Presenter> {
+    interface View : BaseView<Presenter>, TapBarContract.View {
         fun showProfile(profile: Profile)
 
         fun showMaterialsList(materials: List<HomePost>)
 
         fun showManufacturesList(manufactures: List<HomePost>)
 
-        fun showMaterialsUi()
-
-        fun showManufacturesUi()
-
         fun showPostDetailUi(postId: Int)
-
-        fun setTapBarListener(context: Context)
 
         fun setTransparentStatusBar()
     }
 
-    interface Presenter : BasePresenter {
+    interface Presenter : BasePresenter, TapBarContract.Presenter {
         fun loadProfile()
 
         fun loadHomePost()
 
-        fun openMaterials()
-
-        fun openManufactures()
-
         fun openPostDetail(postId: Int)
-
-        fun setTapBar(context: Context)
 
         fun setStatusBar()
     }

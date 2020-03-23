@@ -45,23 +45,21 @@ class PresenterHome(context: Context, val view: ContractHome.View) : ContractHom
         })*/
     }
 
-    override fun openMaterials() {
-        view.showMaterialsUi()
-    }
-
-    override fun openManufactures() {
-        view.showManufacturesUi()
-    }
-
     override fun openPostDetail(postId: Int) {
         view.showPostDetailUi(postId)
-    }
-
-    override fun setTapBar(context: Context) {
-        view.setTapBarListener(context)
     }
 
     override fun setStatusBar() {
         view.setTransparentStatusBar()
     }
+
+    /**
+     * TapBarContract.Presenter 에서 상속받은 함수
+     * */
+    override fun openHome() { view.showHomeUi() }
+    override fun openMaterials() { view.showMaterialsUi() }
+    override fun openManufactures() { view.showManufacturesUi() }
+    override fun openBookmarks() { view.showBookmarksUi() }
+    override fun openMyPage() { view.showMyPageUi() }
+
 }

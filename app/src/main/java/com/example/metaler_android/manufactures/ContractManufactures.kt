@@ -1,9 +1,9 @@
 package com.example.metaler_android.manufactures
 
-import android.content.Context
 import com.example.metaler_android.BasePresenter
 import com.example.metaler_android.BaseView
 import com.example.metaler_android.data.post.Post
+import com.example.metaler_android.util.TapBarContract
 
 /**
  * Contract interface 는
@@ -11,7 +11,7 @@ import com.example.metaler_android.data.post.Post
  * */
 
 interface ContractManufactures {
-    interface View : BaseView<Presenter> {
+    interface View : BaseView<Presenter>, TapBarContract.View {
         fun showPosts(posts: List<Post>)
 
         fun showPostDetailUi()
@@ -23,11 +23,9 @@ interface ContractManufactures {
         fun clearSearchTagBar()
 
         fun deleteSearchTag()
-
-        fun setTapBarListener(context: Context)
     }
 
-    interface Presenter : BasePresenter {
+    interface Presenter : BasePresenter, TapBarContract.Presenter {
         fun loadPosts()
 
         fun openPostDetail(postId: Int)
@@ -43,7 +41,5 @@ interface ContractManufactures {
         fun clearSearchTagBar()
 
         fun deleteSearchTag()
-
-        fun setTapBar(context: Context)
     }
 }

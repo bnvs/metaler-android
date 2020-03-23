@@ -1,6 +1,5 @@
 package com.example.metaler_android.materials
 
-import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -9,7 +8,7 @@ import androidx.core.content.ContextCompat
 import com.example.metaler_android.detail.ActivityDetail
 import com.example.metaler_android.home.ActivityHome
 import com.example.metaler_android.R
-import kotlinx.android.synthetic.main.activity_home.homeBtn
+import com.example.metaler_android.manufactures.ActivityManufactures
 import kotlinx.android.synthetic.main.activity_materials.*
 
 class ActivityMaterials : AppCompatActivity(), ContractMaterials.View {
@@ -27,11 +26,8 @@ class ActivityMaterials : AppCompatActivity(), ContractMaterials.View {
             this@ActivityMaterials
         )
 
-        //탭바의 각 버튼에 맞는 액티비티로 이동하는 클릭 리스너
-        homeBtn.setOnClickListener {
-            val goToHome = Intent(this, ActivityHome::class.java)
-            startActivity(goToHome)
-        }
+        // Set up Buttons
+        initClickListeners()
 
         //카테고리 버튼 색상 초기화. 재료탭은 전체카테고리가 눌린 상태로 시작됨
         inactiveCategoryBtn()
@@ -114,8 +110,55 @@ class ActivityMaterials : AppCompatActivity(), ContractMaterials.View {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun setTapBarListener(context: Context) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    /**
+     * TapBarContract.View 에서 상속받은 함수
+     * showHomeUi() ~ showMyPageUi() 까지
+     * */
+    override fun showHomeUi() {
+        Intent(this@ActivityMaterials, ActivityHome::class.java).also {
+            startActivity(it)
+        }
+    }
+
+    override fun showMaterialsUi() {
+        Intent(this@ActivityMaterials, ActivityMaterials::class.java).also {
+            startActivity(it)
+        }
+    }
+
+    override fun showManufacturesUi() {
+        Intent(this@ActivityMaterials, ActivityManufactures::class.java).also {
+            startActivity(it)
+        }
+    }
+
+    override fun showBookmarksUi() {
+        /*Intent(this@ActivityMaterials, ActivityBookmarks::class.java).also {
+            startActivity(it)
+        }*/
+    }
+
+    override fun showMyPageUi() {
+        /*Intent(this@ActivityMaterials, ActivityMyPage::class.java).also {
+            startActivity(it)
+        }*/
+    }
+
+    private fun initClickListeners() {
+        setTitleBarButtons()
+        setTapBarButtons()
+    }
+
+    private fun setTitleBarButtons() {
+        // 글작성, 글검색 버튼 클릭 리스너 달아주기
+    }
+
+    private fun setTapBarButtons() {
+        homeBtn.setOnClickListener { presenter.openHome() }
+        materialsBtn.setOnClickListener { presenter.openMaterials() }
+        manufactureBtn.setOnClickListener { presenter.openManufactures() }
+        bookmarkBtn.setOnClickListener { presenter.openBookmarks() }
+        myPageBtn.setOnClickListener { presenter.openMyPage() }
     }
 
     //카테고리 버튼 뷰 속성을 비활성화 상태로 초기화하는 메소드
