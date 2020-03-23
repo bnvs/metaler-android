@@ -76,6 +76,13 @@ class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
             start()
         }
 
+        // 탭바에 클릭리스너 달아주기
+        homeBtn.setOnClickListener { presenter.openHome() }
+        materialsBtn.setOnClickListener { presenter.openMaterials() }
+        manufactureBtn.setOnClickListener { presenter.openManufactures() }
+        bookmarkBtn.setOnClickListener { presenter.openBookmarks() }
+        myPageBtn.setOnClickListener { presenter.openMyPage() }
+
     }
 
     override fun onResume() {
