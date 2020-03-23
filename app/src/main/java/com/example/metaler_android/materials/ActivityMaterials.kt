@@ -26,11 +26,8 @@ class ActivityMaterials : AppCompatActivity(), ContractMaterials.View {
             this@ActivityMaterials
         )
 
-        homeBtn.setOnClickListener { presenter.openHome() }
-        materialsBtn.setOnClickListener { presenter.openMaterials() }
-        manufactureBtn.setOnClickListener { presenter.openManufactures() }
-        bookmarkBtn.setOnClickListener { presenter.openBookmarks() }
-        myPageBtn.setOnClickListener { presenter.openMyPage() }
+        // Set up Buttons
+        initClickListeners()
 
         //카테고리 버튼 색상 초기화. 재료탭은 전체카테고리가 눌린 상태로 시작됨
         inactiveCategoryBtn()
@@ -141,6 +138,23 @@ class ActivityMaterials : AppCompatActivity(), ContractMaterials.View {
         /*Intent(this@ActivityMaterials, ActivityMyPage::class.java).also {
             startActivity(it)
         }*/
+    }
+
+    private fun initClickListeners() {
+        setTitleBarButtons()
+        setTapBarButtons()
+    }
+
+    private fun setTitleBarButtons() {
+        // 글작성, 글검색 버튼 클릭 리스너 달아주기
+    }
+
+    private fun setTapBarButtons() {
+        homeBtn.setOnClickListener { presenter.openHome() }
+        materialsBtn.setOnClickListener { presenter.openMaterials() }
+        manufactureBtn.setOnClickListener { presenter.openManufactures() }
+        bookmarkBtn.setOnClickListener { presenter.openBookmarks() }
+        myPageBtn.setOnClickListener { presenter.openMyPage() }
     }
 
     //카테고리 버튼 뷰 속성을 비활성화 상태로 초기화하는 메소드
