@@ -69,8 +69,8 @@
                 android:layout_height="15dp"
                 android:src="@drawable/ic_list_thumbs_down_x3"
                 android:layout_marginRight="3dp"
-                app:layout_constraintTop_toTopOf="@id/tagRV"
-                app:layout_constraintBottom_toBottomOf="@id/tagRV"
+                app:layout_constraintTop_toTopOf="@id/tag"
+                app:layout_constraintBottom_toBottomOf="@id/tag"
                 app:layout_constraintEnd_toStartOf="@id/dislikeNum"/>
             <TextView
                 android:id="@+id/dislikeNum"
@@ -81,7 +81,7 @@
                 android:textColor="@color/colorGrey"
                 android:layout_marginRight="5dp"
                 app:layout_constraintEnd_toStartOf="@id/likeIcon"
-                app:layout_constraintTop_toTopOf="@id/tagRV"/>
+                app:layout_constraintTop_toTopOf="@id/tag"/>
 
             <ImageView
                 android:id="@+id/likeIcon"
@@ -90,8 +90,8 @@
                 android:src="@drawable/ic_list_thumbs_up_x3"
                 android:layout_marginRight="3dp"
                 android:layout_marginBottom="10dp"
-                app:layout_constraintTop_toTopOf="@id/tagRV"
-                app:layout_constraintBottom_toBottomOf="@id/tagRV"
+                app:layout_constraintTop_toTopOf="@id/tag"
+                app:layout_constraintBottom_toBottomOf="@id/tag"
                 app:layout_constraintEnd_toStartOf="@id/likeNum"
                 />
 
@@ -105,7 +105,7 @@
                 android:layout_marginLeft="2dp"
                 android:layout_marginRight="28dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/tagRV"
+                app:layout_constraintTop_toTopOf="@id/tag"
                 />
 
 
@@ -145,13 +145,18 @@
                 app:layout_constraintTop_toTopOf="@id/userName"
                 app:layout_constraintBottom_toBottomOf="@id/userName"
                 />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/tagRV"
-                android:layout_width="wrap_content"
-                android:layout_height="20dp"
+            <TextView
+                android:id="@+id/tag"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                app:layout_constraintStart_toStartOf="@id/title"
+                android:text="#태그들어가는부분"
+                android:textColor="@color/colorPurple"
+                android:textSize="12sp"
+                android:maxLines="1"
+                android:ellipsize="end"
+                app:layout_constraintLeft_toLeftOf="@id/title"
+                app:layout_constraintRight_toLeftOf="@id/dislikeIcon"
                 app:layout_constraintBottom_toBottomOf="parent"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
