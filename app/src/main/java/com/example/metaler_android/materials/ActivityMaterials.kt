@@ -169,7 +169,8 @@ class ActivityMaterials : AppCompatActivity(), ContractMaterials.View {
      * 재료 탭의 카테고리 리사이클러뷰에 사용할 어댑터입니다.
      * */
     private class CategoryAdapter(
-        private var categories: List<Category>
+        private var categories: List<Category>,
+        private val itemListener: CategoryItemListener
     ) : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
 
         var selectedPosition: Int = 0
@@ -199,11 +200,7 @@ class ActivityMaterials : AppCompatActivity(), ContractMaterials.View {
             fun bind(item: Category, position: Int) {
 
                 view.materialsCategoryBtn.text = item.name
-
-                view.setOnClickListener {
-                    if (selectedPosition != position) selectedPosition = position
-                    notifyDataSetChanged()
-                }
+                view.setOnClickListener { itemListener.onCategoryClick(item.name) }
 
                 if (selectedPosition == position) {
                     view.materialsCategoryBtn.setTextColor(R.color.colorPurple)
@@ -214,6 +211,10 @@ class ActivityMaterials : AppCompatActivity(), ContractMaterials.View {
                 }
             }
         }
+    }
+
+    private interface CategoryItemListener {
+        fun onCategoryClick(categoryType: String)
     }
 
 }
