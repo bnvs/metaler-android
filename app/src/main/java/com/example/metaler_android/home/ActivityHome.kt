@@ -52,8 +52,7 @@ class ActivityHome : AppCompatActivity(), ContractHome.View {
         )
 
         // Set up Buttons
-        materialsMoreBtn.setOnClickListener { presenter.openMaterials() }
-        manufactureMoreBtn.setOnClickListener { presenter.openManufactures() }
+        initClickListeners()
 
         // Set up materials recyclerView
         materialsRV.apply {
@@ -74,13 +73,6 @@ class ActivityHome : AppCompatActivity(), ContractHome.View {
             start()
             setStatusBar()
         }
-
-        // 탭바에 클릭리스너 달아주기
-        homeBtn.setOnClickListener { presenter.openHome() }
-        materialsBtn.setOnClickListener { presenter.openMaterials() }
-        manufactureBtn.setOnClickListener { presenter.openManufactures() }
-        bookmarkBtn.setOnClickListener { presenter.openBookmarks() }
-        myPageBtn.setOnClickListener { presenter.openMyPage() }
 
     }
 
@@ -162,6 +154,24 @@ class ActivityHome : AppCompatActivity(), ContractHome.View {
 
         //소프트키 올라온 높이만큼 전체 레이아웃 하단에 padding을 줌.
         wrapConstraintLayout.setPadding(0,0,0,softMenuHeight(this))
+    }
+
+    private fun initClickListeners() {
+        setMoreButtons()
+        setTapBarButtons()
+    }
+
+    private fun setMoreButtons() {
+        materialsMoreBtn.setOnClickListener { presenter.openMaterials() }
+        manufactureMoreBtn.setOnClickListener { presenter.openManufactures() }
+    }
+
+    private fun setTapBarButtons() {
+        homeBtn.setOnClickListener { presenter.openHome() }
+        materialsBtn.setOnClickListener { presenter.openMaterials() }
+        manufactureBtn.setOnClickListener { presenter.openManufactures() }
+        bookmarkBtn.setOnClickListener { presenter.openBookmarks() }
+        myPageBtn.setOnClickListener { presenter.openMyPage() }
     }
 
     //상태바 높이 계산
