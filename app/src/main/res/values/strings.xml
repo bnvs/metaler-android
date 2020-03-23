@@ -11,7 +11,7 @@
     
     <!--  activity_terms_agree에서 쓰이는 문자열  -->
     <string name="terms_title">메탈러 이용약관</string>
-    <string name="terms_guide">메탈러 서비스를 이용하시려면 아래의 이용약관에 동의해주세요.</string>
+    <string name="terms_guide">메탈러 서비스를 이용하시려면\n아래의 이용약관에 동의해주세요.</string>
     <string name="all_agree">모두 동의합니다.</string>
     <string name="first_agree">[필수] 메탈러 서비스 이용약관</string>
     <string name="second_agree">[필수] 개인정보 수집 및 이용약관</string>
