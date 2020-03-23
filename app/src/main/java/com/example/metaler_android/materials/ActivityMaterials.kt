@@ -3,21 +3,59 @@ package com.example.metaler_android.materials
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.metaler_android.detail.ActivityDetail
 import com.example.metaler_android.home.ActivityHome
 import com.example.metaler_android.R
 import com.example.metaler_android.bookmark.ActivityBookmark
 import com.example.metaler_android.manufactures.ActivityManufactures
 import com.example.metaler_android.mypage.ActivityMyPage
+import com.example.metaler_android.util.PostAdapter
+import com.example.metaler_android.util.PostItemListener
 import kotlinx.android.synthetic.main.activity_materials.*
+import kotlinx.android.synthetic.main.item_posts_rv.view.*
 
 class ActivityMaterials : AppCompatActivity(), ContractMaterials.View {
 
     private val TAG = "ActivityMaterials"
 
     override lateinit var presenter: ContractMaterials.Presenter
+
+    /**
+     * 재료 탭에서 보여지는 재료 게시물 리사이클러뷰 아이템에 달아줄 클릭리스너입니다
+     * onPostClick -> 게시물을 클릭한 경우
+     * onBookmarkButtonClick -> 북마크 버튼을 클릭한 경우
+     * */
+    private var itemListener: PostItemListener = object : PostItemListener {
+        override fun onPostClick(clickedPostId: Int) {
+            presenter.openPostDetail(clickedPostId)
+        }
+
+        override fun onBookmarkButtonClick(view: View, clickedPostId: Int, isBookmark: Boolean, position: Int) {
+            if (!isBookmark) {
+                view.bookmarkBtn.setImageResource(R.drawable.ic_list_bookmark_active_x3)
+                presenter.addBookmark(clickedPostId)
+                postAdapter.apply {
+                    setBookmark(position)
+                    notifyDataSetChanged()
+                }
+            }else {
+                view.bookmarkBtn.setImageResource(R.drawable.ic_list_bookmark_inactive_x3)
+                presenter.deleteBookmark(clickedPostId)
+                postAdapter.apply {
+                    setBookmark(position)
+                    notifyDataSetChanged()
+                }
+            }
+        }
+
+    }
+
+    private val postAdapter = PostAdapter(ArrayList(0), itemListener)
+    private val postLayoutManager = LinearLayoutManager(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
