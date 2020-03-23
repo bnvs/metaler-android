@@ -53,10 +53,10 @@
                 />
 
             <ImageView
-                android:id="@+id/bookmarkBtn"
+                android:id="@+id/moreBtn"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:src="@drawable/ic_list_bookmark_inactive_x3"
+                android:src="@drawable/ic_list_more_x3"
                 app:layout_constraintTop_toTopOf="@id/title"
                 app:layout_constraintStart_toEndOf="@id/img"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -145,6 +145,7 @@
                 app:layout_constraintTop_toTopOf="@id/userName"
                 app:layout_constraintBottom_toBottomOf="@id/userName"
                 />
+
             <TextView
                 android:id="@+id/tag"
                 android:layout_width="0dp"

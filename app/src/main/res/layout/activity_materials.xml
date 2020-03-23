@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorGreyBG"
     tools:context=".materials.ActivityMaterials">
 
 
@@ -70,104 +71,114 @@
             app:layout_goneMarginTop="7dp"
             />
 
-        <TextView
-            android:id="@+id/allBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/materialsCategoryRV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:background="@drawable/active_bar"
-            android:text="전체"
-            android:textColor="@color/colorLightGrey"
+            android:layout_marginTop="10dp"
             app:layout_constraintTop_toBottomOf="@id/tagRV"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            />
 
-        <TextView
-            android:id="@+id/cooperBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_marginLeft="10dp"
-            android:background="@drawable/active_bar"
-            android:text="적동/황동"
-            android:textColor="@color/colorLightGrey"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/allBtn" />
+<!--        <TextView-->
+<!--            android:id="@+id/allBtn"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="40dp"-->
+<!--            android:layout_marginLeft="10dp"-->
+<!--            android:background="@drawable/active_bar"-->
+<!--            android:text="전체"-->
+<!--            android:textColor="@color/colorLightGrey"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/tagRV"-->
+<!--            app:layout_constraintStart_toStartOf="parent" />-->
 
-        <TextView
-            android:id="@+id/stainlessBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_marginLeft="10dp"
-            android:background="@drawable/active_bar"
-            android:text="스테인리스"
-            android:textColor="@color/colorLightGrey"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/cooperBtn" />
+<!--        <TextView-->
+<!--            android:id="@+id/cooperBtn"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="40dp"-->
+<!--            android:layout_marginLeft="10dp"-->
+<!--            android:background="@drawable/active_bar"-->
+<!--            android:text="적동/황동"-->
+<!--            android:textColor="@color/colorLightGrey"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintStart_toEndOf="@id/allBtn" />-->
 
-        <TextView
-            android:id="@+id/aluminiumBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_marginLeft="10dp"
-            android:background="@drawable/active_bar"
-            android:text="알루미늄"
-            android:textColor="@color/colorLightGrey"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/stainlessBtn" />
+<!--        <TextView-->
+<!--            android:id="@+id/stainlessBtn"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="40dp"-->
+<!--            android:layout_marginLeft="10dp"-->
+<!--            android:background="@drawable/active_bar"-->
+<!--            android:text="스테인리스"-->
+<!--            android:textColor="@color/colorLightGrey"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintStart_toEndOf="@id/cooperBtn" />-->
 
-        <TextView
-            android:id="@+id/nickelBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_marginLeft="10dp"
-            android:background="@drawable/active_bar"
-            android:text="니켈/티타늄"
-            android:textColor="@color/colorLightGrey"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/aluminiumBtn" />
+<!--        <TextView-->
+<!--            android:id="@+id/aluminiumBtn"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="40dp"-->
+<!--            android:layout_marginLeft="10dp"-->
+<!--            android:background="@drawable/active_bar"-->
+<!--            android:text="알루미늄"-->
+<!--            android:textColor="@color/colorLightGrey"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintStart_toEndOf="@id/stainlessBtn" />-->
 
-        <TextView
-            android:id="@+id/steelBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_marginLeft="10dp"
-            android:background="@drawable/active_bar"
-            android:text="철"
-            android:textColor="@color/colorLightGrey"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/nickelBtn" />
+<!--        <TextView-->
+<!--            android:id="@+id/nickelBtn"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="40dp"-->
+<!--            android:layout_marginLeft="10dp"-->
+<!--            android:background="@drawable/active_bar"-->
+<!--            android:text="니켈/티타늄"-->
+<!--            android:textColor="@color/colorLightGrey"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintStart_toEndOf="@id/aluminiumBtn" />-->
 
-        <TextView
-            android:id="@+id/toolsBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_marginLeft="10dp"
-            android:background="@drawable/active_bar"
-            android:text="공구"
-            android:textColor="@color/colorLightGrey"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/steelBtn" />
+<!--        <TextView-->
+<!--            android:id="@+id/steelBtn"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="40dp"-->
+<!--            android:layout_marginLeft="10dp"-->
+<!--            android:background="@drawable/active_bar"-->
+<!--            android:text="철"-->
+<!--            android:textColor="@color/colorLightGrey"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintStart_toEndOf="@id/nickelBtn" />-->
 
-        <TextView
-            android:id="@+id/chemicalBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_marginLeft="10dp"
-            android:background="@drawable/active_bar"
-            android:text="화학 약품류"
-            android:textColor="@color/colorLightGrey"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/toolsBtn" />
+<!--        <TextView-->
+<!--            android:id="@+id/toolsBtn"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="40dp"-->
+<!--            android:layout_marginLeft="10dp"-->
+<!--            android:background="@drawable/active_bar"-->
+<!--            android:text="공구"-->
+<!--            android:textColor="@color/colorLightGrey"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintStart_toEndOf="@id/steelBtn" />-->
 
-        <TextView
-            android:id="@+id/othersBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_marginLeft="10dp"
-            android:background="@drawable/active_bar"
-            android:text="기타"
-            android:textColor="@color/colorLightGrey"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/chemicalBtn" />
+<!--        <TextView-->
+<!--            android:id="@+id/chemicalBtn"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="40dp"-->
+<!--            android:layout_marginLeft="10dp"-->
+<!--            android:background="@drawable/active_bar"-->
+<!--            android:text="화학 약품류"-->
+<!--            android:textColor="@color/colorLightGrey"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintStart_toEndOf="@id/toolsBtn" />-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/othersBtn"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="40dp"-->
+<!--            android:layout_marginLeft="10dp"-->
+<!--            android:background="@drawable/active_bar"-->
+<!--            android:text="기타"-->
+<!--            android:textColor="@color/colorLightGrey"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintStart_toEndOf="@id/chemicalBtn" />-->
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

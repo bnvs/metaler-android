@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.metaler_android">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -11,13 +11,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".mypage.ActivityMyPage"></activity>
+        <activity android:name=".jobinput.ActivityJobInput" />
+        <activity android:name=".termsagree.ActivityTermsAgree" />
+        <activity android:name=".bookmark.ActivityBookmark" />
+        <activity android:name=".postsecond.ActivityPostSecond" />
+        <activity android:name=".postfirst.ActivityPostFirst" />
+        <activity android:name=".manufactures.ActivityManufactures" />
         <activity android:name=".detail.ActivityDetail" />
-        <activity android:name=".manufactures.ActivityManufactures"/>
-        <activity android:name=".materials.ActivityMaterials"/>
-        <activity android:name=".home.ActivityHome"
+        <activity android:name=".materials.ActivityMaterials" />
+        <activity
+            android:name=".home.ActivityHome"
             android:launchMode="singleInstance">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
