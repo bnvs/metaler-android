@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".jobinput.ActivityJobInput"></activity>
+        <activity android:name=".mypage.ActivityMyPage"></activity>
+        <activity android:name=".jobinput.ActivityJobInput" />
         <activity android:name=".termsagree.ActivityTermsAgree" />
         <activity android:name=".bookmark.ActivityBookmark" />
         <activity android:name=".postsecond.ActivityPostSecond" />
