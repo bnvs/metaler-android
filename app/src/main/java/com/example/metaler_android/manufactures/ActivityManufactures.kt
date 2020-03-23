@@ -6,9 +6,11 @@ import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.metaler_android.R
+import com.example.metaler_android.bookmark.ActivityBookmark
 import com.example.metaler_android.data.post.Post
 import com.example.metaler_android.home.ActivityHome
 import com.example.metaler_android.materials.ActivityMaterials
+import com.example.metaler_android.mypage.ActivityMyPage
 import com.example.metaler_android.util.PostAdapter
 import com.example.metaler_android.util.PostItemListener
 import kotlinx.android.synthetic.main.activity_manufacture.*
@@ -132,15 +134,15 @@ class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
     }
 
     override fun showBookmarksUi() {
-        /*Intent(this@ActivityManufactures, ActivityBookmarks::class.java).also {
+        Intent(this@ActivityManufactures, ActivityBookmark::class.java).also {
             startActivity(it)
-        }*/
+        }
     }
 
     override fun showMyPageUi() {
-        /*Intent(this@ActivityManufactures, ActivityMyPage::class.java).also {
+        Intent(this@ActivityManufactures, ActivityMyPage::class.java).also {
             startActivity(it)
-        }*/
+        }
     }
 
     private fun initClickListeners() {

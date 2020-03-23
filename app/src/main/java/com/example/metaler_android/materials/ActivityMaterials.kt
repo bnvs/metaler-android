@@ -8,7 +8,9 @@ import androidx.core.content.ContextCompat
 import com.example.metaler_android.detail.ActivityDetail
 import com.example.metaler_android.home.ActivityHome
 import com.example.metaler_android.R
+import com.example.metaler_android.bookmark.ActivityBookmark
 import com.example.metaler_android.manufactures.ActivityManufactures
+import com.example.metaler_android.mypage.ActivityMyPage
 import kotlinx.android.synthetic.main.activity_materials.*
 
 class ActivityMaterials : AppCompatActivity(), ContractMaterials.View {
@@ -82,15 +84,15 @@ class ActivityMaterials : AppCompatActivity(), ContractMaterials.View {
     }
 
     override fun showBookmarksUi() {
-        /*Intent(this@ActivityMaterials, ActivityBookmarks::class.java).also {
+        Intent(this@ActivityMaterials, ActivityBookmark::class.java).also {
             startActivity(it)
-        }*/
+        }
     }
 
     override fun showMyPageUi() {
-        /*Intent(this@ActivityMaterials, ActivityMyPage::class.java).also {
+        Intent(this@ActivityMaterials, ActivityMyPage::class.java).also {
             startActivity(it)
-        }*/
+        }
     }
 
     private fun initClickListeners() {
@@ -110,13 +112,4 @@ class ActivityMaterials : AppCompatActivity(), ContractMaterials.View {
         myPageBtn.setOnClickListener { presenter.openMyPage() }
     }
 
-    //눌린 카테고리 버튼의 뷰 속성을 활성화 상태로 변경하는 메소드
-    private fun activeCategoryBtn(categoryBtn : TextView){
-        categoryBtn.background = ContextCompat.getDrawable(this,
-            R.drawable.active_bar
-        )
-        categoryBtn.setTextColor(ContextCompat.getColor(this,
-            R.color.colorPurple
-        ))
-    }
 }
