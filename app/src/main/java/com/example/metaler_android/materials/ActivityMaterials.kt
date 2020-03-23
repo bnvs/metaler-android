@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.metaler_android.home.ActivityHome
@@ -21,7 +20,6 @@ import com.example.metaler_android.util.PostItemListener
 import kotlinx.android.synthetic.main.activity_materials.*
 import kotlinx.android.synthetic.main.item_materials_category_rv.view.*
 import kotlinx.android.synthetic.main.item_posts_rv.view.*
-import java.io.File
 
 class ActivityMaterials : AppCompatActivity(), ContractMaterials.View {
 
@@ -174,7 +172,7 @@ class ActivityMaterials : AppCompatActivity(), ContractMaterials.View {
         private var categories: List<Category>
     ) : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
 
-        var selectedIndex: Int = 0
+        var selectedPosition: Int = 0
 
         fun setCategories(list: List<Category>) {
             this.categories = list
@@ -201,13 +199,13 @@ class ActivityMaterials : AppCompatActivity(), ContractMaterials.View {
             fun bind(item: Category, position: Int) {
 
                 view.materialsCategoryBtn.text = item.name
-                
+
                 view.setOnClickListener {
-                    if (selectedIndex != position) selectedIndex = position
+                    if (selectedPosition != position) selectedPosition = position
                     notifyDataSetChanged()
                 }
 
-                if (selectedIndex == position) {
+                if (selectedPosition == position) {
                     view.materialsCategoryBtn.setTextColor(R.color.colorPurple)
                     view.materialsCategoryBtn.setBackgroundResource(R.drawable.active_bar)
                 }else {
