@@ -7,13 +7,21 @@
     android:background="@color/colorGreyBG"
     tools:context=".mypage.ActivityMyPage">
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/myPageCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bottom_round_bg"
+        app:layout_constraintTop_toBottomOf="@id/titleBarCard">
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/titleBarCard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:clipToPadding="false"
-        android:paddingBottom="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -22,7 +30,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:cardBackgroundColor="@color/colorWhite"
-            app:cardElevation="4dp"
+            app:cardElevation="0dp"
             app:layout_constraintDimensionRatio="1:0.11"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
