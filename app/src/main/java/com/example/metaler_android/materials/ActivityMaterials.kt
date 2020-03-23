@@ -9,6 +9,7 @@ import androidx.core.content.ContextCompat
 import com.example.metaler_android.detail.ActivityDetail
 import com.example.metaler_android.home.ActivityHome
 import com.example.metaler_android.R
+import com.example.metaler_android.manufactures.ActivityManufactures
 import kotlinx.android.synthetic.main.activity_home.homeBtn
 import kotlinx.android.synthetic.main.activity_materials.*
 
@@ -114,8 +115,34 @@ class ActivityMaterials : AppCompatActivity(), ContractMaterials.View {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun setTapBarListener(context: Context) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun showHomeUi() {
+        Intent(this@ActivityMaterials, ActivityHome::class.java).also {
+            startActivity(it)
+        }
+    }
+
+    override fun showMaterialsUi() {
+        Intent(this@ActivityMaterials, ActivityMaterials::class.java).also {
+            startActivity(it)
+        }
+    }
+
+    override fun showManufacturesUi() {
+        Intent(this@ActivityMaterials, ActivityManufactures::class.java).also {
+            startActivity(it)
+        }
+    }
+
+    override fun showBookmarksUi() {
+        /*Intent(this@ActivityMaterials, ActivityBookmarks::class.java).also {
+            startActivity(it)
+        }*/
+    }
+
+    override fun showMyPageUi() {
+        /*Intent(this@ActivityMaterials, ActivityMyPage::class.java).also {
+            startActivity(it)
+        }*/
     }
 
     //카테고리 버튼 뷰 속성을 비활성화 상태로 초기화하는 메소드
