@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.metaler_android.home.ActivityHome
 import com.example.metaler_android.R
 import com.example.metaler_android.bookmark.ActivityBookmark
+import com.example.metaler_android.data.categories.Category
 import com.example.metaler_android.manufactures.ActivityManufactures
 import com.example.metaler_android.mypage.ActivityMyPage
 import com.example.metaler_android.util.PostAdapter
@@ -164,19 +165,24 @@ class ActivityMaterials : AppCompatActivity(), ContractMaterials.View {
     /**
      * 재료 탭의 카테고리 리사이클러뷰에 사용할 어댑터입니다.
      * */
-    private class CategoryAdapter : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
-        override fun onCreateViewHolder(
-            parent: ViewGroup,
-            viewType: Int
-        ): CategoryAdapter.ViewHolder {
-            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    private class CategoryAdapter(
+        private var categories: List<Category>
+    ) : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
+
+        fun setCategories(list: List<Category>) {
+            this.categories = list
+        }
+
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+            lateinit var inflatedView: View
+            return ViewHolder(inflatedView)
         }
 
         override fun getItemCount(): Int {
-            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            return categories.size
         }
 
-        override fun onBindViewHolder(holder: CategoryAdapter.ViewHolder, position: Int) {
+        override fun onBindViewHolder(holder: ViewHolder, position: Int) {
             TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         }
 
