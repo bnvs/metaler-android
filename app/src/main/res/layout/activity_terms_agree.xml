@@ -171,4 +171,26 @@
         app:layout_constraintBottom_toBottomOf="@id/fourthCheckBtn"
         />
 
+    <androidx.cardview.widget.CardView
+        android:id="@+id/nextBtn"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintDimensionRatio="1:0.2"
+        android:elevation="4dp"
+        app:cardUseCompatPadding="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fourthCheckBtn"
+        android:layout_marginTop="30dp"
+        android:visibility="gone"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/next"
+            android:textSize="20sp"
+            android:textColor="@color/colorGrey"
+            android:layout_gravity="center"
+            />
+    </androidx.cardview.widget.CardView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
