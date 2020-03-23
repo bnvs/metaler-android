@@ -141,7 +141,12 @@ class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
     }
 
     private fun initClickListeners() {
+        setTitleBarButtons()
         setTapBarButtons()
+    }
+
+    private fun setTitleBarButtons() {
+        // 글작성, 글검색 버튼 클릭 리스너 달아주기
     }
 
     private fun setTapBarButtons() {
