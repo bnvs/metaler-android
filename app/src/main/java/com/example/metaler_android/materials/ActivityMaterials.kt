@@ -3,6 +3,7 @@ package com.example.metaler_android.materials
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -174,7 +175,8 @@ class ActivityMaterials : AppCompatActivity(), ContractMaterials.View {
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-            lateinit var inflatedView: View
+            val inflatedView = LayoutInflater.from(parent.context)
+                .inflate(R.layout.item_materials_category_rv, parent, false)
             return ViewHolder(inflatedView)
         }
 
