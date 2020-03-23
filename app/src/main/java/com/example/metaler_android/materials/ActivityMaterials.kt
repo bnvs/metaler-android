@@ -28,11 +28,7 @@ class ActivityMaterials : AppCompatActivity(), ContractMaterials.View {
             this@ActivityMaterials
         )
 
-        //탭바의 각 버튼에 맞는 액티비티로 이동하는 클릭 리스너
-        homeBtn.setOnClickListener {
-            val goToHome = Intent(this, ActivityHome::class.java)
-            startActivity(goToHome)
-        }
+        
 
         //카테고리 버튼 색상 초기화. 재료탭은 전체카테고리가 눌린 상태로 시작됨
         inactiveCategoryBtn()
