@@ -74,7 +74,6 @@ class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
         // 탭 바 아이콘에 클릭 리스너 달아줌
         presenter.run {
             start()
-            setTapBar(this@ActivityManufactures)
         }
 
     }
@@ -108,8 +107,38 @@ class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
+    override fun showHomeUi() {
+        Intent(this@ActivityManufactures, ActivityHome::class.java).also {
+            startActivity(it)
+        }
+    }
+
+    override fun showMaterialsUi() {
+        Intent(this@ActivityManufactures, ActivityMaterials::class.java).also {
+            startActivity(it)
+        }
+    }
+
+    override fun showManufacturesUi() {
+        Intent(this@ActivityManufactures, ActivityManufactures::class.java).also {
+            startActivity(it)
+        }
+    }
+
+    override fun showBookmarksUi() {
+        /*Intent(this@ActivityManufactures, ActivityBookmarks::class.java).also {
+            startActivity(it)
+        }*/
+    }
+
+    override fun showMyPageUi() {
+        /*Intent(this@ActivityManufactures, ActivityMyPage::class.java).also {
+            startActivity(it)
+        }*/
+    }
+
     // 하단 탭 바에 리스너를 추가한다
-    override fun setTapBarListener(context: Context) {
+    fun setTapBarListener(context: Context) {
         homeIcon.setOnClickListener {
             Intent(context, ActivityHome::class.java).also {
                 startActivity(it)
