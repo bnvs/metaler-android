@@ -136,39 +136,4 @@ class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
             startActivity(it)
         }*/
     }
-
-    // 하단 탭 바에 리스너를 추가한다
-    fun setTapBarListener(context: Context) {
-        homeIcon.setOnClickListener {
-            Intent(context, ActivityHome::class.java).also {
-                startActivity(it)
-            }
-        }
-
-        materialsIcon.setOnClickListener {
-            Intent(context, ActivityMaterials::class.java).also {
-                startActivity(it)
-            }
-        }
-
-        manufactureIcon.setOnClickListener {
-            Intent(context, ActivityManufactures::class.java).also {
-                startActivity(it)
-            }
-        }
-
-        /*bookmarkIcon.setOnClickListener {
-            Intent(context, ActivityBookmarks::class.java).also {
-                addFlags(it)
-                startActivity(it)
-            }
-        }
-
-        myPageIcon.setOnClickListener {
-            Intent(context, ActivityMyPage::class.java).also {
-                addFlags(it)
-                startActivity(it)
-            }
-        }*/
-    }
 }
