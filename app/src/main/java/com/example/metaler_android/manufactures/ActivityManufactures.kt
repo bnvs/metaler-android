@@ -64,6 +64,9 @@ class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
             this@ActivityManufactures
         )
 
+        // Set up Buttons
+        initClickListeners()
+
         // Set up posts recyclerView
         postsRV.apply {
             adapter = postAdapter
@@ -75,13 +78,6 @@ class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
         presenter.run {
             start()
         }
-
-        // 탭바에 클릭리스너 달아주기
-        homeBtn.setOnClickListener { presenter.openHome() }
-        materialsBtn.setOnClickListener { presenter.openMaterials() }
-        manufactureBtn.setOnClickListener { presenter.openManufactures() }
-        bookmarkBtn.setOnClickListener { presenter.openBookmarks() }
-        myPageBtn.setOnClickListener { presenter.openMyPage() }
 
     }
 
@@ -142,5 +138,17 @@ class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
         /*Intent(this@ActivityManufactures, ActivityMyPage::class.java).also {
             startActivity(it)
         }*/
+    }
+
+    private fun initClickListeners() {
+        setTapBarButtons()
+    }
+
+    private fun setTapBarButtons() {
+        homeBtn.setOnClickListener { presenter.openHome() }
+        materialsBtn.setOnClickListener { presenter.openMaterials() }
+        manufactureBtn.setOnClickListener { presenter.openManufactures() }
+        bookmarkBtn.setOnClickListener { presenter.openBookmarks() }
+        myPageBtn.setOnClickListener { presenter.openMyPage() }
     }
 }
