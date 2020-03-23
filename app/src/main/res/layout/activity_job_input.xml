@@ -61,7 +61,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintDimensionRatio="2.7:1"
         android:gravity="center_horizontal"
-        android:textSize="18sp"
+        android:textSize="14sp"
         android:text="@string/nothing"
         android:textColor="@color/colorLightGrey"
         android:background="@drawable/job_btn_lightgrey_rounding_border"
@@ -75,7 +75,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintDimensionRatio="2.7:1"
         android:gravity="center_horizontal"
-        android:textSize="18sp"
+        android:textSize="14sp"
         android:text="@string/expert"
         android:textColor="@color/colorLightGrey"
         android:layout_marginRight="8dp"
@@ -90,7 +90,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintDimensionRatio="2.7:1"
         android:gravity="center_horizontal"
-        android:textSize="18sp"
+        android:textSize="14sp"
         android:text="@string/student"
         android:textColor="@color/colorLightGrey"
         android:layout_marginRight="8dp"
@@ -100,12 +100,20 @@
         app:layout_constraintEnd_toStartOf="@id/expertBtn"
         />
 
+    <View
+        android:id="@+id/firstCategoryLine"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="4dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/firstCategoryTxt" />
 
     <androidx.constraintlayout.widget.Group
         android:id="@+id/studentGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:constraint_referenced_ids="universityNameTxt,universityNameInput,majorNameTxt,majorNameInput"
+        app:constraint_referenced_ids="universityNameTxt,universityNameInput,universityNameLine,majorNameTxt,majorNameInput,majorNameLine"
         android:visibility="gone"
         />
     <TextView
@@ -115,9 +123,9 @@
         android:textSize="18sp"
         android:textColor="@color/colorGrey"
         android:text="@string/university_name"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="25dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/firstCategoryTxt"
+        app:layout_constraintTop_toBottomOf="@id/firstCategoryLine"
         />
     <EditText
         android:id="@+id/universityNameInput"
@@ -133,6 +141,14 @@
         app:layout_constraintLeft_toRightOf="@id/universityNameTxt"
         app:layout_constraintRight_toRightOf="parent"
         />
+    <View
+        android:id="@+id/universityNameLine"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="5dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/universityNameTxt" />
 
     <TextView
         android:id="@+id/majorNameTxt"
@@ -141,9 +157,9 @@
         android:textSize="18sp"
         android:textColor="@color/colorGrey"
         android:text="@string/major_name"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="25dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/universityNameTxt"
+        app:layout_constraintTop_toBottomOf="@id/universityNameLine"
         />
     <EditText
         android:id="@+id/majorNameInput"
@@ -160,32 +176,41 @@
         app:layout_constraintRight_toRightOf="parent"
         />
 
+    <View
+        android:id="@+id/majorNameLine"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="5dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/majorNameTxt" />
+
 
 
     <androidx.constraintlayout.widget.Group
         android:id="@+id/expertGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:constraint_referenced_ids="jobTypeTxt,companyBtn,shopOwnerBtn,freelancerBtn,companyGroup,shopOwnerGroup"
+        app:constraint_referenced_ids="jobTypeTxt,companyBtn,shopOwnerBtn,freelancerBtn,jobTypeLine,companyGroup,shopOwnerGroup"
         android:visibility="gone"
         />
     <TextView
         android:id="@+id/jobTypeTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="25dp"
         android:text="@string/job_type"
         android:textColor="@color/colorGrey"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/firstCategoryTxt" />
+        app:layout_constraintTop_toBottomOf="@id/firstCategoryLine" />
     <TextView
         android:id="@+id/freelancerBtn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintDimensionRatio="2.7:1"
         android:gravity="center_horizontal"
-        android:textSize="18sp"
+        android:textSize="14sp"
         android:text="@string/freelancer"
         android:textColor="@color/colorLightGrey"
         android:background="@drawable/job_btn_lightgrey_rounding_border"
@@ -199,7 +224,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintDimensionRatio="2.7:1"
         android:gravity="center_horizontal"
-        android:textSize="18sp"
+        android:textSize="14sp"
         android:text="@string/shop_owner"
         android:textColor="@color/colorLightGrey"
         android:layout_marginRight="8dp"
@@ -214,7 +239,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintDimensionRatio="2.7:1"
         android:gravity="center_horizontal"
-        android:textSize="18sp"
+        android:textSize="14sp"
         android:text="@string/company"
         android:textColor="@color/colorLightGrey"
         android:layout_marginRight="8dp"
@@ -223,13 +248,22 @@
         app:layout_constraintBottom_toBottomOf="@id/jobTypeTxt"
         app:layout_constraintEnd_toStartOf="@id/shopOwnerBtn"
         />
+    <View
+        android:id="@+id/jobTypeLine"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="5dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/jobTypeTxt" />
+
+
 
     <androidx.constraintlayout.widget.Group
         android:id="@+id/companyGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:constraint_referenced_ids="companyNameTxt,companyNameInput"
-        android:visibility="gone"
+        app:constraint_referenced_ids="companyNameTxt,companyNameInput,companyNameLine"
         />
     <TextView
         android:id="@+id/companyNameTxt"
@@ -238,9 +272,9 @@
         android:textSize="18sp"
         android:textColor="@color/colorGrey"
         android:text="@string/company_name"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="25dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/jobTypeTxt"
+        app:layout_constraintTop_toBottomOf="@id/jobTypeLine"
         />
     <EditText
         android:id="@+id/companyNameInput"
@@ -256,12 +290,20 @@
         app:layout_constraintLeft_toRightOf="@id/companyNameTxt"
         app:layout_constraintRight_toRightOf="parent"
         />
+    <View
+        android:id="@+id/companyNameLine"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="5dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/companyNameTxt" />
 
     <androidx.constraintlayout.widget.Group
         android:id="@+id/shopOwnerGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:constraint_referenced_ids="shopNameTxt,shopNameInput"
+        app:constraint_referenced_ids="shopNameTxt,shopNameInput,shopNameLine"
         />
     <TextView
         android:id="@+id/shopNameTxt"
@@ -270,9 +312,9 @@
         android:textSize="18sp"
         android:textColor="@color/colorGrey"
         android:text="@string/shop_name"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="25dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/jobTypeTxt"
+        app:layout_constraintTop_toBottomOf="@id/jobTypeLine"
         />
     <EditText
         android:id="@+id/shopNameInput"
@@ -288,7 +330,14 @@
         app:layout_constraintLeft_toRightOf="@id/shopNameTxt"
         app:layout_constraintRight_toRightOf="parent"
         />
-
+    <View
+        android:id="@+id/shopNameLine"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="5dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/shopNameTxt" />
 
 
     <androidx.constraintlayout.widget.Group
