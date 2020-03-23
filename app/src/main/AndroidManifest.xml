@@ -13,7 +13,7 @@
         android:theme="@style/AppTheme">
         <activity android:name=".termsagree.ActivityTermsAgree"></activity>
         <activity android:name=".bookmark.ActivityBookmark" />
-        <activity android:name=".manufacturespostsecond.ActivityManufacturesPostSecond" />
+        <activity android:name=".postsecond.ActivityPostSecond" />
         <activity android:name=".materialspostsecond.ActivityMaterialsPostSecond" />
         <activity android:name=".postfirst.ActivityPostFirst" />
         <activity android:name=".manufactures.ActivityManufactures" />

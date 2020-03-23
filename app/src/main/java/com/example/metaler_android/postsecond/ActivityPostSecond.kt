@@ -1,13 +1,13 @@
-package com.example.metaler_android.manufacturespostsecond
+package com.example.metaler_android.postsecond
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.metaler_android.R
 
-class ActivityManufacturesPostSecond : AppCompatActivity() {
+class ActivityPostSecond : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_manufactures_post_second)
+        setContentView(R.layout.activity_post_second)
     }
 }
