@@ -33,8 +33,10 @@ class ActivityMaterials : AppCompatActivity(), ContractMaterials.View {
     private var categoryItemListener: CategoryItemListener = object : CategoryItemListener {
         override fun onCategoryClick(categoryType: String, position: Int) {
             if (categoryAdapter.selectedPosition != position) {
-                categoryAdapter.selectedPosition = position
-                categoryAdapter.notifyDataSetChanged()
+                categoryAdapter.also {
+                    it.selectedPosition = position
+                    it.notifyDataSetChanged()
+                }
                 // TODO : 카테고리 타입에 맞는 post 를 불러오도록 presenter 수정해야함
                 presenter.loadPosts()
             }
