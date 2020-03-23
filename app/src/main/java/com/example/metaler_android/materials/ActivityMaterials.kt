@@ -28,7 +28,21 @@ class ActivityMaterials : AppCompatActivity(), ContractMaterials.View {
     override lateinit var presenter: ContractMaterials.Presenter
 
     /**
-     * 재료 탭에서 보여지는 재료 게시물 리사이클러뷰 아이템에 달아줄 클릭리스너입니다
+     * 재료 탭의 카테고리 리사이클러뷰 아이템에 달아줄 리스너입니다
+     * */
+    private var categoryItemListener: CategoryItemListener = object : CategoryItemListener {
+        override fun onCategoryClick(categoryType: String, position: Int) {
+            if (categoryAdapter.selectedPosition != position) {
+                categoryAdapter.selectedPosition = position
+                categoryAdapter.notifyDataSetChanged()
+                // TODO : 카테고리 타입에 맞는 post 를 불러오도록 presenter 수정해야함
+                presenter.loadPosts()
+            }
+        }
+    }
+
+    /**
+     * 재료 탭에서 보여지는 재료 게시물 리사이클러뷰 아이템에 달아줄 리스너입니다
      * onPostClick -> 게시물을 클릭한 경우
      * onBookmarkButtonClick -> 북마크 버튼을 클릭한 경우
      * */
@@ -59,6 +73,8 @@ class ActivityMaterials : AppCompatActivity(), ContractMaterials.View {
 
     private val postAdapter = PostAdapter(ArrayList(0), itemListener)
     private val postLayoutManager = LinearLayoutManager(this)
+
+    private val categoryAdapter = CategoryAdapter(ArrayList(0), categoryItemListener)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -200,7 +216,7 @@ class ActivityMaterials : AppCompatActivity(), ContractMaterials.View {
             fun bind(item: Category, position: Int) {
 
                 view.materialsCategoryBtn.text = item.name
-                view.setOnClickListener { itemListener.onCategoryClick(item.name) }
+                view.setOnClickListener { itemListener.onCategoryClick(item.name, position) }
 
                 if (selectedPosition == position) {
                     view.materialsCategoryBtn.setTextColor(R.color.colorPurple)
@@ -214,7 +230,7 @@ class ActivityMaterials : AppCompatActivity(), ContractMaterials.View {
     }
 
     private interface CategoryItemListener {
-        fun onCategoryClick(categoryType: String)
+        fun onCategoryClick(categoryType: String, position: Int)
     }
 
 }
