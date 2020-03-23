@@ -110,6 +110,10 @@ class ActivityHome : AppCompatActivity(), ContractHome.View {
         overridePendingTransition(0,0)
     }
 
+    /**
+     * TapBarContract.View 에서 상속받은 함수
+     * showHomeUi() ~ showMyPageUi() 까지
+     * */
     override fun showHomeUi() {
         Intent(this@ActivityHome, ActivityHome::class.java).also {
             startActivity(it)

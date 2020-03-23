@@ -56,5 +56,5 @@ class PresenterMaterials(context: Context, val view: ContractMaterials.View) : C
     override fun openManufactures() { view.showManufacturesUi() }
     override fun openBookmarks() { view.showBookmarksUi() }
     override fun openMyPage() { view.showMyPageUi() }
-    
+
 }
