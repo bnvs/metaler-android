@@ -4,10 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.TextView
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.metaler_android.detail.ActivityDetail
 import com.example.metaler_android.home.ActivityHome
 import com.example.metaler_android.R
 import com.example.metaler_android.bookmark.ActivityBookmark
@@ -61,6 +58,7 @@ class ActivityMaterials : AppCompatActivity(), ContractMaterials.View {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_materials)
 
+        // Create the presenter
         presenter = PresenterMaterials(
             this@ActivityMaterials,
             this@ActivityMaterials
@@ -68,6 +66,17 @@ class ActivityMaterials : AppCompatActivity(), ContractMaterials.View {
 
         // Set up Buttons
         initClickListeners()
+
+        // Set up posts recyclerView
+        postsRV.apply {
+            adapter = postAdapter
+            layoutManager = postLayoutManager
+        }
+
+        // 재료 탭 presenter 시작
+        presenter.run {
+            start()
+        }
 
     }
 

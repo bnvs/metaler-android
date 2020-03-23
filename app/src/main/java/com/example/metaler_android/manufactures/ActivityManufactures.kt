@@ -74,7 +74,7 @@ class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
             layoutManager = postLayoutManager
         }
 
-        // 홈 탭에서 보여줄 데이터 가져오기 시작
+        // 가공 탭 presenter 시작
         presenter.run {
             start()
         }
