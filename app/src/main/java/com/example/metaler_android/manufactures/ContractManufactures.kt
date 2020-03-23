@@ -26,7 +26,7 @@ interface ContractManufactures {
         fun deleteSearchTag()
     }
 
-    interface Presenter : BasePresenter {
+    interface Presenter : BasePresenter, TapBarContract.Presenter {
         fun loadPosts()
 
         fun openPostDetail(postId: Int)
