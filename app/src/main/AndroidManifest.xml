@@ -11,10 +11,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".termsagree.ActivityTermsAgree"></activity>
+        <activity android:name=".jobinput.ActivityJobInput"></activity>
+        <activity android:name=".termsagree.ActivityTermsAgree" />
         <activity android:name=".bookmark.ActivityBookmark" />
         <activity android:name=".postsecond.ActivityPostSecond" />
-        <activity android:name=".materialspostsecond.ActivityMaterialsPostSecond" />
         <activity android:name=".postfirst.ActivityPostFirst" />
         <activity android:name=".manufactures.ActivityManufactures" />
         <activity android:name=".detail.ActivityDetail" />
