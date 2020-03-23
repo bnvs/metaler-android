@@ -1,6 +1,5 @@
 package com.example.metaler_android.materials
 
-import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -10,7 +9,6 @@ import com.example.metaler_android.detail.ActivityDetail
 import com.example.metaler_android.home.ActivityHome
 import com.example.metaler_android.R
 import com.example.metaler_android.manufactures.ActivityManufactures
-import kotlinx.android.synthetic.main.activity_home.homeBtn
 import kotlinx.android.synthetic.main.activity_materials.*
 
 class ActivityMaterials : AppCompatActivity(), ContractMaterials.View {
@@ -28,7 +26,11 @@ class ActivityMaterials : AppCompatActivity(), ContractMaterials.View {
             this@ActivityMaterials
         )
 
-        
+        homeBtn.setOnClickListener { presenter.openHome() }
+        materialsBtn.setOnClickListener { presenter.openMaterials() }
+        manufactureBtn.setOnClickListener { presenter.openManufactures() }
+        bookmarkBtn.setOnClickListener { presenter.openBookmarks() }
+        myPageBtn.setOnClickListener { presenter.openMyPage() }
 
         //카테고리 버튼 색상 초기화. 재료탭은 전체카테고리가 눌린 상태로 시작됨
         inactiveCategoryBtn()
