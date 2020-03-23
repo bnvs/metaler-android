@@ -12,7 +12,224 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/bottom_round_bg"
+        android:paddingBottom="15dp"
         app:layout_constraintTop_toBottomOf="@id/titleBarCard">
+
+        <ImageView
+            android:id="@+id/profileImg"
+            android:src="@drawable/ic_profile_x3"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="7dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
+        <TextView
+            android:id="@+id/profileNickname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="닉네임"
+            android:textSize="18sp"
+            android:textColor="@color/colorPurple"
+            android:textStyle="bold"
+            android:layout_marginTop="7dp"
+            app:layout_constraintTop_toBottomOf="@id/profileImg"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
+        <TextView
+            android:id="@+id/profileEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:text="asd1234@naver.com"
+            android:textColor="@color/colorGrey"
+            app:layout_constraintTop_toBottomOf="@id/profileNickname"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
+
+
+        <TextView
+            android:id="@+id/nicknameBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/nickname_modify"
+            android:textSize="18sp"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/profileEmail"
+            />
+        <ImageView
+            android:id="@+id/nicknameMoreBtn"
+            android:layout_width="13dp"
+            android:layout_height="13dp"
+            android:layout_marginRight="20dp"
+            android:src="@drawable/ic_home_more_arrow_x3"
+            app:layout_constraintBottom_toBottomOf="@id/nicknameBtn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/nicknameBtn" />
+        <View
+            android:id="@+id/nicknameLine"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:paddingBottom="6dp"
+            android:background="?android:attr/listDivider"
+            android:layout_marginTop="10dp"
+            android:layout_marginHorizontal="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/nicknameBtn" />
+
+        <TextView
+            android:id="@+id/jobBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/job_modify"
+            android:textSize="18sp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/nicknameLine"
+            />
+        <ImageView
+            android:id="@+id/jobMoreBtn"
+            android:layout_width="13dp"
+            android:layout_height="13dp"
+            android:layout_marginRight="20dp"
+            android:src="@drawable/ic_home_more_arrow_x3"
+            app:layout_constraintBottom_toBottomOf="@id/jobBtn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/jobBtn" />
+        <View
+            android:id="@+id/jobLine"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:paddingBottom="6dp"
+            android:background="?android:attr/listDivider"
+            android:layout_marginTop="10dp"
+            android:layout_marginHorizontal="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/jobBtn" />
+
+
+        <TextView
+            android:id="@+id/myPostsBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/my_posts"
+            android:textSize="18sp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/jobLine"
+            />
+        <ImageView
+            android:id="@+id/myPostsMoreBtn"
+            android:layout_width="13dp"
+            android:layout_height="13dp"
+            android:layout_marginRight="20dp"
+            android:src="@drawable/ic_home_more_arrow_x3"
+            app:layout_constraintBottom_toBottomOf="@id/myPostsBtn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/myPostsBtn" />
+        <View
+            android:id="@+id/c"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:paddingBottom="6dp"
+            android:background="?android:attr/listDivider"
+            android:layout_marginTop="10dp"
+            android:layout_marginHorizontal="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/myPostsBtn" />
+
+
+        <TextView
+            android:id="@+id/termsBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/job_modify"
+            android:textSize="18sp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/myPostsBtn"
+            />
+        <ImageView
+            android:id="@+id/termsMoreBtn"
+            android:layout_width="13dp"
+            android:layout_height="13dp"
+            android:layout_marginRight="20dp"
+            android:src="@drawable/ic_home_more_arrow_x3"
+            app:layout_constraintBottom_toBottomOf="@id/termsBtn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/termsBtn" />
+        <View
+            android:id="@+id/termsLine"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:paddingBottom="6dp"
+            android:background="?android:attr/listDivider"
+            android:layout_marginTop="10dp"
+            android:layout_marginHorizontal="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/termsBtn" />
+
+
+        <TextView
+            android:id="@+id/logoutBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/logout"
+            android:textSize="18sp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/termsLine"
+            />
+        <ImageView
+            android:id="@+id/logoutMoreBtn"
+            android:layout_width="13dp"
+            android:layout_height="13dp"
+            android:layout_marginRight="20dp"
+            android:src="@drawable/ic_home_more_arrow_x3"
+            app:layout_constraintBottom_toBottomOf="@id/logoutBtn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/logoutBtn" />
+        <View
+            android:id="@+id/logoutLine"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:paddingBottom="6dp"
+            android:background="?android:attr/listDivider"
+            android:layout_marginTop="10dp"
+            android:layout_marginHorizontal="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/logoutBtn" />
+
+
+        <TextView
+            android:id="@+id/withdrawalBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/withdrawal"
+            android:textSize="18sp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/logoutLine"
+            />
+        <ImageView
+            android:id="@+id/withdrawalMoreBtn"
+            android:layout_width="13dp"
+            android:layout_height="13dp"
+            android:layout_marginRight="20dp"
+            android:src="@drawable/ic_home_more_arrow_x3"
+            app:layout_constraintBottom_toBottomOf="@id/withdrawalBtn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/withdrawalBtn" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
