@@ -1,6 +1,5 @@
 package com.example.metaler_android.manufactures
 
-import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -64,6 +63,9 @@ class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
             this@ActivityManufactures
         )
 
+        // Set up Buttons
+        initClickListeners()
+
         // Set up posts recyclerView
         postsRV.apply {
             adapter = postAdapter
@@ -74,7 +76,6 @@ class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
         // 탭 바 아이콘에 클릭 리스너 달아줌
         presenter.run {
             start()
-            setTapBar(this@ActivityManufactures)
         }
 
     }
@@ -104,42 +105,58 @@ class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
+    /**
+     * TapBarContract.View 에서 상속받은 함수
+     * showHomeUi() ~ showMyPageUi() 까지
+     * */
     override fun deleteSearchTag() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    // 하단 탭 바에 리스너를 추가한다
-    override fun setTapBarListener(context: Context) {
-        homeIcon.setOnClickListener {
-            Intent(context, ActivityHome::class.java).also {
-                startActivity(it)
-            }
+    override fun showHomeUi() {
+        Intent(this@ActivityManufactures, ActivityHome::class.java).also {
+            startActivity(it)
         }
+    }
 
-        materialsIcon.setOnClickListener {
-            Intent(context, ActivityMaterials::class.java).also {
-                startActivity(it)
-            }
+    override fun showMaterialsUi() {
+        Intent(this@ActivityManufactures, ActivityMaterials::class.java).also {
+            startActivity(it)
         }
+    }
 
-        manufactureIcon.setOnClickListener {
-            Intent(context, ActivityManufactures::class.java).also {
-                startActivity(it)
-            }
+    override fun showManufacturesUi() {
+        Intent(this@ActivityManufactures, ActivityManufactures::class.java).also {
+            startActivity(it)
         }
+    }
 
-        /*bookmarkIcon.setOnClickListener {
-            Intent(context, ActivityBookmarks::class.java).also {
-                addFlags(it)
-                startActivity(it)
-            }
-        }
-
-        myPageIcon.setOnClickListener {
-            Intent(context, ActivityMyPage::class.java).also {
-                addFlags(it)
-                startActivity(it)
-            }
+    override fun showBookmarksUi() {
+        /*Intent(this@ActivityManufactures, ActivityBookmarks::class.java).also {
+            startActivity(it)
         }*/
+    }
+
+    override fun showMyPageUi() {
+        /*Intent(this@ActivityManufactures, ActivityMyPage::class.java).also {
+            startActivity(it)
+        }*/
+    }
+
+    private fun initClickListeners() {
+        setTitleBarButtons()
+        setTapBarButtons()
+    }
+
+    private fun setTitleBarButtons() {
+        // 글작성, 글검색 버튼 클릭 리스너 달아주기
+    }
+
+    private fun setTapBarButtons() {
+        homeBtn.setOnClickListener { presenter.openHome() }
+        materialsBtn.setOnClickListener { presenter.openMaterials() }
+        manufactureBtn.setOnClickListener { presenter.openManufactures() }
+        bookmarkBtn.setOnClickListener { presenter.openBookmarks() }
+        myPageBtn.setOnClickListener { presenter.openMyPage() }
     }
 }

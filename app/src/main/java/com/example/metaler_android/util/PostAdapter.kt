@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.metaler_android.R
 import com.example.metaler_android.data.post.Post
-import com.example.metaler_android.manufactures.ActivityManufactures
 import kotlinx.android.synthetic.main.item_posts_rv.view.*
 
 /**
@@ -16,7 +15,7 @@ import kotlinx.android.synthetic.main.item_posts_rv.view.*
  * */
 class PostAdapter(
     private var posts: List<Post>,
-    private val itemListener: ActivityManufactures.PostItemListener
+    private val itemListener: PostItemListener
 ) : RecyclerView.Adapter<PostAdapter.ViewHolder>() {
 
     fun setPosts(list: List<Post>) {

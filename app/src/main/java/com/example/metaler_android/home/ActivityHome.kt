@@ -51,8 +51,7 @@ class ActivityHome : AppCompatActivity(), ContractHome.View {
         )
 
         // Set up Buttons
-        materialsMoreBtn.setOnClickListener { presenter.openMaterials() }
-        manufactureMoreBtn.setOnClickListener { presenter.openManufactures() }
+        initClickListeners()
 
         // Set up materials recyclerView
         materialsRV.apply {
@@ -71,7 +70,6 @@ class ActivityHome : AppCompatActivity(), ContractHome.View {
         // 상태 바(배터리,와이파이 아이콘 표시되는 곳) 투명하게함
         presenter.run{
             start()
-            setTapBar(this@ActivityHome)
             setStatusBar()
         }
 
@@ -103,20 +101,6 @@ class ActivityHome : AppCompatActivity(), ContractHome.View {
         materialsAdapter.notifyDataSetChanged()
     }
 
-    // 재료 탭으로 이동한다
-    override fun showMaterialsUi() {
-        Intent(this@ActivityHome, ActivityMaterials::class.java).also {
-            startActivity(it)
-        }
-    }
-
-    // 가공 탭으로 이동한다
-    override fun showManufacturesUi() {
-        Intent(this@ActivityHome, ActivityManufactures::class.java).also {
-            startActivity(it)
-        }
-    }
-
     // 게시물 상세 내용 액티비티로 이동한다
     override fun showPostDetailUi(postId: Int) {
         Intent(this@ActivityHome, ActivityDetail::class.java)
@@ -126,38 +110,37 @@ class ActivityHome : AppCompatActivity(), ContractHome.View {
         overridePendingTransition(0,0)
     }
 
-    // 하단 탭 바에 리스너를 추가한다
-    override fun setTapBarListener(context: Context) {
-        homeIcon.setOnClickListener {
-            Intent(context, ActivityHome::class.java).also {
-                startActivity(it)
-            }
+    /**
+     * TapBarContract.View 에서 상속받은 함수
+     * showHomeUi() ~ showMyPageUi() 까지
+     * */
+    override fun showHomeUi() {
+        Intent(this@ActivityHome, ActivityHome::class.java).also {
+            startActivity(it)
         }
+    }
 
-        materialsIcon.setOnClickListener {
-            Intent(context, ActivityMaterials::class.java).also {
-                startActivity(it)
-            }
+    override fun showMaterialsUi() {
+        Intent(this@ActivityHome, ActivityMaterials::class.java).also {
+            startActivity(it)
         }
+    }
 
-        manufactureIcon.setOnClickListener {
-            Intent(context, ActivityManufactures::class.java).also {
-                startActivity(it)
-            }
+    override fun showManufacturesUi() {
+        Intent(this@ActivityHome, ActivityManufactures::class.java).also {
+            startActivity(it)
         }
+    }
 
-        /*bookmarkIcon.setOnClickListener {
-            Intent(context, ActivityBookmarks::class.java).also {
-                addFlags(it)
-                startActivity(it)
-            }
-        }
+    override fun showBookmarksUi() {
+        /*Intent(this@ActivityHome, ActivityBookmarks::class.java).also {
+            startActivity(it)
+        }*/
+    }
 
-        myPageIcon.setOnClickListener {
-            Intent(context, ActivityMyPage::class.java).also {
-                addFlags(it)
-                startActivity(it)
-            }
+    override fun showMyPageUi() {
+        /*Intent(this@ActivityHome, ActivityMyPage::class.java).also {
+            startActivity(it)
         }*/
     }
 
@@ -174,6 +157,24 @@ class ActivityHome : AppCompatActivity(), ContractHome.View {
 
         //소프트키 올라온 높이만큼 전체 레이아웃 하단에 padding을 줌.
         wrapConstraintLayout.setPadding(0,0,0,softMenuHeight(this))
+    }
+
+    private fun initClickListeners() {
+        setMoreButtons()
+        setTapBarButtons()
+    }
+
+    private fun setMoreButtons() {
+        materialsMoreBtn.setOnClickListener { presenter.openMaterials() }
+        manufactureMoreBtn.setOnClickListener { presenter.openManufactures() }
+    }
+
+    private fun setTapBarButtons() {
+        homeBtn.setOnClickListener { presenter.openHome() }
+        materialsBtn.setOnClickListener { presenter.openMaterials() }
+        manufactureBtn.setOnClickListener { presenter.openManufactures() }
+        bookmarkBtn.setOnClickListener { presenter.openBookmarks() }
+        myPageBtn.setOnClickListener { presenter.openMyPage() }
     }
 
     //상태바 높이 계산
