@@ -1,7 +1,5 @@
 package com.example.metaler_android.util
 
-import android.content.Context
-
 interface TapBarContract {
 
     interface View {

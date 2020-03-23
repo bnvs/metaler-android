@@ -1,6 +1,5 @@
 package com.example.metaler_android.home
 
-import android.content.Context
 import com.example.metaler_android.BasePresenter
 import com.example.metaler_android.BaseView
 import com.example.metaler_android.data.homeposts.HomePost

@@ -3,7 +3,6 @@ package com.example.metaler_android.home
 import android.content.Context
 import com.example.metaler_android.data.homeposts.source.HomePostsRepository
 import com.example.metaler_android.data.profile.source.ProfileRepository
-import java.io.File
 
 class PresenterHome(context: Context, val view: ContractHome.View) : ContractHome.Presenter {
 
