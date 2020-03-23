@@ -3,6 +3,7 @@ package com.example.metaler_android.home
 import android.content.Context
 import com.example.metaler_android.data.homeposts.source.HomePostsRepository
 import com.example.metaler_android.data.profile.source.ProfileRepository
+import java.io.File
 
 class PresenterHome(context: Context, val view: ContractHome.View) : ContractHome.Presenter {
 
@@ -45,6 +46,22 @@ class PresenterHome(context: Context, val view: ContractHome.View) : ContractHom
         })*/
     }
 
+    override fun openPostDetail(postId: Int) {
+        view.showPostDetailUi(postId)
+    }
+
+    override fun setStatusBar() {
+        view.setTransparentStatusBar()
+    }
+
+    override fun initTapBarListener() {
+        view.setTapBarListener()
+    }
+
+    override fun openHome() {
+        view.showHomeUi()
+    }
+
     override fun openMaterials() {
         view.showMaterialsUi()
     }
@@ -53,15 +70,11 @@ class PresenterHome(context: Context, val view: ContractHome.View) : ContractHom
         view.showManufacturesUi()
     }
 
-    override fun openPostDetail(postId: Int) {
-        view.showPostDetailUi(postId)
+    override fun openBookmarks() {
+        view.showBookmarksUi()
     }
 
-    override fun setTapBar(context: Context) {
-        view.setTapBarListener(context)
-    }
-
-    override fun setStatusBar() {
-        view.setTransparentStatusBar()
+    override fun openMyPage() {
+        view.showMyPageUi()
     }
 }

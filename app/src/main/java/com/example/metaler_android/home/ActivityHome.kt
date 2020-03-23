@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -71,7 +72,7 @@ class ActivityHome : AppCompatActivity(), ContractHome.View {
         // 상태 바(배터리,와이파이 아이콘 표시되는 곳) 투명하게함
         presenter.run{
             start()
-            setTapBar(this@ActivityHome)
+            initTapBarListener()
             setStatusBar()
         }
 
@@ -103,20 +104,6 @@ class ActivityHome : AppCompatActivity(), ContractHome.View {
         materialsAdapter.notifyDataSetChanged()
     }
 
-    // 재료 탭으로 이동한다
-    override fun showMaterialsUi() {
-        Intent(this@ActivityHome, ActivityMaterials::class.java).also {
-            startActivity(it)
-        }
-    }
-
-    // 가공 탭으로 이동한다
-    override fun showManufacturesUi() {
-        Intent(this@ActivityHome, ActivityManufactures::class.java).also {
-            startActivity(it)
-        }
-    }
-
     // 게시물 상세 내용 액티비티로 이동한다
     override fun showPostDetailUi(postId: Int) {
         Intent(this@ActivityHome, ActivityDetail::class.java)
@@ -127,37 +114,45 @@ class ActivityHome : AppCompatActivity(), ContractHome.View {
     }
 
     // 하단 탭 바에 리스너를 추가한다
-    override fun setTapBarListener(context: Context) {
-        homeBtn.setOnClickListener {
-            Intent(context, ActivityHome::class.java).also {
-                startActivity(it)
-            }
-        }
+    override fun setTapBarListener() {
+        homeBtn.setOnClickListener { presenter.openHome() }
 
-        materialsBtn.setOnClickListener {
-            Intent(context, ActivityMaterials::class.java).also {
-                startActivity(it)
-            }
-        }
+        materialsBtn.setOnClickListener { presenter.openMaterials() }
 
-        manufactureBtn.setOnClickListener {
-            Intent(context, ActivityManufactures::class.java).also {
-                startActivity(it)
-            }
-        }
+        manufactureBtn.setOnClickListener { presenter.openManufactures() }
 
-        /*bookmarkBtn.setOnClickListener {
-            Intent(context, ActivityBookmarks::class.java).also {
-                addFlags(it)
-                startActivity(it)
-            }
-        }
+        bookmarkBtn.setOnClickListener { presenter.openBookmarks() }
 
-        myPageBtn.setOnClickListener {
-            Intent(context, ActivityMyPage::class.java).also {
-                addFlags(it)
-                startActivity(it)
-            }
+        myPageBtn.setOnClickListener { presenter.openMyPage() }
+    }
+
+    override fun showHomeUi() {
+        Intent(this@ActivityHome, ActivityHome::class.java).also {
+            startActivity(it)
+        }
+    }
+
+    override fun showMaterialsUi() {
+        Intent(this@ActivityHome, ActivityMaterials::class.java).also {
+            startActivity(it)
+        }
+    }
+
+    override fun showManufacturesUi() {
+        Intent(this@ActivityHome, ActivityManufactures::class.java).also {
+            startActivity(it)
+        }
+    }
+
+    override fun showBookmarksUi() {
+        /*Intent(this@ActivityHome, ActivityBookmarks::class.java).also {
+            startActivity(it)
+        }*/
+    }
+
+    override fun showMyPageUi() {
+        /*Intent(this@ActivityHome, ActivityMyPage::class.java).also {
+            startActivity(it)
         }*/
     }
 
