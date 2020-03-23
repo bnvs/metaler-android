@@ -89,4 +89,9 @@
     <string name="logout">로그아웃</string>
     <string name="withdrawal">회원 탈퇴</string>
 
+    <!--  activity_search.xml에서 쓰이는 문자열  -->
+    <string name="search_guide">검색어를 입력해주세요.</string>
+    <string name="search_result">검색 결과</string>
+    <string name="search_unit">개</string>
+
 </resources>
