@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.metaler_android.home.ActivityHome
@@ -77,6 +78,7 @@ class ActivityMaterials : AppCompatActivity(), ContractMaterials.View {
     private val postLayoutManager = LinearLayoutManager(this)
 
     private val categoryAdapter = CategoryAdapter(ArrayList(0), categoryItemListener)
+    private val categoryLayoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -90,6 +92,12 @@ class ActivityMaterials : AppCompatActivity(), ContractMaterials.View {
 
         // Set up Buttons
         initClickListeners()
+
+        // Set up categories recyclerView
+        materialsCategoryRV.apply {
+            adapter = categoryAdapter
+            layoutManager = categoryLayoutManager
+        }
 
         // Set up posts recyclerView
         postsRV.apply {
