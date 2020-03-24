@@ -16,6 +16,14 @@ class PresenterMyPage(context: Context, val view: ContractMyPage.View) : Contrac
 
     }
 
+    override fun openJobModify() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun openMyPosts() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     /**
      * TapBarContract.Presenter 에서 상속받은 함수
      * */
