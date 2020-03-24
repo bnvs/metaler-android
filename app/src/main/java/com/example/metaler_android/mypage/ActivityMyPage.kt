@@ -63,40 +63,6 @@ class ActivityMyPage : AppCompatActivity(), ContractMyPage.View {
             startActivity(it)
         }       }
 
-    /**
-     * TapBarContract.View 에서 상속받은 함수
-     * showHomeUi() ~ showMyPageUi() 까지
-     * */
-    override fun showHomeUi() {
-        Intent(this@ActivityMyPage, ActivityHome::class.java).also {
-            startActivity(it)
-        }
-    }
-
-    override fun showMaterialsUi() {
-        Intent(this@ActivityMyPage, ActivityMaterials::class.java).also {
-            startActivity(it)
-        }
-    }
-
-    override fun showManufacturesUi() {
-        Intent(this@ActivityMyPage, ActivityManufactures::class.java).also {
-            startActivity(it)
-        }
-    }
-
-    override fun showBookmarksUi() {
-        Intent(this@ActivityMyPage, ActivityBookmark::class.java).also {
-            startActivity(it)
-        }
-    }
-
-    override fun showMyPageUi() {
-        Intent(this@ActivityMyPage, ActivityMyPage::class.java).also {
-            startActivity(it)
-        }
-    }
-
     override fun showNicknameModifyDialog() {
         val editText = EditText(this)
         val builder = AlertDialog.Builder(this)
