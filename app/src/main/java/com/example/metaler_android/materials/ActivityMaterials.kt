@@ -140,40 +140,6 @@ class ActivityMaterials : AppCompatActivity(), ContractMaterials.View {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    /**
-     * TapBarContract.View 에서 상속받은 함수
-     * showHomeUi() ~ showMyPageUi() 까지
-     * */
-    override fun showHomeUi() {
-        Intent(this@ActivityMaterials, ActivityHome::class.java).also {
-            startActivity(it)
-        }
-    }
-
-    override fun showMaterialsUi() {
-        Intent(this@ActivityMaterials, ActivityMaterials::class.java).also {
-            startActivity(it)
-        }
-    }
-
-    override fun showManufacturesUi() {
-        Intent(this@ActivityMaterials, ActivityManufactures::class.java).also {
-            startActivity(it)
-        }
-    }
-
-    override fun showBookmarksUi() {
-        Intent(this@ActivityMaterials, ActivityBookmark::class.java).also {
-            startActivity(it)
-        }
-    }
-
-    override fun showMyPageUi() {
-        Intent(this@ActivityMaterials, ActivityMyPage::class.java).also {
-            startActivity(it)
-        }
-    }
-
     private fun initClickListeners() {
         setTitleBarButtons()
         setTapBarButtons()
