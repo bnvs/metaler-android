@@ -9,6 +9,10 @@ interface ContractMyPage {
     interface View : BaseView<Presenter>, TapBarContract.View {
         fun showProfile(profile: Profile)
 
+        fun showJobModifyUi()
+
+        fun showMyPostsUi()
+
     }
 
     interface Presenter : BasePresenter, TapBarContract.Presenter {
