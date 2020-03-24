@@ -150,7 +150,7 @@
             android:id="@+id/termsBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/job_modify"
+            android:text="@string/terms"
             android:textSize="18sp"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"
