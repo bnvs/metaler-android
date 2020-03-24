@@ -81,6 +81,18 @@ class ActivityMyPage : AppCompatActivity(), ContractMyPage.View {
         }
     }
 
+    override fun showNicknameModifyDialog() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun showLogoutDialog() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun showWithdrawalDialog() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     private fun initClickListeners() {
         setMenuButtons()
         setTapBarButtons()
