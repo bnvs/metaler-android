@@ -150,11 +150,11 @@ class ActivityMaterials : AppCompatActivity(), ContractMaterials.View {
     }
 
     private fun setTapBarButtons() {
-        homeBtn.setOnClickListener { presenter.openHome() }
-        materialsBtn.setOnClickListener { presenter.openMaterials() }
-        manufactureBtn.setOnClickListener { presenter.openManufactures() }
-        bookmarkBtn.setOnClickListener { presenter.openBookmarks() }
-        myPageBtn.setOnClickListener { presenter.openMyPage() }
+        homeBtn.setOnClickListener { presenter.openHome(this, this) }
+        materialsBtn.setOnClickListener { presenter.openMaterials(this, this) }
+        manufactureBtn.setOnClickListener { presenter.openManufactures(this, this) }
+        bookmarkBtn.setOnClickListener { presenter.openBookmarks(this, this) }
+        myPageBtn.setOnClickListener { presenter.openMyPage(this, this) }
     }
 
     /**
