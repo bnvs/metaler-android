@@ -55,13 +55,4 @@ class PresenterHome(
         view.setTransparentStatusBar()
     }
 
-    /**
-     * TapBarContract.Presenter 에서 상속받은 함수
-     * */
-    override fun openHome() { view.showHomeUi(context) }
-    override fun openMaterials() { view.showMaterialsUi(context) }
-    override fun openManufactures() { view.showManufacturesUi(context) }
-    override fun openBookmarks() { view.showBookmarksUi(context) }
-    override fun openMyPage() { view.showMyPageUi(context) }
-
 }
