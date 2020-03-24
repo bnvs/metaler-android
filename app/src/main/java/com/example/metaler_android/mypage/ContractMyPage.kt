@@ -14,5 +14,9 @@ interface ContractMyPage {
     interface Presenter : BasePresenter, TapBarContract.Presenter {
         fun loadProfile()
 
+        fun openMyPosts()
+
+        fun openJobModify()
+
     }
 }
