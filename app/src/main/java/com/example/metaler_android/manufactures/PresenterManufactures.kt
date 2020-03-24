@@ -3,7 +3,9 @@ package com.example.metaler_android.manufactures
 import android.content.Context
 import com.example.metaler_android.data.post.source.PostRepository
 
-class PresenterManufactures(context: Context, val view: ContractManufactures.View) : ContractManufactures.Presenter {
+class PresenterManufactures(
+    private val context: Context,
+    val view: ContractManufactures.View) : ContractManufactures.Presenter {
 
     private val postRepository: PostRepository = PostRepository(context)
 
@@ -46,14 +48,5 @@ class PresenterManufactures(context: Context, val view: ContractManufactures.Vie
     override fun deleteSearchTag() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
-
-    /**
-     * TapBarContract.Presenter 에서 상속받은 함수
-     * */
-    override fun openHome() { view.showHomeUi() }
-    override fun openMaterials() { view.showMaterialsUi() }
-    override fun openManufactures() { view.showManufacturesUi() }
-    override fun openBookmarks() { view.showBookmarksUi() }
-    override fun openMyPage() { view.showMyPageUi() }
 
 }
