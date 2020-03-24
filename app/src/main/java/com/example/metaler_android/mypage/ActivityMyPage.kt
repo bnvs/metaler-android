@@ -101,7 +101,18 @@ class ActivityMyPage : AppCompatActivity(), ContractMyPage.View {
     }
 
     override fun showLogoutDialog() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val builder = AlertDialog.Builder(this)
+
+        builder.setTitle(getString(R.string.logout_title))
+        builder.setMessage(getString(R.string.logout_content))
+
+        builder.setPositiveButton(getString(R.string.logout_allow)){ dialogInterface, i ->
+            //TODO : 로그아웃 눌렀을 때 기능 추가하기
+        }
+            .setNegativeButton(getString(R.string.cancel)){ dialogInterface, i ->
+
+            }
+            .show()
     }
 
     override fun showWithdrawalDialog() {
