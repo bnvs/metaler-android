@@ -44,16 +44,16 @@ class PostAdapter(
 
         fun bind(item: Post, position: Int) {
 
-            var tags = ""
+            var tagString = ""
             for (tag in item.tags) {
-                tags += "#$tag "
+                tagString += "#$tag "
             }
 
             view.apply {
                 title.text = item.title
                 userName.text = item.nickname
                 date.text = item.date
-                // tagRV.text = tags TODO : 태그 보여주는 방식 논의 필요
+                tags.text = tagString
                 dislikeNum.text = item.dis_like.toString()
                 likeNum.text = item.like.toString()
                 setOnClickListener { itemListener.onPostClick(item.post_id) }
