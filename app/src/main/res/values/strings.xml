@@ -94,4 +94,21 @@
     <string name="search_result">검색 결과</string>
     <string name="search_unit">개</string>
 
+    <!--  ActivityMyPage 다이얼로그에 사용되는 문자열  -->
+    <string name="nickname_modify_title">별명 변경</string>
+    <string name="nickname_modify_content">변경할 별명을 입력해주세요.</string>
+
+    <string name="logout_title">로그아웃</string>
+    <string name="logout_content">로그아웃 하시겠습니까?</string>
+    <string name="logout_allow">로그아웃</string>
+
+    <string name="withdrawal_title">회원 탈퇴</string>
+    <string name="withdrawal_content">계정을 삭제하시겠습니까?</string>
+    <string name="withdrawal_recheck_title">회원 탈퇴 확인</string>
+    <string name="withdrawal_recheck_content">탈퇴할 계정의 이메일을 입력해주세요. 이메일이 일치하면 계정이 삭제됩니다.</string>
+    <string name="withdrawal_allow">탈퇴</string>
+
+    <string name="allow">확인</string>
+    <string name="cancel">취소</string>
+
 </resources>
