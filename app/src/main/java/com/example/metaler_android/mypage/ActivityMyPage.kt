@@ -28,6 +28,19 @@ class ActivityMyPage : AppCompatActivity(), ContractMyPage.View {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_page)
 
+        // Create the presenter
+        presenter = PresenterMyPage(
+            this@ActivityMyPage,
+            this@ActivityMyPage
+        )
+
+        // Set up Buttons
+        initClickListeners()
+
+        // 재료 탭 presenter 시작
+        presenter.run {
+            start()
+        }
     }
 
     // 사용자 프로필을 보여준다
