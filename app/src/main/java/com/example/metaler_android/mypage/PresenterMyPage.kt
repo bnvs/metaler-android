@@ -20,17 +20,11 @@ class PresenterMyPage(context: Context, val view: ContractMyPage.View) : Contrac
 
     override fun openMyPosts() { view.showMyPostsUi() }
 
-    override fun openNicknameModify() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    override fun openNicknameModify() { view.showNicknameModifyDialog() }
 
-    override fun openLogout() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    override fun openLogout() { view.showLogoutDialog() }
 
-    override fun openWithdrawal() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    override fun openWithdrawal() { view.showWithdrawalDialog() }
 
 
     /**
