@@ -100,11 +100,21 @@ class ActivityMyPage : AppCompatActivity(), ContractMyPage.View {
 
     //메뉴의 텍스트, more 버튼 둘 다 누를 수 있도록함
     private fun setMenuButtons() {
+        nicknameBtn.setOnClickListener { presenter.openNicknameModify() }
+        nicknameMoreBtn.setOnClickListener { presenter.openNicknameModify() }
+
         jobBtn.setOnClickListener { presenter.openJobModify() }
         jobMoreBtn.setOnClickListener { presenter.openJobModify() }
 
         myPostsBtn.setOnClickListener { presenter.openMyPosts() }
         myPostsMoreBtn.setOnClickListener { presenter.openMyPosts() }
+
+        logoutBtn.setOnClickListener { presenter.openLogout() }
+        logoutMoreBtn.setOnClickListener { presenter.openLogout() }
+
+        withdrawalBtn.setOnClickListener { presenter.openWithdrawal() }
+        withdrawalMoreBtn.setOnClickListener { presenter.openWithdrawal() }
+
     }
 
     private fun setTapBarButtons() {
