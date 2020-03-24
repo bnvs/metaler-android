@@ -8,6 +8,12 @@ import com.example.metaler_android.manufactures.ActivityManufactures
 import com.example.metaler_android.materials.ActivityMaterials
 import com.example.metaler_android.mypage.ActivityMyPage
 
+/**
+ * 탭바가 있는 액티비티에서 사용하는 TapBarContract 입니다.
+ * intent 로 화면을 넘기는 코드는 액티비티마다 같은 내용이 중복되어 작성되므로,
+ * 코드의 간결화를 위해 interface default method 로 작성해두었습니다.
+ * */
+
 interface TapBarContract {
 
     interface View {
