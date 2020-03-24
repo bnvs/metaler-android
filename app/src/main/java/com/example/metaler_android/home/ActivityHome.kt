@@ -68,7 +68,6 @@ class ActivityHome : AppCompatActivity(), ContractHome.View {
         }
 
         // 홈 탭에서 보여줄 데이터 가져오기 시작
-        // 탭 바 아이콘에 클릭 리스너 달아줌
         // 상태 바(배터리,와이파이 아이콘 표시되는 곳) 투명하게함
         presenter.run{
             start()
