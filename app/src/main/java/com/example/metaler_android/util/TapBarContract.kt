@@ -43,15 +43,15 @@ interface TapBarContract {
     }
 
     interface Presenter {
-        fun openHome()
+        fun openHome(view: View, context: Context) { view.showHomeUi(context) }
 
-        fun openMaterials()
+        fun openMaterials(view: View, context: Context) { view.showMaterialsUi(context) }
 
-        fun openManufactures()
+        fun openManufactures(view: View, context: Context) { view.showManufacturesUi(context) }
 
-        fun openBookmarks()
+        fun openBookmarks(view: View, context: Context) { view.showBookmarksUi(context) }
 
-        fun openMyPage()
+        fun openMyPage(view: View, context: Context) { view.showMyPageUi(context) }
     }
 
 }
