@@ -66,4 +66,26 @@ class ActivityMyPage : AppCompatActivity(), ContractMyPage.View {
             startActivity(it)
         }
     }
+
+    private fun initClickListeners() {
+        setMenuButtons()
+        setTapBarButtons()
+    }
+
+    //메뉴의 텍스트, more 버튼 둘 다 누를 수 있도록함
+    private fun setMenuButtons() {
+        jobBtn.setOnClickListener { presenter.openJobModify() }
+        jobMoreBtn.setOnClickListener { presenter.openJobModify() }
+
+        myPostsBtn.setOnClickListener { presenter.openMyPosts() }
+        myPostsMoreBtn.setOnClickListener { presenter.openMyPosts() }
+    }
+
+    private fun setTapBarButtons() {
+        homeBtn.setOnClickListener { presenter.openHome() }
+        materialsBtn.setOnClickListener { presenter.openMaterials() }
+        manufactureBtn.setOnClickListener { presenter.openManufactures() }
+        bookmarkBtn.setOnClickListener { presenter.openBookmarks() }
+        myPageBtn.setOnClickListener { presenter.openMyPage() }
+    }
 }
