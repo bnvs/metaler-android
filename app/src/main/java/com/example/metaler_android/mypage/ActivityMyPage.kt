@@ -10,6 +10,9 @@ import com.example.metaler_android.data.profile.Profile
 import com.example.metaler_android.home.ActivityHome
 import com.example.metaler_android.manufactures.ActivityManufactures
 import com.example.metaler_android.materials.ActivityMaterials
+import com.example.metaler_android.jobmodify.ActivityJobModify
+import com.example.metaler_android.myposts.ActivityMyPosts
+
 import kotlinx.android.synthetic.main.activity_my_page.*
 
 class ActivityMyPage : AppCompatActivity(), ContractMyPage.View {
@@ -32,6 +35,17 @@ class ActivityMyPage : AppCompatActivity(), ContractMyPage.View {
         profileNickname.text = profile.profile_nickname
         profileEmail.text = profile.profile_email
     }
+
+    override fun showJobModifyUi() {
+        Intent(this@ActivityMyPage, ActivityJobModify::class.java).also {
+            startActivity(it)
+        }
+    }
+
+    override fun showMyPostsUi() {
+        Intent(this@ActivityMyPage, ActivityMyPosts::class.java).also {
+            startActivity(it)
+        }       }
 
     /**
      * TapBarContract.View 에서 상속받은 함수
@@ -88,4 +102,5 @@ class ActivityMyPage : AppCompatActivity(), ContractMyPage.View {
         bookmarkBtn.setOnClickListener { presenter.openBookmarks() }
         myPageBtn.setOnClickListener { presenter.openMyPage() }
     }
+
 }
