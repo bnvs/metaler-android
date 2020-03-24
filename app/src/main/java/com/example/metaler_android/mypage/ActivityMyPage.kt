@@ -27,6 +27,7 @@ class ActivityMyPage : AppCompatActivity(), ContractMyPage.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_page)
+
     }
 
     // 사용자 프로필을 보여준다
@@ -116,7 +117,29 @@ class ActivityMyPage : AppCompatActivity(), ContractMyPage.View {
     }
 
     override fun showWithdrawalDialog() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val editText = EditText(this)
+        val builder = AlertDialog.Builder(this)
+
+        builder.setTitle(getString(R.string.withdrawal_title))
+        builder.setMessage(getString(R.string.withdrawal_content))
+
+        builder.setPositiveButton(getString(R.string.withdrawal_allow)) { dialogInterface, i ->
+            builder.setTitle(getString(R.string.withdrawal_recheck_title))
+            builder.setMessage(getString(R.string.withdrawal_recheck_content))
+            builder.setView(editText)
+
+            builder.setPositiveButton(getString(R.string.withdrawal_allow)){ dialogInterface, i ->
+                //TODO : 회원탈퇴 재확인 이메일 입력 받고 탈퇴 눌렀을 때 기능 추가하기
+            }
+                .setNegativeButton(getString(R.string.cancel)){ dialogInterface, i ->
+
+                }
+                .show()
+        }
+            .setNegativeButton(getString(R.string.cancel)){ dialogInterface, i ->
+
+            }
+            .show()
     }
 
     private fun initClickListeners() {
