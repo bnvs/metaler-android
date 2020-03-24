@@ -112,40 +112,6 @@ class ActivityHome : AppCompatActivity(), ContractHome.View {
         overridePendingTransition(0,0)
     }
 
-    /**
-     * TapBarContract.View 에서 상속받은 함수
-     * showHomeUi() ~ showMyPageUi() 까지
-     * */
-    override fun showHomeUi() {
-        Intent(this@ActivityHome, ActivityHome::class.java).also {
-            startActivity(it)
-        }
-    }
-
-    override fun showMaterialsUi() {
-        Intent(this@ActivityHome, ActivityMaterials::class.java).also {
-            startActivity(it)
-        }
-    }
-
-    override fun showManufacturesUi() {
-        Intent(this@ActivityHome, ActivityManufactures::class.java).also {
-            startActivity(it)
-        }
-    }
-
-    override fun showBookmarksUi() {
-        Intent(this@ActivityHome, ActivityBookmark::class.java).also {
-            startActivity(it)
-        }
-    }
-
-    override fun showMyPageUi() {
-        Intent(this@ActivityHome, ActivityMyPage::class.java).also {
-            startActivity(it)
-        }
-    }
-
     // 상태 바를 투명하게 하고, padding 을 조절한다
     override fun setTransparentStatusBar() {
         window.setFlags(

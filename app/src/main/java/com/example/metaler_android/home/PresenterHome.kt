@@ -4,7 +4,9 @@ import android.content.Context
 import com.example.metaler_android.data.homeposts.source.HomePostsRepository
 import com.example.metaler_android.data.profile.source.ProfileRepository
 
-class PresenterHome(context: Context, val view: ContractHome.View) : ContractHome.Presenter {
+class PresenterHome(
+    private val context: Context,
+    private val view: ContractHome.View) : ContractHome.Presenter {
 
     private val profileRepository: ProfileRepository = ProfileRepository(context)
     private val homePostRepository: HomePostsRepository = HomePostsRepository(context)
@@ -56,10 +58,10 @@ class PresenterHome(context: Context, val view: ContractHome.View) : ContractHom
     /**
      * TapBarContract.Presenter 에서 상속받은 함수
      * */
-    override fun openHome() { view.showHomeUi() }
-    override fun openMaterials() { view.showMaterialsUi() }
-    override fun openManufactures() { view.showManufacturesUi() }
-    override fun openBookmarks() { view.showBookmarksUi() }
-    override fun openMyPage() { view.showMyPageUi() }
+    override fun openHome() { view.showHomeUi(context) }
+    override fun openMaterials() { view.showMaterialsUi(context) }
+    override fun openManufactures() { view.showManufacturesUi(context) }
+    override fun openBookmarks() { view.showBookmarksUi(context) }
+    override fun openMyPage() { view.showMyPageUi(context) }
 
 }
