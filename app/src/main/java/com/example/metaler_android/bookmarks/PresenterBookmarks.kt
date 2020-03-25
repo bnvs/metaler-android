@@ -6,6 +6,9 @@ class PresenterBookmarks (
     private val context: Context,
     private val view: ContractBookmarks.View) : ContractBookmarks.Presenter {
 
+    override fun start() {
+        loadMaterialsPost()
+    }
     override fun loadMaterialsPost() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
@@ -34,7 +37,4 @@ class PresenterBookmarks (
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun start() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
 }
