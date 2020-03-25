@@ -19,6 +19,25 @@ class ActivityBookmarks : AppCompatActivity(), ContractBookmarks.View {
     override lateinit var presenter: ContractBookmarks.Presenter
 
 
+    /**
+     * 북마크 재료 카테고리 눌렀을 때 보여지는 재료 게시물 리사이클러뷰 아이템에 달아줄 클릭리스너입니다
+     * 아이템 클릭 시, 클릭한 게시물의 post_id 를 presenter 에 전달합니다.
+     * */
+    private var materialsItemListener: MaterialsPostItemListener = object : MaterialsPostItemListener {
+        override fun onMaterialsPostClick(clickedHomePostId: Int) {
+            presenter.openPostDetail(clickedHomePostId)
+        }
+    }
+
+    /**
+     * 북마크 가공 카테고리 눌렀을 때 보여지는 재료 게시물 리사이클러뷰 아이템에 달아줄 클릭리스너입니다
+     * */
+    private var manufacturesItemListener: ManufacturesItemListener = object : ManufacturesItemListener {
+        override fun onManufacturesPostClick(clickedManufacturesPostId: Int) {
+            presenter.openPostDetail(clickedManufacturesPostId)
+        }
+    }
+
 
 
 
@@ -74,4 +93,12 @@ class ActivityBookmarks : AppCompatActivity(), ContractBookmarks.View {
         myPageBtn.setOnClickListener { presenter.openMyPage(this, this) }
     }
 
+
+    private interface MaterialsPostItemListener {
+        fun onMaterialsPostClick(clickedMaterialsPostId: Int)
+    }
+
+    private interface ManufacturesItemListener {
+        fun onManufacturesPostClick(clickedManufacturesPostId: Int)
+    }
 }
