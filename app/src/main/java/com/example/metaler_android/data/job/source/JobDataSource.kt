@@ -9,6 +9,13 @@ interface JobDataSource {
         fun onDataNotAvailable()
     }
 
+    interface ModifyJobCallback {
+        fun onJobModified()
+        fun onDataNotAvailable()
+    }
+
     fun getJob(callback: LoadJobCallback)
+
+    fun modifyJob(callback: ModifyJobCallback)
 
 }

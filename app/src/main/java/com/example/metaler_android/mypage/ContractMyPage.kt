@@ -13,11 +13,15 @@ interface ContractMyPage {
 
         fun showMyPostsUi()
 
+        fun showTermsUi()
+
         fun showNicknameModifyDialog()
 
         fun showLogoutDialog()
 
         fun showWithdrawalDialog()
+
+        fun showSuccessDialog()
 
     }
 

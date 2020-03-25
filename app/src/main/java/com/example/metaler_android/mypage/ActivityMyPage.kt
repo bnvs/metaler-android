@@ -14,6 +14,7 @@ import com.example.metaler_android.manufactures.ActivityManufactures
 import com.example.metaler_android.materials.ActivityMaterials
 import com.example.metaler_android.jobmodify.ActivityJobModify
 import com.example.metaler_android.myposts.ActivityMyPosts
+import com.example.metaler_android.termscheck.ActivityTermsCheck
 
 import kotlinx.android.synthetic.main.activity_my_page.*
 
@@ -51,6 +52,7 @@ class ActivityMyPage : AppCompatActivity(), ContractMyPage.View {
         profileNickname.text = profile.profile_nickname
         profileEmail.text = profile.profile_email
     }
+
 
     override fun showJobModifyUi() {
         Intent(this@ActivityMyPage, ActivityJobModify::class.java).also {
@@ -97,6 +99,16 @@ class ActivityMyPage : AppCompatActivity(), ContractMyPage.View {
         }
     }
 
+    override fun showTermsUi() {
+        Intent(this@ActivityMyPage, ActivityTermsCheck::class.java).also {
+            startActivity(it)
+        }
+    }
+
+    override fun showSuccessDialog() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     override fun showNicknameModifyDialog() {
         val editText = EditText(this)
         val builder = AlertDialog.Builder(this)
@@ -106,7 +118,7 @@ class ActivityMyPage : AppCompatActivity(), ContractMyPage.View {
         builder.setView(editText)
 
         builder.setPositiveButton(getString(R.string.allow)){ dialogInterface, i ->
-                //TODO : 별명 입력 후 확인 눌렀을 때 기능 추가하기
+                presenter.modifyNickName()
             }
             .setNegativeButton(getString(R.string.cancel)){ dialogInterface, i ->
 
@@ -121,7 +133,7 @@ class ActivityMyPage : AppCompatActivity(), ContractMyPage.View {
         builder.setMessage(getString(R.string.logout_content))
 
         builder.setPositiveButton(getString(R.string.logout_allow)){ dialogInterface, i ->
-            //TODO : 로그아웃 눌렀을 때 기능 추가하기
+            presenter.logout()
         }
             .setNegativeButton(getString(R.string.cancel)){ dialogInterface, i ->
 
@@ -142,7 +154,7 @@ class ActivityMyPage : AppCompatActivity(), ContractMyPage.View {
             builder.setView(editText)
 
             builder.setPositiveButton(getString(R.string.withdrawal_allow)){ dialogInterface, i ->
-                //TODO : 회원탈퇴 재확인 이메일 입력 받고 탈퇴 눌렀을 때 기능 추가하기
+                presenter.withdrawal()
             }
                 .setNegativeButton(getString(R.string.cancel)){ dialogInterface, i ->
 
