@@ -24,6 +24,14 @@ interface ContractMyPage {
     interface Presenter : BasePresenter, TapBarContract.Presenter {
         fun loadProfile()
 
+        fun modifyJob()
+
+        fun modifyNickName()
+
+        fun logout()
+
+        fun withdrawal()
+
         fun openMyPosts()
 
         fun openJobModify()
@@ -32,7 +40,10 @@ interface ContractMyPage {
 
         fun openLogout()
 
+        fun openTerms()
+
         fun openWithdrawal()
+
 
     }
 }
