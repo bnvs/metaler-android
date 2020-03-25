@@ -106,42 +106,8 @@ class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    /**
-     * TapBarContract.View 에서 상속받은 함수
-     * showHomeUi() ~ showMyPageUi() 까지
-     * */
     override fun deleteSearchTag() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun showHomeUi() {
-        Intent(this@ActivityManufactures, ActivityHome::class.java).also {
-            startActivity(it)
-        }
-    }
-
-    override fun showMaterialsUi() {
-        Intent(this@ActivityManufactures, ActivityMaterials::class.java).also {
-            startActivity(it)
-        }
-    }
-
-    override fun showManufacturesUi() {
-        Intent(this@ActivityManufactures, ActivityManufactures::class.java).also {
-            startActivity(it)
-        }
-    }
-
-    override fun showBookmarksUi() {
-        Intent(this@ActivityManufactures, ActivityBookmark::class.java).also {
-            startActivity(it)
-        }
-    }
-
-    override fun showMyPageUi() {
-        Intent(this@ActivityManufactures, ActivityMyPage::class.java).also {
-            startActivity(it)
-        }
     }
 
     private fun initClickListeners() {
@@ -154,10 +120,10 @@ class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
     }
 
     private fun setTapBarButtons() {
-        homeBtn.setOnClickListener { presenter.openHome() }
-        materialsBtn.setOnClickListener { presenter.openMaterials() }
-        manufactureBtn.setOnClickListener { presenter.openManufactures() }
-        bookmarkBtn.setOnClickListener { presenter.openBookmarks() }
-        myPageBtn.setOnClickListener { presenter.openMyPage() }
+        homeBtn.setOnClickListener { presenter.openHome(this, this) }
+        materialsBtn.setOnClickListener { presenter.openMaterials(this, this) }
+        manufactureBtn.setOnClickListener { presenter.openManufactures(this, this) }
+        bookmarkBtn.setOnClickListener { presenter.openBookmarks(this, this) }
+        myPageBtn.setOnClickListener { presenter.openMyPage(this, this) }
     }
 }

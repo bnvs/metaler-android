@@ -13,7 +13,7 @@ interface ContractMyPage {
 
         fun showMyPostsUi()
 
-        fun showTermsUi()
+        fun showTermsCheckUi()
 
         fun showNicknameModifyDialog()
 

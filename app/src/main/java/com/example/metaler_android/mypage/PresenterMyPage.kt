@@ -6,7 +6,9 @@ import com.example.metaler_android.data.job.source.JobRepository
 import com.example.metaler_android.data.nickname.source.NicknameDataSource
 import com.example.metaler_android.data.nickname.source.NicknameRepository
 
-class PresenterMyPage(context: Context, val view: ContractMyPage.View) : ContractMyPage.Presenter {
+class PresenterMyPage(
+    private val context: Context,
+    private val view: ContractMyPage.View) : ContractMyPage.Presenter {
 
     private val nicknameRepository: NicknameRepository = NicknameRepository(context)
     private val jobRepository: JobRepository = JobRepository(context)
@@ -70,13 +72,4 @@ class PresenterMyPage(context: Context, val view: ContractMyPage.View) : Contrac
 
     override fun openWithdrawal() { view.showWithdrawalDialog() }
 
-
-    /**
-     * TapBarContract.Presenter 에서 상속받은 함수
-     * */
-    override fun openHome() { view.showHomeUi() }
-    override fun openMaterials() { view.showMaterialsUi() }
-    override fun openManufactures() { view.showManufacturesUi() }
-    override fun openBookmarks() { view.showBookmarksUi() }
-    override fun openMyPage() { view.showMyPageUi() }
 }

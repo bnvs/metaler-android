@@ -53,7 +53,6 @@ class ActivityMyPage : AppCompatActivity(), ContractMyPage.View {
         profileEmail.text = profile.profile_email
     }
 
-
     override fun showJobModifyUi() {
         Intent(this@ActivityMyPage, ActivityJobModify::class.java).also {
             startActivity(it)
@@ -65,44 +64,8 @@ class ActivityMyPage : AppCompatActivity(), ContractMyPage.View {
             startActivity(it)
         }       }
 
-    /**
-     * TapBarContract.View 에서 상속받은 함수
-     * showHomeUi() ~ showMyPageUi() 까지
-     * */
-    override fun showHomeUi() {
-        Intent(this@ActivityMyPage, ActivityHome::class.java).also {
-            startActivity(it)
-        }
-    }
-
-    override fun showMaterialsUi() {
-        Intent(this@ActivityMyPage, ActivityMaterials::class.java).also {
-            startActivity(it)
-        }
-    }
-
-    override fun showManufacturesUi() {
-        Intent(this@ActivityMyPage, ActivityManufactures::class.java).also {
-            startActivity(it)
-        }
-    }
-
-    override fun showBookmarksUi() {
-        Intent(this@ActivityMyPage, ActivityBookmark::class.java).also {
-            startActivity(it)
-        }
-    }
-
-    override fun showMyPageUi() {
-        Intent(this@ActivityMyPage, ActivityMyPage::class.java).also {
-            startActivity(it)
-        }
-    }
-
-    override fun showTermsUi() {
-        Intent(this@ActivityMyPage, ActivityTermsCheck::class.java).also {
-            startActivity(it)
-        }
+    override fun showTermsCheckUi() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun showSuccessDialog() {
@@ -118,7 +81,7 @@ class ActivityMyPage : AppCompatActivity(), ContractMyPage.View {
         builder.setView(editText)
 
         builder.setPositiveButton(getString(R.string.allow)){ dialogInterface, i ->
-                presenter.modifyNickName()
+                //TODO : 별명 입력 후 확인 눌렀을 때 기능 추가하기
             }
             .setNegativeButton(getString(R.string.cancel)){ dialogInterface, i ->
 
@@ -133,7 +96,7 @@ class ActivityMyPage : AppCompatActivity(), ContractMyPage.View {
         builder.setMessage(getString(R.string.logout_content))
 
         builder.setPositiveButton(getString(R.string.logout_allow)){ dialogInterface, i ->
-            presenter.logout()
+            //TODO : 로그아웃 눌렀을 때 기능 추가하기
         }
             .setNegativeButton(getString(R.string.cancel)){ dialogInterface, i ->
 
@@ -154,7 +117,7 @@ class ActivityMyPage : AppCompatActivity(), ContractMyPage.View {
             builder.setView(editText)
 
             builder.setPositiveButton(getString(R.string.withdrawal_allow)){ dialogInterface, i ->
-                presenter.withdrawal()
+                //TODO : 회원탈퇴 재확인 이메일 입력 받고 탈퇴 눌렀을 때 기능 추가하기
             }
                 .setNegativeButton(getString(R.string.cancel)){ dialogInterface, i ->
 
@@ -192,11 +155,11 @@ class ActivityMyPage : AppCompatActivity(), ContractMyPage.View {
     }
 
     private fun setTapBarButtons() {
-        homeBtn.setOnClickListener { presenter.openHome() }
-        materialsBtn.setOnClickListener { presenter.openMaterials() }
-        manufactureBtn.setOnClickListener { presenter.openManufactures() }
-        bookmarkBtn.setOnClickListener { presenter.openBookmarks() }
-        myPageBtn.setOnClickListener { presenter.openMyPage() }
+        homeBtn.setOnClickListener { presenter.openHome(this,this) }
+        materialsBtn.setOnClickListener { presenter.openMaterials(this,this) }
+        manufactureBtn.setOnClickListener { presenter.openManufactures(this,this) }
+        bookmarkBtn.setOnClickListener { presenter.openBookmarks(this,this) }
+        myPageBtn.setOnClickListener { presenter.openMyPage(this,this) }
     }
 
 }
