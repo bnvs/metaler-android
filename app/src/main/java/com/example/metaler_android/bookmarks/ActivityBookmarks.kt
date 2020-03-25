@@ -1,14 +1,14 @@
-package com.example.metaler_android.bookmark
+package com.example.metaler_android.bookmarks
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.metaler_android.R
 
-class ActivityBookmark : AppCompatActivity(), ContractBookmark.View {
+class ActivityBookmarks : AppCompatActivity(), ContractBookmarks.View {
 
-    private val TAG = "ActivityBookmark"
+    private val TAG = "ActivityBookmarks"
 
-    override lateinit var presenter: ContractBookmark.Presenter
+    override lateinit var presenter: ContractBookmarks.Presenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

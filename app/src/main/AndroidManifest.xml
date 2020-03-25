@@ -18,7 +18,7 @@
         <activity android:name=".mypage.ActivityMyPage" />
         <activity android:name=".jobinput.ActivityJobInput" />
         <activity android:name=".termsagree.ActivityTermsAgree" />
-        <activity android:name=".bookmark.ActivityBookmark" />
+        <activity android:name=".bookmarks.ActivityBookmarks" />
         <activity android:name=".postsecond.ActivityPostSecond" />
         <activity android:name=".postfirst.ActivityPostFirst" />
         <activity android:name=".manufactures.ActivityManufactures" />

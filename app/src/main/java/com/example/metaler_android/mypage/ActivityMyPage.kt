@@ -7,14 +7,9 @@ import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import com.bumptech.glide.Glide
 import com.example.metaler_android.R
-import com.example.metaler_android.bookmark.ActivityBookmark
 import com.example.metaler_android.data.profile.Profile
-import com.example.metaler_android.home.ActivityHome
-import com.example.metaler_android.manufactures.ActivityManufactures
-import com.example.metaler_android.materials.ActivityMaterials
 import com.example.metaler_android.jobmodify.ActivityJobModify
 import com.example.metaler_android.myposts.ActivityMyPosts
-import com.example.metaler_android.termscheck.ActivityTermsCheck
 
 import kotlinx.android.synthetic.main.activity_my_page.*
 

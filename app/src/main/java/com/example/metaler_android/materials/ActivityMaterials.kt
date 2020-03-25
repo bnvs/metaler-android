@@ -1,21 +1,15 @@
 package com.example.metaler_android.materials
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.metaler_android.home.ActivityHome
 import com.example.metaler_android.R
-import com.example.metaler_android.bookmark.ActivityBookmark
 import com.example.metaler_android.data.categories.Category
-import com.example.metaler_android.manufactures.ActivityManufactures
-import com.example.metaler_android.mypage.ActivityMyPage
 import com.example.metaler_android.util.PostAdapter
 import com.example.metaler_android.util.PostItemListener
 import kotlinx.android.synthetic.main.activity_materials.*

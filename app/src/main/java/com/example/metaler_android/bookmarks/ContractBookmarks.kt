@@ -1,10 +1,10 @@
-package com.example.metaler_android.bookmark
+package com.example.metaler_android.bookmarks
 
 import com.example.metaler_android.BasePresenter
 import com.example.metaler_android.BaseView
 import com.example.metaler_android.util.TapBarContract
 
-interface ContractBookmark {
+interface ContractBookmarks {
     interface View : BaseView<Presenter>, TapBarContract.View {
         fun showPostDetailUi()
 
