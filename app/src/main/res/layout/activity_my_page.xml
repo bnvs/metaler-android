@@ -53,7 +53,7 @@
 
         <TextView
             android:id="@+id/nicknameBtn"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/nickname_modify"
             android:textSize="18sp"
@@ -84,7 +84,7 @@
 
         <TextView
             android:id="@+id/jobBtn"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/job_modify"
             android:textSize="18sp"
@@ -116,7 +116,7 @@
 
         <TextView
             android:id="@+id/myPostsBtn"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/my_posts"
             android:textSize="18sp"
@@ -135,7 +135,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/myPostsBtn" />
         <View
-            android:id="@+id/c"
+            android:id="@+id/myPostsLine"
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
             android:paddingBottom="6dp"
@@ -148,14 +148,14 @@
 
         <TextView
             android:id="@+id/termsBtn"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/terms"
             android:textSize="18sp"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/myPostsBtn"
+            app:layout_constraintTop_toBottomOf="@id/myPostsLine"
             />
         <ImageView
             android:id="@+id/termsMoreBtn"
@@ -180,7 +180,7 @@
 
         <TextView
             android:id="@+id/logoutBtn"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/logout"
             android:textSize="18sp"
@@ -212,7 +212,7 @@
 
         <TextView
             android:id="@+id/withdrawalBtn"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/withdrawal"
             android:textSize="18sp"
