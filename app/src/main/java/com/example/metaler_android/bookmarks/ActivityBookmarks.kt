@@ -18,6 +18,10 @@ class ActivityBookmarks : AppCompatActivity(), ContractBookmarks.View {
 
     override lateinit var presenter: ContractBookmarks.Presenter
 
+
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_bookmark)
@@ -36,7 +40,7 @@ class ActivityBookmarks : AppCompatActivity(), ContractBookmarks.View {
 
     }
 
-    override fun showPostDetailUi() {
+    override fun showPostDetailUi(postId: Int) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
@@ -48,7 +52,7 @@ class ActivityBookmarks : AppCompatActivity(), ContractBookmarks.View {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun showBookmarkDeleteDialog() {
+    override fun showBookmarkDeleteDialog(postId: Int) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 

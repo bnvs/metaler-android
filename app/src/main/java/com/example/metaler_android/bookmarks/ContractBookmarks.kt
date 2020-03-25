@@ -6,13 +6,13 @@ import com.example.metaler_android.util.TapBarContract
 
 interface ContractBookmarks {
     interface View : BaseView<Presenter>, TapBarContract.View {
-        fun showPostDetailUi()
+        fun showPostDetailUi(postId: Int)
 
         fun showMaterialsList()
 
         fun showManufacturesList()
 
-        fun showBookmarkDeleteDialog()
+        fun showBookmarkDeleteDialog(postId: Int)
 
     }
 
@@ -27,9 +27,9 @@ interface ContractBookmarks {
 
         fun openPostDetail(postId: Int)
 
-        fun openBookmarkDelete()
+        fun openBookmarkDelete(postId: Int)
 
-        fun deleteBookmark()
+        fun deleteBookmark(postId: Int)
 
     }
 }
