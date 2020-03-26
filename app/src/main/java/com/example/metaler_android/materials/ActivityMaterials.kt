@@ -86,10 +86,7 @@ class ActivityMaterials : AppCompatActivity(), ContractMaterials.View {
         setContentView(R.layout.activity_materials)
 
         // Create the presenter
-        presenter = PresenterMaterials(
-            this@ActivityMaterials,
-            this@ActivityMaterials
-        )
+        presenter = PresenterMaterials(this, this)
 
         // Set up Buttons
         initClickListeners()
@@ -107,15 +104,15 @@ class ActivityMaterials : AppCompatActivity(), ContractMaterials.View {
         }
         
         // Set up RefreshListener
-        refreshLayout.setOnRefreshListener {
-            presenter.refreshPosts()
-            refreshLayout.isRefreshing = false
+        refreshLayout.apply {
+            setOnRefreshListener {
+                presenter.refreshPosts()
+                refreshLayout.isRefreshing = false
+            }
+            setColorSchemeColors(
+                ContextCompat.getColor(this@ActivityMaterials, R.color.colorPurple)
+            )
         }
-
-        // Set up RefreshLayout Color
-        refreshLayout.setColorSchemeColors(
-            ContextCompat.getColor(this, R.color.colorPurple)
-        )
 
         // 재료 탭 presenter 시작
         presenter.run {

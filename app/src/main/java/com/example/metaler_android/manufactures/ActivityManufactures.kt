@@ -56,10 +56,7 @@ class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
         setContentView(R.layout.activity_manufacture)
 
         // Create the presenter
-        presenter = PresenterManufactures(
-            this@ActivityManufactures,
-            this@ActivityManufactures
-        )
+        presenter = PresenterManufactures(this, this)
 
         // Set up Buttons
         initClickListeners()
@@ -71,15 +68,15 @@ class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
         }
 
         // Set up RefreshListener
-        refreshLayout.setOnRefreshListener {
-            presenter.refreshPosts()
-            refreshLayout.isRefreshing = false
+        refreshLayout.apply {
+            setOnRefreshListener {
+                presenter.refreshPosts()
+                refreshLayout.isRefreshing = false
+            }
+            setColorSchemeColors(
+                ContextCompat.getColor(this@ActivityManufactures, R.color.colorPurple)
+            )
         }
-
-        // Set up RefreshLayout Color
-        refreshLayout.setColorSchemeColors(
-            ContextCompat.getColor(this, R.color.colorPurple)
-        )
 
         // 가공 탭 presenter 시작
         presenter.run {
