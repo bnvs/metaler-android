@@ -1,10 +1,16 @@
 package com.bnvs.metaler.detail
 
 import android.content.Context
+import com.bnvs.metaler.data.post.source.PostRepository
+import com.bnvs.metaler.data.postdetails.PostDetails
+import com.bnvs.metaler.data.postdetails.source.PostDetailsDataSource
+import com.bnvs.metaler.data.postdetails.source.PostDetailsRepository
 
 class PresenterDetail(
     private val context: Context,
     private val view: ContractDetail.View) : ContractDetail.Presenter {
+
+    private val postDetailsRepository: PostDetailsRepository = PostDetailsRepository(context)
 
     init {
         view.presenter = this
@@ -16,7 +22,15 @@ class PresenterDetail(
     }
 
     override fun loadPostDetail() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        postDetailsRepository.getPostDetails(object : PostDetailsDataSource.LoadPostDetailsCallback{
+            override fun onPostDetailsLoaded(postDetails: PostDetails) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+
+            override fun onDataNotAvailable() {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+        })
     }
 
     override fun loadComments() {
