@@ -11,7 +11,8 @@ class PresenterDetail(
     }
 
     override fun start() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        loadPostDetail()
+        loadComments()
     }
 
     override fun loadPostDetail() {
