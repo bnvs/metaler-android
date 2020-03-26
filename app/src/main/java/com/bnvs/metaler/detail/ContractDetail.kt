@@ -24,8 +24,8 @@ interface ContractDetail {
 
         fun openMenu()
 
-        fun deletePost()
+        fun deletePost(postId: Int)
 
-        fun modifyPost()
+        fun modifyPost(postId: Int)
     }
 }
