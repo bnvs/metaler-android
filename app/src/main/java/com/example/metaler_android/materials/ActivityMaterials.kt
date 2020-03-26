@@ -203,19 +203,19 @@ class ActivityMaterials : AppCompatActivity(), ContractMaterials.View {
             fun bind(item: Category, position: Int) {
 
                 view.apply {
-                    materialsCategoryBtn.text = item.name
+                    materialsCategoryBtn.apply {
+                        text = item.name
+                        if (selectedPosition == position) {
+                            setTextColor(ContextCompat.getColor(this.context ,R.color.colorPurple))
+                            setBackgroundResource(R.drawable.active_bar)
+                        }else {
+                            setTextColor(ContextCompat.getColor(this.context ,R.color.colorLightGrey))
+                            setBackgroundResource(0)
+                        }
+                    }
                     setOnClickListener { itemListener.onCategoryClick(item.name, position) }
                 }
-
-                view.materialsCategoryBtn.apply {
-                    if (selectedPosition == position) {
-                        setTextColor(ContextCompat.getColor(view.context ,R.color.colorPurple))
-                        setBackgroundResource(R.drawable.active_bar)
-                    }else {
-                        setTextColor(ContextCompat.getColor(view.context ,R.color.colorLightGrey))
-                        setBackgroundResource(0)
-                    }
-                }
+                
             }
         }
     }
