@@ -206,11 +206,15 @@ class ActivityMaterials : AppCompatActivity(), ContractMaterials.View {
                 view.setOnClickListener { itemListener.onCategoryClick(item.name, position) }
 
                 if (selectedPosition == position) {
-                    view.materialsCategoryBtn.setTextColor(ContextCompat.getColor(view.context ,R.color.colorPurple))
-                    view.materialsCategoryBtn.setBackgroundResource(R.drawable.active_bar)
+                    view.materialsCategoryBtn.apply {
+                        setTextColor(ContextCompat.getColor(view.context ,R.color.colorPurple))
+                        setBackgroundResource(R.drawable.active_bar)
+                    }
                 }else {
-                    view.materialsCategoryBtn.setTextColor(ContextCompat.getColor(view.context ,R.color.colorLightGrey))
-                    view.materialsCategoryBtn.setBackgroundResource(0)
+                    view.materialsCategoryBtn.apply {
+                        setTextColor(ContextCompat.getColor(view.context ,R.color.colorLightGrey))
+                        setBackgroundResource(0)
+                    }
                 }
             }
         }
