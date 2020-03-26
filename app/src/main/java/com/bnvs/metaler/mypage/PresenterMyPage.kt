@@ -1,10 +1,10 @@
 package com.bnvs.metaler.mypage
 
 import android.content.Context
-import com.example.metaler_android.data.job.source.JobDataSource
-import com.example.metaler_android.data.job.source.JobRepository
-import com.example.metaler_android.data.nickname.source.NicknameDataSource
-import com.example.metaler_android.data.nickname.source.NicknameRepository
+import com.bnvs.metaler.data.job.source.JobDataSource
+import com.bnvs.metaler.data.job.source.JobRepository
+import com.bnvs.metaler.data.nickname.source.NicknameDataSource
+import com.bnvs.metaler.data.nickname.source.NicknameRepository
 
 class PresenterMyPage(
     private val context: Context,
