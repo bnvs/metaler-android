@@ -215,7 +215,7 @@ class ActivityMaterials : AppCompatActivity(), ContractMaterials.View {
                     }
                     setOnClickListener { itemListener.onCategoryClick(item.name, position) }
                 }
-                
+
             }
         }
     }
