@@ -53,10 +53,10 @@
                 />
 
             <ImageView
-                android:id="@+id/moreBtn"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/ic_list_more_x3"
+                android:id="@+id/deleteBtn"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:src="@drawable/ic_list_bookmark_delete_x3"
                 app:layout_constraintTop_toTopOf="@id/title"
                 app:layout_constraintStart_toEndOf="@id/img"
                 app:layout_constraintEnd_toEndOf="parent"

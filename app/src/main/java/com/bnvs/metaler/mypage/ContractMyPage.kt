@@ -13,16 +13,28 @@ interface ContractMyPage {
 
         fun showMyPostsUi()
 
+        fun showTermsCheckUi()
+
         fun showNicknameModifyDialog()
 
         fun showLogoutDialog()
 
         fun showWithdrawalDialog()
 
+        fun showSuccessDialog()
+
     }
 
     interface Presenter : BasePresenter, TapBarContract.Presenter {
         fun loadProfile()
+
+        fun modifyJob()
+
+        fun modifyNickName()
+
+        fun logout()
+
+        fun withdrawal()
 
         fun openMyPosts()
 
@@ -32,7 +44,10 @@ interface ContractMyPage {
 
         fun openLogout()
 
+        fun openTerms()
+
         fun openWithdrawal()
+
 
     }
 }

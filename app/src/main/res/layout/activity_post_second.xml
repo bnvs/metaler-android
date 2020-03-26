@@ -149,19 +149,42 @@
             android:layout_marginLeft="10dp"
             app:layout_constraintTop_toBottomOf="@id/workLine"
             app:layout_constraintStart_toStartOf="parent"/>
+
         <EditText
             android:id="@+id/tagInput"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="@string/tag_input_guide"
             android:textSize="14sp"
+            android:layout_marginLeft="10dp"
             android:layout_marginTop="3dp"
-            android:layout_marginHorizontal="10dp"
             android:background="@null"
-            app:layout_constraintStart_toStartOf="@id/tagAddTxt"
             app:layout_constraintTop_toBottomOf="@id/tagAddTxt"
+            app:layout_constraintStart_toStartOf="parent"
             />
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/tagRV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="5dp"
+            app:layout_constraintStart_toStartOf="@id/tagAddTxt"
+            app:layout_constraintTop_toBottomOf="@id/tagAddTxt"
+            app:layout_constraintRight_toLeftOf="@id/tagInput"
+            android:visibility="gone"
+            />
+
+        <ImageView
+            android:id="@+id/tagAddBtn"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:src="@drawable/ic_tag_add_x3"
+            android:layout_marginLeft="5dp"
+            app:layout_constraintBottom_toBottomOf="@id/tagRV"
+            app:layout_constraintLeft_toRightOf="@id/tagRV"
+            android:visibility="gone"
+            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

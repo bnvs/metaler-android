@@ -9,10 +9,14 @@ import android.view.*
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bnvs.metaler.materials.ActivityMaterials
 import com.bnvs.metaler.R
+import com.bnvs.metaler.bookmarks.ActivityBookmarks
 import com.bnvs.metaler.data.homeposts.HomePost
 import com.bnvs.metaler.data.profile.Profile
 import com.bnvs.metaler.detail.ActivityDetail
+import com.bnvs.metaler.manufactures.ActivityManufactures
+import com.bnvs.metaler.mypage.ActivityMyPage
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.item_home_manufacture_rv.view.*
 import kotlinx.android.synthetic.main.item_home_materials_rv.view.*

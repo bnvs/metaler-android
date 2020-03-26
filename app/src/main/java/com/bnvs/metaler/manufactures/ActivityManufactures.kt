@@ -1,12 +1,18 @@
 package com.bnvs.metaler.manufactures
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bnvs.metaler.R
+import com.bnvs.metaler.bookmarks.ActivityBookmarks
 import com.bnvs.metaler.data.post.Post
+import com.bnvs.metaler.home.ActivityHome
+import com.bnvs.metaler.manufactures.ContractManufactures
+import com.bnvs.metaler.materials.ActivityMaterials
+import com.bnvs.metaler.mypage.ActivityMyPage
 import com.bnvs.metaler.util.PostAdapter
 import com.bnvs.metaler.util.PostItemListener
 import kotlinx.android.synthetic.main.activity_manufacture.*

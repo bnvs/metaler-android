@@ -95,7 +95,7 @@ class ActivityMaterials : AppCompatActivity(), ContractMaterials.View {
             adapter = postAdapter
             layoutManager = postLayoutManager
         }
-        
+
         // Set up RefreshListener
         refreshLayout.apply {
             setOnRefreshListener {

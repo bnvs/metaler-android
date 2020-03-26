@@ -7,7 +7,11 @@ import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import com.bumptech.glide.Glide
 import com.bnvs.metaler.R
+import com.bnvs.metaler.bookmarks.ActivityBookmarks
 import com.bnvs.metaler.data.profile.Profile
+import com.bnvs.metaler.home.ActivityHome
+import com.bnvs.metaler.manufactures.ActivityManufactures
+import com.bnvs.metaler.materials.ActivityMaterials
 import com.bnvs.metaler.jobmodify.ActivityJobModify
 import com.bnvs.metaler.myposts.ActivityMyPosts
 
@@ -58,6 +62,14 @@ class ActivityMyPage : AppCompatActivity(), ContractMyPage.View {
         Intent(this@ActivityMyPage, ActivityMyPosts::class.java).also {
             startActivity(it)
         }       }
+
+    override fun showTermsCheckUi() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun showSuccessDialog() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 
     override fun showNicknameModifyDialog() {
         val editText = EditText(this)

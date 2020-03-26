@@ -10,4 +10,8 @@ object JobRemoteDataSource : JobDataSource {
     override fun getJob(callback: JobDataSource.LoadJobCallback) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
+
+    override fun modifyJob(callback: JobDataSource.ModifyJobCallback) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 }

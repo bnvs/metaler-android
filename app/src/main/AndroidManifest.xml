@@ -17,14 +17,14 @@
         <activity android:name="com.bnvs.metaler.mypage.ActivityMyPage" />
         <activity android:name="com.bnvs.metaler.jobinput.ActivityJobInput" />
         <activity android:name="com.bnvs.metaler.termsagree.ActivityTermsAgree" />
-        <activity android:name="com.bnvs.metaler.bookmark.ActivityBookmark" />
+        <activity android:name="com.bnvs.metaler.bookmarks.ActivityBookmarks" />
         <activity android:name="com.bnvs.metaler.postsecond.ActivityPostSecond" />
         <activity android:name="com.bnvs.metaler.postfirst.ActivityPostFirst" />
         <activity android:name="com.bnvs.metaler.manufactures.ActivityManufactures" />
         <activity android:name="com.bnvs.metaler.detail.ActivityDetail" />
         <activity android:name="com.bnvs.metaler.materials.ActivityMaterials" />
         <activity
-            android:name="com.bnvs.metaler.home.ActivityHome"
+            android:name=".home.ActivityHome"
             android:launchMode="singleInstance">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

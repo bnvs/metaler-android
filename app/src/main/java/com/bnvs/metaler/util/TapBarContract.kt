@@ -2,7 +2,7 @@ package com.bnvs.metaler.util
 
 import android.content.Context
 import android.content.Intent
-import com.bnvs.metaler.bookmark.ActivityBookmark
+import com.bnvs.metaler.bookmarks.ActivityBookmarks
 import com.bnvs.metaler.home.ActivityHome
 import com.bnvs.metaler.manufactures.ActivityManufactures
 import com.bnvs.metaler.materials.ActivityMaterials
@@ -36,7 +36,7 @@ interface TapBarContract {
         }
 
         fun showBookmarksUi(context: Context) {
-            Intent(context, ActivityBookmark::class.java).also {
+            Intent(context, ActivityBookmarks::class.java).also {
                 context.startActivity(it)
             }
         }
