@@ -22,6 +22,10 @@ class PresenterMaterials(
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
+    override fun refreshPosts() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     override fun openPostDetail(postId: Int) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
