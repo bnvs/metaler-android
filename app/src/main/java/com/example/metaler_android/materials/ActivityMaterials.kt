@@ -104,6 +104,11 @@ class ActivityMaterials : AppCompatActivity(), ContractMaterials.View {
             adapter = postAdapter
             layoutManager = postLayoutManager
         }
+        
+        refreshLayout.setOnRefreshListener {
+            presenter.refreshPosts()
+            refreshLayout.isRefreshing = false
+        }
 
         // 재료 탭 presenter 시작
         presenter.run {
