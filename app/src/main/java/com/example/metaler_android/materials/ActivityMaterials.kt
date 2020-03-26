@@ -207,13 +207,11 @@ class ActivityMaterials : AppCompatActivity(), ContractMaterials.View {
                     setOnClickListener { itemListener.onCategoryClick(item.name, position) }
                 }
 
-                if (selectedPosition == position) {
-                    view.materialsCategoryBtn.apply {
+                view.materialsCategoryBtn.apply {
+                    if (selectedPosition == position) {
                         setTextColor(ContextCompat.getColor(view.context ,R.color.colorPurple))
                         setBackgroundResource(R.drawable.active_bar)
-                    }
-                }else {
-                    view.materialsCategoryBtn.apply {
+                    }else {
                         setTextColor(ContextCompat.getColor(view.context ,R.color.colorLightGrey))
                         setBackgroundResource(0)
                     }
