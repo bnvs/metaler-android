@@ -37,7 +37,7 @@ class ActivityBookmarks : AppCompatActivity(), ContractBookmarks.View {
             presenter.openPostDetail(clickedPostId)
         }
 
-        override fun onMoreButtonClick(view: View, clickedPostId: Int, position: Int) {
+        override fun onDeleteButtonClick(view: View, clickedPostId: Int, position: Int) {
             TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         }
     }
@@ -145,8 +145,8 @@ class ActivityBookmarks : AppCompatActivity(), ContractBookmarks.View {
                     dislikeNum.text = item.dis_like.toString()
                     likeNum.text = item.like.toString()
                     setOnClickListener { itemListener.onPostClick(item.post_id) }
-                    moreBtn.setOnClickListener {
-                        itemListener.onMoreButtonClick(view, item.post_id,position)
+                    deleteBtn.setOnClickListener {
+                        itemListener.onDeleteButtonClick(view, item.post_id,position)
                     }
 
                 }
@@ -161,7 +161,7 @@ class ActivityBookmarks : AppCompatActivity(), ContractBookmarks.View {
 
     private interface BookmarkPostItemListener {
         fun onPostClick(clickedPostId: Int)
-        fun onMoreButtonClick(view: View, clickedPostId: Int, position: Int)
+        fun onDeleteButtonClick(view: View, clickedPostId: Int, position: Int)
 
     }
 
