@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.metaler_android">
+    package="com.bnvs.metaler_android">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -11,20 +11,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".search.ActivitySearch"></activity>
-        <activity android:name=".myposts.ActivityMyPosts" />
-        <activity android:name=".jobmodify.ActivityJobModify" />
-        <activity android:name=".mypage.ActivityMyPage" />
-        <activity android:name=".jobinput.ActivityJobInput" />
-        <activity android:name=".termsagree.ActivityTermsAgree" />
-        <activity android:name=".bookmark.ActivityBookmark" />
-        <activity android:name=".postsecond.ActivityPostSecond" />
-        <activity android:name=".postfirst.ActivityPostFirst" />
-        <activity android:name=".manufactures.ActivityManufactures" />
-        <activity android:name=".detail.ActivityDetail" />
-        <activity android:name=".materials.ActivityMaterials" />
+        <activity android:name="com.bnvs.metaler_android.search.ActivitySearch"></activity>
+        <activity android:name="com.bnvs.metaler_android.myposts.ActivityMyPosts" />
+        <activity android:name="com.bnvs.metaler_android.jobmodify.ActivityJobModify" />
+        <activity android:name="com.bnvs.metaler_android.mypage.ActivityMyPage" />
+        <activity android:name="com.bnvs.metaler_android.jobinput.ActivityJobInput" />
+        <activity android:name="com.bnvs.metaler_android.termsagree.ActivityTermsAgree" />
+        <activity android:name="com.bnvs.metaler_android.bookmark.ActivityBookmark" />
+        <activity android:name="com.bnvs.metaler_android.postsecond.ActivityPostSecond" />
+        <activity android:name="com.bnvs.metaler_android.postfirst.ActivityPostFirst" />
+        <activity android:name="com.bnvs.metaler_android.manufactures.ActivityManufactures" />
+        <activity android:name="com.bnvs.metaler_android.detail.ActivityDetail" />
+        <activity android:name="com.bnvs.metaler_android.materials.ActivityMaterials" />
         <activity
-            android:name=".home.ActivityHome"
+            android:name="com.bnvs.metaler_android.home.ActivityHome"
             android:launchMode="singleInstance">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
