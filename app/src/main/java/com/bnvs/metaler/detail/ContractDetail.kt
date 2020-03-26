@@ -11,6 +11,8 @@ interface ContractDetail {
 
         fun showMenuDialog()
 
+        fun refreshRatingButtons()
+
     }
 
     interface Presenter : BasePresenter {
@@ -27,5 +29,7 @@ interface ContractDetail {
         fun deletePost(postId: Int)
 
         fun modifyPost(postId: Int)
+
+        fun ratePost(postId: Int)
     }
 }
