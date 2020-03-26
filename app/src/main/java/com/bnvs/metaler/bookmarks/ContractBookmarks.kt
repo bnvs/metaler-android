@@ -2,15 +2,16 @@ package com.bnvs.metaler.bookmarks
 
 import com.bnvs.metaler.BasePresenter
 import com.bnvs.metaler.BaseView
+import com.bnvs.metaler.data.post.Post
 import com.bnvs.metaler.util.TapBarContract
 
 interface ContractBookmarks {
     interface View : BaseView<Presenter>, TapBarContract.View {
         fun showPostDetailUi(postId: Int)
 
-        fun showMaterialsList()
+        fun showMaterialsList(posts: List<Post>)
 
-        fun showManufacturesList()
+        fun showManufacturesList(posts: List<Post>)
 
         fun showBookmarkDeleteDialog(postId: Int)
 

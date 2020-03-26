@@ -83,12 +83,12 @@ class ActivityBookmarks : AppCompatActivity(), ContractBookmarks.View {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun showMaterialsList() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun showMaterialsList(posts: List<Post>) {
+        bookmarkPostAdapter.setPosts(posts)
     }
 
-    override fun showManufacturesList() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun showManufacturesList(posts: List<Post>) {
+        bookmarkPostAdapter.setPosts(posts)
     }
 
     override fun showBookmarkDeleteDialog(postId: Int) {
