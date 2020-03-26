@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">metaler-android</string>
+    <string name="app_name">Metaler</string>
 
     <!--  titleBarCard,tabBarCard 에서 쓰이는 문자열  -->
     <string name="home">홈</string>
