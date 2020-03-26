@@ -1,13 +1,14 @@
 package com.example.metaler_android.bookmarks
 
 import android.content.Context
-import com.example.metaler_android.data.post.source.PostRepository
+import com.example.metaler_android.data.bookmarks.source.BookmarksDataSource
+import com.example.metaler_android.data.bookmarks.source.BookmarksRepository
 
 class PresenterBookmarks (
     private val context: Context,
     private val view: ContractBookmarks.View) : ContractBookmarks.Presenter {
 
-    private val postRepository: PostRepository = PostRepository(context)
+    private val bookmarksRepository: BookmarksRepository = BookmarksRepository(context)
 
     init {
         view.presenter = this
@@ -41,7 +42,15 @@ class PresenterBookmarks (
     }
 
     override fun deleteBookmark(postId: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        bookmarksRepository.deleteBookmark(object : BookmarksDataSource.DeleteBookmarkCallback{
+            override fun onBookmarkDeleted() {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+
+            override fun onDataNotAvailable() {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+        })
     }
 
 }
