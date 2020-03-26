@@ -68,7 +68,6 @@ class ActivityHome : AppCompatActivity(), ContractHome.View {
         }
 
         // 홈 탭에서 보여줄 데이터 가져오기 시작
-        // 탭 바 아이콘에 클릭 리스너 달아줌
         // 상태 바(배터리,와이파이 아이콘 표시되는 곳) 투명하게함
         presenter.run{
             start()
@@ -138,6 +137,8 @@ class ActivityHome : AppCompatActivity(), ContractHome.View {
     }
 
     private fun setTapBarButtons() {
+        // TODO : presenter 의 함수 파라미터에 view 를 넣지 않고,
+        //  presenter 의 멤버변수로 선언된 view 를 사용하는 방법이 없을까?
         homeBtn.setOnClickListener { presenter.openHome(this, this) }
         materialsBtn.setOnClickListener { presenter.openMaterials(this, this) }
         manufactureBtn.setOnClickListener { presenter.openManufactures(this, this) }

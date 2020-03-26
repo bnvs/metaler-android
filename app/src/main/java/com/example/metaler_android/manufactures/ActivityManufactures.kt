@@ -1,16 +1,12 @@
 package com.example.metaler_android.manufactures
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.metaler_android.R
-import com.example.metaler_android.bookmark.ActivityBookmark
 import com.example.metaler_android.data.post.Post
-import com.example.metaler_android.home.ActivityHome
-import com.example.metaler_android.materials.ActivityMaterials
-import com.example.metaler_android.mypage.ActivityMyPage
 import com.example.metaler_android.util.PostAdapter
 import com.example.metaler_android.util.PostItemListener
 import kotlinx.android.synthetic.main.activity_manufacture.*
@@ -73,6 +69,17 @@ class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
             adapter = postAdapter
             layoutManager = postLayoutManager
         }
+
+        // Set up RefreshListener
+        refreshLayout.setOnRefreshListener {
+            presenter.refreshPosts()
+            refreshLayout.isRefreshing = false
+        }
+
+        // Set up RefreshLayout Color
+        refreshLayout.setColorSchemeColors(
+            ContextCompat.getColor(this, R.color.colorPurple)
+        )
 
         // 가공 탭 presenter 시작
         presenter.run {

@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.metaler_android.home.ActivityHome
@@ -104,6 +105,17 @@ class ActivityMaterials : AppCompatActivity(), ContractMaterials.View {
             adapter = postAdapter
             layoutManager = postLayoutManager
         }
+        
+        // Set up RefreshListener
+        refreshLayout.setOnRefreshListener {
+            presenter.refreshPosts()
+            refreshLayout.isRefreshing = false
+        }
+
+        // Set up RefreshLayout Color
+        refreshLayout.setColorSchemeColors(
+            ContextCompat.getColor(this, R.color.colorPurple)
+        )
 
         // 재료 탭 presenter 시작
         presenter.run {
@@ -188,19 +200,22 @@ class ActivityMaterials : AppCompatActivity(), ContractMaterials.View {
         inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             private var view: View = itemView
 
-            @SuppressLint("ResourceAsColor")
             fun bind(item: Category, position: Int) {
 
-                view.materialsCategoryBtn.text = item.name
-                view.setOnClickListener { itemListener.onCategoryClick(item.name, position) }
-
-                if (selectedPosition == position) {
-                    view.materialsCategoryBtn.setTextColor(R.color.colorPurple)
-                    view.materialsCategoryBtn.setBackgroundResource(R.drawable.active_bar)
-                }else {
-                    view.materialsCategoryBtn.setTextColor(R.color.colorLightGrey)
-                    view.materialsCategoryBtn.setBackgroundResource(0)
+                view.apply {
+                    materialsCategoryBtn.apply {
+                        text = item.name
+                        if (selectedPosition == position) {
+                            setTextColor(ContextCompat.getColor(this.context ,R.color.colorPurple))
+                            setBackgroundResource(R.drawable.active_bar)
+                        }else {
+                            setTextColor(ContextCompat.getColor(this.context ,R.color.colorLightGrey))
+                            setBackgroundResource(0)
+                        }
+                    }
+                    setOnClickListener { itemListener.onCategoryClick(item.name, position) }
                 }
+
             }
         }
     }

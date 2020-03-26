@@ -10,8 +10,7 @@ import com.example.metaler_android.data.post.Post
 import kotlinx.android.synthetic.main.item_posts_rv.view.*
 
 /**
- * 가공 탭의 리사이클러뷰에 사용할 어댑터입니다.
- * 재료 탭의 리사이클러뷰에 재사용 가능하게 작성할 예정입니다
+ * 재료/가공 탭의 게시물 리사이클러뷰에 사용하는 어댑터입니다.
  * */
 class PostAdapter(
     private var posts: List<Post>,
@@ -45,16 +44,16 @@ class PostAdapter(
 
         fun bind(item: Post, position: Int) {
 
-            var tags = ""
+            var tagString = ""
             for (tag in item.tags) {
-                tags += "#$tag "
+                tagString += "#$tag "
             }
 
             view.apply {
                 title.text = item.title
                 userName.text = item.nickname
                 date.text = item.date
-                // tagRV.text = tags TODO : 태그 보여주는 방식 논의 필요
+                tags.text = tagString
                 dislikeNum.text = item.dis_like.toString()
                 likeNum.text = item.like.toString()
                 setOnClickListener { itemListener.onPostClick(item.post_id) }

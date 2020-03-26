@@ -28,6 +28,8 @@ interface ContractManufactures {
     interface Presenter : BasePresenter, TapBarContract.Presenter {
         fun loadPosts()
 
+        fun refreshPosts()
+
         fun openPostDetail(postId: Int)
 
         fun addBookmark(postId: Int)
