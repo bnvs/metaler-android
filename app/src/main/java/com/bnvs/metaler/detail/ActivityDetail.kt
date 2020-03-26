@@ -57,6 +57,7 @@ class ActivityDetail : AppCompatActivity(), ContractDetail.View {
 
     }
 
-
-
+    override fun refreshRatingButtons() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 }
