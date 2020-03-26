@@ -31,6 +31,8 @@ class ActivityBookmarks : AppCompatActivity(), ContractBookmarks.View {
     /**
      * 북마크 재료/가공 카테고리 눌렀을 때 보여지는 재료/가공 게시물 리사이클러뷰 아이템에 달아줄 클릭리스너입니다
      * 아이템 클릭 시, 클릭한 게시물의 post_id 를 presenter 에 전달합니다.
+     * onPostClick -> 게시물을 클릭한 경우
+     * onDeleteButtonClick -> 북마크 제거 버튼을 클릭한 경우
      * */
     private var bookmarkItemListener: BookmarkPostItemListener = object : BookmarkPostItemListener {
         override fun onPostClick(clickedPostId: Int) {
