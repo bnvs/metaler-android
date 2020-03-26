@@ -38,7 +38,7 @@ class PresenterBookmarks (
     }
 
     override fun openBookmarkDelete(postId: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        view.showBookmarkDeleteDialog(postId)
     }
 
     override fun deleteBookmark(postId: Int) {
