@@ -31,7 +31,7 @@ class PresenterDetail(
     }
 
     override fun openMenu() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        view.showMenuDialog()
     }
 
     override fun deletePost(postId: Int) {
