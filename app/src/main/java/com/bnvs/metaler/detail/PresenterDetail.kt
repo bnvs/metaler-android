@@ -41,7 +41,15 @@ class PresenterDetail(
     }
 
     override fun addBookmark(postId: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        bookmarksRepository.addBookmark(object : BookmarksDataSource.AddBookmarkCallback{
+            override fun onBookmarkAdded() {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+
+            override fun onDataNotAvailable() {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+        })
     }
 
     override fun deleteBookmark(postId: Int) {
