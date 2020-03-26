@@ -200,17 +200,16 @@ class ActivityMaterials : AppCompatActivity(), ContractMaterials.View {
         inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             private var view: View = itemView
 
-            @SuppressLint("ResourceAsColor")
             fun bind(item: Category, position: Int) {
 
                 view.materialsCategoryBtn.text = item.name
                 view.setOnClickListener { itemListener.onCategoryClick(item.name, position) }
 
                 if (selectedPosition == position) {
-                    view.materialsCategoryBtn.setTextColor(R.color.colorPurple)
+                    view.materialsCategoryBtn.setTextColor(ContextCompat.getColor(view.context ,R.color.colorPurple))
                     view.materialsCategoryBtn.setBackgroundResource(R.drawable.active_bar)
                 }else {
-                    view.materialsCategoryBtn.setTextColor(R.color.colorLightGrey)
+                    view.materialsCategoryBtn.setTextColor(ContextCompat.getColor(view.context ,R.color.colorLightGrey))
                     view.materialsCategoryBtn.setBackgroundResource(0)
                 }
             }
