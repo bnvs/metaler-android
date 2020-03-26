@@ -202,8 +202,10 @@ class ActivityMaterials : AppCompatActivity(), ContractMaterials.View {
 
             fun bind(item: Category, position: Int) {
 
-                view.materialsCategoryBtn.text = item.name
-                view.setOnClickListener { itemListener.onCategoryClick(item.name, position) }
+                view.apply {
+                    materialsCategoryBtn.text = item.name
+                    setOnClickListener { itemListener.onCategoryClick(item.name, position) }
+                }
 
                 if (selectedPosition == position) {
                     view.materialsCategoryBtn.apply {
