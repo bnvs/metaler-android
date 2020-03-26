@@ -121,6 +121,10 @@ class ActivityBookmarks : AppCompatActivity(), ContractBookmarks.View {
         private val itemListener: BookmarkPostItemListener
     ) : RecyclerView.Adapter<BookmarkPostAdapter.ViewHolder>() {
 
+        private val VIEW_TYPE_ITEM = 0
+        private val VIEW_TYPE_LOADING = 1
+
+
         fun setPosts(list: List<Post>) {
             this.posts = list
         }
