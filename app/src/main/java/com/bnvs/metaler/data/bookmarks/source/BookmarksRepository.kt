@@ -10,4 +10,8 @@ class BookmarksRepository(context: Context) : BookmarksDataSource {
     override fun deleteBookmark(callback: BookmarksDataSource.DeleteBookmarkCallback) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
+
+    override fun addBookmark(callback: BookmarksDataSource.AddBookmarkCallback) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 }

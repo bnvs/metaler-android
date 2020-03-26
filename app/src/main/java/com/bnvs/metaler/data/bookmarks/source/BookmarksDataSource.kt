@@ -6,4 +6,10 @@ interface BookmarksDataSource{
         fun onDataNotAvailable()
     }
     fun deleteBookmark(callback: DeleteBookmarkCallback)
+
+    interface AddBookmarkCallback {
+        fun onBookmarkAdded()
+        fun onDataNotAvailable()
+    }
+    fun addBookmark(callback: AddBookmarkCallback)
 }
