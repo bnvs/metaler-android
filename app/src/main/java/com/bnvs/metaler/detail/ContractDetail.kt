@@ -5,7 +5,7 @@ import com.bnvs.metaler.BaseView
 
 interface ContractDetail {
     interface View : BaseView<Presenter> {
-        fun showPost()
+        fun showPostDetail()
 
         fun showComments()
 
@@ -14,7 +14,7 @@ interface ContractDetail {
     }
 
     interface Presenter : BasePresenter {
-        fun loadPost()
+        fun loadPostDetail()
 
         fun loadComments()
 
