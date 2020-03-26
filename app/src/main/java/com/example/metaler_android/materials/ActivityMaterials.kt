@@ -105,6 +105,7 @@ class ActivityMaterials : AppCompatActivity(), ContractMaterials.View {
             layoutManager = postLayoutManager
         }
         
+        // Set up RefreshListener
         refreshLayout.setOnRefreshListener {
             presenter.refreshPosts()
             refreshLayout.isRefreshing = false
