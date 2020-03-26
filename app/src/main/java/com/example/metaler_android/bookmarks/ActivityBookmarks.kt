@@ -61,11 +61,21 @@ class ActivityBookmarks : AppCompatActivity(), ContractBookmarks.View {
             this@ActivityBookmarks
         )
 
+        // Set up Buttons
         initClickListeners()
+
+        // Set up posts recyclerView
+        bookmarkRV.apply {
+            adapter = bookmarkPostAdapter
+            layoutManager = bookmarkPostLayoutManager
+        }
+
 
         presenter.run {
             start()
         }
+
+
 
     }
 
