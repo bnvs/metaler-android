@@ -56,16 +56,16 @@ class ActivityHome : AppCompatActivity(), ContractHome.View {
         initClickListeners()
 
         // Set up materials recyclerView
-        materialsRV.apply {
+        /*materialsRV.apply {
             adapter = materialsAdapter
             layoutManager = materialsLayoutManager
-        }
+        }*/
 
         // Set up manufactures recyclerView
-        manufactureRV.apply {
+        /*manufactureRV.apply {
             adapter = manufacturesAdapter
             layoutManager = manufacturesLayoutManager
-        }
+        }*/
 
         // 홈 탭에서 보여줄 데이터 가져오기 시작
         // 상태 바(배터리,와이파이 아이콘 표시되는 곳) 투명하게함
@@ -157,8 +157,6 @@ class ActivityHome : AppCompatActivity(), ContractHome.View {
     //하단 소프트키 높이 구함
     private fun softMenuHeight(context: Context): Int {
         val resourceId = context.resources.getIdentifier("navigation_bar_height", "dimen", "android")
-
-        var deviceHeight : Int = 0
         return if (resourceId > 0){ context.resources.getDimensionPixelSize(resourceId)
         }else 0
     }
