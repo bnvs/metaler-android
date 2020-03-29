@@ -28,10 +28,10 @@ interface UserDataSource {
         fun onFailure(t: Throwable)
     }
 
-    fun addUser(callback: AddUserCallback)
+    fun addUser(request: AddUserRequest, callback: AddUserCallback)
     fun deleteUser(callback: DeleteUserCallback)
 
-    fun checkMembership(checkMembershipRequest: CheckMembershipRequest, callback: CheckMembershipCallback)
+    fun checkMembership(request: CheckMembershipRequest, callback: CheckMembershipCallback)
 
-    fun login(loginRequest: LoginRequest, callback: LoginCallback)
+    fun login(request: LoginRequest, callback: LoginCallback)
 }
