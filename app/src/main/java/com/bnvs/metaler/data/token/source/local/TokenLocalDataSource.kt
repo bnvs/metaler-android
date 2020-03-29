@@ -11,7 +11,7 @@ class TokenLocalDataSource (context: Context) : TokenDataSource {
     private val editor = sharedPreferences.edit()
 
     override fun getSigninToken(callback: TokenDataSource.LoadSigninTokenCallback) {
-        var token = sharedPreferences.getString("signin_token", null)
+        val token = sharedPreferences.getString("signin_token", null)
         when {
             token != null -> callback.onTokenloaded(SigninToken(token))
             else -> callback.onTokenNotExist()

@@ -33,13 +33,17 @@ class ActivityLogin : AppCompatActivity() {
     private val TAG = "ActivityLogin"
 
     private lateinit var callback: SessionCallback
-    private val tokenRepository = TokenRepository(this)
-    private val userRepository = UserRepository()
-    private val profileRepository = ProfileRepository(this)
+    private lateinit var tokenRepository: TokenRepository
+    private lateinit var userRepository: UserRepository
+    private lateinit var profileRepository: ProfileRepository
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+
+        tokenRepository = TokenRepository(this@ActivityLogin)
+        userRepository = UserRepository()
+        profileRepository = ProfileRepository(this@ActivityLogin)
 
         // SessionCallback 초기화
         callback = SessionCallback()
