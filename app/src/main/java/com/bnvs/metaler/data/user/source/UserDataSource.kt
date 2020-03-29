@@ -5,23 +5,25 @@ import com.bnvs.metaler.data.user.*
 interface UserDataSource {
 
     interface AddUserCallback {
-        fun onUserAdded(user: AddUserResponse)
-        fun onFailure()
+        fun onUserAdded(response: AddUserResponse)
+        fun onResponseError(message: String)
+        fun onFailure(t: Throwable)
     }
 
     interface DeleteUserCallback {
-        fun onUserDeleted(user: DeleteUserRequest)
-        fun onFailure()
+        fun onUserDeleted(response: DeleteUserRequest)
+        fun onResponseError(message: String)
+        fun onFailure(t: Throwable)
     }
 
     interface CheckMembershipCallback {
-        fun onMembershipChecked(user: CheckMembershipResponse)
+        fun onMembershipChecked(response: CheckMembershipResponse)
         fun onResponseError(message: String)
         fun onFailure(t: Throwable)
     }
 
     interface LoginCallback {
-        fun onLoginSuccess(user: LoginResponse)
+        fun onLoginSuccess(response: LoginResponse)
         fun onResponseError(message: String)
         fun onFailure(t: Throwable)
     }
