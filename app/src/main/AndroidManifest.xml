@@ -12,22 +12,26 @@
         android:roundIcon="@mipmap/ic_launcher_metaler_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".login.LoginActivity"></activity>
-        <activity android:name=".search.ActivitySearch" />
-        <activity android:name=".myposts.ActivityMyPosts" />
-        <activity android:name=".jobmodify.ActivityJobModify" />
-        <activity android:name=".mypage.ActivityMyPage" />
-        <activity android:name=".jobinput.ActivityJobInput" />
-        <activity android:name=".termsagree.ActivityTermsAgree" />
+
+        <meta-data
+            android:name="com.kakao.sdk.AppKey"
+            android:value="@string/kakao_app_key" />
+
+        <activity android:name=".home.ActivityHome"></activity>
+        <activity android:name=".materials.ActivityMaterials" />
+        <activity android:name=".manufactures.ActivityManufactures" />
         <activity android:name=".bookmarks.ActivityBookmarks" />
+        <activity android:name=".mypage.ActivityMyPage" />
+        <activity android:name=".search.ActivitySearch" />
+        <activity android:name=".detail.ActivityDetail" />
         <activity android:name=".postsecond.ActivityPostSecond" />
         <activity android:name=".postfirst.ActivityPostFirst" />
-        <activity android:name=".manufactures.ActivityManufactures" />
-        <activity android:name=".detail.ActivityDetail" />
-        <activity android:name=".materials.ActivityMaterials" />
+        <activity android:name=".myposts.ActivityMyPosts" />
+        <activity android:name=".jobmodify.ActivityJobModify" />
+        <activity android:name=".jobinput.ActivityJobInput" />
+        <activity android:name=".termsagree.ActivityTermsAgree" />
         <activity
-            android:name=".home.ActivityHome"
-            android:launchMode="singleInstance">
+            android:name=".login.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
