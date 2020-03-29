@@ -139,7 +139,7 @@ class ActivityLogin : AppCompatActivity() {
                                                                 call: Call<LoginResponse>,
                                                                 t: Throwable
                                                             ) {
-                                                                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                                                                Log.d(TAG, "로그인 실패 : $t")
                                                             }
                                                         })
                                                 }
@@ -183,10 +183,20 @@ class ActivityLogin : AppCompatActivity() {
 
     }
 
+    // access_token 유효시간과 현재시간을 비교하여
+    // 아직 유효시간이 남았으면 true 를 반환
+    private fun isTokenValid(validTime: String): Boolean {
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+        val now = Date(System.currentTimeMillis())
+        val validTime = dateFormat.parse(validTime)
+        val duration = validTime.time - now.time
+        return duration > 0
+    }
+
     // access_token 유효시간(발급시간으로부터 24시간까지)을 계산하여 리턴하는 함수
-    private fun getValidTime() : String{
-        var dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
-        var calendar = Calendar.getInstance().apply {
+    private fun getValidTime() : String {
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+        val calendar = Calendar.getInstance().apply {
             time = Date(System.currentTimeMillis())
             add(Calendar.DATE, 1)
         }
