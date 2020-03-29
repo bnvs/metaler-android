@@ -77,16 +77,22 @@ class ActivityLogin : AppCompatActivity() {
                     // local 에 signin_token 존재하는지 확인
                     tokenRepository.getSigninToken(object : TokenDataSource.LoadSigninTokenCallback {
                         override fun onTokenloaded(token: SigninToken) {
+                            val signinToken = token.signin_token
                             // local 에 access_token 존재하는지 확인
                             tokenRepository.getAccessToken(object: TokenDataSource.LoadAccessTokenCallback {
                                 override fun onTokenloaded(token: AccessToken) {
                                     // access_Token 이 유효한지(발급받은지 24시간이 지나지 않은) 확인
-                                    // 유효하지 않으면 로그인 api 호출하여 access_token 발급
-                                    // token.validTime 을 현재시간과 비교하는 코드 작성 필요
+                                    if (isTokenValid(token.valid_time)) {
+                                        openHome()
+                                    }else {
+                                        // 로그인 api 호출하여 access_token 발급
+                                        login(kakao_id, signinToken)
+                                    }
                                 }
 
                                 override fun onTokenNotExist() {
                                     // 로그인 api 호출하여 access_token 발급
+                                    login(kakao_id, signinToken)
                                 }
                             })
                         }
@@ -110,38 +116,7 @@ class ActivityLogin : AppCompatActivity() {
                                                 else -> {
                                                     // signin_token local 에 저장후 login api 호출
                                                     tokenRepository.saveSigninToken(SigninToken(responseData.signin_token))
-                                                    retrofitClient.login(loginRequest(kakao_id, responseData.signin_token))
-                                                        .enqueue(object: Callback<LoginResponse> {
-                                                            override fun onResponse(
-                                                                call: Call<LoginResponse>,
-                                                                response: Response<LoginResponse>
-                                                            ) {
-                                                                if (response.isSuccessful) {
-                                                                    Log.d(TAG, "Metaler api 응답 : $response")
-                                                                    var responseData = response.body()
-                                                                    if (responseData != null) {
-                                                                        Log.d(TAG, "로그인 api 응답 : $responseData")
-                                                                        // 발급받은 access_token local 에 저장후 home 탭 시작
-                                                                        tokenRepository.saveAccessToken(
-                                                                            AccessToken(responseData.access_token, getValidTime())
-                                                                        )
-                                                                        openHome()
-                                                                    }else {
-                                                                        Log.d(TAG, "로그인 api 응답 : 응답이 null 값임")
-                                                                    }
-                                                                }else {
-                                                                    Log.d(TAG, "Metaler 로그인 api 응답 response failed : " +
-                                                                            "${response.errorBody().toString()}")
-                                                                }
-                                                            }
-
-                                                            override fun onFailure(
-                                                                call: Call<LoginResponse>,
-                                                                t: Throwable
-                                                            ) {
-                                                                Log.d(TAG, "로그인 실패 : $t")
-                                                            }
-                                                        })
+                                                    login(kakao_id, responseData.signin_token)
                                                 }
                                             }
                                         }else {
@@ -215,6 +190,37 @@ class ActivityLogin : AppCompatActivity() {
             deviceInfo.getDeviceOs(),
             deviceInfo.getAppVersion()
         )
+    }
+
+    private fun login(kakao_id: String, signin_token: String) {
+        retrofitClient.login(loginRequest(kakao_id, signin_token))
+            .enqueue(object : Callback<LoginResponse> {
+                override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
+                    if (response.isSuccessful) {
+                        Log.d(TAG, "로그인 api 응답 : $response")
+                        var responseData = response.body()
+                        Log.d(TAG, "로그인 api 응답 body : $responseData")
+
+                        if (responseData != null) {
+                            // 발급받은 access_token local 에 저장후 home 탭 시작
+                            tokenRepository.saveAccessToken(
+                                AccessToken(responseData.access_token, getValidTime())
+                            )
+                            openHome()
+                        }else {
+                            Log.d(TAG, "로그인 api 응답 : 응답이 null 값임")
+                        }
+
+                    }else {
+                        Log.d(TAG, "Metaler 로그인 api 응답 response failed : " +
+                                "${response.errorBody().toString()}")
+                    }
+                }
+
+                override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
+                    Log.d(TAG, "로그인 실패 : $t")
+                }
+            })
     }
 
     private fun openTermsAgree() {
