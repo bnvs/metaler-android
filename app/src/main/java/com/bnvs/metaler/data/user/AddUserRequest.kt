@@ -14,10 +14,5 @@ data class AddUserRequest(
     val profile_gender: String,
     val job: String,
     val job_type: String,
-    val job_detail: String,
-    val push_token: String,
-    val device_model: String,
-    val device_id: String,
-    val device_os: String,
-    val app_version: String
+    val job_detail: String
 )
