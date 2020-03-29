@@ -13,6 +13,7 @@ import com.bnvs.metaler.data.token.source.TokenRepository
 import com.bnvs.metaler.data.user.CheckMembershipRequest
 import com.bnvs.metaler.data.user.CheckMembershipResponse
 import com.bnvs.metaler.data.user.LoginRequest
+import com.bnvs.metaler.data.user.LoginResponse
 import com.bnvs.metaler.home.ActivityHome
 import com.bnvs.metaler.network.RetrofitClient
 import com.bnvs.metaler.termsagree.ActivityTermsAgree
@@ -26,6 +27,8 @@ import com.kakao.util.exception.KakaoException
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.text.SimpleDateFormat
+import java.util.*
 
 class ActivityLogin : AppCompatActivity() {
 
@@ -106,7 +109,38 @@ class ActivityLogin : AppCompatActivity() {
                                                 else -> {
                                                     // signin_token local 에 저장후 login api 호출
                                                     tokenRepository.saveSigninToken(SigninToken(responseData.signin_token))
-                                                    openHome()
+                                                    retrofitClient.login(loginRequest(kakao_id, responseData.signin_token))
+                                                        .enqueue(object: Callback<LoginResponse> {
+                                                            override fun onResponse(
+                                                                call: Call<LoginResponse>,
+                                                                response: Response<LoginResponse>
+                                                            ) {
+                                                                if (response.isSuccessful) {
+                                                                    Log.d(TAG, "Metaler api 응답 : $response")
+                                                                    var responseData = response.body()
+                                                                    if (responseData != null) {
+                                                                        Log.d(TAG, "로그인 api 응답 : $responseData")
+                                                                        // 발급받은 access_token local 에 저장후 home 탭 시작
+                                                                        tokenRepository.saveAccessToken(
+                                                                            AccessToken(responseData.access_token, getValidTime())
+                                                                        )
+                                                                        openHome()
+                                                                    }else {
+                                                                        Log.d(TAG, "로그인 api 응답 : 응답이 null 값임")
+                                                                    }
+                                                                }else {
+                                                                    Log.d(TAG, "Metaler 로그인 api 응답 response failed : " +
+                                                                            "${response.errorBody().toString()}")
+                                                                }
+                                                            }
+
+                                                            override fun onFailure(
+                                                                call: Call<LoginResponse>,
+                                                                t: Throwable
+                                                            ) {
+                                                                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                                                            }
+                                                        })
                                                 }
                                             }
                                         }else {
@@ -146,6 +180,20 @@ class ActivityLogin : AppCompatActivity() {
             }
         }
 
+    }
+
+    
+    
+    private fun loginRequest(kakao_id: String, signin_token: String) : LoginRequest{
+        return LoginRequest(
+            kakao_id,
+            signin_token,
+            "push_token",
+            "device_id",
+            "device_model",
+            "device_os",
+            "app_version"
+        )
     }
 
     private fun openTermsAgree() {
