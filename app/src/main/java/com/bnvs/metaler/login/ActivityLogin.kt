@@ -6,11 +6,13 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import com.bnvs.metaler.R
+import com.bnvs.metaler.data.token.AccessToken
 import com.bnvs.metaler.data.token.SigninToken
 import com.bnvs.metaler.data.token.source.TokenDataSource
 import com.bnvs.metaler.data.token.source.TokenRepository
 import com.bnvs.metaler.data.user.CheckMembershipRequest
 import com.bnvs.metaler.data.user.CheckMembershipResponse
+import com.bnvs.metaler.data.user.LoginRequest
 import com.bnvs.metaler.home.ActivityHome
 import com.bnvs.metaler.network.RetrofitClient
 import com.bnvs.metaler.termsagree.ActivityTermsAgree
@@ -71,7 +73,18 @@ class ActivityLogin : AppCompatActivity() {
                     // local 에 signin_token 존재하는지 확인
                     tokenRepository.getSigninToken(object : TokenDataSource.LoadSigninTokenCallback {
                         override fun onTokenloaded(token: SigninToken) {
-                            // local 에 signin_token 존재, 로그인 api 호출
+                            // local 에 access_token 존재하는지 확인
+                            tokenRepository.getAccessToken(object: TokenDataSource.LoadAccessTokenCallback {
+                                override fun onTokenloaded(token: AccessToken) {
+                                    // access_Token 이 유효한지(발급받은지 24시간이 지나지 않은) 확인
+                                    // 유효하지 않으면 로그인 api 호출하여 access_token 발급
+                                    // token.validTime 을 현재시간과 비교하는 코드 작성 필요
+                                }
+
+                                override fun onTokenNotExist() {
+                                    // 로그인 api 호출하여 access_token 발급
+                                }
+                            })
                         }
                         override fun onTokenNotExist() {
                             // signin_token 존재하지 않음, 회원가입 여부확인 api 호출
@@ -87,10 +100,14 @@ class ActivityLogin : AppCompatActivity() {
                                             Log.d(TAG, "회원가입 여부 확인 : $responseData")
                                             when(responseData.message) {
                                                 "you_can_join" -> {
-
+                                                    // 회원가입 액티비티 실행
                                                     openTermsAgree()
                                                 }
-                                                else -> openHome()
+                                                else -> {
+                                                    // signin_token local 에 저장후 login api 호출
+                                                    tokenRepository.saveSigninToken(SigninToken(responseData.signin_token))
+                                                    openHome()
+                                                }
                                             }
                                         }else {
                                             Log.d(TAG, "회원가입 여부 확인 : 응답이 null 값임")

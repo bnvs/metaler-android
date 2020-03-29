@@ -64,6 +64,10 @@ interface RetrofitInterface {
     @POST("/users/join")
     fun addUser(@Body request: AddUserRequest): Call<AddUserResponse>
 
+    // 로그인
+    @POST("/users/login")
+    fun login(@Body request: LoginRequest) : Call<LoginResponse>
+
     @POST("/posts/{id}/comments")
     fun addComment(@Path("id") id: String,
                    @Body commentRequest: CommentsRequest)
