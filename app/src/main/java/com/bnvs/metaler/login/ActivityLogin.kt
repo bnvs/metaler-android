@@ -21,8 +21,11 @@ class ActivityLogin : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
+        // SessionCallback 초기화
         callback = SessionCallback()
+        // 현재 세션에 callback 붙이기
         Session.getCurrentSession().addCallback(callback)
+        // 현재 앱에 유효한 카카오 로그인 토큰이 있다면 바로 로그인(자동 로그인과 유사)
         Session.getCurrentSession().checkAndImplicitOpen()
     }
 
@@ -49,6 +52,10 @@ class ActivityLogin : AppCompatActivity() {
 
                 override fun onSessionClosed(errorResult: ErrorResult?) {
                     // 로그인 도중 세션이 비정상적인 이유로 닫혔을 때
+                    Toast.makeText(
+                        this@ActivityLogin,
+                        "세션이 닫혔습니다. 다시 시도해주세요 : ${errorResult.toString()}",
+                        Toast.LENGTH_SHORT).show()
                 }
             })
         }
