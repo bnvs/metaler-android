@@ -12,9 +12,7 @@ import com.bnvs.metaler.data.post.Posts
 import com.bnvs.metaler.data.post.PostsRequest
 import com.bnvs.metaler.data.post.UserPostsRequest
 import com.bnvs.metaler.data.postdetails.PostDetails
-import com.bnvs.metaler.data.user.DeleteUserRequest
-import com.bnvs.metaler.data.user.NicknameRequest
-import com.bnvs.metaler.data.user.User
+import com.bnvs.metaler.data.user.*
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import org.json.JSONObject
@@ -58,6 +56,18 @@ interface RetrofitInterface {
     @GET("/users/posts")
     fun getMyPosts(@Body request: UserPostsRequest): Call<Posts>
 
+    // 회원가입 여부 확인
+    @POST("/users/check")
+    fun checkUserMembership(@Body request: CheckMembershipRequest): Call<CheckMembershipResponse>
+
+    // 회원가입
+    @POST("/users/join")
+    fun addUser(@Body request: AddUserRequest): Call<AddUserResponse>
+
+    // 로그인
+    @POST("/users/login")
+    fun login(@Body request: LoginRequest) : Call<LoginResponse>
+
     @POST("/posts/{id}/comments")
     fun addComment(@Path("id") id: String,
                    @Body commentRequest: CommentsRequest)
@@ -74,11 +84,6 @@ interface RetrofitInterface {
     @POST("/posts/{id}/bookmarks")
     fun addBookmark(@Path("id") id: String,
                     @Body request: JSONObject): Call<JSONObject>
-
-    // TODO : user 추가 함수 (회원가입 api)
-    @POST("/categories/{id}/posts")
-    fun addUser(@Path("id") id: String,
-                @Body user: User): Call<JSONObject>
 
     @PUT("/comments/{id}")
     fun modifyComment(@Path("id") id: String,

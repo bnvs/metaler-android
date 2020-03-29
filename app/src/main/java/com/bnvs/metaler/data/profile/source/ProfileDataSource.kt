@@ -6,9 +6,11 @@ interface ProfileDataSource {
 
     interface LoadProfileCallback {
         fun onProfileloaded(profile: Profile)
-        fun onFailure()
+        fun onProfileNotExist()
     }
 
     fun getProfile(callback: LoadProfileCallback)
+
+    fun saveProfile(profile: Profile)
 
 }
