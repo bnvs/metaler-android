@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import com.bnvs.metaler.R
+import com.bnvs.metaler.data.profile.Profile
+import com.bnvs.metaler.data.profile.source.ProfileRepository
 import com.bnvs.metaler.data.token.AccessToken
 import com.bnvs.metaler.data.token.SigninToken
 import com.bnvs.metaler.data.token.source.TokenDataSource
@@ -40,6 +42,7 @@ class ActivityLogin : AppCompatActivity() {
     private lateinit var callback: SessionCallback
     private val tokenRepository = TokenRepository(this)
     private val userRepository = UserRepository()
+    private val profileRepository = ProfileRepository(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -201,6 +204,13 @@ class ActivityLogin : AppCompatActivity() {
                             AccessToken(response.access_token, getValidTime())
                         )
                         // response 의 User 에서 profile 정보 추출하여 로컬에 저장
+                        profileRepository.saveProfile(
+                            Profile(
+                                response.user.profile_nickname,
+                                response.user.profile_image_url,
+                                response.user.profile_email)
+                        )
+                        // 홈탭 실행
                         openHome()
                     } else {
                         Log.d(TAG, "로그인 api 응답 : 응답이 null 값임")
