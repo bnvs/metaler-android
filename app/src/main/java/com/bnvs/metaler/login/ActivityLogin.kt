@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.Toast
 import com.bnvs.metaler.R
 import com.kakao.auth.ISessionCallback
+import com.kakao.auth.Session
 import com.kakao.network.ErrorResult
 import com.kakao.usermgmt.UserManagement
 import com.kakao.usermgmt.callback.MeV2ResponseCallback
@@ -13,11 +14,15 @@ import com.kakao.util.exception.KakaoException
 
 class ActivityLogin : AppCompatActivity() {
 
+    private lateinit var callback: SessionCallback
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-
+        callback = SessionCallback()
+        Session.getCurrentSession().addCallback(callback)
+        Session.getCurrentSession().checkAndImplicitOpen()
     }
 
     private inner class SessionCallback : ISessionCallback {
