@@ -104,10 +104,11 @@ class ActivityLogin : AppCompatActivity() {
                                     response: Response<CheckMembershipResponse>
                                 ) {
                                     if (response.isSuccessful) {
-                                        Log.d(TAG, "Metaler api 응답 : $response")
+                                        Log.d(TAG, "회원가입 여부 확인 api 응답 : $response")
                                         var responseData = response.body()
+                                        Log.d(TAG, "회원가입 여부 확인 api 응답 body : $responseData")
+
                                         if (responseData != null) {
-                                            Log.d(TAG, "회원가입 여부 확인 : $responseData")
                                             when(responseData.message) {
                                                 "you_can_join" -> {
                                                     // 회원가입 액티비티 실행
