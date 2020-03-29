@@ -1,17 +1,19 @@
 package com.bnvs.metaler.data.user.source.remote
 
 import android.util.Log
+import com.bnvs.metaler.data.token.AccessToken
 import com.bnvs.metaler.data.token.SigninToken
 import com.bnvs.metaler.data.user.CheckMembershipRequest
 import com.bnvs.metaler.data.user.CheckMembershipResponse
 import com.bnvs.metaler.data.user.LoginRequest
+import com.bnvs.metaler.data.user.LoginResponse
 import com.bnvs.metaler.data.user.source.UserDataSource
 import com.bnvs.metaler.network.RetrofitClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-object UserRemoteDataSource : UserDataSource{
+object UserRemoteDataSource : UserDataSource {
 
     private val TAG = "UserRemoteDataSource"
     private val retrofitClient = RetrofitClient.client
@@ -24,8 +26,11 @@ object UserRemoteDataSource : UserDataSource{
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun checkMembership(checkMembershipRequest: CheckMembershipRequest, callback: UserDataSource.CheckMembershipCallback) {
-        retrofitClient.checkUserMembership(CheckMembershipRequest(checkMembershipRequest.kakao_id))
+    override fun checkMembership(
+        checkMembershipRequest: CheckMembershipRequest,
+        callback: UserDataSource.CheckMembershipCallback
+    ) {
+        retrofitClient.checkUserMembership(checkMembershipRequest)
             .enqueue(object : Callback<CheckMembershipResponse> {
                 override fun onResponse(
                     call: Call<CheckMembershipResponse>,
@@ -54,6 +59,25 @@ object UserRemoteDataSource : UserDataSource{
         loginRequest: LoginRequest,
         callback: UserDataSource.LoginCallback
     ) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        retrofitClient.login(loginRequest)
+            .enqueue(object : Callback<LoginResponse> {
+                override fun onResponse(
+                    call: Call<LoginResponse>,
+                    response: Response<LoginResponse>
+                ) {
+                    if (response.isSuccessful) {
+                        Log.d(TAG, "로그인 api 응답 : $response")
+                        Log.d(TAG, "로그인 api 응답 body : ${response.body()}")
+                        callback.onLoginSuccess(response.body()!!)
+
+                    } else {
+                        callback.onResponseError(response.errorBody().toString())
+                    }
+                }
+
+                override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
+                    callback.onFailure(t)
+                }
+            })
     }
 }

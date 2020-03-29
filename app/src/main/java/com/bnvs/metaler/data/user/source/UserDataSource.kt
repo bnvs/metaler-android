@@ -22,7 +22,8 @@ interface UserDataSource {
 
     interface LoginCallback {
         fun onLoginSuccess(user: LoginResponse)
-        fun onFailure()
+        fun onResponseError(message: String)
+        fun onFailure(t: Throwable)
     }
 
     fun addUser(callback: AddUserCallback)
