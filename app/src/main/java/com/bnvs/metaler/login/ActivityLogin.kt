@@ -186,7 +186,7 @@ class ActivityLogin : AppCompatActivity() {
     // login api 요청 request body 반환하는 함수
     private fun loginRequest(kakao_id: String, signin_token: String): LoginRequest {
         val deviceInfo = DeviceInfo(this)
-        return LoginRequest(
+        val loginRequest = LoginRequest(
             kakao_id,
             signin_token,
             "push_token",
@@ -195,6 +195,8 @@ class ActivityLogin : AppCompatActivity() {
             deviceInfo.getDeviceOs(),
             deviceInfo.getAppVersion()
         )
+        Log.d(TAG, "로그인 request : $loginRequest")
+        return loginRequest
     }
 
     // login api 호출
