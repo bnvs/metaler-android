@@ -5,7 +5,8 @@ package com.bnvs.metaler.data.user
  * metaler 자체 로그인/회원가입 api 에 전달하는 정보
  * */
 
-data class User(
+data class AddUserRequest(
+    val kakao_id: String,
     val profile_nickname: String,
     val profile_image_url: String,
     val profile_email: String,
@@ -14,7 +15,6 @@ data class User(
     val job: String,
     val job_type: String,
     val job_detail: String,
-    val service_type: String,
     val push_token: String,
     val device_model: String,
     val device_id: String,

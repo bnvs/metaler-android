@@ -15,7 +15,7 @@ import com.bnvs.metaler.data.postdetails.PostDetails
 import com.bnvs.metaler.data.user.CheckMembershipRequest
 import com.bnvs.metaler.data.user.DeleteUserRequest
 import com.bnvs.metaler.data.user.NicknameRequest
-import com.bnvs.metaler.data.user.User
+import com.bnvs.metaler.data.user.AddUserRequest
 import com.bnvs.metaler.data.user.CheckMembershipResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -83,7 +83,7 @@ interface RetrofitInterface {
     // TODO : user 추가 함수 (회원가입 api)
     @POST("/categories/{id}/posts")
     fun addUser(@Path("id") id: String,
-                @Body user: User): Call<JSONObject>
+                @Body user: AddUserRequest): Call<JSONObject>
 
     @PUT("/comments/{id}")
     fun modifyComment(@Path("id") id: String,
