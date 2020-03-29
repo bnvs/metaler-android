@@ -14,6 +14,8 @@ import com.bnvs.metaler.data.user.CheckMembershipRequest
 import com.bnvs.metaler.data.user.CheckMembershipResponse
 import com.bnvs.metaler.data.user.LoginRequest
 import com.bnvs.metaler.data.user.LoginResponse
+import com.bnvs.metaler.data.user.source.UserDataSource
+import com.bnvs.metaler.data.user.source.UserRepository
 import com.bnvs.metaler.home.ActivityHome
 import com.bnvs.metaler.network.RetrofitClient
 import com.bnvs.metaler.termsagree.ActivityTermsAgree
@@ -36,8 +38,8 @@ class ActivityLogin : AppCompatActivity() {
     private val TAG = "ActivityLogin"
 
     private lateinit var callback: SessionCallback
-    private val retrofitClient = RetrofitClient.client
     private val tokenRepository = TokenRepository(this)
+    private val userRepository = UserRepository()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -99,48 +101,36 @@ class ActivityLogin : AppCompatActivity() {
 
                         override fun onTokenNotExist() {
                             // signin_token 존재하지 않음, 회원가입 여부확인 api 호출
-                            retrofitClient.checkUserMembership(CheckMembershipRequest(kakao_id))
-                                .enqueue(object : Callback<CheckMembershipResponse> {
-                                    override fun onResponse(
-                                        call: Call<CheckMembershipResponse>,
-                                        response: Response<CheckMembershipResponse>
-                                    ) {
-                                        if (response.isSuccessful) {
-                                            Log.d(TAG, "회원가입 여부 확인 api 응답 : $response")
-                                            var responseData = response.body()
-                                            Log.d(TAG, "회원가입 여부 확인 api 응답 body : $responseData")
-
-                                            if (responseData != null) {
-                                                when (responseData.message) {
-                                                    "you_can_join" -> {
-                                                        openTermsAgree()
-                                                    }
-                                                    else -> {
-                                                        tokenRepository.saveSigninToken(
-                                                            SigninToken(responseData.signin_token)
-                                                        )
-                                                        login(kakao_id, responseData.signin_token)
-                                                    }
+                            userRepository.checkMembership(
+                                CheckMembershipRequest(kakao_id),
+                                object: UserDataSource.CheckMembershipCallback {
+                                    override fun onMembershipChecked(response: CheckMembershipResponse) {
+                                        if (response != null) {
+                                            when (response.message) {
+                                                "you_can_join" -> {
+                                                    openTermsAgree()
                                                 }
-                                            } else {
-                                                Log.d(TAG, "회원가입 여부 확인 : 응답이 null 값임")
+                                                else -> {
+                                                    tokenRepository.saveSigninToken(
+                                                        SigninToken(response.signin_token)
+                                                    )
+                                                    login(kakao_id, response.signin_token)
+                                                }
                                             }
-
-                                        } else {
-                                            Log.d(
-                                                TAG, "Metaler api 응답 response failed : " +
-                                                        "${response.errorBody().toString()}"
-                                            )
+                                        }else {
+                                            Log.d(TAG, "회원가입 여부 확인 : 응답이 null 값임")
                                         }
                                     }
 
-                                    override fun onFailure(
-                                        call: Call<CheckMembershipResponse>,
-                                        t: Throwable
-                                    ) {
+                                    override fun onResponseError(message: String) {
+                                        Log.d(TAG, "회원가입 여부 확인 응답 response failed : $message")
+                                    }
+
+                                    override fun onFailure(t: Throwable) {
                                         Log.d(TAG, "회원가입 여부 확인 실패 : $t")
                                     }
                                 })
+
                         }
                     })
                 }
@@ -201,36 +191,27 @@ class ActivityLogin : AppCompatActivity() {
 
     // login api 호출
     private fun login(kakao_id: String, signin_token: String) {
-        retrofitClient.login(loginRequest(kakao_id, signin_token))
-            .enqueue(object : Callback<LoginResponse> {
-                override fun onResponse(
-                    call: Call<LoginResponse>,
-                    response: Response<LoginResponse>
-                ) {
-                    if (response.isSuccessful) {
-                        Log.d(TAG, "로그인 api 응답 : $response")
-                        var responseData = response.body()
-                        Log.d(TAG, "로그인 api 응답 body : $responseData")
-
-                        if (responseData != null) {
-                            // 발급받은 access_token local 에 저장후 home 탭 시작
-                            tokenRepository.saveAccessToken(
-                                AccessToken(responseData.access_token, getValidTime())
-                            )
-                            openHome()
-                        } else {
-                            Log.d(TAG, "로그인 api 응답 : 응답이 null 값임")
-                        }
-
-                    } else {
-                        Log.d(
-                            TAG, "Metaler 로그인 api 응답 response failed : " +
-                                    "${response.errorBody().toString()}"
+        userRepository.login(
+            loginRequest(kakao_id, signin_token),
+            object : UserDataSource.LoginCallback {
+                override fun onLoginSuccess(response: LoginResponse) {
+                    if (response != null) {
+                        // 발급받은 access_token local 에 저장
+                        tokenRepository.saveAccessToken(
+                            AccessToken(response.access_token, getValidTime())
                         )
+                        // response 의 User 에서 profile 정보 추출하여 로컬에 저장
+                        openHome()
+                    } else {
+                        Log.d(TAG, "로그인 api 응답 : 응답이 null 값임")
                     }
                 }
 
-                override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
+                override fun onResponseError(message: String) {
+                    Log.d(TAG, "Metaler 로그인 api 응답 response failed : $message")
+                }
+
+                override fun onFailure(t: Throwable) {
                     Log.d(TAG, "로그인 실패 : $t")
                 }
             })
