@@ -67,7 +67,7 @@ class ActivityLogin : AppCompatActivity() {
     private inner class SessionCallback : ISessionCallback {
         override fun onSessionOpened() {
             // 로그인 세션이 열렸을 때
-            UserManagement.getInstance().me( object : MeV2ResponseCallback() {
+            UserManagement.getInstance().me(object : MeV2ResponseCallback() {
                 override fun onSuccess(result: MeV2Response?) {
                     // 카카오 로그인이 성공했을 때
                     // Metaler 회원가입 여부 확인
@@ -75,64 +75,72 @@ class ActivityLogin : AppCompatActivity() {
                     val kakao_id = result!!.id.toString()
 
                     // local 에 signin_token 존재하는지 확인
-                    tokenRepository.getSigninToken(object : TokenDataSource.LoadSigninTokenCallback {
+                    tokenRepository.getSigninToken(object :
+                        TokenDataSource.LoadSigninTokenCallback {
                         override fun onTokenloaded(token: SigninToken) {
                             val signinToken = token.signin_token
                             // local 에 access_token 존재하는지 확인
-                            tokenRepository.getAccessToken(object: TokenDataSource.LoadAccessTokenCallback {
+                            tokenRepository.getAccessToken(object :
+                                TokenDataSource.LoadAccessTokenCallback {
                                 override fun onTokenloaded(token: AccessToken) {
                                     // access_Token 이 유효한지(발급받은지 24시간이 지나지 않은) 확인
                                     if (isTokenValid(token.valid_time)) {
                                         openHome()
-                                    }else {
-                                        // 로그인 api 호출하여 access_token 발급
+                                    } else {
                                         login(kakao_id, signinToken)
                                     }
                                 }
 
                                 override fun onTokenNotExist() {
-                                    // 로그인 api 호출하여 access_token 발급
                                     login(kakao_id, signinToken)
                                 }
                             })
                         }
+
                         override fun onTokenNotExist() {
                             // signin_token 존재하지 않음, 회원가입 여부확인 api 호출
-                            retrofitClient.checkUserMembership(CheckMembershipRequest(kakao_id)).enqueue(object : Callback<CheckMembershipResponse> {
-                                override fun onResponse(
-                                    call: Call<CheckMembershipResponse>,
-                                    response: Response<CheckMembershipResponse>
-                                ) {
-                                    if (response.isSuccessful) {
-                                        Log.d(TAG, "회원가입 여부 확인 api 응답 : $response")
-                                        var responseData = response.body()
-                                        Log.d(TAG, "회원가입 여부 확인 api 응답 body : $responseData")
+                            retrofitClient.checkUserMembership(CheckMembershipRequest(kakao_id))
+                                .enqueue(object : Callback<CheckMembershipResponse> {
+                                    override fun onResponse(
+                                        call: Call<CheckMembershipResponse>,
+                                        response: Response<CheckMembershipResponse>
+                                    ) {
+                                        if (response.isSuccessful) {
+                                            Log.d(TAG, "회원가입 여부 확인 api 응답 : $response")
+                                            var responseData = response.body()
+                                            Log.d(TAG, "회원가입 여부 확인 api 응답 body : $responseData")
 
-                                        if (responseData != null) {
-                                            when(responseData.message) {
-                                                "you_can_join" -> {
-                                                    // 회원가입 액티비티 실행
-                                                    openTermsAgree()
+                                            if (responseData != null) {
+                                                when (responseData.message) {
+                                                    "you_can_join" -> {
+                                                        openTermsAgree()
+                                                    }
+                                                    else -> {
+                                                        tokenRepository.saveSigninToken(
+                                                            SigninToken(responseData.signin_token)
+                                                        )
+                                                        login(kakao_id, responseData.signin_token)
+                                                    }
                                                 }
-                                                else -> {
-                                                    // signin_token local 에 저장후 login api 호출
-                                                    tokenRepository.saveSigninToken(SigninToken(responseData.signin_token))
-                                                    login(kakao_id, responseData.signin_token)
-                                                }
+                                            } else {
+                                                Log.d(TAG, "회원가입 여부 확인 : 응답이 null 값임")
                                             }
-                                        }else {
-                                            Log.d(TAG, "회원가입 여부 확인 : 응답이 null 값임")
-                                        }
-                                    }else {
-                                        Log.d(TAG, "Metaler api 응답 response failed : " +
-                                                "${response.errorBody().toString()}")
-                                    }
-                                }
 
-                                override fun onFailure(call: Call<CheckMembershipResponse>, t: Throwable) {
-                                    Log.d(TAG, "회원가입 여부 확인 실패 : $t")
-                                }
-                            })
+                                        } else {
+                                            Log.d(
+                                                TAG, "Metaler api 응답 response failed : " +
+                                                        "${response.errorBody().toString()}"
+                                            )
+                                        }
+                                    }
+
+                                    override fun onFailure(
+                                        call: Call<CheckMembershipResponse>,
+                                        t: Throwable
+                                    ) {
+                                        Log.d(TAG, "회원가입 여부 확인 실패 : $t")
+                                    }
+                                })
                         }
                     })
                 }
@@ -143,6 +151,7 @@ class ActivityLogin : AppCompatActivity() {
                 }
             })
         }
+
         override fun onSessionOpenFailed(exception: KakaoException?) {
             // 로그인 세션이 정상적으로 열리지 않았을 때
             if (exception != null) {
@@ -164,7 +173,7 @@ class ActivityLogin : AppCompatActivity() {
     }
 
     // access_token 유효시간(발급시간으로부터 24시간까지)을 계산하여 리턴하는 함수
-    private fun getValidTime() : String {
+    private fun getValidTime(): String {
         val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
         val calendar = Calendar.getInstance().apply {
             time = Date(System.currentTimeMillis())
@@ -173,8 +182,9 @@ class ActivityLogin : AppCompatActivity() {
 
         return dateFormat.format(calendar.time)
     }
-    
-    private fun loginRequest(kakao_id: String, signin_token: String) : LoginRequest{
+
+    // login api 요청 request body 반환하는 함수
+    private fun loginRequest(kakao_id: String, signin_token: String): LoginRequest {
         val deviceInfo = DeviceInfo(this)
         return LoginRequest(
             kakao_id,
@@ -187,10 +197,14 @@ class ActivityLogin : AppCompatActivity() {
         )
     }
 
+    // login api 호출
     private fun login(kakao_id: String, signin_token: String) {
         retrofitClient.login(loginRequest(kakao_id, signin_token))
             .enqueue(object : Callback<LoginResponse> {
-                override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
+                override fun onResponse(
+                    call: Call<LoginResponse>,
+                    response: Response<LoginResponse>
+                ) {
                     if (response.isSuccessful) {
                         Log.d(TAG, "로그인 api 응답 : $response")
                         var responseData = response.body()
@@ -202,13 +216,15 @@ class ActivityLogin : AppCompatActivity() {
                                 AccessToken(responseData.access_token, getValidTime())
                             )
                             openHome()
-                        }else {
+                        } else {
                             Log.d(TAG, "로그인 api 응답 : 응답이 null 값임")
                         }
 
-                    }else {
-                        Log.d(TAG, "Metaler 로그인 api 응답 response failed : " +
-                                "${response.errorBody().toString()}")
+                    } else {
+                        Log.d(
+                            TAG, "Metaler 로그인 api 응답 response failed : " +
+                                    "${response.errorBody().toString()}"
+                        )
                     }
                 }
 
