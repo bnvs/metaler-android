@@ -1,12 +1,7 @@
 package com.bnvs.metaler.data.user.source.remote
 
 import android.util.Log
-import com.bnvs.metaler.data.token.AccessToken
-import com.bnvs.metaler.data.token.SigninToken
-import com.bnvs.metaler.data.user.CheckMembershipRequest
-import com.bnvs.metaler.data.user.CheckMembershipResponse
-import com.bnvs.metaler.data.user.LoginRequest
-import com.bnvs.metaler.data.user.LoginResponse
+import com.bnvs.metaler.data.user.*
 import com.bnvs.metaler.data.user.source.UserDataSource
 import com.bnvs.metaler.network.RetrofitClient
 import retrofit2.Call
@@ -18,8 +13,30 @@ object UserRemoteDataSource : UserDataSource {
     private val TAG = "UserRemoteDataSource"
     private val retrofitClient = RetrofitClient.client
 
-    override fun addUser(callback: UserDataSource.AddUserCallback) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun addUser(
+        request: AddUserRequest,
+        callback: UserDataSource.AddUserCallback
+    ) {
+        retrofitClient.addUser(request).
+            enqueue(object : Callback<AddUserResponse> {
+                override fun onResponse(
+                    call: Call<AddUserResponse>,
+                    response: Response<AddUserResponse>
+                ) {
+                    if (response.isSuccessful) {
+                        Log.d(TAG, "회원가입 api 응답 : $response")
+                        Log.d(TAG, "회원가입 api 응답 body : ${response.body()}")
+                        callback.onUserAdded(response.body()!!)
+
+                    }else {
+                        callback.onResponseError(response.errorBody().toString())
+                    }
+                }
+
+                override fun onFailure(call: Call<AddUserResponse>, t: Throwable) {
+                    callback.onFailure(t)
+                }
+            })
     }
 
     override fun deleteUser(callback: UserDataSource.DeleteUserCallback) {
@@ -27,10 +44,10 @@ object UserRemoteDataSource : UserDataSource {
     }
 
     override fun checkMembership(
-        checkMembershipRequest: CheckMembershipRequest,
+        request: CheckMembershipRequest,
         callback: UserDataSource.CheckMembershipCallback
     ) {
-        retrofitClient.checkUserMembership(checkMembershipRequest)
+        retrofitClient.checkUserMembership(request)
             .enqueue(object : Callback<CheckMembershipResponse> {
                 override fun onResponse(
                     call: Call<CheckMembershipResponse>,
@@ -46,20 +63,17 @@ object UserRemoteDataSource : UserDataSource {
                     }
                 }
 
-                override fun onFailure(
-                    call: Call<CheckMembershipResponse>,
-                    t: Throwable
-                ) {
+                override fun onFailure(call: Call<CheckMembershipResponse>, t: Throwable) {
                     callback.onFailure(t)
                 }
             })
     }
 
     override fun login(
-        loginRequest: LoginRequest,
+        request: LoginRequest,
         callback: UserDataSource.LoginCallback
     ) {
-        retrofitClient.login(loginRequest)
+        retrofitClient.login(request)
             .enqueue(object : Callback<LoginResponse> {
                 override fun onResponse(
                     call: Call<LoginResponse>,
