@@ -12,14 +12,10 @@ import com.bnvs.metaler.data.token.AccessToken
 import com.bnvs.metaler.data.token.SigninToken
 import com.bnvs.metaler.data.token.source.TokenDataSource
 import com.bnvs.metaler.data.token.source.TokenRepository
-import com.bnvs.metaler.data.user.CheckMembershipRequest
-import com.bnvs.metaler.data.user.CheckMembershipResponse
-import com.bnvs.metaler.data.user.LoginRequest
-import com.bnvs.metaler.data.user.LoginResponse
+import com.bnvs.metaler.data.user.*
 import com.bnvs.metaler.data.user.source.UserDataSource
 import com.bnvs.metaler.data.user.source.UserRepository
 import com.bnvs.metaler.home.ActivityHome
-import com.bnvs.metaler.network.RetrofitClient
 import com.bnvs.metaler.termsagree.ActivityTermsAgree
 import com.bnvs.metaler.util.DeviceInfo
 import com.kakao.auth.ISessionCallback
@@ -29,9 +25,6 @@ import com.kakao.usermgmt.UserManagement
 import com.kakao.usermgmt.callback.MeV2ResponseCallback
 import com.kakao.usermgmt.response.MeV2Response
 import com.kakao.util.exception.KakaoException
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -77,7 +70,7 @@ class ActivityLogin : AppCompatActivity() {
                     // 카카오 로그인이 성공했을 때
                     // Metaler 회원가입 여부 확인
                     Log.d(TAG, "카카오 아이디 : ${result!!.id}")
-                    val kakao_id = result!!.id.toString()
+                    val kakao_id = result.id.toString()
 
                     // local 에 signin_token 존재하는지 확인
                     tokenRepository.getSigninToken(object :
@@ -106,22 +99,30 @@ class ActivityLogin : AppCompatActivity() {
                             // signin_token 존재하지 않음, 회원가입 여부확인 api 호출
                             userRepository.checkMembership(
                                 CheckMembershipRequest(kakao_id),
-                                object: UserDataSource.CheckMembershipCallback {
+                                object : UserDataSource.CheckMembershipCallback {
                                     override fun onMembershipChecked(response: CheckMembershipResponse) {
-                                        if (response != null) {
-                                            when (response.message) {
-                                                "you_can_join" -> {
-                                                    openTermsAgree()
-                                                }
-                                                else -> {
-                                                    tokenRepository.saveSigninToken(
-                                                        SigninToken(response.signin_token)
+                                        when (response.message) {
+                                            "you_can_join" -> {
+                                                openTermsAgree(
+                                                    AddUserRequest(
+                                                        kakao_id,
+                                                        result.properties["nickname"].toString(),
+                                                        result.properties["profile_image"].toString(),
+                                                        result.kakaoAccount.email,
+                                                        result.kakaoAccount.birthday,
+                                                        result.kakaoAccount.gender.toString(),
+                                                        null,
+                                                        null,
+                                                        null
                                                     )
-                                                    login(kakao_id, response.signin_token)
-                                                }
+                                                )
                                             }
-                                        }else {
-                                            Log.d(TAG, "회원가입 여부 확인 : 응답이 null 값임")
+                                            else -> {
+                                                tokenRepository.saveSigninToken(
+                                                    SigninToken(response.signin_token)
+                                                )
+                                                login(kakao_id, response.signin_token)
+                                            }
                                         }
                                     }
 
@@ -158,16 +159,16 @@ class ActivityLogin : AppCompatActivity() {
     // access_token 유효시간과 현재시간을 비교하여
     // 아직 유효시간이 남았으면 true 를 반환
     private fun isTokenValid(validTime: String): Boolean {
-        val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale("ko", "KR"))
         val now = Date(System.currentTimeMillis())
-        val validTime = dateFormat.parse(validTime)
-        val duration = validTime.time - now.time
+        val validTimeDate = dateFormat.parse(validTime)
+        val duration = validTimeDate!!.time - now.time
         return duration > 0
     }
 
     // access_token 유효시간(발급시간으로부터 24시간까지)을 계산하여 리턴하는 함수
     private fun getValidTime(): String {
-        val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale("ko", "KR"))
         val calendar = Calendar.getInstance().apply {
             time = Date(System.currentTimeMillis())
             add(Calendar.DATE, 1)
@@ -198,23 +199,20 @@ class ActivityLogin : AppCompatActivity() {
             loginRequest(kakao_id, signin_token),
             object : UserDataSource.LoginCallback {
                 override fun onLoginSuccess(response: LoginResponse) {
-                    if (response != null) {
-                        // 발급받은 access_token local 에 저장
-                        tokenRepository.saveAccessToken(
-                            AccessToken(response.access_token, getValidTime())
+                    // 발급받은 access_token local 에 저장
+                    tokenRepository.saveAccessToken(
+                        AccessToken(response.access_token, getValidTime())
+                    )
+                    // response 의 User 에서 profile 정보 추출하여 로컬에 저장
+                    profileRepository.saveProfile(
+                        Profile(
+                            response.user.profile_nickname,
+                            response.user.profile_image_url,
+                            response.user.profile_email
                         )
-                        // response 의 User 에서 profile 정보 추출하여 로컬에 저장
-                        profileRepository.saveProfile(
-                            Profile(
-                                response.user.profile_nickname,
-                                response.user.profile_image_url,
-                                response.user.profile_email)
-                        )
-                        // 홈탭 실행
-                        openHome()
-                    } else {
-                        Log.d(TAG, "로그인 api 응답 : 응답이 null 값임")
-                    }
+                    )
+                    // 홈탭 실행
+                    openHome()
                 }
 
                 override fun onResponseError(message: String) {
@@ -227,8 +225,9 @@ class ActivityLogin : AppCompatActivity() {
             })
     }
 
-    private fun openTermsAgree() {
+    private fun openTermsAgree(addUserRequest: AddUserRequest) {
         val intent = Intent(this, ActivityTermsAgree::class.java)
+        intent.putExtra("addUserRequest", addUserRequest)
         startActivity(intent)
         finish()
     }
