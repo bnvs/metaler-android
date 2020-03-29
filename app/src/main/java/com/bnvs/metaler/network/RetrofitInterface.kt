@@ -12,9 +12,11 @@ import com.bnvs.metaler.data.post.Posts
 import com.bnvs.metaler.data.post.PostsRequest
 import com.bnvs.metaler.data.post.UserPostsRequest
 import com.bnvs.metaler.data.postdetails.PostDetails
+import com.bnvs.metaler.data.user.CheckMembershipRequest
 import com.bnvs.metaler.data.user.DeleteUserRequest
 import com.bnvs.metaler.data.user.NicknameRequest
 import com.bnvs.metaler.data.user.User
+import com.bnvs.metaler.data.user.CheckMembershipResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import org.json.JSONObject
@@ -59,7 +61,7 @@ interface RetrofitInterface {
     fun getMyPosts(@Body request: UserPostsRequest): Call<Posts>
 
     @POST("/users/check")
-    fun checkUserMembership(@Body request: JSONObject): Call<JSONObject>
+    fun checkUserMembership(@Body request: CheckMembershipRequest): Call<CheckMembershipResponse>
 
     @POST("/posts/{id}/comments")
     fun addComment(@Path("id") id: String,
