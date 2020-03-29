@@ -182,7 +182,16 @@ class ActivityLogin : AppCompatActivity() {
 
     }
 
-    
+    // access_token 유효시간(발급시간으로부터 24시간까지)을 계산하여 리턴하는 함수
+    private fun getValidTime() : String{
+        var dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+        var calendar = Calendar.getInstance().apply {
+            time = Date(System.currentTimeMillis())
+            add(Calendar.DATE, 1)
+        }
+
+        return dateFormat.format(calendar.time)
+    }
     
     private fun loginRequest(kakao_id: String, signin_token: String) : LoginRequest{
         return LoginRequest(
