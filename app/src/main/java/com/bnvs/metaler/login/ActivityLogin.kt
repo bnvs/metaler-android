@@ -17,6 +17,7 @@ import com.bnvs.metaler.data.user.LoginResponse
 import com.bnvs.metaler.home.ActivityHome
 import com.bnvs.metaler.network.RetrofitClient
 import com.bnvs.metaler.termsagree.ActivityTermsAgree
+import com.bnvs.metaler.util.DeviceInfo
 import com.kakao.auth.ISessionCallback
 import com.kakao.auth.Session
 import com.kakao.network.ErrorResult
@@ -194,14 +195,15 @@ class ActivityLogin : AppCompatActivity() {
     }
     
     private fun loginRequest(kakao_id: String, signin_token: String) : LoginRequest{
+        val deviceInfo = DeviceInfo(this)
         return LoginRequest(
             kakao_id,
             signin_token,
             "push_token",
-            "device_id",
-            "device_model",
-            "device_os",
-            "app_version"
+            deviceInfo.getDeviceId(),
+            deviceInfo.getDeviceModel(),
+            deviceInfo.getDeviceOs(),
+            deviceInfo.getAppVersion()
         )
     }
 
