@@ -1,5 +1,6 @@
 package com.bnvs.metaler.data.user.source
 
+import com.bnvs.metaler.data.user.AddUserRequest
 import com.bnvs.metaler.data.user.CheckMembershipRequest
 import com.bnvs.metaler.data.user.LoginRequest
 import com.bnvs.metaler.data.user.source.remote.UserRemoteDataSource
@@ -8,8 +9,11 @@ class UserRepository : UserDataSource{
 
     private val userRemoteDataSource = UserRemoteDataSource
 
-    override fun addUser(callback: UserDataSource.AddUserCallback) {
-        userRemoteDataSource.addUser(callback)
+    override fun addUser(
+        request: AddUserRequest,
+        callback: UserDataSource.AddUserCallback
+    ) {
+        userRemoteDataSource.addUser(request, callback)
     }
 
     override fun deleteUser(callback: UserDataSource.DeleteUserCallback) {
@@ -17,16 +21,16 @@ class UserRepository : UserDataSource{
     }
 
     override fun checkMembership(
-        checkMembershipRequest: CheckMembershipRequest,
+        request: CheckMembershipRequest,
         callback: UserDataSource.CheckMembershipCallback
     ) {
-        userRemoteDataSource.checkMembership(checkMembershipRequest, callback)
+        userRemoteDataSource.checkMembership(request, callback)
     }
 
     override fun login(
-        loginRequest: LoginRequest,
+        request: LoginRequest,
         callback: UserDataSource.LoginCallback
     ) {
-        userRemoteDataSource.login(loginRequest, callback)
+        userRemoteDataSource.login(request, callback)
     }
 }
