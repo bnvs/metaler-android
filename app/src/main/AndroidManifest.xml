@@ -31,7 +31,7 @@
         <activity android:name=".jobinput.ActivityJobInput" />
         <activity android:name=".termsagree.ActivityTermsAgree" />
         <activity
-            android:name=".login.LoginActivity">
+            android:name=".login.ActivityLogin">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
