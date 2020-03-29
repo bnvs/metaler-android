@@ -6,6 +6,9 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import com.bnvs.metaler.R
+import com.bnvs.metaler.data.token.SigninToken
+import com.bnvs.metaler.data.token.source.TokenDataSource
+import com.bnvs.metaler.data.token.source.TokenRepository
 import com.bnvs.metaler.data.user.CheckMembershipRequest
 import com.bnvs.metaler.data.user.CheckMembershipResponse
 import com.bnvs.metaler.home.ActivityHome
@@ -28,6 +31,7 @@ class ActivityLogin : AppCompatActivity() {
 
     private lateinit var callback: SessionCallback
     private val retrofitClient = RetrofitClient.client
+    private val tokenRepository = TokenRepository(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,37 +68,45 @@ class ActivityLogin : AppCompatActivity() {
                     Log.d(TAG, "카카오 아이디 : ${result!!.id}")
                     val kakao_id = result!!.id.toString()
 
-                    retrofitClient.checkUserMembership(CheckMembershipRequest(kakao_id)).enqueue(object : Callback<CheckMembershipResponse> {
-                        override fun onResponse(
-                            call: Call<CheckMembershipResponse>,
-                            response: Response<CheckMembershipResponse>
-                        ) {
-                            if (response.isSuccessful) {
-                                Log.d(TAG, "Metaler api 응답 : $response")
-                                var responseData = response.body()
-                                if (responseData != null) {
-                                    Log.d(TAG, "회원가입 여부 확인 : $responseData")
-                                    when(responseData.message) {
-                                        "you_can_join" -> {
-
-                                            openTermsAgree()
-                                        }
-                                        else -> openHome()
-                                    }
-                                }else {
-                                    Log.d(TAG, "회원가입 여부 확인 : 응답이 null 값임")
-                                }
-                            }else {
-                                Log.d(TAG, "Metaler api 응답 response failed : " +
-                                        "${response.errorBody().toString()}")
-                            }
+                    // local 에 signin_token 존재하는지 확인
+                    tokenRepository.getSigninToken(object : TokenDataSource.LoadSigninTokenCallback {
+                        override fun onTokenloaded(token: SigninToken) {
+                            // local 에 signin_token 존재, 로그인 api 호출
                         }
+                        override fun onTokenNotExist() {
+                            // signin_token 존재하지 않음, 회원가입 여부확인 api 호출
+                            retrofitClient.checkUserMembership(CheckMembershipRequest(kakao_id)).enqueue(object : Callback<CheckMembershipResponse> {
+                                override fun onResponse(
+                                    call: Call<CheckMembershipResponse>,
+                                    response: Response<CheckMembershipResponse>
+                                ) {
+                                    if (response.isSuccessful) {
+                                        Log.d(TAG, "Metaler api 응답 : $response")
+                                        var responseData = response.body()
+                                        if (responseData != null) {
+                                            Log.d(TAG, "회원가입 여부 확인 : $responseData")
+                                            when(responseData.message) {
+                                                "you_can_join" -> {
 
-                        override fun onFailure(call: Call<CheckMembershipResponse>, t: Throwable) {
-                            Log.d(TAG, "회원가입 여부 확인 실패 : $t")
+                                                    openTermsAgree()
+                                                }
+                                                else -> openHome()
+                                            }
+                                        }else {
+                                            Log.d(TAG, "회원가입 여부 확인 : 응답이 null 값임")
+                                        }
+                                    }else {
+                                        Log.d(TAG, "Metaler api 응답 response failed : " +
+                                                "${response.errorBody().toString()}")
+                                    }
+                                }
+
+                                override fun onFailure(call: Call<CheckMembershipResponse>, t: Throwable) {
+                                    Log.d(TAG, "회원가입 여부 확인 실패 : $t")
+                                }
+                            })
                         }
                     })
-
                 }
 
                 override fun onSessionClosed(errorResult: ErrorResult?) {
