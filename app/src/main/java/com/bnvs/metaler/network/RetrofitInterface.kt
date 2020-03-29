@@ -58,6 +58,9 @@ interface RetrofitInterface {
     @GET("/users/posts")
     fun getMyPosts(@Body request: UserPostsRequest): Call<Posts>
 
+    @POST("/users/check")
+    fun checkUserMembership(@Body request: JSONObject): Call<JSONObject>
+
     @POST("/posts/{id}/comments")
     fun addComment(@Path("id") id: String,
                    @Body commentRequest: CommentsRequest)
