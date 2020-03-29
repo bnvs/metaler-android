@@ -12,10 +12,9 @@ class TokenLocalDataSource (context: Context) : TokenDataSource {
 
     override fun getSigninToken(callback: TokenDataSource.LoadSigninTokenCallback) {
         var token = sharedPreferences.getString("signin_token", null)
-        if (token != null) {
-            callback.onTokenloaded(SigninToken(token))
-        }else {
-            callback.onTokenNotExist()
+        when {
+            token != null -> callback.onTokenloaded(SigninToken(token))
+            else -> callback.onTokenNotExist()
         }
     }
 
@@ -27,10 +26,9 @@ class TokenLocalDataSource (context: Context) : TokenDataSource {
     override fun getAccessToken(callback: TokenDataSource.LoadAccessTokenCallback) {
         var token = sharedPreferences.getString("access_token", null)
         var validTime = sharedPreferences.getString("access_token_valid_time", null)
-        if (token != null) {
-            callback.onTokenloaded(AccessToken(token, validTime!!))
-        }else {
-            callback.onTokenNotExist()
+        when {
+            token != null -> callback.onTokenloaded(AccessToken(token, validTime!!))
+            else -> callback.onTokenNotExist()
         }
     }
 
