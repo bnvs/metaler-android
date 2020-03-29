@@ -138,10 +138,7 @@ class ActivityLogin : AppCompatActivity() {
 
                 override fun onSessionClosed(errorResult: ErrorResult?) {
                     // 로그인 도중 세션이 비정상적인 이유로 닫혔을 때
-                    Toast.makeText(
-                        this@ActivityLogin,
-                        "세션이 닫혔습니다. 다시 시도해주세요 : ${errorResult.toString()}",
-                        Toast.LENGTH_SHORT).show()
+                    makeToast("세션이 닫혔습니다. 다시 시도해주세요 : ${errorResult.toString()}")
                 }
             })
         }
@@ -149,10 +146,7 @@ class ActivityLogin : AppCompatActivity() {
             // 로그인 세션이 정상적으로 열리지 않았을 때
             if (exception != null) {
                 com.kakao.util.helper.log.Logger.e(exception)
-                Toast.makeText(
-                    this@ActivityLogin,
-                    "로그인 도중 오류가 발생했습니다. 인터넷 연결을 확인해주세요 : $exception",
-                    Toast.LENGTH_SHORT).show()
+                makeToast("로그인 도중 오류가 발생했습니다. 인터넷 연결을 확인해주세요 : $exception")
             }
         }
 
@@ -233,6 +227,10 @@ class ActivityLogin : AppCompatActivity() {
         val intent = Intent(this, ActivityHome::class.java)
         startActivity(intent)
         finish()
+    }
+
+    private fun makeToast(message: String) {
+        Toast.makeText(this@ActivityLogin, message, Toast.LENGTH_SHORT).show()
     }
 
 }
