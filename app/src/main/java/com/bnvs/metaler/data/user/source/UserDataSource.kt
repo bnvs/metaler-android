@@ -1,9 +1,6 @@
 package com.bnvs.metaler.data.user.source
 
-import com.bnvs.metaler.data.user.AddUserResponse
-import com.bnvs.metaler.data.user.CheckMembershipResponse
-import com.bnvs.metaler.data.user.DeleteUserRequest
-import com.bnvs.metaler.data.user.LoginResponse
+import com.bnvs.metaler.data.user.*
 
 interface UserDataSource {
 
@@ -31,7 +28,7 @@ interface UserDataSource {
     fun addUser(callback: AddUserCallback)
     fun deleteUser(callback: DeleteUserCallback)
 
-    fun checkMembership(kakao_id: String, callback: CheckMembershipCallback)
+    fun checkMembership(checkMembershipRequest: CheckMembershipRequest, callback: CheckMembershipCallback)
 
-    fun login(callback: LoginCallback)
+    fun login(loginRequest: LoginRequest, callback: LoginCallback)
 }

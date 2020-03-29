@@ -4,6 +4,7 @@ import android.util.Log
 import com.bnvs.metaler.data.token.SigninToken
 import com.bnvs.metaler.data.user.CheckMembershipRequest
 import com.bnvs.metaler.data.user.CheckMembershipResponse
+import com.bnvs.metaler.data.user.LoginRequest
 import com.bnvs.metaler.data.user.source.UserDataSource
 import com.bnvs.metaler.network.RetrofitClient
 import retrofit2.Call
@@ -23,8 +24,8 @@ object UserRemoteDataSource : UserDataSource{
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun checkMembership(kakao_id: String, callback: UserDataSource.CheckMembershipCallback) {
-        retrofitClient.checkUserMembership(CheckMembershipRequest(kakao_id))
+    override fun checkMembership(checkMembershipRequest: CheckMembershipRequest, callback: UserDataSource.CheckMembershipCallback) {
+        retrofitClient.checkUserMembership(CheckMembershipRequest(checkMembershipRequest.kakao_id))
             .enqueue(object : Callback<CheckMembershipResponse> {
                 override fun onResponse(
                     call: Call<CheckMembershipResponse>,
@@ -49,7 +50,10 @@ object UserRemoteDataSource : UserDataSource{
             })
     }
 
-    override fun login(callback: UserDataSource.LoginCallback) {
+    override fun login(
+        loginRequest: LoginRequest,
+        callback: UserDataSource.LoginCallback
+    ) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }

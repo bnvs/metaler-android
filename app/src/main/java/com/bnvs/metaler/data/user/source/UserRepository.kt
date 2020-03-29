@@ -1,5 +1,7 @@
 package com.bnvs.metaler.data.user.source
 
+import com.bnvs.metaler.data.user.CheckMembershipRequest
+import com.bnvs.metaler.data.user.LoginRequest
 import com.bnvs.metaler.data.user.source.remote.UserRemoteDataSource
 
 class UserRepository : UserDataSource{
@@ -15,13 +17,16 @@ class UserRepository : UserDataSource{
     }
 
     override fun checkMembership(
-        kakao_id: String,
+        checkMembershipRequest: CheckMembershipRequest,
         callback: UserDataSource.CheckMembershipCallback
     ) {
-        userRemoteDataSource.checkMembership(kakao_id, callback)
+        userRemoteDataSource.checkMembership(checkMembershipRequest, callback)
     }
 
-    override fun login(callback: UserDataSource.LoginCallback) {
-        userRemoteDataSource.login(callback)
+    override fun login(
+        loginRequest: LoginRequest,
+        callback: UserDataSource.LoginCallback
+    ) {
+        userRemoteDataSource.login(loginRequest, callback)
     }
 }
