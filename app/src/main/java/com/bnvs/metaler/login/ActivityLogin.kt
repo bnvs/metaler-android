@@ -164,10 +164,13 @@ class ActivityLogin : AppCompatActivity() {
     // 아직 유효시간이 남았으면 true 를 반환
     private fun isTokenValid(validTime: String): Boolean {
         val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale("ko", "KR"))
-        val now = Date(System.currentTimeMillis())
-        val validTimeDate = dateFormat.parse(validTime)
-        val duration = validTimeDate!!.time - now.time
-        return duration > 0
+
+        val validTimeDate = dateFormat.parse(validTime)!!.time
+        val now = Date(System.currentTimeMillis()).time
+
+        val duration = { x: Long, y: Long -> x - y}
+
+        return duration(validTimeDate, now) > 0
     }
 
     // access_token 유효시간(발급시간으로부터 24시간까지)을 계산하여 리턴하는 함수
