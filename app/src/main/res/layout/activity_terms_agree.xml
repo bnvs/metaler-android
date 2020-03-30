@@ -101,6 +101,19 @@
         app:layout_constraintTop_toTopOf="@id/firstCheckBtn"
         app:layout_constraintBottom_toBottomOf="@id/firstCheckBtn"
         />
+    <TextView
+        android:id="@+id/firstAgreeMoreBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:layout_marginRight="20dp"
+        android:textColor="@color/colorGrey"
+        android:text="@string/terms_more"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/firstCheckBtn"
+        app:layout_constraintBottom_toBottomOf="@id/firstCheckBtn"
+        />
+
 
     <ImageView
         android:id="@+id/secondCheckBtn"
@@ -121,6 +134,18 @@
         android:textColor="@color/colorGrey"
         android:text="@string/second_agree"
         app:layout_constraintStart_toEndOf="@id/secondCheckBtn"
+        app:layout_constraintTop_toTopOf="@id/secondCheckBtn"
+        app:layout_constraintBottom_toBottomOf="@id/secondCheckBtn"
+        />
+    <TextView
+        android:id="@+id/secondAgreeMoreBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:layout_marginRight="20dp"
+        android:textColor="@color/colorGrey"
+        android:text="@string/terms_more"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/secondCheckBtn"
         app:layout_constraintBottom_toBottomOf="@id/secondCheckBtn"
         />
@@ -147,6 +172,18 @@
         app:layout_constraintTop_toTopOf="@id/thirdCheckBtn"
         app:layout_constraintBottom_toBottomOf="@id/thirdCheckBtn"
         />
+    <TextView
+        android:id="@+id/thirdAgreeMoreBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:layout_marginRight="20dp"
+        android:textColor="@color/colorGrey"
+        android:text="@string/terms_more"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/thirdCheckBtn"
+        app:layout_constraintBottom_toBottomOf="@id/thirdCheckBtn"
+        />
 
     <ImageView
         android:id="@+id/fourthCheckBtn"
@@ -167,6 +204,18 @@
         android:textColor="@color/colorGrey"
         android:text="@string/fourth_agree"
         app:layout_constraintStart_toEndOf="@id/fourthCheckBtn"
+        app:layout_constraintTop_toTopOf="@id/fourthCheckBtn"
+        app:layout_constraintBottom_toBottomOf="@id/fourthCheckBtn"
+        />
+    <TextView
+        android:id="@+id/fourthAgreeMoreBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:layout_marginRight="20dp"
+        android:textColor="@color/colorGrey"
+        android:text="@string/terms_more"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/fourthCheckBtn"
         app:layout_constraintBottom_toBottomOf="@id/fourthCheckBtn"
         />

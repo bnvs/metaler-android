@@ -21,6 +21,8 @@
     <string name="third_agree">[선택] 프로필 정보 추가 수집 동의</string>
     <string name="fourth_agree">[선택] 광고성 정보 수신 동의</string>
 
+    <string name="terms_more"><u>보기</u></string>
+
     <!--  activity_job_input.xml에서 쓰이는 문자열  -->
     <string name="job_title">소속 입력</string>
     <string name="job_guide">소속을 입력해주세요.</string>
