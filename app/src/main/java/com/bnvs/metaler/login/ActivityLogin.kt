@@ -168,9 +168,9 @@ class ActivityLogin : AppCompatActivity() {
         val validTimeDate = dateFormat.parse(validTime)!!.time
         val now = Date(System.currentTimeMillis()).time
 
-        val duration = { x: Long, y: Long -> x - y}
+        val diff = { x: Long, y: Long -> x - y}
 
-        return duration(validTimeDate, now) > 0
+        return diff(validTimeDate, now) > 0
     }
 
     // access_token 유효시간(발급시간으로부터 24시간까지)을 계산하여 리턴하는 함수
