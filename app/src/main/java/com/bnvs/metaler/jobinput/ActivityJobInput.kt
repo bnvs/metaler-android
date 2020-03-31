@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.constraintlayout.widget.Group
+import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import com.bnvs.metaler.R
 import kotlinx.android.synthetic.main.activity_job_input.*
@@ -22,14 +23,19 @@ class ActivityJobInput : AppCompatActivity(), ContractJobInput.View {
 
     override lateinit var presenter: ContractJobInput.Presenter
 
-    private val firstCategoryButtons = listOf(studentBtn, expertBtn, nothingBtn)
-    private val firstCategoryGroups = listOf(studentGroup, expertGroup)
-    private val jobTypeButtons = listOf(companyBtn, shopOwnerBtn, freelancerBtn)
-    private val jobTypeGroups = listOf(companyGroup, shopOwnerGroup)
+    private lateinit var firstCategoryButtons: List<TextView>
+    private lateinit var firstCategoryGroups: List<Group>
+    private lateinit var jobTypeButtons: List<TextView>
+    private lateinit var jobTypeGroups: List<Group>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_job_input)
+
+        firstCategoryButtons = listOf(studentBtn, expertBtn, nothingBtn)
+        firstCategoryGroups = listOf(studentGroup, expertGroup)
+        jobTypeButtons = listOf(companyBtn, shopOwnerBtn, freelancerBtn)
+        jobTypeGroups = listOf(companyGroup, shopOwnerGroup)
 
         // Create the presenter
         presenter = PresenterJobInput(this)
@@ -135,7 +141,7 @@ class ActivityJobInput : AppCompatActivity(), ContractJobInput.View {
         }
     }
 
-    // 완료 버튼 클릭 리스너
+    // 소속 입력 완료 버튼 클릭 리스너
     private fun setCompleteButton() {
         completeBtn.setOnClickListener {
             when (presenter.getSelectedJob()) {
@@ -175,10 +181,10 @@ class ActivityJobInput : AppCompatActivity(), ContractJobInput.View {
     private fun setButtonEnabled(button: TextView, b: Boolean) {
         if (b) {
             button.setBackgroundResource(R.drawable.job_btn_purple_rounding_border)
-            button.setTextColor(ResourcesCompat.getColor(Resources.getSystem() , R.color.colorPurple, null))
+            button.setTextColor(ContextCompat.getColor(this , R.color.colorPurple))
         }else {
             button.setBackgroundResource(R.drawable.job_btn_lightgrey_rounding_border)
-            button.setTextColor(ResourcesCompat.getColor(Resources.getSystem() , R.color.colorLightGrey, null))
+            button.setTextColor(ContextCompat.getColor(this , R.color.colorLightGrey))
         }
     }
 
