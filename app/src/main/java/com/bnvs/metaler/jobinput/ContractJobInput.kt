@@ -51,6 +51,10 @@ interface ContractJobInput {
 
         fun completeJobInput(jobTypeInput: String?, jobDetailInput: String?)
 
+        fun setUserRequest()
+
+        fun addUser()
+
         fun getString(editText: EditText): String
     }
 }
