@@ -5,7 +5,8 @@ import com.bnvs.metaler.data.post.source.PostRepository
 
 class PresenterManufactures(
     private val context: Context,
-    val view: ContractManufactures.View) : ContractManufactures.Presenter {
+    val view: ContractManufactures.View
+) : ContractManufactures.Presenter {
 
     private val postRepository: PostRepository = PostRepository(context)
 
