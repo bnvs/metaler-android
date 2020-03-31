@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.CompoundButton
+import androidx.appcompat.app.AlertDialog
 import com.bnvs.metaler.R
 import com.bnvs.metaler.data.user.AddUserRequest
 import com.bnvs.metaler.jobinput.ActivityJobInput
@@ -41,7 +42,10 @@ class ActivityTermsAgree : AppCompatActivity(), ContractTermsAgree.View {
     }
 
     override fun showEssentialAgreeNotCheckedDialog() {
-
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle(getString(R.string.terms_alert))
+            .setMessage(getString(R.string.essential_terms_not_agreed))
+            .show()
     }
 
     override fun showJobInputUi(result: JSONObject) {
