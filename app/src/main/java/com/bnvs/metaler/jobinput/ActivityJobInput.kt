@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
+import androidx.constraintlayout.widget.Group
 import androidx.core.content.ContextCompat
 import com.bnvs.metaler.R
 import kotlinx.android.synthetic.main.activity_job_input.*
@@ -44,39 +45,33 @@ class ActivityJobInput : AppCompatActivity() {
     // 대분류 버튼 클릭 리스너
     private fun setFirstCategoryButtons() {
         val firstCategoryButtons = listOf(studentBtn, expertBtn, nothingBtn)
+        val firstCategoryGroups = listOf(studentGroup, expertGroup)
+        val jobTypeGroups = listOf(companyGroup, shopOwnerGroup)
 
         studentBtn.setOnClickListener {
             job = "student"
             onButtonChanged(studentBtn, firstCategoryButtons)
             showCompleteButton()
-            studentGroup.visibility = View.VISIBLE
-            expertGroup.visibility = View.GONE
-
-            companyGroup.visibility = View.GONE
-            shopOwnerGroup.visibility = View.GONE
+            onGroupVisibilityChanged(studentGroup, firstCategoryGroups)
+            onGroupVisibilityChanged(null, jobTypeGroups)
         }
         expertBtn.setOnClickListener {
             job = "expert"
             onButtonChanged(expertBtn, firstCategoryButtons)
             showCompleteButton()
-            studentGroup.visibility = View.GONE
-            expertGroup.visibility = View.VISIBLE
-
+            onGroupVisibilityChanged(expertGroup, firstCategoryGroups)
             if (lastSelectedExpertJobType == "company") {
-                companyGroup.visibility = View.VISIBLE
+                onGroupVisibilityChanged(companyGroup, jobTypeGroups)
             }else if (lastSelectedExpertJobType == "founded") {
-                shopOwnerGroup.visibility = View.VISIBLE
+                onGroupVisibilityChanged(shopOwnerGroup, jobTypeGroups)
             }
         }
         nothingBtn.setOnClickListener {
             job = "empty"
             onButtonChanged(nothingBtn, firstCategoryButtons)
             showCompleteButton()
-            studentGroup.visibility = View.GONE
-            expertGroup.visibility = View.GONE
-
-            companyGroup.visibility = View.GONE
-            shopOwnerGroup.visibility = View.GONE
+            onGroupVisibilityChanged(null, firstCategoryGroups)
+            onGroupVisibilityChanged(null, jobTypeGroups)
         }
 
     }
@@ -84,31 +79,26 @@ class ActivityJobInput : AppCompatActivity() {
     // 전문가 업무형태 클릭 리스너
     private fun setJobTypeButtons() {
         val jobTypeButtons = listOf(companyBtn, shopOwnerBtn, freelancerBtn)
+        val jobTypeGroups = listOf(companyGroup, shopOwnerGroup)
 
         companyBtn.setOnClickListener {
             job_type = "company"
             onButtonChanged(companyBtn, jobTypeButtons)
-            companyGroup.visibility = View.VISIBLE
-            shopOwnerGroup.visibility = View.GONE
-
+            onGroupVisibilityChanged(companyGroup, jobTypeGroups)
             lastSelectedExpertJobType = "company"
         }
 
         shopOwnerBtn.setOnClickListener {
             job_type = "founded"
             onButtonChanged(shopOwnerBtn, jobTypeButtons)
-            companyGroup.visibility = View.GONE
-            shopOwnerGroup.visibility = View.VISIBLE
-
+            onGroupVisibilityChanged(shopOwnerGroup, jobTypeGroups)
             lastSelectedExpertJobType = "founded"
         }
 
         freelancerBtn.setOnClickListener {
             job_type = "freelancer"
             onButtonChanged(freelancerBtn, jobTypeButtons)
-            companyGroup.visibility = View.GONE
-            shopOwnerGroup.visibility = View.GONE
-
+            onGroupVisibilityChanged(null, jobTypeGroups)
             lastSelectedExpertJobType = "null"
         }
 
@@ -117,9 +107,20 @@ class ActivityJobInput : AppCompatActivity() {
     // 버튼 누르면 버튼들 색깔 바뀌게 하기
     private fun onButtonChanged(clickedButton: TextView, buttons: List<TextView>) {
         for (button in buttons) {
-            if (clickedButton == button) {
+            if (button == clickedButton) {
                 setButtonEnabled(button, true)
             }else setButtonEnabled(button, false)
+        }
+    }
+
+    // 그룹 visibility 속성 바꾸기
+    private fun onGroupVisibilityChanged(groupToShow: Group?, groups: List<Group>) {
+        for (group in groups) {
+            if (group == groupToShow) {
+                group.visibility = View.VISIBLE
+            }else {
+                group.visibility = View.GONE
+            }
         }
     }
 
