@@ -8,7 +8,8 @@ import com.bnvs.metaler.data.nickname.source.NicknameRepository
 
 class PresenterMyPage(
     private val context: Context,
-    private val view: ContractMyPage.View) : ContractMyPage.Presenter {
+    private val view: ContractMyPage.View
+) : ContractMyPage.Presenter {
 
     private val nicknameRepository: NicknameRepository = NicknameRepository(context)
     private val jobRepository: JobRepository = JobRepository(context)

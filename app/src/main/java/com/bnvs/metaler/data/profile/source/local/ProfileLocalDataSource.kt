@@ -11,9 +11,9 @@ class ProfileLocalDataSource (context: Context) : ProfileDataSource {
     private val editor = sharedPreferences.edit()
 
     override fun getProfile(callback: ProfileDataSource.LoadProfileCallback) {
-        var profile = sharedPreferences.getString("profile", null)
-        if (profile != null) {
-            var profile = JSONObject(profile)
+        var profileString = sharedPreferences.getString("profile", null)
+        if (profileString != null) {
+            var profile = JSONObject(profileString)
             callback.onProfileloaded(
                 Profile(
                     profile.getString("profile_nickname"),
