@@ -1,8 +1,7 @@
 package com.bnvs.metaler.jobinput
 
+import android.content.Intent
 import android.widget.EditText
-import android.widget.TextView
-import androidx.constraintlayout.widget.Group
 import com.bnvs.metaler.BasePresenter
 import com.bnvs.metaler.BaseView
 
@@ -10,7 +9,7 @@ interface ContractJobInput {
     interface View: BaseView<Presenter> {
         fun showStudent()
 
-        fun showExptert()
+        fun showExpert()
 
         fun showNothing()
 
@@ -30,7 +29,7 @@ interface ContractJobInput {
     }
 
     interface Presenter: BasePresenter {
-        fun getAddUserRequest()
+        fun getAddUserRequest(intent: Intent)
 
         fun openStudent()
 
@@ -48,13 +47,7 @@ interface ContractJobInput {
 
         fun getSelectedJobType(): String
 
-        fun getlastSelectedExpertJobType(): String
-
-        fun setButtonEnabled(button: TextView, b: Boolean)
-
-        fun onButtonChanged(clickedButton: TextView, buttons: List<TextView>)
-
-        fun onGroupChanged(groupToShow: Group?, groups: List<Group>)
+        fun getLastSelectedJobType(): String
 
         fun completeJobInput(jobTypeInput: String?, jobDetailInput: String?)
 

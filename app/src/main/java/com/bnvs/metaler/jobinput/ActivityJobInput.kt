@@ -1,15 +1,13 @@
 package com.bnvs.metaler.jobinput
 
+import android.content.res.Resources
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.TextUtils
-import android.util.Log
 import android.view.View
-import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.constraintlayout.widget.Group
-import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import com.bnvs.metaler.R
 import kotlinx.android.synthetic.main.activity_job_input.*
 import kotlinx.android.synthetic.main.activity_job_input.expertBtn
@@ -41,43 +39,43 @@ class ActivityJobInput : AppCompatActivity(), ContractJobInput.View {
     }
 
     override fun showStudent() {
-        presenter.onButtonChanged(studentBtn, firstCategoryButtons)
+        onButtonChanged(studentBtn, firstCategoryButtons)
         showCompleteButton()
-        presenter.onGroupChanged(studentGroup, firstCategoryGroups)
-        presenter.onGroupChanged(null, jobTypeGroups)
+        onGroupChanged(studentGroup, firstCategoryGroups)
+        onGroupChanged(null, jobTypeGroups)
     }
 
-    override fun showExptert() {
-        presenter.onButtonChanged(expertBtn, firstCategoryButtons)
+    override fun showExpert() {
+        onButtonChanged(expertBtn, firstCategoryButtons)
         showCompleteButton()
-        presenter.onGroupChanged(expertGroup, firstCategoryGroups)
-        if (presenter.getlastSelectedExpertJobType() == "company") {
-            presenter.onGroupChanged(companyGroup, jobTypeGroups)
-        } else if (presenter.getlastSelectedExpertJobType() == "founded") {
-            presenter.onGroupChanged(shopOwnerGroup, jobTypeGroups)
+        onGroupChanged(expertGroup, firstCategoryGroups)
+        when {
+            presenter.getLastSelectedJobType() == "company" -> onGroupChanged(companyGroup, jobTypeGroups)
+            presenter.getLastSelectedJobType() == "founded" -> onGroupChanged(shopOwnerGroup, jobTypeGroups)
+            else -> onGroupChanged(null, jobTypeGroups)
         }
     }
 
     override fun showNothing() {
-        presenter.onButtonChanged(nothingBtn, firstCategoryButtons)
+        onButtonChanged(nothingBtn, firstCategoryButtons)
         showCompleteButton()
-        presenter.onGroupChanged(null, firstCategoryGroups)
-        presenter.onGroupChanged(null, jobTypeGroups)
+        onGroupChanged(null, firstCategoryGroups)
+        onGroupChanged(null, jobTypeGroups)
     }
 
     override fun showCompany() {
-        presenter.onButtonChanged(companyBtn, jobTypeButtons)
-        presenter.onGroupChanged(companyGroup, jobTypeGroups)
+        onButtonChanged(companyBtn, jobTypeButtons)
+        onGroupChanged(companyGroup, jobTypeGroups)
     }
 
     override fun showFounded() {
-        presenter.onButtonChanged(shopOwnerBtn, jobTypeButtons)
-        presenter.onGroupChanged(shopOwnerGroup, jobTypeGroups)
+        onButtonChanged(shopOwnerBtn, jobTypeButtons)
+        onGroupChanged(shopOwnerGroup, jobTypeGroups)
     }
 
     override fun showFreelancer() {
-        presenter.onButtonChanged(freelancerBtn, jobTypeButtons)
-        presenter.onGroupChanged(null, jobTypeGroups)
+        onButtonChanged(freelancerBtn, jobTypeButtons)
+        onGroupChanged(null, jobTypeGroups)
     }
 
     override fun showCompleteButton() {
@@ -93,7 +91,11 @@ class ActivityJobInput : AppCompatActivity(), ContractJobInput.View {
     }
 
     override fun showJoinCompleteDialog() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        AlertDialog.Builder(this).apply {
+            setTitle(getString(R.string.job_input_alert))
+                .setMessage("Metaler 의 회원이 되신 것을 환영합니다!")
+                .show()
+        }
     }
 
     override fun showHomeUi() {
@@ -165,6 +167,37 @@ class ActivityJobInput : AppCompatActivity(), ContractJobInput.View {
                 else -> {
                     presenter.completeJobInput(null, null)
                 }
+            }
+        }
+    }
+
+    // enabled = true / false 에 따라 버튼 색상이 바뀜
+    private fun setButtonEnabled(button: TextView, b: Boolean) {
+        if (b) {
+            button.setBackgroundResource(R.drawable.job_btn_purple_rounding_border)
+            button.setTextColor(ResourcesCompat.getColor(Resources.getSystem() , R.color.colorPurple, null))
+        }else {
+            button.setBackgroundResource(R.drawable.job_btn_lightgrey_rounding_border)
+            button.setTextColor(ResourcesCompat.getColor(Resources.getSystem() , R.color.colorLightGrey, null))
+        }
+    }
+
+    // 원하는 버튼만 enabled 상태로 바꿔주는 함수
+    private fun onButtonChanged(clickedButton: TextView, buttons: List<TextView>) {
+        for (button in buttons) {
+            if (button == clickedButton) {
+                setButtonEnabled(button, true)
+            }else setButtonEnabled(button, false)
+        }
+    }
+
+    // 원하는 소속입력 그룹만 보여주는 함수
+    private fun onGroupChanged(groupToShow: Group?, groups: List<Group>) {
+        for (group in groups) {
+            if (group == groupToShow) {
+                group.visibility = View.VISIBLE
+            }else {
+                group.visibility = View.GONE
             }
         }
     }
