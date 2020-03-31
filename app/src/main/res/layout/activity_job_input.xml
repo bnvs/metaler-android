@@ -341,6 +341,7 @@
         android:layout_height="0dp"
         android:layout_marginBottom="90dp"
         android:elevation="4dp"
+        android:visibility="gone"
         app:cardUseCompatPadding="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="1:0.2"

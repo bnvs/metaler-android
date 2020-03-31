@@ -25,6 +25,7 @@ class ActivityJobInput : AppCompatActivity() {
     private lateinit var job_type: String
     private lateinit var job_detail: String
 
+    private var buttonFirstClicked = false
     private var lastSelectedExpert = "null"
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -85,6 +86,7 @@ class ActivityJobInput : AppCompatActivity() {
         companyBtn.setOnClickListener {
             job_type = "company"
             onButtonChanged(companyBtn, jobTypeButtons)
+            showCompleteButton()
             companyGroup.visibility = View.VISIBLE
             shopOwnerGroup.visibility = View.GONE
 
@@ -93,6 +95,7 @@ class ActivityJobInput : AppCompatActivity() {
 
         shopOwnerBtn.setOnClickListener {
             job_type = "founded"
+            showCompleteButton()
             onButtonChanged(shopOwnerBtn, jobTypeButtons)
             companyGroup.visibility = View.GONE
             shopOwnerGroup.visibility = View.VISIBLE
@@ -102,6 +105,7 @@ class ActivityJobInput : AppCompatActivity() {
 
         freelancerBtn.setOnClickListener {
             job_type = "freelancer"
+            showCompleteButton()
             onButtonChanged(freelancerBtn, jobTypeButtons)
             companyGroup.visibility = View.GONE
             shopOwnerGroup.visibility = View.GONE
@@ -129,6 +133,11 @@ class ActivityJobInput : AppCompatActivity() {
             button.setBackgroundResource(R.drawable.job_btn_lightgrey_rounding_border)
             button.setTextColor(ContextCompat.getColor(this ,R.color.colorLightGrey))
         }
+    }
+
+    // 완료 버튼 보여주기
+    private fun showCompleteButton() {
+        completeBtn.visibility = View.VISIBLE
     }
 
 
