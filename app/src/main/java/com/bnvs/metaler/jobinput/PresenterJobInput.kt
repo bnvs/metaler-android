@@ -123,11 +123,10 @@ class PresenterJobInput(
     }
 
     override fun setUserRequest() {
-        addUserRequest.run {
-            job = job
-            job_type = job_type
-            job_detail = job_detail
-        }
+        addUserRequest.job = job
+        addUserRequest.job_type = job_type
+        addUserRequest.job_detail = job_detail
+        Log.d(TAG, "회원가입 요청 addUserRequest : $addUserRequest")
     }
 
     override fun addUser() {
