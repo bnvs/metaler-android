@@ -44,11 +44,12 @@
         app:layout_constraintStart_toStartOf="parent"
         />
 
-    <ImageView
+    <CheckBox
         android:id="@+id/allCheckBtn"
         android:layout_width="25dp"
         android:layout_height="25dp"
-        android:src="@drawable/ic_check_inactive_x3"
+        android:button="@null"
+        android:background="@drawable/terms_checkbox"
         android:layout_marginLeft="40dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/termsGuideTxt"
@@ -79,11 +80,12 @@
         app:layout_constraintBottom_toTopOf="@id/firstCheckBtn"
         />
 
-    <ImageView
+    <CheckBox
         android:id="@+id/firstCheckBtn"
         android:layout_width="25dp"
         android:layout_height="25dp"
-        android:src="@drawable/ic_check_inactive_x3"
+        android:button="@null"
+        android:background="@drawable/terms_checkbox"
         android:layout_marginTop="10dp"
         app:layout_constraintStart_toStartOf="@id/allCheckBtn"
         app:layout_constraintTop_toBottomOf="@id/allAgreeLine"
@@ -109,17 +111,20 @@
         android:layout_marginRight="20dp"
         android:textColor="@color/colorGrey"
         android:text="@string/terms_more"
+        android:clickable="true"
+        android:focusable="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/firstCheckBtn"
         app:layout_constraintBottom_toBottomOf="@id/firstCheckBtn"
         />
 
 
-    <ImageView
+    <CheckBox
         android:id="@+id/secondCheckBtn"
         android:layout_width="25dp"
         android:layout_height="25dp"
-        android:src="@drawable/ic_check_inactive_x3"
+        android:button="@null"
+        android:background="@drawable/terms_checkbox"
         android:layout_marginTop="10dp"
         app:layout_constraintStart_toStartOf="@id/allCheckBtn"
         app:layout_constraintTop_toBottomOf="@id/firstCheckBtn"
@@ -150,11 +155,12 @@
         app:layout_constraintBottom_toBottomOf="@id/secondCheckBtn"
         />
 
-    <ImageView
+    <CheckBox
         android:id="@+id/thirdCheckBtn"
         android:layout_width="25dp"
         android:layout_height="25dp"
-        android:src="@drawable/ic_check_inactive_x3"
+        android:button="@null"
+        android:background="@drawable/terms_checkbox"
         android:layout_marginTop="10dp"
         app:layout_constraintStart_toStartOf="@id/allCheckBtn"
         app:layout_constraintTop_toBottomOf="@id/secondCheckBtn"
@@ -185,11 +191,12 @@
         app:layout_constraintBottom_toBottomOf="@id/thirdCheckBtn"
         />
 
-    <ImageView
+    <CheckBox
         android:id="@+id/fourthCheckBtn"
         android:layout_width="25dp"
         android:layout_height="25dp"
-        android:src="@drawable/ic_check_inactive_x3"
+        android:button="@null"
+        android:background="@drawable/terms_checkbox"
         android:layout_marginTop="10dp"
         app:layout_constraintStart_toStartOf="@id/allCheckBtn"
         app:layout_constraintTop_toBottomOf="@id/thirdCheckBtn"
