@@ -20,6 +20,10 @@ class ActivityTermsAgree : AppCompatActivity(), ContractTermsAgree.View {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_terms_agree)
 
+        // 카카오 로그인시 받아온 User 정보
+        // 메탈러 회원가입 api request 에 사용
+        addUserRequest = intent.getSerializableExtra("addUserRequest") as AddUserRequest
+
         // Create the presenter
         presenter = PresenterTermsAgree(
             this@ActivityTermsAgree
