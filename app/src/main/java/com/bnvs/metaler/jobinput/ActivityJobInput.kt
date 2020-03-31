@@ -18,21 +18,86 @@ import kotlinx.android.synthetic.main.activity_job_input.nothingBtn
 import kotlinx.android.synthetic.main.activity_job_input.studentBtn
 import kotlinx.android.synthetic.main.activity_job_input.studentGroup
 
-class ActivityJobInput : AppCompatActivity() {
+class ActivityJobInput : AppCompatActivity(), ContractJobInput.View {
 
     val TAG = "ActivityJobInput"
 
-    private lateinit var job: String
-    private lateinit var job_type: String
-    private lateinit var job_detail: String
+    override lateinit var presenter: ContractJobInput.Presenter
 
-    private var lastSelectedExpertJobType = "null"
+    private val firstCategoryButtons = listOf(studentBtn, expertBtn, nothingBtn)
+    private val firstCategoryGroups = listOf(studentGroup, expertGroup)
+    private val jobTypeButtons = listOf(companyBtn, shopOwnerBtn, freelancerBtn)
+    private val jobTypeGroups = listOf(companyGroup, shopOwnerGroup)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_job_input)
 
+        // Create the presenter
+        presenter = PresenterJobInput(this)
+
+        // Set up Buttons
         initClickListeners()
+    }
+
+    override fun showStudent() {
+        presenter.onButtonChanged(studentBtn, firstCategoryButtons)
+        showCompleteButton()
+        presenter.onGroupChanged(studentGroup, firstCategoryGroups)
+        presenter.onGroupChanged(null, jobTypeGroups)
+    }
+
+    override fun showExptert() {
+        presenter.onButtonChanged(expertBtn, firstCategoryButtons)
+        showCompleteButton()
+        presenter.onGroupChanged(expertGroup, firstCategoryGroups)
+        if (presenter.getlastSelectedExpertJobType() == "company") {
+            presenter.onGroupChanged(companyGroup, jobTypeGroups)
+        } else if (presenter.getlastSelectedExpertJobType() == "founded") {
+            presenter.onGroupChanged(shopOwnerGroup, jobTypeGroups)
+        }
+    }
+
+    override fun showNothing() {
+        presenter.onButtonChanged(nothingBtn, firstCategoryButtons)
+        showCompleteButton()
+        presenter.onGroupChanged(null, firstCategoryGroups)
+        presenter.onGroupChanged(null, jobTypeGroups)
+    }
+
+    override fun showCompany() {
+        presenter.onButtonChanged(companyBtn, jobTypeButtons)
+        presenter.onGroupChanged(companyGroup, jobTypeGroups)
+    }
+
+    override fun showFounded() {
+        presenter.onButtonChanged(shopOwnerBtn, jobTypeButtons)
+        presenter.onGroupChanged(shopOwnerGroup, jobTypeGroups)
+    }
+
+    override fun showFreelancer() {
+        presenter.onButtonChanged(freelancerBtn, jobTypeButtons)
+        presenter.onGroupChanged(null, jobTypeGroups)
+    }
+
+    override fun showCompleteButton() {
+        completeBtn.visibility = View.VISIBLE
+    }
+
+    override fun showEmptyTextDialog() {
+        AlertDialog.Builder(this).apply {
+            setTitle(getString(R.string.job_input_alert))
+                .setMessage(getString(R.string.job_input_guide))
+                .show()
+        }
+    }
+
+    override fun showJoinCompleteDialog() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun showHomeUi() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     // 클릭리스너 초기화
@@ -44,164 +109,64 @@ class ActivityJobInput : AppCompatActivity() {
 
     // 대분류 버튼 클릭 리스너
     private fun setFirstCategoryButtons() {
-        val firstCategoryButtons = listOf(studentBtn, expertBtn, nothingBtn)
-        val firstCategoryGroups = listOf(studentGroup, expertGroup)
-        val jobTypeGroups = listOf(companyGroup, shopOwnerGroup)
-
         studentBtn.setOnClickListener {
-            job = "student"
-            onButtonChanged(studentBtn, firstCategoryButtons)
-            showCompleteButton()
-            onGroupVisibilityChanged(studentGroup, firstCategoryGroups)
-            onGroupVisibilityChanged(null, jobTypeGroups)
+            presenter.openStudent()
         }
         expertBtn.setOnClickListener {
-            job = "expert"
-            onButtonChanged(expertBtn, firstCategoryButtons)
-            showCompleteButton()
-            onGroupVisibilityChanged(expertGroup, firstCategoryGroups)
-            if (lastSelectedExpertJobType == "company") {
-                onGroupVisibilityChanged(companyGroup, jobTypeGroups)
-            }else if (lastSelectedExpertJobType == "founded") {
-                onGroupVisibilityChanged(shopOwnerGroup, jobTypeGroups)
-            }
+            presenter.openExpert()
         }
         nothingBtn.setOnClickListener {
-            job = "empty"
-            onButtonChanged(nothingBtn, firstCategoryButtons)
-            showCompleteButton()
-            onGroupVisibilityChanged(null, firstCategoryGroups)
-            onGroupVisibilityChanged(null, jobTypeGroups)
+            presenter.openNothing()
         }
-
     }
 
     // 전문가 업무형태 클릭 리스너
     private fun setJobTypeButtons() {
-        val jobTypeButtons = listOf(companyBtn, shopOwnerBtn, freelancerBtn)
-        val jobTypeGroups = listOf(companyGroup, shopOwnerGroup)
-
         companyBtn.setOnClickListener {
-            job_type = "company"
-            onButtonChanged(companyBtn, jobTypeButtons)
-            onGroupVisibilityChanged(companyGroup, jobTypeGroups)
-            lastSelectedExpertJobType = "company"
+            presenter.openCompany()
         }
-
         shopOwnerBtn.setOnClickListener {
-            job_type = "founded"
-            onButtonChanged(shopOwnerBtn, jobTypeButtons)
-            onGroupVisibilityChanged(shopOwnerGroup, jobTypeGroups)
-            lastSelectedExpertJobType = "founded"
+            presenter.openFounded()
         }
-
         freelancerBtn.setOnClickListener {
-            job_type = "freelancer"
-            onButtonChanged(freelancerBtn, jobTypeButtons)
-            onGroupVisibilityChanged(null, jobTypeGroups)
-            lastSelectedExpertJobType = "null"
-        }
-
-    }
-
-    // 버튼 누르면 버튼들 색깔 바뀌게 하기
-    private fun onButtonChanged(clickedButton: TextView, buttons: List<TextView>) {
-        for (button in buttons) {
-            if (button == clickedButton) {
-                setButtonEnabled(button, true)
-            }else setButtonEnabled(button, false)
+            presenter.openFreelancer()
         }
     }
-
-    // 그룹 visibility 속성 바꾸기
-    private fun onGroupVisibilityChanged(groupToShow: Group?, groups: List<Group>) {
-        for (group in groups) {
-            if (group == groupToShow) {
-                group.visibility = View.VISIBLE
-            }else {
-                group.visibility = View.GONE
-            }
-        }
-    }
-
-    // 버튼 배경 바꾸기
-    private fun setButtonEnabled(button: TextView, b: Boolean) {
-        if (b) {
-            button.setBackgroundResource(R.drawable.job_btn_purple_rounding_border)
-            button.setTextColor(ContextCompat.getColor(this ,R.color.colorPurple))
-        }else {
-            button.setBackgroundResource(R.drawable.job_btn_lightgrey_rounding_border)
-            button.setTextColor(ContextCompat.getColor(this ,R.color.colorLightGrey))
-        }
-    }
-
-    // 완료 버튼 보여주기
-    private fun showCompleteButton() {
-        completeBtn.visibility = View.VISIBLE
-    }
-
 
     // 완료 버튼 클릭 리스너
     private fun setCompleteButton() {
         completeBtn.setOnClickListener {
-            when(job) {
+            when (presenter.getSelectedJob()) {
                 "student" -> {
-                    job_type = getString(universityNameInput)
-                    job_detail = getString(majorNameInput)
-                    if (isEmptyText(job_type) || isEmptyText(job_detail)) {
-                        showEmptyTextDialog()
-                        showLog()
-                    }else { showLog() }
+                    presenter.completeJobInput(
+                        presenter.getString(universityNameInput),
+                        presenter.getString(majorNameInput)
+                    )
                 }
                 "expert" -> {
-                    when(job_type) {
-                        "company" -> { job_detail = getString(companyNameInput) }
-                        "founded" -> { job_detail = getString(shopNameInput) }
-                        "freelancer" -> { job_detail = "empty" }
+                    when (presenter.getSelectedJobType()) {
+                        "company" -> {
+                            presenter.completeJobInput(
+                                null,
+                                presenter.getString(companyNameInput)
+                            )
+                        }
+                        "founded" -> {
+                            presenter.completeJobInput(
+                                null,
+                                presenter.getString(shopNameInput)
+                            )
+                        }
+                        else -> {
+                            presenter.completeJobInput(null, null)
+                        }
                     }
-                    if (isEmptyText(job_type) || isEmptyText(job_detail)) {
-                        showEmptyTextDialog()
-                        showLog()
-                    }else { showLog() }
-                }
-                "empty" -> {
-                    job_type = "empty"
-                    job_detail = "empty"
-                    if (isEmptyText(job_type) || isEmptyText(job_detail)) {
-                        showEmptyTextDialog()
-                        showLog()
-                    }else { showLog() }
                 }
                 else -> {
-                    showEmptyTextDialog()
-                    showLog() }
+                    presenter.completeJobInput(null, null)
+                }
             }
         }
     }
-
-    // job 로그 보여주기
-    private fun showLog() {
-        Log.d(TAG, "job: $job, job_type: $job_type, job_detail: $job_detail")
-    }
-
-    // editText 에서 공백없이 String 추출하는 함수
-    private fun getString(editText: EditText): String {
-        return editText.text.toString().replace(" ", "")
-    }
-
-    // editText 공백 확인 메서드
-    private fun isEmptyText(text: String):Boolean {
-        return TextUtils.isEmpty(text)
-    }
-
-    // 직업 입력에 공백이 있을 시 띄우는 다이얼로그
-    private fun showEmptyTextDialog() {
-        AlertDialog.Builder(this).apply {
-            setTitle(getString(R.string.job_input_alert))
-                .setMessage(getString(R.string.job_input_guide))
-                .show()
-        }
-    }
-
 
 }
