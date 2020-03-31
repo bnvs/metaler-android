@@ -38,7 +38,7 @@ class ActivityTermsAgree : AppCompatActivity(), ContractTermsAgree.View {
     }
 
     override fun showTermsWebView() {
-
+        // TODO : 약관 내용 보여주는 코드 추가
     }
 
     override fun showEssentialAgreeNotCheckedDialog() {
