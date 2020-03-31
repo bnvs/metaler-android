@@ -24,7 +24,7 @@ class ActivityJobInput : AppCompatActivity() {
     private lateinit var job: String
     private lateinit var job_type: String
     private lateinit var job_detail: String
-    
+
     private var lastSelectedExpertJobType = "null"
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -196,8 +196,8 @@ class ActivityJobInput : AppCompatActivity() {
     // 직업 입력에 공백이 있을 시 띄우는 다이얼로그
     private fun showEmptyTextDialog() {
         AlertDialog.Builder(this).apply {
-            setTitle("알림")
-                .setMessage("소속 입력을 완료해주세요")
+            setTitle(getString(R.string.job_input_alert))
+                .setMessage(getString(R.string.job_input_guide))
                 .show()
         }
     }
