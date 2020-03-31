@@ -1,10 +1,12 @@
 package com.bnvs.metaler.termsagree
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.CompoundButton
 import com.bnvs.metaler.R
 import com.bnvs.metaler.data.user.AddUserRequest
+import com.bnvs.metaler.jobinput.ActivityJobInput
 import kotlinx.android.synthetic.main.activity_terms_agree.*
 import org.json.JSONObject
 
@@ -43,7 +45,11 @@ class ActivityTermsAgree : AppCompatActivity(), ContractTermsAgree.View {
     }
 
     override fun showJobInputUi(result: JSONObject) {
-
+        val intent = Intent(this, ActivityJobInput::class.java)
+        // TODO : addUserRequest 에 약관 정보 저장
+        intent.putExtra("addUserRequest", addUserRequest)
+        startActivity(intent)
+        finish()
     }
 
     private fun initClickListeners() {
@@ -52,7 +58,7 @@ class ActivityTermsAgree : AppCompatActivity(), ContractTermsAgree.View {
     }
 
     private fun setNextButton() {
-
+        nextBtn.setOnClickListener { presenter.openJobInput(checkAgrees()) }
     }
 
     private fun setCheckBoxes() {
@@ -88,4 +94,18 @@ class ActivityTermsAgree : AppCompatActivity(), ContractTermsAgree.View {
         }
     }
 
+    private fun checkAgrees(): JSONObject {
+        var result = JSONObject()
+        return if(firstCheckBtn.isChecked && secondCheckBtn.isChecked) {
+            result.run {
+                put("valid", true)
+                put("firstTerm", firstCheckBtn.isChecked)
+                put("secondTerm", secondCheckBtn.isChecked)
+                put("thirdTerm", thirdCheckBtn.isChecked)
+                put("fourthTerm", fourthCheckBtn.isChecked)
+            }
+        } else {
+            result.put("valid", false)
+        }
+    }
 }
