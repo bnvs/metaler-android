@@ -7,22 +7,15 @@ interface ContractTermsAgree {
     interface View : BaseView<Presenter> {
         fun showTermsWebView()
 
-        fun enableCheckButton()
-
-        fun disableCheckButton()
-
-        fun showAgreeCheckNotAvailableDialog()
+        fun showEssentialAgreeNotCheckedDialog()
 
         fun showJobInputUi()
     }
     interface Presenter : BasePresenter {
-        fun agreeAll()
-
-        fun agree()
 
         fun openTerms()
 
-        fun checkAgreeAvailable()
+        fun isEssentialAgreeChecked() : Boolean
 
         fun openJobInput()
     }
