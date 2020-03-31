@@ -6,6 +6,7 @@ import android.text.TextUtils
 import android.util.Log
 import android.view.View
 import android.widget.EditText
+import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import com.bnvs.metaler.R
@@ -30,15 +31,23 @@ class ActivityJobInput : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_job_input)
 
+        initClickListeners()
+    }
+
+    // 클릭리스너 초기화
+    private fun initClickListeners() {
+        setFirstCategoryButtons()
+        setJobTypeButtons()
+        setCompleteButton()
+    }
+
+    // 대분류 버튼 클릭 리스너
+    private fun setFirstCategoryButtons() {
+        val firstCategoryButtons = listOf(studentBtn, expertBtn, nothingBtn)
+
         studentBtn.setOnClickListener {
             job = "student"
-            studentBtn.setBackgroundResource(R.drawable.job_btn_purple_rounding_border)
-            studentBtn.setTextColor(ContextCompat.getColor(this ,R.color.colorPurple))
-            expertBtn.setBackgroundResource(R.drawable.job_btn_lightgrey_rounding_border)
-            expertBtn.setTextColor(ContextCompat.getColor(this ,R.color.colorLightGrey))
-            nothingBtn.setBackgroundResource(R.drawable.job_btn_lightgrey_rounding_border)
-            nothingBtn.setTextColor(ContextCompat.getColor(this ,R.color.colorLightGrey))
-
+            onButtonChanged(studentBtn, firstCategoryButtons)
             studentGroup.visibility = View.VISIBLE
             expertGroup.visibility = View.GONE
 
@@ -47,13 +56,7 @@ class ActivityJobInput : AppCompatActivity() {
         }
         expertBtn.setOnClickListener {
             job = "expert"
-            studentBtn.setBackgroundResource(R.drawable.job_btn_lightgrey_rounding_border)
-            studentBtn.setTextColor(ContextCompat.getColor(this ,R.color.colorLightGrey))
-            expertBtn.setBackgroundResource(R.drawable.job_btn_purple_rounding_border)
-            expertBtn.setTextColor(ContextCompat.getColor(this ,R.color.colorPurple))
-            nothingBtn.setBackgroundResource(R.drawable.job_btn_lightgrey_rounding_border)
-            nothingBtn.setTextColor(ContextCompat.getColor(this ,R.color.colorLightGrey))
-
+            onButtonChanged(expertBtn, firstCategoryButtons)
             studentGroup.visibility = View.GONE
             expertGroup.visibility = View.VISIBLE
 
@@ -65,13 +68,7 @@ class ActivityJobInput : AppCompatActivity() {
         }
         nothingBtn.setOnClickListener {
             job = "empty"
-            studentBtn.setBackgroundResource(R.drawable.job_btn_lightgrey_rounding_border)
-            studentBtn.setTextColor(ContextCompat.getColor(this ,R.color.colorLightGrey))
-            expertBtn.setBackgroundResource(R.drawable.job_btn_lightgrey_rounding_border)
-            expertBtn.setTextColor(ContextCompat.getColor(this ,R.color.colorLightGrey))
-            nothingBtn.setBackgroundResource(R.drawable.job_btn_purple_rounding_border)
-            nothingBtn.setTextColor(ContextCompat.getColor(this ,R.color.colorPurple))
-
+            onButtonChanged(nothingBtn, firstCategoryButtons)
             studentGroup.visibility = View.GONE
             expertGroup.visibility = View.GONE
 
@@ -79,50 +76,64 @@ class ActivityJobInput : AppCompatActivity() {
             shopOwnerGroup.visibility = View.GONE
         }
 
-        // 전문가 선택시 나오는 하위 그룹 클릭 리스너
+    }
+
+    // 전문가 업무형태 클릭 리스너
+    private fun setJobTypeButtons() {
+        val jobTypeButtons = listOf(companyBtn, shopOwnerBtn, freelancerBtn)
+
         companyBtn.setOnClickListener {
             job_type = "company"
-            companyBtn.setBackgroundResource(R.drawable.job_btn_purple_rounding_border)
-            companyBtn.setTextColor(ContextCompat.getColor(this ,R.color.colorPurple))
-            shopOwnerBtn.setBackgroundResource(R.drawable.job_btn_lightgrey_rounding_border)
-            shopOwnerBtn.setTextColor(ContextCompat.getColor(this ,R.color.colorLightGrey))
-            freelancerBtn.setBackgroundResource(R.drawable.job_btn_lightgrey_rounding_border)
-            freelancerBtn.setTextColor(ContextCompat.getColor(this ,R.color.colorLightGrey))
-
+            onButtonChanged(companyBtn, jobTypeButtons)
             companyGroup.visibility = View.VISIBLE
             shopOwnerGroup.visibility = View.GONE
 
             lastSelectedExpert = "company"
         }
+
         shopOwnerBtn.setOnClickListener {
             job_type = "founded"
-            companyBtn.setBackgroundResource(R.drawable.job_btn_lightgrey_rounding_border)
-            companyBtn.setTextColor(ContextCompat.getColor(this ,R.color.colorLightGrey))
-            shopOwnerBtn.setBackgroundResource(R.drawable.job_btn_purple_rounding_border)
-            shopOwnerBtn.setTextColor(ContextCompat.getColor(this ,R.color.colorPurple))
-            freelancerBtn.setBackgroundResource(R.drawable.job_btn_lightgrey_rounding_border)
-            freelancerBtn.setTextColor(ContextCompat.getColor(this ,R.color.colorLightGrey))
-
+            onButtonChanged(shopOwnerBtn, jobTypeButtons)
             companyGroup.visibility = View.GONE
             shopOwnerGroup.visibility = View.VISIBLE
 
             lastSelectedExpert = "founded"
         }
+
         freelancerBtn.setOnClickListener {
             job_type = "freelancer"
-            companyBtn.setBackgroundResource(R.drawable.job_btn_lightgrey_rounding_border)
-            companyBtn.setTextColor(ContextCompat.getColor(this ,R.color.colorLightGrey))
-            shopOwnerBtn.setBackgroundResource(R.drawable.job_btn_lightgrey_rounding_border)
-            shopOwnerBtn.setTextColor(ContextCompat.getColor(this ,R.color.colorLightGrey))
-            freelancerBtn.setBackgroundResource(R.drawable.job_btn_purple_rounding_border)
-            freelancerBtn.setTextColor(ContextCompat.getColor(this ,R.color.colorPurple))
-
+            onButtonChanged(freelancerBtn, jobTypeButtons)
             companyGroup.visibility = View.GONE
             shopOwnerGroup.visibility = View.GONE
 
             lastSelectedExpert = "null"
         }
 
+    }
+
+    // 버튼 누르면 버튼들 색깔 바뀌게 하기
+    private fun onButtonChanged(clickedButton: TextView, buttons: List<TextView>) {
+        for (button in buttons) {
+            if (clickedButton == button) {
+                setButtonEnabled(button, true)
+            }else setButtonEnabled(button, false)
+        }
+    }
+
+    // 버튼 배경 바꾸기
+    private fun setButtonEnabled(button: TextView, b: Boolean) {
+        if (b) {
+            button.setBackgroundResource(R.drawable.job_btn_purple_rounding_border)
+            button.setTextColor(ContextCompat.getColor(this ,R.color.colorPurple))
+        }else {
+            button.setBackgroundResource(R.drawable.job_btn_lightgrey_rounding_border)
+            button.setTextColor(ContextCompat.getColor(this ,R.color.colorLightGrey))
+        }
+    }
+
+
+    // 완료 버튼 클릭 리스너
+    private fun setCompleteButton() {
         completeBtn.setOnClickListener {
             when(job) {
                 "student" -> {
@@ -131,9 +142,7 @@ class ActivityJobInput : AppCompatActivity() {
                     if (isEmptyText(job_type) || isEmptyText(job_detail)) {
                         showEmptyTextDialog()
                         showLog()
-                    }else {
-                        showLog()
-                    }
+                    }else { showLog() }
                 }
                 "expert" -> {
                     when(job_type) {
@@ -144,9 +153,7 @@ class ActivityJobInput : AppCompatActivity() {
                     if (isEmptyText(job_type) || isEmptyText(job_detail)) {
                         showEmptyTextDialog()
                         showLog()
-                    }else {
-                        showLog()
-                    }
+                    }else { showLog() }
                 }
                 "empty" -> {
                     job_type = "empty"
@@ -154,17 +161,13 @@ class ActivityJobInput : AppCompatActivity() {
                     if (isEmptyText(job_type) || isEmptyText(job_detail)) {
                         showEmptyTextDialog()
                         showLog()
-                    }else {
-                        showLog()
-                    }
+                    }else { showLog() }
                 }
                 else -> {
                     showEmptyTextDialog()
-                    showLog()
-                }
+                    showLog() }
             }
         }
-
     }
 
     // job 로그 보여주기
