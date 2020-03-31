@@ -44,7 +44,7 @@ class ActivityTermsAgree : AppCompatActivity(), ContractTermsAgree.View {
     override fun showEssentialAgreeNotCheckedDialog() {
         AlertDialog.Builder(this).apply {
             setTitle(getString(R.string.terms_alert))
-                .setMessage(getString(R.string.essential_terms_not_agreed))
+                .setMessage(getString(R.string.essential_terms_guide))
                 .show()
         }
     }

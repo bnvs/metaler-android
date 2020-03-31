@@ -22,7 +22,7 @@
     <string name="fourth_agree">[선택] 광고성 정보 수신 동의</string>
     <string name="terms_more"><u>보기</u></string>
     <string name="terms_alert">알림</string>
-    <string name="essential_terms_not_agreed">메탈러 서비스 이용을 위해서 필수 이용약관 동의가 필요합니다.</string>
+    <string name="essential_terms_guide">메탈러 서비스 이용을 위해서 필수 이용약관 동의가 필요합니다.</string>
 
     <!--  activity_job_input.xml에서 쓰이는 문자열  -->
     <string name="job_title">소속 입력</string>
@@ -43,6 +43,9 @@
     <string name="company_name_guide">회사 이름을 입력해주세요.</string>
     <string name="owner_shop_name">가게명 입력</string>
     <string name="owner_shop_name_guide">가게 이름을 입력해주세요.</string>
+    <string name="job_input_alert">알림</string>
+    <string name="job_input_guide">소속 입력을 완료해주세요</string>
+    <string name="job_input_complete">Metaler 의 회원이 되신 것을 환영합니다!</string>
 
 
     <string name="kakao_start">카카오톡으로 로그인</string>

@@ -5,7 +5,7 @@ import com.bnvs.metaler.data.homeposts.source.HomePostsRepository
 import com.bnvs.metaler.data.profile.source.ProfileRepository
 
 class PresenterHome(
-    private val context: Context,
+    context: Context,
     private val view: ContractHome.View
 ) : ContractHome.Presenter {
 

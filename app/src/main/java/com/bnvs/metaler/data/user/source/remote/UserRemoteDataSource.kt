@@ -29,6 +29,8 @@ object UserRemoteDataSource : UserDataSource {
                         callback.onUserAdded(response.body()!!)
 
                     }else {
+                        Log.d(TAG, "회원가입 api 응답 : $response")
+                        Log.d(TAG, "회원가입 api 응답 body : ${response.body()}")
                         callback.onResponseError(response.errorBody().toString())
                     }
                 }
