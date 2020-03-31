@@ -54,7 +54,6 @@ class ActivityTermsAgree : AppCompatActivity(), ContractTermsAgree.View {
         // TODO : addUserRequest 에 약관 정보 저장
         intent.putExtra("addUserRequest", addUserRequest)
         startActivity(intent)
-        finish()
     }
 
     private fun initClickListeners() {
