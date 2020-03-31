@@ -11,13 +11,19 @@ interface ContractTermsAgree {
 
         fun disableCheckButton()
 
-        fun showAgreeTermsDialog()
+        fun showAgreeCheckNotAvailableDialog()
+
+        fun showJobInputUi()
     }
     interface Presenter : BasePresenter {
-        fun clickAgreeButton()
+        fun agreeAll()
 
-        fun clickAgreeMoreButton()
+        fun agree()
 
-        fun clickNextButton()
+        fun openTerms()
+
+        fun checkAgreeAvailable()
+
+        fun openJobInput()
     }
 }
