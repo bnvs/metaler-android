@@ -42,10 +42,11 @@ class ActivityTermsAgree : AppCompatActivity(), ContractTermsAgree.View {
     }
 
     override fun showEssentialAgreeNotCheckedDialog() {
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle(getString(R.string.terms_alert))
-            .setMessage(getString(R.string.essential_terms_not_agreed))
-            .show()
+        AlertDialog.Builder(this).apply {
+            setTitle(getString(R.string.terms_alert))
+                .setMessage(getString(R.string.essential_terms_not_agreed))
+                .show()
+        }
     }
 
     override fun showJobInputUi(result: JSONObject) {
@@ -99,7 +100,7 @@ class ActivityTermsAgree : AppCompatActivity(), ContractTermsAgree.View {
     }
 
     private fun checkAgrees(): JSONObject {
-        var result = JSONObject()
+        val result = JSONObject()
         return if(firstCheckBtn.isChecked && secondCheckBtn.isChecked) {
             result.run {
                 put("valid", true)
