@@ -1,14 +1,13 @@
 package com.bnvs.metaler.jobinput
 
-import android.content.res.Resources
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.constraintlayout.widget.Group
 import androidx.core.content.ContextCompat
-import androidx.core.content.res.ResourcesCompat
 import com.bnvs.metaler.R
 import kotlinx.android.synthetic.main.activity_job_input.*
 import kotlinx.android.synthetic.main.activity_job_input.expertBtn
@@ -97,11 +96,7 @@ class ActivityJobInput : AppCompatActivity(), ContractJobInput.View {
     }
 
     override fun showJoinCompleteDialog() {
-        AlertDialog.Builder(this).apply {
-            setTitle(getString(R.string.job_input_alert))
-                .setMessage("Metaler 의 회원이 되신 것을 환영합니다!")
-                .show()
-        }
+        Toast.makeText(this@ActivityJobInput, getString(R.string.job_input_complete), Toast.LENGTH_SHORT).show()
     }
 
     override fun showHomeUi() {

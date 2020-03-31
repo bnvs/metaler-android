@@ -45,6 +45,7 @@
     <string name="owner_shop_name_guide">가게 이름을 입력해주세요.</string>
     <string name="job_input_alert">알림</string>
     <string name="job_input_guide">소속 입력을 완료해주세요</string>
+    <string name="job_input_complete">Metaler 의 회원이 되신 것을 환영합니다!</string>
 
 
     <string name="kakao_start">카카오톡으로 로그인</string>
