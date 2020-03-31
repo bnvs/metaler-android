@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
 import android.view.View
+import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import com.bnvs.metaler.R
@@ -125,26 +126,26 @@ class ActivityJobInput : AppCompatActivity() {
         completeBtn.setOnClickListener {
             when(job) {
                 "student" -> {
-                    job_type = universityNameInput.text.toString().replace(" ", "")
-                    job_detail = majorNameInput.text.toString().replace(" ", "")
+                    job_type = getString(universityNameInput)
+                    job_detail = getString(majorNameInput)
                     if (isEmptyText(job_type) || isEmptyText(job_detail)) {
                         showEmptyTextDialog()
-                        Log.d(TAG, "job: $job, job_type: $job_type, job_detail: $job_detail")
+                        showLog()
                     }else {
-                        Log.d(TAG, "job: $job, job_type: $job_type, job_detail: $job_detail")
+                        showLog()
                     }
                 }
                 "expert" -> {
                     when(job_type) {
-                        "company" -> { job_detail = companyNameInput.text.toString().replace(" ", "") }
-                        "founded" -> { job_detail = shopNameInput.text.toString().replace(" ", "") }
+                        "company" -> { job_detail = getString(companyNameInput) }
+                        "founded" -> { job_detail = getString(shopNameInput) }
                         "freelancer" -> { job_detail = "empty" }
                     }
                     if (isEmptyText(job_type) || isEmptyText(job_detail)) {
                         showEmptyTextDialog()
-                        Log.d(TAG, "job: $job, job_type: $job_type, job_detail: $job_detail")
+                        showLog()
                     }else {
-                        Log.d(TAG, "job: $job, job_type: $job_type, job_detail: $job_detail")
+                        showLog()
                     }
                 }
                 "empty" -> {
@@ -152,18 +153,28 @@ class ActivityJobInput : AppCompatActivity() {
                     job_detail = "empty"
                     if (isEmptyText(job_type) || isEmptyText(job_detail)) {
                         showEmptyTextDialog()
-                        Log.d(TAG, "job: $job, job_type: $job_type, job_detail: $job_detail")
+                        showLog()
                     }else {
-                        Log.d(TAG, "job: $job, job_type: $job_type, job_detail: $job_detail")
+                        showLog()
                     }
                 }
                 else -> {
                     showEmptyTextDialog()
-                    Log.d(TAG, "job: $job, job_type: $job_type, job_detail: $job_detail")
+                    showLog()
                 }
             }
         }
 
+    }
+
+    // job 로그 보여주기
+    private fun showLog() {
+        Log.d(TAG, "job: $job, job_type: $job_type, job_detail: $job_detail")
+    }
+
+    // editText 에서 공백없이 String 추출하는 함수
+    private fun getString(editText: EditText): String {
+        return editText.text.toString().replace(" ", "")
     }
 
     // editText 공백 확인 메서드
@@ -171,6 +182,7 @@ class ActivityJobInput : AppCompatActivity() {
         return TextUtils.isEmpty(text)
     }
 
+    // 직업 입력에 공백이 있을 시 띄우는 다이얼로그
     private fun showEmptyTextDialog() {
         AlertDialog.Builder(this).apply {
             setTitle("알림")
