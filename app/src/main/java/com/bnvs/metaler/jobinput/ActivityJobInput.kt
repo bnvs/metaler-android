@@ -1,5 +1,6 @@
 package com.bnvs.metaler.jobinput
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -9,6 +10,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.constraintlayout.widget.Group
 import androidx.core.content.ContextCompat
 import com.bnvs.metaler.R
+import com.bnvs.metaler.home.ActivityHome
 import kotlinx.android.synthetic.main.activity_job_input.*
 import kotlinx.android.synthetic.main.activity_job_input.expertBtn
 import kotlinx.android.synthetic.main.activity_job_input.expertGroup
@@ -37,10 +39,14 @@ class ActivityJobInput : AppCompatActivity(), ContractJobInput.View {
         jobTypeGroups = listOf(companyGroup, shopOwnerGroup)
 
         // Create the presenter
-        presenter = PresenterJobInput(this)
+        presenter = PresenterJobInput(this, this)
 
         // Set up Buttons
         initClickListeners()
+
+        presenter.apply {
+            getAddUserRequest(intent)
+        }
     }
 
     override fun showStudent() {
@@ -100,7 +106,11 @@ class ActivityJobInput : AppCompatActivity(), ContractJobInput.View {
     }
 
     override fun showHomeUi() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        Intent(this, ActivityHome::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
+        }.also(this::startActivity)
+        finish()
     }
 
     // 클릭리스너 초기화
