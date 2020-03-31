@@ -1,8 +1,24 @@
 package com.bnvs.metaler.termsagree
 
-class PresenterTermsAgree : ContractTermsAgree.Presenter {
+import android.widget.CheckBox
+import org.json.JSONObject
 
-    override fun start() {
+class PresenterTermsAgree(
+    private val view: ContractTermsAgree.View
+) : ContractTermsAgree.Presenter {
 
+    override fun start() {  }
+
+    override fun openTerms() {
+        view.showTermsWebView()
+    }
+
+    override fun openJobInput(result: JSONObject) {
+        if (result.getBoolean("valid")) {
+            result.remove("valid")
+            view.showJobInputUi(result)
+        }else {
+            view.showEssentialAgreeNotCheckedDialog()
+        }
     }
 }
