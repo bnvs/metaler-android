@@ -20,8 +20,8 @@ class PresenterDetail(
     }
 
     override fun start() {
-        loadPostDetail()
-        loadComments()
+//        loadPostDetail()
+//        loadComments()
     }
 
     override fun loadPostDetail() {
