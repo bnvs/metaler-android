@@ -24,9 +24,8 @@ class ActivityJobInput : AppCompatActivity() {
     private lateinit var job: String
     private lateinit var job_type: String
     private lateinit var job_detail: String
-
-    private var buttonFirstClicked = false
-    private var lastSelectedExpert = "null"
+    
+    private var lastSelectedExpertJobType = "null"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,6 +48,7 @@ class ActivityJobInput : AppCompatActivity() {
         studentBtn.setOnClickListener {
             job = "student"
             onButtonChanged(studentBtn, firstCategoryButtons)
+            showCompleteButton()
             studentGroup.visibility = View.VISIBLE
             expertGroup.visibility = View.GONE
 
@@ -58,18 +58,20 @@ class ActivityJobInput : AppCompatActivity() {
         expertBtn.setOnClickListener {
             job = "expert"
             onButtonChanged(expertBtn, firstCategoryButtons)
+            showCompleteButton()
             studentGroup.visibility = View.GONE
             expertGroup.visibility = View.VISIBLE
 
-            if (lastSelectedExpert == "company") {
+            if (lastSelectedExpertJobType == "company") {
                 companyGroup.visibility = View.VISIBLE
-            }else if (lastSelectedExpert == "founded") {
+            }else if (lastSelectedExpertJobType == "founded") {
                 shopOwnerGroup.visibility = View.VISIBLE
             }
         }
         nothingBtn.setOnClickListener {
             job = "empty"
             onButtonChanged(nothingBtn, firstCategoryButtons)
+            showCompleteButton()
             studentGroup.visibility = View.GONE
             expertGroup.visibility = View.GONE
 
@@ -86,31 +88,28 @@ class ActivityJobInput : AppCompatActivity() {
         companyBtn.setOnClickListener {
             job_type = "company"
             onButtonChanged(companyBtn, jobTypeButtons)
-            showCompleteButton()
             companyGroup.visibility = View.VISIBLE
             shopOwnerGroup.visibility = View.GONE
 
-            lastSelectedExpert = "company"
+            lastSelectedExpertJobType = "company"
         }
 
         shopOwnerBtn.setOnClickListener {
             job_type = "founded"
-            showCompleteButton()
             onButtonChanged(shopOwnerBtn, jobTypeButtons)
             companyGroup.visibility = View.GONE
             shopOwnerGroup.visibility = View.VISIBLE
 
-            lastSelectedExpert = "founded"
+            lastSelectedExpertJobType = "founded"
         }
 
         freelancerBtn.setOnClickListener {
             job_type = "freelancer"
-            showCompleteButton()
             onButtonChanged(freelancerBtn, jobTypeButtons)
             companyGroup.visibility = View.GONE
             shopOwnerGroup.visibility = View.GONE
 
-            lastSelectedExpert = "null"
+            lastSelectedExpertJobType = "null"
         }
 
     }
