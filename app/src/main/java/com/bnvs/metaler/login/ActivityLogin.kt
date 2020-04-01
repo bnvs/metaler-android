@@ -113,11 +113,11 @@ class ActivityLogin : AppCompatActivity() {
                                                         result.properties["nickname"].toString(),
                                                         result.properties["profile_image"].toString(),
                                                         result.kakaoAccount.email,
-                                                        result.kakaoAccount.birthday,
-                                                        result.kakaoAccount.gender.toString(),
+                                                        makeGenderText(result.kakaoAccount.gender.toString()),
                                                         null,
                                                         null,
-                                                        null
+                                                        null,
+                                                        0
                                                     )
                                                 )
                                             }
@@ -247,6 +247,14 @@ class ActivityLogin : AppCompatActivity() {
 
     private fun makeToast(message: String) {
         Toast.makeText(this@ActivityLogin, message, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun makeGenderText(kakaoGender: String):String {
+        return when(kakaoGender) {
+            "MALE" -> "M"
+            "FEMALE" -> "W"
+            else -> "null"
+        }
     }
 
 }
