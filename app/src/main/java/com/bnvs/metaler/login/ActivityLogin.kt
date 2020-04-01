@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import com.bnvs.metaler.R
-import com.bnvs.metaler.data.profile.Profile
 import com.bnvs.metaler.data.profile.source.ProfileRepository
 import com.bnvs.metaler.data.token.AccessToken
 import com.bnvs.metaler.data.token.SigninToken
@@ -74,7 +73,7 @@ class ActivityLogin : AppCompatActivity() {
                     // 카카오 로그인이 성공했을 때
                     // Metaler 회원가입 여부 확인
                     Log.d(TAG, "카카오 아이디 : ${result!!.id}")
-                    val kakao_id = result.id.toString()
+                    val kakaoId = result.id.toString()
 
                     // local 에 signin_token 존재하는지 확인
                     tokenRepository.getSigninToken(object :
@@ -89,12 +88,12 @@ class ActivityLogin : AppCompatActivity() {
                                     if (isTokenValid(token.valid_time)) {
                                         openHome()
                                     } else {
-                                        login(kakao_id, signinToken)
+                                        login(kakaoId, signinToken)
                                     }
                                 }
 
                                 override fun onTokenNotExist() {
-                                    login(kakao_id, signinToken)
+                                    login(kakaoId, signinToken)
                                 }
                             })
                         }
@@ -102,30 +101,18 @@ class ActivityLogin : AppCompatActivity() {
                         override fun onTokenNotExist() {
                             // signin_token 존재하지 않음, 회원가입 여부확인 api 호출
                             userRepository.checkMembership(
-                                CheckMembershipRequest(kakao_id),
+                                CheckMembershipRequest(kakaoId),
                                 object : UserDataSource.CheckMembershipCallback {
                                     override fun onMembershipChecked(response: CheckMembershipResponse) {
                                         when (response.message) {
                                             "you_can_join" -> {
-                                                openTermsAgree(
-                                                    AddUserRequest(
-                                                        kakao_id,
-                                                        result.properties["nickname"].toString(),
-                                                        result.properties["profile_image"].toString(),
-                                                        result.kakaoAccount.email,
-                                                        makeGenderText(result.kakaoAccount.gender.toString()),
-                                                        null,
-                                                        null,
-                                                        null,
-                                                        0
-                                                    )
-                                                )
+                                                openTermsAgree(makeAddUserRequest(result))
                                             }
                                             else -> {
                                                 tokenRepository.saveSigninToken(
                                                     SigninToken(response.signin_token)
                                                 )
-                                                login(kakao_id, response.signin_token)
+                                                login(kakaoId, response.signin_token)
                                             }
                                         }
                                     }
@@ -211,13 +198,13 @@ class ActivityLogin : AppCompatActivity() {
                         AccessToken(response.access_token, getValidTime())
                     )
                     // response 의 User 에서 profile 정보 추출하여 로컬에 저장
-                    profileRepository.saveProfile(
+                    /*profileRepository.saveProfile(
                         Profile(
                             response.user.profile_nickname,
                             response.user.profile_image_url,
                             response.user.profile_email
                         )
-                    )
+                    )*/
                     // 홈탭 실행
                     openHome()
                 }
@@ -247,6 +234,20 @@ class ActivityLogin : AppCompatActivity() {
 
     private fun makeToast(message: String) {
         Toast.makeText(this@ActivityLogin, message, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun makeAddUserRequest(result: MeV2Response): AddUserRequest {
+        return AddUserRequest(
+            result.id.toString(),
+            result.properties["nickname"].toString(),
+            result.properties["profile_image"].toString(),
+            result.kakaoAccount.email,
+            makeGenderText(result.kakaoAccount.gender.toString()),
+            null,
+            null,
+            null,
+            0
+        )
     }
 
     private fun makeGenderText(kakaoGender: String):String {
