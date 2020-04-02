@@ -15,6 +15,6 @@ class PostRepository(context: Context) : PostDataSource {
         request: PostsRequest,
         callback: PostDataSource.LoadPostsCallback
     ) {
-        
+        postRemoteDataSource.getPosts(access_token, request, callback)
     }
 }
