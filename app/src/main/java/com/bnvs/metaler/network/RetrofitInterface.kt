@@ -1,5 +1,8 @@
 package com.bnvs.metaler.network
 
+import com.bnvs.metaler.data.addeditpost.AddEditPostRequest
+import com.bnvs.metaler.data.addeditpost.AddEditPostResponse
+import com.bnvs.metaler.data.addeditpost.DeletePostResponse
 import com.bnvs.metaler.data.bookmarks.*
 import com.bnvs.metaler.data.comments.Comments
 import com.bnvs.metaler.data.homeposts.HomePosts
@@ -74,23 +77,26 @@ interface RetrofitInterface {
     // 게시글 상세 조회
     @GET("/posts/{id}")
     fun getPostDetails(
-        @Path("id") id: String,
-        @Body request: JSONObject): Call<PostDetails>
+        @Header("Authorization") access_token: String,
+        @Path("id") id: String): Call<PostDetails>
 
     // 게시글 추가 (글쓰기)
     @POST("/posts")
     fun addPost(
-        @Header("Authorization") access_token: String
-    )
+        @Header("Authorization") access_token: String,
+        @Body request: AddEditPostRequest): Call<AddEditPostResponse>
 
     // 게시글 삭제
     @DELETE("/posts/{id}")
-    fun deletePost(@Path("id") id: String,
-                   @Body request: JSONObject)
+    fun deletePost(
+        @Header("Authorization") access_token: String,
+        @Path("id") id: String): Call<DeletePostResponse>
 
     // 게시글 수정
     @PUT("/posts/{id}")
-    fun modifyPost()
+    fun modifyPost(
+        @Header("Authorization") access_token: String,
+        @Body request: AddEditPostRequest): Call<AddEditPostResponse>
 
 
     /*** 3. 댓글 ***/
