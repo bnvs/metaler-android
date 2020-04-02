@@ -16,11 +16,11 @@ interface ContractHome {
     interface View : BaseView<Presenter>, TapBarContract.View {
         fun showProfile(profile: Profile)
 
-//        fun showMaterialsList(materials: List<HomePost>)
+        fun showMaterialsList(materials: List<HomePost>)
 
-//        fun showManufacturesList(manufactures: List<HomePost>)
+        fun showManufacturesList(manufactures: List<HomePost>)
 
-        fun showPostDetailUi()
+        fun showPostDetailUi(postId: Int)
 
         fun setTransparentStatusBar()
     }
@@ -30,7 +30,7 @@ interface ContractHome {
 
         fun loadHomePost()
 
-        fun openPostDetail()
+        fun openPostDetail(clickedHomePostId: Int)
 
         fun setStatusBar()
     }

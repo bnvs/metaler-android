@@ -24,11 +24,15 @@ object UserRemoteDataSource : UserDataSource {
                     response: Response<AddUserResponse>
                 ) {
                     if (response.isSuccessful) {
+                        Log.d(TAG, "회원가입 성공")
                         Log.d(TAG, "회원가입 api 응답 : $response")
                         Log.d(TAG, "회원가입 api 응답 body : ${response.body()}")
                         callback.onUserAdded(response.body()!!)
 
                     }else {
+                        Log.d(TAG, "회원가입 실패")
+                        Log.d(TAG, "회원가입 api 응답 : $response")
+                        Log.d(TAG, "회원가입 api 응답 body : ${response.body()}")
                         callback.onResponseError(response.errorBody().toString())
                     }
                 }
@@ -54,11 +58,15 @@ object UserRemoteDataSource : UserDataSource {
                     response: Response<CheckMembershipResponse>
                 ) {
                     if (response.isSuccessful) {
+                        Log.d(TAG, "회원가입 여부 확인 성공")
                         Log.d(TAG, "회원가입 여부 확인 api 응답 : $response")
                         Log.d(TAG, "회원가입 여부 확인 api 응답 body : ${response.body()}")
                         callback.onMembershipChecked(response.body()!!)
 
                     } else {
+                        Log.d(TAG, "회원가입 여부 확인 실패")
+                        Log.d(TAG, "회원가입 여부 확인 api 응답 : $response")
+                        Log.d(TAG, "회원가입 여부 확인 api 응답 body : ${response.body()}")
                         callback.onResponseError(response.errorBody().toString())
                     }
                 }
@@ -80,11 +88,15 @@ object UserRemoteDataSource : UserDataSource {
                     response: Response<LoginResponse>
                 ) {
                     if (response.isSuccessful) {
+                        Log.d(TAG, "로그인 성공")
                         Log.d(TAG, "로그인 api 응답 : $response")
                         Log.d(TAG, "로그인 api 응답 body : ${response.body()}")
                         callback.onLoginSuccess(response.body()!!)
 
                     } else {
+                        Log.d(TAG, "로그인 실패")
+                        Log.d(TAG, "로그인 api 응답 : $response")
+                        Log.d(TAG, "로그인 api 응답 body : ${response.body()}")
                         callback.onResponseError(response.errorBody().toString())
                     }
                 }
