@@ -93,7 +93,7 @@ interface RetrofitInterface {
                    @Body request: PostRequest)
 
     @PUT("/users/nickname")
-    fun modifyNickname(@Body request: NicknameRequest)
+    fun modifyNickname()
 
     @PUT("/users/jobs")
     fun modifyJob(@Body request: Jobs)
