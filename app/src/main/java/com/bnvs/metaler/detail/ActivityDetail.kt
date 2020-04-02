@@ -1,7 +1,11 @@
 package com.bnvs.metaler.detail
 
+import android.app.Activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.*
+import android.widget.PopupMenu
+import android.widget.Toast
 import com.bnvs.metaler.R
 import kotlinx.android.synthetic.main.activity_detail.*
 
@@ -27,6 +31,9 @@ class ActivityDetail : AppCompatActivity(), ContractDetail.View {
         presenter.run {
             start()
         }
+
+//        registerForContextMenu(moreBtn)
+
     }
 
     override fun showPostDetail() {
@@ -37,14 +44,44 @@ class ActivityDetail : AppCompatActivity(), ContractDetail.View {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun showMenuDialog() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
+    override fun onCreateContextMenu(
+        menu: ContextMenu,
+        v: View,
+        menuInfo: ContextMenu.ContextMenuInfo?) {
+        super.onCreateContextMenu(menu, v, menuInfo)
+        val inflater : MenuInflater = menuInflater
+        inflater.inflate(R.menu.menu, menu)
     }
 
+    override fun onContextItemSelected(item: MenuItem?): Boolean {
+        return when (item!!.itemId) {
+            R.id.modify ->{
+                //수정버튼 눌렀을 때, presenter 가 할 일 추가하기
+                Toast.makeText(applicationContext, "modify code", Toast.LENGTH_LONG).show()//test용 토스트메세지
+                return true
+            }
+            R.id.delete ->{
+                //삭제버튼 눌렀을 때, presenter 가 할 일 추가하기
+                Toast.makeText(applicationContext, "delete code", Toast.LENGTH_LONG).show()//test용 토스트메세지
+                return true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+
+    override fun showMenuDialog() {
+        registerForContextMenu(moreBtn)
+        openContextMenu(moreBtn)
+        unregisterForContextMenu(moreBtn)
+    }
 
     private fun initClickListeners() {
         setTitleBarButtons()
         setRatingButtons()
+
+        moreBtn.setOnClickListener { presenter.openMenu() }
     }
 
     private fun setTitleBarButtons() {

@@ -108,9 +108,9 @@ class ActivityMaterials : AppCompatActivity(), ContractMaterials.View {
         }*/
 
         // 재료 탭 presenter 시작
-        presenter.run {
-            start()
-        }
+//        presenter.run {
+//            start()
+//        }
 
     }
 

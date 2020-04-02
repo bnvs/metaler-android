@@ -47,8 +47,8 @@ class PresenterHome(
         })*/
     }
 
-    override fun openPostDetail(postId: Int) {
-        view.showPostDetailUi(postId)
+    override fun openPostDetail(clickedHomePostId: Int) {
+        view.showPostDetailUi(clickedHomePostId)
     }
 
     override fun setStatusBar() {

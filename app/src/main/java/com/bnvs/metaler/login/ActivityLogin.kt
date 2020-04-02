@@ -1,6 +1,7 @@
 package com.bnvs.metaler.login
 
 import android.content.Intent
+import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -24,6 +25,8 @@ import com.kakao.usermgmt.UserManagement
 import com.kakao.usermgmt.callback.MeV2ResponseCallback
 import com.kakao.usermgmt.response.MeV2Response
 import com.kakao.util.exception.KakaoException
+import android.util.Base64
+import java.security.MessageDigest
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -40,6 +43,8 @@ class ActivityLogin : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
+        getAppKeyHash()
+
         tokenRepository = TokenRepository(this@ActivityLogin)
         userRepository = UserRepository()
         profileRepository = ProfileRepository(this@ActivityLogin)
@@ -50,6 +55,22 @@ class ActivityLogin : AppCompatActivity() {
         Session.getCurrentSession().addCallback(callback)
         // 현재 앱에 유효한 카카오 로그인 토큰이 있다면 바로 로그인(자동 로그인과 유사)
         Session.getCurrentSession().checkAndImplicitOpen()
+    }
+
+    private fun getAppKeyHash() {
+        try {
+            val info = packageManager.getPackageInfo(packageName, PackageManager.GET_SIGNATURES)
+            for (signature in info.signatures) {
+                val md: MessageDigest
+                md = MessageDigest.getInstance("SHA")
+                md.update(signature.toByteArray())
+                val something = String(Base64.encode(md.digest(), 0))
+                Log.e("Hash key", something)
+            }
+        } catch (e: Exception) {
+            // TODO Auto-generated catch block
+            Log.e("name not found", e.toString())
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -249,11 +270,11 @@ class ActivityLogin : AppCompatActivity() {
         )
     }
 
-    private fun makeGenderText(kakaoGender: String):String {
+    private fun makeGenderText(kakaoGender: String):String? {
         return when(kakaoGender) {
             "MALE" -> "M"
             "FEMALE" -> "W"
-            else -> "null"
+            else -> null
         }
     }
 

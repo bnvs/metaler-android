@@ -1,5 +1,6 @@
 package com.bnvs.metaler.home
 
+import android.content.Context
 import com.bnvs.metaler.BasePresenter
 import com.bnvs.metaler.BaseView
 import com.bnvs.metaler.data.homeposts.HomePost
@@ -29,7 +30,7 @@ interface ContractHome {
 
         fun loadHomePost()
 
-        fun openPostDetail(postId: Int)
+        fun openPostDetail(clickedHomePostId: Int)
 
         fun setStatusBar()
     }
