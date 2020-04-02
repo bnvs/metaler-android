@@ -11,14 +11,15 @@ class DeviceInfo(val context: Context) {
         return Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID)
     }
 
-    // android devcie model 확인
+    // android devcie model / android devcie os / 제조사 확인
+    // 예시 : SM-N960N/10/Samsung
     fun getDeviceModel(): String {
-        return Build.MODEL
+        return Build.MODEL + "/" + Build.VERSION.RELEASE.toString() + "/" + Build.BRAND
     }
 
-    // android devcie os 확인
+    // android devcie 확인
     fun getDeviceOs(): String {
-        return Build.VERSION.RELEASE.toString()
+        return "A"
     }
 
     // android app version 확인

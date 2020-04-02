@@ -17,15 +17,9 @@ class ActivityTermsAgree : AppCompatActivity(), ContractTermsAgree.View {
 
     override lateinit var presenter: ContractTermsAgree.Presenter
 
-    lateinit var addUserRequest: AddUserRequest
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_terms_agree)
-
-        // 카카오 로그인시 받아온 User 정보
-        // 메탈러 회원가입 api request 에 사용
-        addUserRequest = intent.getSerializableExtra("addUserRequest") as AddUserRequest
 
         // Create the presenter
         presenter = PresenterTermsAgree(
@@ -35,6 +29,9 @@ class ActivityTermsAgree : AppCompatActivity(), ContractTermsAgree.View {
         // Set up Buttons
         initClickListeners()
 
+        presenter.apply {
+            getAddUserRequest(intent)
+        }
     }
 
     override fun showTermsWebView() {
@@ -49,9 +46,8 @@ class ActivityTermsAgree : AppCompatActivity(), ContractTermsAgree.View {
         }
     }
 
-    override fun showJobInputUi(result: JSONObject) {
+    override fun showJobInputUi(addUserRequest: AddUserRequest) {
         val intent = Intent(this, ActivityJobInput::class.java)
-        // TODO : addUserRequest 에 약관 정보 저장
         intent.putExtra("addUserRequest", addUserRequest)
         startActivity(intent)
     }
