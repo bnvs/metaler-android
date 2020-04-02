@@ -69,13 +69,13 @@ class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
 
         // Set up RefreshListener
         refreshLayout.apply {
-            setOnRefreshListener {
+            /*setOnRefreshListener {
                 presenter.refreshPosts()
                 refreshLayout.isRefreshing = false
             }
             setColorSchemeColors(
                 ContextCompat.getColor(this@ActivityManufactures, R.color.colorPurple)
-            )
+            )*/
         }
 
         // 가공 탭 presenter 시작

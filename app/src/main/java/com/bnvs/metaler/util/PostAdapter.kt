@@ -49,7 +49,7 @@ class PostAdapter(
                 tagString += "#$tag "
             }
 
-            view.apply {
+            /*view.apply {
                 title.text = item.title
                 userName.text = item.nickname
                 date.text = item.date
@@ -64,10 +64,10 @@ class PostAdapter(
                     bookmarkBtn.setImageResource(R.drawable.ic_list_bookmark_active_x3)
                 }
             }
-
-            Glide.with(view)
+*/
+            /*Glide.with(view)
                 .load(item.attach_url)
-                .into(view.img)
+                .into(view.img)*/
         }
     }
 }

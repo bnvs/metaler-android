@@ -40,8 +40,8 @@ class ActivityBookmarks : AppCompatActivity(), ContractBookmarks.View {
             TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         }
     }
-    private val bookmarkPostAdapter = BookmarkPostAdapter(ArrayList(0), bookmarkItemListener)
-    private val bookmarkPostLayoutManager = LinearLayoutManager(this)
+    /*private val bookmarkPostAdapter = BookmarkPostAdapter(ArrayList(0), bookmarkItemListener)
+    private val bookmarkPostLayoutManager = LinearLayoutManager(this)*/
 
 
 
@@ -62,10 +62,10 @@ class ActivityBookmarks : AppCompatActivity(), ContractBookmarks.View {
         initClickListeners()
 
         // Set up posts recyclerView
-        bookmarkRV.apply {
+        /*bookmarkRV.apply {
             adapter = bookmarkPostAdapter
             layoutManager = bookmarkPostLayoutManager
-        }
+        }*/
 
 
         presenter.run {
@@ -81,11 +81,11 @@ class ActivityBookmarks : AppCompatActivity(), ContractBookmarks.View {
     }
 
     override fun showMaterialsList(posts: List<Post>) {
-        bookmarkPostAdapter.setPosts(posts)
+        /*bookmarkPostAdapter.setPosts(posts)*/
     }
 
     override fun showManufacturesList(posts: List<Post>) {
-        bookmarkPostAdapter.setPosts(posts)
+        /*bookmarkPostAdapter.setPosts(posts)*/
     }
 
     override fun showBookmarkDeleteDialog(postId: Int) {
@@ -113,7 +113,7 @@ class ActivityBookmarks : AppCompatActivity(), ContractBookmarks.View {
 
 
     //북마크 리사이클러뷰 아이템 레이아웃(북마크 버튼 대신 delete 버튼있음)이 PostAdapter에서 쓰는 레이아웃이랑 달라서 일부 바꿈
-    private class BookmarkPostAdapter(
+    /*private class BookmarkPostAdapter(
         private var posts: List<Post>,
         private val itemListener: BookmarkPostItemListener
     ) : RecyclerView.Adapter<BookmarkPostAdapter.ViewHolder>() {
@@ -169,7 +169,7 @@ class ActivityBookmarks : AppCompatActivity(), ContractBookmarks.View {
                     .into(view.img)
             }
         }
-    }
+    }*/
 
 
     private interface BookmarkPostItemListener {
