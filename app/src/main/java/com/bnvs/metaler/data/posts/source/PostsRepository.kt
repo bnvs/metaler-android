@@ -7,7 +7,6 @@ import com.bnvs.metaler.data.posts.source.remote.PostsRemoteDataSource
 
 class PostsRepository(context: Context) : PostsDataSource {
 
-    private val postLocalDataSource = PostsLocalDataSource(context)
     private val postRemoteDataSource = PostsRemoteDataSource
 
     override fun getPosts(
