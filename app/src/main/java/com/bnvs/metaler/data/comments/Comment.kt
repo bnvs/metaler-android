@@ -1,9 +1,11 @@
 package com.bnvs.metaler.data.comments
 
 data class Comment(
-    val comment_id: Int,
+    val id: Int,
+    val user_id: Int,
     val profile_nickname: String,
-    val date: String,
+    val profile_image_url: String,
     val content: String,
-    val profile_url: String
+    val created_at: String,
+    val updated_at: String
 )

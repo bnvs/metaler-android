@@ -1,11 +1,13 @@
 package com.bnvs.metaler.network
 
-import com.bnvs.metaler.data.bookmarks.Bookmarks
-import com.bnvs.metaler.data.bookmarks.BookmarksRequest
+import com.bnvs.metaler.data.addeditpost.AddEditPostRequest
+import com.bnvs.metaler.data.addeditpost.AddEditPostResponse
+import com.bnvs.metaler.data.addeditpost.DeletePostResponse
+import com.bnvs.metaler.data.bookmarks.*
 import com.bnvs.metaler.data.comments.Comments
 import com.bnvs.metaler.data.homeposts.HomePosts
 import com.bnvs.metaler.data.categories.Categories
-import com.bnvs.metaler.data.comments.CommentsRequest
+import com.bnvs.metaler.data.comments.AddCommentRequest
 import com.bnvs.metaler.data.job.Jobs
 import com.bnvs.metaler.data.posts.PostsRequest
 import com.bnvs.metaler.data.postdetails.PostDetails
@@ -25,36 +27,8 @@ import retrofit2.http.*
 
 interface RetrofitInterface {
 
-    @GET("/home")
-    fun getHomePosts(@Body request: JSONObject): Call<HomePosts>
-
-    @GET("/categories")
-    fun getCategories(@Body request: JSONObject): Call<Categories>
-
-    @GET("/posts")
-    fun getPosts(
-        @Header("Authorization") access_token: String,
-        @Body request: PostsRequest): Call<PostsResponse>
-
-    @GET("/posts/{id}")
-    fun getPostDetails(@Path("id") id: String,
-                       @Body request: JSONObject): Call<PostDetails>
-
-    @GET("/posts/{id}/comments")
-    fun getComments(@Path("id") id: String,
-                    @Body request: JSONObject): Call<Comments>
-
-    @GET("/bookmarks/{id}")
-    fun getBookmarks(@Path("id") id: String,
-                     @Body request: BookmarksRequest): Call<Bookmarks>
-
-    @GET("/users/jobs")
-    fun getJob(@Body request: JSONObject): Call<Jobs>
-
-    @GET("/users/posts")
-    fun getMyPosts()
-
-    // 회원가입 여부 확인
+    /*** 1. 유저 ***/
+    // 회원가입 여부 체크
     @POST("/users/check")
     fun checkUserMembership(@Body request: CheckMembershipRequest): Call<CheckMembershipResponse>
 
@@ -66,47 +40,134 @@ interface RetrofitInterface {
     @POST("/users/login")
     fun login(@Body request: LoginRequest) : Call<LoginResponse>
 
-    @POST("/posts/{id}/comments")
-    fun addComment(@Path("id") id: String,
-                   @Body commentRequest: CommentsRequest)
 
+    /*** 2. 북마크 ***/
+    // 북마크 추가
+    @POST("/users/bookmarks")
+    fun addBookmark(
+        @Header("Authorization") access_token: String,
+        @Body request: AddBookmarkRequest): Call<AddBookmarkResponse>
+
+    // 북마크 삭제
+    @DELETE("/users/bookmarks")
+    fun deleteBookmark(
+        @Header("Authorization") access_token: String,
+        @Body request: DeleteBookmarkRequest): Call<DeleteBookmarkResponse>
+
+    // 북마크 목록 조회 (개발중)
+    @GET("/users/bookmarks")
+    fun getBookmarks(
+        @Header("Authorization") access_token: String,
+        @Part("type") type: String,
+        @Part("page") page: Int,
+        @Part("limit") limit: Int): Call<BookmarksResponse>
+
+
+    /*** 3. 게시글 ***/
+    // 카테고리 (재료, 가공)
+    @GET("/categories")
+    fun getCategories(@Header("Authorization") access_token: String): Call<Categories>
+
+    // 게시글 목록 조회 (태그검색은 개발중)
+    @GET("/posts")
+    fun getPosts(
+        @Header("Authorization") access_token: String,
+        @Body request: PostsRequest): Call<PostsResponse>
+
+    // 게시글 상세 조회
+    @GET("/posts/{id}")
+    fun getPostDetails(
+        @Header("Authorization") access_token: String,
+        @Path("id") id: String): Call<PostDetails>
+
+    // 게시글 추가 (글쓰기)
     @POST("/posts")
-    fun addPost(): Call<JSONObject>
+    fun addPost(
+        @Header("Authorization") access_token: String,
+        @Body request: AddEditPostRequest): Call<AddEditPostResponse>
 
-    @Multipart
-    @POST("/files")
-    fun addFile(@Part("access_token") access_token: RequestBody,
-                @Part("file") file: RequestBody,
-                @Part imageFile : MultipartBody.Part): Call<JSONObject>
+    // 게시글 삭제
+    @DELETE("/posts/{id}")
+    fun deletePost(
+        @Header("Authorization") access_token: String,
+        @Path("id") id: String): Call<DeletePostResponse>
 
-    @POST("/posts/{id}/bookmarks")
-    fun addBookmark(@Path("id") id: String,
-                    @Body request: JSONObject): Call<JSONObject>
-
-    @PUT("/comments/{id}")
-    fun modifyComment(@Path("id") id: String,
-                      @Body request: CommentsRequest)
-
+    // 게시글 수정
     @PUT("/posts/{id}")
-    fun modifyPost()
+    fun modifyPost(
+        @Header("Authorization") access_token: String,
+        @Body request: AddEditPostRequest): Call<AddEditPostResponse>
 
-    @PUT("/users/nickname")
-    fun modifyNickname()
+
+    /*** 3. 댓글 ***/
+    // 댓글 조회
+    @GET("/posts/{id}/comments/{page}/{limit}")
+    fun getComments(
+        @Header("Authorization") access_token: String,
+        @Path("id") id: String,
+        @Path("page") page: String,
+        @Path("limit") limit: String): Call<Comments>
+
+    // 댓글 추가
+    @POST("/posts/{id}/comments")
+    fun addComment(
+        @Header("Authorization") access_token: String,
+        @Path("id") id: String,
+        @Body request: AddCommentRequest)
+
+    // 댓글 수정
+    @PUT("/posts/{pid}/comments/{cid}")
+    fun modifyComment(
+        @Header("Authorization") access_token: String,
+        @Path("pid") pid: String,
+        @Path("cid") cid: String,
+        @Body request: AddCommentRequest)
+
+    // 댓글 삭제
+    @DELETE("/posts/{pid}/comments/{cid}")
+    fun deleteComment(
+        @Header("Authorization") access_token: String,
+        @Path("pid") pid: String,
+        @Path("cid") cid: String)
+
+
+    /*** 4. 파일 ***/
+    // 파일 업로드
+    @Multipart
+    @POST("/uploadFile.php")
+    fun addFile(
+        @Part("file") file: RequestBody,
+        @Part imageFile : MultipartBody.Part): Call<JSONObject>
+
+    // 파일 다운로드
+    @GET("/downloadFile.php")
+    fun getFile(
+        @Path("url") url: String,
+        @Path("name") name: String
+    )
+
+
+    /*** 5. 기타 ***/
+    // 서버 상태 확인
+    @GET("/ping")
+    fun getPing()
+
+
+    /*** 6. 미완성 api ***/
+    @GET("/home")
+    fun getHomePosts(@Body request: JSONObject): Call<HomePosts>
+
+    @GET("/users/jobs")
+    fun getJob(@Body request: JSONObject): Call<Jobs>
 
     @PUT("/users/jobs")
     fun modifyJob(@Body request: Jobs)
 
-    @DELETE("/comments/{id}")
-    fun deleteComment(@Path("id") id: String,
-                      @Body request: JSONObject)
+    @GET("/users/posts")
+    fun getMyPosts()
 
-    @DELETE("/posts/{id}")
-    fun deletePost(@Path("id") id: String,
-                   @Body request: JSONObject)
-
-    @DELETE("/bookmarks/{id}")
-    fun deleteBookmark(@Path("id") id: String,
-                       @Body request: JSONObject)
+    @PUT("/users/nickname")
+    fun modifyNickname()
 
     @DELETE("/users")
     fun deleteUser(@Body request: DeleteUserRequest)
