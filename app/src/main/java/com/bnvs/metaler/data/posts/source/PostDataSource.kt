@@ -1,12 +1,15 @@
 package com.bnvs.metaler.data.posts.source
 
+import com.bnvs.metaler.data.posts.PostsRequest
+import com.bnvs.metaler.data.posts.PostsResponse
+
 interface PostDataSource {
 
     interface LoadPostsCallback {
-        fun onPostsLoaded(posts: Posts)
+        fun onPostsLoaded(postsResponse: PostsResponse)
         fun onDataNotAvailable()
     }
 
-    fun getPosts(callback: LoadPostsCallback)
+    fun getPosts(access_token: String, request: PostsRequest, callback: LoadPostsCallback)
 
 }

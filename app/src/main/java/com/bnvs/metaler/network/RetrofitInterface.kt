@@ -9,6 +9,7 @@ import com.bnvs.metaler.data.comments.CommentsRequest
 import com.bnvs.metaler.data.job.Jobs
 import com.bnvs.metaler.data.posts.PostsRequest
 import com.bnvs.metaler.data.postdetails.PostDetails
+import com.bnvs.metaler.data.posts.PostsResponse
 import com.bnvs.metaler.data.user.*
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -32,8 +33,8 @@ interface RetrofitInterface {
 
     @GET("/posts")
     fun getPosts(
-        @Query("category_type") category_type: String,
-        @Body request: PostsRequest)
+        @Header("Authorization") access_token: String,
+        @Body request: PostsRequest): Call<PostsResponse>
 
     @GET("/posts/{id}")
     fun getPostDetails(@Path("id") id: String,
