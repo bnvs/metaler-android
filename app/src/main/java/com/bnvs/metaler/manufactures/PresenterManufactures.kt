@@ -1,14 +1,14 @@
 package com.bnvs.metaler.manufactures
 
 import android.content.Context
-import com.bnvs.metaler.data.post.source.PostRepository
+import com.bnvs.metaler.data.posts.source.PostsRepository
 
 class PresenterManufactures(
     private val context: Context,
     val view: ContractManufactures.View
 ) : ContractManufactures.Presenter {
 
-    private val postRepository: PostRepository = PostRepository(context)
+    private val postRepository: PostsRepository = PostsRepository(context)
 
     init {
         view.presenter = this

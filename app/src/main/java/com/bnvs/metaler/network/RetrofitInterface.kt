@@ -7,11 +7,9 @@ import com.bnvs.metaler.data.homeposts.HomePosts
 import com.bnvs.metaler.data.categories.Categories
 import com.bnvs.metaler.data.comments.CommentsRequest
 import com.bnvs.metaler.data.job.Jobs
-import com.bnvs.metaler.data.post.PostRequest
-import com.bnvs.metaler.data.post.Posts
-import com.bnvs.metaler.data.post.PostsRequest
-import com.bnvs.metaler.data.post.UserPostsRequest
+import com.bnvs.metaler.data.posts.PostsRequest
 import com.bnvs.metaler.data.postdetails.PostDetails
+import com.bnvs.metaler.data.posts.PostsResponse
 import com.bnvs.metaler.data.user.*
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -35,8 +33,8 @@ interface RetrofitInterface {
 
     @GET("/posts")
     fun getPosts(
-        @Query("category_type") category_type: String,
-        @Body request: PostsRequest): Call<Posts>
+        @Header("Authorization") access_token: String,
+        @Body request: PostsRequest): Call<PostsResponse>
 
     @GET("/posts/{id}")
     fun getPostDetails(@Path("id") id: String,
@@ -54,7 +52,7 @@ interface RetrofitInterface {
     fun getJob(@Body request: JSONObject): Call<Jobs>
 
     @GET("/users/posts")
-    fun getMyPosts(@Body request: UserPostsRequest): Call<Posts>
+    fun getMyPosts()
 
     // 회원가입 여부 확인
     @POST("/users/check")
@@ -73,7 +71,7 @@ interface RetrofitInterface {
                    @Body commentRequest: CommentsRequest)
 
     @POST("/posts")
-    fun addPost(@Body request: PostRequest): Call<JSONObject>
+    fun addPost(): Call<JSONObject>
 
     @Multipart
     @POST("/files")
@@ -90,11 +88,10 @@ interface RetrofitInterface {
                       @Body request: CommentsRequest)
 
     @PUT("/posts/{id}")
-    fun modifyPost(@Path("id") id: String,
-                   @Body request: PostRequest)
+    fun modifyPost()
 
     @PUT("/users/nickname")
-    fun modifyNickname(@Body request: NicknameRequest)
+    fun modifyNickname()
 
     @PUT("/users/jobs")
     fun modifyJob(@Body request: Jobs)

@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bnvs.metaler.R
-import com.bnvs.metaler.data.post.Post
+import com.bnvs.metaler.data.posts.Post
 import kotlinx.android.synthetic.main.item_posts_rv.view.*
 
 /**

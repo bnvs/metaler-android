@@ -3,7 +3,6 @@ package com.bnvs.metaler.detail
 import android.content.Context
 import com.bnvs.metaler.data.bookmarks.source.BookmarksDataSource
 import com.bnvs.metaler.data.bookmarks.source.BookmarksRepository
-import com.bnvs.metaler.data.post.source.PostRepository
 import com.bnvs.metaler.data.postdetails.PostDetails
 import com.bnvs.metaler.data.postdetails.source.PostDetailsDataSource
 import com.bnvs.metaler.data.postdetails.source.PostDetailsRepository

@@ -92,7 +92,6 @@ class ActivityLogin : AppCompatActivity() {
             UserManagement.getInstance().me(object : MeV2ResponseCallback() {
                 override fun onSuccess(result: MeV2Response?) {
                     // 카카오 로그인이 성공했을 때
-                    // Metaler 회원가입 여부 확인
                     Log.d(TAG, "카카오 아이디 : ${result!!.id}")
                     val kakaoId = result.id.toString()
 
