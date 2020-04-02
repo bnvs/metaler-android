@@ -4,5 +4,5 @@ data class PostsResponse(
     val count: Int,
     val is_next: Boolean,
     val posts: List<Post>,
-    val code: String
+    val code: String?
 )
