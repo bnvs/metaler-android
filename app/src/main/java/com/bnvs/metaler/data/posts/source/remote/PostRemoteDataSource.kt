@@ -19,15 +19,15 @@ object PostRemoteDataSource : PostDataSource{
     ) {
         retrofitClient.getPosts(access_token, request).enqueue(object : Callback<PostsResponse> {
             override fun onResponse(call: Call<PostsResponse>, response: Response<PostsResponse>) {
-                val postsResponse: PostsResponse? = response.body()
-                if (postsResponse != null) {
-                    callback.onPostsLoaded(postsResponse)
+                if (response.isSuccessful) {
+                    callback.onPostsLoaded(response.body()!!)
                 }else {
-                    callback.onDataNotAvailable()
+                    callback.onResponseError(response.errorBody().toString())
                 }
             }
 
             override fun onFailure(call: Call<PostsResponse>, t: Throwable) {
+                callback.onFailure(t)
             }
 
         })
