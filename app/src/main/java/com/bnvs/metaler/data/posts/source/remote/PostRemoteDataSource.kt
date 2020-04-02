@@ -1,7 +1,5 @@
 package com.bnvs.metaler.data.posts.source.remote
 
-import com.bnvs.metaler.data.posts.Posts
-import com.bnvs.metaler.data.posts.PostsCategory
 import com.bnvs.metaler.data.posts.PostsRequest
 import com.bnvs.metaler.data.posts.source.PostDataSource
 import com.bnvs.metaler.network.RetrofitClient

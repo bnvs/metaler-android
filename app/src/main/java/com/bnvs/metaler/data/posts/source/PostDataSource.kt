@@ -1,7 +1,5 @@
 package com.bnvs.metaler.data.posts.source
 
-import com.bnvs.metaler.data.posts.Posts
-
 interface PostDataSource {
 
     interface LoadPostsCallback {
