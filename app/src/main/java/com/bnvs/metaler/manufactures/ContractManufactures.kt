@@ -26,6 +26,8 @@ interface ContractManufactures {
     }
 
     interface Presenter : BasePresenter, TapBarContract.Presenter {
+        fun getAccessToken()
+
         fun loadPosts()
 
         fun refreshPosts()
