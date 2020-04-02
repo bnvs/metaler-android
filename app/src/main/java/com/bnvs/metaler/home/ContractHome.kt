@@ -1,5 +1,6 @@
 package com.bnvs.metaler.home
 
+import android.content.Context
 import com.bnvs.metaler.BasePresenter
 import com.bnvs.metaler.BaseView
 import com.bnvs.metaler.data.homeposts.HomePost
@@ -15,11 +16,11 @@ interface ContractHome {
     interface View : BaseView<Presenter>, TapBarContract.View {
         fun showProfile(profile: Profile)
 
-        fun showMaterialsList(materials: List<HomePost>)
+//        fun showMaterialsList(materials: List<HomePost>)
 
-        fun showManufacturesList(manufactures: List<HomePost>)
+//        fun showManufacturesList(manufactures: List<HomePost>)
 
-        fun showPostDetailUi(postId: Int)
+        fun showPostDetailUi()
 
         fun setTransparentStatusBar()
     }
@@ -29,7 +30,7 @@ interface ContractHome {
 
         fun loadHomePost()
 
-        fun openPostDetail(postId: Int)
+        fun openPostDetail()
 
         fun setStatusBar()
     }

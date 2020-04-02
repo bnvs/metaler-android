@@ -31,16 +31,16 @@ class ActivityHome : AppCompatActivity(), ContractHome.View {
      * 홈 탭에서 보여지는 재료/가공 게시물 리사이클러뷰 아이템에 달아줄 클릭리스너입니다
      * 아이템 클릭 시, 클릭한 게시물의 post_id 를 presenter 에 전달합니다.
      * */
-    private var itemListener: HomePostItemListener = object : HomePostItemListener {
-        override fun onHomePostClick(clickedHomePostId: Int) {
-            presenter.openPostDetail(clickedHomePostId)
-        }
-    }
-
-    private val materialsAdapter = HomePostAdapter("materials", ArrayList(0), itemListener)
-    private val manufacturesAdapter = HomePostAdapter("manufactures", ArrayList(0), itemListener)
-    private val materialsLayoutManager = LinearLayoutManager(this)
-    private val manufacturesLayoutManager = LinearLayoutManager(this)
+//    private var itemListener: HomePostItemListener = object : HomePostItemListener {
+//        override fun onHomePostClick(clickedHomePostId: Int) {
+//            presenter.openPostDetail(clickedHomePostId)
+//        }
+//    }
+//
+//    private val materialsAdapter = HomePostAdapter("materials", ArrayList(0), itemListener)
+//    private val manufacturesAdapter = HomePostAdapter("manufactures", ArrayList(0), itemListener)
+//    private val materialsLayoutManager = LinearLayoutManager(this)
+//    private val manufacturesLayoutManager = LinearLayoutManager(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,17 +55,17 @@ class ActivityHome : AppCompatActivity(), ContractHome.View {
         // Set up Buttons
         initClickListeners()
 
-        // Set up materials recyclerView
-        materialsRV.apply {
-            adapter = materialsAdapter
-            layoutManager = materialsLayoutManager
-        }
-
-        // Set up manufactures recyclerView
-        manufactureRV.apply {
-            adapter = manufacturesAdapter
-            layoutManager = manufacturesLayoutManager
-        }
+//        // Set up materials recyclerView
+//        materialsRV.apply {
+//            adapter = materialsAdapter
+//            layoutManager = materialsLayoutManager
+//        }
+//
+//        // Set up manufactures recyclerView
+//        manufactureRV.apply {
+//            adapter = manufacturesAdapter
+//            layoutManager = manufacturesLayoutManager
+//        }
 
         // 홈 탭에서 보여줄 데이터 가져오기 시작
         // 상태 바(배터리,와이파이 아이콘 표시되는 곳) 투명하게함
@@ -90,23 +90,26 @@ class ActivityHome : AppCompatActivity(), ContractHome.View {
         profileEmail.text = profile.profile_email
     }
 
-    // 재료 리사이클러뷰를 보여준다
-    override fun showMaterialsList(materials: List<HomePost>) {
-        materialsAdapter.setHomePosts(materials)
-        materialsAdapter.notifyDataSetChanged()
-    }
-
-    // 가공 리사이클러뷰를 보여준다
-    override fun showManufacturesList(manufactures: List<HomePost>) {
-        manufacturesAdapter.setHomePosts(manufactures)
-        materialsAdapter.notifyDataSetChanged()
-    }
+//    // 재료 리사이클러뷰를 보여준다
+//    override fun showMaterialsList(materials: List<HomePost>) {
+//        materialsAdapter.setHomePosts(materials)
+//        materialsAdapter.notifyDataSetChanged()
+//    }
+//
+//    // 가공 리사이클러뷰를 보여준다
+//    override fun showManufacturesList(manufactures: List<HomePost>) {
+//        manufacturesAdapter.setHomePosts(manufactures)
+//        materialsAdapter.notifyDataSetChanged()
+//    }
 
     // 게시물 상세 내용 액티비티로 이동한다
-    override fun showPostDetailUi(postId: Int) {
-        Intent(this@ActivityHome, ActivityDetail::class.java)
-            .apply { putExtra("postId", postId) }
-            .also { startActivity(it) }
+    override fun showPostDetailUi() {
+//        Intent(this@ActivityHome, ActivityDetail::class.java)
+//            .apply { putExtra("postId", postId) }
+//            .also { startActivity(it) }
+
+        val intent = Intent(this@ActivityHome, ActivityDetail::class.java)
+        startActivity(intent)
 
         overridePendingTransition(0,0)
     }
@@ -134,6 +137,9 @@ class ActivityHome : AppCompatActivity(), ContractHome.View {
     private fun setMoreButtons() {
         materialsMoreBtn.setOnClickListener { presenter.openMaterials(this, this) }
         manufactureMoreBtn.setOnClickListener { presenter.openManufactures(this, this) }
+
+        //상세페이지 레이아웃 보려고 test용으로 추가
+        materialsTitle1.setOnClickListener { presenter.openPostDetail() }
     }
 
     private fun setTapBarButtons() {
@@ -168,75 +174,75 @@ class ActivityHome : AppCompatActivity(), ContractHome.View {
      * postType 에 "materials" 또는 "manufactures" 문자열을 넣어
      * inflating 할 리사이클러뷰 아이템 뷰를 구분할 수 있습니다.
      * */
-    private class HomePostAdapter(
-        private val postType: String,
-        private var homePosts: List<HomePost>,
-        private val itemListener: HomePostItemListener
-    ) : RecyclerView.Adapter<HomePostAdapter.ViewHolder>() {
-
-        fun setHomePosts(list: List<HomePost>) {
-            this.homePosts = list
-        }
-
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-            lateinit var inflatedView: View
-            when(postType) {
-                "materials" -> {
-                    inflatedView = LayoutInflater.from(parent.context)
-                        .inflate(R.layout.item_home_materials_rv, parent, false)
-                }
-                "manufactures" -> {
-                    inflatedView = LayoutInflater.from(parent.context)
-                        .inflate(R.layout.item_home_manufacture_rv, parent, false)
-                }
-            }
-            return ViewHolder(inflatedView)
-        }
-
-        override fun getItemCount(): Int {
-            return homePosts.size
-        }
-
-        override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-            holder.bind(homePosts[position])
-        }
-
-        inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-            private var view: View = itemView
-
-            fun bind(item: HomePost) {
-
-                var tags = ""
-                for (tag in item.tags) {
-                    tags += "#$tag "
-                }
-
-                when(postType) {
-                    "materials" -> {
-                        view.apply {
-                            materialsTitle.text = item.title
-                            materialsUserName.text = item.nickname
-                            materialsDate.text = item.date
-                            materialsTag.text = tags
-                            setOnClickListener { itemListener.onHomePostClick(item.post_id) }
-                        }
-                    }
-                    "manufactures" -> {
-                        view.apply {
-                            manufactureTitle.text = item.title
-                            manufactureUserName.text = item.nickname
-                            manufactureDate.text = item.date
-                            manufactureTag.text = tags
-                            setOnClickListener { itemListener.onHomePostClick(item.post_id) }
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    private interface HomePostItemListener {
-        fun onHomePostClick(clickedHomePostId: Int)
-    }
+//    private class HomePostAdapter(
+//        private val postType: String,
+//        private var homePosts: List<HomePost>,
+//        private val itemListener: HomePostItemListener
+//    ) : RecyclerView.Adapter<HomePostAdapter.ViewHolder>() {
+//
+//        fun setHomePosts(list: List<HomePost>) {
+//            this.homePosts = list
+//        }
+//
+//        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+//            lateinit var inflatedView: View
+//            when(postType) {
+//                "materials" -> {
+//                    inflatedView = LayoutInflater.from(parent.context)
+//                        .inflate(R.layout.item_home_materials_rv, parent, false)
+//                }
+//                "manufactures" -> {
+//                    inflatedView = LayoutInflater.from(parent.context)
+//                        .inflate(R.layout.item_home_manufacture_rv, parent, false)
+//                }
+//            }
+//            return ViewHolder(inflatedView)
+//        }
+//
+//        override fun getItemCount(): Int {
+//            return homePosts.size
+//        }
+//
+//        override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+//            holder.bind(homePosts[position])
+//        }
+//
+//        inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+//            private var view: View = itemView
+//
+//            fun bind(item: HomePost) {
+//
+//                var tags = ""
+//                for (tag in item.tags) {
+//                    tags += "#$tag "
+//                }
+//
+//                when(postType) {
+//                    "materials" -> {
+//                        view.apply {
+//                            materialsTitle.text = item.title
+//                            materialsUserName.text = item.nickname
+//                            materialsDate.text = item.date
+//                            materialsTag.text = tags
+//                            setOnClickListener { itemListener.onHomePostClick(item.post_id) }
+//                        }
+//                    }
+//                    "manufactures" -> {
+//                        view.apply {
+//                            manufactureTitle.text = item.title
+//                            manufactureUserName.text = item.nickname
+//                            manufactureDate.text = item.date
+//                            manufactureTag.text = tags
+//                            setOnClickListener { itemListener.onHomePostClick(item.post_id) }
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//    }
+//
+//    private interface HomePostItemListener {
+//        fun onHomePostClick(clickedHomePostId: Int)
+//    }
 
 }
