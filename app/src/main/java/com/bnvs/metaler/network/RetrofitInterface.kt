@@ -10,7 +10,6 @@ import com.bnvs.metaler.data.job.Jobs
 import com.bnvs.metaler.data.post.PostRequest
 import com.bnvs.metaler.data.post.Posts
 import com.bnvs.metaler.data.post.PostsRequest
-import com.bnvs.metaler.data.post.UserPostsRequest
 import com.bnvs.metaler.data.postdetails.PostDetails
 import com.bnvs.metaler.data.user.*
 import okhttp3.MultipartBody
@@ -54,7 +53,7 @@ interface RetrofitInterface {
     fun getJob(@Body request: JSONObject): Call<Jobs>
 
     @GET("/users/posts")
-    fun getMyPosts(@Body request: UserPostsRequest): Call<Posts>
+    fun getMyPosts(): Call<Posts>
 
     // 회원가입 여부 확인
     @POST("/users/check")
