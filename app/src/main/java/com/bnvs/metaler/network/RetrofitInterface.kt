@@ -57,7 +57,7 @@ interface RetrofitInterface {
         @Header("Authorization") access_token: String,
         @Part("type") type: String,
         @Part("page") page: Int,
-        @Part("limit") limit: Int): Call<Bookmarks>
+        @Part("limit") limit: Int): Call<BookmarksResponse>
 
 
     /*** 3. 게시글 ***/
