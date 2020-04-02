@@ -7,7 +7,7 @@ import com.bnvs.metaler.data.bookmarks.*
 import com.bnvs.metaler.data.comments.Comments
 import com.bnvs.metaler.data.homeposts.HomePosts
 import com.bnvs.metaler.data.categories.Categories
-import com.bnvs.metaler.data.comments.CommentsRequest
+import com.bnvs.metaler.data.comments.AddCommentRequest
 import com.bnvs.metaler.data.job.Jobs
 import com.bnvs.metaler.data.posts.PostsRequest
 import com.bnvs.metaler.data.postdetails.PostDetails
@@ -101,36 +101,41 @@ interface RetrofitInterface {
 
     /*** 3. 댓글 ***/
     // 댓글 조회
-    @GET("/posts/{id}/comments")
+    @GET("/posts/{id}/comments/{page}/{limit}")
     fun getComments(
+        @Header("Authorization") access_token: String,
         @Path("id") id: String,
-        @Body request: JSONObject): Call<Comments>
+        @Path("page") page: String,
+        @Path("limit") limit: String): Call<Comments>
 
     // 댓글 추가
     @POST("/posts/{id}/comments")
     fun addComment(
+        @Header("Authorization") access_token: String,
         @Path("id") id: String,
-        @Body commentRequest: CommentsRequest)
+        @Body request: AddCommentRequest)
 
     // 댓글 수정
-    @PUT("/comments/{id}")
+    @PUT("/posts/{pid}/comments/{cid}")
     fun modifyComment(
-        @Path("id") id: String,
-        @Body request: CommentsRequest)
+        @Header("Authorization") access_token: String,
+        @Path("pid") pid: String,
+        @Path("cid") cid: String,
+        @Body request: AddCommentRequest)
 
     // 댓글 삭제
-    @DELETE("/comments/{id}")
+    @DELETE("/posts/{pid}/comments/{cid}")
     fun deleteComment(
-        @Path("id") id: String,
-        @Body request: JSONObject)
+        @Header("Authorization") access_token: String,
+        @Path("pid") pid: String,
+        @Path("cid") cid: String)
 
 
     /*** 4. 파일 ***/
     // 파일 업로드
     @Multipart
-    @POST("/files")
+    @POST("/uploadFile.php")
     fun addFile(
-        @Part("access_token") access_token: RequestBody,
         @Part("file") file: RequestBody,
         @Part imageFile : MultipartBody.Part): Call<JSONObject>
 

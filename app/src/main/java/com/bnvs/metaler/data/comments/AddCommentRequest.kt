@@ -1,6 +1,5 @@
 package com.bnvs.metaler.data.comments
 
-data class CommentsRequest(
-    val access_token: String,
+data class AddCommentRequest(
     val content: String
 )
