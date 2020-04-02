@@ -3,7 +3,7 @@ package com.bnvs.metaler.data.posts.source
 import com.bnvs.metaler.data.posts.PostsRequest
 import com.bnvs.metaler.data.posts.PostsResponse
 
-interface PostDataSource {
+interface PostsDataSource {
 
     interface LoadPostsCallback {
         fun onPostsLoaded(postsResponse: PostsResponse)
