@@ -97,7 +97,7 @@ class ActivityMaterials : AppCompatActivity(), ContractMaterials.View {
         }
 
         // Set up RefreshListener
-        refreshLayout.apply {
+        /*refreshLayout.apply {
             setOnRefreshListener {
                 presenter.refreshPosts()
                 refreshLayout.isRefreshing = false
@@ -105,7 +105,7 @@ class ActivityMaterials : AppCompatActivity(), ContractMaterials.View {
             setColorSchemeColors(
                 ContextCompat.getColor(this@ActivityMaterials, R.color.colorPurple)
             )
-        }
+        }*/
 
         // 재료 탭 presenter 시작
         presenter.run {

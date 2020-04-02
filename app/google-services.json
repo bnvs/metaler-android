@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "566524693128",
+    "firebase_url": "https://metaler-v1.firebaseio.com",
+    "project_id": "metaler-v1",
+    "storage_bucket": "metaler-v1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:566524693128:android:63d13ba2c0f91630b76d3d",
+        "android_client_info": {
+          "package_name": "com.bnvs.metaler"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "566524693128-6bj5h9jongfcetk9hgsgojn79s2fv5fc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA2wDj_YGS8fHFL6_JJtVMh9311WnDLJnY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "566524693128-6bj5h9jongfcetk9hgsgojn79s2fv5fc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
