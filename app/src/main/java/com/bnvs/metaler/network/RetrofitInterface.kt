@@ -1,9 +1,6 @@
 package com.bnvs.metaler.network
 
-import com.bnvs.metaler.data.bookmarks.AddBookmarkRequest
-import com.bnvs.metaler.data.bookmarks.AddBookmarkResponse
-import com.bnvs.metaler.data.bookmarks.Bookmarks
-import com.bnvs.metaler.data.bookmarks.BookmarksRequest
+import com.bnvs.metaler.data.bookmarks.*
 import com.bnvs.metaler.data.comments.Comments
 import com.bnvs.metaler.data.homeposts.HomePosts
 import com.bnvs.metaler.data.categories.Categories
@@ -52,7 +49,7 @@ interface RetrofitInterface {
     @DELETE("/users/bookmarks")
     fun deleteBookmark(
         @Header("Authorization") access_token: String,
-        @Body request: JSONObject)
+        @Body request: DeleteBookmarkRequest): Call<DeleteBookmarkResponse>
 
     // 북마크 목록 조회 (개발중)
     @GET("/users/bookmarks")
