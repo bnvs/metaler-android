@@ -1,6 +1,7 @@
 package com.bnvs.metaler.data.bookmarks
 
 data class BookmarksRequest(
-    val access_token: String,
-    val bookmark: List<BookmarksCategory>
+    val category_type: String,
+    val page: Int,
+    val limit: Int
 )
