@@ -1,4 +1,4 @@
-package com.bnvs.metaler.data.post
+package com.bnvs.metaler.data.posts
 
 data class PostCategory(
     val category_type: String,

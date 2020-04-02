@@ -7,9 +7,9 @@ import com.bnvs.metaler.data.homeposts.HomePosts
 import com.bnvs.metaler.data.categories.Categories
 import com.bnvs.metaler.data.comments.CommentsRequest
 import com.bnvs.metaler.data.job.Jobs
-import com.bnvs.metaler.data.post.PostRequest
-import com.bnvs.metaler.data.post.Posts
-import com.bnvs.metaler.data.post.PostsRequest
+import com.bnvs.metaler.data.posts.PostRequest
+import com.bnvs.metaler.data.posts.Posts
+import com.bnvs.metaler.data.posts.PostsRequest
 import com.bnvs.metaler.data.postdetails.PostDetails
 import com.bnvs.metaler.data.user.*
 import okhttp3.MultipartBody

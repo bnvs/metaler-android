@@ -1,7 +1,7 @@
 package com.bnvs.metaler.manufactures
 
 import android.content.Context
-import com.bnvs.metaler.data.post.source.PostRepository
+import com.bnvs.metaler.data.posts.source.PostRepository
 
 class PresenterManufactures(
     private val context: Context,

@@ -1,4 +1,4 @@
-package com.bnvs.metaler.data.post
+package com.bnvs.metaler.data.posts
 
 data class PostRequest(
     val access_token: String,

@@ -2,7 +2,7 @@ package com.bnvs.metaler.manufactures
 
 import com.bnvs.metaler.BasePresenter
 import com.bnvs.metaler.BaseView
-import com.bnvs.metaler.data.post.Post
+import com.bnvs.metaler.data.posts.Post
 import com.bnvs.metaler.util.TapBarContract
 
 /**

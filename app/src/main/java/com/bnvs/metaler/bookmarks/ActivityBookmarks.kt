@@ -9,16 +9,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bnvs.metaler.R
-import com.bnvs.metaler.data.post.Post
-import com.bnvs.metaler.home.PresenterHome
-import com.bnvs.metaler.util.PostAdapter
+import com.bnvs.metaler.data.posts.Post
 import kotlinx.android.synthetic.main.activity_bookmark.*
 import kotlinx.android.synthetic.main.activity_bookmark.bookmarkBtn
 import kotlinx.android.synthetic.main.activity_bookmark.homeBtn
 import kotlinx.android.synthetic.main.activity_bookmark.manufactureBtn
 import kotlinx.android.synthetic.main.activity_bookmark.materialsBtn
 import kotlinx.android.synthetic.main.activity_bookmark.myPageBtn
-import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.item_bookmark_rv.view.*
 
 class ActivityBookmarks : AppCompatActivity(), ContractBookmarks.View {

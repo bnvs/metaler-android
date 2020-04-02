@@ -1,6 +1,6 @@
-package com.bnvs.metaler.data.post.source
+package com.bnvs.metaler.data.posts.source
 
-import com.bnvs.metaler.data.post.Posts
+import com.bnvs.metaler.data.posts.Posts
 
 interface PostDataSource {
 

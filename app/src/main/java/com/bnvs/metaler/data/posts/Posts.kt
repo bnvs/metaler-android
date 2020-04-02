@@ -1,4 +1,4 @@
-package com.bnvs.metaler.data.post
+package com.bnvs.metaler.data.posts
 
 /**
  * Categories, Manufactures, Bookmarks, 내가쓴 글 확인 탭에서

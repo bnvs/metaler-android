@@ -1,8 +1,8 @@
-package com.bnvs.metaler.data.post.source
+package com.bnvs.metaler.data.posts.source
 
 import android.content.Context
-import com.bnvs.metaler.data.post.source.local.PostLocalDataSource
-import com.bnvs.metaler.data.post.source.remote.PostRemoteDataSource
+import com.bnvs.metaler.data.posts.source.local.PostLocalDataSource
+import com.bnvs.metaler.data.posts.source.remote.PostRemoteDataSource
 
 class PostRepository(context: Context) : PostDataSource {
 
