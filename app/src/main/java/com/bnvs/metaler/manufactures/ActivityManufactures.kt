@@ -2,11 +2,15 @@ package com.bnvs.metaler.manufactures
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.util.Log
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bnvs.metaler.R
 import com.bnvs.metaler.data.posts.Post
+import com.bnvs.metaler.data.postsdummy.PostDummy
 import com.bnvs.metaler.util.PostAdapter
 import com.bnvs.metaler.util.PostItemListener
 import kotlinx.android.synthetic.main.activity_manufacture.*
@@ -23,33 +27,45 @@ class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
      * onPostClick -> 게시물을 클릭한 경우
      * onBookmarkButtonClick -> 북마크 버튼을 클릭한 경우
      * */
-    private var itemListener: PostItemListener = object : PostItemListener {
-        override fun onPostClick(clickedPostId: Int) {
-            presenter.openPostDetail(clickedPostId)
-        }
+//    private var itemListener: PostItemListener = object : PostItemListener {
+//        override fun onPostClick(clickedPostId: Int) {
+//            presenter.openPostDetail(clickedPostId)
+//        }
+//
+//        override fun onBookmarkButtonClick(view: View, clickedPostId: Int, isBookmark: Boolean, position: Int) {
+//            if (!isBookmark) {
+//                view.bookmarkBtn.setImageResource(R.drawable.ic_list_bookmark_active_x3)
+//                presenter.addBookmark(clickedPostId)
+//                postAdapter.apply {
+//                    setBookmark(position)
+//                    notifyDataSetChanged()
+//                }
+//            }else {
+//                view.bookmarkBtn.setImageResource(R.drawable.ic_list_bookmark_inactive_x3)
+//                presenter.deleteBookmark(clickedPostId)
+//                postAdapter.apply {
+//                    setBookmark(position)
+//                    notifyDataSetChanged()
+//                }
+//            }
+//        }
+//
+//    }
+//
+//    private val postAdapter = PostAdapter(ArrayList(0), itemListener)
+//    private val postLayoutManager = LinearLayoutManager(this)
 
-        override fun onBookmarkButtonClick(view: View, clickedPostId: Int, isBookmark: Boolean, position: Int) {
-            if (!isBookmark) {
-                view.bookmarkBtn.setImageResource(R.drawable.ic_list_bookmark_active_x3)
-                presenter.addBookmark(clickedPostId)
-                postAdapter.apply {
-                    setBookmark(position)
-                    notifyDataSetChanged()
-                }
-            }else {
-                view.bookmarkBtn.setImageResource(R.drawable.ic_list_bookmark_inactive_x3)
-                presenter.deleteBookmark(clickedPostId)
-                postAdapter.apply {
-                    setBookmark(position)
-                    notifyDataSetChanged()
-                }
-            }
-        }
 
-    }
+    lateinit var posts: ArrayList<Post?>
+    lateinit var loadMorePosts: ArrayList<Post?>
+    lateinit var postAdapter: ManufacturesPostAdapter
+    lateinit var scrollListener: EndlessRecyclerViewScrollListener
+    lateinit var postLayoutManager: RecyclerView.LayoutManager
 
-    private val postAdapter = PostAdapter(ArrayList(0), itemListener)
-    private val postLayoutManager = LinearLayoutManager(this)
+//    lateinit var itemListener: ManufacturesPostAdapter.PostItemListener
+
+    private val postDummy :PostDummy = PostDummy()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,13 +78,13 @@ class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
         initClickListeners()
 
         // Set up posts recyclerView
-        postsRV.apply {
-            adapter = postAdapter
-            layoutManager = postLayoutManager
-        }
+//        postsRV.apply {
+//            adapter = postAdapter
+//            layoutManager = postLayoutManager
+//        }
 
         // Set up RefreshListener
-        refreshLayout.apply {
+//        refreshLayout.apply {
             /*setOnRefreshListener {
                 presenter.refreshPosts()
                 refreshLayout.isRefreshing = false
@@ -76,7 +92,17 @@ class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
             setColorSchemeColors(
                 ContextCompat.getColor(this@ActivityManufactures, R.color.colorPurple)
             )*/
-        }
+//        }
+
+
+        //더미데이터불러오기
+        setPostsDummy()
+
+        setAdapter()
+
+        setRVLayoutManager()
+
+        setRVScrollListener()
 
         // 가공 탭 presenter 시작
         presenter.run {
@@ -90,7 +116,73 @@ class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
         presenter.start()
     }
 
-    override fun showPosts(posts: List<Post>) {
+
+
+
+    //리사이클러뷰에 보여줄 더미데이터를 가져온다.
+    private fun setPostsDummy() {
+        posts = ArrayList()
+        for (i in 0..40) {
+            posts.add(postDummy.getDummy())
+        }
+
+        Log.d(TAG, "더미데이터 ? : ${posts}")
+    }
+
+    private fun setAdapter() {
+        postAdapter = ManufacturesPostAdapter(posts)
+        postAdapter.notifyDataSetChanged()
+        postsRV.adapter = postAdapter
+    }
+
+    private fun setRVLayoutManager() {
+        postLayoutManager = LinearLayoutManager(this)
+        postsRV.layoutManager = postLayoutManager
+        postsRV.setHasFixedSize(true)
+    }
+
+    private  fun setRVScrollListener() {
+        postLayoutManager = LinearLayoutManager(this)
+        scrollListener = EndlessRecyclerViewScrollListener(postLayoutManager as LinearLayoutManager)
+        scrollListener.setOnLoadMoreListener(object :
+            EndlessRecyclerViewScrollListener.OnLoadMoreListener {
+            override fun onLoadMore() {
+                LoadMoreData()
+            }
+        })
+        postsRV.addOnScrollListener(scrollListener)
+    }
+
+    private fun LoadMoreData() {
+        //Add the Loading View
+        postAdapter.addLoadingView()
+        //Create the loadMoreItemsCells Arraylist
+        loadMorePosts = ArrayList()
+        //Get the number of the current Items of the main Arraylist
+        val start = postAdapter.itemCount
+        //Load 16 more items
+        val end = start + 16
+        //Use Handler if the items are loading too fast.
+        //If you remove it, the data will load so fast that you can't even see the LoadingView
+        Handler().postDelayed({
+            for (i in start..end) {
+                //Get data and add them to loadMoreItemsCells ArrayList
+                loadMorePosts.add(postDummy.getDummy())
+            }
+            //Remove the Loading View
+            postAdapter.removeLoadingView()
+            //We adding the data to our main ArrayList
+            postAdapter.setPosts(loadMorePosts)
+            //Change the boolean isLoading to false
+            scrollListener.setLoaded()
+            //Update the recyclerView in the main thread
+            postsRV.post {
+                postAdapter.notifyDataSetChanged()
+            }
+        }, 3000)
+
+    }
+    override fun showPosts(posts: ArrayList<Post?>) {
         postAdapter.setPosts(posts)
     }
 
@@ -122,6 +214,8 @@ class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
     private fun setTitleBarButtons() {
         // 글작성, 글검색 버튼 클릭 리스너 달아주기
     }
+
+
 
     private fun setTapBarButtons() {
         homeBtn.setOnClickListener { presenter.openHome(this, this) }
