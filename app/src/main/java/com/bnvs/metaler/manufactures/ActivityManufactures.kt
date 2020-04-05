@@ -1,18 +1,15 @@
 package com.bnvs.metaler.manufactures
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
 import android.view.View
-import androidx.core.content.ContextCompat
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bnvs.metaler.R
 import com.bnvs.metaler.data.posts.Post
 import com.bnvs.metaler.data.postsdummy.PostDummy
-import com.bnvs.metaler.util.PostAdapter
-import com.bnvs.metaler.util.PostItemListener
 import kotlinx.android.synthetic.main.activity_manufacture.*
 import kotlinx.android.synthetic.main.item_posts_rv.view.*
 
@@ -27,30 +24,35 @@ class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
      * onPostClick -> 게시물을 클릭한 경우
      * onBookmarkButtonClick -> 북마크 버튼을 클릭한 경우
      * */
-//    private var itemListener: PostItemListener = object : PostItemListener {
-//        override fun onPostClick(clickedPostId: Int) {
-//            presenter.openPostDetail(clickedPostId)
-//        }
-//
-//        override fun onBookmarkButtonClick(view: View, clickedPostId: Int, isBookmark: Boolean, position: Int) {
-//            if (!isBookmark) {
-//                view.bookmarkBtn.setImageResource(R.drawable.ic_list_bookmark_active_x3)
+    private var itemListener: ManufacturesPostItemListener = object : ManufacturesPostItemListener {
+        override fun onPostClick(clickedPostId: Int) {
+            presenter.openPostDetail(clickedPostId)
+        }
+
+        override fun onBookmarkButtonClick(
+            view: View,
+            clickedPostId: Int,
+            isBookmark: Boolean,
+            position: Int
+        ) {
+            if (!isBookmark) {
+                view.bookmarkBtn.setImageResource(R.drawable.ic_list_bookmark_active_x3)
 //                presenter.addBookmark(clickedPostId)
-//                postAdapter.apply {
-//                    setBookmark(position)
-//                    notifyDataSetChanged()
-//                }
-//            }else {
-//                view.bookmarkBtn.setImageResource(R.drawable.ic_list_bookmark_inactive_x3)
+                postAdapter.apply {
+                    setBookmark(position)
+                    notifyDataSetChanged()
+                }
+            } else {
+                view.bookmarkBtn.setImageResource(R.drawable.ic_list_bookmark_inactive_x3)
 //                presenter.deleteBookmark(clickedPostId)
-//                postAdapter.apply {
-//                    setBookmark(position)
-//                    notifyDataSetChanged()
-//                }
-//            }
-//        }
-//
-//    }
+                postAdapter.apply {
+                    setBookmark(position)
+                    notifyDataSetChanged()
+                }
+            }
+        }
+
+    }
 //
 //    private val postAdapter = PostAdapter(ArrayList(0), itemListener)
 //    private val postLayoutManager = LinearLayoutManager(this)
@@ -62,9 +64,9 @@ class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
     lateinit var scrollListener: EndlessRecyclerViewScrollListener
     lateinit var postLayoutManager: RecyclerView.LayoutManager
 
-//    lateinit var itemListener: ManufacturesPostAdapter.PostItemListener
+//    lateinit var itemListener: ManufacturesPostItemListener
 
-    private val postDummy :PostDummy = PostDummy()
+    private val postDummy: PostDummy = PostDummy()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -85,13 +87,13 @@ class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
 
         // Set up RefreshListener
 //        refreshLayout.apply {
-            /*setOnRefreshListener {
-                presenter.refreshPosts()
-                refreshLayout.isRefreshing = false
-            }
-            setColorSchemeColors(
-                ContextCompat.getColor(this@ActivityManufactures, R.color.colorPurple)
-            )*/
+        /*setOnRefreshListener {
+            presenter.refreshPosts()
+            refreshLayout.isRefreshing = false
+        }
+        setColorSchemeColors(
+            ContextCompat.getColor(this@ActivityManufactures, R.color.colorPurple)
+        )*/
 //        }
 
 
@@ -117,12 +119,10 @@ class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
     }
 
 
-
-
     //리사이클러뷰에 보여줄 더미데이터를 가져온다.
     private fun setPostsDummy() {
         posts = ArrayList()
-        for (i in 0..40) {
+        for (i in 0..6) {
             posts.add(postDummy.getDummy())
         }
 
@@ -130,7 +130,7 @@ class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
     }
 
     private fun setAdapter() {
-        postAdapter = ManufacturesPostAdapter(posts)
+        postAdapter = ManufacturesPostAdapter(posts, itemListener)
         postAdapter.notifyDataSetChanged()
         postsRV.adapter = postAdapter
     }
@@ -141,7 +141,7 @@ class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
         postsRV.setHasFixedSize(true)
     }
 
-    private  fun setRVScrollListener() {
+    private fun setRVScrollListener() {
         postLayoutManager = LinearLayoutManager(this)
         scrollListener = EndlessRecyclerViewScrollListener(postLayoutManager as LinearLayoutManager)
         scrollListener.setOnLoadMoreListener(object :
@@ -161,7 +161,7 @@ class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
         //Get the number of the current Items of the main Arraylist
         val start = postAdapter.itemCount
         //Load 16 more items
-        val end = start + 16
+        val end = start + 6
         //Use Handler if the items are loading too fast.
         //If you remove it, the data will load so fast that you can't even see the LoadingView
         Handler().postDelayed({
@@ -182,6 +182,7 @@ class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
         }, 3000)
 
     }
+
     override fun showPosts(posts: ArrayList<Post?>) {
         postAdapter.setPosts(posts)
     }
@@ -214,7 +215,6 @@ class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
     private fun setTitleBarButtons() {
         // 글작성, 글검색 버튼 클릭 리스너 달아주기
     }
-
 
 
     private fun setTapBarButtons() {
