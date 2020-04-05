@@ -10,7 +10,7 @@ import android.view.View
  * */
 
 interface ManufacturesPostItemListener {
-    fun onPostClick(clickedPostId: Int)
+    fun onPostClick(view: View, clickedPostId: Int)
 
     fun onBookmarkButtonClick(view: View, clickedPostId: Int, isBookmark: Boolean, position: Int)
 }

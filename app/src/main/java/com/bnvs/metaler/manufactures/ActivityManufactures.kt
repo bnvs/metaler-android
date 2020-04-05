@@ -8,7 +8,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bnvs.metaler.R
-import com.bnvs.metaler.data.posts.Post
 import com.bnvs.metaler.data.postsdummy.PostDummyData
 import com.bnvs.metaler.data.postsdummy.PostsDummy
 import kotlinx.android.synthetic.main.activity_manufacture.*
@@ -26,8 +25,9 @@ class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
      * onBookmarkButtonClick -> 북마크 버튼을 클릭한 경우
      * */
     private var itemListener: ManufacturesPostItemListener = object : ManufacturesPostItemListener {
-        override fun onPostClick(clickedPostId: Int) {
+        override fun onPostClick(view: View, clickedPostId: Int) {
             Log.d(TAG, "눌린 아이템? : $clickedPostId")
+//            Log.d(TAG, "눌린 아이템? : ${posts[clickedPostId]}")
 //            presenter.openPostDetail(clickedPostId)
         }
 
@@ -125,12 +125,9 @@ class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
     //리사이클러뷰에 보여줄 더미데이터를 가져온다.
     private fun setPostsDummy() {
         posts = ArrayList()
+        var tempData: PostDummyData = postsDummy.getDummy()
         for (i in 0..6) {
-
-            var tempData : PostDummyData = postsDummy.getDummy()
-            tempData.id = tempData.id++
             posts.add(tempData)
-            Log.d(TAG, "더미데이터 id ? : ${tempData.id}")
         }
 
 //        Log.d(TAG, "더미데이터 ? : ${posts}")

@@ -102,7 +102,10 @@ class ManufacturesPostAdapter(
                 dislikeNum.text = posts[position]!!.hate_count.toString()
                 likeNum.text = posts[position]!!.good_count.toString()
 
-                setOnClickListener { itemListener.onPostClick(posts[position]!!.id) }
+                holder.itemView.setOnClickListener{ v->
+                    itemListener.onPostClick(v, position)
+                }
+//                setOnClickListener { itemListener.onPostClick(posts[position]!!.id) }
                 bookmarkBtn.setOnClickListener {
                     itemListener.onBookmarkButtonClick(bookmarkBtn, posts[position]!!.id, posts[position]!!.is_bookmark, position)
                 }
