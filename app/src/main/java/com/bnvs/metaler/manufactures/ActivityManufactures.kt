@@ -27,7 +27,6 @@ class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
     private var itemListener: ManufacturesPostItemListener = object : ManufacturesPostItemListener {
         override fun onPostClick(view: View, clickedPostId: Int) {
             Log.d(TAG, "눌린 아이템? : $clickedPostId")
-//            Log.d(TAG, "눌린 아이템? : ${posts[clickedPostId]}")
 //            presenter.openPostDetail(clickedPostId)
         }
 
