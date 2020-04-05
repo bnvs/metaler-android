@@ -13,12 +13,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bnvs.metaler.R
 import com.bnvs.metaler.data.posts.Post
+import com.bnvs.metaler.data.postsdummy.PostDummyData
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.item_loading.view.*
 import kotlinx.android.synthetic.main.item_posts_rv.view.*
 
 class ManufacturesPostAdapter(
-    private var posts: ArrayList<Post?>,
+    private var posts: ArrayList<PostDummyData?>,
     private var itemListener: ManufacturesPostItemListener
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -28,7 +29,7 @@ class ManufacturesPostAdapter(
 
     class LoadingViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
-    fun setPosts(list: ArrayList<Post?>) {
+    fun setPosts(list: ArrayList<PostDummyData?>) {
         this.posts.addAll(list)
         notifyDataSetChanged()
     }

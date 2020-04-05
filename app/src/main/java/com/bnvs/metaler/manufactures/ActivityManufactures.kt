@@ -9,7 +9,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bnvs.metaler.R
 import com.bnvs.metaler.data.posts.Post
-import com.bnvs.metaler.data.postsdummy.PostDummy
+import com.bnvs.metaler.data.postsdummy.PostDummyData
+import com.bnvs.metaler.data.postsdummy.PostsDummy
 import kotlinx.android.synthetic.main.activity_manufacture.*
 import kotlinx.android.synthetic.main.item_posts_rv.view.*
 
@@ -26,7 +27,8 @@ class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
      * */
     private var itemListener: ManufacturesPostItemListener = object : ManufacturesPostItemListener {
         override fun onPostClick(clickedPostId: Int) {
-            presenter.openPostDetail(clickedPostId)
+            Log.d(TAG, "눌린 아이템? : $clickedPostId")
+//            presenter.openPostDetail(clickedPostId)
         }
 
         override fun onBookmarkButtonClick(
@@ -36,6 +38,7 @@ class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
             position: Int
         ) {
             if (!isBookmark) {
+                Log.d(TAG, "북마크버튼 눌린 아이템? : $clickedPostId, isBookmark ? : $isBookmark")
                 view.bookmarkBtn.setImageResource(R.drawable.ic_list_bookmark_active_x3)
 //                presenter.addBookmark(clickedPostId)
                 postAdapter.apply {
@@ -58,15 +61,15 @@ class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
 //    private val postLayoutManager = LinearLayoutManager(this)
 
 
-    lateinit var posts: ArrayList<Post?>
-    lateinit var loadMorePosts: ArrayList<Post?>
+    lateinit var posts: ArrayList<PostDummyData?>
+    lateinit var loadMorePosts: ArrayList<PostDummyData?>
     lateinit var postAdapter: ManufacturesPostAdapter
     lateinit var scrollListener: EndlessRecyclerViewScrollListener
     lateinit var postLayoutManager: RecyclerView.LayoutManager
 
 //    lateinit var itemListener: ManufacturesPostItemListener
 
-    private val postDummy: PostDummy = PostDummy()
+    private var postsDummy: PostsDummy = PostsDummy()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -123,10 +126,14 @@ class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
     private fun setPostsDummy() {
         posts = ArrayList()
         for (i in 0..6) {
-            posts.add(postDummy.getDummy())
+
+            var tempData : PostDummyData = postsDummy.getDummy()
+            tempData.id = tempData.id++
+            posts.add(tempData)
+            Log.d(TAG, "더미데이터 id ? : ${tempData.id}")
         }
 
-        Log.d(TAG, "더미데이터 ? : ${posts}")
+//        Log.d(TAG, "더미데이터 ? : ${posts}")
     }
 
     private fun setAdapter() {
@@ -167,7 +174,7 @@ class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
         Handler().postDelayed({
             for (i in start..end) {
                 //Get data and add them to loadMoreItemsCells ArrayList
-                loadMorePosts.add(postDummy.getDummy())
+                loadMorePosts.add(postsDummy.getDummy())
             }
             //Remove the Loading View
             postAdapter.removeLoadingView()
@@ -183,7 +190,7 @@ class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
 
     }
 
-    override fun showPosts(posts: ArrayList<Post?>) {
+    override fun showPosts(posts: ArrayList<PostDummyData?>) {
         postAdapter.setPosts(posts)
     }
 
