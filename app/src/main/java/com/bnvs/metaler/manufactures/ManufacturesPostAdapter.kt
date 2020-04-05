@@ -18,10 +18,11 @@ import kotlinx.android.synthetic.main.item_loading.view.*
 import kotlinx.android.synthetic.main.item_posts_rv.view.*
 
 class ManufacturesPostAdapter(
-    private var posts: ArrayList<Post?>
+    private var posts: ArrayList<Post?>,
+    private var itemListener: ManufacturesPostItemListener
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    lateinit var mcontext: Context
+    lateinit var context: Context
 
 //    class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
@@ -30,6 +31,10 @@ class ManufacturesPostAdapter(
     fun setPosts(list: ArrayList<Post?>) {
         this.posts.addAll(list)
         notifyDataSetChanged()
+    }
+
+    fun setBookmark(position: Int) {
+        posts[position]!!.is_bookmark = !posts[position]!!.is_bookmark
     }
 
     fun getItemAtPosition(position: Int): String? {
@@ -53,16 +58,16 @@ class ManufacturesPostAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        mcontext = parent.context
+        context = parent.context
         return if (viewType == Constant.VIEW_TYPE_ITEM) {
             val view = LayoutInflater.from(parent.context).inflate(R.layout.item_posts_rv, parent, false)
             ItemViewHolder(view)
         } else {
-            val view = LayoutInflater.from(mcontext).inflate(R.layout.item_loading, parent, false)
+            val view = LayoutInflater.from(context).inflate(R.layout.item_loading, parent, false)
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                view.progressBar.indeterminateDrawable.colorFilter = BlendModeColorFilter(Color.WHITE, BlendMode.SRC_ATOP)
+                view.progressBar.indeterminateDrawable.colorFilter = BlendModeColorFilter(R.color.colorLightPurple, BlendMode.SRC_ATOP)
             } else {
-                view.progressBar.indeterminateDrawable.setColorFilter(Color.WHITE, PorterDuff.Mode.MULTIPLY)
+                view.progressBar.indeterminateDrawable.setColorFilter(Color.GRAY, PorterDuff.Mode.MULTIPLY)
             }
             LoadingViewHolder(view)
         }
@@ -82,62 +87,60 @@ class ManufacturesPostAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder.itemViewType == Constant.VIEW_TYPE_ITEM) {
-//            holder.itemView.itemtextview.text = posts[position]
-            holder.itemView.title.text = posts[position]!!.title
-//            holder.itemView.apply {
-//                title.text = posts[position].title
+            var tagString = ""
+            for (tag in posts[position]!!.tags) {
+                tagString += "#$tag "
+            }
+
+
+            holder.itemView.apply {
+                title.text = posts[position]!!.title
+                userName.text = posts[position]!!.profile_nickname
+                date.text = posts[position]!!.created_at
+                tags.text = tagString
+                dislikeNum.text = posts[position]!!.hate_count.toString()
+                likeNum.text = posts[position]!!.good_count.toString()
+
+                setOnClickListener { itemListener.onPostClick(posts[position]!!.id) }
+                bookmarkBtn.setOnClickListener {
+                    itemListener.onBookmarkButtonClick(bookmarkBtn, posts[position]!!.id, posts[position]!!.is_bookmark, position)
+                }
+                if (posts[position]!!.is_bookmark) {
+                    bookmarkBtn.setImageResource(R.drawable.ic_list_bookmark_active_x3)
+                } else bookmarkBtn.setImageResource(R.drawable.ic_list_bookmark_inactive_x3)
+            }
+        }
+    }
+    class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+//        private var view: View = itemView
+//
+//        fun bind(item: Post, position: Int) {
+//
+//            var tagString = ""
+//            for (tag in item.tags) {
+//                tagString += "#$tag "
+//            }
+//
+//            view.apply {
+//                title.text = item.title
 //                userName.text = item.profile_nickname
 //                date.text = item.created_at
 //                tags.text = tagString
 //                dislikeNum.text = item.hate_count.toString()
 //                likeNum.text = item.good_count.toString()
-//                setOnClickListener { itemListener.onPostClick(item.id) }
-//                bookmarkBtn.setOnClickListener {
-//                    itemListener.onBookmarkButtonClick(view, item.id, item.is_bookmark, position)
-//                }
+////                setOnClickListener { itemListener.onPostClick(item.id) }
+////                bookmarkBtn.setOnClickListener {
+////                    itemListener.onBookmarkButtonClick(view, item.id, item.is_bookmark, position)
+////                }
 //                if (item.is_bookmark) {
 //                    bookmarkBtn.setImageResource(R.drawable.ic_list_bookmark_active_x3)
 //                }
 //            }
-//            holder.bind(posts[position], position)
-        }
-    }
-    class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private var view: View = itemView
-
-        fun bind(item: Post, position: Int) {
-
-            var tagString = ""
-            for (tag in item.tags) {
-                tagString += "#$tag "
-            }
-
-            view.apply {
-                title.text = item.title
-                userName.text = item.profile_nickname
-                date.text = item.created_at
-                tags.text = tagString
-                dislikeNum.text = item.hate_count.toString()
-                likeNum.text = item.good_count.toString()
-//                setOnClickListener { itemListener.onPostClick(item.id) }
-//                bookmarkBtn.setOnClickListener {
-//                    itemListener.onBookmarkButtonClick(view, item.id, item.is_bookmark, position)
-//                }
-                if (item.is_bookmark) {
-                    bookmarkBtn.setImageResource(R.drawable.ic_list_bookmark_active_x3)
-                }
-            }
 
 //            Glide.with(view)
 //                .load(item.attach_url)
 //                .into(view.img)
-        }
-    }
-
-    interface PostItemListener{
-        fun onPostClick(clickedPostId: Int)
-
-        fun onBookmarkButtonClick(view: View, clickedPostId: Int, isBookmark: Boolean, position: Int)
+//        }
     }
 
     object Constant {
