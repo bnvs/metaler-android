@@ -4,12 +4,11 @@ import com.bnvs.metaler.data.addeditpost.AddEditPostRequest
 import com.bnvs.metaler.data.addeditpost.AddEditPostResponse
 import com.bnvs.metaler.data.addeditpost.DeletePostResponse
 import com.bnvs.metaler.data.bookmarks.*
-import com.bnvs.metaler.data.comments.Comments
-import com.bnvs.metaler.data.homeposts.HomePosts
 import com.bnvs.metaler.data.categories.Categories
 import com.bnvs.metaler.data.comments.AddCommentRequest
+import com.bnvs.metaler.data.comments.Comments
+import com.bnvs.metaler.data.homeposts.HomePosts
 import com.bnvs.metaler.data.job.Jobs
-import com.bnvs.metaler.data.posts.PostsRequest
 import com.bnvs.metaler.data.postdetails.PostDetails
 import com.bnvs.metaler.data.posts.PostsResponse
 import com.bnvs.metaler.data.user.*
@@ -38,7 +37,7 @@ interface RetrofitInterface {
 
     // 로그인
     @POST("/users/login")
-    fun login(@Body request: LoginRequest) : Call<LoginResponse>
+    fun login(@Body request: LoginRequest): Call<LoginResponse>
 
 
     /*** 2. 북마크 ***/
@@ -46,13 +45,15 @@ interface RetrofitInterface {
     @POST("/users/bookmarks")
     fun addBookmark(
         @Header("Authorization") access_token: String,
-        @Body request: AddBookmarkRequest): Call<AddBookmarkResponse>
+        @Body request: AddBookmarkRequest
+    ): Call<AddBookmarkResponse>
 
     // 북마크 삭제
     @DELETE("/users/bookmarks")
     fun deleteBookmark(
         @Header("Authorization") access_token: String,
-        @Body request: DeleteBookmarkRequest): Call<DeleteBookmarkResponse>
+        @Body request: DeleteBookmarkRequest
+    ): Call<DeleteBookmarkResponse>
 
     // 북마크 목록 조회 (개발중)
     @GET("/users/bookmarks")
@@ -60,7 +61,8 @@ interface RetrofitInterface {
         @Header("Authorization") access_token: String,
         @Part("type") type: String,
         @Part("page") page: Int,
-        @Part("limit") limit: Int): Call<BookmarksResponse>
+        @Part("limit") limit: Int
+    ): Call<BookmarksResponse>
 
 
     /*** 3. 게시글 ***/
@@ -72,31 +74,36 @@ interface RetrofitInterface {
     @GET("/posts")
     fun getPosts(
         @Header("Authorization") access_token: String,
-        @Body request: PostsRequest): Call<PostsResponse>
+        @QueryMap options: Map<String, Int>
+    ): Call<PostsResponse>
 
     // 게시글 상세 조회
     @GET("/posts/{id}")
     fun getPostDetails(
         @Header("Authorization") access_token: String,
-        @Path("id") id: String): Call<PostDetails>
+        @Path("id") id: String
+    ): Call<PostDetails>
 
     // 게시글 추가 (글쓰기)
     @POST("/posts")
     fun addPost(
         @Header("Authorization") access_token: String,
-        @Body request: AddEditPostRequest): Call<AddEditPostResponse>
+        @Body request: AddEditPostRequest
+    ): Call<AddEditPostResponse>
 
     // 게시글 삭제
     @DELETE("/posts/{id}")
     fun deletePost(
         @Header("Authorization") access_token: String,
-        @Path("id") id: String): Call<DeletePostResponse>
+        @Path("id") id: String
+    ): Call<DeletePostResponse>
 
     // 게시글 수정
     @PUT("/posts/{id}")
     fun modifyPost(
         @Header("Authorization") access_token: String,
-        @Body request: AddEditPostRequest): Call<AddEditPostResponse>
+        @Body request: AddEditPostRequest
+    ): Call<AddEditPostResponse>
 
 
     /*** 3. 댓글 ***/
@@ -106,14 +113,16 @@ interface RetrofitInterface {
         @Header("Authorization") access_token: String,
         @Path("id") id: String,
         @Path("page") page: String,
-        @Path("limit") limit: String): Call<Comments>
+        @Path("limit") limit: String
+    ): Call<Comments>
 
     // 댓글 추가
     @POST("/posts/{id}/comments")
     fun addComment(
         @Header("Authorization") access_token: String,
         @Path("id") id: String,
-        @Body request: AddCommentRequest)
+        @Body request: AddCommentRequest
+    )
 
     // 댓글 수정
     @PUT("/posts/{pid}/comments/{cid}")
@@ -121,14 +130,16 @@ interface RetrofitInterface {
         @Header("Authorization") access_token: String,
         @Path("pid") pid: String,
         @Path("cid") cid: String,
-        @Body request: AddCommentRequest)
+        @Body request: AddCommentRequest
+    )
 
     // 댓글 삭제
     @DELETE("/posts/{pid}/comments/{cid}")
     fun deleteComment(
         @Header("Authorization") access_token: String,
         @Path("pid") pid: String,
-        @Path("cid") cid: String)
+        @Path("cid") cid: String
+    )
 
 
     /*** 4. 파일 ***/
@@ -137,7 +148,8 @@ interface RetrofitInterface {
     @POST("/uploadFile.php")
     fun addFile(
         @Part("file") file: RequestBody,
-        @Part imageFile : MultipartBody.Part): Call<JSONObject>
+        @Part imageFile: MultipartBody.Part
+    ): Call<JSONObject>
 
     // 파일 다운로드
     @GET("/downloadFile.php")

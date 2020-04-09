@@ -17,7 +17,12 @@ object PostsRemoteDataSource : PostsDataSource{
         request: PostsRequest,
         callback: PostsDataSource.LoadPostsCallback
     ) {
-        retrofitClient.getPosts(access_token, request).enqueue(object : Callback<PostsResponse> {
+        val options = mapOf(
+            "category_type" to request.category_type,
+            "page" to request.page,
+            "limit" to request.limit
+        )
+        retrofitClient.getPosts(access_token, options).enqueue(object : Callback<PostsResponse> {
             override fun onResponse(call: Call<PostsResponse>, response: Response<PostsResponse>) {
                 if (response.isSuccessful) {
                     callback.onPostsLoaded(response.body()!!)
