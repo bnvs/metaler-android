@@ -2,10 +2,11 @@ package com.bnvs.metaler.login
 
 import android.content.Intent
 import android.content.pm.PackageManager
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Base64
 import android.util.Log
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.bnvs.metaler.R
 import com.bnvs.metaler.data.profile.source.ProfileRepository
 import com.bnvs.metaler.data.token.AccessToken
@@ -25,7 +26,6 @@ import com.kakao.usermgmt.UserManagement
 import com.kakao.usermgmt.callback.MeV2ResponseCallback
 import com.kakao.usermgmt.response.MeV2Response
 import com.kakao.util.exception.KakaoException
-import android.util.Base64
 import java.security.MessageDigest
 import java.text.SimpleDateFormat
 import java.util.*
@@ -175,7 +175,7 @@ class ActivityLogin : AppCompatActivity() {
         val validTimeDate = dateFormat.parse(validTime)!!.time
         val now = Date(System.currentTimeMillis()).time
 
-        val diff = { x: Long, y: Long -> x - y}
+        val diff = { x: Long, y: Long -> x - y }
 
         return diff(validTimeDate, now) > 0
     }
@@ -270,8 +270,8 @@ class ActivityLogin : AppCompatActivity() {
         )
     }
 
-    private fun makeGenderText(kakaoGender: String):String? {
-        return when(kakaoGender) {
+    private fun makeGenderText(kakaoGender: String): String? {
+        return when (kakaoGender) {
             "MALE" -> "M"
             "FEMALE" -> "W"
             else -> null
