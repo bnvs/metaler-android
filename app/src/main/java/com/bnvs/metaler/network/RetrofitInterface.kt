@@ -74,9 +74,7 @@ interface RetrofitInterface {
     @GET("/posts")
     fun getPosts(
         @Header("Authorization") access_token: String,
-        @Query("category_type") type: Int,
-        @Query("page") page: Int,
-        @Query("limit") limit: Int
+        @QueryMap options: Map<String, Int>
     ): Call<PostsResponse>
 
     // 게시글 상세 조회
