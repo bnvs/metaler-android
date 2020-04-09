@@ -6,18 +6,14 @@ package com.bnvs.metaler.data.posts
  * */
 
 data class Post(
-    val id: Int,
-    val user_id: Int,
-    val category_id: Int,
+    val post_id: Int,
     val title: String,
     val content: String,
-    val price: Int,
-    val price_type: String,
-    val created_at: String,
-    val updated_at: String,
     val profile_nickname: String,
+    val date: String,
+    val liked: Int,
+    val disliked: Int,
+    val thumbnail: String,
     val tags: List<String>,
-    val good_count: Int,
-    val hate_count: Int,
-    var is_bookmark: Boolean
+    val is_bookmark: Boolean
 )
