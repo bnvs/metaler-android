@@ -1,20 +1,15 @@
 package com.bnvs.metaler.mypage
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
-import com.bumptech.glide.Glide
+import androidx.appcompat.app.AppCompatActivity
 import com.bnvs.metaler.R
-import com.bnvs.metaler.bookmarks.ActivityBookmarks
 import com.bnvs.metaler.data.profile.Profile
-import com.bnvs.metaler.home.ActivityHome
-import com.bnvs.metaler.manufactures.ActivityManufactures
-import com.bnvs.metaler.materials.ActivityMaterials
 import com.bnvs.metaler.jobmodify.ActivityJobModify
 import com.bnvs.metaler.myposts.ActivityMyPosts
-
+import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.activity_my_page.*
 
 class ActivityMyPage : AppCompatActivity(), ContractMyPage.View {
@@ -61,7 +56,8 @@ class ActivityMyPage : AppCompatActivity(), ContractMyPage.View {
     override fun showMyPostsUi() {
         Intent(this@ActivityMyPage, ActivityMyPosts::class.java).also {
             startActivity(it)
-        }       }
+        }
+    }
 
     override fun showTermsCheckUi() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
@@ -79,10 +75,10 @@ class ActivityMyPage : AppCompatActivity(), ContractMyPage.View {
         builder.setMessage(getString(R.string.nickname_modify_content))
         builder.setView(editText)
 
-        builder.setPositiveButton(getString(R.string.allow)){ dialogInterface, i ->
-                //TODO : 별명 입력 후 확인 눌렀을 때 기능 추가하기
-            }
-            .setNegativeButton(getString(R.string.cancel)){ dialogInterface, i ->
+        builder.setPositiveButton(getString(R.string.allow)) { dialogInterface, i ->
+            //TODO : 별명 입력 후 확인 눌렀을 때 기능 추가하기
+        }
+            .setNegativeButton(getString(R.string.cancel)) { dialogInterface, i ->
 
             }
             .show()
@@ -94,10 +90,10 @@ class ActivityMyPage : AppCompatActivity(), ContractMyPage.View {
         builder.setTitle(getString(R.string.logout_title))
         builder.setMessage(getString(R.string.logout_content))
 
-        builder.setPositiveButton(getString(R.string.logout_allow)){ dialogInterface, i ->
+        builder.setPositiveButton(getString(R.string.logout_allow)) { dialogInterface, i ->
             //TODO : 로그아웃 눌렀을 때 기능 추가하기
         }
-            .setNegativeButton(getString(R.string.cancel)){ dialogInterface, i ->
+            .setNegativeButton(getString(R.string.cancel)) { dialogInterface, i ->
 
             }
             .show()
@@ -115,15 +111,15 @@ class ActivityMyPage : AppCompatActivity(), ContractMyPage.View {
             builder.setMessage(getString(R.string.withdrawal_recheck_content))
             builder.setView(editText)
 
-            builder.setPositiveButton(getString(R.string.withdrawal_allow)){ dialogInterface, i ->
+            builder.setPositiveButton(getString(R.string.withdrawal_allow)) { dialogInterface, i ->
                 //TODO : 회원탈퇴 재확인 이메일 입력 받고 탈퇴 눌렀을 때 기능 추가하기
             }
-                .setNegativeButton(getString(R.string.cancel)){ dialogInterface, i ->
+                .setNegativeButton(getString(R.string.cancel)) { dialogInterface, i ->
 
                 }
                 .show()
         }
-            .setNegativeButton(getString(R.string.cancel)){ dialogInterface, i ->
+            .setNegativeButton(getString(R.string.cancel)) { dialogInterface, i ->
 
             }
             .show()
