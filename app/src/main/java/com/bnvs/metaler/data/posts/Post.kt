@@ -15,5 +15,5 @@ data class Post(
     val disliked: Int,
     val thumbnail: String,
     val tags: List<String>,
-    val is_bookmark: Boolean
+    var is_bookmark: Boolean
 )
