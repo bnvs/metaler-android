@@ -27,29 +27,51 @@ class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
     private var itemListener: ManufacturesPostItemListener = object : ManufacturesPostItemListener {
         override fun onPostClick(view: View, clickedPostId: Int) {
             Log.d(TAG, "눌린 아이템? : $clickedPostId")
+            Log.d(TAG, "눌린 아이템? : ${posts[clickedPostId]!!.title}")
 //            presenter.openPostDetail(clickedPostId)
         }
-
         override fun onBookmarkButtonClick(
             view: View,
             clickedPostId: Int,
             isBookmark: Boolean,
             position: Int
         ) {
+
+//            var isBookmark = posts[position]!!.is_bookmark
+
             if (!isBookmark) {
-                Log.d(TAG, "북마크버튼 눌린 아이템? : $clickedPostId, isBookmark ? : $isBookmark")
-                view.bookmarkBtn.setImageResource(R.drawable.ic_list_bookmark_active_x3)
+            Log.d(TAG, "isBookmark ? : ${isBookmark}")
+
+//            Log.d(TAG, "북마크버튼 눌린 아이템? : $position, isBookmark ? : ${posts[position]!!.is_bookmark}")
+//            if(!posts[position]!!.is_bookmark) {
+
+                Log.d(TAG, "북마크 이미지 변경!  ")
+                Log.d(TAG, "clickedPostId ? : ${clickedPostId}")
+                Log.d(TAG, "position ? : ${position}")
+
+//                Log.d(TAG, "북마크버튼 눌린 아이템? : $position, isBookmark ? : $isBookmark")
+//                postAdapter.setBookmark(position)
+
+//                view.bookmarkBtn.setImageResource(R.drawable.ic_list_bookmark_active_x3)
+
+//                isBookmark == posts[position]!!.is_bookmark
 //                presenter.addBookmark(clickedPostId)
                 postAdapter.apply {
                     setBookmark(position)
                     notifyDataSetChanged()
+                    Log.d(TAG, "isBookmark ? : ${isBookmark}")
+
                 }
             } else {
-                view.bookmarkBtn.setImageResource(R.drawable.ic_list_bookmark_inactive_x3)
+//                view.bookmarkBtn.setImageResource(R.drawable.ic_list_bookmark_inactive_x3)
+
+//                isBookmark == !posts[position]!!.is_bookmark
 //                presenter.deleteBookmark(clickedPostId)
                 postAdapter.apply {
                     setBookmark(position)
                     notifyDataSetChanged()
+                    Log.d(TAG, "isBookmark ? : ${isBookmark}")
+
                 }
             }
         }
@@ -124,10 +146,65 @@ class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
     //리사이클러뷰에 보여줄 더미데이터를 가져온다.
     private fun setPostsDummy() {
         posts = ArrayList()
-        var tempData: PostDummyData = postsDummy.getDummy()
-        for (i in 0..6) {
+
+        // 북마크 아이템 한 개 클릭했는데 여러개 클릭 되는 에러 원인 : 테스트용으로 더미데이터 추가할 때 잘못된 듯.
+        // for문으로 추가한 게 모두 하나의 아이템으로 묶여있었다.. 데이터를 하드코딩으로 따로따로 추가해보니 북마크 동시에 안눌리고 각각 잘 눌림
+//        var tempData: PostDummyData = postsDummy.getDummy()
+
+        var tags = listOf("tag1","tag2")
+        var tempData = PostDummyData (
+            1,
+            2,
+            2,
+            "title1",
+            "content",
+            2000,
+            "cash",
+            "2020.02.02",
+            "2020.02.04",
+            "헬로우",
+            tags,
+            10,
+            5,
+            false
+        )
+        var tempData1 = PostDummyData (
+            1,
+            2,
+            2,
+            "title2",
+            "content",
+            2000,
+            "cash",
+            "2020.02.02",
+            "2020.02.04",
+            "헬로우헬로우",
+            tags,
+            10,
+            5,
+            false
+        )
+        var tempData2 = PostDummyData (
+            1,
+            2,
+            2,
+            "title3",
+            "content",
+            2000,
+            "cash",
+            "2020.02.02",
+            "2020.02.04",
+            "헬로우헬로우헬로우",
+            tags,
+            10,
+            5,
+            false
+        )
+//        for (i in 0..6) {
             posts.add(tempData)
-        }
+        posts.add(tempData1)
+        posts.add(tempData2)
+//        }
 
 //        Log.d(TAG, "더미데이터 ? : ${posts}")
     }

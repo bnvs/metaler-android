@@ -25,7 +25,7 @@ class ManufacturesPostAdapter(
 
     lateinit var context: Context
 
-//    class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
+    class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
     class LoadingViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
@@ -102,50 +102,56 @@ class ManufacturesPostAdapter(
                 dislikeNum.text = posts[position]!!.hate_count.toString()
                 likeNum.text = posts[position]!!.good_count.toString()
 
-                holder.itemView.setOnClickListener{ v->
-                    itemListener.onPostClick(v, position)
-                }
-//                setOnClickListener { itemListener.onPostClick(posts[position]!!.id) }
-                bookmarkBtn.setOnClickListener {
-                    itemListener.onBookmarkButtonClick(bookmarkBtn, posts[position]!!.id, posts[position]!!.is_bookmark, position)
-                }
                 if (posts[position]!!.is_bookmark) {
                     bookmarkBtn.setImageResource(R.drawable.ic_list_bookmark_active_x3)
                 } else bookmarkBtn.setImageResource(R.drawable.ic_list_bookmark_inactive_x3)
+
+                holder.itemView.setOnClickListener{
+                    itemListener.onPostClick(it, position)
+                }
+//                setOnClickListener { itemListener.onPostClick(posts[position]!!.id) }
+
+//                holder.itemView.bookmarkBtn.setOnClickListener {
+//                    itemListener.onBookmarkButtonClick(it,posts[position]!!.id, posts[position]!!.is_bookmark, position)
+//                }
+                bookmarkBtn.setOnClickListener {
+                    itemListener.onBookmarkButtonClick(bookmarkBtn, posts[position]!!.id, posts[position]!!.is_bookmark, position)
+                }
+
             }
         }
     }
-    class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-//        private var view: View = itemView
-//
-//        fun bind(item: Post, position: Int) {
-//
-//            var tagString = ""
-//            for (tag in item.tags) {
-//                tagString += "#$tag "
-//            }
-//
-//            view.apply {
-//                title.text = item.title
-//                userName.text = item.profile_nickname
-//                date.text = item.created_at
-//                tags.text = tagString
-//                dislikeNum.text = item.hate_count.toString()
-//                likeNum.text = item.good_count.toString()
-////                setOnClickListener { itemListener.onPostClick(item.id) }
-////                bookmarkBtn.setOnClickListener {
-////                    itemListener.onBookmarkButtonClick(view, item.id, item.is_bookmark, position)
+//    class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+////        private var view: View = itemView
+////
+////        fun bind(item: Post, position: Int) {
+////
+////            var tagString = ""
+////            for (tag in item.tags) {
+////                tagString += "#$tag "
+////            }
+////
+////            view.apply {
+////                title.text = item.title
+////                userName.text = item.profile_nickname
+////                date.text = item.created_at
+////                tags.text = tagString
+////                dislikeNum.text = item.hate_count.toString()
+////                likeNum.text = item.good_count.toString()
+//////                setOnClickListener { itemListener.onPostClick(item.id) }
+//////                bookmarkBtn.setOnClickListener {
+//////                    itemListener.onBookmarkButtonClick(view, item.id, item.is_bookmark, position)
+//////                }
+////                if (item.is_bookmark) {
+////                    bookmarkBtn.setImageResource(R.drawable.ic_list_bookmark_active_x3)
 ////                }
-//                if (item.is_bookmark) {
-//                    bookmarkBtn.setImageResource(R.drawable.ic_list_bookmark_active_x3)
-//                }
-//            }
-
-//            Glide.with(view)
-//                .load(item.attach_url)
-//                .into(view.img)
-//        }
-    }
+////            }
+//
+////            Glide.with(view)
+////                .load(item.attach_url)
+////                .into(view.img)
+////        }
+//    }
 
     object Constant {
         const val VIEW_TYPE_ITEM = 0
