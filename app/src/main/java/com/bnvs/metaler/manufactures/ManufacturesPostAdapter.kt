@@ -54,7 +54,7 @@ class ManufacturesPostAdapter(
     fun removeLoadingView() {
         //Remove loading item
         if (posts.size != 0) {
-            posts.removeAt(posts.size - 1)
+            arrayList.removeAt(posts.size - 1)
             notifyItemRemoved(posts.size)
         }
     }
