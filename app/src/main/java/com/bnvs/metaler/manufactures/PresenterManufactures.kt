@@ -1,6 +1,7 @@
 package com.bnvs.metaler.manufactures
 
 import android.content.Context
+import com.bnvs.metaler.data.posts.PostsRequest
 import com.bnvs.metaler.data.posts.PostsResponse
 import com.bnvs.metaler.data.posts.source.PostsDataSource
 import com.bnvs.metaler.data.posts.source.PostsRepository
@@ -61,8 +62,14 @@ class PresenterManufactures(
     }
 
 
-    override fun requestPosts() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    // getPosts api 요청 request body 반환하는 함수
+    override fun requestPosts(category_type: Int, page: Int, limit: Int): PostsRequest {
+        val postsRequest = PostsRequest(
+            category_type = 1,
+            page = 1,
+            limit = 20
+        )
+        return postsRequest
     }
 
     override fun refreshPosts() {
