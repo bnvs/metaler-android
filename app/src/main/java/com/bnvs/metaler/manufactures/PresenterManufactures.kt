@@ -42,7 +42,7 @@ class PresenterManufactures(
         })
     }
 
-    override fun loadPosts() {
+    override fun loadPosts(postsRequest: PostsRequest) {
         postRepository.getPosts(
             accessToken,
             postsRequest,
