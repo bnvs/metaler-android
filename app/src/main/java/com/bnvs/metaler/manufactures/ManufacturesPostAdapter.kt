@@ -19,11 +19,13 @@ import kotlinx.android.synthetic.main.item_loading.view.*
 import kotlinx.android.synthetic.main.item_posts_rv.view.*
 
 class ManufacturesPostAdapter(
-    private var posts: ArrayList<PostDummyData?>,
+    private var posts: List<Post>,
     private var itemListener: ManufacturesPostItemListener
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     lateinit var context: Context
+
+    var arrayList = ArrayList<String>()
 
     class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
