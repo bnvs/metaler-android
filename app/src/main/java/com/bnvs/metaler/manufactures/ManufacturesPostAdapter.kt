@@ -103,10 +103,10 @@ class ManufacturesPostAdapter(
             holder.itemView.apply {
                 title.text = posts[position]!!.title
                 userName.text = posts[position]!!.profile_nickname
-                date.text = posts[position]!!.created_at
+                date.text = posts[position]!!.date
                 tags.text = tagString
-                dislikeNum.text = posts[position]!!.hate_count.toString()
-                likeNum.text = posts[position]!!.good_count.toString()
+                dislikeNum.text = posts[position]!!.disliked.toString()
+                likeNum.text = posts[position]!!.liked.toString()
 
                 if (posts[position]!!.is_bookmark) {
                     bookmarkBtn.setImageResource(R.drawable.ic_list_bookmark_active_x3)
@@ -123,7 +123,7 @@ class ManufacturesPostAdapter(
                 bookmarkBtn.setOnClickListener {
                     itemListener.onBookmarkButtonClick(
                         bookmarkBtn,
-                        posts[position]!!.id,
+                        posts[position]!!.post_id,
                         posts[position]!!.is_bookmark,
                         position
                     )
