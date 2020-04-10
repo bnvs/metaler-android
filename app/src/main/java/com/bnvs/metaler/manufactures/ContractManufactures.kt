@@ -14,7 +14,7 @@ import com.bnvs.metaler.util.TapBarContract
 
 interface ContractManufactures {
     interface View : BaseView<Presenter>, TapBarContract.View {
-        fun showPosts(posts: ArrayList<PostDummyData?>)
+        fun showPosts(posts: List<Post>)
 
         fun showPostDetailUi()
 
