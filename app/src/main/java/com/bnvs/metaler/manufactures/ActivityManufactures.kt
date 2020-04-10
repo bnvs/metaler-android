@@ -8,10 +8,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bnvs.metaler.R
+import com.bnvs.metaler.data.posts.Post
 import com.bnvs.metaler.data.postsdummy.PostDummyData
 import com.bnvs.metaler.data.postsdummy.PostsDummy
 import kotlinx.android.synthetic.main.activity_manufacture.*
-import kotlinx.android.synthetic.main.item_posts_rv.view.*
 
 class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
 
@@ -30,6 +30,7 @@ class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
             Log.d(TAG, "눌린 아이템? : ${posts[clickedPostId]!!.title}")
 //            presenter.openPostDetail(clickedPostId)
         }
+
         override fun onBookmarkButtonClick(
             view: View,
             clickedPostId: Int,
@@ -40,7 +41,7 @@ class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
 //            var isBookmark = posts[position]!!.is_bookmark
 
             if (!isBookmark) {
-            Log.d(TAG, "isBookmark ? : ${isBookmark}")
+                Log.d(TAG, "isBookmark ? : ${isBookmark}")
 
 //            Log.d(TAG, "북마크버튼 눌린 아이템? : $position, isBookmark ? : ${posts[position]!!.is_bookmark}")
 //            if(!posts[position]!!.is_bookmark) {
@@ -121,9 +122,6 @@ class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
 //        }
 
 
-        //더미데이터불러오기
-        setPostsDummy()
-
         setAdapter()
 
         setRVLayoutManager()
@@ -142,72 +140,6 @@ class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
         presenter.start()
     }
 
-
-    //리사이클러뷰에 보여줄 더미데이터를 가져온다.
-    private fun setPostsDummy() {
-        posts = ArrayList()
-
-        // 북마크 아이템 한 개 클릭했는데 여러개 클릭 되는 에러 원인 : 테스트용으로 더미데이터 추가할 때 잘못된 듯.
-        // for문으로 추가한 게 모두 하나의 아이템으로 묶여있었다.. 데이터를 하드코딩으로 따로따로 추가해보니 북마크 동시에 안눌리고 각각 잘 눌림
-//        var tempData: PostDummyData = postsDummy.getDummy()
-
-        var tags = listOf("tag1","tag2")
-        var tempData = PostDummyData (
-            1,
-            2,
-            2,
-            "title1",
-            "content",
-            2000,
-            "cash",
-            "2020.02.02",
-            "2020.02.04",
-            "헬로우",
-            tags,
-            10,
-            5,
-            false
-        )
-        var tempData1 = PostDummyData (
-            1,
-            2,
-            2,
-            "title2",
-            "content",
-            2000,
-            "cash",
-            "2020.02.02",
-            "2020.02.04",
-            "헬로우헬로우",
-            tags,
-            10,
-            5,
-            false
-        )
-        var tempData2 = PostDummyData (
-            1,
-            2,
-            2,
-            "title3",
-            "content",
-            2000,
-            "cash",
-            "2020.02.02",
-            "2020.02.04",
-            "헬로우헬로우헬로우",
-            tags,
-            10,
-            5,
-            false
-        )
-//        for (i in 0..6) {
-            posts.add(tempData)
-        posts.add(tempData1)
-        posts.add(tempData2)
-//        }
-
-//        Log.d(TAG, "더미데이터 ? : ${posts}")
-    }
 
     private fun setAdapter() {
         postAdapter = ManufacturesPostAdapter(posts, itemListener)
@@ -263,7 +195,7 @@ class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
 
     }
 
-    override fun showPosts(posts: ArrayList<PostDummyData?>) {
+    override fun showPosts(posts: List<Post>) {
         postAdapter.setPosts(posts)
     }
 
