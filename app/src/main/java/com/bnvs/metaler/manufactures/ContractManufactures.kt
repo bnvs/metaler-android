@@ -3,6 +3,7 @@ package com.bnvs.metaler.manufactures
 import com.bnvs.metaler.BasePresenter
 import com.bnvs.metaler.BaseView
 import com.bnvs.metaler.data.posts.Post
+import com.bnvs.metaler.data.posts.PostsRequest
 import com.bnvs.metaler.data.postsdummy.PostDummyData
 import com.bnvs.metaler.util.TapBarContract
 
@@ -29,7 +30,7 @@ interface ContractManufactures {
     interface Presenter : BasePresenter, TapBarContract.Presenter {
         fun getAccessToken()
 
-        fun requestPosts()
+        fun requestPosts(category_type: Int, page: Int, limit: Int): PostsRequest
 
         fun loadPosts()
 
