@@ -22,6 +22,8 @@ class PresenterManufactures(
 
     private lateinit var postsRequest: PostsRequest
 
+    var pageNum: Int = 1
+
     init {
         view.presenter = this
     }
@@ -66,13 +68,16 @@ class PresenterManufactures(
 
     // getPosts api 요청 request body 반환하는 함수
     override fun requestPosts(category_type: Int, page: Int, limit: Int): PostsRequest {
+        pageNum ++
         postsRequest = PostsRequest(
             category_type = 1,
-            page = 1,
+            page = pageNum,
             limit = 20
         )
         return postsRequest
     }
+
+
 
     override fun refreshPosts() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
