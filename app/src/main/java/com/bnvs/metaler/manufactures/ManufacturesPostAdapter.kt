@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bnvs.metaler.R
 import com.bnvs.metaler.data.posts.Post
 import com.bnvs.metaler.data.postsdummy.PostDummyData
-import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.item_loading.view.*
 import kotlinx.android.synthetic.main.item_posts_rv.view.*
 
@@ -25,7 +24,7 @@ class ManufacturesPostAdapter(
 
     lateinit var context: Context
 
-    var arrayList = ArrayList<String>()
+    var arrayList = ArrayList<Post>()
 
     class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
@@ -63,14 +62,19 @@ class ManufacturesPostAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         context = parent.context
         return if (viewType == Constant.VIEW_TYPE_ITEM) {
-            val view = LayoutInflater.from(parent.context).inflate(R.layout.item_posts_rv, parent, false)
+            val view =
+                LayoutInflater.from(parent.context).inflate(R.layout.item_posts_rv, parent, false)
             ItemViewHolder(view)
         } else {
             val view = LayoutInflater.from(context).inflate(R.layout.item_loading, parent, false)
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                view.progressBar.indeterminateDrawable.colorFilter = BlendModeColorFilter(R.color.colorLightPurple, BlendMode.SRC_ATOP)
+                view.progressBar.indeterminateDrawable.colorFilter =
+                    BlendModeColorFilter(R.color.colorLightPurple, BlendMode.SRC_ATOP)
             } else {
-                view.progressBar.indeterminateDrawable.setColorFilter(Color.GRAY, PorterDuff.Mode.MULTIPLY)
+                view.progressBar.indeterminateDrawable.setColorFilter(
+                    Color.GRAY,
+                    PorterDuff.Mode.MULTIPLY
+                )
             }
             LoadingViewHolder(view)
         }
@@ -108,7 +112,7 @@ class ManufacturesPostAdapter(
                     bookmarkBtn.setImageResource(R.drawable.ic_list_bookmark_active_x3)
                 } else bookmarkBtn.setImageResource(R.drawable.ic_list_bookmark_inactive_x3)
 
-                holder.itemView.setOnClickListener{
+                holder.itemView.setOnClickListener {
                     itemListener.onPostClick(it, position)
                 }
 //                setOnClickListener { itemListener.onPostClick(posts[position]!!.id) }
@@ -117,7 +121,12 @@ class ManufacturesPostAdapter(
 //                    itemListener.onBookmarkButtonClick(it,posts[position]!!.id, posts[position]!!.is_bookmark, position)
 //                }
                 bookmarkBtn.setOnClickListener {
-                    itemListener.onBookmarkButtonClick(bookmarkBtn, posts[position]!!.id, posts[position]!!.is_bookmark, position)
+                    itemListener.onBookmarkButtonClick(
+                        bookmarkBtn,
+                        posts[position]!!.id,
+                        posts[position]!!.is_bookmark,
+                        position
+                    )
                 }
 
             }
