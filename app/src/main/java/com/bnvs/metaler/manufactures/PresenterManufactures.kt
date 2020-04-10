@@ -70,9 +70,9 @@ class PresenterManufactures(
     override fun requestPosts(category_type: Int, page: Int, limit: Int): PostsRequest {
         pageNum ++
         postsRequest = PostsRequest(
-            category_type = 1,
-            page = pageNum,
-            limit = 20
+            1,
+            pageNum,
+            20
         )
         return postsRequest
     }
