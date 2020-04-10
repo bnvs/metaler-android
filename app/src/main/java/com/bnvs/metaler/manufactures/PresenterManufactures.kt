@@ -20,6 +20,8 @@ class PresenterManufactures(
 
     private var accessToken: String = ""
 
+    private lateinit var postsRequest: PostsRequest
+
     init {
         view.presenter = this
     }
@@ -27,7 +29,7 @@ class PresenterManufactures(
 
     override fun start() {
         getAccessToken()
-        loadPosts()
+        loadPosts(postsRequest)
     }
 
     override fun getAccessToken() {
@@ -64,7 +66,7 @@ class PresenterManufactures(
 
     // getPosts api 요청 request body 반환하는 함수
     override fun requestPosts(category_type: Int, page: Int, limit: Int): PostsRequest {
-        val postsRequest = PostsRequest(
+        postsRequest = PostsRequest(
             category_type = 1,
             page = 1,
             limit = 20
