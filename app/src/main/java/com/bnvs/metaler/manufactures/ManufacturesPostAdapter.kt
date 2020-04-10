@@ -24,7 +24,7 @@ class ManufacturesPostAdapter(
 
     lateinit var context: Context
 
-    var arrayList = ArrayList<Post>()
+    var arrayList = ArrayList<Post?>()
 
     class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
@@ -46,7 +46,7 @@ class ManufacturesPostAdapter(
     fun addLoadingView() {
         //add loading item
         Handler().post {
-            posts.add(null)
+            arrayList.add(null)
             notifyItemInserted(posts.size - 1)
         }
     }
