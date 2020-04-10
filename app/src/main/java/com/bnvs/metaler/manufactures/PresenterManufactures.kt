@@ -22,7 +22,7 @@ class PresenterManufactures(
 
     private lateinit var postsRequest: PostsRequest
 
-    var pageNum: Int = 1
+    private var pageNum: Int = 1
 
     init {
         view.presenter = this
