@@ -32,7 +32,7 @@ interface ContractManufactures {
 
         fun requestPosts(category_type: Int, page: Int, limit: Int): PostsRequest
 
-        fun loadPosts()
+        fun loadPosts(postsRequest: PostsRequest)
 
         fun refreshPosts()
 
