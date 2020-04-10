@@ -30,8 +30,8 @@ class ManufacturesPostAdapter(
 
     class LoadingViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
-    fun setPosts() {
-        arrayList.addAll(posts)
+    fun setPosts(list: List<Post>) {
+        arrayList.addAll(list)
         notifyDataSetChanged()
     }
 
