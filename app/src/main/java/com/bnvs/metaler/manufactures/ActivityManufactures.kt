@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bnvs.metaler.R
 import com.bnvs.metaler.data.posts.Post
-import com.bnvs.metaler.data.postsdummy.PostDummyData
 import com.bnvs.metaler.data.postsdummy.PostsDummy
 import kotlinx.android.synthetic.main.activity_manufacture.*
 
@@ -83,8 +82,8 @@ class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
 //    private val postLayoutManager = LinearLayoutManager(this)
 
 
-    lateinit var posts: ArrayList<PostDummyData?>
-    lateinit var loadMorePosts: ArrayList<PostDummyData?>
+    lateinit var posts: List<Post>
+    //    lateinit var loadMorePosts: ArrayList<Post?>
     lateinit var postAdapter: ManufacturesPostAdapter
     lateinit var scrollListener: EndlessRecyclerViewScrollListener
     lateinit var postLayoutManager: RecyclerView.LayoutManager
@@ -166,10 +165,13 @@ class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
     }
 
     private fun LoadMoreData() {
+
+        var loadPosts: List<Post> = presenter.loadPosts(presenter.requestPosts())
+
         //Add the Loading View
         postAdapter.addLoadingView()
         //Create the loadMoreItemsCells Arraylist
-        loadMorePosts = ArrayList()
+        var loadMorePosts = ArrayList<List<Post>>()
         //Get the number of the current Items of the main Arraylist
         val start = postAdapter.itemCount
         //Load 16 more items
@@ -179,12 +181,12 @@ class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
         Handler().postDelayed({
             for (i in start..end) {
                 //Get data and add them to loadMoreItemsCells ArrayList
-                loadMorePosts.add(postsDummy.getDummy())
+                loadMorePosts.add(loadPosts)
             }
             //Remove the Loading View
             postAdapter.removeLoadingView()
             //We adding the data to our main ArrayList
-            postAdapter.setPosts(loadMorePosts)
+            postAdapter.setPosts(loadPosts)
             //Change the boolean isLoading to false
             scrollListener.setLoaded()
             //Update the recyclerView in the main thread
