@@ -30,9 +30,9 @@ interface ContractManufactures {
     interface Presenter : BasePresenter, TapBarContract.Presenter {
         fun getAccessToken()
 
-        fun requestPosts(category_type: Int, page: Int, limit: Int): PostsRequest
+        fun requestPosts(): PostsRequest
 
-        fun loadPosts(postsRequest: PostsRequest)
+        fun loadPosts(postsRequest: PostsRequest): List<Post>
 
         fun refreshPosts()
 
