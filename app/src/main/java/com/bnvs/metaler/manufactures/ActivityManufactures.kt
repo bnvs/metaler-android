@@ -121,6 +121,7 @@ class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
 //        }
 
 
+
         setAdapter()
 
         setRVLayoutManager()
@@ -158,13 +159,13 @@ class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
         scrollListener.setOnLoadMoreListener(object :
             EndlessRecyclerViewScrollListener.OnLoadMoreListener {
             override fun onLoadMore() {
-                LoadMoreData()
+                loadMoreData()
             }
         })
         postsRV.addOnScrollListener(scrollListener)
     }
 
-    private fun LoadMoreData() {
+    private fun loadMoreData() {
 
         var loadPosts: List<Post> = presenter.loadPosts(presenter.requestPosts())
 
