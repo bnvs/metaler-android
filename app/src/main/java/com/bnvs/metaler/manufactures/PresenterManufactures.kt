@@ -1,6 +1,7 @@
 package com.bnvs.metaler.manufactures
 
 import android.content.Context
+import com.bnvs.metaler.data.posts.Post
 import com.bnvs.metaler.data.posts.PostsRequest
 import com.bnvs.metaler.data.posts.PostsResponse
 import com.bnvs.metaler.data.posts.source.PostsDataSource
@@ -46,7 +47,7 @@ class PresenterManufactures(
         })
     }
 
-    override fun loadPosts(postsRequest: PostsRequest) {
+    override fun loadPosts(postsRequest: PostsRequest) : List<Post> {
         postRepository.getPosts(
             accessToken,
             postsRequest,
@@ -67,7 +68,7 @@ class PresenterManufactures(
 
 
     // getPosts api 요청 request body 반환하는 함수
-    override fun requestPosts(category_type: Int, page: Int, limit: Int): PostsRequest {
+    override fun requestPosts(): PostsRequest {
         pageNum ++
         postsRequest = PostsRequest(
             1,
