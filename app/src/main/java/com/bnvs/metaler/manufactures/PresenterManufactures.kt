@@ -1,6 +1,7 @@
 package com.bnvs.metaler.manufactures
 
 import android.content.Context
+import android.util.Log
 import com.bnvs.metaler.data.posts.Post
 import com.bnvs.metaler.data.posts.PostsRequest
 import com.bnvs.metaler.data.posts.PostsResponse
@@ -14,6 +15,8 @@ class PresenterManufactures(
     private val context: Context,
     val view: ContractManufactures.View
 ) : ContractManufactures.Presenter {
+
+    val TAG = "PresenterManufactures.kt"
 
     private val tokenRepository: TokenRepository = TokenRepository(context)
 
@@ -47,7 +50,7 @@ class PresenterManufactures(
         })
     }
 
-    override fun loadPosts(postsRequest: PostsRequest) {
+    override fun loadPosts(postsRequest: PostsRequest): List<Post> {
         postRepository.getPosts(
             accessToken,
             postsRequest,
