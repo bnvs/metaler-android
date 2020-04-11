@@ -47,7 +47,7 @@ class PresenterManufactures(
         })
     }
 
-    override fun loadPosts(postsRequest: PostsRequest) : List<Post> {
+    override fun loadPosts(postsRequest: PostsRequest) {
         postRepository.getPosts(
             accessToken,
             postsRequest,
