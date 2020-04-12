@@ -45,7 +45,6 @@ class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
                 Log.d(TAG, "clickedPostId ? : ${clickedPostId}")
                 Log.d(TAG, "position ? : ${position}")
 
-//                Log.d(TAG, "북마크버튼 눌린 아이템? : $position, isBookmark ? : $isBookmark")
 //                postAdapter.setBookmark(position)
 
 //                view.bookmarkBtn.setImageResource(R.drawable.ic_list_bookmark_active_x3)
@@ -140,7 +139,6 @@ class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
     }
 
     private fun loadData() {
-        posts = presenter.loadPosts(presenter.requestPosts())
     }
 
     private fun loadMoreData() {

@@ -52,14 +52,13 @@ class PresenterManufactures(
         })
     }
 
-    override fun loadPosts(postsRequest: PostsRequest): List<Post> {
+    override fun loadPosts(postsRequest: PostsRequest) {
         postRepository.getPosts(
             accessToken,
             postsRequest,
             object : PostsDataSource.LoadPostsCallback {
                 override fun onPostsLoaded(postsResponse: PostsResponse) {
-                    posts = postsResponse.posts
-                    Log.d(TAG, "posts ? : $posts")
+
 
                 }
 
@@ -71,7 +70,6 @@ class PresenterManufactures(
                     Log.d(TAG, "t ? : $t")
                 }
             })
-        return posts
     }
 
 
