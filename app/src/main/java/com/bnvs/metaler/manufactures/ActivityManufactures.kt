@@ -26,7 +26,7 @@ class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
     private var itemListener: ManufacturesPostItemListener = object : ManufacturesPostItemListener {
         override fun onPostClick(view: View, clickedPostId: Int) {
             Log.d(TAG, "눌린 아이템? : $clickedPostId")
-            Log.d(TAG, "눌린 아이템? : ${posts[clickedPostId]!!.title}")
+//            Log.d(TAG, "눌린 아이템? : ${posts[clickedPostId]!!.title}")
 //            presenter.openPostDetail(clickedPostId)
         }
 
@@ -120,13 +120,15 @@ class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
         )*/
 //        }
 
+//        loadData()
+//        Log.d(TAG, "posts ? : ${posts}")
+//        posts = presenter.loadPosts(presenter.requestPosts())
 
+//        setAdapter()
 
-        setAdapter()
+//        setRVLayoutManager()
 
-        setRVLayoutManager()
-
-        setRVScrollListener()
+//        setRVScrollListener()
 
         // 가공 탭 presenter 시작
         presenter.run {
@@ -165,36 +167,41 @@ class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
         postsRV.addOnScrollListener(scrollListener)
     }
 
+    private fun loadData() {
+        var data = presenter.loadPosts(presenter.requestPosts())
+        Log.d(TAG,"data : ${data.toString()}")
+    }
+
     private fun loadMoreData() {
 
-        var loadPosts: List<Post> = presenter.loadPosts(presenter.requestPosts())
-
-        //Add the Loading View
-        postAdapter.addLoadingView()
-        //Create the loadMoreItemsCells Arraylist
-        var loadMorePosts = ArrayList<List<Post>>()
-        //Get the number of the current Items of the main Arraylist
-        val start = postAdapter.itemCount
-        //Load 16 more items
-        val end = start + 6
-        //Use Handler if the items are loading too fast.
-        //If you remove it, the data will load so fast that you can't even see the LoadingView
-        Handler().postDelayed({
-            for (i in start..end) {
-                //Get data and add them to loadMoreItemsCells ArrayList
-                loadMorePosts.add(loadPosts)
-            }
-            //Remove the Loading View
-            postAdapter.removeLoadingView()
-            //We adding the data to our main ArrayList
-            postAdapter.setPosts(loadPosts)
-            //Change the boolean isLoading to false
-            scrollListener.setLoaded()
-            //Update the recyclerView in the main thread
-            postsRV.post {
-                postAdapter.notifyDataSetChanged()
-            }
-        }, 3000)
+//        var loadPosts: List<Post> = presenter.loadPosts(presenter.requestPosts())
+//
+//        //Add the Loading View
+//        postAdapter.addLoadingView()
+//        //Create the loadMoreItemsCells Arraylist
+//        var loadMorePosts = ArrayList<List<Post>>()
+//        //Get the number of the current Items of the main Arraylist
+//        val start = postAdapter.itemCount
+//        //Load 16 more items
+//        val end = start + 6
+//        //Use Handler if the items are loading too fast.
+//        //If you remove it, the data will load so fast that you can't even see the LoadingView
+//        Handler().postDelayed({
+//            for (i in start..end) {
+//                //Get data and add them to loadMoreItemsCells ArrayList
+//                loadMorePosts.add(loadPosts)
+//            }
+//            //Remove the Loading View
+//            postAdapter.removeLoadingView()
+//            //We adding the data to our main ArrayList
+//            postAdapter.setPosts(loadPosts)
+//            //Change the boolean isLoading to false
+//            scrollListener.setLoaded()
+//            //Update the recyclerView in the main thread
+//            postsRV.post {
+//                postAdapter.notifyDataSetChanged()
+//            }
+//        }, 3000)
 
     }
 
