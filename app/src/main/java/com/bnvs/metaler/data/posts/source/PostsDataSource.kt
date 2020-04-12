@@ -7,7 +7,7 @@ import com.bnvs.metaler.data.posts.PostsResponse
 interface PostsDataSource {
 
     interface LoadPostsCallback {
-        fun onPostsLoaded(postsResponse: PostsResponse): List<Post>
+        fun onPostsLoaded(postsResponse: PostsResponse)
         fun onResponseError(message: String)
         fun onFailure(t: Throwable)
     }

@@ -26,7 +26,6 @@ class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
     private var itemListener: ManufacturesPostItemListener = object : ManufacturesPostItemListener {
         override fun onPostClick(view: View, clickedPostId: Int) {
             Log.d(TAG, "눌린 아이템? : $clickedPostId")
-//            Log.d(TAG, "눌린 아이템? : ${posts[clickedPostId]!!.title}")
 //            presenter.openPostDetail(clickedPostId)
         }
 
@@ -37,12 +36,9 @@ class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
             position: Int
         ) {
 
-//            var isBookmark = posts[position]!!.is_bookmark
-
             if (!isBookmark) {
                 Log.d(TAG, "isBookmark ? : ${isBookmark}")
 
-//            Log.d(TAG, "북마크버튼 눌린 아이템? : $position, isBookmark ? : ${posts[position]!!.is_bookmark}")
 //            if(!posts[position]!!.is_bookmark) {
 
                 Log.d(TAG, "북마크 이미지 변경!  ")
@@ -77,10 +73,6 @@ class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
         }
 
     }
-//
-//    private val postAdapter = PostAdapter(ArrayList(0), itemListener)
-//    private val postLayoutManager = LinearLayoutManager(this)
-
 
     lateinit var posts: List<Post>
     //    lateinit var loadMorePosts: ArrayList<Post?>
@@ -89,6 +81,8 @@ class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
     lateinit var postLayoutManager: RecyclerView.LayoutManager
 
 //    lateinit var itemListener: ManufacturesPostItemListener
+
+    private var postsDummy: PostsDummy = PostsDummy()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -101,26 +95,6 @@ class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
         // Set up Buttons
         initClickListeners()
 
-        // Set up posts recyclerView
-//        postsRV.apply {
-//            adapter = postAdapter
-//            layoutManager = postLayoutManager
-//        }
-
-        // Set up RefreshListener
-//        refreshLayout.apply {
-        /*setOnRefreshListener {
-            presenter.refreshPosts()
-            refreshLayout.isRefreshing = false
-        }
-        setColorSchemeColors(
-            ContextCompat.getColor(this@ActivityManufactures, R.color.colorPurple)
-        )*/
-//        }
-
-//        loadData()
-//        Log.d(TAG, "posts ? : ${posts}")
-//        posts = presenter.loadPosts(presenter.requestPosts())
 
 //        setAdapter()
 
@@ -166,8 +140,7 @@ class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
     }
 
     private fun loadData() {
-        var data = presenter.loadPosts(presenter.requestPosts())
-        Log.d(TAG,"data : ${data.toString()}")
+        posts = presenter.loadPosts(presenter.requestPosts())
     }
 
     private fun loadMoreData() {
