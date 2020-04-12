@@ -90,8 +90,6 @@ class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
 
 //    lateinit var itemListener: ManufacturesPostItemListener
 
-    private var postsDummy: PostsDummy = PostsDummy()
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
