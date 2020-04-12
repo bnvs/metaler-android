@@ -26,7 +26,9 @@ class PresenterManufactures(
 
     private lateinit var postsRequest: PostsRequest
 
-    private var pageNum: Int = 1
+    private var pageNum: Int = 0
+
+    lateinit var posts: List<Post>
 
     init {
         view.presenter = this
@@ -35,7 +37,7 @@ class PresenterManufactures(
 
     override fun start() {
         getAccessToken()
-        loadPosts(postsRequest)
+        loadPosts(requestPosts())
     }
 
     override fun getAccessToken() {
@@ -50,21 +52,23 @@ class PresenterManufactures(
         })
     }
 
-    override fun loadPosts(postsRequest: PostsRequest): List<Post> {
+    override fun loadPosts(postsRequest: PostsRequest) {
         postRepository.getPosts(
             accessToken,
             postsRequest,
             object : PostsDataSource.LoadPostsCallback {
-                override fun onPostsLoaded(postsResponse: PostsResponse) {
-                    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                override fun onPostsLoaded(postsResponse: PostsResponse): List<Post> {
+                    posts = postsResponse.posts
+                    Log.d(TAG, "posts ? : $posts")
+                    return posts
                 }
 
                 override fun onResponseError(message: String) {
-                    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                    Log.d(TAG, "message ? : $message")
                 }
 
                 override fun onFailure(t: Throwable) {
-                    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                    Log.d(TAG, "t ? : $t")
                 }
             })
     }
@@ -80,7 +84,6 @@ class PresenterManufactures(
         )
         return postsRequest
     }
-
 
 
     override fun refreshPosts() {
