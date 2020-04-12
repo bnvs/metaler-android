@@ -1,7 +1,6 @@
 package com.bnvs.metaler.manufactures
 
 import android.os.Bundle
-import android.os.Handler
 import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -9,7 +8,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bnvs.metaler.R
 import com.bnvs.metaler.data.posts.Post
-import com.bnvs.metaler.data.postsdummy.PostsDummy
 import kotlinx.android.synthetic.main.activity_manufacture.*
 
 class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
@@ -18,6 +16,13 @@ class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
 
     override lateinit var presenter: ContractManufactures.Presenter
 
+    lateinit var posts: List<Post>
+    //    lateinit var loadMorePosts: ArrayList<Post?>
+    lateinit var postAdapter: ManufacturesPostAdapter
+    lateinit var scrollListener: EndlessRecyclerViewScrollListener
+    lateinit var postLayoutManager: RecyclerView.LayoutManager
+
+//    lateinit var itemListener: ManufacturesPostItemListener
     /**
      * 가공 탭에서 보여지는 가공 게시물 리사이클러뷰 아이템에 달아줄 클릭리스너입니다
      * onPostClick -> 게시물을 클릭한 경우
@@ -73,16 +78,6 @@ class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
 
     }
 
-    lateinit var posts: List<Post>
-    //    lateinit var loadMorePosts: ArrayList<Post?>
-    lateinit var postAdapter: ManufacturesPostAdapter
-    lateinit var scrollListener: EndlessRecyclerViewScrollListener
-    lateinit var postLayoutManager: RecyclerView.LayoutManager
-
-//    lateinit var itemListener: ManufacturesPostItemListener
-
-    private var postsDummy: PostsDummy = PostsDummy()
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -91,20 +86,18 @@ class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
         // Create the presenter
         presenter = PresenterManufactures(this, this)
 
-        // Set up Buttons
-        initClickListeners()
-
-
-//        setAdapter()
-
-//        setRVLayoutManager()
-
-//        setRVScrollListener()
-
         // 가공 탭 presenter 시작
         presenter.run {
             start()
         }
+
+        // Set up Buttons
+        initClickListeners()
+
+        setRVLayoutManager()
+
+        setRVScrollListener()
+
 
     }
 
@@ -113,12 +106,6 @@ class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
         presenter.start()
     }
 
-
-    private fun setAdapter() {
-        postAdapter = ManufacturesPostAdapter(posts, itemListener)
-        postAdapter.notifyDataSetChanged()
-        postsRV.adapter = postAdapter
-    }
 
     private fun setRVLayoutManager() {
         postLayoutManager = LinearLayoutManager(this)
@@ -136,9 +123,6 @@ class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
             }
         })
         postsRV.addOnScrollListener(scrollListener)
-    }
-
-    private fun loadData() {
     }
 
     private fun loadMoreData() {
@@ -175,7 +159,9 @@ class ActivityManufactures : AppCompatActivity(), ContractManufactures.View {
     }
 
     override fun showPosts(posts: List<Post>) {
-        postAdapter.setPosts(posts)
+        postAdapter = ManufacturesPostAdapter(posts, itemListener)
+        postAdapter.notifyDataSetChanged()
+        postsRV.adapter = postAdapter
     }
 
     override fun showPostDetailUi() {
