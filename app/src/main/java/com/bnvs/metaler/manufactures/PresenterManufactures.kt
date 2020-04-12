@@ -58,8 +58,7 @@ class PresenterManufactures(
             postsRequest,
             object : PostsDataSource.LoadPostsCallback {
                 override fun onPostsLoaded(postsResponse: PostsResponse) {
-
-
+                    view.showPosts(postsResponse.posts)
                 }
 
                 override fun onResponseError(message: String) {
