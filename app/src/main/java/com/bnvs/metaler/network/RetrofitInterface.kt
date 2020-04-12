@@ -26,7 +26,7 @@ import retrofit2.http.*
 
 interface RetrofitInterface {
 
-    /*** 1. 유저 ***/
+    /*** 1. 유저 - 인증관련 ***/
     // 회원가입 여부 체크
     @POST("/users/check")
     fun checkUserMembership(@Body request: CheckMembershipRequest): Call<CheckMembershipResponse>
@@ -39,6 +39,10 @@ interface RetrofitInterface {
     @POST("/users/login")
     fun login(@Body request: LoginRequest): Call<LoginResponse>
 
+    /*** 1. 유저 - 내가 쓴 글 ***/
+    // 내가 쓴 글 조회
+    @GET("/users/posts")
+    fun getMyPosts()
 
     /*** 2. 북마크 ***/
     // 북마크 추가
@@ -174,9 +178,6 @@ interface RetrofitInterface {
 
     @PUT("/users/jobs")
     fun modifyJob(@Body request: Jobs)
-
-    @GET("/users/posts")
-    fun getMyPosts()
 
     @PUT("/users/nickname")
     fun modifyNickname()
