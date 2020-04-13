@@ -1,5 +1,6 @@
 package com.bnvs.metaler.data.posts.source
 
+import com.bnvs.metaler.data.posts.Post
 import com.bnvs.metaler.data.posts.PostsRequest
 import com.bnvs.metaler.data.posts.PostsResponse
 
