@@ -6,7 +6,7 @@
 
     <application
         android:usesCleartextTraffic="true"
-        android:name=".login.GlobalApplication"
+        android:name=".ui.login.GlobalApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher_metaler"
         android:label="@string/app_name"
@@ -16,7 +16,7 @@
 
         <meta-data
             android:name="com.kakao.sdk.AppKey"
-            android:value="@string/kakao_app_key" />
+            android:value="${KAKAO_API_KEY}" />
 
         <service
             android:name=".firebase.MyFirebaseMessagingService"
@@ -26,21 +26,20 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".home.ActivityHome"></activity>
-        <activity android:name=".materials.ActivityMaterials" />
-        <activity android:name=".manufactures.ActivityManufactures" />
-        <activity android:name=".bookmarks.ActivityBookmarks" />
-        <activity android:name=".mypage.ActivityMyPage" />
-        <activity android:name=".search.ActivitySearch" />
-        <activity android:name=".detail.ActivityDetail" />
-        <activity android:name=".postsecond.ActivityPostSecond" />
-        <activity android:name=".postfirst.ActivityPostFirst" />
-        <activity android:name=".myposts.ActivityMyPosts" />
-        <activity android:name=".jobmodify.ActivityJobModify" />
-        <activity android:name=".jobinput.ActivityJobInput" />
-        <activity android:name=".termsagree.ActivityTermsAgree" />
-        <activity
-            android:name=".login.ActivityLogin">
+        <activity android:name=".ui.home.ActivityHome"></activity>
+        <activity android:name=".ui.materials.ActivityMaterials" />
+        <activity android:name=".ui.manufactures.ActivityManufactures" />
+        <activity android:name="com.bnvs.metaler.ui.bookmarks.ActivityBookmarks" />
+        <activity android:name=".ui.mypage.ActivityMyPage" />
+        <activity android:name=".ui.search.ActivitySearch" />
+        <activity android:name=".ui.detail.ActivityDetail" />
+        <activity android:name=".ui.postsecond.ActivityPostSecond" />
+        <activity android:name=".ui.postfirst.ActivityPostFirst" />
+        <activity android:name=".ui.myposts.ActivityMyPosts" />
+        <activity android:name=".ui.jobmodify.ActivityJobModify" />
+        <activity android:name=".ui.jobinput.ActivityJobInput" />
+        <activity android:name=".ui.termsagree.ActivityTermsAgree" />
+        <activity android:name=".ui.login.ActivityLogin">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

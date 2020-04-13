@@ -9,7 +9,8 @@ package com.bnvs.metaler.data.homeposts
 data class HomePost(
     val post_id: Int,
     val title: String,
-    val nickname: String,
+    val content: String,
+    val profile_nickname: String,
     val date: String,
     val tags: List<String>
 )
