@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginHorizontal="20dp"
-    tools:context=".termsagree.ActivityTermsAgree">
+    tools:context=".ui.termsagree.ActivityTermsAgree">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/titleBarCard"

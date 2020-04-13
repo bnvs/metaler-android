@@ -2,11 +2,11 @@ package com.bnvs.metaler.util
 
 import android.content.Context
 import android.content.Intent
-import com.bnvs.metaler.bookmarks.ActivityBookmarks
-import com.bnvs.metaler.home.ActivityHome
-import com.bnvs.metaler.manufactures.ActivityManufactures
-import com.bnvs.metaler.materials.ActivityMaterials
-import com.bnvs.metaler.mypage.ActivityMyPage
+import com.bnvs.metaler.ui.bookmarks.ActivityBookmarks
+import com.bnvs.metaler.ui.home.ActivityHome
+import com.bnvs.metaler.ui.manufactures.ActivityManufactures
+import com.bnvs.metaler.ui.materials.ActivityMaterials
+import com.bnvs.metaler.ui.mypage.ActivityMyPage
 
 /**
  * 탭바가 있는 액티비티에서 사용하는 TapBarContract 입니다.

@@ -7,12 +7,13 @@ import com.bnvs.metaler.data.categories.Categories
 import com.bnvs.metaler.data.comments.AddCommentRequest
 import com.bnvs.metaler.data.comments.Comments
 import com.bnvs.metaler.data.homeposts.HomePosts
-import com.bnvs.metaler.data.job.Job
-import com.bnvs.metaler.data.job.Jobs
 import com.bnvs.metaler.data.myposts.MyPosts
 import com.bnvs.metaler.data.postdetails.PostDetails
 import com.bnvs.metaler.data.posts.PostsResponse
-import com.bnvs.metaler.data.user.*
+import com.bnvs.metaler.data.user.certification.model.*
+import com.bnvs.metaler.data.user.modification.model.Job
+import com.bnvs.metaler.data.user.modification.model.Jobs
+import com.bnvs.metaler.data.user.modification.model.Nickname
 import okhttp3.MultipartBody
 import okhttp3.ResponseBody
 import retrofit2.Call
