@@ -1,6 +1,7 @@
 package com.bnvs.metaler.network
 
 import com.bnvs.metaler.BuildConfig
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -12,6 +13,19 @@ object RetrofitClient {
 
     init {
         val okHttpClient = OkHttpClient.Builder()
+            .addInterceptor { chain: Interceptor.Chain ->
+                val original = chain.request()
+                if (original.url.encodedPath.equals("/users/check", true)
+                    || original.url.encodedPath.equals("/users/join", true)
+                    || original.url.encodedPath.equals("/users/join", true)
+                ) {
+                    chain.proceed(original)
+                } else {
+                    chain.proceed(original.newBuilder().apply {
+                        addHeader("Authorization", "")
+                    }.build())
+                }
+            }
             .addInterceptor(HttpLoggingInterceptor().apply {
                 level = if (BuildConfig.DEBUG) {
                     HttpLoggingInterceptor.Level.BODY
@@ -27,6 +41,7 @@ object RetrofitClient {
             .build()
 
         client = retrofit.create(
-            RetrofitInterface::class.java)
+            RetrofitInterface::class.java
+        )
     }
 }
