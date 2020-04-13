@@ -8,12 +8,14 @@ import com.bnvs.metaler.data.categories.Categories
 import com.bnvs.metaler.data.comments.AddCommentRequest
 import com.bnvs.metaler.data.comments.Comments
 import com.bnvs.metaler.data.homeposts.HomePosts
+import com.bnvs.metaler.data.job.Job
 import com.bnvs.metaler.data.job.Jobs
 import com.bnvs.metaler.data.postdetails.PostDetails
 import com.bnvs.metaler.data.posts.PostsResponse
 import com.bnvs.metaler.data.user.*
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import okhttp3.ResponseBody
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.http.*
@@ -26,7 +28,8 @@ import retrofit2.http.*
 
 interface RetrofitInterface {
 
-    /*** 1. 유저 - 인증관련 ***/
+    /*** [1. 유저] ***/
+    /*** [1-1. 인증관련] ***/
     // 회원가입 여부 체크
     @POST("/users/check")
     fun checkUserMembership(@Body request: CheckMembershipRequest): Call<CheckMembershipResponse>
@@ -39,10 +42,29 @@ interface RetrofitInterface {
     @POST("/users/login")
     fun login(@Body request: LoginRequest): Call<LoginResponse>
 
-    /*** 1. 유저 - 내가 쓴 글 ***/
-    // 내가 쓴 글 조회
-    @GET("/users/posts")
-    fun getMyPosts()
+    // 회원탈퇴
+    @DELETE("/users")
+    fun deleteUser(@Header("Authorization") access_token: String): Call<ResponseBody>
+
+    /*** [1-2. 회원정보 수정] ***/
+    // 소속조회
+    @GET("/users/jobs")
+    fun getUserJob(@Header("Authorization") access_token: String): Call<Jobs>
+
+    // 소속수정
+    @PUT("/users/jobs")
+    fun modifyUserJob(
+        @Header("Authorization") access_token: String,
+        @Body request: Job
+    ): Call<ResponseBody>
+
+    // 닉네임 수정
+    @PUT("/users/nickname")
+    fun modifyNickname(
+        @Header("Authorization") access_token: String,
+        @Body request: Nickname
+    ): Call<ResponseBody>
+
 
     /*** 2. 북마크 ***/
     // 북마크 추가
@@ -73,6 +95,10 @@ interface RetrofitInterface {
     // 카테고리 (재료, 가공)
     @GET("/categories")
     fun getCategories(@Header("Authorization") access_token: String): Call<Categories>
+
+    // 내가 쓴 글 조회
+    @GET("/users/posts")
+    fun getMyPosts()
 
     // 게시글 목록 조회 (태그검색은 개발중)
     @GET("/posts")
@@ -172,15 +198,6 @@ interface RetrofitInterface {
     /*** 6. 미완성 api ***/
     @GET("/home")
     fun getHomePosts(@Body request: JSONObject): Call<HomePosts>
-
-    @GET("/users/jobs")
-    fun getJob(@Body request: JSONObject): Call<Jobs>
-
-    @PUT("/users/jobs")
-    fun modifyJob(@Body request: Jobs)
-
-    @PUT("/users/nickname")
-    fun modifyNickname()
 
     @DELETE("/users")
     fun deleteUser(@Body request: DeleteUserRequest)
