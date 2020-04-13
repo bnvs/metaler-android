@@ -71,6 +71,25 @@ class PresenterManufactures(
             })
     }
 
+    override fun loadMorePosts(postsRequest: PostsRequest) {
+        postRepository.getPosts(
+            accessToken,
+            postsRequest,
+            object : PostsDataSource.LoadPostsCallback {
+                override fun onPostsLoaded(postsResponse: PostsResponse) {
+                    view.showMorePosts(postsResponse.posts)
+                }
+
+                override fun onResponseError(message: String) {
+                    Log.d(TAG, "message ? : $message")
+                }
+
+                override fun onFailure(t: Throwable) {
+                    Log.d(TAG, "t ? : $t")
+                }
+            })
+    }
+
 
     // getPosts api 요청 request body 반환하는 함수
     override fun requestPosts(): PostsRequest {
