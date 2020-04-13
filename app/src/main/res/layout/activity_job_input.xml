@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginHorizontal="20dp"
-    tools:context=".jobinput.ActivityJobInput">
+    tools:context=".ui.jobinput.ActivityJobInput">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/titleBarCard"
