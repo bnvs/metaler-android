@@ -1,6 +1,5 @@
 package com.bnvs.metaler.data.user.certification.source.remote
 
-import android.util.Log
 import com.bnvs.metaler.data.user.certification.model.*
 import com.bnvs.metaler.data.user.certification.source.UserCertificationDataSource
 import com.bnvs.metaler.network.RetrofitClient
@@ -17,30 +16,23 @@ object UserCertificationRemoteDataSource : UserCertificationDataSource {
         request: AddUserRequest,
         callback: UserCertificationDataSource.AddUserCallback
     ) {
-        retrofitClient.addUser(request).
-            enqueue(object : Callback<AddUserResponse> {
-                override fun onResponse(
-                    call: Call<AddUserResponse>,
-                    response: Response<AddUserResponse>
-                ) {
-                    if (response.isSuccessful) {
-                        Log.d(TAG, "회원가입 성공")
-                        Log.d(TAG, "회원가입 api 응답 : $response")
-                        Log.d(TAG, "회원가입 api 응답 body : ${response.body()}")
-                        callback.onUserAdded(response.body()!!)
+        retrofitClient.addUser(request).enqueue(object : Callback<AddUserResponse> {
+            override fun onResponse(
+                call: Call<AddUserResponse>,
+                response: Response<AddUserResponse>
+            ) {
+                if (response.isSuccessful) {
+                    callback.onUserAdded(response.body()!!)
 
-                    }else {
-                        Log.d(TAG, "회원가입 실패")
-                        Log.d(TAG, "회원가입 api 응답 : $response")
-                        Log.d(TAG, "회원가입 api 응답 body : ${response.body()}")
-                        callback.onResponseError(response.errorBody().toString())
-                    }
+                } else {
+                    callback.onResponseError(response.errorBody().toString())
                 }
+            }
 
-                override fun onFailure(call: Call<AddUserResponse>, t: Throwable) {
-                    callback.onFailure(t)
-                }
-            })
+            override fun onFailure(call: Call<AddUserResponse>, t: Throwable) {
+                callback.onFailure(t)
+            }
+        })
     }
 
     override fun checkMembership(
@@ -54,15 +46,9 @@ object UserCertificationRemoteDataSource : UserCertificationDataSource {
                     response: Response<CheckMembershipResponse>
                 ) {
                     if (response.isSuccessful) {
-                        Log.d(TAG, "회원가입 여부 확인 성공")
-                        Log.d(TAG, "회원가입 여부 확인 api 응답 : $response")
-                        Log.d(TAG, "회원가입 여부 확인 api 응답 body : ${response.body()}")
                         callback.onMembershipChecked(response.body()!!)
 
                     } else {
-                        Log.d(TAG, "회원가입 여부 확인 실패")
-                        Log.d(TAG, "회원가입 여부 확인 api 응답 : $response")
-                        Log.d(TAG, "회원가입 여부 확인 api 응답 body : ${response.body()}")
                         callback.onResponseError(response.errorBody().toString())
                     }
                 }
@@ -84,15 +70,9 @@ object UserCertificationRemoteDataSource : UserCertificationDataSource {
                     response: Response<LoginResponse>
                 ) {
                     if (response.isSuccessful) {
-                        Log.d(TAG, "로그인 성공")
-                        Log.d(TAG, "로그인 api 응답 : $response")
-                        Log.d(TAG, "로그인 api 응답 body : ${response.body()}")
                         callback.onLoginSuccess(response.body()!!)
 
                     } else {
-                        Log.d(TAG, "로그인 실패")
-                        Log.d(TAG, "로그인 api 응답 : $response")
-                        Log.d(TAG, "로그인 api 응답 body : ${response.body()}")
                         callback.onResponseError(response.errorBody().toString())
                     }
                 }
