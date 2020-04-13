@@ -1,4 +1,4 @@
-package com.bnvs.metaler.manufactures
+package com.bnvs.metaler.ui.manufactures
 
 import android.content.Context
 import android.util.Log
@@ -98,7 +98,9 @@ class PresenterManufactures(
         postsRequest = PostsRequest(
             1,
             pageNum,
-            10
+            10,
+            null,
+            null
         )
         return postsRequest
     }
