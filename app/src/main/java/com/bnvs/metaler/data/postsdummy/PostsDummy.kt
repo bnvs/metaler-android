@@ -4,11 +4,11 @@ import android.util.Log
 import com.bnvs.metaler.data.posts.Post
 
 
-class PostDummy{
+class PostsDummy{
 
     var tags = listOf("tag1","tag2")
 
-    var postsDummy = Post (
+    var postsDummy = PostDummyData (
         1,
         2,
         2,
@@ -25,7 +25,7 @@ class PostDummy{
         false
     )
 
-    fun getDummy (): Post {
+    fun getDummy (): PostDummyData {
         Log.d("dummy", postsDummy.toString())
         return postsDummy
     }

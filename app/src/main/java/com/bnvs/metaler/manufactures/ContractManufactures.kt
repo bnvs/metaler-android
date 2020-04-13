@@ -3,6 +3,8 @@ package com.bnvs.metaler.manufactures
 import com.bnvs.metaler.BasePresenter
 import com.bnvs.metaler.BaseView
 import com.bnvs.metaler.data.posts.Post
+import com.bnvs.metaler.data.posts.PostsRequest
+import com.bnvs.metaler.data.postsdummy.PostDummyData
 import com.bnvs.metaler.util.TapBarContract
 
 /**
@@ -12,7 +14,7 @@ import com.bnvs.metaler.util.TapBarContract
 
 interface ContractManufactures {
     interface View : BaseView<Presenter>, TapBarContract.View {
-        fun showPosts(posts: ArrayList<Post?>)
+        fun showPosts(posts: List<Post>)
 
         fun showPostDetailUi()
 
@@ -28,9 +30,9 @@ interface ContractManufactures {
     interface Presenter : BasePresenter, TapBarContract.Presenter {
         fun getAccessToken()
 
-        fun requestPosts()
+        fun requestPosts(): PostsRequest
 
-        fun loadPosts()
+        fun loadPosts(postsRequest: PostsRequest)
 
         fun refreshPosts()
 
