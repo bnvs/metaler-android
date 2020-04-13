@@ -66,6 +66,20 @@ interface RetrofitInterface {
     ): Call<ResponseBody>
 
 
+    /*** [2. 게시글] ***/
+    /*** [2-1. 카테고리] ***/
+    // 카테고리 조회 (재료, 가공)
+    @GET("/categories")
+    fun getCategories(@Header("Authorization") access_token: String): Call<Categories>
+
+    /*** [2-1. 글] ***/
+    // 게시글 목록 조회
+    @GET("/posts")
+    fun getPosts(
+        @Header("Authorization") access_token: String,
+        @QueryMap options: Map<String, String>
+    ): Call<PostsResponse>
+
     /*** 2. 북마크 ***/
     // 북마크 추가
     @POST("/users/bookmarks")
@@ -92,20 +106,12 @@ interface RetrofitInterface {
 
 
     /*** 3. 게시글 ***/
-    // 카테고리 (재료, 가공)
-    @GET("/categories")
-    fun getCategories(@Header("Authorization") access_token: String): Call<Categories>
+
 
     // 내가 쓴 글 조회
     @GET("/users/posts")
     fun getMyPosts()
 
-    // 게시글 목록 조회 (태그검색은 개발중)
-    @GET("/posts")
-    fun getPosts(
-        @Header("Authorization") access_token: String,
-        @QueryMap options: Map<String, Int>
-    ): Call<PostsResponse>
 
     // 게시글 상세 조회
     @GET("/posts/{id}")
