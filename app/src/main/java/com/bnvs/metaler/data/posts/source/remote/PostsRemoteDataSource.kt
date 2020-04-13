@@ -17,16 +17,17 @@ object PostsRemoteDataSource : PostsDataSource {
         request: PostsRequest,
         callback: PostsDataSource.LoadPostsCallback
     ) {
-        val options = mutableMapOf(
-            "category_type" to request.category_type.toString(),
-            "page" to request.page.toString(),
-            "limit" to request.limit.toString()
-        )
-        if (request.search_type != null && request.search_type.isNotEmpty()) {
-            options["search_type"] = request.search_type
-        }
-        if (request.search_word != null && request.search_word.isNotEmpty()) {
-            options["search_word"] = request.search_word
+        val options = mutableMapOf<String, Any>(
+            "category_type" to request.category_type,
+            "page" to request.page,
+            "limit" to request.limit
+        ).apply {
+            if (request.search_type != null && request.search_type.isNotEmpty()) {
+                put("search_type", request.search_type)
+            }
+            if (request.search_word != null && request.search_word.isNotEmpty()) {
+                put("search_word", request.search_word)
+            }
         }
 
         retrofitClient.getPosts(access_token, options).enqueue(object : Callback<PostsResponse> {
