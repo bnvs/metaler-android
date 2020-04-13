@@ -77,6 +77,7 @@ class PresenterManufactures(
             postsRequest,
             object : PostsDataSource.LoadPostsCallback {
                 override fun onPostsLoaded(postsResponse: PostsResponse) {
+                    if(postsResponse.is_next)
                     view.showMorePosts(postsResponse.posts)
                 }
 
