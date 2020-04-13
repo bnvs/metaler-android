@@ -5,6 +5,7 @@ import com.bnvs.metaler.data.user.certification.source.UserCertificationDataSour
 import com.bnvs.metaler.network.RetrofitClient
 import retrofit2.Call
 import retrofit2.Callback
+import retrofit2.HttpException
 import retrofit2.Response
 
 object UserCertificationRemoteDataSource : UserCertificationDataSource {
@@ -21,11 +22,11 @@ object UserCertificationRemoteDataSource : UserCertificationDataSource {
                 call: Call<AddUserResponse>,
                 response: Response<AddUserResponse>
             ) {
-                if (response.isSuccessful) {
-                    callback.onUserAdded(response.body()!!)
-
+                val body = response.body()
+                if (body != null && response.isSuccessful) {
+                    callback.onUserAdded(body)
                 } else {
-                    callback.onResponseError(response.errorBody().toString())
+                    callback.onResponseError(HttpException(response))
                 }
             }
 
@@ -45,11 +46,11 @@ object UserCertificationRemoteDataSource : UserCertificationDataSource {
                     call: Call<CheckMembershipResponse>,
                     response: Response<CheckMembershipResponse>
                 ) {
-                    if (response.isSuccessful) {
-                        callback.onMembershipChecked(response.body()!!)
-
+                    val body = response.body()
+                    if (body != null && response.isSuccessful) {
+                        callback.onMembershipChecked(body)
                     } else {
-                        callback.onResponseError(response.errorBody().toString())
+                        callback.onResponseError(HttpException(response))
                     }
                 }
 
@@ -69,11 +70,11 @@ object UserCertificationRemoteDataSource : UserCertificationDataSource {
                     call: Call<LoginResponse>,
                     response: Response<LoginResponse>
                 ) {
-                    if (response.isSuccessful) {
-                        callback.onLoginSuccess(response.body()!!)
-
+                    val body = response.body()
+                    if (body != null && response.isSuccessful) {
+                        callback.onLoginSuccess(body)
                     } else {
-                        callback.onResponseError(response.errorBody().toString())
+                        callback.onResponseError(HttpException(response))
                     }
                 }
 
