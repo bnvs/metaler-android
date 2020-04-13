@@ -30,7 +30,7 @@ object PostsRemoteDataSource : PostsDataSource {
             }
         }
 
-        retrofitClient.getPosts(access_token, options).enqueue(object : Callback<PostsResponse> {
+        retrofitClient.getPosts(options).enqueue(object : Callback<PostsResponse> {
             override fun onResponse(call: Call<PostsResponse>, response: Response<PostsResponse>) {
                 if (response.isSuccessful) {
                     callback.onPostsLoaded(response.body()!!)
