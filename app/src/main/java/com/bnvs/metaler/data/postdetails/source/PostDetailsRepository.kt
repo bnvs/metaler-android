@@ -1,15 +1,18 @@
 package com.bnvs.metaler.data.postdetails.source
 
 import android.content.Context
-import com.bnvs.metaler.data.postdetails.source.local.PostDetailsLocalDataSource
+import com.bnvs.metaler.data.postdetails.PostDetails
 import com.bnvs.metaler.data.postdetails.source.remote.PostDetailsRemoteDataSource
 
 class PostDetailsRepository(context: Context) : PostDetailsDataSource {
 
-    private val postDetailsLocalDataSource = PostDetailsLocalDataSource(context)
     private val postDetialsRemoteDataSource = PostDetailsRemoteDataSource
 
-    override fun getPostDetails(callback: PostDetailsDataSource.LoadPostDetailsCallback) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun getPostDetails(
+        postId: Int,
+        onSuccess: (response: PostDetails) -> Unit,
+        onFailure: (e: Throwable) -> Unit
+    ) {
+        postDetialsRemoteDataSource.getPostDetails(postId, onSuccess, onFailure)
     }
 }
