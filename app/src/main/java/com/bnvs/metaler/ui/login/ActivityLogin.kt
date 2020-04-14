@@ -17,6 +17,7 @@ import com.bnvs.metaler.data.user.certification.model.LoginRequest
 import com.bnvs.metaler.data.user.certification.model.User
 import com.bnvs.metaler.data.user.certification.source.UserCertificationRepository
 import com.bnvs.metaler.network.NetworkUtil
+import com.bnvs.metaler.network.RetrofitClient
 import com.bnvs.metaler.ui.home.ActivityHome
 import com.bnvs.metaler.ui.termsagree.ActivityTermsAgree
 import com.bnvs.metaler.util.DeviceInfo
@@ -168,6 +169,7 @@ class ActivityLogin : AppCompatActivity() {
         userRepository.login(
             loginRequest(kakao_id, signin_token),
             onSuccess = { response ->
+                RetrofitClient.setAccessToken(response.access_token)
                 saveAccessToken(response.access_token)
                 saveProfileData(response.user)
                 openHome()

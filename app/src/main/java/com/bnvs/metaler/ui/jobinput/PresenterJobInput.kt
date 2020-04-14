@@ -15,6 +15,7 @@ import com.bnvs.metaler.data.user.certification.model.LoginRequest
 import com.bnvs.metaler.data.user.certification.model.User
 import com.bnvs.metaler.data.user.certification.source.UserCertificationRepository
 import com.bnvs.metaler.network.NetworkUtil
+import com.bnvs.metaler.network.RetrofitClient
 import com.bnvs.metaler.util.DeviceInfo
 
 class PresenterJobInput(
@@ -144,6 +145,7 @@ class PresenterJobInput(
         userRepository.login(
             request,
             onSuccess = { response ->
+                RetrofitClient.setAccessToken(response.access_token)
                 saveAccessToken(response.access_token)
                 saveProfileData(response.user)
                 view.showHomeUi()
