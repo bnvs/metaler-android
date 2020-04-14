@@ -1,11 +1,11 @@
 package com.bnvs.metaler.data.user.deactivation.source
 
-import okhttp3.ResponseBody
+import com.bnvs.metaler.data.user.deactivation.model.DeleteUserResponse
 
 interface UserDeactivationDataSource {
 
     fun deleteUser(
-        onSuccess: (response: ResponseBody) -> Unit,
+        onSuccess: (response: DeleteUserResponse) -> Unit,
         onFailure: (e: Throwable) -> Unit
     )
 

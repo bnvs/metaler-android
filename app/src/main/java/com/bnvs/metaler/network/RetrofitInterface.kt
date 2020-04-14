@@ -11,9 +11,8 @@ import com.bnvs.metaler.data.myposts.MyPosts
 import com.bnvs.metaler.data.postdetails.PostDetails
 import com.bnvs.metaler.data.posts.PostsResponse
 import com.bnvs.metaler.data.user.certification.model.*
-import com.bnvs.metaler.data.user.modification.model.Job
-import com.bnvs.metaler.data.user.modification.model.Jobs
-import com.bnvs.metaler.data.user.modification.model.Nickname
+import com.bnvs.metaler.data.user.deactivation.model.DeleteUserResponse
+import com.bnvs.metaler.data.user.modification.model.*
 import okhttp3.MultipartBody
 import okhttp3.ResponseBody
 import retrofit2.Call
@@ -63,17 +62,17 @@ interface RetrofitInterface {
     @PUT("/users/jobs")
     fun modifyUserJob(
         @Body request: Job
-    ): Call<ResponseBody>
+    ): Call<ModifyJobResponse>
 
     // 닉네임 수정
     @PUT("/users/nickname")
     fun modifyNickname(
         @Body request: Nickname
-    ): Call<ResponseBody>
+    ): Call<ModifyNicknameResponse>
 
     // 회원탈퇴
     @DELETE("/users")
-    fun deleteUser(): Call<ResponseBody>
+    fun deleteUser(): Call<DeleteUserResponse>
 
 
     /*** [2. 게시글] ***/
