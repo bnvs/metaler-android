@@ -2,12 +2,12 @@ package com.bnvs.metaler.ui.manufactures
 
 import android.content.Context
 import android.util.Log
-import com.bnvs.metaler.data.posts.Post
-import com.bnvs.metaler.data.posts.PostsRequest
-import com.bnvs.metaler.data.posts.PostsResponse
+import com.bnvs.metaler.data.posts.model.Post
+import com.bnvs.metaler.data.posts.model.PostsRequest
+import com.bnvs.metaler.data.posts.model.PostsResponse
 import com.bnvs.metaler.data.posts.source.PostsDataSource
-import com.bnvs.metaler.data.posts.source.PostsRepository
-import com.bnvs.metaler.data.token.source.TokenRepository
+import com.bnvs.metaler.data.posts.source.repository.PostsRepository
+import com.bnvs.metaler.data.token.source.repository.TokenRepository
 
 class PresenterManufactures(
     private val context: Context,
@@ -16,9 +16,11 @@ class PresenterManufactures(
 
     val TAG = "PresenterManufactures.kt"
 
-    private val tokenRepository: TokenRepository = TokenRepository(context)
+    private val tokenRepository: TokenRepository =
+        TokenRepository(context)
 
-    private val postRepository: PostsRepository = PostsRepository(context)
+    private val postRepository: PostsRepository =
+        PostsRepository(context)
 
     private var accessToken: String = ""
 

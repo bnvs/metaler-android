@@ -1,7 +1,7 @@
 package com.bnvs.metaler.data.profile.source.local
 
 import android.content.Context
-import com.bnvs.metaler.data.profile.Profile
+import com.bnvs.metaler.data.profile.model.Profile
 import com.bnvs.metaler.data.profile.source.ProfileDataSource
 import com.google.gson.GsonBuilder
 

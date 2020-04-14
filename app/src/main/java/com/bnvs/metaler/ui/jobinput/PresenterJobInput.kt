@@ -5,11 +5,11 @@ import android.content.Intent
 import android.text.TextUtils
 import android.util.Log
 import android.widget.EditText
-import com.bnvs.metaler.data.profile.Profile
-import com.bnvs.metaler.data.profile.source.ProfileRepository
-import com.bnvs.metaler.data.token.AccessToken
-import com.bnvs.metaler.data.token.SigninToken
-import com.bnvs.metaler.data.token.source.TokenRepository
+import com.bnvs.metaler.data.profile.model.Profile
+import com.bnvs.metaler.data.profile.source.repository.ProfileRepository
+import com.bnvs.metaler.data.token.model.AccessToken
+import com.bnvs.metaler.data.token.model.SigninToken
+import com.bnvs.metaler.data.token.source.repository.TokenRepository
 import com.bnvs.metaler.data.user.certification.model.AddUserRequest
 import com.bnvs.metaler.data.user.certification.model.LoginRequest
 import com.bnvs.metaler.data.user.certification.model.User
@@ -26,8 +26,10 @@ class PresenterJobInput(
     private val TAG = "PresenterJobInput"
 
     private val userRepository = UserCertificationRepository()
-    private val tokenRepository = TokenRepository(context)
-    private val profileRepository = ProfileRepository(context)
+    private val tokenRepository =
+        TokenRepository(context)
+    private val profileRepository =
+        ProfileRepository(context)
 
     private lateinit var addUserRequest: AddUserRequest
 
@@ -132,7 +134,11 @@ class PresenterJobInput(
             onSuccess = { response ->
                 val signin_token = response.signin_token
                 view.showJoinCompleteDialog()
-                tokenRepository.saveSigninToken(SigninToken(signin_token))
+                tokenRepository.saveSigninToken(
+                    SigninToken(
+                        signin_token
+                    )
+                )
                 login(makeLoginRequest(signin_token))
             },
             onFailure = { e ->

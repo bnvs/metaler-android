@@ -2,8 +2,8 @@ package com.bnvs.metaler.ui.home
 
 import com.bnvs.metaler.BasePresenter
 import com.bnvs.metaler.BaseView
-import com.bnvs.metaler.data.homeposts.HomePost
-import com.bnvs.metaler.data.profile.Profile
+import com.bnvs.metaler.data.homeposts.model.HomePost
+import com.bnvs.metaler.data.profile.model.Profile
 import com.bnvs.metaler.util.TapBarContract
 
 /**

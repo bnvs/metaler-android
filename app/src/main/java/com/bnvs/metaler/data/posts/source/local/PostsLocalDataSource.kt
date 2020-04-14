@@ -1,8 +1,8 @@
 package com.bnvs.metaler.data.posts.source.local
 
 import android.content.Context
-import com.bnvs.metaler.data.posts.PostsRequest
-import com.bnvs.metaler.data.posts.PostsResponse
+import com.bnvs.metaler.data.posts.model.PostsRequest
+import com.bnvs.metaler.data.posts.model.PostsResponse
 import com.bnvs.metaler.data.posts.source.PostsDataSource
 
 class PostsLocalDataSource(context: Context) : PostsDataSource{

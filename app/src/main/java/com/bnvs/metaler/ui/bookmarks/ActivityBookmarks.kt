@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.bnvs.metaler.R
-import com.bnvs.metaler.data.posts.Post
+import com.bnvs.metaler.data.posts.model.Post
 import kotlinx.android.synthetic.main.activity_bookmark.*
 
 class ActivityBookmarks : AppCompatActivity(), ContractBookmarks.View {

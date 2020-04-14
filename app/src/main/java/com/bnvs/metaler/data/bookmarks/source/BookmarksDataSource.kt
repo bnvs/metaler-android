@@ -1,6 +1,6 @@
 package com.bnvs.metaler.data.bookmarks.source
 
-import com.bnvs.metaler.data.bookmarks.*
+import com.bnvs.metaler.data.bookmarks.model.*
 
 interface BookmarksDataSource {
 

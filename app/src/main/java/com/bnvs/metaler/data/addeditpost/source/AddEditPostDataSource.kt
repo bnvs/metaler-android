@@ -1,6 +1,6 @@
 package com.bnvs.metaler.data.addeditpost.source
 
-import com.bnvs.metaler.data.addeditpost.*
+import com.bnvs.metaler.data.addeditpost.model.*
 import okhttp3.MultipartBody
 
 interface AddEditPostDataSource {

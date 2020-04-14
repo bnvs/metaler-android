@@ -1,6 +1,6 @@
 package com.bnvs.metaler.data.homeposts.source.remote
 
-import com.bnvs.metaler.data.homeposts.HomePosts
+import com.bnvs.metaler.data.homeposts.model.HomePosts
 import com.bnvs.metaler.data.homeposts.source.HomePostsDataSource
 import com.bnvs.metaler.network.RetrofitClient
 import retrofit2.Call

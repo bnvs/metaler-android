@@ -2,7 +2,7 @@ package com.bnvs.metaler.ui.mypage
 
 import com.bnvs.metaler.BasePresenter
 import com.bnvs.metaler.BaseView
-import com.bnvs.metaler.data.profile.Profile
+import com.bnvs.metaler.data.profile.model.Profile
 import com.bnvs.metaler.util.TapBarContract
 
 interface ContractMyPage {

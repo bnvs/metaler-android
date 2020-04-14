@@ -6,11 +6,11 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.bnvs.metaler.R
-import com.bnvs.metaler.data.profile.Profile
-import com.bnvs.metaler.data.profile.source.ProfileRepository
-import com.bnvs.metaler.data.token.AccessToken
-import com.bnvs.metaler.data.token.SigninToken
-import com.bnvs.metaler.data.token.source.TokenRepository
+import com.bnvs.metaler.data.profile.model.Profile
+import com.bnvs.metaler.data.profile.source.repository.ProfileRepository
+import com.bnvs.metaler.data.token.model.AccessToken
+import com.bnvs.metaler.data.token.model.SigninToken
+import com.bnvs.metaler.data.token.source.repository.TokenRepository
 import com.bnvs.metaler.data.user.certification.model.AddUserRequest
 import com.bnvs.metaler.data.user.certification.model.CheckMembershipRequest
 import com.bnvs.metaler.data.user.certification.model.LoginRequest
@@ -42,9 +42,11 @@ class ActivityLogin : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        tokenRepository = TokenRepository(this@ActivityLogin)
+        tokenRepository =
+            TokenRepository(this@ActivityLogin)
         userRepository = UserCertificationRepository()
-        profileRepository = ProfileRepository(this@ActivityLogin)
+        profileRepository =
+            ProfileRepository(this@ActivityLogin)
 
         // SessionCallback 초기화
         callback = SessionCallback()

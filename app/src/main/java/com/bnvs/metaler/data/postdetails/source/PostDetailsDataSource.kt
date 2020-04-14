@@ -1,6 +1,6 @@
 package com.bnvs.metaler.data.postdetails.source
 
-import com.bnvs.metaler.data.postdetails.PostDetails
+import com.bnvs.metaler.data.postdetails.model.PostDetails
 
 interface PostDetailsDataSource {
 

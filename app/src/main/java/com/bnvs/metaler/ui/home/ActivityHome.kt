@@ -12,8 +12,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bnvs.metaler.R
-import com.bnvs.metaler.data.homeposts.HomePost
-import com.bnvs.metaler.data.profile.Profile
+import com.bnvs.metaler.data.homeposts.model.HomePost
+import com.bnvs.metaler.data.profile.model.Profile
 import com.bnvs.metaler.ui.detail.ActivityDetail
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.activity_home.*

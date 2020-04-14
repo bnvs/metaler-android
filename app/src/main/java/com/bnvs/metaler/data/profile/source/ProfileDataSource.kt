@@ -1,6 +1,6 @@
 package com.bnvs.metaler.data.profile.source
 
-import com.bnvs.metaler.data.profile.Profile
+import com.bnvs.metaler.data.profile.model.Profile
 
 interface ProfileDataSource {
 

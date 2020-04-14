@@ -1,7 +1,7 @@
 package com.bnvs.metaler.data.categories.source.local
 
 import android.content.Context
-import com.bnvs.metaler.data.categories.Categories
+import com.bnvs.metaler.data.categories.model.Categories
 import com.bnvs.metaler.data.categories.source.CategoriesDataSource
 
 class CategoriesLocalDataSource (context: Context) : CategoriesDataSource {

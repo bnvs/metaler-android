@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bnvs.metaler.R
-import com.bnvs.metaler.data.posts.Post
+import com.bnvs.metaler.data.posts.model.Post
 import kotlinx.android.synthetic.main.activity_manufacture.*
 
 class ActivityManufactures : AppCompatActivity(),

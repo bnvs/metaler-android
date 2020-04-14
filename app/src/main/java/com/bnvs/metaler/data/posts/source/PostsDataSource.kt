@@ -1,7 +1,7 @@
 package com.bnvs.metaler.data.posts.source
 
-import com.bnvs.metaler.data.posts.PostsRequest
-import com.bnvs.metaler.data.posts.PostsResponse
+import com.bnvs.metaler.data.posts.model.PostsRequest
+import com.bnvs.metaler.data.posts.model.PostsResponse
 
 interface PostsDataSource {
 
