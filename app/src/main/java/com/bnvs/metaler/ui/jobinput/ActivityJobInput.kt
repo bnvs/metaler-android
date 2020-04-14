@@ -2,6 +2,7 @@ package com.bnvs.metaler.ui.jobinput
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
@@ -165,24 +166,32 @@ class ActivityJobInput : AppCompatActivity(), ContractJobInput.View {
                     when (presenter.getSelectedJobType()) {
                         "company" -> {
                             presenter.completeJobInput(
-                                null,
+                                "company",
                                 presenter.getString(companyNameInput)
                             )
                         }
                         "founded" -> {
                             presenter.completeJobInput(
-                                null,
+                                "founded",
                                 presenter.getString(shopNameInput)
                             )
                         }
-                        else -> {
-                            presenter.completeJobInput(null, null)
+                        "freelancer" -> {
+                            presenter.completeJobInput(
+                                "freelancer",
+                                "empty"
+                            )
                         }
+                        else -> Log.d(TAG, "소속 입력완료 에러")
                     }
                 }
-                else -> {
-                    presenter.completeJobInput(null, null)
+                "empty" -> {
+                    presenter.completeJobInput(
+                        "empty",
+                        "empty"
+                    )
                 }
+                else -> Log.d(TAG, "소속 입력완료 에러")
             }
         }
     }
