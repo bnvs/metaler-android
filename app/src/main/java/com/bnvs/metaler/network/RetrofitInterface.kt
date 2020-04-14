@@ -1,6 +1,9 @@
 package com.bnvs.metaler.network
 
 import com.bnvs.metaler.data.addeditpost.AddEditPostRequest
+import com.bnvs.metaler.data.addeditpost.AddPostResponse
+import com.bnvs.metaler.data.addeditpost.DeletePostResponse
+import com.bnvs.metaler.data.addeditpost.EditPostResponse
 import com.bnvs.metaler.data.bookmarks.AddBookmarkRequest
 import com.bnvs.metaler.data.bookmarks.BookmarksResponse
 import com.bnvs.metaler.data.categories.Categories
@@ -98,20 +101,20 @@ interface RetrofitInterface {
     @POST("/posts")
     fun addPost(
         @Body request: AddEditPostRequest
-    ): Call<ResponseBody>
+    ): Call<AddPostResponse>
 
     // 게시글 수정
     @PUT("/posts/{id}")
     fun modifyPost(
         @Path("id") post_id: Int,
         @Body request: AddEditPostRequest
-    ): Call<ResponseBody>
+    ): Call<EditPostResponse>
 
     // 게시글 삭제
     @DELETE("/posts/{id}")
     fun deletePost(
         @Path("id") post_id: Int
-    ): Call<ResponseBody>
+    ): Call<DeletePostResponse>
 
     /*** [2-3. 댓글] ***/
     // 댓글 목록 조회
