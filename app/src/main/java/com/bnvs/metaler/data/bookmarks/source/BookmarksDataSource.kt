@@ -1,15 +1,25 @@
 package com.bnvs.metaler.data.bookmarks.source
 
-interface BookmarksDataSource{
-    interface DeleteBookmarkCallback {
-        fun onBookmarkDeleted()
-        fun onDataNotAvailable()
-    }
-    fun deleteBookmark(callback: DeleteBookmarkCallback)
+import com.bnvs.metaler.data.bookmarks.*
 
-    interface AddBookmarkCallback {
-        fun onBookmarkAdded()
-        fun onDataNotAvailable()
-    }
-    fun addBookmark(callback: AddBookmarkCallback)
+interface BookmarksDataSource {
+
+    fun addBookmark(
+        request: AddBookmarkRequest,
+        onSuccess: (response: AddBookmarkResponse) -> Unit,
+        onFailure: (e: Throwable) -> Unit
+    )
+
+    fun deleteBookmark(
+        bookmarkId: Int,
+        onSuccess: (response: DeleteBookmarkResponse) -> Unit,
+        onFailure: (e: Throwable) -> Unit
+    )
+
+    fun getMyBookmarks(
+        request: BookmarksRequest,
+        onSuccess: (response: BookmarksResponse) -> Unit,
+        onFailure: (e: Throwable) -> Unit
+    )
+
 }

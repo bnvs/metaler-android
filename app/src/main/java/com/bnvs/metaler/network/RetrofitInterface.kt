@@ -5,7 +5,9 @@ import com.bnvs.metaler.data.addeditpost.AddPostResponse
 import com.bnvs.metaler.data.addeditpost.DeletePostResponse
 import com.bnvs.metaler.data.addeditpost.EditPostResponse
 import com.bnvs.metaler.data.bookmarks.AddBookmarkRequest
+import com.bnvs.metaler.data.bookmarks.AddBookmarkResponse
 import com.bnvs.metaler.data.bookmarks.BookmarksResponse
+import com.bnvs.metaler.data.bookmarks.DeleteBookmarkResponse
 import com.bnvs.metaler.data.categories.Categories
 import com.bnvs.metaler.data.comments.*
 import com.bnvs.metaler.data.homeposts.HomePosts
@@ -147,17 +149,17 @@ interface RetrofitInterface {
     @POST("/users/bookmarks")
     fun addBookmark(
         @Body request: AddBookmarkRequest
-    ): Call<ResponseBody>
+    ): Call<AddBookmarkResponse>
 
     // 북마크 삭제
     @DELETE("/users/bookmarks/{id}")
     fun deleteBookmark(
         @Path("id") bookmark_id: Int
-    ): Call<ResponseBody>
+    ): Call<DeleteBookmarkResponse>
 
     // 북마크 목록 조회
     @GET("/users/bookmarks")
-    fun getBookmarks(
+    fun getMyBookmarks(
         @Query("page") page: Int,
         @Query("limit") limit: Int
     ): Call<BookmarksResponse>
