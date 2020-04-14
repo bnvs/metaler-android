@@ -25,16 +25,14 @@ class TokenLocalDataSource (context: Context) : TokenDataSource {
 
     override fun getAccessToken(callback: TokenDataSource.LoadAccessTokenCallback) {
         var token = sharedPreferences.getString("access_token", null)
-        var validTime = sharedPreferences.getString("access_token_valid_time", null)
         when {
-            token != null -> callback.onTokenloaded(AccessToken(token, validTime!!))
+            token != null -> callback.onTokenloaded(AccessToken(token))
             else -> callback.onTokenNotExist()
         }
     }
 
     override fun saveAccessToken(token: AccessToken) {
         editor.putString("access_token", token.access_token)
-        editor.putString("access_token_valid_time", token.valid_time)
         editor.commit()
     }
 }
