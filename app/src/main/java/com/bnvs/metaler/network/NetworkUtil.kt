@@ -9,16 +9,16 @@ object NetworkUtil {
         return if (e is HttpException) {
             val errorBody = e.response().errorBody()
             if (errorBody != null) {
-                getErrorResponse(errorBody).toString()
+                "[Server Error] ${e.code()} - ${e.message()} ${getErrorResponse(errorBody)}"
             } else {
-                "${e.code()} ${e.message()}"
+                "[Server Error] ${e.code()} - ${e.message()}"
             }
         } else {
             "$e"
         }
     }
 
-    fun getErrorResponse(errorBody: ResponseBody): ErrorResponse {
+    private fun getErrorResponse(errorBody: ResponseBody): ErrorResponse {
         return RetrofitClient.retrofit.responseBodyConverter<ErrorResponse>(
             ErrorResponse::class.java,
             ErrorResponse::class.java.annotations
