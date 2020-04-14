@@ -10,11 +10,14 @@ class TokenLocalDataSource (context: Context) : TokenDataSource {
     private val sharedPreferences = context.getSharedPreferences("token", Context.MODE_PRIVATE)
     private val editor = sharedPreferences.edit()
 
-    override fun getSigninToken(callback: TokenDataSource.LoadSigninTokenCallback) {
+    override fun getSigninToken(
+        onTokenLoaded: (token: SigninToken) -> Unit,
+        onTokenNotExist: () -> Unit
+    ) {
         val token = sharedPreferences.getString("signin_token", null)
         when {
-            token != null -> callback.onTokenloaded(SigninToken(token))
-            else -> callback.onTokenNotExist()
+            token != null -> onTokenLoaded(SigninToken(token))
+            else -> onTokenNotExist()
         }
     }
 
@@ -23,11 +26,14 @@ class TokenLocalDataSource (context: Context) : TokenDataSource {
         editor.commit()
     }
 
-    override fun getAccessToken(callback: TokenDataSource.LoadAccessTokenCallback) {
-        var token = sharedPreferences.getString("access_token", null)
+    override fun getAccessToken(
+        onTokenLoaded: (token: AccessToken) -> Unit,
+        onTokenNotExist: () -> Unit
+    ) {
+        val token = sharedPreferences.getString("access_token", null)
         when {
-            token != null -> callback.onTokenloaded(AccessToken(token))
-            else -> callback.onTokenNotExist()
+            token != null -> onTokenLoaded(AccessToken(token))
+            else -> onTokenNotExist()
         }
     }
 
