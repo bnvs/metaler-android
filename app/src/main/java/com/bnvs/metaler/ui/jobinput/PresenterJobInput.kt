@@ -16,9 +16,9 @@ import com.bnvs.metaler.data.user.certification.model.LoginRequest
 import com.bnvs.metaler.data.user.certification.model.LoginResponse
 import com.bnvs.metaler.data.user.certification.source.UserCertificationDataSource
 import com.bnvs.metaler.data.user.certification.source.UserCertificationRepository
+import com.bnvs.metaler.network.NetworkUtil
 import com.bnvs.metaler.util.DeviceInfo
-import java.text.SimpleDateFormat
-import java.util.*
+import retrofit2.HttpException
 
 class PresenterJobInput(
     private val context: Context,
@@ -93,32 +93,46 @@ class PresenterJobInput(
     }
 
     override fun completeJobInput(jobTypeInput: String?, jobDetailInput: String?) {
-        when(job) {
+        when (job) {
             "student" -> {
                 job_type = jobTypeInput!!
                 job_detail = jobDetailInput!!
                 if (isEmptyText(job_type) || isEmptyText(job_detail)) {
                     view.showEmptyTextDialog().also { showLog() }
-                }else { addUser().also { showLog() } }
+                } else {
+                    addUser().also { showLog() }
+                }
             }
             "expert" -> {
-                when(job_type) {
-                    "company" -> { job_detail = jobDetailInput!! }
-                    "founded" -> { job_detail = jobDetailInput!! }
-                    "freelancer" -> { job_detail = "empty" }
+                when (job_type) {
+                    "company" -> {
+                        job_detail = jobDetailInput!!
+                    }
+                    "founded" -> {
+                        job_detail = jobDetailInput!!
+                    }
+                    "freelancer" -> {
+                        job_detail = "empty"
+                    }
                 }
                 if (isEmptyText(job_type) || isEmptyText(job_detail)) {
                     view.showEmptyTextDialog().also { showLog() }
-                }else { addUser().also { showLog() } }
+                } else {
+                    addUser().also { showLog() }
+                }
             }
             "empty" -> {
                 job_type = "empty"
                 job_detail = "empty"
                 if (isEmptyText(job_type) || isEmptyText(job_detail)) {
                     view.showEmptyTextDialog().also { showLog() }
-                }else { addUser().also { showLog() } }
+                } else {
+                    addUser().also { showLog() }
+                }
             }
-            else -> { view.showEmptyTextDialog().also { showLog() } }
+            else -> {
+                view.showEmptyTextDialog().also { showLog() }
+            }
         }
     }
 
@@ -134,52 +148,56 @@ class PresenterJobInput(
         userRepository.addUser(
             addUserRequest,
             object : UserCertificationDataSource.AddUserCallback {
-            override fun onUserAdded(response: AddUserResponse) {
-                view.showJoinCompleteDialog()
-                tokenRepository.saveSigninToken(SigninToken(response.signin_token))
-                val deviceInfo = DeviceInfo(context)
-                userRepository.login(
-                    LoginRequest(
-                        addUserRequest.kakao_id,
-                        response.signin_token,
-                        "push_token",
-                        deviceInfo.getDeviceId(),
-                        deviceInfo.getDeviceModel(),
-                        deviceInfo.getDeviceOs(),
-                        deviceInfo.getAppVersion()
-                    ), object : UserCertificationDataSource.LoginCallback {
-                        override fun onLoginSuccess(response: LoginResponse) {
-                            tokenRepository.saveAccessToken(
-                                AccessToken(response.access_token, getValidTime())
-                            )
-                            profileRepository.saveProfile(
-                                Profile(
-                                    response.user.profile_nickname,
-                                    response.user.profile_image_url,
-                                    response.user.profile_email
+                override fun onUserAdded(response: AddUserResponse) {
+                    view.showJoinCompleteDialog()
+                    tokenRepository.saveSigninToken(SigninToken(response.signin_token))
+                    val deviceInfo = DeviceInfo(context)
+                    userRepository.login(
+                        LoginRequest(
+                            addUserRequest.kakao_id,
+                            response.signin_token,
+                            "push_token",
+                            deviceInfo.getDeviceId(),
+                            deviceInfo.getDeviceModel(),
+                            deviceInfo.getDeviceOs(),
+                            deviceInfo.getAppVersion()
+                        ), object : UserCertificationDataSource.LoginCallback {
+                            override fun onLoginSuccess(response: LoginResponse) {
+                                tokenRepository.saveAccessToken(
+                                    AccessToken(response.access_token)
                                 )
-                            )
-                        }
+                                profileRepository.saveProfile(
+                                    Profile(
+                                        response.user.profile_nickname,
+                                        response.user.profile_image_url,
+                                        response.user.profile_email
+                                    )
+                                )
+                            }
 
-                        override fun onResponseError(message: String) {
-                            Log.d(TAG, "Metaler 로그인 api 응답 response failed : $message")
-                        }
+                            override fun onResponseError(exception: HttpException) {
+                                val error =
+                                    NetworkUtil.getErrorResponse(exception.response().errorBody()!!)
+                                Log.d(TAG, "로그인 실패 : $error")
+                            }
 
-                        override fun onFailure(t: Throwable) {
-                            Log.d(TAG, "로그인 실패 : $t")
-                        }
-                    })
-                view.showHomeUi()
-            }
+                            override fun onFailure(t: Throwable) {
+                                Log.d(TAG, "로그인 실패 : $t")
+                            }
+                        })
+                    view.showHomeUi()
+                }
 
-            override fun onResponseError(message: String) {
-                Log.d(TAG, "Metaler 회원가입 api 응답 response failed : $message")
-            }
+                override fun onResponseError(exception: HttpException) {
+                    val error =
+                        NetworkUtil.getErrorResponse(exception.response().errorBody()!!)
+                    Log.d(TAG, "회원가입 실패 : $error")
+                }
 
-            override fun onFailure(t: Throwable) {
-                Log.d(TAG, "회원가입 실패 : $t")
-            }
-        })
+                override fun onFailure(t: Throwable) {
+                    Log.d(TAG, "회원가입 실패 : $t")
+                }
+            })
     }
 
     // editText 에서 공백없이 String 추출하는 함수
@@ -188,23 +206,12 @@ class PresenterJobInput(
     }
 
     // editText 공백 확인 메서드
-    private fun isEmptyText(text: String):Boolean {
+    private fun isEmptyText(text: String): Boolean {
         return TextUtils.isEmpty(text)
     }
 
     // job 로그 보여주기
     private fun showLog() {
         Log.d("JOB", "job: $job, job_type: $job_type, job_detail: $job_detail")
-    }
-
-    // access_token 유효시간(발급시간으로부터 24시간까지)을 계산하여 리턴하는 함수
-    private fun getValidTime(): String {
-        val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale("ko", "KR"))
-        val calendar = Calendar.getInstance().apply {
-            time = Date(System.currentTimeMillis())
-            add(Calendar.DATE, 1)
-        }
-
-        return dateFormat.format(calendar.time)
     }
 }

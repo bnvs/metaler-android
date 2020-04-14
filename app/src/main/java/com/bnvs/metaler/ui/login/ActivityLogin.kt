@@ -15,6 +15,7 @@ import com.bnvs.metaler.data.token.source.TokenRepository
 import com.bnvs.metaler.data.user.certification.model.*
 import com.bnvs.metaler.data.user.certification.source.UserCertificationDataSource
 import com.bnvs.metaler.data.user.certification.source.UserCertificationRepository
+import com.bnvs.metaler.network.NetworkUtil
 import com.bnvs.metaler.ui.home.ActivityHome
 import com.bnvs.metaler.ui.termsagree.ActivityTermsAgree
 import com.bnvs.metaler.util.DeviceInfo
@@ -25,8 +26,7 @@ import com.kakao.usermgmt.UserManagement
 import com.kakao.usermgmt.callback.MeV2ResponseCallback
 import com.kakao.usermgmt.response.MeV2Response
 import com.kakao.util.exception.KakaoException
-import java.text.SimpleDateFormat
-import java.util.*
+import retrofit2.HttpException
 
 class ActivityLogin : AppCompatActivity() {
 
@@ -80,22 +80,7 @@ class ActivityLogin : AppCompatActivity() {
                         TokenDataSource.LoadSigninTokenCallback {
                         override fun onTokenloaded(token: SigninToken) {
                             val signinToken = token.signin_token
-                            // local 에 access_token 존재하는지 확인
-                            tokenRepository.getAccessToken(object :
-                                TokenDataSource.LoadAccessTokenCallback {
-                                override fun onTokenloaded(token: AccessToken) {
-                                    // access_Token 이 유효한지(발급받은지 24시간이 지나지 않은) 확인
-                                    if (isTokenValid(token.valid_time)) {
-                                        openHome()
-                                    } else {
-                                        login(kakaoId, signinToken)
-                                    }
-                                }
-
-                                override fun onTokenNotExist() {
-                                    login(kakaoId, signinToken)
-                                }
-                            })
+                            login(kakaoId, signinToken)
                         }
 
                         override fun onTokenNotExist() {
@@ -119,8 +104,10 @@ class ActivityLogin : AppCompatActivity() {
                                         }
                                     }
 
-                                    override fun onResponseError(message: String) {
-                                        Log.d(TAG, "회원가입 여부 확인 응답 response failed : $message")
+                                    override fun onResponseError(exception: HttpException) {
+                                        val error =
+                                            NetworkUtil.getErrorResponse(exception.response().errorBody()!!)
+                                        Log.d(TAG, "회원가입 여부 확인 실패 : $error")
                                     }
 
                                     override fun onFailure(t: Throwable) {
@@ -149,36 +136,12 @@ class ActivityLogin : AppCompatActivity() {
 
     }
 
-    // access_token 유효시간과 현재시간을 비교하여
-    // 아직 유효시간이 남았으면 true 를 반환
-    private fun isTokenValid(validTime: String): Boolean {
-        val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale("ko", "KR"))
-
-        val validTimeDate = dateFormat.parse(validTime)!!.time
-        val now = Date(System.currentTimeMillis()).time
-
-        val diff = { x: Long, y: Long -> x - y }
-
-        return diff(validTimeDate, now) > 0
-    }
-
-    // access_token 유효시간(발급시간으로부터 24시간까지)을 계산하여 리턴하는 함수
-    private fun getValidTime(): String {
-        val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale("ko", "KR"))
-        val calendar = Calendar.getInstance().apply {
-            time = Date(System.currentTimeMillis())
-            add(Calendar.DATE, 1)
-        }
-
-        return dateFormat.format(calendar.time)
-    }
-
     // login api 요청 request body 반환하는 함수
     private fun loginRequest(kakao_id: String, signin_token: String): LoginRequest {
         val deviceInfo = DeviceInfo(this)
         val loginRequest = LoginRequest(
             kakao_id,
-            signin_token,
+            "에러바디테스트중",
             "push_token",
             deviceInfo.getDeviceId(),
             deviceInfo.getDeviceModel(),
@@ -197,7 +160,7 @@ class ActivityLogin : AppCompatActivity() {
                 override fun onLoginSuccess(response: LoginResponse) {
                     // 발급받은 access_token local 에 저장
                     tokenRepository.saveAccessToken(
-                        AccessToken(response.access_token, getValidTime())
+                        AccessToken(response.access_token)
                     )
                     // response 의 User 에서 profile 정보 추출하여 로컬에 저장
                     profileRepository.saveProfile(
@@ -211,8 +174,10 @@ class ActivityLogin : AppCompatActivity() {
                     openHome()
                 }
 
-                override fun onResponseError(message: String) {
-                    Log.d(TAG, "Metaler 로그인 api 응답 response failed : $message")
+                override fun onResponseError(exception: HttpException) {
+                    val error =
+                        NetworkUtil.getErrorResponse(exception.response().errorBody()!!)
+                    Log.d("로그인 실패", "$error")
                 }
 
                 override fun onFailure(t: Throwable) {
