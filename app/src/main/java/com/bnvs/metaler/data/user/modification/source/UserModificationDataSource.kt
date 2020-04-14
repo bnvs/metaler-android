@@ -1,35 +1,27 @@
 package com.bnvs.metaler.data.user.modification.source
 
-import com.bnvs.metaler.data.user.certification.model.AddUserResponse
-import com.bnvs.metaler.data.user.certification.model.CheckMembershipResponse
-import com.bnvs.metaler.data.user.certification.model.LoginResponse
 import com.bnvs.metaler.data.user.modification.model.Job
+import com.bnvs.metaler.data.user.modification.model.Jobs
 import com.bnvs.metaler.data.user.modification.model.Nickname
+import okhttp3.ResponseBody
 
 interface UserModificationDataSource {
 
-    interface GetUserJobCallback {
-        fun onUserJobLoaded(response: AddUserResponse)
-        fun onResponseError(message: String)
-        fun onFailure(t: Throwable)
-    }
+    fun getUserJob(
+        onSuccess: (response: Jobs) -> Unit,
+        onFailure: (e: Throwable) -> Unit
+    )
 
-    interface ModifyUserJobCallback {
-        fun onUserJobModified(response: CheckMembershipResponse)
-        fun onResponseError(message: String)
-        fun onFailure(t: Throwable)
-    }
+    fun modifyUserJob(
+        request: Job,
+        onSuccess: (response: ResponseBody) -> Unit,
+        onFailure: (e: Throwable) -> Unit
+    )
 
-    interface ModifyNicknameCallback {
-        fun onNicknameModified(response: LoginResponse)
-        fun onResponseError(message: String)
-        fun onFailure(t: Throwable)
-    }
-
-    fun getUserJob(access_token: String, callback: GetUserJobCallback)
-
-    fun modifyUserJob(access_token: String, request: Job, callback: ModifyUserJobCallback)
-
-    fun modifyNickname(access_token: String, request: Nickname)
+    fun modifyNickname(
+        request: Nickname,
+        onSuccess: (response: ResponseBody) -> Unit,
+        onFailure: (e: Throwable) -> Unit
+    )
 
 }

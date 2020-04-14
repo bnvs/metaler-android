@@ -1,25 +1,36 @@
 package com.bnvs.metaler.data.user.modification.source
 
 import com.bnvs.metaler.data.user.modification.model.Job
+import com.bnvs.metaler.data.user.modification.model.Jobs
 import com.bnvs.metaler.data.user.modification.model.Nickname
+import com.bnvs.metaler.data.user.modification.source.remote.UserModificationRemoteDataSource
+import okhttp3.ResponseBody
 
 class UserModificationRepository : UserModificationDataSource {
+
+    private val userRemoteDataSource =
+        UserModificationRemoteDataSource
+
     override fun getUserJob(
-        access_token: String,
-        callback: UserModificationDataSource.GetUserJobCallback
+        onSuccess: (response: Jobs) -> Unit,
+        onFailure: (e: Throwable) -> Unit
     ) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        userRemoteDataSource.getUserJob(onSuccess, onFailure)
     }
 
     override fun modifyUserJob(
-        access_token: String,
         request: Job,
-        callback: UserModificationDataSource.ModifyUserJobCallback
+        onSuccess: (response: ResponseBody) -> Unit,
+        onFailure: (e: Throwable) -> Unit
     ) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        userRemoteDataSource.modifyUserJob(request, onSuccess, onFailure)
     }
 
-    override fun modifyNickname(access_token: String, request: Nickname) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun modifyNickname(
+        request: Nickname,
+        onSuccess: (response: ResponseBody) -> Unit,
+        onFailure: (e: Throwable) -> Unit
+    ) {
+        userRemoteDataSource.modifyNickname(request, onSuccess, onFailure)
     }
 }
