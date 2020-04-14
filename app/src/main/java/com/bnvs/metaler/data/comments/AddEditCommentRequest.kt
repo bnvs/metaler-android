@@ -1,5 +1,5 @@
 package com.bnvs.metaler.data.comments
 
-data class AddCommentRequest(
+data class AddEditCommentRequest(
     val content: String
 )

@@ -7,8 +7,7 @@ import com.bnvs.metaler.data.addeditpost.EditPostResponse
 import com.bnvs.metaler.data.bookmarks.AddBookmarkRequest
 import com.bnvs.metaler.data.bookmarks.BookmarksResponse
 import com.bnvs.metaler.data.categories.Categories
-import com.bnvs.metaler.data.comments.AddCommentRequest
-import com.bnvs.metaler.data.comments.Comments
+import com.bnvs.metaler.data.comments.*
 import com.bnvs.metaler.data.homeposts.HomePosts
 import com.bnvs.metaler.data.myposts.MyPosts
 import com.bnvs.metaler.data.postdetails.PostDetails
@@ -127,21 +126,21 @@ interface RetrofitInterface {
     @POST("/posts/{id}/comments")
     fun addComment(
         @Path("id") post_id: Int,
-        @Body request: AddCommentRequest
-    ): Call<ResponseBody>
+        @Body request: AddEditCommentRequest
+    ): Call<AddCommentResponse>
 
     // 댓글 수정
     @PUT("comments/{id}")
     fun modifyComment(
         @Path("id") comment_id: Int,
-        @Body request: AddCommentRequest
-    ): Call<ResponseBody>
+        @Body request: AddEditCommentRequest
+    ): Call<EditCommentResponse>
 
     // 댓글 삭제
     @DELETE("comments/{id}")
     fun deleteComment(
         @Path("id") comment_id: Int
-    ): Call<ResponseBody>
+    ): Call<DeleteCommentResponse>
 
     /*** [2-4. 북마크] ***/
     // 북마크 추가
