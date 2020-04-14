@@ -9,12 +9,13 @@ import retrofit2.HttpException
 import retrofit2.Response
 
 object UserCertificationRemoteDataSource : UserCertificationDataSource {
-    
+
     private val retrofitClient = RetrofitClient.client
 
     override fun addUser(
         request: AddUserRequest,
-        callback: UserCertificationDataSource.AddUserCallback
+        onSuccess: (response: AddUserResponse) -> Unit,
+        onFailure: (e: Throwable) -> Unit
     ) {
         retrofitClient.addUser(request).enqueue(object : Callback<AddUserResponse> {
             override fun onResponse(
@@ -23,21 +24,22 @@ object UserCertificationRemoteDataSource : UserCertificationDataSource {
             ) {
                 val body = response.body()
                 if (body != null && response.isSuccessful) {
-                    callback.onUserAdded(body)
+                    onSuccess(body)
                 } else {
-                    callback.onResponseError(HttpException(response))
+                    onFailure(HttpException(response))
                 }
             }
 
             override fun onFailure(call: Call<AddUserResponse>, t: Throwable) {
-                callback.onFailure(t)
+                onFailure(t)
             }
         })
     }
 
     override fun checkMembership(
         request: CheckMembershipRequest,
-        callback: UserCertificationDataSource.CheckMembershipCallback
+        onSuccess: (response: CheckMembershipResponse) -> Unit,
+        onFailure: (e: Throwable) -> Unit
     ) {
         retrofitClient.checkUserMembership(request)
             .enqueue(object : Callback<CheckMembershipResponse> {
@@ -47,21 +49,22 @@ object UserCertificationRemoteDataSource : UserCertificationDataSource {
                 ) {
                     val body = response.body()
                     if (body != null && response.isSuccessful) {
-                        callback.onMembershipChecked(body)
+                        onSuccess(body)
                     } else {
-                        callback.onResponseError(HttpException(response))
+                        onFailure(HttpException(response))
                     }
                 }
 
                 override fun onFailure(call: Call<CheckMembershipResponse>, t: Throwable) {
-                    callback.onFailure(t)
+                    onFailure(t)
                 }
             })
     }
 
     override fun login(
         request: LoginRequest,
-        callback: UserCertificationDataSource.LoginCallback
+        onSuccess: (response: LoginResponse) -> Unit,
+        onFailure: (e: Throwable) -> Unit
     ) {
         retrofitClient.login(request)
             .enqueue(object : Callback<LoginResponse> {
@@ -71,14 +74,14 @@ object UserCertificationRemoteDataSource : UserCertificationDataSource {
                 ) {
                     val body = response.body()
                     if (body != null && response.isSuccessful) {
-                        callback.onLoginSuccess(body)
+                        onSuccess(body)
                     } else {
-                        callback.onResponseError(HttpException(response))
+                        onFailure(HttpException(response))
                     }
                 }
 
                 override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
-                    callback.onFailure(t)
+                    onFailure(t)
                 }
             })
     }
