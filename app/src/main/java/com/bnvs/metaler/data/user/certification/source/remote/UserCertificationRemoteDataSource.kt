@@ -9,8 +9,7 @@ import retrofit2.HttpException
 import retrofit2.Response
 
 object UserCertificationRemoteDataSource : UserCertificationDataSource {
-
-    private val TAG = "UserCertificationRemoteDataSource"
+    
     private val retrofitClient = RetrofitClient.client
 
     override fun addUser(
