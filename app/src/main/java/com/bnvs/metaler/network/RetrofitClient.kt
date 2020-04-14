@@ -9,6 +9,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitClient {
     val client: RetrofitInterface
+    val retrofit: Retrofit
     private const val BASE_URL = "http://metaler.kr/"
 
     init {
@@ -34,7 +35,7 @@ object RetrofitClient {
                 }
             }).build()
 
-        val retrofit = Retrofit.Builder()
+        retrofit = Retrofit.Builder()
             .baseUrl(BASE_URL)
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
