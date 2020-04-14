@@ -1,11 +1,9 @@
 package com.bnvs.metaler.data.addeditpost.source.remote
 
-import com.bnvs.metaler.data.addeditpost.AddEditPostRequest
-import com.bnvs.metaler.data.addeditpost.AddPostResponse
-import com.bnvs.metaler.data.addeditpost.DeletePostResponse
-import com.bnvs.metaler.data.addeditpost.EditPostResponse
+import com.bnvs.metaler.data.addeditpost.*
 import com.bnvs.metaler.data.addeditpost.source.AddEditPostDataSource
 import com.bnvs.metaler.network.RetrofitClient
+import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.HttpException
@@ -86,5 +84,13 @@ object AddEditPostRemoteDataSource : AddEditPostDataSource {
                 onFailure(t)
             }
         })
+    }
+
+    override fun uploadFile(
+        file: MultipartBody.Part,
+        onSuccess: (response: UploadFileResponse) -> Unit,
+        onFailure: (e: Throwable) -> Unit
+    ) {
+        retrofitClient.uploadFile(file)
     }
 }

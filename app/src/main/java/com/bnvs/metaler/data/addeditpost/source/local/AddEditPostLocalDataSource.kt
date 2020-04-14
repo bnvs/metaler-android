@@ -1,10 +1,8 @@
 package com.bnvs.metaler.data.addeditpost.source.local
 
-import com.bnvs.metaler.data.addeditpost.AddEditPostRequest
-import com.bnvs.metaler.data.addeditpost.AddPostResponse
-import com.bnvs.metaler.data.addeditpost.DeletePostResponse
-import com.bnvs.metaler.data.addeditpost.EditPostResponse
+import com.bnvs.metaler.data.addeditpost.*
 import com.bnvs.metaler.data.addeditpost.source.AddEditPostDataSource
+import okhttp3.MultipartBody
 
 class AddEditPostLocalDataSource : AddEditPostDataSource {
     override fun addPost(
@@ -29,6 +27,14 @@ class AddEditPostLocalDataSource : AddEditPostDataSource {
         onSuccess: (response: DeletePostResponse) -> Unit,
         onFailure: (e: Throwable) -> Unit
     ) {
-        
+
+    }
+
+    override fun uploadFile(
+        file: MultipartBody.Part,
+        onSuccess: (response: UploadFileResponse) -> Unit,
+        onFailure: (e: Throwable) -> Unit
+    ) {
+
     }
 }
