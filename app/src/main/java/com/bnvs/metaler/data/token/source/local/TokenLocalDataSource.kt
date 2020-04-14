@@ -5,9 +5,10 @@ import com.bnvs.metaler.data.token.AccessToken
 import com.bnvs.metaler.data.token.SigninToken
 import com.bnvs.metaler.data.token.source.TokenDataSource
 
-class TokenLocalDataSource (context: Context) : TokenDataSource {
+class TokenLocalDataSource(context: Context) : TokenDataSource {
 
-    private val sharedPreferences = context.getSharedPreferences("token", Context.MODE_PRIVATE)
+    private val sharedPreferences =
+        context.getSharedPreferences("LOCAL_TOKEN_DATA", Context.MODE_PRIVATE)
     private val editor = sharedPreferences.edit()
 
     override fun getSigninToken(
