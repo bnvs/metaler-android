@@ -8,8 +8,11 @@ class ProfileRepository(context: Context) : ProfileDataSource {
 
     private val profileLocalDataSource = ProfileLocalDataSource(context)
 
-    override fun getProfile(callback: ProfileDataSource.LoadProfileCallback) {
-        profileLocalDataSource.getProfile(callback)
+    override fun getProfile(
+        onProfileLoaded: (profile: Profile) -> Unit,
+        onProfileNotExist: () -> Unit
+    ) {
+        profileLocalDataSource.getProfile(onProfileLoaded, onProfileNotExist)
     }
 
     override fun saveProfile(profile: Profile) {

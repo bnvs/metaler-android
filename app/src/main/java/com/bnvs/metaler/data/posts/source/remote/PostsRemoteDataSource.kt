@@ -6,6 +6,7 @@ import com.bnvs.metaler.data.posts.source.PostsDataSource
 import com.bnvs.metaler.network.RetrofitClient
 import retrofit2.Call
 import retrofit2.Callback
+import retrofit2.HttpException
 import retrofit2.Response
 
 object PostsRemoteDataSource : PostsDataSource {
@@ -13,11 +14,29 @@ object PostsRemoteDataSource : PostsDataSource {
     private val retrofitClient = RetrofitClient.client
 
     override fun getPosts(
-        access_token: String,
         request: PostsRequest,
-        callback: PostsDataSource.LoadPostsCallback
+        onSuccess: (response: PostsResponse) -> Unit,
+        onFailure: (e: Throwable) -> Unit
     ) {
-        val options = mutableMapOf<String, Any>(
+        retrofitClient.getPosts(getOptions(request)).enqueue(object : Callback<PostsResponse> {
+            override fun onResponse(call: Call<PostsResponse>, response: Response<PostsResponse>) {
+                val body = response.body()
+                if (body != null && response.isSuccessful) {
+                    onSuccess(body)
+                } else {
+                    onFailure(HttpException(response))
+                }
+            }
+
+            override fun onFailure(call: Call<PostsResponse>, t: Throwable) {
+                onFailure(t)
+            }
+
+        })
+    }
+
+    private fun getOptions(request: PostsRequest): MutableMap<String, Any> {
+        return mutableMapOf<String, Any>(
             "category_type" to request.category_type,
             "page" to request.page,
             "limit" to request.limit
@@ -29,20 +48,5 @@ object PostsRemoteDataSource : PostsDataSource {
                 put("search_word", request.search_word)
             }
         }
-
-        retrofitClient.getPosts(access_token, options).enqueue(object : Callback<PostsResponse> {
-            override fun onResponse(call: Call<PostsResponse>, response: Response<PostsResponse>) {
-                if (response.isSuccessful) {
-                    callback.onPostsLoaded(response.body()!!)
-                } else {
-                    callback.onResponseError(response.errorBody().toString())
-                }
-            }
-
-            override fun onFailure(call: Call<PostsResponse>, t: Throwable) {
-                callback.onFailure(t)
-            }
-
-        })
     }
 }

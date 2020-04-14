@@ -5,20 +5,18 @@ import com.bnvs.metaler.data.token.SigninToken
 
 interface TokenDataSource {
 
-    interface LoadSigninTokenCallback {
-        fun onTokenloaded(token: SigninToken)
-        fun onTokenNotExist()
-    }
+    fun getSigninToken(
+        onTokenLoaded: (token: SigninToken) -> Unit,
+        onTokenNotExist: () -> Unit
+    )
 
-    interface LoadAccessTokenCallback {
-        fun onTokenloaded(token: AccessToken)
-        fun onTokenNotExist()
-    }
-
-    fun getSigninToken(callback: LoadSigninTokenCallback)
     fun saveSigninToken(token: SigninToken)
 
-    fun getAccessToken(callback: LoadAccessTokenCallback)
+    fun getAccessToken(
+        onTokenLoaded: (token: AccessToken) -> Unit,
+        onTokenNotExist: () -> Unit
+    )
+
     fun saveAccessToken(token: AccessToken)
 
 }

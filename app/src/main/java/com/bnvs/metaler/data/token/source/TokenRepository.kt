@@ -5,20 +5,26 @@ import com.bnvs.metaler.data.token.AccessToken
 import com.bnvs.metaler.data.token.SigninToken
 import com.bnvs.metaler.data.token.source.local.TokenLocalDataSource
 
-class TokenRepository(context: Context) : TokenDataSource{
+class TokenRepository(context: Context) : TokenDataSource {
 
     private val tokenLocalDataSource = TokenLocalDataSource(context)
 
-    override fun getSigninToken(callback: TokenDataSource.LoadSigninTokenCallback) {
-        tokenLocalDataSource.getSigninToken(callback)
+    override fun getSigninToken(
+        onTokenLoaded: (token: SigninToken) -> Unit,
+        onTokenNotExist: () -> Unit
+    ) {
+        tokenLocalDataSource.getSigninToken(onTokenLoaded, onTokenNotExist)
     }
 
     override fun saveSigninToken(token: SigninToken) {
         tokenLocalDataSource.saveSigninToken(token)
     }
 
-    override fun getAccessToken(callback: TokenDataSource.LoadAccessTokenCallback) {
-        tokenLocalDataSource.getAccessToken(callback)
+    override fun getAccessToken(
+        onTokenLoaded: (token: AccessToken) -> Unit,
+        onTokenNotExist: () -> Unit
+    ) {
+        tokenLocalDataSource.getAccessToken(onTokenLoaded, onTokenNotExist)
     }
 
     override fun saveAccessToken(token: AccessToken) {
