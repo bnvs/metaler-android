@@ -10,10 +10,11 @@ import com.bnvs.metaler.data.profile.Profile
 import com.bnvs.metaler.data.profile.source.ProfileRepository
 import com.bnvs.metaler.data.token.AccessToken
 import com.bnvs.metaler.data.token.SigninToken
-import com.bnvs.metaler.data.token.source.TokenDataSource
 import com.bnvs.metaler.data.token.source.TokenRepository
-import com.bnvs.metaler.data.user.certification.model.*
-import com.bnvs.metaler.data.user.certification.source.UserCertificationDataSource
+import com.bnvs.metaler.data.user.certification.model.AddUserRequest
+import com.bnvs.metaler.data.user.certification.model.CheckMembershipRequest
+import com.bnvs.metaler.data.user.certification.model.LoginRequest
+import com.bnvs.metaler.data.user.certification.model.User
 import com.bnvs.metaler.data.user.certification.source.UserCertificationRepository
 import com.bnvs.metaler.network.NetworkUtil
 import com.bnvs.metaler.ui.home.ActivityHome
@@ -26,7 +27,6 @@ import com.kakao.usermgmt.UserManagement
 import com.kakao.usermgmt.callback.MeV2ResponseCallback
 import com.kakao.usermgmt.response.MeV2Response
 import com.kakao.util.exception.KakaoException
-import retrofit2.HttpException
 
 class ActivityLogin : AppCompatActivity() {
 
@@ -54,7 +54,6 @@ class ActivityLogin : AppCompatActivity() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-
         if (Session.getCurrentSession().handleActivityResult(requestCode, resultCode, data)) {
             return
         }
@@ -70,70 +69,82 @@ class ActivityLogin : AppCompatActivity() {
         override fun onSessionOpened() {
             // 로그인 세션이 열렸을 때
             UserManagement.getInstance().me(object : MeV2ResponseCallback() {
-                override fun onSuccess(result: MeV2Response?) {
-                    // 카카오 로그인이 성공했을 때
-                    Log.d(TAG, "카카오 아이디 : ${result!!.id}")
-                    val kakaoId = result.id.toString()
+                override fun onSuccess(result: MeV2Response?) =
+                    // 카카오 로그인 성공시 local 에서 signin_token 불러오기
+                    if (result != null) {
+                        getSigninToken(result)
+                    } else {
+                        makeToast("카카오 로그인 응답값이 없습니다")
+                    }
 
-                    // local 에 signin_token 존재하는지 확인
-                    tokenRepository.getSigninToken(object :
-                        TokenDataSource.LoadSigninTokenCallback {
-                        override fun onTokenloaded(token: SigninToken) {
-                            val signinToken = token.signin_token
-                            login(kakaoId, signinToken)
-                        }
-
-                        override fun onTokenNotExist() {
-                            // signin_token 존재하지 않음, 회원가입 여부확인 api 호출
-                            userRepository.checkMembership(
-                                CheckMembershipRequest(
-                                    kakaoId
-                                ),
-                                object : UserCertificationDataSource.CheckMembershipCallback {
-                                    override fun onMembershipChecked(response: CheckMembershipResponse) {
-                                        when (response.message) {
-                                            "you_can_join" -> {
-                                                openTermsAgree(makeAddUserRequest(result))
-                                            }
-                                            else -> {
-                                                tokenRepository.saveSigninToken(
-                                                    SigninToken(response.signin_token)
-                                                )
-                                                login(kakaoId, response.signin_token)
-                                            }
-                                        }
-                                    }
-
-                                    override fun onResponseError(exception: HttpException) {
-                                        val error =
-                                            NetworkUtil.getErrorResponse(exception.response().errorBody()!!)
-                                        Log.d(TAG, "회원가입 여부 확인 실패 : $error")
-                                    }
-
-                                    override fun onFailure(t: Throwable) {
-                                        Log.d(TAG, "회원가입 여부 확인 실패 : $t")
-                                    }
-                                })
-
-                        }
-                    })
-                }
-
-                override fun onSessionClosed(errorResult: ErrorResult?) {
+                override fun onSessionClosed(errorResult: ErrorResult?) =
                     // 로그인 도중 세션이 비정상적인 이유로 닫혔을 때
                     makeToast("세션이 닫혔습니다. 다시 시도해주세요 : ${errorResult.toString()}")
-                }
             })
         }
 
-        override fun onSessionOpenFailed(exception: KakaoException?) {
+        override fun onSessionOpenFailed(exception: KakaoException?) =
             // 로그인 세션이 정상적으로 열리지 않았을 때
             if (exception != null) {
                 com.kakao.util.helper.log.Logger.e(exception)
                 makeToast("로그인 도중 오류가 발생했습니다. 인터넷 연결을 확인해주세요 : $exception")
+            } else {
+                makeToast("로그인 도중 오류가 발생했습니다. 인터넷 연결을 확인해주세요")
             }
-        }
+    }
 
+    private fun getSigninToken(result: MeV2Response) {
+        val kakaoId = result.id.toString()
+        tokenRepository.getSigninToken(
+            onTokenLoaded = { token ->
+                login(kakaoId, token.signin_token)
+            },
+            onTokenNotExist = {
+                checkMembership(result)
+            }
+        )
+    }
+
+    private fun saveSigninToken(token: String) {
+        tokenRepository.saveSigninToken(SigninToken(token))
+    }
+
+    private fun saveAccessToken(token: String) {
+        tokenRepository.saveAccessToken(AccessToken(token))
+    }
+
+    private fun saveProfileData(user: User) {
+        profileRepository.saveProfile(
+            Profile(
+                user.profile_nickname,
+                user.profile_image_url,
+                user.profile_email
+            )
+        )
+    }
+
+    private fun checkMembership(result: MeV2Response) {
+        val kakaoId = result.id.toString()
+        userRepository.checkMembership(
+            CheckMembershipRequest(kakaoId),
+            onSuccess = { response ->
+                when (response.message) {
+                    "you_can_join" -> {
+                        openTermsAgree(makeAddUserRequest(result))
+                    }
+                    "you_can_login" -> {
+                        saveSigninToken(response.signin_token)
+                        login(kakaoId, response.signin_token)
+                    }
+                    else -> {
+                        makeToast("회원가입 여부 확인 도중, 알 수 없는 에러가 발생했습니다")
+                    }
+                }
+            },
+            onFailure = { e ->
+                makeToast("회원가입 여부 확인 실패 : ${NetworkUtil.getErrorMessage(e)}")
+            }
+        )
     }
 
     // login api 요청 request body 반환하는 함수
@@ -141,7 +152,7 @@ class ActivityLogin : AppCompatActivity() {
         val deviceInfo = DeviceInfo(this)
         val loginRequest = LoginRequest(
             kakao_id,
-            "에러바디테스트중",
+            signin_token,
             "push_token",
             deviceInfo.getDeviceId(),
             deviceInfo.getDeviceModel(),
@@ -156,34 +167,15 @@ class ActivityLogin : AppCompatActivity() {
     private fun login(kakao_id: String, signin_token: String) {
         userRepository.login(
             loginRequest(kakao_id, signin_token),
-            object : UserCertificationDataSource.LoginCallback {
-                override fun onLoginSuccess(response: LoginResponse) {
-                    // 발급받은 access_token local 에 저장
-                    tokenRepository.saveAccessToken(
-                        AccessToken(response.access_token)
-                    )
-                    // response 의 User 에서 profile 정보 추출하여 로컬에 저장
-                    profileRepository.saveProfile(
-                        Profile(
-                            response.user.profile_nickname,
-                            response.user.profile_image_url,
-                            response.user.profile_email
-                        )
-                    )
-                    // 홈탭 실행
-                    openHome()
-                }
-
-                override fun onResponseError(exception: HttpException) {
-                    val error =
-                        NetworkUtil.getErrorResponse(exception.response().errorBody()!!)
-                    Log.d("로그인 실패", "$error")
-                }
-
-                override fun onFailure(t: Throwable) {
-                    Log.d(TAG, "로그인 실패 : $t")
-                }
-            })
+            onSuccess = { response ->
+                saveAccessToken(response.access_token)
+                saveProfileData(response.user)
+                openHome()
+            },
+            onFailure = { e ->
+                makeToast("로그인 실패 : ${NetworkUtil.getErrorMessage(e)}")
+            }
+        )
     }
 
     private fun openTermsAgree(addUserRequest: AddUserRequest) {
