@@ -1,23 +1,13 @@
 package com.bnvs.metaler.data.user.deactivation.source
 
-import com.bnvs.metaler.data.user.certification.model.AddUserResponse
-import com.bnvs.metaler.data.user.certification.model.CheckMembershipResponse
+import okhttp3.ResponseBody
 
 interface UserDeactivationDataSource {
 
-    interface DeleteUserCallback {
-        fun onUserDeleted(response: AddUserResponse)
-        fun onResponseError(message: String)
-        fun onFailure(t: Throwable)
-    }
-
-    interface LogoutCallback {
-        fun onLogoutSuccess(response: CheckMembershipResponse)
-        fun onResponseError(message: String)
-        fun onFailure(t: Throwable)
-    }
-
-    fun deleteUser()
+    fun deleteUser(
+        onSuccess: (response: ResponseBody) -> Unit,
+        onFailure: (e: Throwable) -> Unit
+    )
 
     fun logout()
 

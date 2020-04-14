@@ -1,11 +1,18 @@
 package com.bnvs.metaler.data.user.deactivation.source
 
+import com.bnvs.metaler.data.user.deactivation.source.remote.UserDeactivationRemoteDataSource
+import okhttp3.ResponseBody
+
 class UserDeactivationRepository : UserDeactivationDataSource {
-    override fun deleteUser() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
+    private val userRemoteDataSource = UserDeactivationRemoteDataSource
+
+    override fun deleteUser(
+        onSuccess: (response: ResponseBody) -> Unit,
+        onFailure: (e: Throwable) -> Unit
+    ) {
+        userRemoteDataSource.deleteUser(onSuccess, onFailure)
     }
 
-    override fun logout() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    override fun logout() {}
 }
