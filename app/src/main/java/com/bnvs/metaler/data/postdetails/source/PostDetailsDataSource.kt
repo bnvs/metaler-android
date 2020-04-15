@@ -4,11 +4,10 @@ import com.bnvs.metaler.data.postdetails.PostDetails
 
 interface PostDetailsDataSource {
 
-    interface LoadPostDetailsCallback {
-        fun onPostDetailsLoaded(postDetails: PostDetails)
-        fun onDataNotAvailable()
-    }
-
-    fun getPostDetails(callback: LoadPostDetailsCallback)
+    fun getPostDetails(
+        postId: Int,
+        onSuccess: (response: PostDetails) -> Unit,
+        onFailure: (e: Throwable) -> Unit
+    )
 
 }

@@ -3,30 +3,28 @@ package com.bnvs.metaler.data.profile.source.local
 import android.content.Context
 import com.bnvs.metaler.data.profile.Profile
 import com.bnvs.metaler.data.profile.source.ProfileDataSource
-import org.json.JSONObject
+import com.google.gson.GsonBuilder
 
-class ProfileLocalDataSource (context: Context) : ProfileDataSource {
+class ProfileLocalDataSource(context: Context) : ProfileDataSource {
 
-    private val sharedPreferences = context.getSharedPreferences("profile", Context.MODE_PRIVATE)
+    private val sharedPreferences =
+        context.getSharedPreferences("LOCAL_PROFILE_DATA", Context.MODE_PRIVATE)
     private val editor = sharedPreferences.edit()
 
-    override fun getProfile(callback: ProfileDataSource.LoadProfileCallback) {
-        var profileString = sharedPreferences.getString("profile", null)
-        if (profileString != null) {
-            var profile = JSONObject(profileString)
-            callback.onProfileloaded(
-                Profile(
-                    profile.getString("profile_nickname"),
-                    profile.getString("profile_image_url"),
-                    profile.getString("profile_email")
-                ))
-        }else {
-            callback.onProfileNotExist()
+    override fun getProfile(
+        onProfileLoaded: (profile: Profile) -> Unit,
+        onProfileNotExist: () -> Unit
+    ) {
+        val profile = sharedPreferences.getString("profile", null)
+        if (profile != null) {
+            onProfileLoaded(GsonBuilder().create().fromJson(profile, Profile::class.java))
+        } else {
+            onProfileNotExist()
         }
     }
 
     override fun saveProfile(profile: Profile) {
-        editor.putString("profile", profile.toString())
+        editor.putString("profile", GsonBuilder().create().toJson(profile))
         editor.commit()
     }
 }

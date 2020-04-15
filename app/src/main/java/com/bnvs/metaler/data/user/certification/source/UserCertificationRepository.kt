@@ -1,8 +1,6 @@
 package com.bnvs.metaler.data.user.certification.source
 
-import com.bnvs.metaler.data.user.certification.model.AddUserRequest
-import com.bnvs.metaler.data.user.certification.model.CheckMembershipRequest
-import com.bnvs.metaler.data.user.certification.model.LoginRequest
+import com.bnvs.metaler.data.user.certification.model.*
 import com.bnvs.metaler.data.user.certification.source.remote.UserCertificationRemoteDataSource
 
 class UserCertificationRepository : UserCertificationDataSource {
@@ -12,22 +10,25 @@ class UserCertificationRepository : UserCertificationDataSource {
 
     override fun addUser(
         request: AddUserRequest,
-        callback: UserCertificationDataSource.AddUserCallback
+        onSuccess: (response: AddUserResponse) -> Unit,
+        onFailure: (e: Throwable) -> Unit
     ) {
-        userRemoteDataSource.addUser(request, callback)
+        userRemoteDataSource.addUser(request, onSuccess, onFailure)
     }
 
     override fun checkMembership(
         request: CheckMembershipRequest,
-        callback: UserCertificationDataSource.CheckMembershipCallback
+        onSuccess: (response: CheckMembershipResponse) -> Unit,
+        onFailure: (e: Throwable) -> Unit
     ) {
-        userRemoteDataSource.checkMembership(request, callback)
+        userRemoteDataSource.checkMembership(request, onSuccess, onFailure)
     }
 
     override fun login(
         request: LoginRequest,
-        callback: UserCertificationDataSource.LoginCallback
+        onSuccess: (response: LoginResponse) -> Unit,
+        onFailure: (e: Throwable) -> Unit
     ) {
-        userRemoteDataSource.login(request, callback)
+        userRemoteDataSource.login(request, onSuccess, onFailure)
     }
 }

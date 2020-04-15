@@ -77,7 +77,7 @@ class ActivityHome : AppCompatActivity(), ContractHome.View {
 
         // 홈 탭에서 보여줄 데이터 가져오기 시작
         // 상태 바(배터리,와이파이 아이콘 표시되는 곳) 투명하게함
-        presenter.run{
+        presenter.run {
             start()
             setStatusBar()
         }
@@ -116,7 +116,7 @@ class ActivityHome : AppCompatActivity(), ContractHome.View {
             .apply { putExtra("postId", postId) }
             .also { startActivity(it) }
 
-        overridePendingTransition(0,0)
+        overridePendingTransition(0, 0)
     }
 
     // 상태 바를 투명하게 하고, padding 을 조절한다
@@ -128,10 +128,10 @@ class ActivityHome : AppCompatActivity(), ContractHome.View {
 
         //현재 액티비티 레이아웃의 기준이 되는 titleBarCard에 상태바 높이 만큼 top padding 을 줌 .
         titleBarCard.setPadding(0, statusBarHeight(this), 0, 0)
-        Log.d(TAG,"상태바 높이? : ${statusBarHeight(this)}")
+        Log.d(TAG, "상태바 높이? : ${statusBarHeight(this)}")
 
         //소프트키 올라온 높이만큼 전체 레이아웃 하단에 padding을 줌.
-        wrapConstraintLayout.setPadding(0,0,0,softMenuHeight(this))
+        wrapConstraintLayout.setPadding(0, 0, 0, softMenuHeight(this))
     }
 
     private fun initClickListeners() {
@@ -164,9 +164,11 @@ class ActivityHome : AppCompatActivity(), ContractHome.View {
 
     //하단 소프트키 높이 구함
     private fun softMenuHeight(context: Context): Int {
-        val resourceId = context.resources.getIdentifier("navigation_bar_height", "dimen", "android")
-        return if (resourceId > 0){ context.resources.getDimensionPixelSize(resourceId)
-        }else 0
+        val resourceId =
+            context.resources.getIdentifier("navigation_bar_height", "dimen", "android")
+        return if (resourceId > 0) {
+            context.resources.getDimensionPixelSize(resourceId)
+        } else 0
     }
 
     /**
@@ -186,7 +188,7 @@ class ActivityHome : AppCompatActivity(), ContractHome.View {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
             lateinit var inflatedView: View
-            when(postType) {
+            when (postType) {
                 "materials" -> {
                     inflatedView = LayoutInflater.from(parent.context)
                         .inflate(R.layout.item_home_materials_rv, parent, false)
@@ -217,7 +219,7 @@ class ActivityHome : AppCompatActivity(), ContractHome.View {
                     tags += "#$tag "
                 }
 
-                when(postType) {
+                when (postType) {
                     "materials" -> {
                         view.apply {
                             materialsTitle.text = item.title

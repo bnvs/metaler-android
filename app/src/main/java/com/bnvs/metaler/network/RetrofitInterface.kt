@@ -1,19 +1,22 @@
 package com.bnvs.metaler.network
 
 import com.bnvs.metaler.data.addeditpost.AddEditPostRequest
+import com.bnvs.metaler.data.addeditpost.AddPostResponse
+import com.bnvs.metaler.data.addeditpost.DeletePostResponse
+import com.bnvs.metaler.data.addeditpost.EditPostResponse
 import com.bnvs.metaler.data.bookmarks.AddBookmarkRequest
+import com.bnvs.metaler.data.bookmarks.AddBookmarkResponse
 import com.bnvs.metaler.data.bookmarks.BookmarksResponse
+import com.bnvs.metaler.data.bookmarks.DeleteBookmarkResponse
 import com.bnvs.metaler.data.categories.Categories
-import com.bnvs.metaler.data.comments.AddCommentRequest
-import com.bnvs.metaler.data.comments.Comments
+import com.bnvs.metaler.data.comments.*
 import com.bnvs.metaler.data.homeposts.HomePosts
 import com.bnvs.metaler.data.myposts.MyPosts
 import com.bnvs.metaler.data.postdetails.PostDetails
 import com.bnvs.metaler.data.posts.PostsResponse
 import com.bnvs.metaler.data.user.certification.model.*
-import com.bnvs.metaler.data.user.modification.model.Job
-import com.bnvs.metaler.data.user.modification.model.Jobs
-import com.bnvs.metaler.data.user.modification.model.Nickname
+import com.bnvs.metaler.data.user.deactivation.model.DeleteUserResponse
+import com.bnvs.metaler.data.user.modification.model.*
 import okhttp3.MultipartBody
 import okhttp3.ResponseBody
 import retrofit2.Call
@@ -54,129 +57,109 @@ interface RetrofitInterface {
     @POST("/users/login")
     fun login(@Body request: LoginRequest): Call<LoginResponse>
 
-    // 회원탈퇴
-    @DELETE("/users")
-    fun deleteUser(
-        @Header("Authorization") access_token: String
-    ): Call<ResponseBody>
-
     /*** [1-2. 회원정보 수정] ***/
     // 소속조회
     @GET("/users/jobs")
-    fun getUserJob(
-        @Header("Authorization") access_token: String
-    ): Call<Jobs>
+    fun getUserJob(): Call<Jobs>
 
     // 소속수정
     @PUT("/users/jobs")
     fun modifyUserJob(
-        @Header("Authorization") access_token: String,
         @Body request: Job
-    ): Call<ResponseBody>
+    ): Call<ModifyJobResponse>
 
     // 닉네임 수정
     @PUT("/users/nickname")
     fun modifyNickname(
-        @Header("Authorization") access_token: String,
         @Body request: Nickname
-    ): Call<ResponseBody>
+    ): Call<ModifyNicknameResponse>
+
+    // 회원탈퇴
+    @DELETE("/users")
+    fun deleteUser(): Call<DeleteUserResponse>
 
 
     /*** [2. 게시글] ***/
     /*** [2-1. 카테고리] ***/
     // 카테고리 조회 (재료, 가공)
     @GET("/categories")
-    fun getCategories(
-        @Header("Authorization") access_token: String
-    ): Call<Categories>
+    fun getCategories(): Call<Categories>
 
     /*** [2-2. 글] ***/
     // 게시글 목록 조회
     @GET("/posts")
     fun getPosts(
-        @Header("Authorization") access_token: String,
         @QueryMap options: MutableMap<String, Any>
     ): Call<PostsResponse>
 
     // 게시글 상세 조회
     @GET("/posts/{id}")
     fun getPostDetails(
-        @Header("Authorization") access_token: String,
         @Path("id") post_id: Int
     ): Call<PostDetails>
 
     // 게시글 작성
     @POST("/posts")
     fun addPost(
-        @Header("Authorization") access_token: String,
         @Body request: AddEditPostRequest
-    ): Call<ResponseBody>
+    ): Call<AddPostResponse>
 
     // 게시글 수정
     @PUT("/posts/{id}")
     fun modifyPost(
-        @Header("Authorization") access_token: String,
         @Path("id") post_id: Int,
         @Body request: AddEditPostRequest
-    ): Call<ResponseBody>
+    ): Call<EditPostResponse>
 
     // 게시글 삭제
     @DELETE("/posts/{id}")
     fun deletePost(
-        @Header("Authorization") access_token: String,
         @Path("id") post_id: Int
-    ): Call<ResponseBody>
+    ): Call<DeletePostResponse>
 
     /*** [2-3. 댓글] ***/
     // 댓글 목록 조회
     @GET("/posts/{id}/comments")
     fun getComments(
-        @Header("Authorization") access_token: String,
         @Path("id") post_id: Int
     ): Call<Comments>
 
     // 댓글 추가
     @POST("/posts/{id}/comments")
     fun addComment(
-        @Header("Authorization") access_token: String,
         @Path("id") post_id: Int,
-        @Body request: AddCommentRequest
-    ): Call<ResponseBody>
+        @Body request: AddEditCommentRequest
+    ): Call<AddCommentResponse>
 
     // 댓글 수정
     @PUT("comments/{id}")
     fun modifyComment(
-        @Header("Authorization") access_token: String,
         @Path("id") comment_id: Int,
-        @Body request: AddCommentRequest
-    ): Call<ResponseBody>
+        @Body request: AddEditCommentRequest
+    ): Call<EditCommentResponse>
 
     // 댓글 삭제
     @DELETE("comments/{id}")
     fun deleteComment(
-        @Header("Authorization") access_token: String,
         @Path("id") comment_id: Int
-    ): Call<ResponseBody>
+    ): Call<DeleteCommentResponse>
 
     /*** [2-4. 북마크] ***/
     // 북마크 추가
     @POST("/users/bookmarks")
     fun addBookmark(
-        @Header("Authorization") access_token: String,
         @Body request: AddBookmarkRequest
-    ): Call<ResponseBody>
+    ): Call<AddBookmarkResponse>
 
     // 북마크 삭제
     @DELETE("/users/bookmarks/{id}")
     fun deleteBookmark(
-        @Header("Authorization") access_token: String,
         @Path("id") bookmark_id: Int
-    ): Call<ResponseBody>
+    ): Call<DeleteBookmarkResponse>
 
     // 북마크 목록 조회
     @GET("/users/bookmarks")
-    fun getBookmarks(
-        @Header("Authorization") access_token: String,
+    fun getMyBookmarks(
         @Query("page") page: Int,
         @Query("limit") limit: Int
     ): Call<BookmarksResponse>
@@ -185,14 +168,12 @@ interface RetrofitInterface {
     // 홈 게시글 조회
     @GET("/homes")
     fun getHomePosts(
-        @Header("Authorization") access_token: String
     ): Call<HomePosts>
 
     /*** [2-6. 내가쓴글] ***/
     // 내가 쓴 글 조회
     @GET("/users/posts")
     fun getMyPosts(
-        @Header("Authorization") access_token: String,
         @Query("page") page: Int,
         @Query("limit") limit: Int,
         @Query("type") type: String

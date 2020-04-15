@@ -2,6 +2,7 @@ package com.bnvs.metaler.ui.jobinput
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
@@ -56,8 +57,14 @@ class ActivityJobInput : AppCompatActivity(), ContractJobInput.View {
         showCompleteButton()
         onGroupChanged(expertGroup, firstCategoryGroups)
         when {
-            presenter.getLastSelectedJobType() == "company" -> onGroupChanged(companyGroup, jobTypeGroups)
-            presenter.getLastSelectedJobType() == "founded" -> onGroupChanged(shopOwnerGroup, jobTypeGroups)
+            presenter.getLastSelectedJobType() == "company" -> onGroupChanged(
+                companyGroup,
+                jobTypeGroups
+            )
+            presenter.getLastSelectedJobType() == "founded" -> onGroupChanged(
+                shopOwnerGroup,
+                jobTypeGroups
+            )
             else -> onGroupChanged(null, jobTypeGroups)
         }
     }
@@ -97,7 +104,11 @@ class ActivityJobInput : AppCompatActivity(), ContractJobInput.View {
     }
 
     override fun showJoinCompleteDialog() {
-        Toast.makeText(this@ActivityJobInput, getString(R.string.job_input_complete), Toast.LENGTH_SHORT).show()
+        Toast.makeText(
+            this@ActivityJobInput,
+            getString(R.string.job_input_complete),
+            Toast.LENGTH_SHORT
+        ).show()
     }
 
     override fun showHomeUi() {
@@ -155,24 +166,32 @@ class ActivityJobInput : AppCompatActivity(), ContractJobInput.View {
                     when (presenter.getSelectedJobType()) {
                         "company" -> {
                             presenter.completeJobInput(
-                                null,
+                                "company",
                                 presenter.getString(companyNameInput)
                             )
                         }
                         "founded" -> {
                             presenter.completeJobInput(
-                                null,
+                                "founded",
                                 presenter.getString(shopNameInput)
                             )
                         }
-                        else -> {
-                            presenter.completeJobInput(null, null)
+                        "freelancer" -> {
+                            presenter.completeJobInput(
+                                "freelancer",
+                                "empty"
+                            )
                         }
+                        else -> Log.d(TAG, "소속 입력완료 에러")
                     }
                 }
-                else -> {
-                    presenter.completeJobInput(null, null)
+                "empty" -> {
+                    presenter.completeJobInput(
+                        "empty",
+                        "empty"
+                    )
                 }
+                else -> Log.d(TAG, "소속 입력완료 에러")
             }
         }
     }
@@ -181,10 +200,10 @@ class ActivityJobInput : AppCompatActivity(), ContractJobInput.View {
     private fun setButtonEnabled(button: TextView, b: Boolean) {
         if (b) {
             button.setBackgroundResource(R.drawable.job_btn_purple_rounding_border)
-            button.setTextColor(ContextCompat.getColor(this , R.color.colorPurple))
-        }else {
+            button.setTextColor(ContextCompat.getColor(this, R.color.colorPurple))
+        } else {
             button.setBackgroundResource(R.drawable.job_btn_lightgrey_rounding_border)
-            button.setTextColor(ContextCompat.getColor(this , R.color.colorLightGrey))
+            button.setTextColor(ContextCompat.getColor(this, R.color.colorLightGrey))
         }
     }
 
@@ -193,7 +212,7 @@ class ActivityJobInput : AppCompatActivity(), ContractJobInput.View {
         for (button in buttons) {
             if (button == clickedButton) {
                 setButtonEnabled(button, true)
-            }else setButtonEnabled(button, false)
+            } else setButtonEnabled(button, false)
         }
     }
 
@@ -202,7 +221,7 @@ class ActivityJobInput : AppCompatActivity(), ContractJobInput.View {
         for (group in groups) {
             if (group == groupToShow) {
                 group.visibility = View.VISIBLE
-            }else {
+            } else {
                 group.visibility = View.GONE
             }
         }

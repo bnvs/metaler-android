@@ -1,4 +1,4 @@
-package com.bnvs.metaler.data.user.modification.model
+package com.bnvs.metaler.data.user.deactivation.model
 
 import org.json.JSONObject
 

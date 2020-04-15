@@ -1,14 +1,33 @@
 package com.bnvs.metaler.data.comments.source
 
-import com.bnvs.metaler.data.comments.Comments
+import com.bnvs.metaler.data.comments.*
 
 interface CommentsDataSource {
-   
-    interface LoadCommentsCallback {
-        fun onCommentsLoaded(comments: Comments)
-        fun onDataNotAvailable()
-    }
-    
-    fun getComments(callback: LoadCommentsCallback)
-    
+
+    fun getComments(
+        postId: Int,
+        onSuccess: (response: Comments) -> Unit,
+        onFailure: (e: Throwable) -> Unit
+    )
+
+    fun addComment(
+        postId: Int,
+        request: AddEditCommentRequest,
+        onSuccess: (response: AddCommentResponse) -> Unit,
+        onFailure: (e: Throwable) -> Unit
+    )
+
+    fun editComment(
+        commentId: Int,
+        request: AddEditCommentRequest,
+        onSuccess: (response: EditCommentResponse) -> Unit,
+        onFailure: (e: Throwable) -> Unit
+    )
+
+    fun deleteComment(
+        commentId: Int,
+        onSuccess: (response: DeleteCommentResponse) -> Unit,
+        onFailure: (e: Throwable) -> Unit
+    )
+
 }

@@ -4,6 +4,7 @@ import android.content.Intent
 import android.widget.EditText
 import com.bnvs.metaler.BasePresenter
 import com.bnvs.metaler.BaseView
+import com.bnvs.metaler.data.user.certification.model.LoginRequest
 
 interface ContractJobInput {
     interface View: BaseView<Presenter> {
@@ -49,11 +50,15 @@ interface ContractJobInput {
 
         fun getLastSelectedJobType(): String
 
-        fun completeJobInput(jobTypeInput: String?, jobDetailInput: String?)
+        fun completeJobInput(jobTypeInput: String, jobDetailInput: String)
 
         fun setUserRequest()
 
         fun addUser()
+
+        fun login(request: LoginRequest)
+
+        fun makeLoginRequest(token: String): LoginRequest
 
         fun getString(editText: EditText): String
     }
