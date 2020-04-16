@@ -21,7 +21,7 @@ interface ContractHome {
 
         fun showManufacturesList(manufactures: List<HomePost>)
 
-        fun showLoadHomePostFailedDialog(errorMessage: String)
+        fun showLoadHomePostFailedToast(errorMessage: String)
 
         fun showPostDetailUi(postId: Int)
 
