@@ -42,7 +42,7 @@ class PresenterHome(
                 view.showManufacturesList(response.manufactures)
             },
             onFailure = { e ->
-                view.showLoadHomePostFailedDialog(NetworkUtil.getErrorMessage(e))
+                view.showLoadHomePostFailedToast(NetworkUtil.getErrorMessage(e))
             }
         )
     }
