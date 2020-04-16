@@ -15,9 +15,13 @@ interface ContractHome {
     interface View : BaseView<Presenter>, TapBarContract.View {
         fun showProfile(profile: Profile)
 
+        fun showProfileNotExistToast()
+
         fun showMaterialsList(materials: List<HomePost>)
 
         fun showManufacturesList(manufactures: List<HomePost>)
+
+        fun showLoadHomePostFailedDialog(errorMessage: String)
 
         fun showPostDetailUi(postId: Int)
 
