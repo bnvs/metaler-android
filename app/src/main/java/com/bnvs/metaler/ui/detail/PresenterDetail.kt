@@ -1,10 +1,7 @@
 package com.bnvs.metaler.ui.detail
 
 import android.content.Context
-import com.bnvs.metaler.data.bookmarks.source.BookmarksDataSource
 import com.bnvs.metaler.data.bookmarks.source.repositroy.BookmarksRepository
-import com.bnvs.metaler.data.postdetails.model.PostDetails
-import com.bnvs.metaler.data.postdetails.source.PostDetailsDataSource
 import com.bnvs.metaler.data.postdetails.source.repository.PostDetailsRepository
 
 class PresenterDetail(
@@ -27,15 +24,7 @@ class PresenterDetail(
     }
 
     override fun loadPostDetail() {
-        postDetailsRepository.getPostDetails(object : PostDetailsDataSource.LoadPostDetailsCallback{
-            override fun onPostDetailsLoaded(postDetails: PostDetails) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-            }
 
-            override fun onDataNotAvailable() {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-            }
-        })
     }
 
     override fun loadComments() {
@@ -43,27 +32,11 @@ class PresenterDetail(
     }
 
     override fun addBookmark(postId: Int) {
-        bookmarksRepository.addBookmark(object : BookmarksDataSource.AddBookmarkCallback{
-            override fun onBookmarkAdded() {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-            }
 
-            override fun onDataNotAvailable() {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-            }
-        })
     }
 
     override fun deleteBookmark(postId: Int) {
-        bookmarksRepository.deleteBookmark(object : BookmarksDataSource.DeleteBookmarkCallback{
-            override fun onBookmarkDeleted() {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-            }
 
-            override fun onDataNotAvailable() {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-            }
-        })
     }
 
     override fun openMenu() {

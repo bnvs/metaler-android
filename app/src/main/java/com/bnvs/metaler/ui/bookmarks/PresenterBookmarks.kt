@@ -1,7 +1,6 @@
 package com.bnvs.metaler.ui.bookmarks
 
 import android.content.Context
-import com.bnvs.metaler.data.bookmarks.source.BookmarksDataSource
 import com.bnvs.metaler.data.bookmarks.source.repositroy.BookmarksRepository
 
 class PresenterBookmarks (
@@ -43,15 +42,7 @@ class PresenterBookmarks (
     }
 
     override fun deleteBookmark(postId: Int) {
-        bookmarksRepository.deleteBookmark(object : BookmarksDataSource.DeleteBookmarkCallback{
-            override fun onBookmarkDeleted() {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-            }
 
-            override fun onDataNotAvailable() {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-            }
-        })
     }
 
 }

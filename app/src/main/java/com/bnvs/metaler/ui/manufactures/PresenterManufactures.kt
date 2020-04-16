@@ -1,11 +1,8 @@
 package com.bnvs.metaler.ui.manufactures
 
 import android.content.Context
-import android.util.Log
 import com.bnvs.metaler.data.posts.model.Post
 import com.bnvs.metaler.data.posts.model.PostsRequest
-import com.bnvs.metaler.data.posts.model.PostsResponse
-import com.bnvs.metaler.data.posts.source.PostsDataSource
 import com.bnvs.metaler.data.posts.source.repository.PostsRepository
 import com.bnvs.metaler.data.token.source.repository.TokenRepository
 
@@ -53,22 +50,7 @@ class PresenterManufactures(
     }
 
     override fun loadPosts(postsRequest: PostsRequest) {
-        postRepository.getPosts(
-            accessToken,
-            postsRequest,
-            object : PostsDataSource.LoadPostsCallback {
-                override fun onPostsLoaded(postsResponse: PostsResponse) {
-                    view.showPosts(postsResponse.posts)
-                }
 
-                override fun onResponseError(message: String) {
-                    Log.d(TAG, "message ? : $message")
-                }
-
-                override fun onFailure(t: Throwable) {
-                    Log.d(TAG, "t ? : $t")
-                }
-            })
     }
 
 
