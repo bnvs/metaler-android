@@ -35,29 +35,22 @@ class PresenterManufactures(
 
 
     override fun start() {
-        getAccessToken()
         loadPosts(requestPosts())
     }
 
-    override fun getAccessToken() {
-        /*tokenRepository.getAccessToken(object : TokenDataSource.LoadAccessTokenCallback {
-            override fun onTokenloaded(token: AccessToken) {
-                accessToken = token.access_token //유효성 (24시간 지났는지) 검사
-            }
-
-            override fun onTokenNotExist() {
-
-            }
-        })*/
-    }
 
     override fun loadPosts(postsRequest: PostsRequest) {
         postRepository.getPosts(
             postsRequest,
             onSuccess = { response: PostsResponse ->
-                view.showPosts(response.posts) },
+                view.showPosts(response.posts)
+            },
             onFailure = { e ->
-                Toast.makeText(context,"서버 통신 실패 : ${NetworkUtil.getErrorMessage(e)}",Toast.LENGTH_LONG).show()
+                Toast.makeText(
+                    context,
+                    "서버 통신 실패 : ${NetworkUtil.getErrorMessage(e)}",
+                    Toast.LENGTH_LONG
+                ).show()
             }
         )
     }
