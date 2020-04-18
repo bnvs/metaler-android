@@ -116,25 +116,19 @@
 
         <TextView
             android:id="@+id/cardBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/roundingBorderInactiveTextView"
             android:layout_marginRight="15dp"
-            android:background="@drawable/lightgrey_rounding_border"
             android:text="@string/card_type"
-            android:textColor="@color/colorLightGrey"
             app:layout_constraintEnd_toStartOf="@id/cashBtn"
             app:layout_constraintTop_toBottomOf="@id/priceLine"
             app:layout_constraintTop_toTopOf="@id/cashBtn" />
 
         <TextView
             android:id="@+id/cashBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/roundingBorderInactiveTextView"
             android:layout_marginTop="6dp"
             android:layout_marginRight="@dimen/wideMargin"
-            android:background="@drawable/lightgrey_rounding_border"
             android:text="@string/cash_type"
-            android:textColor="@color/colorLightGrey"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/priceLine" />
     </androidx.constraintlayout.widget.ConstraintLayout>
