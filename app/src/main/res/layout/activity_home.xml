@@ -56,11 +56,9 @@
 
                 <ImageView
                     android:id="@+id/profileImg"
-                    android:layout_width="47dp"
-                    android:layout_height="47dp"
+                    style="@style/middleProfileIcon"
                     android:layout_marginLeft="30dp"
                     android:layout_marginTop="15dp"
-                    android:src="@drawable/ic_profile_x3"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
