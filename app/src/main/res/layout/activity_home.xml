@@ -180,7 +180,7 @@
 
                             <TextView
                                 android:id="@+id/materialsTag1"
-                                style="@style/homeTagTextView"
+                                style="@style/homeTag"
                                 app:layout_constraintLeft_toLeftOf="parent"
                                 app:layout_constraintRight_toLeftOf="@id/materialsUserName1"
                                 app:layout_constraintTop_toBottomOf="@id/materialsTitle1"
@@ -224,7 +224,7 @@
 
                             <TextView
                                 android:id="@+id/materialsTag2"
-                                style="@style/homeTagTextView"
+                                style="@style/homeTag"
                                 app:layout_constraintLeft_toLeftOf="parent"
                                 app:layout_constraintRight_toLeftOf="@id/materialsUserName2"
                                 app:layout_constraintTop_toBottomOf="@id/materialsTitle2"
@@ -272,7 +272,7 @@
 
                             <TextView
                                 android:id="@+id/materialsTag3"
-                                style="@style/homeTagTextView"
+                                style="@style/homeTag"
                                 app:layout_constraintLeft_toLeftOf="parent"
                                 app:layout_constraintRight_toLeftOf="@id/materialsUserName3"
                                 app:layout_constraintTop_toBottomOf="@id/materialsTitle3"
@@ -320,7 +320,7 @@
 
                             <TextView
                                 android:id="@+id/materialsTag4"
-                                style="@style/homeTagTextView"
+                                style="@style/homeTag"
                                 app:layout_constraintLeft_toLeftOf="parent"
                                 app:layout_constraintRight_toLeftOf="@id/materialsUserName4"
                                 app:layout_constraintTop_toBottomOf="@id/materialsTitle4"
@@ -368,7 +368,7 @@
 
                             <TextView
                                 android:id="@+id/materialsTag5"
-                                style="@style/homeTagTextView"
+                                style="@style/homeTag"
                                 app:layout_constraintLeft_toLeftOf="parent"
                                 app:layout_constraintRight_toLeftOf="@id/materialsUserName5"
                                 app:layout_constraintTop_toBottomOf="@id/materialsTitle5"
@@ -492,7 +492,7 @@
 
                             <TextView
                                 android:id="@+id/manufacturesTag1"
-                                style="@style/homeTagTextView"
+                                style="@style/homeTag"
                                 app:layout_constraintLeft_toLeftOf="parent"
                                 app:layout_constraintRight_toLeftOf="@id/manufacturesUserName1"
                                 app:layout_constraintTop_toBottomOf="@id/manufacturesTitle1"
@@ -540,7 +540,7 @@
 
                             <TextView
                                 android:id="@+id/manufacturesTag2"
-                                style="@style/homeTagTextView"
+                                style="@style/homeTag"
                                 app:layout_constraintLeft_toLeftOf="parent"
                                 app:layout_constraintRight_toLeftOf="@id/manufacturesUserName2"
                                 app:layout_constraintTop_toBottomOf="@id/manufacturesTitle2"
@@ -588,7 +588,7 @@
 
                             <TextView
                                 android:id="@+id/manufacturesTag3"
-                                style="@style/homeTagTextView"
+                                style="@style/homeTag"
                                 app:layout_constraintLeft_toLeftOf="parent"
                                 app:layout_constraintRight_toLeftOf="@id/manufacturesUserName3"
                                 app:layout_constraintTop_toBottomOf="@id/manufacturesTitle3"
@@ -636,7 +636,7 @@
 
                             <TextView
                                 android:id="@+id/manufacturesTag4"
-                                style="@style/homeTagTextView"
+                                style="@style/homeTag"
                                 app:layout_constraintLeft_toLeftOf="parent"
                                 app:layout_constraintRight_toLeftOf="@id/manufacturesUserName4"
                                 app:layout_constraintTop_toBottomOf="@id/manufacturesTitle4"
@@ -684,7 +684,7 @@
 
                             <TextView
                                 android:id="@+id/manufacturesTag5"
-                                style="@style/homeTagTextView"
+                                style="@style/homeTag"
                                 app:layout_constraintLeft_toLeftOf="parent"
                                 app:layout_constraintRight_toLeftOf="@id/manufacturesUserName5"
                                 app:layout_constraintTop_toBottomOf="@id/manufacturesTitle5"
