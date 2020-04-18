@@ -220,18 +220,10 @@
 
                             <TextView
                                 android:id="@+id/materialsTitle2"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginHorizontal="20dp"
-                                android:layout_marginTop="10dp"
-                                android:ellipsize="end"
-                                android:maxLines="1"
-                                android:text="Title타이틀제목"
-                                android:textColor="@color/colorDarkGrey"
-                                android:textSize="14sp"
-                                android:textStyle="bold"
+                                style="@style/homePostTitleTextView"
                                 app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@id/materialsLine1" />
+                                app:layout_constraintTop_toBottomOf="@id/materialsLine1"
+                                tools:text="Title타이틀제목" />
 
                             <TextView
                                 android:id="@+id/materialsTag2"
@@ -290,18 +282,10 @@
 
                             <TextView
                                 android:id="@+id/materialsTitle3"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginHorizontal="20dp"
-                                android:layout_marginTop="10dp"
-                                android:ellipsize="end"
-                                android:maxLines="1"
-                                android:text="Title타이틀제목"
-                                android:textColor="@color/colorDarkGrey"
-                                android:textSize="14sp"
-                                android:textStyle="bold"
+                                style="@style/homePostTitleTextView"
                                 app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@id/materialsLine2" />
+                                app:layout_constraintTop_toBottomOf="@id/materialsLine2"
+                                tools:text="Title타이틀제목" />
 
                             <TextView
                                 android:id="@+id/materialsTag3"
@@ -360,18 +344,10 @@
 
                             <TextView
                                 android:id="@+id/materialsTitle4"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginHorizontal="20dp"
-                                android:layout_marginTop="10dp"
-                                android:ellipsize="end"
-                                android:maxLines="1"
-                                android:text="Title타이틀제목"
-                                android:textColor="@color/colorDarkGrey"
-                                android:textSize="14sp"
-                                android:textStyle="bold"
+                                style="@style/homePostTitleTextView"
                                 app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@id/materialsLine3" />
+                                app:layout_constraintTop_toBottomOf="@id/materialsLine3"
+                                tools:text="Title타이틀제목" />
 
                             <TextView
                                 android:id="@+id/materialsTag4"
@@ -430,18 +406,10 @@
 
                             <TextView
                                 android:id="@+id/materialsTitle5"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginHorizontal="20dp"
-                                android:layout_marginTop="10dp"
-                                android:ellipsize="end"
-                                android:maxLines="1"
-                                android:text="Title타이틀제목"
-                                android:textColor="@color/colorDarkGrey"
-                                android:textSize="14sp"
-                                android:textStyle="bold"
+                                style="@style/homePostTitleTextView"
                                 app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@id/materialsLine4" />
+                                app:layout_constraintTop_toBottomOf="@id/materialsLine4"
+                                tools:text="Title타이틀제목" />
 
                             <TextView
                                 android:id="@+id/materialsTag5"
@@ -588,18 +556,10 @@
 
                             <TextView
                                 android:id="@+id/manufacturesTitle1"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginHorizontal="20dp"
-                                android:layout_marginTop="10dp"
-                                android:ellipsize="end"
-                                android:maxLines="1"
-                                android:text="Title타이틀제목"
-                                android:textColor="@color/colorDarkGrey"
-                                android:textSize="14sp"
-                                android:textStyle="bold"
+                                style="@style/homePostTitleTextView"
                                 app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@id/manufactureLine" />
+                                app:layout_constraintTop_toBottomOf="@id/manufactureLine"
+                                tools:text="Title타이틀제목" />
 
                             <TextView
                                 android:id="@+id/manufacturesTag1"
@@ -658,18 +618,10 @@
 
                             <TextView
                                 android:id="@+id/manufacturesTitle2"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginHorizontal="20dp"
-                                android:layout_marginTop="10dp"
-                                android:ellipsize="end"
-                                android:maxLines="1"
-                                android:text="Title타이틀제목"
-                                android:textColor="@color/colorDarkGrey"
-                                android:textSize="14sp"
-                                android:textStyle="bold"
+                                style="@style/homePostTitleTextView"
                                 app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@id/manufacturesLine1" />
+                                app:layout_constraintTop_toBottomOf="@id/manufacturesLine1"
+                                tools:text="Title타이틀제목" />
 
                             <TextView
                                 android:id="@+id/manufacturesTag2"
@@ -728,18 +680,10 @@
 
                             <TextView
                                 android:id="@+id/manufacturesTitle3"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginHorizontal="20dp"
-                                android:layout_marginTop="10dp"
-                                android:ellipsize="end"
-                                android:maxLines="1"
-                                android:text="Title타이틀제목"
-                                android:textColor="@color/colorDarkGrey"
-                                android:textSize="14sp"
-                                android:textStyle="bold"
+                                style="@style/homePostTitleTextView"
                                 app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@id/manufacturesLine2" />
+                                app:layout_constraintTop_toBottomOf="@id/manufacturesLine2"
+                                tools:text="Title타이틀제목" />
 
                             <TextView
                                 android:id="@+id/manufacturesTag3"
@@ -798,18 +742,10 @@
 
                             <TextView
                                 android:id="@+id/manufacturesTitle4"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginHorizontal="20dp"
-                                android:layout_marginTop="10dp"
-                                android:ellipsize="end"
-                                android:maxLines="1"
-                                android:text="Title타이틀제목"
-                                android:textColor="@color/colorDarkGrey"
-                                android:textSize="14sp"
-                                android:textStyle="bold"
+                                style="@style/homePostTitleTextView"
                                 app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@id/manufacturesLine3" />
+                                app:layout_constraintTop_toBottomOf="@id/manufacturesLine3"
+                                tools:text="Title타이틀제목" />
 
                             <TextView
                                 android:id="@+id/manufacturesTag4"
@@ -868,18 +804,10 @@
 
                             <TextView
                                 android:id="@+id/manufacturesTitle5"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginHorizontal="20dp"
-                                android:layout_marginTop="10dp"
-                                android:ellipsize="end"
-                                android:maxLines="1"
-                                android:text="Title타이틀제목"
-                                android:textColor="@color/colorDarkGrey"
-                                android:textSize="14sp"
-                                android:textStyle="bold"
+                                style="@style/homePostTitleTextView"
                                 app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@id/manufacturesLine4" />
+                                app:layout_constraintTop_toBottomOf="@id/manufacturesLine4"
+                                tools:text="Title타이틀제목" />
 
                             <TextView
                                 android:id="@+id/manufacturesTag5"
