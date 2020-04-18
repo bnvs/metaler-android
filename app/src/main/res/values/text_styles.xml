@@ -67,20 +67,36 @@
         <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="divider">
+    <style name="dividerStyle">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">0.5dp</item>
         <item name="android:background">?android:attr/listDivider</item>
     </style>
 
-    <style name="homeDivider" parent="divider">
+    <style name="homeDivider" parent="dividerStyle">
         <item name="android:layout_marginTop">10dp</item>
     </style>
 
-    <style name="myPageDivider" parent="divider">
+    <style name="myPageDivider" parent="dividerStyle">
         <item name="android:layout_marginHorizontal">10dp</item>
         <item name="android:paddingBottom">6dp</item>
         <item name="android:layout_marginTop">10dp</item>
     </style>
 
+    <style name="editTextStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@null</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:paddingVertical">5dp</item>
+    </style>
+
+    <style name="numberEditText" parent="editTextStyle">
+        <item name="android:ems">10</item>
+        <item name="android:inputType">number</item>
+    </style>
+
+    <style name="titleEditText" parent="editTextStyle">
+        <item name="android:textSize">16sp</item>
+    </style>
 </resources>
