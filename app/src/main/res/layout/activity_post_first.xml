@@ -56,27 +56,14 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/categoryRV" />
 
-        <TextView
-            android:id="@+id/titleTxt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:text="@string/title"
-            android:textColor="@color/colorDarkGrey"
-            android:textSize="14sp"
-            app:layout_constraintBottom_toBottomOf="@id/titleInput"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/titleInput" />
 
         <EditText
             android:id="@+id/titleInput"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="20dp"
+            style="@style/titleEditText"
+            android:layout_marginLeft="@dimen/wideMargin"
             android:hint="@string/title_guide"
-            android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="@id/titleLine"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/categoryLine" />
 
         <View
@@ -103,12 +90,8 @@
 
         <EditText
             android:id="@+id/priceInput"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="10"
+            style="@style/numberEditText"
             android:hint="@string/post_price_guide"
-            android:inputType="number"
-            android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="@id/priceLine"
             app:layout_constraintEnd_toStartOf="@id/wonTxt"
             app:layout_constraintTop_toTopOf="@id/titleLine" />
@@ -117,7 +100,7 @@
             android:id="@+id/wonTxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="20dp"
+            android:layout_marginRight="@dimen/wideMargin"
             android:text="@string/won"
             android:textColor="@color/colorDarkGrey"
             android:textSize="14sp"
