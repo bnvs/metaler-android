@@ -27,6 +27,14 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="myPageMenuTextView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">10dp</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
     <style name="sideInfoTextView">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -55,6 +63,12 @@
     </style>
 
     <style name="homeDivider" parent="divider">
+        <item name="android:layout_marginTop">10dp</item>
+    </style>
+
+    <style name="myPageDivider" parent="divider">
+        <item name="android:layout_marginHorizontal">10dp</item>
+        <item name="android:paddingBottom">6dp</item>
         <item name="android:layout_marginTop">10dp</item>
     </style>
 
