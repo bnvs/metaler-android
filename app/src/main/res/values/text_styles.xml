@@ -10,6 +10,11 @@
         <item name="android:textSize">12sp</item>
     </style>
 
+    <style name="homeTagTextView" parent="tagTextView">
+        <item name="android:layout_marginLeft">@dimen/basicMargin</item>
+        <item name="android:layout_marginTop">10dp</item>
+    </style>
+
     <style name="sideInfoTextView">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
