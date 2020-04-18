@@ -8,9 +8,7 @@
 
     <ImageView
         android:id="@+id/userImg"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:src="@drawable/ic_profile_x3"
+        style="@style/smallProfileIcon"
         android:layout_marginTop="5dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>

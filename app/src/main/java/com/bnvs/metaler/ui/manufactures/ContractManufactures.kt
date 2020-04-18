@@ -15,6 +15,14 @@ interface ContractManufactures {
     interface View : BaseView<Presenter>, TapBarContract.View {
         fun showPosts(posts: List<Post>)
 
+        fun getMorePosts(posts: List<Post>): List<Post>
+
+        fun showMorePosts()
+
+//        fun showMorePosts(posts: List<Post>)
+
+        fun setRVScrollListener()
+
         fun showPostDetailUi()
 
         fun showSearchUi()
@@ -27,11 +35,12 @@ interface ContractManufactures {
     }
 
     interface Presenter : BasePresenter, TapBarContract.Presenter {
-        fun getAccessToken()
 
         fun requestPosts(): PostsRequest
 
         fun loadPosts(postsRequest: PostsRequest)
+
+        fun loadMorePosts(postsRequest: PostsRequest)
 
         fun refreshPosts()
 

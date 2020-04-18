@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="wideMargin">20dp</dimen>
+
+    <dimen name="narrowMargin">7dp</dimen>
+
+    <dimen name="tabBarBtnWidth">88dp</dimen>
+
+</resources>

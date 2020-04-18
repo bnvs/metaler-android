@@ -91,7 +91,7 @@
             android:layout_marginTop="7dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/categoryCard"
-            app:layout_constraintBottom_toTopOf="@id/tapBarCard" />
+            app:layout_constraintBottom_toTopOf="@id/tabBarCard" />
 
 <!--    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>-->
 
@@ -164,7 +164,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/tapBarCard"
+        android:id="@+id/tabBarCard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
