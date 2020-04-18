@@ -74,12 +74,9 @@
 
         <TextView
             android:id="@+id/priceTxt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/postMenuTextView"
             android:layout_marginLeft="@dimen/wideMargin"
             android:text="@string/price"
-            android:textColor="@color/colorDarkGrey"
-            android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="@id/priceInput"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/priceInput" />
@@ -89,19 +86,15 @@
             style="@style/numberEditText"
             android:hint="@string/post_price_guide"
             android:paddingVertical="6dp"
-            app:layout_constraintTop_toBottomOf="@id/titleLine"
-            app:layout_constraintEnd_toStartOf="@id/wonTxt"
             app:layout_constraintBottom_toTopOf="@id/priceLine"
-            />
+            app:layout_constraintEnd_toStartOf="@id/wonTxt"
+            app:layout_constraintTop_toBottomOf="@id/titleLine" />
 
         <TextView
             android:id="@+id/wonTxt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/postMenuTextView"
             android:layout_marginRight="@dimen/wideMargin"
             android:text="@string/won"
-            android:textColor="@color/colorDarkGrey"
-            android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="@id/priceInput"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/priceInput" />
@@ -114,12 +107,9 @@
 
         <TextView
             android:id="@+id/priceTypeTxt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/postMenuTextView"
             android:layout_marginLeft="@dimen/wideMargin"
             android:text="@string/price_type"
-            android:textColor="@color/colorDarkGrey"
-            android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="@id/cardBtn"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/cardBtn" />
@@ -166,23 +156,17 @@
 
             <TextView
                 android:id="@+id/addImgTxt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/postMenuTextView"
                 android:layout_marginTop="6dp"
                 android:text="@string/add_img"
-                android:textColor="@color/colorDarkGrey"
-                android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/addImgGuideTxt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/lightGuideTextView"
                 android:layout_marginTop="6dp"
                 android:text="@string/add_img_guide"
-                android:textColor="@color/colorLightGrey"
-                android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/addImgTxt" />
 
@@ -205,23 +189,17 @@
 
             <TextView
                 android:id="@+id/contentTxt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/postMenuTextView"
                 android:layout_marginTop="6dp"
                 android:text="@string/content"
-                android:textColor="@color/colorDarkGrey"
-                android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/barrier" />
 
             <TextView
                 android:id="@+id/contentGuideTxt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/lightGuideTextView"
                 android:layout_marginTop="6dp"
                 android:text="@string/content_guide"
-                android:textColor="@color/colorLightGrey"
-                android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/contentTxt" />
 
