@@ -3,4 +3,6 @@
 
     <dimen name="basicMargin">20dp</dimen>
 
+    <dimen name="tabBarBtnWidth">88dp</dimen>
+
 </resources>
