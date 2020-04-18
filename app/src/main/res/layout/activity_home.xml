@@ -213,10 +213,7 @@
 
                             <View
                                 android:id="@+id/materialsLine1"
-                                android:layout_width="match_parent"
-                                android:layout_height="0.5dp"
-                                android:layout_marginTop="10dp"
-                                android:background="?android:attr/listDivider"
+                                style="@style/homeDivider"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@id/materialsTag1" />
 
@@ -286,10 +283,7 @@
 
                             <View
                                 android:id="@+id/materialsLine2"
-                                android:layout_width="match_parent"
-                                android:layout_height="0.5dp"
-                                android:layout_marginTop="10dp"
-                                android:background="?android:attr/listDivider"
+                                style="@style/homeDivider"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@id/materialsTag2" />
 
@@ -359,10 +353,7 @@
 
                             <View
                                 android:id="@+id/materialsLine3"
-                                android:layout_width="match_parent"
-                                android:layout_height="0.5dp"
-                                android:layout_marginTop="10dp"
-                                android:background="?android:attr/listDivider"
+                                style="@style/homeDivider"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@id/materialsTag3" />
 
@@ -432,10 +423,7 @@
 
                             <View
                                 android:id="@+id/materialsLine4"
-                                android:layout_width="match_parent"
-                                android:layout_height="0.5dp"
-                                android:layout_marginTop="10dp"
-                                android:background="?android:attr/listDivider"
+                                style="@style/homeDivider"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@id/materialsTag4" />
 
@@ -663,10 +651,7 @@
 
                             <View
                                 android:id="@+id/manufacturesLine1"
-                                android:layout_width="match_parent"
-                                android:layout_height="0.5dp"
-                                android:layout_marginTop="10dp"
-                                android:background="?android:attr/listDivider"
+                                style="@style/homeDivider"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@id/manufacturesTag1" />
 
@@ -736,10 +721,7 @@
 
                             <View
                                 android:id="@+id/manufacturesLine2"
-                                android:layout_width="match_parent"
-                                android:layout_height="0.5dp"
-                                android:layout_marginTop="10dp"
-                                android:background="?android:attr/listDivider"
+                                style="@style/homeDivider"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@id/manufacturesTag2" />
 
@@ -809,10 +791,7 @@
 
                             <View
                                 android:id="@+id/manufacturesLine3"
-                                android:layout_width="match_parent"
-                                android:layout_height="0.5dp"
-                                android:layout_marginTop="10dp"
-                                android:background="?android:attr/listDivider"
+                                style="@style/homeDivider"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@id/manufacturesTag3" />
 
@@ -882,10 +861,7 @@
 
                             <View
                                 android:id="@+id/manufacturesLine4"
-                                android:layout_width="match_parent"
-                                android:layout_height="0.5dp"
-                                android:layout_marginTop="10dp"
-                                android:background="?android:attr/listDivider"
+                                style="@style/homeDivider"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@id/manufacturesTag4" />
 
@@ -955,10 +931,7 @@
 
                             <View
                                 android:id="@+id/manufacturesLine5"
-                                android:layout_width="match_parent"
-                                android:layout_height="0.5dp"
-                                android:layout_marginTop="10dp"
-                                android:background="?android:attr/listDivider"
+                                style="@style/homeDivider"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@id/manufacturesTag5" />
                         </androidx.constraintlayout.widget.ConstraintLayout>
