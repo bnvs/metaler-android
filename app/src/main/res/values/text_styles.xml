@@ -10,7 +10,7 @@
         <item name="android:textSize">12sp</item>
     </style>
 
-    <style name="homeTagTextView" parent="tagTextView">
+    <style name="homeTag" parent="tagTextView">
         <item name="android:layout_marginLeft">@dimen/basicMargin</item>
         <item name="android:layout_marginTop">10dp</item>
     </style>
