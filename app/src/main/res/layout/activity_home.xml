@@ -232,13 +232,7 @@
 
                             <TextView
                                 android:id="@+id/materialsUserNameLine1"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginRight="4dp"
-                                android:text="|"
-                                android:textColor="@color/colorGrey"
-                                android:textSize="12sp"
-                                android:textStyle="bold"
+                                style="@style/sideInfoVerticalDivider"
                                 app:layout_constraintEnd_toStartOf="@id/materialsDate1"
                                 app:layout_constraintTop_toTopOf="@id/materialsUserName1" />
 
@@ -311,13 +305,7 @@
 
                             <TextView
                                 android:id="@+id/materialsUserNameLine2"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginRight="4dp"
-                                android:text="|"
-                                android:textColor="@color/colorGrey"
-                                android:textSize="12sp"
-                                android:textStyle="bold"
+                                style="@style/sideInfoVerticalDivider"
                                 app:layout_constraintEnd_toStartOf="@id/materialsDate2"
                                 app:layout_constraintTop_toTopOf="@id/materialsUserName2" />
 
@@ -390,13 +378,7 @@
 
                             <TextView
                                 android:id="@+id/materialsUserNameLine3"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginRight="4dp"
-                                android:text="|"
-                                android:textColor="@color/colorGrey"
-                                android:textSize="12sp"
-                                android:textStyle="bold"
+                                style="@style/sideInfoVerticalDivider"
                                 app:layout_constraintEnd_toStartOf="@id/materialsDate3"
                                 app:layout_constraintTop_toTopOf="@id/materialsUserName3" />
 
@@ -469,13 +451,7 @@
 
                             <TextView
                                 android:id="@+id/materialsUserNameLine4"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginRight="4dp"
-                                android:text="|"
-                                android:textColor="@color/colorGrey"
-                                android:textSize="12sp"
-                                android:textStyle="bold"
+                                style="@style/sideInfoVerticalDivider"
                                 app:layout_constraintEnd_toStartOf="@id/materialsDate4"
                                 app:layout_constraintTop_toTopOf="@id/materialsUserName4" />
 
@@ -548,13 +524,7 @@
 
                             <TextView
                                 android:id="@+id/materialsUserNameLine5"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginRight="4dp"
-                                android:text="|"
-                                android:textColor="@color/colorGrey"
-                                android:textSize="12sp"
-                                android:textStyle="bold"
+                                style="@style/sideInfoVerticalDivider"
                                 app:layout_constraintEnd_toStartOf="@id/materialsDate5"
                                 app:layout_constraintTop_toTopOf="@id/materialsUserName5" />
 
@@ -712,13 +682,7 @@
 
                             <TextView
                                 android:id="@+id/manufacturesUserNameLine1"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginRight="4dp"
-                                android:text="|"
-                                android:textColor="@color/colorGrey"
-                                android:textSize="12sp"
-                                android:textStyle="bold"
+                                style="@style/sideInfoVerticalDivider"
                                 app:layout_constraintEnd_toStartOf="@id/manufacturesDate1"
                                 app:layout_constraintTop_toTopOf="@id/manufacturesUserName1" />
 
@@ -791,13 +755,7 @@
 
                             <TextView
                                 android:id="@+id/manufacturesUserNameLine2"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginRight="4dp"
-                                android:text="|"
-                                android:textColor="@color/colorGrey"
-                                android:textSize="12sp"
-                                android:textStyle="bold"
+                                style="@style/sideInfoVerticalDivider"
                                 app:layout_constraintEnd_toStartOf="@id/manufacturesDate2"
                                 app:layout_constraintTop_toTopOf="@id/manufacturesUserName2" />
 
@@ -870,13 +828,7 @@
 
                             <TextView
                                 android:id="@+id/manufacturesUserNameLine3"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginRight="4dp"
-                                android:text="|"
-                                android:textColor="@color/colorGrey"
-                                android:textSize="12sp"
-                                android:textStyle="bold"
+                                style="@style/sideInfoVerticalDivider"
                                 app:layout_constraintEnd_toStartOf="@id/manufacturesDate3"
                                 app:layout_constraintTop_toTopOf="@id/manufacturesUserName3" />
 
@@ -949,13 +901,7 @@
 
                             <TextView
                                 android:id="@+id/manufacturesUserNameLine4"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginRight="4dp"
-                                android:text="|"
-                                android:textColor="@color/colorGrey"
-                                android:textSize="12sp"
-                                android:textStyle="bold"
+                                style="@style/sideInfoVerticalDivider"
                                 app:layout_constraintEnd_toStartOf="@id/manufacturesDate4"
                                 app:layout_constraintTop_toTopOf="@id/manufacturesUserName4" />
 
@@ -1028,13 +974,7 @@
 
                             <TextView
                                 android:id="@+id/manufacturesUserNameLine5"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginRight="4dp"
-                                android:text="|"
-                                android:textColor="@color/colorGrey"
-                                android:textSize="12sp"
-                                android:textStyle="bold"
+                                style="@style/sideInfoVerticalDivider"
                                 app:layout_constraintEnd_toStartOf="@id/manufacturesDate5"
                                 app:layout_constraintTop_toTopOf="@id/manufacturesUserName5" />
 
