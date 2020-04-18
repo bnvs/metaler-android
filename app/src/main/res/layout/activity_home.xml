@@ -40,7 +40,7 @@
         android:layout_height="0dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/titleBarCard"
-        app:layout_constraintBottom_toTopOf="@id/tapBarCard"
+        app:layout_constraintBottom_toTopOf="@id/tabBarCard"
         >
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -1118,7 +1118,7 @@
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/tapBarCard"
+        android:id="@+id/tabBarCard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
