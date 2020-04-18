@@ -38,10 +38,9 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/titleBarCard"
         app:layout_constraintBottom_toTopOf="@id/tabBarCard"
-        >
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/titleBarCard">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -187,48 +186,26 @@
 
                             <TextView
                                 android:id="@+id/materialsTitle1"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginHorizontal="20dp"
-                                android:layout_marginTop="10dp"
-                                android:ellipsize="end"
-                                android:maxLines="1"
-                                android:text="Title타이틀제목"
-                                android:textColor="@color/colorDarkGrey"
-                                android:textSize="14sp"
-                                android:textStyle="bold"
+                                style="@style/homePostTitleTextView"
                                 app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@id/materialsLine" />
+                                app:layout_constraintTop_toBottomOf="@id/materialsLine"
+                                tools:text="Title타이틀제목" />
 
                             <TextView
                                 android:id="@+id/materialsTag1"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="20dp"
-                                android:layout_marginTop="10dp"
-                                android:ellipsize="end"
-                                android:maxLines="1"
-                                android:text="#가게이름홍대금속"
-                                android:textColor="@color/colorPurple"
-                                android:textSize="12sp"
-                                app:layout_constrainedWidth="true"
-                                app:layout_constraintEnd_toStartOf="@id/materialsUserName1"
-                                app:layout_constraintHorizontal_chainStyle="spread_inside"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@id/materialsTitle1" />
+                                style="@style/homeTagTextView"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintRight_toLeftOf="@id/materialsUserName1"
+                                app:layout_constraintTop_toBottomOf="@id/materialsTitle1"
+                                tools:text="#가게이름홍대금속" />
 
                             <TextView
                                 android:id="@+id/materialsUserName1"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginRight="4dp"
-                                android:text="작성자이름"
-                                android:textColor="@color/colorGrey"
-                                android:textSize="12sp"
+                                style="@style/sideInfoTextView"
                                 app:layout_constraintBottom_toBottomOf="@id/materialsTag1"
                                 app:layout_constraintEnd_toStartOf="@id/materialsUserNameLine1"
-                                app:layout_constraintStart_toEndOf="@id/materialsTag1"
-                                app:layout_constraintTop_toTopOf="@id/materialsTag1" />
+                                app:layout_constraintTop_toTopOf="@id/materialsTag1"
+                                tools:text="작성자이름" />
 
                             <TextView
                                 android:id="@+id/materialsUserNameLine1"
@@ -238,15 +215,11 @@
 
                             <TextView
                                 android:id="@+id/materialsDate1"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="4dp"
-                                android:layout_marginRight="20dp"
-                                android:text="2020.10.10"
-                                android:textColor="@color/colorGrey"
-                                android:textSize="12sp"
+                                style="@style/sideInfoTextView"
+                                android:layout_marginRight="@dimen/basicMargin"
                                 app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintTop_toTopOf="@id/materialsUserName1" />
+                                app:layout_constraintTop_toTopOf="@id/materialsUserName1"
+                                tools:text="2020.10.10" />
 
                             <View
                                 android:id="@+id/materialsLine1"
