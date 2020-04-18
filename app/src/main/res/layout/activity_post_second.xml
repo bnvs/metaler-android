@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/colorGreyBG"
-    tools:context=".materialspostsecond.ActivityMaterialsPostSecond">
+    tools:context=".ui.postsecond.ActivityPostSecond">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/postSecondCard"
