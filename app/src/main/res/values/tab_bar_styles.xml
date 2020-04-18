@@ -15,4 +15,9 @@
         <item name="android:textSize">10sp</item>
     </style>
 
+    <style name="tabBarIconSize">
+        <item name="android:layout_width">27dp</item>
+        <item name="android:layout_height">27dp</item>
+    </style>
+
 </resources>
