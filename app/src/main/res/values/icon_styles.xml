@@ -1,10 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="bigProfileIcon">
+
+    <style name="profileIcon">
+        <item name="android:src">@drawable/ic_profile_x3</item>
+    </style>
+
+    <style name="bigProfileIcon" parent="profileIcon">
         <item name="android:layout_width">60dp</item>
         <item name="android:layout_height">60dp</item>
         <item name="android:layout_marginTop">7dp</item>
-        <item name="android:src">@drawable/ic_profile_x3</item>
+    </style>
+
+    <style name="middleProfileIcon" parent="profileIcon">
+        <item name="android:layout_width">47dp</item>
+        <item name="android:layout_height">47dp</item>
     </style>
 
     <style name="myPageMoreIcon">
