@@ -40,6 +40,13 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="cautionTextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textSize">10sp</item>
+    </style>
+
     <style name="postMenuTextView">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
