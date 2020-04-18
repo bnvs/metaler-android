@@ -44,4 +44,14 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="divider">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0.5dp</item>
+        <item name="android:background">?android:attr/listDivider</item>
+    </style>
+
+    <style name="homeDivider" parent="divider">
+        <item name="android:layout_marginTop">10dp</item>
+    </style>
+
 </resources>
