@@ -743,10 +743,7 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            app:cardBackgroundColor="@color/colorWhite"
-            app:cardElevation="0dp"
+            style="@style/tabBarCardView"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
