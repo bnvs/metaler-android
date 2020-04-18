@@ -34,6 +34,10 @@
         <item name="android:textSize">12sp</item>
     </style>
 
+    <style name="homeDate" parent="sideInfoTextView">
+        <item name="android:layout_marginRight">@dimen/basicMargin</item>
+    </style>
+
     <style name="sideInfoVerticalDivider">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
