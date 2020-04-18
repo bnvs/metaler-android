@@ -224,18 +224,9 @@
 
                             <TextView
                                 android:id="@+id/materialsTag2"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="20dp"
-                                android:layout_marginTop="10dp"
-                                android:ellipsize="end"
-                                android:maxLines="1"
-                                android:textColor="@color/colorPurple"
-                                android:textSize="12sp"
-                                app:layout_constrainedWidth="true"
-                                app:layout_constraintEnd_toStartOf="@id/materialsUserName2"
-                                app:layout_constraintHorizontal_chainStyle="spread_inside"
-                                app:layout_constraintStart_toStartOf="parent"
+                                style="@style/homeTagTextView"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintRight_toLeftOf="@id/materialsUserName2"
                                 app:layout_constraintTop_toBottomOf="@id/materialsTitle2"
                                 tools:text="#가게이름홍대금속" />
 
@@ -286,18 +277,9 @@
 
                             <TextView
                                 android:id="@+id/materialsTag3"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="20dp"
-                                android:layout_marginTop="10dp"
-                                android:ellipsize="end"
-                                android:maxLines="1"
-                                android:textColor="@color/colorPurple"
-                                android:textSize="12sp"
-                                app:layout_constrainedWidth="true"
-                                app:layout_constraintEnd_toStartOf="@id/materialsUserName3"
-                                app:layout_constraintHorizontal_chainStyle="spread_inside"
-                                app:layout_constraintStart_toStartOf="parent"
+                                style="@style/homeTagTextView"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintRight_toLeftOf="@id/materialsUserName3"
                                 app:layout_constraintTop_toBottomOf="@id/materialsTitle3"
                                 tools:text="#가게이름홍대금속" />
 
@@ -348,18 +330,9 @@
 
                             <TextView
                                 android:id="@+id/materialsTag4"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="20dp"
-                                android:layout_marginTop="10dp"
-                                android:ellipsize="end"
-                                android:maxLines="1"
-                                android:textColor="@color/colorPurple"
-                                android:textSize="12sp"
-                                app:layout_constrainedWidth="true"
-                                app:layout_constraintEnd_toStartOf="@id/materialsUserName4"
-                                app:layout_constraintHorizontal_chainStyle="spread_inside"
-                                app:layout_constraintStart_toStartOf="parent"
+                                style="@style/homeTagTextView"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintRight_toLeftOf="@id/materialsUserName4"
                                 app:layout_constraintTop_toBottomOf="@id/materialsTitle4"
                                 tools:text="#가게이름홍대금속" />
 
@@ -410,18 +383,9 @@
 
                             <TextView
                                 android:id="@+id/materialsTag5"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="20dp"
-                                android:layout_marginTop="10dp"
-                                android:ellipsize="end"
-                                android:maxLines="1"
-                                android:textColor="@color/colorPurple"
-                                android:textSize="12sp"
-                                app:layout_constrainedWidth="true"
-                                app:layout_constraintEnd_toStartOf="@id/materialsUserName5"
-                                app:layout_constraintHorizontal_chainStyle="spread_inside"
-                                app:layout_constraintStart_toStartOf="parent"
+                                style="@style/homeTagTextView"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintRight_toLeftOf="@id/materialsUserName5"
                                 app:layout_constraintTop_toBottomOf="@id/materialsTitle5"
                                 tools:text="#가게이름홍대금속" />
 
@@ -548,18 +512,9 @@
 
                             <TextView
                                 android:id="@+id/manufacturesTag1"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="20dp"
-                                android:layout_marginTop="10dp"
-                                android:ellipsize="end"
-                                android:maxLines="1"
-                                android:textColor="@color/colorPurple"
-                                android:textSize="12sp"
-                                app:layout_constrainedWidth="true"
-                                app:layout_constraintEnd_toStartOf="@id/manufacturesUserName1"
-                                app:layout_constraintHorizontal_chainStyle="spread_inside"
-                                app:layout_constraintStart_toStartOf="parent"
+                                style="@style/homeTagTextView"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintRight_toLeftOf="@id/manufacturesUserName1"
                                 app:layout_constraintTop_toBottomOf="@id/manufacturesTitle1"
                                 tools:text="#가게이름홍대금속" />
 
@@ -610,18 +565,9 @@
 
                             <TextView
                                 android:id="@+id/manufacturesTag2"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="20dp"
-                                android:layout_marginTop="10dp"
-                                android:ellipsize="end"
-                                android:maxLines="1"
-                                android:textColor="@color/colorPurple"
-                                android:textSize="12sp"
-                                app:layout_constrainedWidth="true"
-                                app:layout_constraintEnd_toStartOf="@id/manufacturesUserName2"
-                                app:layout_constraintHorizontal_chainStyle="spread_inside"
-                                app:layout_constraintStart_toStartOf="parent"
+                                style="@style/homeTagTextView"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintRight_toLeftOf="@id/manufacturesUserName2"
                                 app:layout_constraintTop_toBottomOf="@id/manufacturesTitle2"
                                 tools:text="#가게이름홍대금속" />
 
@@ -672,18 +618,9 @@
 
                             <TextView
                                 android:id="@+id/manufacturesTag3"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="20dp"
-                                android:layout_marginTop="10dp"
-                                android:ellipsize="end"
-                                android:maxLines="1"
-                                android:textColor="@color/colorPurple"
-                                android:textSize="12sp"
-                                app:layout_constrainedWidth="true"
-                                app:layout_constraintEnd_toStartOf="@id/manufacturesUserName3"
-                                app:layout_constraintHorizontal_chainStyle="spread_inside"
-                                app:layout_constraintStart_toStartOf="parent"
+                                style="@style/homeTagTextView"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintRight_toLeftOf="@id/manufacturesUserName3"
                                 app:layout_constraintTop_toBottomOf="@id/manufacturesTitle3"
                                 tools:text="#가게이름홍대금속" />
 
@@ -734,18 +671,9 @@
 
                             <TextView
                                 android:id="@+id/manufacturesTag4"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="20dp"
-                                android:layout_marginTop="10dp"
-                                android:ellipsize="end"
-                                android:maxLines="1"
-                                android:textColor="@color/colorPurple"
-                                android:textSize="12sp"
-                                app:layout_constrainedWidth="true"
-                                app:layout_constraintEnd_toStartOf="@id/manufacturesUserName4"
-                                app:layout_constraintHorizontal_chainStyle="spread_inside"
-                                app:layout_constraintStart_toStartOf="parent"
+                                style="@style/homeTagTextView"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintRight_toLeftOf="@id/manufacturesUserName4"
                                 app:layout_constraintTop_toBottomOf="@id/manufacturesTitle4"
                                 tools:text="#가게이름홍대금속" />
 
@@ -796,18 +724,9 @@
 
                             <TextView
                                 android:id="@+id/manufacturesTag5"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="20dp"
-                                android:layout_marginTop="10dp"
-                                android:ellipsize="end"
-                                android:maxLines="1"
-                                android:textColor="@color/colorPurple"
-                                android:textSize="12sp"
-                                app:layout_constrainedWidth="true"
-                                app:layout_constraintEnd_toStartOf="@id/manufacturesUserName5"
-                                app:layout_constraintHorizontal_chainStyle="spread_inside"
-                                app:layout_constraintStart_toStartOf="parent"
+                                style="@style/homeTagTextView"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintRight_toLeftOf="@id/manufacturesUserName5"
                                 app:layout_constraintTop_toBottomOf="@id/manufacturesTitle5"
                                 tools:text="#가게이름홍대금속" />
 
