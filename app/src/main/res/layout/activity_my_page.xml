@@ -49,10 +49,7 @@
 
         <ImageView
             android:id="@+id/nicknameMoreBtn"
-            android:layout_width="13dp"
-            android:layout_height="13dp"
-            android:layout_marginRight="20dp"
-            android:src="@drawable/ic_home_more_arrow_x3"
+            style="@style/myPageMoreIcon"
             app:layout_constraintBottom_toBottomOf="@id/nicknameBtn"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/nicknameBtn" />
@@ -72,10 +69,7 @@
 
         <ImageView
             android:id="@+id/jobMoreBtn"
-            android:layout_width="13dp"
-            android:layout_height="13dp"
-            android:layout_marginRight="20dp"
-            android:src="@drawable/ic_home_more_arrow_x3"
+            style="@style/myPageMoreIcon"
             app:layout_constraintBottom_toBottomOf="@id/jobBtn"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/jobBtn" />
@@ -96,10 +90,7 @@
 
         <ImageView
             android:id="@+id/myPostsMoreBtn"
-            android:layout_width="13dp"
-            android:layout_height="13dp"
-            android:layout_marginRight="20dp"
-            android:src="@drawable/ic_home_more_arrow_x3"
+            style="@style/myPageMoreIcon"
             app:layout_constraintBottom_toBottomOf="@id/myPostsBtn"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/myPostsBtn" />
@@ -120,10 +111,7 @@
 
         <ImageView
             android:id="@+id/termsMoreBtn"
-            android:layout_width="13dp"
-            android:layout_height="13dp"
-            android:layout_marginRight="20dp"
-            android:src="@drawable/ic_home_more_arrow_x3"
+            style="@style/myPageMoreIcon"
             app:layout_constraintBottom_toBottomOf="@id/termsBtn"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/termsBtn" />
@@ -144,10 +132,7 @@
 
         <ImageView
             android:id="@+id/logoutMoreBtn"
-            android:layout_width="13dp"
-            android:layout_height="13dp"
-            android:layout_marginRight="20dp"
-            android:src="@drawable/ic_home_more_arrow_x3"
+            style="@style/myPageMoreIcon"
             app:layout_constraintBottom_toBottomOf="@id/logoutBtn"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/logoutBtn" />
@@ -168,10 +153,7 @@
 
         <ImageView
             android:id="@+id/withdrawalMoreBtn"
-            android:layout_width="13dp"
-            android:layout_height="13dp"
-            android:layout_marginRight="20dp"
-            android:src="@drawable/ic_home_more_arrow_x3"
+            style="@style/myPageMoreIcon"
             app:layout_constraintBottom_toBottomOf="@id/withdrawalBtn"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/withdrawalBtn" />
