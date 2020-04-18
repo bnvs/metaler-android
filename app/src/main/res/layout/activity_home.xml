@@ -202,8 +202,7 @@
 
                             <TextView
                                 android:id="@+id/materialsDate1"
-                                style="@style/sideInfoTextView"
-                                android:layout_marginRight="@dimen/basicMargin"
+                                style="@style/homeDate"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintTop_toTopOf="@id/materialsUserName1"
                                 tools:text="2020.10.10" />
@@ -246,12 +245,7 @@
 
                             <TextView
                                 android:id="@+id/materialsDate2"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="4dp"
-                                android:layout_marginRight="20dp"
-                                android:textColor="@color/colorGrey"
-                                android:textSize="12sp"
+                                style="@style/homeDate"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintTop_toTopOf="@id/materialsUserName2"
                                 tools:text="2020.10.10" />
@@ -294,12 +288,7 @@
 
                             <TextView
                                 android:id="@+id/materialsDate3"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="4dp"
-                                android:layout_marginRight="20dp"
-                                android:textColor="@color/colorGrey"
-                                android:textSize="12sp"
+                                style="@style/homeDate"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintTop_toTopOf="@id/materialsUserName3"
                                 tools:text="2020.10.10" />
@@ -342,12 +331,7 @@
 
                             <TextView
                                 android:id="@+id/materialsDate4"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="4dp"
-                                android:layout_marginRight="20dp"
-                                android:textColor="@color/colorGrey"
-                                android:textSize="12sp"
+                                style="@style/homeDate"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintTop_toTopOf="@id/materialsUserName4"
                                 tools:text="2020.10.10" />
@@ -390,12 +374,7 @@
 
                             <TextView
                                 android:id="@+id/materialsDate5"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="4dp"
-                                android:layout_marginRight="20dp"
-                                android:textColor="@color/colorGrey"
-                                android:textSize="12sp"
+                                style="@style/homeDate"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintTop_toTopOf="@id/materialsUserName5"
                                 tools:text="2020.10.10" />
@@ -514,12 +493,7 @@
 
                             <TextView
                                 android:id="@+id/manufacturesDate1"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="4dp"
-                                android:layout_marginRight="20dp"
-                                android:textColor="@color/colorGrey"
-                                android:textSize="12sp"
+                                style="@style/homeDate"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintTop_toTopOf="@id/manufacturesUserName1"
                                 tools:text="2020.10.10" />
@@ -562,12 +536,7 @@
 
                             <TextView
                                 android:id="@+id/manufacturesDate2"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="4dp"
-                                android:layout_marginRight="20dp"
-                                android:textColor="@color/colorGrey"
-                                android:textSize="12sp"
+                                style="@style/homeDate"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintTop_toTopOf="@id/manufacturesUserName2"
                                 tools:text="2020.10.10" />
@@ -610,12 +579,7 @@
 
                             <TextView
                                 android:id="@+id/manufacturesDate3"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="4dp"
-                                android:layout_marginRight="20dp"
-                                android:textColor="@color/colorGrey"
-                                android:textSize="12sp"
+                                style="@style/homeDate"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintTop_toTopOf="@id/manufacturesUserName3"
                                 tools:text="2020.10.10" />
@@ -658,12 +622,7 @@
 
                             <TextView
                                 android:id="@+id/manufacturesDate4"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="4dp"
-                                android:layout_marginRight="20dp"
-                                android:textColor="@color/colorGrey"
-                                android:textSize="12sp"
+                                style="@style/homeDate"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintTop_toTopOf="@id/manufacturesUserName4"
                                 tools:text="2020.10.10" />
@@ -706,12 +665,7 @@
 
                             <TextView
                                 android:id="@+id/manufacturesDate5"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="4dp"
-                                android:layout_marginRight="20dp"
-                                android:textColor="@color/colorGrey"
-                                android:textSize="12sp"
+                                style="@style/homeDate"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintTop_toTopOf="@id/manufacturesUserName5"
                                 tools:text="2020.10.10" />
