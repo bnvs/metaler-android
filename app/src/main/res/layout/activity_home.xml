@@ -167,10 +167,7 @@
 
                             <View
                                 android:id="@+id/materialsLine"
-                                android:layout_width="match_parent"
-                                android:layout_height="0.5dp"
-                                android:layout_marginTop="10dp"
-                                android:background="?android:attr/listDivider"
+                                style="@style/homeDivider"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@id/materialsCardIcon" />
 
@@ -538,10 +535,7 @@
 
                             <View
                                 android:id="@+id/manufactureLine"
-                                android:layout_width="match_parent"
-                                android:layout_height="0.5dp"
-                                android:layout_marginTop="10dp"
-                                android:background="?android:attr/listDivider"
+                                style="@style/homeDivider"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@id/manufactureCardIcon" />
 
