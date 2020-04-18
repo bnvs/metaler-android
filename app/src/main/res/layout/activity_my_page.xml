@@ -17,51 +17,50 @@
 
         <ImageView
             android:id="@+id/profileImg"
-            android:src="@drawable/ic_profile_x3"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_marginTop="7dp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            android:src="@drawable/ic_profile_x3"
             app:layout_constraintEnd_toEndOf="parent"
-            />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <TextView
             android:id="@+id/profileNickname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="닉네임"
-            android:textSize="18sp"
-            android:textColor="@color/colorPurple"
-            android:textStyle="bold"
             android:layout_marginTop="7dp"
-            app:layout_constraintTop_toBottomOf="@id/profileImg"
-            app:layout_constraintStart_toStartOf="parent"
+            android:text="닉네임"
+            android:textColor="@color/colorPurple"
+            android:textSize="18sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/profileImg" />
+
         <TextView
             android:id="@+id/profileEmail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="12sp"
             android:text="asd1234@naver.com"
             android:textColor="@color/colorGrey"
-            app:layout_constraintTop_toBottomOf="@id/profileNickname"
-            app:layout_constraintStart_toStartOf="parent"
+            android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
-            />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/profileNickname" />
 
 
         <TextView
             android:id="@+id/nicknameBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"
             android:text="@string/nickname_modify"
             android:textSize="18sp"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="10dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/profileEmail"
-            />
+            app:layout_constraintTop_toBottomOf="@id/profileEmail" />
+
         <ImageView
             android:id="@+id/nicknameMoreBtn"
             android:layout_width="13dp"
@@ -71,14 +70,15 @@
             app:layout_constraintBottom_toBottomOf="@id/nicknameBtn"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/nicknameBtn" />
+
         <View
             android:id="@+id/nicknameLine"
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
-            android:paddingBottom="6dp"
-            android:background="?android:attr/listDivider"
-            android:layout_marginTop="10dp"
             android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="10dp"
+            android:background="?android:attr/listDivider"
+            android:paddingBottom="6dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/nicknameBtn" />
 
@@ -86,13 +86,13 @@
             android:id="@+id/jobBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
             android:text="@string/job_modify"
             android:textSize="18sp"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="10dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/nicknameLine"
-            />
+            app:layout_constraintTop_toBottomOf="@id/nicknameLine" />
+
         <ImageView
             android:id="@+id/jobMoreBtn"
             android:layout_width="13dp"
@@ -102,14 +102,15 @@
             app:layout_constraintBottom_toBottomOf="@id/jobBtn"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/jobBtn" />
+
         <View
             android:id="@+id/jobLine"
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
-            android:paddingBottom="6dp"
-            android:background="?android:attr/listDivider"
-            android:layout_marginTop="10dp"
             android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="10dp"
+            android:background="?android:attr/listDivider"
+            android:paddingBottom="6dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/jobBtn" />
 
@@ -118,13 +119,13 @@
             android:id="@+id/myPostsBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
             android:text="@string/my_posts"
             android:textSize="18sp"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="10dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/jobLine"
-            />
+            app:layout_constraintTop_toBottomOf="@id/jobLine" />
+
         <ImageView
             android:id="@+id/myPostsMoreBtn"
             android:layout_width="13dp"
@@ -134,14 +135,15 @@
             app:layout_constraintBottom_toBottomOf="@id/myPostsBtn"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/myPostsBtn" />
+
         <View
             android:id="@+id/myPostsLine"
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
-            android:paddingBottom="6dp"
-            android:background="?android:attr/listDivider"
-            android:layout_marginTop="10dp"
             android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="10dp"
+            android:background="?android:attr/listDivider"
+            android:paddingBottom="6dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/myPostsBtn" />
 
@@ -150,13 +152,13 @@
             android:id="@+id/termsBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
             android:text="@string/terms"
             android:textSize="18sp"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="10dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/myPostsLine"
-            />
+            app:layout_constraintTop_toBottomOf="@id/myPostsLine" />
+
         <ImageView
             android:id="@+id/termsMoreBtn"
             android:layout_width="13dp"
@@ -166,14 +168,15 @@
             app:layout_constraintBottom_toBottomOf="@id/termsBtn"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/termsBtn" />
+
         <View
             android:id="@+id/termsLine"
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
-            android:paddingBottom="6dp"
-            android:background="?android:attr/listDivider"
-            android:layout_marginTop="10dp"
             android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="10dp"
+            android:background="?android:attr/listDivider"
+            android:paddingBottom="6dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/termsBtn" />
 
@@ -182,13 +185,13 @@
             android:id="@+id/logoutBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
             android:text="@string/logout"
             android:textSize="18sp"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="10dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/termsLine"
-            />
+            app:layout_constraintTop_toBottomOf="@id/termsLine" />
+
         <ImageView
             android:id="@+id/logoutMoreBtn"
             android:layout_width="13dp"
@@ -198,14 +201,15 @@
             app:layout_constraintBottom_toBottomOf="@id/logoutBtn"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/logoutBtn" />
+
         <View
             android:id="@+id/logoutLine"
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
-            android:paddingBottom="6dp"
-            android:background="?android:attr/listDivider"
-            android:layout_marginTop="10dp"
             android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="10dp"
+            android:background="?android:attr/listDivider"
+            android:paddingBottom="6dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/logoutBtn" />
 
@@ -214,13 +218,13 @@
             android:id="@+id/withdrawalBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
             android:text="@string/withdrawal"
             android:textSize="18sp"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="10dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/logoutLine"
-            />
+            app:layout_constraintTop_toBottomOf="@id/logoutLine" />
+
         <ImageView
             android:id="@+id/withdrawalMoreBtn"
             android:layout_width="13dp"
@@ -282,10 +286,7 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            app:cardBackgroundColor="@color/colorWhite"
-            app:cardElevation="0dp"
+            style="@style/tabBarCardView"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -306,13 +307,12 @@
                     app:layout_constraintTop_toTopOf="parent">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="88dp"
+                        android:layout_width="@dimen/tabBarBtnWidth"
                         android:layout_height="match_parent">
 
                         <ImageView
                             android:id="@+id/homeIcon"
-                            android:layout_width="27dp"
-                            android:layout_height="27dp"
+                            style="@style/tabBarIconSize"
                             android:src="@drawable/ic_tapbar_home_inactive_x3"
                             app:layout_constraintBottom_toTopOf="@id/homeTxt"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -321,12 +321,8 @@
 
                         <TextView
                             android:id="@+id/homeTxt"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            style="@style/tabBarInactiveTextView"
                             android:text="홈"
-                            android:textColor="@color/colorInactiveTapbar"
-                            android:textSize="10sp"
-                            android:textStyle="bold"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -349,8 +345,7 @@
 
                         <ImageView
                             android:id="@+id/materialsIcon"
-                            android:layout_width="27dp"
-                            android:layout_height="27dp"
+                            style="@style/tabBarIconSize"
                             android:src="@drawable/ic_tapbar_materials_inactive_x3"
                             app:layout_constraintBottom_toTopOf="@id/materialsTxt"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -359,11 +354,8 @@
 
                         <TextView
                             android:id="@+id/materialsTxt"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            style="@style/tabBarInactiveTextView"
                             android:text="재료"
-                            android:textColor="@color/colorInactiveTapbar"
-                            android:textSize="10sp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -386,8 +378,7 @@
 
                         <ImageView
                             android:id="@+id/manufactureIcon"
-                            android:layout_width="27dp"
-                            android:layout_height="27dp"
+                            style="@style/tabBarIconSize"
                             android:src="@drawable/ic_tapbar_manufacture_inactive_x3"
                             app:layout_constraintBottom_toTopOf="@id/manufactureTxt"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -396,11 +387,8 @@
 
                         <TextView
                             android:id="@+id/manufactureTxt"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            style="@style/tabBarInactiveTextView"
                             android:text="가공"
-                            android:textColor="@color/colorInactiveTapbar"
-                            android:textSize="10sp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -423,8 +411,7 @@
 
                         <ImageView
                             android:id="@+id/bookmarkIcon"
-                            android:layout_width="27dp"
-                            android:layout_height="27dp"
+                            style="@style/tabBarIconSize"
                             android:src="@drawable/ic_tapbar_bookmark_inactive_x3"
                             app:layout_constraintBottom_toTopOf="@id/bookmarkTxt"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -433,11 +420,8 @@
 
                         <TextView
                             android:id="@+id/bookmarkTxt"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            style="@style/tabBarInactiveTextView"
                             android:text="북마크"
-                            android:textColor="@color/colorInactiveTapbar"
-                            android:textSize="10sp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -460,8 +444,7 @@
 
                         <ImageView
                             android:id="@+id/myPageIcon"
-                            android:layout_width="27dp"
-                            android:layout_height="27dp"
+                            style="@style/tabBarIconSize"
                             android:src="@drawable/ic_tapbar_mypage_active_x3"
                             app:layout_constraintBottom_toTopOf="@+id/myPageTxt"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -470,11 +453,8 @@
 
                         <TextView
                             android:id="@+id/myPageTxt"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            style="@style/tabBarActiveTextView"
                             android:text="마이페이지"
-                            android:textColor="@color/colorActiveTapbar"
-                            android:textSize="10sp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
