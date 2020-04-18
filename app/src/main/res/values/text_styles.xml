@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <style name="roundingBorderInactiveTextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/lightgrey_rounding_border</item>
+        <item name="android:textColor">@color/colorLightGrey</item>
+    </style>
+
+    <style name="roundingBorderActiveTextView" parent="roundingBorderInactiveTextView">
+        <item name="android:background">@drawable/purple_rounding_border</item>
+        <item name="android:textColor">@color/colorPurple</item>
+    </style>
+
     <style name="tagTextView">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
