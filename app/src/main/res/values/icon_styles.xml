@@ -1,2 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <style name="bigProfileIcon">
+        <item name="android:layout_width">60dp</item>
+        <item name="android:layout_height">60dp</item>
+        <item name="android:layout_marginTop">7dp</item>
+        <item name="android:src">@drawable/ic_profile_x3</item>
+    </style>
+</resources>
