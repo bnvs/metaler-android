@@ -233,27 +233,27 @@
                                 android:layout_marginTop="10dp"
                                 android:ellipsize="end"
                                 android:maxLines="1"
-                                android:text="#가게이름홍대금속"
                                 android:textColor="@color/colorPurple"
                                 android:textSize="12sp"
                                 app:layout_constrainedWidth="true"
                                 app:layout_constraintEnd_toStartOf="@id/materialsUserName2"
                                 app:layout_constraintHorizontal_chainStyle="spread_inside"
                                 app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@id/materialsTitle2" />
+                                app:layout_constraintTop_toBottomOf="@id/materialsTitle2"
+                                tools:text="#가게이름홍대금속" />
 
                             <TextView
                                 android:id="@+id/materialsUserName2"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginRight="4dp"
-                                android:text="작성자이름"
                                 android:textColor="@color/colorGrey"
                                 android:textSize="12sp"
                                 app:layout_constraintBottom_toBottomOf="@id/materialsTag2"
                                 app:layout_constraintEnd_toStartOf="@id/materialsUserNameLine2"
                                 app:layout_constraintStart_toEndOf="@id/materialsTag2"
-                                app:layout_constraintTop_toTopOf="@id/materialsTag2" />
+                                app:layout_constraintTop_toTopOf="@id/materialsTag2"
+                                tools:text="작성자이름" />
 
                             <TextView
                                 android:id="@+id/materialsUserNameLine2"
@@ -267,11 +267,11 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="4dp"
                                 android:layout_marginRight="20dp"
-                                android:text="2020.10.10"
                                 android:textColor="@color/colorGrey"
                                 android:textSize="12sp"
                                 app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintTop_toTopOf="@id/materialsUserName2" />
+                                app:layout_constraintTop_toTopOf="@id/materialsUserName2"
+                                tools:text="2020.10.10" />
 
                             <View
                                 android:id="@+id/materialsLine2"
@@ -295,27 +295,27 @@
                                 android:layout_marginTop="10dp"
                                 android:ellipsize="end"
                                 android:maxLines="1"
-                                android:text="#가게이름홍대금속"
                                 android:textColor="@color/colorPurple"
                                 android:textSize="12sp"
                                 app:layout_constrainedWidth="true"
                                 app:layout_constraintEnd_toStartOf="@id/materialsUserName3"
                                 app:layout_constraintHorizontal_chainStyle="spread_inside"
                                 app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@id/materialsTitle3" />
+                                app:layout_constraintTop_toBottomOf="@id/materialsTitle3"
+                                tools:text="#가게이름홍대금속" />
 
                             <TextView
                                 android:id="@+id/materialsUserName3"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginRight="4dp"
-                                android:text="작성자이름"
                                 android:textColor="@color/colorGrey"
                                 android:textSize="12sp"
                                 app:layout_constraintBottom_toBottomOf="@id/materialsTag3"
                                 app:layout_constraintEnd_toStartOf="@id/materialsUserNameLine3"
                                 app:layout_constraintStart_toEndOf="@id/materialsTag3"
-                                app:layout_constraintTop_toTopOf="@id/materialsTag3" />
+                                app:layout_constraintTop_toTopOf="@id/materialsTag3"
+                                tools:text="작성자이름" />
 
                             <TextView
                                 android:id="@+id/materialsUserNameLine3"
@@ -329,11 +329,11 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="4dp"
                                 android:layout_marginRight="20dp"
-                                android:text="2020.10.10"
                                 android:textColor="@color/colorGrey"
                                 android:textSize="12sp"
                                 app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintTop_toTopOf="@id/materialsUserName3" />
+                                app:layout_constraintTop_toTopOf="@id/materialsUserName3"
+                                tools:text="2020.10.10" />
 
                             <View
                                 android:id="@+id/materialsLine3"
@@ -357,27 +357,27 @@
                                 android:layout_marginTop="10dp"
                                 android:ellipsize="end"
                                 android:maxLines="1"
-                                android:text="#가게이름홍대금속"
                                 android:textColor="@color/colorPurple"
                                 android:textSize="12sp"
                                 app:layout_constrainedWidth="true"
                                 app:layout_constraintEnd_toStartOf="@id/materialsUserName4"
                                 app:layout_constraintHorizontal_chainStyle="spread_inside"
                                 app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@id/materialsTitle4" />
+                                app:layout_constraintTop_toBottomOf="@id/materialsTitle4"
+                                tools:text="#가게이름홍대금속" />
 
                             <TextView
                                 android:id="@+id/materialsUserName4"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginRight="4dp"
-                                android:text="작성자이름"
                                 android:textColor="@color/colorGrey"
                                 android:textSize="12sp"
                                 app:layout_constraintBottom_toBottomOf="@id/materialsTag4"
                                 app:layout_constraintEnd_toStartOf="@id/materialsUserNameLine4"
                                 app:layout_constraintStart_toEndOf="@id/materialsTag4"
-                                app:layout_constraintTop_toTopOf="@id/materialsTag4" />
+                                app:layout_constraintTop_toTopOf="@id/materialsTag4"
+                                tools:text="작성자이름" />
 
                             <TextView
                                 android:id="@+id/materialsUserNameLine4"
@@ -391,11 +391,11 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="4dp"
                                 android:layout_marginRight="20dp"
-                                android:text="2020.10.10"
                                 android:textColor="@color/colorGrey"
                                 android:textSize="12sp"
                                 app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintTop_toTopOf="@id/materialsUserName4" />
+                                app:layout_constraintTop_toTopOf="@id/materialsUserName4"
+                                tools:text="2020.10.10" />
 
                             <View
                                 android:id="@+id/materialsLine4"
@@ -419,27 +419,27 @@
                                 android:layout_marginTop="10dp"
                                 android:ellipsize="end"
                                 android:maxLines="1"
-                                android:text="#가게이름홍대금속"
                                 android:textColor="@color/colorPurple"
                                 android:textSize="12sp"
                                 app:layout_constrainedWidth="true"
                                 app:layout_constraintEnd_toStartOf="@id/materialsUserName5"
                                 app:layout_constraintHorizontal_chainStyle="spread_inside"
                                 app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@id/materialsTitle5" />
+                                app:layout_constraintTop_toBottomOf="@id/materialsTitle5"
+                                tools:text="#가게이름홍대금속" />
 
                             <TextView
                                 android:id="@+id/materialsUserName5"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginRight="4dp"
-                                android:text="작성자이름"
                                 android:textColor="@color/colorGrey"
                                 android:textSize="12sp"
                                 app:layout_constraintBottom_toBottomOf="@id/materialsTag5"
                                 app:layout_constraintEnd_toStartOf="@id/materialsUserNameLine5"
                                 app:layout_constraintStart_toEndOf="@id/materialsTag5"
-                                app:layout_constraintTop_toTopOf="@id/materialsTag5" />
+                                app:layout_constraintTop_toTopOf="@id/materialsTag5"
+                                tools:text="작성자이름" />
 
                             <TextView
                                 android:id="@+id/materialsUserNameLine5"
@@ -453,11 +453,11 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="4dp"
                                 android:layout_marginRight="20dp"
-                                android:text="2020.10.10"
                                 android:textColor="@color/colorGrey"
                                 android:textSize="12sp"
                                 app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintTop_toTopOf="@id/materialsUserName5" />
+                                app:layout_constraintTop_toTopOf="@id/materialsUserName5"
+                                tools:text="2020.10.10" />
 
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -569,27 +569,27 @@
                                 android:layout_marginTop="10dp"
                                 android:ellipsize="end"
                                 android:maxLines="1"
-                                android:text="#가게이름홍대금속"
                                 android:textColor="@color/colorPurple"
                                 android:textSize="12sp"
                                 app:layout_constrainedWidth="true"
                                 app:layout_constraintEnd_toStartOf="@id/manufacturesUserName1"
                                 app:layout_constraintHorizontal_chainStyle="spread_inside"
                                 app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@id/manufacturesTitle1" />
+                                app:layout_constraintTop_toBottomOf="@id/manufacturesTitle1"
+                                tools:text="#가게이름홍대금속" />
 
                             <TextView
                                 android:id="@+id/manufacturesUserName1"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginRight="4dp"
-                                android:text="작성자이름"
                                 android:textColor="@color/colorGrey"
                                 android:textSize="12sp"
                                 app:layout_constraintBottom_toBottomOf="@id/manufacturesTag1"
                                 app:layout_constraintEnd_toStartOf="@id/manufacturesUserNameLine1"
                                 app:layout_constraintStart_toEndOf="@id/manufacturesTag1"
-                                app:layout_constraintTop_toTopOf="@id/manufacturesTag1" />
+                                app:layout_constraintTop_toTopOf="@id/manufacturesTag1"
+                                tools:text="작성자이름" />
 
                             <TextView
                                 android:id="@+id/manufacturesUserNameLine1"
@@ -603,11 +603,11 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="4dp"
                                 android:layout_marginRight="20dp"
-                                android:text="2020.10.10"
                                 android:textColor="@color/colorGrey"
                                 android:textSize="12sp"
                                 app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintTop_toTopOf="@id/manufacturesUserName1" />
+                                app:layout_constraintTop_toTopOf="@id/manufacturesUserName1"
+                                tools:text="2020.10.10" />
 
                             <View
                                 android:id="@+id/manufacturesLine1"
@@ -631,27 +631,27 @@
                                 android:layout_marginTop="10dp"
                                 android:ellipsize="end"
                                 android:maxLines="1"
-                                android:text="#가게이름홍대금속"
                                 android:textColor="@color/colorPurple"
                                 android:textSize="12sp"
                                 app:layout_constrainedWidth="true"
                                 app:layout_constraintEnd_toStartOf="@id/manufacturesUserName2"
                                 app:layout_constraintHorizontal_chainStyle="spread_inside"
                                 app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@id/manufacturesTitle2" />
+                                app:layout_constraintTop_toBottomOf="@id/manufacturesTitle2"
+                                tools:text="#가게이름홍대금속" />
 
                             <TextView
                                 android:id="@+id/manufacturesUserName2"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginRight="4dp"
-                                android:text="작성자이름"
                                 android:textColor="@color/colorGrey"
                                 android:textSize="12sp"
                                 app:layout_constraintBottom_toBottomOf="@id/manufacturesTag2"
                                 app:layout_constraintEnd_toStartOf="@id/manufacturesUserNameLine2"
                                 app:layout_constraintStart_toEndOf="@id/manufacturesTag2"
-                                app:layout_constraintTop_toTopOf="@id/manufacturesTag2" />
+                                app:layout_constraintTop_toTopOf="@id/manufacturesTag2"
+                                tools:text="작성자이름" />
 
                             <TextView
                                 android:id="@+id/manufacturesUserNameLine2"
@@ -665,11 +665,11 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="4dp"
                                 android:layout_marginRight="20dp"
-                                android:text="2020.10.10"
                                 android:textColor="@color/colorGrey"
                                 android:textSize="12sp"
                                 app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintTop_toTopOf="@id/manufacturesUserName2" />
+                                app:layout_constraintTop_toTopOf="@id/manufacturesUserName2"
+                                tools:text="2020.10.10" />
 
                             <View
                                 android:id="@+id/manufacturesLine2"
@@ -693,27 +693,27 @@
                                 android:layout_marginTop="10dp"
                                 android:ellipsize="end"
                                 android:maxLines="1"
-                                android:text="#가게이름홍대금속"
                                 android:textColor="@color/colorPurple"
                                 android:textSize="12sp"
                                 app:layout_constrainedWidth="true"
                                 app:layout_constraintEnd_toStartOf="@id/manufacturesUserName3"
                                 app:layout_constraintHorizontal_chainStyle="spread_inside"
                                 app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@id/manufacturesTitle3" />
+                                app:layout_constraintTop_toBottomOf="@id/manufacturesTitle3"
+                                tools:text="#가게이름홍대금속" />
 
                             <TextView
                                 android:id="@+id/manufacturesUserName3"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginRight="4dp"
-                                android:text="작성자이름"
                                 android:textColor="@color/colorGrey"
                                 android:textSize="12sp"
                                 app:layout_constraintBottom_toBottomOf="@id/manufacturesTag3"
                                 app:layout_constraintEnd_toStartOf="@id/manufacturesUserNameLine3"
                                 app:layout_constraintStart_toEndOf="@id/manufacturesTag3"
-                                app:layout_constraintTop_toTopOf="@id/manufacturesTag3" />
+                                app:layout_constraintTop_toTopOf="@id/manufacturesTag3"
+                                tools:text="작성자이름" />
 
                             <TextView
                                 android:id="@+id/manufacturesUserNameLine3"
@@ -727,11 +727,11 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="4dp"
                                 android:layout_marginRight="20dp"
-                                android:text="2020.10.10"
                                 android:textColor="@color/colorGrey"
                                 android:textSize="12sp"
                                 app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintTop_toTopOf="@id/manufacturesUserName3" />
+                                app:layout_constraintTop_toTopOf="@id/manufacturesUserName3"
+                                tools:text="2020.10.10" />
 
                             <View
                                 android:id="@+id/manufacturesLine3"
@@ -755,27 +755,27 @@
                                 android:layout_marginTop="10dp"
                                 android:ellipsize="end"
                                 android:maxLines="1"
-                                android:text="#가게이름홍대금속"
                                 android:textColor="@color/colorPurple"
                                 android:textSize="12sp"
                                 app:layout_constrainedWidth="true"
                                 app:layout_constraintEnd_toStartOf="@id/manufacturesUserName4"
                                 app:layout_constraintHorizontal_chainStyle="spread_inside"
                                 app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@id/manufacturesTitle4" />
+                                app:layout_constraintTop_toBottomOf="@id/manufacturesTitle4"
+                                tools:text="#가게이름홍대금속" />
 
                             <TextView
                                 android:id="@+id/manufacturesUserName4"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginRight="4dp"
-                                android:text="작성자이름"
                                 android:textColor="@color/colorGrey"
                                 android:textSize="12sp"
                                 app:layout_constraintBottom_toBottomOf="@id/manufacturesTag4"
                                 app:layout_constraintEnd_toStartOf="@id/manufacturesUserNameLine4"
                                 app:layout_constraintStart_toEndOf="@id/manufacturesTag4"
-                                app:layout_constraintTop_toTopOf="@id/manufacturesTag4" />
+                                app:layout_constraintTop_toTopOf="@id/manufacturesTag4"
+                                tools:text="작성자이름" />
 
                             <TextView
                                 android:id="@+id/manufacturesUserNameLine4"
@@ -789,11 +789,11 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="4dp"
                                 android:layout_marginRight="20dp"
-                                android:text="2020.10.10"
                                 android:textColor="@color/colorGrey"
                                 android:textSize="12sp"
                                 app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintTop_toTopOf="@id/manufacturesUserName4" />
+                                app:layout_constraintTop_toTopOf="@id/manufacturesUserName4"
+                                tools:text="2020.10.10" />
 
                             <View
                                 android:id="@+id/manufacturesLine4"
@@ -817,27 +817,27 @@
                                 android:layout_marginTop="10dp"
                                 android:ellipsize="end"
                                 android:maxLines="1"
-                                android:text="#가게이름홍대금속"
                                 android:textColor="@color/colorPurple"
                                 android:textSize="12sp"
                                 app:layout_constrainedWidth="true"
                                 app:layout_constraintEnd_toStartOf="@id/manufacturesUserName5"
                                 app:layout_constraintHorizontal_chainStyle="spread_inside"
                                 app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@id/manufacturesTitle5" />
+                                app:layout_constraintTop_toBottomOf="@id/manufacturesTitle5"
+                                tools:text="#가게이름홍대금속" />
 
                             <TextView
                                 android:id="@+id/manufacturesUserName5"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginRight="4dp"
-                                android:text="작성자이름"
                                 android:textColor="@color/colorGrey"
                                 android:textSize="12sp"
                                 app:layout_constraintBottom_toBottomOf="@id/manufacturesTag5"
                                 app:layout_constraintEnd_toStartOf="@id/manufacturesUserNameLine5"
                                 app:layout_constraintStart_toEndOf="@id/manufacturesTag5"
-                                app:layout_constraintTop_toTopOf="@id/manufacturesTag5" />
+                                app:layout_constraintTop_toTopOf="@id/manufacturesTag5"
+                                tools:text="작성자이름" />
 
                             <TextView
                                 android:id="@+id/manufacturesUserNameLine5"
@@ -851,11 +851,11 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="4dp"
                                 android:layout_marginRight="20dp"
-                                android:text="2020.10.10"
                                 android:textColor="@color/colorGrey"
                                 android:textSize="12sp"
                                 app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintTop_toTopOf="@id/manufacturesUserName5" />
+                                app:layout_constraintTop_toTopOf="@id/manufacturesUserName5"
+                                tools:text="2020.10.10" />
 
                             <View
                                 android:id="@+id/manufacturesLine5"
