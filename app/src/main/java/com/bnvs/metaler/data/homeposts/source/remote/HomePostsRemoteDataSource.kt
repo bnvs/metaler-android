@@ -17,7 +17,10 @@ object HomePostsRemoteDataSource : HomePostsDataSource {
         onFailure: (e: Throwable) -> Unit
     ) {
         retrofitClient.getHomePosts().enqueue(object : Callback<HomePosts> {
-            override fun onResponse(call: Call<HomePosts>, response: Response<HomePosts>) {
+            override fun onResponse(
+                call: Call<HomePosts>,
+                response: Response<HomePosts>
+            ) {
                 val body = response.body()
                 if (body != null && response.isSuccessful) {
                     onSuccess(body)
