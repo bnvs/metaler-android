@@ -4,10 +4,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.bnvs.metaler.R
-import com.bnvs.metaler.data.posts.Post
-import kotlinx.android.synthetic.main.item_posts_rv.view.*
+import com.bnvs.metaler.data.posts.model.Post
 
 /**
  * 재료/가공 탭의 게시물 리사이클러뷰에 사용하는 어댑터입니다.

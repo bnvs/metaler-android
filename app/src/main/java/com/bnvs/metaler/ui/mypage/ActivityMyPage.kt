@@ -6,7 +6,7 @@ import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.bnvs.metaler.R
-import com.bnvs.metaler.data.profile.Profile
+import com.bnvs.metaler.data.profile.model.Profile
 import com.bnvs.metaler.ui.jobmodify.ActivityJobModify
 import com.bnvs.metaler.ui.myposts.ActivityMyPosts
 import com.bumptech.glide.Glide

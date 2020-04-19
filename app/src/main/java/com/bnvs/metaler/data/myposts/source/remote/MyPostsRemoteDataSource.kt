@@ -1,7 +1,7 @@
 package com.bnvs.metaler.data.myposts.source.remote
 
-import com.bnvs.metaler.data.myposts.MyPosts
-import com.bnvs.metaler.data.myposts.MyPostsRequest
+import com.bnvs.metaler.data.myposts.model.MyPosts
+import com.bnvs.metaler.data.myposts.model.MyPostsRequest
 import com.bnvs.metaler.data.myposts.source.MyPostsDataSource
 import com.bnvs.metaler.network.RetrofitClient
 import retrofit2.Call

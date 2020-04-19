@@ -4,51 +4,22 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.view.WindowManager
+import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.bnvs.metaler.R
-import com.bnvs.metaler.data.homeposts.HomePost
-import com.bnvs.metaler.data.profile.Profile
+import com.bnvs.metaler.data.homeposts.model.HomePost
+import com.bnvs.metaler.data.profile.model.Profile
 import com.bnvs.metaler.ui.detail.ActivityDetail
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.activity_home.*
-import kotlinx.android.synthetic.main.item_home_manufacture_rv.view.*
-import kotlinx.android.synthetic.main.item_home_materials_rv.view.*
 
 class ActivityHome : AppCompatActivity(), ContractHome.View {
 
     private val TAG = "ActivityHome"
 
     override lateinit var presenter: ContractHome.Presenter
-
-    /**
-     * 홈 탭에서 보여지는 재료/가공 게시물 리사이클러뷰 아이템에 달아줄 클릭리스너입니다
-     * 아이템 클릭 시, 클릭한 게시물의 post_id 를 presenter 에 전달합니다.
-     * */
-    private var itemListener: HomePostItemListener = object :
-        HomePostItemListener {
-        override fun onHomePostClick(clickedHomePostId: Int) {
-            presenter.openPostDetail(clickedHomePostId)
-        }
-    }
-
-    private val materialsAdapter = HomePostAdapter(
-        "materials",
-        ArrayList(0),
-        itemListener
-    )
-    private val manufacturesAdapter = HomePostAdapter(
-        "manufactures",
-        ArrayList(0),
-        itemListener
-    )
-    private val materialsLayoutManager = LinearLayoutManager(this)
-    private val manufacturesLayoutManager = LinearLayoutManager(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,18 +33,6 @@ class ActivityHome : AppCompatActivity(), ContractHome.View {
 
         // Set up Buttons
         initClickListeners()
-
-        // Set up materials recyclerView
-        /*materialsRV.apply {
-            adapter = materialsAdapter
-            layoutManager = materialsLayoutManager
-        }*/
-
-        // Set up manufactures recyclerView
-        /*manufactureRV.apply {
-            adapter = manufacturesAdapter
-            layoutManager = manufacturesLayoutManager
-        }*/
 
         // 홈 탭에서 보여줄 데이터 가져오기 시작
         // 상태 바(배터리,와이파이 아이콘 표시되는 곳) 투명하게함
@@ -100,14 +59,99 @@ class ActivityHome : AppCompatActivity(), ContractHome.View {
 
     // 재료 리사이클러뷰를 보여준다
     override fun showMaterialsList(materials: List<HomePost>) {
-        materialsAdapter.setHomePosts(materials)
-        materialsAdapter.notifyDataSetChanged()
+
+        val titles = listOf<TextView>(
+            materialsTitle1,
+            materialsTitle2,
+            materialsTitle3,
+            materialsTitle4,
+            materialsTitle5
+        )
+        val tags = listOf<TextView>(
+            materialsTag1,
+            materialsTag2,
+            materialsTag3,
+            materialsTag4,
+            materialsTag5
+        )
+        val userNames = listOf<TextView>(
+            materialsUserName1,
+            materialsUserName2,
+            materialsUserName3,
+            materialsUserName4,
+            materialsUserName5
+        )
+        val dates = listOf<TextView>(
+            materialsDate1,
+            materialsDate2,
+            materialsDate3,
+            materialsDate4,
+            materialsDate5
+        )
+
+        for (i in materials.indices) {
+            val material = materials[i]
+            titles[i].text = material.title
+            tags[i].text = parseTagList(material.tags)
+            userNames[i].text = material.profile_nickname
+            dates[i].text = material.date
+        }
     }
 
     // 가공 리사이클러뷰를 보여준다
     override fun showManufacturesList(manufactures: List<HomePost>) {
-        manufacturesAdapter.setHomePosts(manufactures)
-        materialsAdapter.notifyDataSetChanged()
+        val titles = listOf<TextView>(
+            manufacturesTitle1,
+            manufacturesTitle2,
+            manufacturesTitle3,
+            manufacturesTitle4,
+            manufacturesTitle5
+        )
+        val tags = listOf<TextView>(
+            manufacturesTag1,
+            manufacturesTag2,
+            manufacturesTag3,
+            manufacturesTag4,
+            manufacturesTag5
+        )
+        val userNames = listOf<TextView>(
+            manufacturesUserName1,
+            manufacturesUserName2,
+            manufacturesUserName3,
+            manufacturesUserName4,
+            manufacturesUserName5
+        )
+        val dates = listOf<TextView>(
+            manufacturesDate1,
+            manufacturesDate2,
+            manufacturesDate3,
+            manufacturesDate4,
+            manufacturesDate5
+        )
+
+        for (i in manufactures.indices) {
+            val material = manufactures[i]
+            titles[i].text = material.title
+            tags[i].text = parseTagList(material.tags)
+            userNames[i].text = material.profile_nickname
+            dates[i].text = material.date
+        }
+    }
+
+    private fun parseTagList(tags: List<String>): String {
+        var tagString = ""
+        for (tag in tags) {
+            tagString += "#$tag "
+        }
+        return tagString
+    }
+
+    override fun showProfileNotExistToast() {
+        makeToast("프로필 데이터를 불러오는데 실패했습니다")
+    }
+
+    override fun showLoadHomePostFailedToast(errorMessage: String) {
+        makeToast(errorMessage)
     }
 
     // 게시물 상세 내용 액티비티로 이동한다
@@ -117,21 +161,6 @@ class ActivityHome : AppCompatActivity(), ContractHome.View {
             .also { startActivity(it) }
 
         overridePendingTransition(0, 0)
-    }
-
-    // 상태 바를 투명하게 하고, padding 을 조절한다
-    override fun setTransparentStatusBar() {
-        window.setFlags(
-            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
-        )
-
-        //현재 액티비티 레이아웃의 기준이 되는 titleBarCard에 상태바 높이 만큼 top padding 을 줌 .
-        titleBarCard.setPadding(0, statusBarHeight(this), 0, 0)
-        Log.d(TAG, "상태바 높이? : ${statusBarHeight(this)}")
-
-        //소프트키 올라온 높이만큼 전체 레이아웃 하단에 padding을 줌.
-        wrapConstraintLayout.setPadding(0, 0, 0, softMenuHeight(this))
     }
 
     private fun initClickListeners() {
@@ -154,6 +183,21 @@ class ActivityHome : AppCompatActivity(), ContractHome.View {
         myPageBtn.setOnClickListener { presenter.openMyPage(this, this) }
     }
 
+    // 상태 바를 투명하게 하고, padding 을 조절한다
+    override fun setTransparentStatusBar() {
+        window.setFlags(
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+        )
+
+        //현재 액티비티 레이아웃의 기준이 되는 titleBarCard에 상태바 높이 만큼 top padding 을 줌 .
+        titleBarCard.setPadding(0, statusBarHeight(this), 0, 0)
+        Log.d(TAG, "상태바 높이? : ${statusBarHeight(this)}")
+
+        //소프트키 올라온 높이만큼 전체 레이아웃 하단에 padding을 줌.
+        wrapConstraintLayout.setPadding(0, 0, 0, softMenuHeight(this))
+    }
+
     //상태바 높이 계산
     private fun statusBarHeight(context: Context): Int {
         val resourceId = context.resources.getIdentifier("status_bar_height", "dimen", "android")
@@ -171,80 +215,8 @@ class ActivityHome : AppCompatActivity(), ContractHome.View {
         } else 0
     }
 
-    /**
-     * 홈 탭의 리사이클러뷰에 사용할 어댑터입니다.
-     * postType 에 "materials" 또는 "manufactures" 문자열을 넣어
-     * inflating 할 리사이클러뷰 아이템 뷰를 구분할 수 있습니다.
-     * */
-    private class HomePostAdapter(
-        private val postType: String,
-        private var homePosts: List<HomePost>,
-        private val itemListener: HomePostItemListener
-    ) : RecyclerView.Adapter<HomePostAdapter.ViewHolder>() {
-
-        fun setHomePosts(list: List<HomePost>) {
-            this.homePosts = list
-        }
-
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-            lateinit var inflatedView: View
-            when (postType) {
-                "materials" -> {
-                    inflatedView = LayoutInflater.from(parent.context)
-                        .inflate(R.layout.item_home_materials_rv, parent, false)
-                }
-                "manufactures" -> {
-                    inflatedView = LayoutInflater.from(parent.context)
-                        .inflate(R.layout.item_home_manufacture_rv, parent, false)
-                }
-            }
-            return ViewHolder(inflatedView)
-        }
-
-        override fun getItemCount(): Int {
-            return homePosts.size
-        }
-
-        override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-            holder.bind(homePosts[position])
-        }
-
-        inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-            private var view: View = itemView
-
-            fun bind(item: HomePost) {
-
-                var tags = ""
-                for (tag in item.tags) {
-                    tags += "#$tag "
-                }
-
-                when (postType) {
-                    "materials" -> {
-                        view.apply {
-                            materialsTitle.text = item.title
-                            materialsUserName.text = item.profile_nickname
-                            materialsDate.text = item.date
-                            materialsTag.text = tags
-                            setOnClickListener { itemListener.onHomePostClick(item.post_id) }
-                        }
-                    }
-                    "manufactures" -> {
-                        view.apply {
-                            manufactureTitle.text = item.title
-                            manufactureUserName.text = item.profile_nickname
-                            manufactureDate.text = item.date
-                            manufactureTag.text = tags
-                            setOnClickListener { itemListener.onHomePostClick(item.post_id) }
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    private interface HomePostItemListener {
-        fun onHomePostClick(clickedHomePostId: Int)
+    private fun makeToast(message: String) {
+        Toast.makeText(this@ActivityHome, message, Toast.LENGTH_LONG).show()
     }
 
 }

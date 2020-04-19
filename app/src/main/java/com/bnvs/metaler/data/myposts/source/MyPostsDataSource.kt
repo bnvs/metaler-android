@@ -1,7 +1,7 @@
 package com.bnvs.metaler.data.myposts.source
 
-import com.bnvs.metaler.data.myposts.MyPosts
-import com.bnvs.metaler.data.myposts.MyPostsRequest
+import com.bnvs.metaler.data.myposts.model.MyPosts
+import com.bnvs.metaler.data.myposts.model.MyPostsRequest
 
 interface MyPostsDataSource {
 

@@ -1,6 +1,6 @@
 package com.bnvs.metaler.data.bookmarks.source.remote
 
-import com.bnvs.metaler.data.bookmarks.*
+import com.bnvs.metaler.data.bookmarks.model.*
 import com.bnvs.metaler.data.bookmarks.source.BookmarksDataSource
 import com.bnvs.metaler.network.RetrofitClient
 import retrofit2.Call

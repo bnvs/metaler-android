@@ -1,6 +1,6 @@
 package com.bnvs.metaler.data.homeposts.source.remote
 
-import com.bnvs.metaler.data.homeposts.HomePosts
+import com.bnvs.metaler.data.homeposts.model.HomePosts
 import com.bnvs.metaler.data.homeposts.source.HomePostsDataSource
 import com.bnvs.metaler.network.RetrofitClient
 import retrofit2.Call
@@ -17,7 +17,10 @@ object HomePostsRemoteDataSource : HomePostsDataSource {
         onFailure: (e: Throwable) -> Unit
     ) {
         retrofitClient.getHomePosts().enqueue(object : Callback<HomePosts> {
-            override fun onResponse(call: Call<HomePosts>, response: Response<HomePosts>) {
+            override fun onResponse(
+                call: Call<HomePosts>,
+                response: Response<HomePosts>
+            ) {
                 val body = response.body()
                 if (body != null && response.isSuccessful) {
                     onSuccess(body)

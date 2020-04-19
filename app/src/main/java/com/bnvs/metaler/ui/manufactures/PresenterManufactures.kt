@@ -17,9 +17,11 @@ class PresenterManufactures(
 
     val TAG = "PresenterManufactures.kt"
 
-    private val tokenRepository: TokenRepository = TokenRepository(context)
+    private val tokenRepository: TokenRepository =
+        TokenRepository(context)
 
-    private val postRepository: PostsRepository = PostsRepository(context)
+    private val postRepository: PostsRepository =
+        PostsRepository(context)
 
     private var accessToken: String = ""
 

@@ -1,6 +1,6 @@
 package com.bnvs.metaler.data.addeditpost.source.local
 
-import com.bnvs.metaler.data.addeditpost.*
+import com.bnvs.metaler.data.addeditpost.model.*
 import com.bnvs.metaler.data.addeditpost.source.AddEditPostDataSource
 import okhttp3.MultipartBody
 

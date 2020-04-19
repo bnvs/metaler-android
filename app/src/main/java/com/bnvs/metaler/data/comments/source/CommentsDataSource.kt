@@ -1,6 +1,6 @@
 package com.bnvs.metaler.data.comments.source
 
-import com.bnvs.metaler.data.comments.*
+import com.bnvs.metaler.data.comments.model.*
 
 interface CommentsDataSource {
 

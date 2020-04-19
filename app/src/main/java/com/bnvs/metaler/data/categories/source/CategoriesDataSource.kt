@@ -1,6 +1,6 @@
 package com.bnvs.metaler.data.categories.source
 
-import com.bnvs.metaler.data.categories.Categories
+import com.bnvs.metaler.data.categories.model.Categories
 
 interface CategoriesDataSource {
 

@@ -1,6 +1,6 @@
 package com.bnvs.metaler.data.addeditpost.source.remote
 
-import com.bnvs.metaler.data.addeditpost.*
+import com.bnvs.metaler.data.addeditpost.model.*
 import com.bnvs.metaler.data.addeditpost.source.AddEditPostDataSource
 import com.bnvs.metaler.network.RetrofitClient
 import okhttp3.MultipartBody

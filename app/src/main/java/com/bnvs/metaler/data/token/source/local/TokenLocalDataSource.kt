@@ -1,8 +1,8 @@
 package com.bnvs.metaler.data.token.source.local
 
 import android.content.Context
-import com.bnvs.metaler.data.token.AccessToken
-import com.bnvs.metaler.data.token.SigninToken
+import com.bnvs.metaler.data.token.model.AccessToken
+import com.bnvs.metaler.data.token.model.SigninToken
 import com.bnvs.metaler.data.token.source.TokenDataSource
 
 class TokenLocalDataSource(context: Context) : TokenDataSource {

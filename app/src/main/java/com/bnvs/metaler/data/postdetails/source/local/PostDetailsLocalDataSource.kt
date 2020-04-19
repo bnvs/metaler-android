@@ -1,7 +1,7 @@
 package com.bnvs.metaler.data.postdetails.source.local
 
 import android.content.Context
-import com.bnvs.metaler.data.postdetails.PostDetails
+import com.bnvs.metaler.data.postdetails.model.PostDetails
 import com.bnvs.metaler.data.postdetails.source.PostDetailsDataSource
 
 class PostDetailsLocalDataSource(context: Context) : PostDetailsDataSource {
