@@ -1,6 +1,7 @@
 package com.bnvs.metaler.ui.manufactures
 
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -9,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bnvs.metaler.R
 import com.bnvs.metaler.data.posts.model.Post
 import kotlinx.android.synthetic.main.activity_manufacture.*
+import java.util.*
 
 class ActivityManufactures : AppCompatActivity(),
     ContractManufactures.View {
@@ -18,7 +20,7 @@ class ActivityManufactures : AppCompatActivity(),
     override lateinit var presenter: ContractManufactures.Presenter
 
     lateinit var posts: List<Post>
-    //    lateinit var loadMorePosts: ArrayList<Post?>
+    lateinit var loadMorePosts: ArrayList<Post?>
     lateinit var postAdapter: ManufacturesPostAdapter
     lateinit var scrollListener: EndlessRecyclerViewScrollListener
     lateinit var postLayoutManager: RecyclerView.LayoutManager
@@ -122,42 +124,44 @@ class ActivityManufactures : AppCompatActivity(),
         scrollListener.setOnLoadMoreListener(object :
             EndlessRecyclerViewScrollListener.OnLoadMoreListener {
             override fun onLoadMore() {
-                loadMoreData()
+                Log.d(TAG, "스크롤리스너 onLoadMore() 실행! ")
+                presenter.loadMorePosts(presenter.requestPosts())
             }
         })
         postsRV.addOnScrollListener(scrollListener)
     }
 
-    private fun loadMoreData() {
+    override fun showMorePosts(posts: List<Post>) {
 
-//        var loadPosts: List<Post> = presenter.loadPosts(presenter.requestPosts())
-//
-//        //Add the Loading View
-//        postAdapter.addLoadingView()
-//        //Create the loadMoreItemsCells Arraylist
-//        var loadMorePosts = ArrayList<List<Post>>()
+        Log.d(TAG, "showMorePosts함수 실행!")
+        //Add the Loading View
+        postAdapter.addLoadingView()
+        Log.d(TAG, "addLoadingView 실행!")
+
+
+        //Create the loadMoreItemsCells Arraylist
+//        var loadMorePosts = ArrayList<Post>()
 //        //Get the number of the current Items of the main Arraylist
 //        val start = postAdapter.itemCount
 //        //Load 16 more items
 //        val end = start + 6
-//        //Use Handler if the items are loading too fast.
-//        //If you remove it, the data will load so fast that you can't even see the LoadingView
-//        Handler().postDelayed({
-//            for (i in start..end) {
-//                //Get data and add them to loadMoreItemsCells ArrayList
-//                loadMorePosts.add(loadPosts)
-//            }
-//            //Remove the Loading View
-//            postAdapter.removeLoadingView()
-//            //We adding the data to our main ArrayList
-//            postAdapter.setPosts(loadPosts)
-//            //Change the boolean isLoading to false
-//            scrollListener.setLoaded()
-//            //Update the recyclerView in the main thread
-//            postsRV.post {
-//                postAdapter.notifyDataSetChanged()
-//            }
-//        }, 3000)
+        //Use Handler if the items are loading too fast.
+        //If you remove it, the data will load so fast that you can't even see the LoadingView
+        Handler().postDelayed({
+            //Get data and add them to loadMorePosts ArrayList
+            loadMorePosts.addAll(posts)
+            //Remove the Loading View
+            postAdapter.removeLoadingView()
+            //We adding the data to our main ArrayList
+//            postAdapter.setPosts(posts)
+            postAdapter.addPosts(loadMorePosts)
+            //Change the boolean isLoading to false
+            scrollListener.setLoaded()
+            //Update the recyclerView in the main thread
+            postsRV.post {
+                postAdapter.notifyDataSetChanged()
+            }
+        }, 3000)
 
     }
 

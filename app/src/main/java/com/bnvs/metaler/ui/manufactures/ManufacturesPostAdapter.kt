@@ -7,6 +7,7 @@ import android.graphics.Color
 import android.graphics.PorterDuff
 import android.os.Build
 import android.os.Handler
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,7 +30,7 @@ class ManufacturesPostAdapter(
 
     class LoadingViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
-    fun setPosts(list: List<Post>) {
+    fun addPosts(list: ArrayList<Post?>) {
         arrayList.addAll(list)
         notifyDataSetChanged()
     }
@@ -46,15 +47,17 @@ class ManufacturesPostAdapter(
         //add loading item
         Handler().post {
             arrayList.add(null)
-            notifyItemInserted(posts.size - 1)
+            Log.d("어댑터", "-----arrayList에 null값 추가! arrayLists: ${arrayList}")
+            Log.d("어댑터", "----- posts: ${posts}")
+            notifyItemInserted(arrayList.size - 1)
         }
     }
 
     fun removeLoadingView() {
         //Remove loading item
-        if (posts.size != 0) {
-            arrayList.removeAt(posts.size - 1)
-            notifyItemRemoved(posts.size)
+        if (arrayList.size != 0) {
+            arrayList.removeAt(arrayList.size - 1)
+            notifyItemRemoved(arrayList.size)
         }
     }
 

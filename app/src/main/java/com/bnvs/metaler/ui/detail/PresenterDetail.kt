@@ -27,17 +27,18 @@ class PresenterDetail(
 
     }
 
+    override fun addBookmark(postId: Int) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun deleteBookmark(postId: Int) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     override fun loadComments() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun addBookmark(postId: Int) {
-
-    }
-
-    override fun deleteBookmark(postId: Int) {
-
-    }
 
     override fun openMenu() {
         view.showMenuDialog()

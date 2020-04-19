@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="titleBarTextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="lightColorTitle" parent="titleBarTextView">
+        <item name="android:textColor">@color/colorWhite</item>
+    </style>
+
+    <style name="darkColorTitle" parent="titleBarTextView">
+        <item name="android:textColor">@color/colorPurple</item>
+    </style>
+
+    <style name="titleBarIconBtn">
+        <item name="android:layout_width">27dp</item>
+        <item name="android:layout_height">27dp</item>
+    </style>
+
+    <style name="titleBarTextBtn">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/colorPurple</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+</resources>

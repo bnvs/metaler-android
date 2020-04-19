@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="tabBarCardView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="cardElevation">0dp</item>
+        <item name="cardBackgroundColor">@color/colorWhite</item>
+    </style>
+
+    <style name="tabBarActiveTextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/colorActiveTapbar</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="tabBarInactiveTextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/colorInactiveTapbar</item>
+        <item name="android:textSize">10sp</item>
+    </style>
+
+    <style name="tabBarIconSize">
+        <item name="android:layout_width">27dp</item>
+        <item name="android:layout_height">27dp</item>
+    </style>
+
+</resources>

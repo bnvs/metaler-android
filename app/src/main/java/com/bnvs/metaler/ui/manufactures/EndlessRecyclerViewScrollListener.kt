@@ -1,11 +1,12 @@
 package com.bnvs.metaler.ui.manufactures
 
+import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 class EndlessRecyclerViewScrollListener : RecyclerView.OnScrollListener {
 
-    private var visibleThreshold = 5
+    private var visibleThreshold = 1
     private lateinit var mOnLoadMoreListener: OnLoadMoreListener
     private var isLoading: Boolean = false
     private var lastVisibleItem: Int = 0
@@ -41,6 +42,7 @@ class EndlessRecyclerViewScrollListener : RecyclerView.OnScrollListener {
 
 
         if (!isLoading && totalItemCount <= lastVisibleItem + visibleThreshold) {
+            Log.d("스크롤리스너","로딩중!! ")
             mOnLoadMoreListener.onLoadMore()
             isLoading = true
         }

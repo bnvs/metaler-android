@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="profileIcon">
+        <item name="android:src">@drawable/ic_profile_x3</item>
+    </style>
+
+    <style name="bigProfileIcon" parent="profileIcon">
+        <item name="android:layout_width">60dp</item>
+        <item name="android:layout_height">60dp</item>
+        <item name="android:layout_marginTop">7dp</item>
+    </style>
+
+    <style name="middleProfileIcon" parent="profileIcon">
+        <item name="android:layout_width">47dp</item>
+        <item name="android:layout_height">47dp</item>
+    </style>
+
+    <style name="smallProfileIcon" parent="profileIcon">
+        <item name="android:layout_width">30dp</item>
+        <item name="android:layout_height">30dp</item>
+    </style>
+
+    <style name="myPageMoreIcon">
+        <item name="android:layout_width">13dp</item>
+        <item name="android:layout_height">13dp</item>
+        <item name="android:layout_marginRight">@dimen/wideMargin</item>
+        <item name="android:src">@drawable/ic_home_more_arrow_x3</item>
+    </style>
+</resources>
