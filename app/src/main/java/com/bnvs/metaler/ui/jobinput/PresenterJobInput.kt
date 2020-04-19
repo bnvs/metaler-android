@@ -42,7 +42,7 @@ class PresenterJobInput(
     }
 
     override fun getAddUserRequest(intent: Intent) {
-        /*addUserRequest = intent.getSerializableExtra("addUserRequest") as AddUserRequest*/
+        addUserRequest = intent.getSerializableExtra("addUserRequest") as AddUserRequest
     }
 
     override fun openStudent() {
