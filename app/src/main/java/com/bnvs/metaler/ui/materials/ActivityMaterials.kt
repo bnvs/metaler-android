@@ -26,6 +26,13 @@ class ActivityMaterials : AppCompatActivity(),
 
     override lateinit var presenter: ContractMaterials.Presenter
 
+    lateinit var posts: List<Post>
+    lateinit var postAdapter: PostAdapter
+    lateinit var scrollListener: EndlessRecyclerViewScrollListener
+    lateinit var postLayoutManager: RecyclerView.LayoutManager
+    var loadMorePosts: ArrayList<Post?> = ArrayList()
+
+
     /**
      * 재료 탭의 카테고리 리사이클러뷰 아이템에 달아줄 리스너입니다
      * */
@@ -38,7 +45,7 @@ class ActivityMaterials : AppCompatActivity(),
                     it.notifyDataSetChanged()
                 }
                 // TODO : 카테고리 타입에 맞는 post 를 불러오도록 presenter 수정해야함
-                presenter.loadPosts()
+//                presenter.loadPosts()
             }
         }
     }
@@ -94,12 +101,6 @@ class ActivityMaterials : AppCompatActivity(),
     }
 
 
-    lateinit var posts: List<Post>
-    lateinit var postAdapter: PostAdapter
-    lateinit var scrollListener: EndlessRecyclerViewScrollListener
-    lateinit var postLayoutManager: RecyclerView.LayoutManager
-    var loadMorePosts: java.util.ArrayList<Post?> = java.util.ArrayList()
-
 
     private val categoryAdapter = CategoryAdapter(
         ArrayList(0),
@@ -114,20 +115,17 @@ class ActivityMaterials : AppCompatActivity(),
         // Create the presenter
         presenter = PresenterMaterials(this, this)
 
+        // 재료 탭 presenter 시작
+        presenter.run {
+            start()
+        }
+
         // Set up Buttons
         initClickListeners()
 
-        // Set up categories recyclerView
-        materialsCategoryRV.apply {
-            adapter = categoryAdapter
-            layoutManager = categoryLayoutManager
-        }
+        setRVLayoutManager()
 
-        // Set up posts recyclerView
-        postsRV.apply {
-            adapter = postAdapter
-            layoutManager = postLayoutManager
-        }
+        setRVScrollListener()
 
         // Set up RefreshListener
         /*refreshLayout.apply {
@@ -140,11 +138,12 @@ class ActivityMaterials : AppCompatActivity(),
             )
         }*/
 
-        // 재료 탭 presenter 시작
-//        presenter.run {
-//            start()
-//        }
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        presenter.start()
     }
 
     private fun setRVLayoutManager() {
@@ -165,13 +164,7 @@ class ActivityMaterials : AppCompatActivity(),
 
                 //loadMorePosts 에 null값을 추가해서 로딩뷰를 만든다.
                 postAdapter.addLoadingView()
-                Log.d(
-                    TAG,
-                    "postAdapter.addLoadingView() 후 tempArrayList ? : ${postAdapter.tempArrayList}"
-                )
-                loadMorePosts.add(null) // 이렇게 넣어줘야 하나 ?.. 어댑터랑 연결해서 넣어줄 수 없나
-
-//                Log.d(TAG, "addLoadingView 실행 후 loadMorePosts 값 ? : ${loadMorePosts}")
+                loadMorePosts.add(null)
 
                 //loadMorePosts 는 다음페이지 데이터를 받아올 때만 데이터를 추가하기 때문에 조건절로 비어있는지 확인해야함
                 if (!loadMorePosts.isEmpty()) {
@@ -190,6 +183,7 @@ class ActivityMaterials : AppCompatActivity(),
 
 
     override fun showPosts(posts: List<Post>) {
+        Log.d(TAG, "프레젠터에서 받아온 데이터? posts : $posts ")
         postAdapter = PostAdapter(itemListener)
         postAdapter.addPosts(posts)
         postAdapter.notifyDataSetChanged()
