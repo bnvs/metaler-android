@@ -13,7 +13,7 @@ class PresenterMaterials(
     private val view: ContractMaterials.View
 ) : ContractMaterials.Presenter {
 
-    val TAG = "PresenterMatrials.kt"
+    val TAG = "PresenterMaterials.kt"
 
     private val postRepository: PostsRepository = PostsRepository(context)
 
