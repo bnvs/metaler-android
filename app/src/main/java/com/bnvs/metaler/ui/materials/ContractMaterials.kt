@@ -3,6 +3,7 @@ package com.bnvs.metaler.ui.materials
 import com.bnvs.metaler.BasePresenter
 import com.bnvs.metaler.BaseView
 import com.bnvs.metaler.data.posts.Post
+import com.bnvs.metaler.data.posts.PostsRequest
 import com.bnvs.metaler.util.TapBarContract
 
 /**
@@ -34,7 +35,11 @@ interface ContractMaterials {
     interface Presenter : BasePresenter, TapBarContract.Presenter {
         fun loadCategories()
 
-        fun loadPosts()
+        fun requestPosts(): PostsRequest
+
+        fun loadPosts(postsRequest: PostsRequest)
+
+        fun loadMorePosts(postsRequest: PostsRequest)
 
         fun refreshPosts()
 
