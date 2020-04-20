@@ -18,22 +18,36 @@ import kotlinx.android.synthetic.main.item_loading.view.*
 import kotlinx.android.synthetic.main.item_posts_rv.view.*
 
 class ManufacturesPostAdapter(
-    private var posts: List<Post>,
+//    private var posts: List<Post>,
+//    private var tempArrayList: ArrayList<Post?>,
     private var itemListener: ManufacturesPostItemListener
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     lateinit var context: Context
 
-    var arrayList = ArrayList<Post?>()
+    // 서버와 통신해서 받아오는 Post타입의 데이터를 담는 변수
+    lateinit var posts: List<Post>
+    // 무한스크롤할 때 로딩중이면 null값을 추가하고, 로딩이끝나면 null값을 빼기 때문에 수정이 가능한 어레이리스트가 필요함
+    var tempArrayList = ArrayList<Post?>()
 
     class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
     class LoadingViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
-    fun addPosts(list: ArrayList<Post?>) {
-        arrayList.addAll(list)
+    // 데이터를 처음 가져올 때 쓰는 함수
+    fun addPosts(list: List<Post>) {
+        this.posts = list
+        this.tempArrayList.addAll(list)
         notifyDataSetChanged()
     }
+
+
+    // 다음 페이지 데이터를 가져오는 함수
+    fun addMorePosts(list: ArrayList<Post?>) {
+        this.tempArrayList.addAll(list)
+        notifyDataSetChanged()
+    }
+
 
     fun setBookmark(position: Int) {
         posts[position].is_bookmark = !posts[position].is_bookmark
@@ -46,18 +60,22 @@ class ManufacturesPostAdapter(
     fun addLoadingView() {
         //add loading item
         Handler().post {
-            arrayList.add(null)
-            Log.d("어댑터", "-----arrayList에 null값 추가! arrayLists: ${arrayList}")
+            tempArrayList.add(null)
+            notifyItemInserted(tempArrayList.size - 1)
+
+            Log.d(
+                "어댑터",
+                "-----tempArrayList에 null값 추가! tempArrayList 사이즈 : ${tempArrayList.size} tempArrayList: ${tempArrayList} "
+            )
             Log.d("어댑터", "----- posts: ${posts}")
-            notifyItemInserted(arrayList.size - 1)
         }
     }
 
     fun removeLoadingView() {
         //Remove loading item
-        if (arrayList.size != 0) {
-            arrayList.removeAt(arrayList.size - 1)
-            notifyItemRemoved(arrayList.size)
+        if (tempArrayList.size != 0) {
+            tempArrayList.removeAt(tempArrayList.size - 1)
+            notifyItemRemoved(tempArrayList.size)
         }
     }
 
@@ -87,11 +105,15 @@ class ManufacturesPostAdapter(
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (posts[position] == null) {
-            Constant.VIEW_TYPE_LOADING
-        } else {
-            Constant.VIEW_TYPE_ITEM
+        //tempArrayList[tempArrayList.size - 1] 이렇게해야 null값 확인할 수 있음 ..
+
+        //tempArrayList 에서 null값이 추가된 인덱스는 postiion+1 해야 null값 들어간 인덱스에 접근할 수 있음 .
+        val comparable = tempArrayList[position + 1]
+        return when (comparable) {
+            null -> Constant.VIEW_TYPE_LOADING
+            else -> Constant.VIEW_TYPE_ITEM
         }
+
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
@@ -134,37 +156,7 @@ class ManufacturesPostAdapter(
             }
         }
     }
-//    class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-////        private var view: View = itemView
-////
-////        fun bind(item: Post, position: Int) {
-////
-////            var tagString = ""
-////            for (tag in item.tags) {
-////                tagString += "#$tag "
-////            }
-////
-////            view.apply {
-////                title.text = item.title
-////                userName.text = item.profile_nickname
-////                date.text = item.created_at
-////                tags.text = tagString
-////                dislikeNum.text = item.hate_count.toString()
-////                likeNum.text = item.good_count.toString()
-//////                setOnClickListener { itemListener.onPostClick(item.id) }
-//////                bookmarkBtn.setOnClickListener {
-//////                    itemListener.onBookmarkButtonClick(view, item.id, item.is_bookmark, position)
-//////                }
-////                if (item.is_bookmark) {
-////                    bookmarkBtn.setImageResource(R.drawable.ic_list_bookmark_active_x3)
-////                }
-////            }
-//
-////            Glide.with(view)
-////                .load(item.attach_url)
-////                .into(view.img)
-////        }
-//    }
+
 
     object Constant {
         const val VIEW_TYPE_ITEM = 0
