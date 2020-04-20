@@ -18,6 +18,8 @@ interface ContractMaterials {
 
         fun showMorePosts(posts: List<Post>)
 
+        fun setRVScrollListener()
+
         fun showPostDetailUi()
 
         fun showSearchUi()
