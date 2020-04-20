@@ -2,6 +2,7 @@ package com.bnvs.metaler.ui.materials
 
 import com.bnvs.metaler.BasePresenter
 import com.bnvs.metaler.BaseView
+import com.bnvs.metaler.data.posts.Post
 import com.bnvs.metaler.util.TapBarContract
 
 /**
@@ -13,7 +14,9 @@ interface ContractMaterials {
     interface View : BaseView<Presenter>, TapBarContract.View{
         fun showCategories()
 
-        fun showPosts()
+        fun showPosts(posts: List<Post>)
+
+        fun showMorePosts(posts: List<Post>)
 
         fun showPostDetailUi()
 
