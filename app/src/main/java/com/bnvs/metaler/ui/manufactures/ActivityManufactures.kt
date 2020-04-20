@@ -9,6 +9,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bnvs.metaler.R
 import com.bnvs.metaler.data.posts.Post
+import com.bnvs.metaler.util.EndlessRecyclerViewScrollListener
+import com.bnvs.metaler.util.PostAdapter
+import com.bnvs.metaler.util.PostItemListener
 import kotlinx.android.synthetic.main.activity_manufacture.*
 import java.util.*
 
@@ -22,18 +25,18 @@ class ActivityManufactures : AppCompatActivity(),
     lateinit var posts: List<Post>
     var loadMorePosts: ArrayList<Post?> = ArrayList()
 
-    lateinit var postAdapter: ManufacturesPostAdapter
+    lateinit var postAdapter: PostAdapter
     lateinit var scrollListener: EndlessRecyclerViewScrollListener
     lateinit var postLayoutManager: RecyclerView.LayoutManager
 
-//    lateinit var itemListener: ManufacturesPostItemListener
+//    lateinit var itemListener: PostItemListener
     /**
      * 가공 탭에서 보여지는 가공 게시물 리사이클러뷰 아이템에 달아줄 클릭리스너입니다
      * onPostClick -> 게시물을 클릭한 경우
      * onBookmarkButtonClick -> 북마크 버튼을 클릭한 경우
      * */
-    private var itemListener: ManufacturesPostItemListener = object :
-        ManufacturesPostItemListener {
+    private var itemListener: PostItemListener = object :
+        PostItemListener {
         override fun onPostClick(view: View, clickedPostId: Int) {
             Log.d(TAG, "눌린 아이템? : $clickedPostId")
 //            presenter.openPostDetail(clickedPostId)
@@ -183,8 +186,8 @@ class ActivityManufactures : AppCompatActivity(),
     }
 
     override fun showPosts(posts: List<Post>) {
-//        postAdapter = ManufacturesPostAdapter(posts, loadMorePosts, itemListener)
-        postAdapter = ManufacturesPostAdapter(itemListener)
+//        postAdapter = PostAdapter(posts, loadMorePosts, itemListener)
+        postAdapter = PostAdapter(itemListener)
         postAdapter.addPosts(posts)
         postAdapter.notifyDataSetChanged()
         postsRV.adapter = postAdapter

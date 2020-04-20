@@ -1,6 +1,5 @@
-package com.bnvs.metaler.ui.manufactures
+package com.bnvs.metaler.util
 
-import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 

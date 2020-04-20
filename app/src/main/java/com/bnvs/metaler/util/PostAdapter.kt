@@ -1,4 +1,4 @@
-package com.bnvs.metaler.ui.manufactures
+package com.bnvs.metaler.util
 
 import android.content.Context
 import android.graphics.BlendMode
@@ -17,10 +17,10 @@ import com.bnvs.metaler.data.posts.Post
 import kotlinx.android.synthetic.main.item_loading.view.*
 import kotlinx.android.synthetic.main.item_posts_rv.view.*
 
-class ManufacturesPostAdapter(
+class PostAdapter(
 //    private var posts: List<Post>,
 //    private var tempArrayList: ArrayList<Post?>,
-    private var itemListener: ManufacturesPostItemListener
+    private var itemListener: PostItemListener
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     lateinit var context: Context

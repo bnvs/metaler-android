@@ -1,4 +1,4 @@
-package com.bnvs.metaler.ui.manufactures
+package com.bnvs.metaler.util
 
 import android.view.View
 
@@ -9,7 +9,7 @@ import android.view.View
  * onBookmarkButtonClick -> 북마크 버튼을 클릭했을때
  * */
 
-interface ManufacturesPostItemListener {
+interface PostItemListener {
     fun onPostClick(view: View, clickedPostId: Int)
 
     fun onBookmarkButtonClick(view: View, clickedPostId: Int, isBookmark: Boolean, position: Int)
