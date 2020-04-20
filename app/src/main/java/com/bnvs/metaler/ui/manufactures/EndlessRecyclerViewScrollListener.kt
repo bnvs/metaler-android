@@ -42,7 +42,6 @@ class EndlessRecyclerViewScrollListener : RecyclerView.OnScrollListener {
 
 
         if (!isLoading && totalItemCount <= lastVisibleItem + visibleThreshold) {
-            Log.d("스크롤리스너","로딩중!! ")
             mOnLoadMoreListener.onLoadMore()
             isLoading = true
         }
