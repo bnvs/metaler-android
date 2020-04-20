@@ -80,7 +80,7 @@ class PresenterManufactures(
     override fun requestPosts(): PostsRequest {
         pageNum++
         postsRequest = PostsRequest(
-            1,
+            2,
             pageNum,
             10,
             null,
