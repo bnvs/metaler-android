@@ -15,16 +15,9 @@ import com.bnvs.metaler.data.categories.Category
 import com.bnvs.metaler.data.posts.Post
 import com.bnvs.metaler.util.EndlessRecyclerViewScrollListener
 import com.bnvs.metaler.util.PostAdapter
-import kotlinx.android.synthetic.main.activity_manufacture.*
+import com.bnvs.metaler.util.PostItemListener
 import kotlinx.android.synthetic.main.activity_materials.*
-import kotlinx.android.synthetic.main.activity_materials.bookmarkBtn
-import kotlinx.android.synthetic.main.activity_materials.homeBtn
-import kotlinx.android.synthetic.main.activity_materials.manufactureBtn
-import kotlinx.android.synthetic.main.activity_materials.materialsBtn
-import kotlinx.android.synthetic.main.activity_materials.myPageBtn
-import kotlinx.android.synthetic.main.activity_materials.postsRV
 import kotlinx.android.synthetic.main.item_materials_category_rv.view.*
-import kotlinx.android.synthetic.main.item_posts_rv.view.*
 
 class ActivityMaterials : AppCompatActivity(),
     ContractMaterials.View {
@@ -55,25 +48,45 @@ class ActivityMaterials : AppCompatActivity(),
      * onPostClick -> 게시물을 클릭한 경우
      * onBookmarkButtonClick -> 북마크 버튼을 클릭한 경우
      * */
-    private var itemListener: PostItemListener = object : PostItemListener {
-        override fun onPostClick(clickedPostId: Int) {
-            presenter.openPostDetail(clickedPostId)
+    private var itemListener: PostItemListener = object :
+        PostItemListener {
+        override fun onPostClick(view: View, clickedPostId: Int) {
+//            presenter.openPostDetail(clickedPostId)
         }
 
-        override fun onBookmarkButtonClick(view: View, clickedPostId: Int, isBookmark: Boolean, position: Int) {
+        override fun onBookmarkButtonClick(
+            view: View,
+            clickedPostId: Int,
+            isBookmark: Boolean,
+            position: Int
+        ) {
+
             if (!isBookmark) {
-                view.bookmarkBtn.setImageResource(R.drawable.ic_list_bookmark_active_x3)
-                presenter.addBookmark(clickedPostId)
+
+//            if(!posts[position]!!.is_bookmark) {
+
+//                postAdapter.setBookmark(position)
+
+//                view.bookmarkBtn.setImageResource(R.drawable.ic_list_bookmark_active_x3)
+
+//                isBookmark == posts[position]!!.is_bookmark
+//                presenter.addBookmark(clickedPostId)
                 postAdapter.apply {
                     setBookmark(position)
                     notifyDataSetChanged()
+                    Log.d(TAG, "isBookmark ? : ${isBookmark}")
+
                 }
-            }else {
-                view.bookmarkBtn.setImageResource(R.drawable.ic_list_bookmark_inactive_x3)
-                presenter.deleteBookmark(clickedPostId)
+            } else {
+//                view.bookmarkBtn.setImageResource(R.drawable.ic_list_bookmark_inactive_x3)
+
+//                isBookmark == !posts[position]!!.is_bookmark
+//                presenter.deleteBookmark(clickedPostId)
                 postAdapter.apply {
                     setBookmark(position)
                     notifyDataSetChanged()
+                    Log.d(TAG, "isBookmark ? : ${isBookmark}")
+
                 }
             }
         }
@@ -152,7 +165,10 @@ class ActivityMaterials : AppCompatActivity(),
 
                 //loadMorePosts 에 null값을 추가해서 로딩뷰를 만든다.
                 postAdapter.addLoadingView()
-                Log.d(TAG, "postAdapter.addLoadingView() 후 tempArrayList ? : ${postAdapter.tempArrayList}")
+                Log.d(
+                    TAG,
+                    "postAdapter.addLoadingView() 후 tempArrayList ? : ${postAdapter.tempArrayList}"
+                )
                 loadMorePosts.add(null) // 이렇게 넣어줘야 하나 ?.. 어댑터랑 연결해서 넣어줄 수 없나
 
 //                Log.d(TAG, "addLoadingView 실행 후 loadMorePosts 값 ? : ${loadMorePosts}")
@@ -182,7 +198,7 @@ class ActivityMaterials : AppCompatActivity(),
 
     override fun showMorePosts(posts: List<Post>) {
 
-        if(loadMorePosts[loadMorePosts.size-1] == null) {
+        if (loadMorePosts[loadMorePosts.size - 1] == null) {
             //Use Handler if the items are loading too fast.
             //If you remove it, the data will load so fast that you can't even see the LoadingView
             Handler().postDelayed({
@@ -285,10 +301,15 @@ class ActivityMaterials : AppCompatActivity(),
                     materialsCategoryBtn.apply {
                         text = item.name
                         if (selectedPosition == position) {
-                            setTextColor(ContextCompat.getColor(this.context ,R.color.colorPurple))
+                            setTextColor(ContextCompat.getColor(this.context, R.color.colorPurple))
                             setBackgroundResource(R.drawable.active_bar)
-                        }else {
-                            setTextColor(ContextCompat.getColor(this.context ,R.color.colorLightGrey))
+                        } else {
+                            setTextColor(
+                                ContextCompat.getColor(
+                                    this.context,
+                                    R.color.colorLightGrey
+                                )
+                            )
                             setBackgroundResource(0)
                         }
                     }
