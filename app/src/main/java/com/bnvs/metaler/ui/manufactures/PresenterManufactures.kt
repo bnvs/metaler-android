@@ -6,7 +6,6 @@ import com.bnvs.metaler.data.posts.Post
 import com.bnvs.metaler.data.posts.PostsRequest
 import com.bnvs.metaler.data.posts.PostsResponse
 import com.bnvs.metaler.data.posts.source.PostsRepository
-import com.bnvs.metaler.data.token.source.TokenRepository
 import com.bnvs.metaler.network.NetworkUtil
 
 class PresenterManufactures(
@@ -17,11 +16,7 @@ class PresenterManufactures(
 
     val TAG = "PresenterManufactures.kt"
 
-    private val tokenRepository: TokenRepository = TokenRepository(context)
-
     private val postRepository: PostsRepository = PostsRepository(context)
-
-    private var accessToken: String = ""
 
     private lateinit var postsRequest: PostsRequest
 
@@ -56,30 +51,29 @@ class PresenterManufactures(
     }
 
     override fun loadMorePosts(postsRequest: PostsRequest) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        postRepository.getPosts(
+            postsRequest,
+            onSuccess = { response: PostsResponse ->
+                if (response.is_next) {
+                    view.showMorePosts(response.posts)
+                } else {
+                    Toast.makeText(
+                        context,
+                        "마지막 아이템입니다.",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+
+            },
+            onFailure = { e ->
+                Toast.makeText(
+                    context,
+                    "서버 통신 실패 : ${NetworkUtil.getErrorMessage(e)}",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        )
     }
-
-
-//    override fun loadMorePosts(postsRequest: PostsRequest) {
-//        postRepository.getPosts(
-//            accessToken,
-//            postsRequest,
-//            object : PostsDataSource.LoadPostsCallback {
-//                override fun onPostsLoaded(postsResponse: PostsResponse) {
-//                    Log.d(TAG, "loadMorePosts() 실행! ")
-//                    if(postsResponse.is_next)
-//                        view.getMorePosts(postsResponse.posts)
-//                }
-//
-//                override fun onResponseError(message: String) {
-//                    Log.d(TAG, "message ? : $message")
-//                }
-//
-//                override fun onFailure(t: Throwable) {
-//                    Log.d(TAG, "t ? : $t")
-//                }
-//            })
-//    }
 
 
     // getPosts api 요청 request body 반환하는 함수
