@@ -159,7 +159,6 @@ class ActivityMaterials : AppCompatActivity(),
         scrollListener.setOnLoadMoreListener(object :
             EndlessRecyclerViewScrollListener.OnLoadMoreListener {
             override fun onLoadMore() {
-                Log.d(TAG, "스크롤리스너 onLoadMore() 실행! ")
 
 
                 //loadMorePosts 에 null값을 추가해서 로딩뷰를 만든다.
@@ -170,7 +169,6 @@ class ActivityMaterials : AppCompatActivity(),
                 if (!loadMorePosts.isEmpty()) {
                     //loadMorePosts의 마지막 값이 null값이 있으면 무한스크롤 로딩 중이기 때문에 데이터를 받아오고, 로딩뷰를 제거한다.
                     if (loadMorePosts[loadMorePosts.size - 1] == null) {
-                        Log.d(TAG, "loadMorePosts 마지막 아이템에 null값 있음 ")
                         presenter.loadMorePosts(presenter.requestPosts())
 //                        showMorePosts()
                     }
@@ -183,7 +181,6 @@ class ActivityMaterials : AppCompatActivity(),
 
 
     override fun showPosts(posts: List<Post>) {
-        Log.d(TAG, "프레젠터에서 받아온 데이터? posts : $posts ")
         postAdapter = PostAdapter(itemListener)
         postAdapter.addPosts(posts)
         postAdapter.notifyDataSetChanged()
@@ -207,6 +204,7 @@ class ActivityMaterials : AppCompatActivity(),
                 postAdapter.addMorePosts(loadMorePosts)
                 //Change the boolean isLoading to false
                 scrollListener.setLoaded()
+
                 //Update the recyclerView in the main thread
                 postsRV.post {
                     postAdapter.notifyDataSetChanged()
