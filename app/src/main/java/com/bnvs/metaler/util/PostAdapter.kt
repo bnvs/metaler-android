@@ -26,7 +26,7 @@ class PostAdapter(
     lateinit var context: Context
 
     // 서버와 통신해서 받아오는 Post타입의 데이터를 담는 변수
-    lateinit var posts: List<Post>
+//    lateinit var posts: List<Post>
     // 무한스크롤할 때 로딩중이면 null값을 추가하고, 로딩이끝나면 null값을 빼기 때문에 수정이 가능한 어레이리스트가 필요함
     var tempArrayList = ArrayList<Post?>()
 
@@ -36,7 +36,7 @@ class PostAdapter(
 
     // 데이터를 처음 가져올 때 쓰는 함수
     fun addPosts(list: List<Post>) {
-        this.posts = list
+//        this.posts = list
         this.tempArrayList.addAll(list)
         notifyDataSetChanged()
     }
@@ -45,16 +45,29 @@ class PostAdapter(
     // 다음 페이지 데이터를 가져오는 함수
     fun addMorePosts(list: ArrayList<Post?>) {
         this.tempArrayList.addAll(list)
-        notifyDataSetChanged()
+//        var test = this.tempArrayList.addAll(list)
+//        Log.d("어댑터", "123123 test : ${test}")
+        Log.d("어댑터", "123123 tempArrayList.size : ${tempArrayList.size}")
+        Log.d(
+            "어댑터",
+            "123123 tempArrayList[tempArrayList.size-9] : ${tempArrayList[tempArrayList.size - 9]}"
+        )
+
+        var count: Int = 0
+        for (item in tempArrayList) {
+            notifyItemChanged(count);
+            count++;
+        }
+//        notifyDataSetChanged()
     }
 
 
     fun setBookmark(position: Int) {
-        posts[position].is_bookmark = !posts[position].is_bookmark
+        tempArrayList[position]!!.is_bookmark = !tempArrayList[position]!!.is_bookmark
     }
 
     fun getItemAtPosition(position: Int): String? {
-        return posts[position].toString()
+        return tempArrayList[position].toString()
     }
 
     fun addLoadingView() {
@@ -67,7 +80,7 @@ class PostAdapter(
                 "어댑터",
                 "-----tempArrayList에 null값 추가! tempArrayList 사이즈 : ${tempArrayList.size} tempArrayList: ${tempArrayList} "
             )
-            Log.d("어댑터", "----- posts: ${posts}")
+//            Log.d("어댑터", "----- posts: ${posts}")
         }
     }
 
@@ -101,59 +114,65 @@ class PostAdapter(
     }
 
     override fun getItemCount(): Int {
-        return posts.size
+//        Log.d("어댑터", "123123 getItemCount ? : ${posts.size}")
+        return tempArrayList.size
     }
 
     override fun getItemViewType(position: Int): Int {
         //tempArrayList[tempArrayList.size - 1] 이렇게해야 null값 확인할 수 있음 ..
+        Log.d("어댑터", "position ? : ${position}")
+
+        return Constant.VIEW_TYPE_ITEM
 
         //tempArrayList 에서 null값이 추가된 인덱스는 postiion+1 해야 null값 들어간 인덱스에 접근할 수 있음 .
-        val comparable = tempArrayList[position + 1]
-        return when (comparable) {
-            null -> Constant.VIEW_TYPE_LOADING
-            else -> Constant.VIEW_TYPE_ITEM
-        }
+//        val comparable = tempArrayList[position + 1]
+//        return when (comparable) {
+//            null -> Constant.VIEW_TYPE_LOADING
+//            else -> Constant.VIEW_TYPE_ITEM
+//        }
 
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder.itemViewType == Constant.VIEW_TYPE_ITEM) {
-            var tagString = ""
-            for (tag in posts[position].tags) {
-                tagString += "#$tag "
-            }
-
-
-            holder.itemView.apply {
-                title.text = posts[position].title
-                userName.text = posts[position].profile_nickname
-                date.text = posts[position].date
-                tags.text = tagString
-                dislikeNum.text = posts[position].disliked.toString()
-                likeNum.text = posts[position].liked.toString()
-
-                if (posts[position].is_bookmark) {
-                    bookmarkBtn.setImageResource(R.drawable.ic_list_bookmark_active_x3)
-                } else bookmarkBtn.setImageResource(R.drawable.ic_list_bookmark_inactive_x3)
-
-                holder.itemView.setOnClickListener {
-                    itemListener.onPostClick(it, position)
+            if (tempArrayList[position] != null) {
+                var tagString = ""
+                for (tag in tempArrayList[position]!!.tags) {
+                    tagString += "#$tag "
                 }
+
+
+                holder.itemView.apply {
+                    title.text = tempArrayList[position]!!.title
+                    date.text = tempArrayList[position]!!.date
+                    tags.text = tagString
+                    dislikeNum.text = tempArrayList[position]!!.disliked.toString()
+                    likeNum.text = tempArrayList[position]!!.liked.toString()
+
+                    if (tempArrayList[position]!!.is_bookmark) {
+                        bookmarkBtn.setImageResource(R.drawable.ic_list_bookmark_active_x3)
+                    } else bookmarkBtn.setImageResource(R.drawable.ic_list_bookmark_inactive_x3)
+
+                    holder.itemView.setOnClickListener {
+                        itemListener.onPostClick(it, position)
+                    }
 //                setOnClickListener { itemListener.onPostClick(posts[position]!!.id) }
 
 //                holder.itemView.bookmarkBtn.setOnClickListener {
 //                    itemListener.onBookmarkButtonClick(it,posts[position]!!.id, posts[position]!!.is_bookmark, position)
 //                }
-                bookmarkBtn.setOnClickListener {
-                    itemListener.onBookmarkButtonClick(
-                        bookmarkBtn,
-                        posts[position].post_id,
-                        posts[position].is_bookmark,
-                        position
-                    )
-                }
+                    bookmarkBtn.setOnClickListener {
+                        itemListener.onBookmarkButtonClick(
+                            bookmarkBtn,
+                            tempArrayList[position]!!.post_id,
+                            tempArrayList[position]!!.is_bookmark,
+                            position
+                        )
+                    }
 
+                }
             }
+
         }
     }
 
