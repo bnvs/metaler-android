@@ -119,17 +119,12 @@ class PostAdapter(
     }
 
     override fun getItemViewType(position: Int): Int {
-        //tempArrayList[tempArrayList.size - 1] 이렇게해야 null값 확인할 수 있음 ..
-        Log.d("어댑터", "position ? : ${position}")
-
-        return Constant.VIEW_TYPE_ITEM
-
-        //tempArrayList 에서 null값이 추가된 인덱스는 postiion+1 해야 null값 들어간 인덱스에 접근할 수 있음 .
-//        val comparable = tempArrayList[position + 1]
-//        return when (comparable) {
-//            null -> Constant.VIEW_TYPE_LOADING
-//            else -> Constant.VIEW_TYPE_ITEM
-//        }
+        //null값이 들어오는지 안들어오는지 확인함. null값이 들어있으면 로딩뷰로 리턴한다.
+        val comparable = tempArrayList[position]
+        return when (comparable) {
+            null -> Constant.VIEW_TYPE_LOADING
+            else -> Constant.VIEW_TYPE_ITEM
+        }
 
     }
 
