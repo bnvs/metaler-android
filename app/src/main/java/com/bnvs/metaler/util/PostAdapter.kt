@@ -18,16 +18,13 @@ import kotlinx.android.synthetic.main.item_loading.view.*
 import kotlinx.android.synthetic.main.item_posts_rv.view.*
 
 class PostAdapter(
-//    private var posts: List<Post>,
-//    private var tempArrayList: ArrayList<Post?>,
     private var itemListener: PostItemListener
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     lateinit var context: Context
 
     // 서버와 통신해서 받아오는 Post타입의 데이터를 담는 변수
-//    lateinit var posts: List<Post>
-    // 무한스크롤할 때 로딩중이면 null값을 추가하고, 로딩이끝나면 null값을 빼기 때문에 수정이 가능한 어레이리스트가 필요함
+    // 어레이 리스트인 이유 : 무한스크롤할 때 로딩중이면 null값을 추가하고, 로딩이끝나면 null값을 빼기 때문에 수정이 가능한 어레이리스트가 필요함
     var tempArrayList = ArrayList<Post?>()
 
     class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
@@ -36,7 +33,6 @@ class PostAdapter(
 
     // 데이터를 처음 가져올 때 쓰는 함수
     fun addPosts(list: List<Post>) {
-//        this.posts = list
         this.tempArrayList.addAll(list)
         notifyDataSetChanged()
     }
@@ -45,20 +41,7 @@ class PostAdapter(
     // 다음 페이지 데이터를 가져오는 함수
     fun addMorePosts(list: ArrayList<Post?>) {
         this.tempArrayList.addAll(list)
-//        var test = this.tempArrayList.addAll(list)
-//        Log.d("어댑터", "123123 test : ${test}")
-        Log.d("어댑터", "123123 tempArrayList.size : ${tempArrayList.size}")
-        Log.d(
-            "어댑터",
-            "123123 tempArrayList[tempArrayList.size-9] : ${tempArrayList[tempArrayList.size - 9]}"
-        )
-
-        var count: Int = 0
-        for (item in tempArrayList) {
-            notifyItemChanged(count);
-            count++;
-        }
-//        notifyDataSetChanged()
+        notifyDataSetChanged()
     }
 
 
@@ -75,12 +58,6 @@ class PostAdapter(
         Handler().post {
             tempArrayList.add(null)
             notifyItemInserted(tempArrayList.size - 1)
-
-            Log.d(
-                "어댑터",
-                "-----tempArrayList에 null값 추가! tempArrayList 사이즈 : ${tempArrayList.size} tempArrayList: ${tempArrayList} "
-            )
-//            Log.d("어댑터", "----- posts: ${posts}")
         }
     }
 
