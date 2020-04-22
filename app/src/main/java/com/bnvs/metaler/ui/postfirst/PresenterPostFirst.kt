@@ -1,5 +1,9 @@
 package com.bnvs.metaler.ui.postfirst
 
+import android.content.Context
+import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import com.bnvs.metaler.data.addeditpost.model.AddEditPostRequest
 import com.bnvs.metaler.data.addeditpost.source.repository.AddEditPostRepository
 import com.bnvs.metaler.data.postdetails.source.repository.PostDetailsRepository
@@ -112,8 +116,35 @@ class PresenterPostFirst(
         view.setContents(contents)
     }
 
-    override fun getImageFromAlbum() {
+    override fun openWhereToGetImageFrom() {
+        view.showWhereToGetImageFromDialog()
+    }
 
+    override fun getImageFromAlbumIntent(context: Context): Intent {
+        return Intent(Intent.ACTION_GET_CONTENT).apply {
+            putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
+            type = "image/*"
+        }
+    }
+
+    override fun getImageFromAlbum(context: Context, data: Intent) {
+        val bitmaps = mutableListOf<Bitmap>()
+        val clipData = data.clipData
+        if (clipData != null) {
+            for (i in 0..clipData.itemCount) {
+                val imageUri = clipData.getItemAt(i).uri
+                val inputStream = context.contentResolver.openInputStream(imageUri)
+                val bitmap = BitmapFactory.decodeStream(inputStream)
+                bitmaps.add(bitmap)
+            }
+        } else {
+            val imageUri = data.data
+            if (imageUri != null) {
+                val inputStream = context.contentResolver.openInputStream(imageUri)
+                val bitmap = BitmapFactory.decodeStream(inputStream)
+                bitmaps.add(bitmap)
+            }
+        }
     }
 
     override fun getImageFromCamera() {
@@ -129,6 +160,6 @@ class PresenterPostFirst(
     }
 
     override fun openPostSecond() {
-
+        view.showPostSecondUi()
     }
 }

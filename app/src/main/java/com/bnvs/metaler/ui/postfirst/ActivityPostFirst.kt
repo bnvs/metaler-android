@@ -158,4 +158,43 @@ class ActivityPostFirst : AppCompatActivity(), ContractPostFirst.View {
     override fun showPostSecondUi() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
+
+    private fun initClickListeners() {
+        setAppBarButtons()
+        setPriceTypeButtons()
+    }
+
+    private fun setAppBarButtons() {
+        backBtn.setOnClickListener { finish() }
+        cameraBtn.setOnClickListener { presenter.openWhereToGetImageFrom() }
+        nextBtn.setOnClickListener { presenter.openPostSecond() }
+    }
+
+    private fun setPriceTypeButtons() {
+
+    }
+
+    private fun checkPermission() {
+        if (ActivityCompat.checkSelfPermission(
+                applicationContext,
+                Manifest.permission.READ_EXTERNAL_STORAGE
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(
+                this@ActivityPostFirst,
+                arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
+                100
+            )
+            return
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == 1 && resultCode == Activity.RESULT_OK) {
+            if (data != null) {
+                presenter.getImageFromAlbum(applicationContext, data)
+            }
+        }
+    }
 }
