@@ -5,7 +5,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bnvs.metaler.R
 
-class ThumbnailAdapter : RecyclerView.Adapter<ThumbnailViewHolder>() {
+class ThumbnailAdapter(private val itemClick: (adapterPosition: Int) -> Unit) :
+    RecyclerView.Adapter<ThumbnailViewHolder>() {
 
     private val images = mutableListOf<String>()
 
@@ -28,7 +29,7 @@ class ThumbnailAdapter : RecyclerView.Adapter<ThumbnailViewHolder>() {
         val inflatedView = LayoutInflater
             .from(parent.context)
             .inflate(R.layout.item_thumbnail_rv, parent, false)
-        return ThumbnailViewHolder(inflatedView)
+        return ThumbnailViewHolder(inflatedView, itemClick)
     }
 
     override fun getItemCount(): Int {
