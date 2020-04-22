@@ -11,13 +11,14 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bnvs.metaler.R
-import com.bnvs.metaler.data.categories.Category
-import com.bnvs.metaler.data.posts.Post
+import com.bnvs.metaler.data.posts.model.Post
 import com.bnvs.metaler.util.EndlessRecyclerViewScrollListener
+import com.bnvs.metaler.data.categories.model.Category
 import com.bnvs.metaler.util.PostAdapter
 import com.bnvs.metaler.util.PostItemListener
 import kotlinx.android.synthetic.main.activity_materials.*
 import kotlinx.android.synthetic.main.item_materials_category_rv.view.*
+import kotlinx.android.synthetic.main.item_posts_rv.view.*
 
 class ActivityMaterials : AppCompatActivity(),
     ContractMaterials.View {

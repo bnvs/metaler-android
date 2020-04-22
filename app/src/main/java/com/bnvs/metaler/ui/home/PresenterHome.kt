@@ -1,16 +1,19 @@
 package com.bnvs.metaler.ui.home
 
 import android.content.Context
-import com.bnvs.metaler.data.homeposts.source.HomePostsRepository
-import com.bnvs.metaler.data.profile.source.ProfileRepository
+import com.bnvs.metaler.data.homeposts.source.repository.HomePostsRepository
+import com.bnvs.metaler.data.profile.source.repository.ProfileRepository
+import com.bnvs.metaler.network.NetworkUtil
 
 class PresenterHome(
     context: Context,
     private val view: ContractHome.View
 ) : ContractHome.Presenter {
 
-    private val profileRepository: ProfileRepository = ProfileRepository(context)
-    private val homePostRepository: HomePostsRepository = HomePostsRepository(context)
+    private val profileRepository =
+        ProfileRepository(context)
+    private val homePostRepository =
+        HomePostsRepository(context)
 
     init {
         view.presenter = this
@@ -22,29 +25,26 @@ class PresenterHome(
     }
 
     override fun loadProfile() {
-        /*profileRepository.getProfile(object : ProfileDataSource.LoadProfileCallback {
-            override fun onProfileloaded(profile: Profile) {
+        profileRepository.getProfile(
+            onProfileLoaded = { profile ->
                 view.showProfile(profile)
+            },
+            onProfileNotExist = {
+                view.showProfileNotExistToast()
             }
-
-            override fun onFailure() {
-
-            }
-        })*/
+        )
     }
 
     override fun loadHomePost() {
-        /*homePostRepository.getHomePosts(object : HomePostsDataSource.LoadHomePostsCallback {
-            override fun onHomePostsLoaded(homePosts: HomePosts) {
-                view.showMaterialsList(homePosts.materials)
-                view.showManufacturesList(homePosts.manufactures)
+        homePostRepository.getHomePosts(
+            onSuccess = { response ->
+                view.showMaterialsList(response.materials)
+                view.showManufacturesList(response.manufactures)
+            },
+            onFailure = { e ->
+                view.showLoadHomePostFailedToast(NetworkUtil.getErrorMessage(e))
             }
-
-            override fun onDataNotAvailable() {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-            }
-
-        })*/
+        )
     }
 
     override fun openPostDetail(clickedHomePostId: Int) {

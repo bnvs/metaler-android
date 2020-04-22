@@ -1,14 +1,14 @@
 package com.bnvs.metaler.ui.bookmarks
 
 import android.content.Context
-import com.bnvs.metaler.data.bookmarks.source.BookmarksDataSource
-import com.bnvs.metaler.data.bookmarks.source.BookmarksRepository
+import com.bnvs.metaler.data.bookmarks.source.repositroy.BookmarksRepository
 
 class PresenterBookmarks (
     private val context: Context,
     private val view: ContractBookmarks.View) : ContractBookmarks.Presenter {
 
-    private val bookmarksRepository: BookmarksRepository = BookmarksRepository(context)
+    private val bookmarksRepository: BookmarksRepository =
+        BookmarksRepository(context)
 
     init {
         view.presenter = this

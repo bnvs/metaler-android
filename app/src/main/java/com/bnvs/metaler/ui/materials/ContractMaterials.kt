@@ -2,8 +2,8 @@ package com.bnvs.metaler.ui.materials
 
 import com.bnvs.metaler.BasePresenter
 import com.bnvs.metaler.BaseView
-import com.bnvs.metaler.data.posts.Post
-import com.bnvs.metaler.data.posts.PostsRequest
+import com.bnvs.metaler.data.posts.model.Post
+import com.bnvs.metaler.data.posts.model.PostsRequest
 import com.bnvs.metaler.util.TapBarContract
 
 /**

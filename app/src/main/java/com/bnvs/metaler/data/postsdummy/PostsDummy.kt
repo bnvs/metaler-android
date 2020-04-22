@@ -1,7 +1,6 @@
 package com.bnvs.metaler.data.postsdummy
 
 import android.util.Log
-import com.bnvs.metaler.data.posts.Post
 
 
 class PostsDummy{

@@ -1,7 +1,7 @@
 package com.bnvs.metaler.data.comments.source.local
 
 import android.content.Context
-import com.bnvs.metaler.data.comments.*
+import com.bnvs.metaler.data.comments.model.*
 import com.bnvs.metaler.data.comments.source.CommentsDataSource
 
 class CommentsLocalDataSource(context: Context) : CommentsDataSource {
@@ -14,7 +14,7 @@ class CommentsLocalDataSource(context: Context) : CommentsDataSource {
         onSuccess: (response: Comments) -> Unit,
         onFailure: (e: Throwable) -> Unit
     ) {
-        
+
     }
 
     override fun addComment(

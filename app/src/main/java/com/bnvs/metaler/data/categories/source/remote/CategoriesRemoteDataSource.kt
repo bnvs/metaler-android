@@ -1,6 +1,6 @@
 package com.bnvs.metaler.data.categories.source.remote
 
-import com.bnvs.metaler.data.categories.Categories
+import com.bnvs.metaler.data.categories.model.Categories
 import com.bnvs.metaler.data.categories.source.CategoriesDataSource
 import com.bnvs.metaler.network.RetrofitClient
 import retrofit2.Call

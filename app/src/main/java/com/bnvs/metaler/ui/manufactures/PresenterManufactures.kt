@@ -2,10 +2,10 @@ package com.bnvs.metaler.ui.manufactures
 
 import android.content.Context
 import android.widget.Toast
-import com.bnvs.metaler.data.posts.Post
-import com.bnvs.metaler.data.posts.PostsRequest
-import com.bnvs.metaler.data.posts.PostsResponse
-import com.bnvs.metaler.data.posts.source.PostsRepository
+import com.bnvs.metaler.data.posts.model.Post
+import com.bnvs.metaler.data.posts.model.PostsRequest
+import com.bnvs.metaler.data.posts.model.PostsResponse
+import com.bnvs.metaler.data.posts.source.repository.PostsRepository
 import com.bnvs.metaler.network.NetworkUtil
 
 class PresenterManufactures(

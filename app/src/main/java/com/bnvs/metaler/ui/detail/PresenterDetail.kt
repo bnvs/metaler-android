@@ -1,16 +1,18 @@
 package com.bnvs.metaler.ui.detail
 
 import android.content.Context
-import com.bnvs.metaler.data.bookmarks.source.BookmarksRepository
-import com.bnvs.metaler.data.postdetails.source.PostDetailsRepository
+import com.bnvs.metaler.data.bookmarks.source.repositroy.BookmarksRepository
+import com.bnvs.metaler.data.postdetails.source.repository.PostDetailsRepository
 
 class PresenterDetail(
     private val context: Context,
     private val view: ContractDetail.View
 ) : ContractDetail.Presenter {
 
-    private val postDetailsRepository: PostDetailsRepository = PostDetailsRepository(context)
-    private val bookmarksRepository: BookmarksRepository = BookmarksRepository(context)
+    private val postDetailsRepository: PostDetailsRepository =
+        PostDetailsRepository(context)
+    private val bookmarksRepository: BookmarksRepository =
+        BookmarksRepository(context)
 
     init {
         view.presenter = this
@@ -22,6 +24,7 @@ class PresenterDetail(
     }
 
     override fun loadPostDetail() {
+
     }
 
     override fun addBookmark(postId: Int) {

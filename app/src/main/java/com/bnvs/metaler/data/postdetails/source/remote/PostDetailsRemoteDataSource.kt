@@ -1,6 +1,6 @@
 package com.bnvs.metaler.data.postdetails.source.remote
 
-import com.bnvs.metaler.data.postdetails.PostDetails
+import com.bnvs.metaler.data.postdetails.model.PostDetails
 import com.bnvs.metaler.data.postdetails.source.PostDetailsDataSource
 import com.bnvs.metaler.network.RetrofitClient
 import retrofit2.Call

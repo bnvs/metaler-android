@@ -1,7 +1,7 @@
 package com.bnvs.metaler.data.homeposts.source.local
 
 import android.content.Context
-import com.bnvs.metaler.data.homeposts.HomePosts
+import com.bnvs.metaler.data.homeposts.model.HomePosts
 import com.bnvs.metaler.data.homeposts.source.HomePostsDataSource
 
 class HomePostsLocalDataSource(context: Context) : HomePostsDataSource {
@@ -13,6 +13,6 @@ class HomePostsLocalDataSource(context: Context) : HomePostsDataSource {
         onSuccess: (response: HomePosts) -> Unit,
         onFailure: (e: Throwable) -> Unit
     ) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
     }
 }

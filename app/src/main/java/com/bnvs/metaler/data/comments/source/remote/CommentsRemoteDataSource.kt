@@ -1,6 +1,6 @@
 package com.bnvs.metaler.data.comments.source.remote
 
-import com.bnvs.metaler.data.comments.*
+import com.bnvs.metaler.data.comments.model.*
 import com.bnvs.metaler.data.comments.source.CommentsDataSource
 import com.bnvs.metaler.network.RetrofitClient
 import retrofit2.Call

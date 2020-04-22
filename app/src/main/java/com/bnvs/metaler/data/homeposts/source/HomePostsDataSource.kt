@@ -1,6 +1,6 @@
 package com.bnvs.metaler.data.homeposts.source
 
-import com.bnvs.metaler.data.homeposts.HomePosts
+import com.bnvs.metaler.data.homeposts.model.HomePosts
 
 interface HomePostsDataSource {
 
