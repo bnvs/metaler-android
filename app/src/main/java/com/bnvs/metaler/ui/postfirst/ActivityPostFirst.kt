@@ -2,7 +2,9 @@ package com.bnvs.metaler.ui.postfirst
 
 import android.os.Bundle
 import android.view.View
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.bnvs.metaler.R
 import com.bnvs.metaler.data.postdetails.model.PostDetails
 import kotlinx.android.synthetic.main.activity_post_first.*
@@ -43,8 +45,24 @@ class ActivityPostFirst : AppCompatActivity(), ContractPostFirst.View {
         priceInput.setText(price)
     }
 
-    override fun setPriceType(priceType: String) {
+    override fun setCardButton() {
+        setButtonEnabled(cardBtn, true)
+        setButtonEnabled(cashBtn, false)
+    }
 
+    override fun setCashButton() {
+        setButtonEnabled(cardBtn, false)
+        setButtonEnabled(cashBtn, true)
+    }
+
+    private fun setButtonEnabled(button: TextView, b: Boolean) {
+        if (b) {
+            button.setBackgroundResource(R.drawable.job_btn_purple_rounding_border)
+            button.setTextColor(ContextCompat.getColor(this, R.color.colorPurple))
+        } else {
+            button.setBackgroundResource(R.drawable.job_btn_lightgrey_rounding_border)
+            button.setTextColor(ContextCompat.getColor(this, R.color.colorLightGrey))
+        }
     }
 
     override fun setImageGuideText() {

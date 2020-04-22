@@ -76,7 +76,11 @@ class PresenterPostFirst(
 
     override fun setPriceType(priceType: String) {
         addEditPostRequest.price_type = priceType
-        view.setPriceType(priceType)
+        when (priceType) {
+            "card" -> view.setCardButton()
+            "cash" -> view.setCashButton()
+            else -> return
+        }
     }
 
     override fun setImage() {
