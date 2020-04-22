@@ -24,6 +24,7 @@ class PresenterPostFirst(
         null
     )
 
+    private var presenterAttachUrls = mutableListOf<String>()
 
     override fun start() {
         if (categoryType == "MATERIALS") {
@@ -86,12 +87,20 @@ class PresenterPostFirst(
         }
     }
 
-    override fun setImage() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun setImage(attachIds: List<Int>, attachUrls: List<String>) {
+        addEditPostRequest.attach_ids = attachIds
+        presenterAttachUrls.addAll(attachUrls)
+        if (presenterAttachUrls.isEmpty()) {
+            view.setImageGuideText(true)
+        } else {
+            view.setImageGuideText(false)
+            view.setImages(attachUrls)
+        }
     }
 
-    override fun setContents() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun setContents(contents: String) {
+        addEditPostRequest.content = contents
+        view.setContents(contents)
     }
 
     override fun getImageFromAlbum() {
