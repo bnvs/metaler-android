@@ -64,11 +64,20 @@ class ActivityPostFirst : AppCompatActivity(), ContractPostFirst.View {
         }
     }
 
-    override fun setImageGuideText() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun setImageGuideText(b: Boolean) {
+        when (b) {
+            true -> {
+                addImgGuideTxt.visibility = View.VISIBLE
+                thumbnailRV.visibility = View.GONE
+            }
+            false -> {
+                addImgGuideTxt.visibility = View.GONE
+                thumbnailRV.visibility = View.VISIBLE
+            }
+        }
     }
 
-    override fun setImages() {
+    override fun setImages(images: List<String>) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
