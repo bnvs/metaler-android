@@ -43,6 +43,8 @@ class PresenterPostFirst(
                 setTitle(response.title)
                 setPrice(response.price)
                 setPriceType(response.price_type)
+                setImage(response.attach_ids, response.attach_urls)
+                setContents(response.content)
             },
             onFailure = { e ->
                 view.showPostDetailLoadFailedDialog(NetworkUtil.getErrorMessage(e))
@@ -96,6 +98,14 @@ class PresenterPostFirst(
             view.setImageGuideText(false)
             view.setImages(attachUrls)
         }
+    }
+
+    override fun addImage() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun deleteImage() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun setContents(contents: String) {
