@@ -3,6 +3,7 @@ package com.bnvs.metaler.ui.materials
 import android.content.Context
 import android.content.Intent
 import android.widget.Toast
+import com.bnvs.metaler.data.bookmarks.model.AddBookmarkRequest
 import com.bnvs.metaler.data.bookmarks.source.repositroy.BookmarksRepository
 import com.bnvs.metaler.data.posts.model.Post
 import com.bnvs.metaler.data.posts.model.PostsRequest
@@ -22,6 +23,7 @@ class PresenterMaterials(
     private val bookmarksRepository: BookmarksRepository = BookmarksRepository(context)
 
     private lateinit var postsRequest: PostsRequest
+    private lateinit var addBookmarkRequest: AddBookmarkRequest
 
     private var pageNum: Int = 0
 
@@ -92,6 +94,12 @@ class PresenterMaterials(
             null
         )
         return postsRequest
+    }
+
+    // addBookmark api 요청을 반환하는 함수
+    override fun requestAddBookmark(postId: Int): AddBookmarkRequest {
+        addBookmarkRequest = AddBookmarkRequest(postId)
+        return addBookmarkRequest
     }
 
     override fun refreshPosts() {
