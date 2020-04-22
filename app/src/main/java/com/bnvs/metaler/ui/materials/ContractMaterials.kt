@@ -3,6 +3,7 @@ package com.bnvs.metaler.ui.materials
 import com.bnvs.metaler.BasePresenter
 import com.bnvs.metaler.BaseView
 import com.bnvs.metaler.data.bookmarks.model.AddBookmarkRequest
+import com.bnvs.metaler.data.bookmarks.model.DeleteBookmarkRequest
 import com.bnvs.metaler.data.posts.model.Post
 import com.bnvs.metaler.data.posts.model.PostsRequest
 import com.bnvs.metaler.util.TapBarContract
@@ -39,6 +40,8 @@ interface ContractMaterials {
         fun requestPosts(): PostsRequest
 
         fun requestAddBookmark(postId: Int): AddBookmarkRequest
+
+        fun requestDeleteBookmark(postId: Int): DeleteBookmarkRequest
 
         fun loadPosts(postsRequest: PostsRequest)
 
