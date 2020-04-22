@@ -1,12 +1,14 @@
 package com.bnvs.metaler.ui.manufactures
 
 import android.content.Context
+import android.content.Intent
 import android.widget.Toast
 import com.bnvs.metaler.data.posts.model.Post
 import com.bnvs.metaler.data.posts.model.PostsRequest
 import com.bnvs.metaler.data.posts.model.PostsResponse
 import com.bnvs.metaler.data.posts.source.repository.PostsRepository
 import com.bnvs.metaler.network.NetworkUtil
+import com.bnvs.metaler.ui.detail.ActivityDetail
 
 class PresenterManufactures(
     private val context: Context,
@@ -94,7 +96,8 @@ class PresenterManufactures(
     }
 
     override fun openPostDetail(postId: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val detailIntent = Intent(context, ActivityDetail::class.java)
+        context.startActivity(detailIntent)
     }
 
     override fun addBookmark(postId: Int) {
