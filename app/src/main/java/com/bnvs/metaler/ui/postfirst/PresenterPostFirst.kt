@@ -17,7 +17,7 @@ class PresenterPostFirst(
         if (postId != 0) {
             populatePost(postId)
         }
-        if (categoryType == "재료") {
+        if (categoryType == "MATERIALS") {
             view.showCategories()
         }
     }
@@ -26,7 +26,7 @@ class PresenterPostFirst(
         postDetailsRepository.getPostDetails(
             postId,
             onSuccess = { response ->
-
+                view.showPostDetails(response)
             },
             onFailure = { e ->
                 view.showPostDetailLoadFailedDialog(NetworkUtil.getErrorMessage(e))
