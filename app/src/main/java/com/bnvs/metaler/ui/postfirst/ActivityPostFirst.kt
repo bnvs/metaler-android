@@ -109,14 +109,14 @@ class ActivityPostFirst : AppCompatActivity(), ContractPostFirst.View {
 
     override fun showWhereToGetImageFromDialog() {
         val array = arrayOf("사진", "카메라")
-        AlertDialog.Builder(applicationContext)
+        AlertDialog.Builder(this@ActivityPostFirst)
             .setTitle("사진 선택")
             .setItems(array) { _, which ->
                 when (array[which]) {
                     "사진" -> {
                         checkPermission()
                         startActivityForResult(
-                            presenter.getImageFromAlbumIntent(applicationContext),
+                            presenter.getImageFromAlbumIntent(this@ActivityPostFirst),
                             1
                         )
                     }
@@ -199,7 +199,7 @@ class ActivityPostFirst : AppCompatActivity(), ContractPostFirst.View {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 1 && resultCode == Activity.RESULT_OK) {
             if (data != null) {
-                presenter.getImageFromAlbum(applicationContext, data)
+                presenter.getImageFromAlbum(data)
             }
         }
     }

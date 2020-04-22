@@ -42,7 +42,7 @@ interface ContractPostFirst {
         fun setContents(contents: String)
         fun openWhereToGetImageFrom()
         fun getImageFromAlbumIntent(context: Context): Intent
-        fun getImageFromAlbum(context: Context, data: Intent)
+        fun getImageFromAlbum(data: Intent)
         fun getImageFromCamera()
         fun uploadImage(file: File)
         fun getAttachUrl()

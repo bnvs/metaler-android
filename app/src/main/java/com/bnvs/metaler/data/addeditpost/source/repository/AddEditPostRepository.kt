@@ -1,5 +1,6 @@
 package com.bnvs.metaler.data.addeditpost.source.repository
 
+import android.util.Log
 import com.bnvs.metaler.data.addeditpost.model.*
 import com.bnvs.metaler.data.addeditpost.source.AddEditPostDataSource
 import com.bnvs.metaler.data.addeditpost.source.remote.AddEditPostRemoteDataSource
@@ -7,14 +8,14 @@ import okhttp3.MultipartBody
 
 class AddEditPostRepository : AddEditPostDataSource {
 
-    private val addeditPostRemoteDataSource = AddEditPostRemoteDataSource
+    private val addEditPostRemoteDataSource = AddEditPostRemoteDataSource
 
     override fun addPost(
         request: AddEditPostRequest,
         onSuccess: (response: AddPostResponse) -> Unit,
         onFailure: (e: Throwable) -> Unit
     ) {
-        addeditPostRemoteDataSource.addPost(request, onSuccess, onFailure)
+        addEditPostRemoteDataSource.addPost(request, onSuccess, onFailure)
     }
 
     override fun editPost(
@@ -23,7 +24,7 @@ class AddEditPostRepository : AddEditPostDataSource {
         onSuccess: (response: EditPostResponse) -> Unit,
         onFailure: (e: Throwable) -> Unit
     ) {
-        addeditPostRemoteDataSource.editPost(postId, request, onSuccess, onFailure)
+        addEditPostRemoteDataSource.editPost(postId, request, onSuccess, onFailure)
     }
 
     override fun deletePost(
@@ -31,7 +32,7 @@ class AddEditPostRepository : AddEditPostDataSource {
         onSuccess: (response: DeletePostResponse) -> Unit,
         onFailure: (e: Throwable) -> Unit
     ) {
-        addeditPostRemoteDataSource.deletePost(postId, onSuccess, onFailure)
+        addEditPostRemoteDataSource.deletePost(postId, onSuccess, onFailure)
     }
 
     override fun uploadFile(
@@ -39,6 +40,7 @@ class AddEditPostRepository : AddEditPostDataSource {
         onSuccess: (response: UploadFileResponse) -> Unit,
         onFailure: (e: Throwable) -> Unit
     ) {
-        addeditPostRemoteDataSource.uploadFile(file, onSuccess, onFailure)
+        Log.d("레포지토리 업로드 파일", "이미지 업로드됨")
+        addEditPostRemoteDataSource.uploadFile(file, onSuccess, onFailure)
     }
 }

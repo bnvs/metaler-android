@@ -2,6 +2,7 @@ package com.bnvs.metaler.ui.postfirst
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import com.bnvs.metaler.data.addeditpost.model.AddEditPostRequest
 import com.bnvs.metaler.data.addeditpost.source.repository.AddEditPostRepository
 import com.bnvs.metaler.data.postdetails.source.repository.PostDetailsRepository
@@ -104,7 +105,9 @@ class PresenterPostFirst(
     }
 
     override fun addImage(attachId: Int, imageUrl: String) {
+        Log.d("addImage", "이미지 추가됨")
         addEditPostRequest.attach_ids.add(attachId)
+        view.setImageGuideText(false)
         view.addImage(imageUrl)
     }
 
@@ -129,19 +132,25 @@ class PresenterPostFirst(
         }
     }
 
-    override fun getImageFromAlbum(context: Context, data: Intent) {
+    override fun getImageFromAlbum(data: Intent) {
+        Log.d("getImageFromAlbum", "이미지 앨범에서 가져옴")
         val clipData = data.clipData
         if (clipData != null) {
+            Log.d("clipData", "이미지 여러장 가져오는데 성공함")
             for (i in 0..clipData.itemCount) {
                 val imageUri = clipData.getItemAt(i).uri
-                val file = File(imageUri.path)
+                val file = File(imageUri.path!!)
                 uploadImage(file)
             }
         } else {
+            Log.d("imageUri", "이미지 한장만 가져오는데 성공함")
             val imageUri = data.data
+            Log.d("imageUri", "이미지 Uri 는 다음과 같다 ${imageUri.toString()}")
             if (imageUri != null) {
-                val file = File(imageUri.path)
+                val file = File(imageUri.path!!)
                 uploadImage(file)
+            } else {
+                Log.d("imageUri", "이미지 못가져옴")
             }
         }
     }
@@ -151,15 +160,19 @@ class PresenterPostFirst(
     }
 
     override fun uploadImage(file: File) {
+        Log.d("uploadImage", "이미지 업로드 로직 타고 들어옴")
+        Log.d("uploadImage", "이미지 업로드 로직 타고 들어온 파일 $file")
         val requestBody = file.asRequestBody("image/*".toMediaTypeOrNull())
+        Log.d("uploadImage", "이미지 업로드 로직 타고 들어온 파일 $requestBody")
         val part = MultipartBody.Part.createFormData("upload", file.name, requestBody)
         addEditPostRepository.uploadFile(
             part,
             onSuccess = { response ->
-                addEditPostRequest.attach_ids.add(response.attach_id)
-                view.addImage(response.url)
+                Log.d("uploadImage", "서버에 이미지 업로드 성공")
+                addImage(response.attach_id, response.url)
             },
             onFailure = { e ->
+                Log.d("uploadImage", "서버에 이미지 업로드 실패함")
                 view.showUploadImageFailedDialog(NetworkUtil.getErrorMessage(e))
             }
         )

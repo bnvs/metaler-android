@@ -1,9 +1,6 @@
 package com.bnvs.metaler.network
 
-import com.bnvs.metaler.data.addeditpost.model.AddEditPostRequest
-import com.bnvs.metaler.data.addeditpost.model.AddPostResponse
-import com.bnvs.metaler.data.addeditpost.model.DeletePostResponse
-import com.bnvs.metaler.data.addeditpost.model.EditPostResponse
+import com.bnvs.metaler.data.addeditpost.model.*
 import com.bnvs.metaler.data.bookmarks.model.AddBookmarkRequest
 import com.bnvs.metaler.data.bookmarks.model.AddBookmarkResponse
 import com.bnvs.metaler.data.bookmarks.model.BookmarksResponse
@@ -185,7 +182,7 @@ interface RetrofitInterface {
     @POST("/uploadFile.php")
     fun uploadFile(
         @Part file: MultipartBody.Part
-    ): Call<ResponseBody>
+    ): Call<UploadFileResponse>
 
     // 파일 다운로드
     @GET("/downloadFile.php")

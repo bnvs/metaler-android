@@ -1,5 +1,6 @@
 package com.bnvs.metaler.data.addeditpost.source.remote
 
+import android.util.Log
 import com.bnvs.metaler.data.addeditpost.model.*
 import com.bnvs.metaler.data.addeditpost.source.AddEditPostDataSource
 import com.bnvs.metaler.network.RetrofitClient
@@ -91,6 +92,7 @@ object AddEditPostRemoteDataSource : AddEditPostDataSource {
         onSuccess: (response: UploadFileResponse) -> Unit,
         onFailure: (e: Throwable) -> Unit
     ) {
+        Log.d("리모트 데이타 소스 업로드 파일", "이미지 업로드됨")
         retrofitClient.uploadFile(file)
     }
 }
