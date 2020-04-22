@@ -1,8 +1,12 @@
 package com.bnvs.metaler.data.bookmarks.source.remote
 
-import com.bnvs.metaler.data.bookmarks.model.*
+import com.bnvs.metaler.data.bookmarks.model.AddBookmarkRequest
+import com.bnvs.metaler.data.bookmarks.model.AddBookmarkResponse
+import com.bnvs.metaler.data.bookmarks.model.BookmarksRequest
+import com.bnvs.metaler.data.bookmarks.model.BookmarksResponse
 import com.bnvs.metaler.data.bookmarks.source.BookmarksDataSource
 import com.bnvs.metaler.network.RetrofitClient
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.HttpException
@@ -38,24 +42,23 @@ object BookmarksRemoteDataSource : BookmarksDataSource {
 
     override fun deleteBookmark(
         bookmarkId: Int,
-        onSuccess: (response: DeleteBookmarkResponse) -> Unit,
+        onSuccess: () -> Unit,
         onFailure: (e: Throwable) -> Unit
     ) {
         retrofitClient.deleteBookmark(bookmarkId)
-            .enqueue(object : Callback<DeleteBookmarkResponse> {
+            .enqueue(object : Callback<ResponseBody> {
                 override fun onResponse(
-                    call: Call<DeleteBookmarkResponse>,
-                    response: Response<DeleteBookmarkResponse>
+                    call: Call<ResponseBody>,
+                    response: Response<ResponseBody>
                 ) {
-                    val body = response.body()
-                    if (body != null && response.isSuccessful) {
-                        onSuccess(body)
+                    if (response.isSuccessful) {
+                        onSuccess()
                     } else {
                         onFailure(HttpException(response))
                     }
                 }
 
-                override fun onFailure(call: Call<DeleteBookmarkResponse>, t: Throwable) {
+                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                     onFailure(t)
                 }
             })
