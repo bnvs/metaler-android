@@ -1,5 +1,7 @@
 package com.bnvs.metaler.ui.postfirst
 
+import android.content.Context
+import android.content.Intent
 import com.bnvs.metaler.BasePresenter
 import com.bnvs.metaler.BaseView
 
@@ -16,8 +18,9 @@ interface ContractPostFirst {
         fun addImage(imageUrl: String)
         fun deleteImage(imageIndex: Int)
         fun setContents(contents: String)
+        fun showWhereToGetImageFromDialog()
         fun showPostDetailLoadFailedDialog(errorMessage: String)
-        fun showImageDeleteDialog()
+        fun showImageDeleteDialog(adapterPosition: Int)
         fun showEmptyTitleDialog()
         fun showEmptyPriceDialog()
         fun showEmptyPriceTypeDialog()
@@ -35,7 +38,9 @@ interface ContractPostFirst {
         fun addImage(attachId: Int, imageUrl: String)
         fun deleteImage(imageIndex: Int)
         fun setContents(contents: String)
-        fun getImageFromAlbum()
+        fun openWhereToGetImageFrom()
+        fun getImageFromAlbumIntent(context: Context): Intent
+        fun getImageFromAlbum(context: Context, data: Intent)
         fun getImageFromCamera()
         fun uploadImage()
         fun getAttachUrl()
