@@ -105,6 +105,26 @@ class ActivityPostFirst : AppCompatActivity(), ContractPostFirst.View {
         contentGuideTxt.setText(contents)
     }
 
+    override fun showWhereToGetImageFromDialog() {
+        val array = arrayOf("사진", "카메라")
+        AlertDialog.Builder(applicationContext)
+            .setTitle("사진 선택")
+            .setItems(array) { _, which ->
+                when (array[which]) {
+                    "사진" -> {
+                        checkPermission()
+                        startActivityForResult(
+                            presenter.getImageFromAlbumIntent(applicationContext),
+                            1
+                        )
+                    }
+                    "카메라" -> {
+                    }
+                }
+            }
+            .show()
+    }
+
     override fun showPostDetailLoadFailedDialog(errorMessage: String) {
     }
 
