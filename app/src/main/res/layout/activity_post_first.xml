@@ -189,11 +189,14 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/barrier" />
 
-            <TextView
+            <EditText
                 android:id="@+id/contentGuideTxt"
-                style="@style/lightGuideTextView"
-                android:layout_marginTop="6dp"
-                android:text="@string/content_guide"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:hint="@string/content_guide"
+                android:textColorHint="@color/colorLightGrey"
+                android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/contentTxt" />
 
