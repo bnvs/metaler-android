@@ -26,11 +26,11 @@ class PresenterPostFirst(
 
 
     override fun start() {
-        if (postId != 0) {
-            populatePost(postId)
-        }
         if (categoryType == "MATERIALS") {
             view.showCategories()
+        }
+        if (postId != 0) {
+            populatePost(postId)
         }
     }
 
@@ -38,7 +38,10 @@ class PresenterPostFirst(
         postDetailsRepository.getPostDetails(
             postId,
             onSuccess = { response ->
-                view.showPostDetails(response)
+                setCategory(response.category_id)
+                setTitle(response.title)
+                setPrice(response.price)
+                setPriceType(response.price_type)
             },
             onFailure = { e ->
                 view.showPostDetailLoadFailedDialog(NetworkUtil.getErrorMessage(e))
