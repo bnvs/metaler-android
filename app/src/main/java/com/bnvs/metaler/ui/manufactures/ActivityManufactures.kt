@@ -40,8 +40,7 @@ class ActivityManufactures : AppCompatActivity(),
     private var itemListener: PostItemListener = object :
         PostItemListener {
         override fun onPostClick(view: View, clickedPostId: Int) {
-            Log.d(TAG, "눌린 아이템? : $clickedPostId")
-//            presenter.openPostDetail(clickedPostId)
+            presenter.openPostDetail(clickedPostId)
         }
 
         override fun onBookmarkButtonClick(
