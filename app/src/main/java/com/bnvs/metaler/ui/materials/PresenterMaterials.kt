@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.widget.Toast
 import com.bnvs.metaler.data.bookmarks.model.AddBookmarkRequest
+import com.bnvs.metaler.data.bookmarks.model.AddBookmarkResponse
 import com.bnvs.metaler.data.bookmarks.source.repositroy.BookmarksRepository
 import com.bnvs.metaler.data.posts.model.Post
 import com.bnvs.metaler.data.posts.model.PostsRequest
@@ -112,7 +113,23 @@ class PresenterMaterials(
     }
 
     override fun addBookmark(postId: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        bookmarksRepository.addBookmark(
+            requestAddBookmark(postId),
+            onSuccess = { response: AddBookmarkResponse ->
+                Toast.makeText(
+                    context,
+                    "${response.bookmark_id} 북마크에 추가되었습니다.",
+                    Toast.LENGTH_SHORT
+                ).show()
+            },
+            onFailure = { e ->
+                Toast.makeText(
+                    context,
+                    "서버 통신 실패 : ${NetworkUtil.getErrorMessage(e)}",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        )
     }
 
     override fun deleteBookmark(postId: Int) {
