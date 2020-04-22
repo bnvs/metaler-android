@@ -79,7 +79,7 @@ class ActivityMaterials : AppCompatActivity(),
 //                view.bookmarkBtn.setImageResource(R.drawable.ic_list_bookmark_active_x3)
 
 //                isBookmark == posts[position]!!.is_bookmark
-//                presenter.addBookmark(clickedPostId)
+                presenter.addBookmark(clickedPostId)
                 postAdapter.apply {
                     setBookmark(position)
                     notifyDataSetChanged()
