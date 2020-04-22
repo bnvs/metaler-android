@@ -20,11 +20,9 @@ class PresenterPostFirst(
         null,
         null,
         null,
-        null,
-        null
+        mutableListOf(),
+        mutableListOf()
     )
-
-    private var presenterAttachUrls = mutableListOf<String>()
 
     override fun start() {
         if (categoryType == "MATERIALS") {
@@ -90,9 +88,8 @@ class PresenterPostFirst(
     }
 
     override fun setImage(attachIds: List<Int>, attachUrls: List<String>) {
-        addEditPostRequest.attach_ids = attachIds
-        presenterAttachUrls.addAll(attachUrls)
-        if (presenterAttachUrls.isEmpty()) {
+        addEditPostRequest.attach_ids = attachIds.toMutableList()
+        if (attachUrls.isEmpty()) {
             view.setImageGuideText(true)
         } else {
             view.setImageGuideText(false)
