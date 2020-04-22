@@ -81,6 +81,10 @@ class ActivityPostFirst : AppCompatActivity(), ContractPostFirst.View {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
+    override fun setContents(contents: String) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     override fun showPostDetailLoadFailedDialog(errorMessage: String) {
 
     }
