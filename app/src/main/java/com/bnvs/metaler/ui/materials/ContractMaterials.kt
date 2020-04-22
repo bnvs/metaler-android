@@ -45,6 +45,8 @@ interface ContractMaterials {
 
         fun openPostDetail(postId: Int)
 
+        fun openWritePost()
+
         fun addBookmark(postId: Int)
 
         fun deleteBookmark(postId: Int)
