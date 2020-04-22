@@ -37,7 +37,7 @@ object PostsRemoteDataSource : PostsDataSource {
 
     private fun getOptions(request: PostsRequest): MutableMap<String, Any> {
         return mutableMapOf<String, Any>(
-            "category_type" to request.category_type,
+            "category_id" to request.category_id,
             "page" to request.page,
             "limit" to request.limit
         ).apply {
