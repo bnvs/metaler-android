@@ -51,36 +51,16 @@ class ActivityManufactures : AppCompatActivity(),
         ) {
 
             if (!isBookmark) {
-                Log.d(TAG, "isBookmark ? : ${isBookmark}")
-
-//            if(!posts[position]!!.is_bookmark) {
-
-                Log.d(TAG, "북마크 이미지 변경!  ")
-                Log.d(TAG, "clickedPostId ? : ${clickedPostId}")
-                Log.d(TAG, "position ? : ${position}")
-
-//                postAdapter.setBookmark(position)
-
-//                view.bookmarkBtn.setImageResource(R.drawable.ic_list_bookmark_active_x3)
-
-//                isBookmark == posts[position]!!.is_bookmark
-//                presenter.addBookmark(clickedPostId)
+                presenter.addBookmark(clickedPostId)
                 postAdapter.apply {
                     setBookmark(position)
                     notifyDataSetChanged()
-                    Log.d(TAG, "isBookmark ? : ${isBookmark}")
-
                 }
             } else {
-//                view.bookmarkBtn.setImageResource(R.drawable.ic_list_bookmark_inactive_x3)
-
-//                isBookmark == !posts[position]!!.is_bookmark
-//                presenter.deleteBookmark(clickedPostId)
+                presenter.deleteBookmark(clickedPostId)
                 postAdapter.apply {
                     setBookmark(position)
                     notifyDataSetChanged()
-                    Log.d(TAG, "isBookmark ? : ${isBookmark}")
-
                 }
             }
         }
