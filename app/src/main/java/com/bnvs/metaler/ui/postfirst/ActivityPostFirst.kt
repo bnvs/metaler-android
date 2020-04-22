@@ -6,7 +6,6 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.bnvs.metaler.R
-import com.bnvs.metaler.data.postdetails.model.PostDetails
 import kotlinx.android.synthetic.main.activity_post_first.*
 
 class ActivityPostFirst : AppCompatActivity(), ContractPostFirst.View {
@@ -71,10 +70,6 @@ class ActivityPostFirst : AppCompatActivity(), ContractPostFirst.View {
 
     override fun setImages() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun showPostDetails(postDetails: PostDetails) {
-
     }
 
     override fun showPostDetailLoadFailedDialog(errorMessage: String) {
