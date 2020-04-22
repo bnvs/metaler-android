@@ -100,12 +100,14 @@ class PresenterPostFirst(
         }
     }
 
-    override fun addImage() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun addImage(attachId: Int, imageUrl: String) {
+        addEditPostRequest.attach_ids.add(attachId)
+        view.addImage(imageUrl)
     }
 
-    override fun deleteImage() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun deleteImage(imageIndex: Int) {
+        addEditPostRequest.attach_ids.removeAt(imageIndex)
+        view.deleteImage(imageIndex)
     }
 
     override fun setContents(contents: String) {
