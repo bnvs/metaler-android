@@ -10,7 +10,7 @@ class PresenterDetail(
 ) : ContractDetail.Presenter {
 
     private val postDetailsRepository: PostDetailsRepository =
-        PostDetailsRepository(context)
+        PostDetailsRepository()
     private val bookmarksRepository: BookmarksRepository =
         BookmarksRepository(context)
 
