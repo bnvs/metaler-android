@@ -11,7 +11,7 @@ import kotlinx.android.synthetic.main.activity_post_first.*
 class ActivityPostFirst : AppCompatActivity(), ContractPostFirst.View {
 
     private val TAG = "ActivityPostFirst"
-
+    private val thumbnailAdapter = ThumbnailAdapter()
     override lateinit var presenter: ContractPostFirst.Presenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,8 +23,10 @@ class ActivityPostFirst : AppCompatActivity(), ContractPostFirst.View {
 
         presenter = PresenterPostFirst(categoryType, postId, this)
 
-        presenter.run {
+        thumbnailRV.adapter = thumbnailAdapter
 
+        presenter.run {
+            start()
         }
     }
 
@@ -78,11 +80,19 @@ class ActivityPostFirst : AppCompatActivity(), ContractPostFirst.View {
     }
 
     override fun setImages(images: List<String>) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        thumbnailAdapter.setImages(images)
+    }
+
+    override fun addImage(imageUrl: String) {
+        thumbnailAdapter.addImage(imageUrl)
+    }
+
+    override fun deleteImage(imageIndex: Int) {
+        thumbnailAdapter.deleteImage(imageIndex)
     }
 
     override fun setContents(contents: String) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        contentGuideTxt.setText(contents)
     }
 
     override fun showPostDetailLoadFailedDialog(errorMessage: String) {
