@@ -2,6 +2,7 @@ package com.bnvs.metaler.ui.manufactures
 
 import com.bnvs.metaler.BasePresenter
 import com.bnvs.metaler.BaseView
+import com.bnvs.metaler.data.bookmarks.model.AddBookmarkRequest
 import com.bnvs.metaler.data.posts.model.Post
 import com.bnvs.metaler.data.posts.model.PostsRequest
 import com.bnvs.metaler.util.TapBarContract
@@ -33,6 +34,8 @@ interface ContractManufactures {
     interface Presenter : BasePresenter, TapBarContract.Presenter {
 
         fun requestPosts(): PostsRequest
+
+        fun requestAddBookmark(postId: Int): AddBookmarkRequest
 
         fun loadPosts(postsRequest: PostsRequest)
 
