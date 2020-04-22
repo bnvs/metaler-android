@@ -60,7 +60,7 @@ class ActivityMaterials : AppCompatActivity(),
     private var itemListener: PostItemListener = object :
         PostItemListener {
         override fun onPostClick(view: View, clickedPostId: Int) {
-//            presenter.openPostDetail(clickedPostId)
+            presenter.openPostDetail(clickedPostId)
         }
 
         override fun onBookmarkButtonClick(
