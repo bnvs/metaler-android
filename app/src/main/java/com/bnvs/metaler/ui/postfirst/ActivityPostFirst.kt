@@ -14,14 +14,21 @@ class ActivityPostFirst : AppCompatActivity(), ContractPostFirst.View {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_post_first)
 
-        presenter = PresenterPostFirst(this)
+        val categoryType = intent.getStringExtra("CATEGORY_TYPE")
+        val postId = intent.getIntExtra("POST_ID", 0)
+
+        presenter = PresenterPostFirst(categoryType, postId, this)
 
         presenter.run {
-            getCategoryId(intent)
+
         }
     }
 
     override fun showCategories() {
+    }
+
+    override fun showPostDetailLoadFailedDialog(errorMessage: String) {
+
     }
 
     override fun showImageDeleteDialog() {
