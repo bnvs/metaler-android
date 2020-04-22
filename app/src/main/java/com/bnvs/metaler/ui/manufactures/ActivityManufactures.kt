@@ -8,6 +8,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bnvs.metaler.R
+import com.bnvs.metaler.util.EndlessRecyclerViewScrollListener
+import com.bnvs.metaler.util.PostAdapter
+import com.bnvs.metaler.util.PostItemListener
 import com.bnvs.metaler.data.posts.model.Post
 import kotlinx.android.synthetic.main.activity_manufacture.*
 import java.util.*
@@ -20,19 +23,20 @@ class ActivityManufactures : AppCompatActivity(),
     override lateinit var presenter: ContractManufactures.Presenter
 
     lateinit var posts: List<Post>
-    lateinit var loadMorePosts: ArrayList<Post?>
-    lateinit var postAdapter: ManufacturesPostAdapter
+    var loadMorePosts: ArrayList<Post?> = ArrayList()
+
+    lateinit var postAdapter: PostAdapter
     lateinit var scrollListener: EndlessRecyclerViewScrollListener
     lateinit var postLayoutManager: RecyclerView.LayoutManager
 
-//    lateinit var itemListener: ManufacturesPostItemListener
+//    lateinit var itemListener: PostItemListener
     /**
      * 가공 탭에서 보여지는 가공 게시물 리사이클러뷰 아이템에 달아줄 클릭리스너입니다
      * onPostClick -> 게시물을 클릭한 경우
      * onBookmarkButtonClick -> 북마크 버튼을 클릭한 경우
      * */
-    private var itemListener: ManufacturesPostItemListener = object :
-        ManufacturesPostItemListener {
+    private var itemListener: PostItemListener = object :
+        PostItemListener {
         override fun onPostClick(view: View, clickedPostId: Int) {
             Log.d(TAG, "눌린 아이템? : $clickedPostId")
 //            presenter.openPostDetail(clickedPostId)
@@ -117,56 +121,64 @@ class ActivityManufactures : AppCompatActivity(),
         postsRV.setHasFixedSize(true)
     }
 
-    private fun setRVScrollListener() {
+    override fun setRVScrollListener() {
         postLayoutManager = LinearLayoutManager(this)
         scrollListener =
             EndlessRecyclerViewScrollListener(postLayoutManager as LinearLayoutManager)
         scrollListener.setOnLoadMoreListener(object :
             EndlessRecyclerViewScrollListener.OnLoadMoreListener {
             override fun onLoadMore() {
-                Log.d(TAG, "스크롤리스너 onLoadMore() 실행! ")
-                presenter.loadMorePosts(presenter.requestPosts())
+                //loadMorePosts 에 null값을 추가해서 로딩뷰를 만든다.
+                postAdapter.addLoadingView()
+                loadMorePosts.add(null) // 이렇게 넣어줘야 하나 ?.. 어댑터랑 연결해서 넣어줄 수 없나
+
+//                Log.d(TAG, "addLoadingView 실행 후 loadMorePosts 값 ? : ${loadMorePosts}")
+
+                //loadMorePosts 는 다음페이지 데이터를 받아올 때만 데이터를 추가하기 때문에 조건절로 비어있는지 확인해야함
+                if (!loadMorePosts.isEmpty()) {
+                    //loadMorePosts의 마지막 값이 null값이 있으면 무한스크롤 로딩 중이기 때문에 데이터를 받아오고, 로딩뷰를 제거한다.
+                    if (loadMorePosts[loadMorePosts.size - 1] == null) {
+                        presenter.loadMorePosts(presenter.requestPosts())
+//                        showMorePosts()
+                    }
+                }
+
             }
         })
         postsRV.addOnScrollListener(scrollListener)
     }
 
+
     override fun showMorePosts(posts: List<Post>) {
 
-        Log.d(TAG, "showMorePosts함수 실행!")
-        //Add the Loading View
-        postAdapter.addLoadingView()
-        Log.d(TAG, "addLoadingView 실행!")
+        if(loadMorePosts[loadMorePosts.size-1] == null) {
+            //Use Handler if the items are loading too fast.
+            //If you remove it, the data will load so fast that you can't even see the LoadingView
+            Handler().postDelayed({
+                //Remove the Loading View
+                postAdapter.removeLoadingView()
 
+                //loadMorePosts에 있던 값을 다 지우고 추가로 받은 데이터 넣음
+                loadMorePosts.removeAll(loadMorePosts)
+                loadMorePosts.addAll(posts)
 
-        //Create the loadMoreItemsCells Arraylist
-//        var loadMorePosts = ArrayList<Post>()
-//        //Get the number of the current Items of the main Arraylist
-//        val start = postAdapter.itemCount
-//        //Load 16 more items
-//        val end = start + 6
-        //Use Handler if the items are loading too fast.
-        //If you remove it, the data will load so fast that you can't even see the LoadingView
-        Handler().postDelayed({
-            //Get data and add them to loadMorePosts ArrayList
-            loadMorePosts.addAll(posts)
-            //Remove the Loading View
-            postAdapter.removeLoadingView()
-            //We adding the data to our main ArrayList
-//            postAdapter.setPosts(posts)
-            postAdapter.addPosts(loadMorePosts)
-            //Change the boolean isLoading to false
-            scrollListener.setLoaded()
-            //Update the recyclerView in the main thread
-            postsRV.post {
-                postAdapter.notifyDataSetChanged()
-            }
-        }, 3000)
+                //We adding the data to our main ArrayList
+                postAdapter.addMorePosts(loadMorePosts)
+                //Change the boolean isLoading to false
+                scrollListener.setLoaded()
+                //Update the recyclerView in the main thread
+                postsRV.post {
+                    postAdapter.notifyDataSetChanged()
+                }
+            }, 1000)
+        }
 
     }
 
     override fun showPosts(posts: List<Post>) {
-        postAdapter = ManufacturesPostAdapter(posts, itemListener)
+//        postAdapter = PostAdapter(posts, loadMorePosts, itemListener)
+        postAdapter = PostAdapter(itemListener)
+        postAdapter.addPosts(posts)
         postAdapter.notifyDataSetChanged()
         postsRV.adapter = postAdapter
     }
