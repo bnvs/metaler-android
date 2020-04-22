@@ -197,8 +197,7 @@
 
                         <ImageView
                             android:id="@+id/homeIcon"
-                            android:layout_width="27dp"
-                            android:layout_height="27dp"
+                            style="@style/tabBarIconSize"
                             android:src="@drawable/ic_tapbar_home_inactive_x3"
                             app:layout_constraintBottom_toTopOf="@id/homeTxt"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -207,12 +206,8 @@
 
                         <TextView
                             android:id="@+id/homeTxt"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            style="@style/tabBarInactiveTextView"
                             android:text="홈"
-                            android:textColor="@color/colorInactiveTapbar"
-                            android:textSize="10sp"
-                            android:textStyle="bold"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -235,8 +230,7 @@
 
                         <ImageView
                             android:id="@+id/materialsIcon"
-                            android:layout_width="27dp"
-                            android:layout_height="27dp"
+                            style="@style/tabBarIconSize"
                             android:src="@drawable/ic_tapbar_materials_active_x3"
                             app:layout_constraintBottom_toTopOf="@id/materialsTxt"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -245,11 +239,8 @@
 
                         <TextView
                             android:id="@+id/materialsTxt"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            style="@style/tabBarActiveTextView"
                             android:text="재료"
-                            android:textColor="@color/colorActiveTapbar"
-                            android:textSize="10sp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -272,8 +263,7 @@
 
                         <ImageView
                             android:id="@+id/manufactureIcon"
-                            android:layout_width="27dp"
-                            android:layout_height="27dp"
+                            style="@style/tabBarIconSize"
                             android:src="@drawable/ic_tapbar_manufacture_inactive_x3"
                             app:layout_constraintBottom_toTopOf="@id/manufactureTxt"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -309,8 +299,7 @@
 
                         <ImageView
                             android:id="@+id/bookmarkIcon"
-                            android:layout_width="27dp"
-                            android:layout_height="27dp"
+                            style="@style/tabBarIconSize"
                             android:src="@drawable/ic_tapbar_bookmark_inactive_x3"
                             app:layout_constraintBottom_toTopOf="@id/bookmarkTxt"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -319,11 +308,8 @@
 
                         <TextView
                             android:id="@+id/bookmarkTxt"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            style="@style/tabBarInactiveTextView"
                             android:text="북마크"
-                            android:textColor="@color/colorInactiveTapbar"
-                            android:textSize="10sp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -346,8 +332,7 @@
 
                         <ImageView
                             android:id="@+id/myPageIcon"
-                            android:layout_width="27dp"
-                            android:layout_height="27dp"
+                            style="@style/tabBarIconSize"
                             android:src="@drawable/ic_tapbar_mypage_inactive_x3"
                             app:layout_constraintBottom_toTopOf="@+id/myPageTxt"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -356,11 +341,8 @@
 
                         <TextView
                             android:id="@+id/myPageTxt"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            style="@style/tabBarInactiveTextView"
                             android:text="마이페이지"
-                            android:textColor="@color/colorInactiveTapbar"
-                            android:textSize="10sp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"

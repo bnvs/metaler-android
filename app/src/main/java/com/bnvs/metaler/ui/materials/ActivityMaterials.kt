@@ -60,7 +60,7 @@ class ActivityMaterials : AppCompatActivity(),
     private var itemListener: PostItemListener = object :
         PostItemListener {
         override fun onPostClick(view: View, clickedPostId: Int) {
-//            presenter.openPostDetail(clickedPostId)
+            presenter.openPostDetail(clickedPostId)
         }
 
         override fun onBookmarkButtonClick(
@@ -71,15 +71,7 @@ class ActivityMaterials : AppCompatActivity(),
         ) {
 
             if (!isBookmark) {
-
-//            if(!posts[position]!!.is_bookmark) {
-
-//                postAdapter.setBookmark(position)
-
-//                view.bookmarkBtn.setImageResource(R.drawable.ic_list_bookmark_active_x3)
-
-//                isBookmark == posts[position]!!.is_bookmark
-//                presenter.addBookmark(clickedPostId)
+                presenter.addBookmark(clickedPostId)
                 postAdapter.apply {
                     setBookmark(position)
                     notifyDataSetChanged()
@@ -87,10 +79,7 @@ class ActivityMaterials : AppCompatActivity(),
 
                 }
             } else {
-//                view.bookmarkBtn.setImageResource(R.drawable.ic_list_bookmark_inactive_x3)
-
-//                isBookmark == !posts[position]!!.is_bookmark
-//                presenter.deleteBookmark(clickedPostId)
+                presenter.deleteBookmark(clickedPostId)
                 postAdapter.apply {
                     setBookmark(position)
                     notifyDataSetChanged()
