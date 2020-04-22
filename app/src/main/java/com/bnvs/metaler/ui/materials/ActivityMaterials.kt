@@ -1,5 +1,6 @@
 package com.bnvs.metaler.ui.materials
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
@@ -11,14 +12,14 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bnvs.metaler.R
-import com.bnvs.metaler.data.posts.model.Post
-import com.bnvs.metaler.util.EndlessRecyclerViewScrollListener
 import com.bnvs.metaler.data.categories.model.Category
+import com.bnvs.metaler.data.posts.model.Post
+import com.bnvs.metaler.ui.postfirst.ActivityPostFirst
+import com.bnvs.metaler.util.EndlessRecyclerViewScrollListener
 import com.bnvs.metaler.util.PostAdapter
 import com.bnvs.metaler.util.PostItemListener
 import kotlinx.android.synthetic.main.activity_materials.*
 import kotlinx.android.synthetic.main.item_materials_category_rv.view.*
-import kotlinx.android.synthetic.main.item_posts_rv.view.*
 
 class ActivityMaterials : AppCompatActivity(),
     ContractMaterials.View {
@@ -100,7 +101,6 @@ class ActivityMaterials : AppCompatActivity(),
         }
 
     }
-
 
 
     private val categoryAdapter = CategoryAdapter(
@@ -247,6 +247,11 @@ class ActivityMaterials : AppCompatActivity(),
 
     private fun setTitleBarButtons() {
         // 글작성, 글검색 버튼 클릭 리스너 달아주기
+        writeBtn.setOnClickListener {
+            val writeIntent = Intent(this, ActivityPostFirst::class.java)
+            writeIntent.putExtra("CATEGORY_TYPE", "MATERIALS")
+            startActivity(writeIntent)
+        }
     }
 
     private fun setTapBarButtons() {

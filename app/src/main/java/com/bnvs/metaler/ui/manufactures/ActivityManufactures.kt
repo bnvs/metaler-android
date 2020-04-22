@@ -1,5 +1,6 @@
 package com.bnvs.metaler.ui.manufactures
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
@@ -12,6 +13,7 @@ import com.bnvs.metaler.util.EndlessRecyclerViewScrollListener
 import com.bnvs.metaler.util.PostAdapter
 import com.bnvs.metaler.util.PostItemListener
 import com.bnvs.metaler.data.posts.model.Post
+import com.bnvs.metaler.ui.postfirst.ActivityPostFirst
 import kotlinx.android.synthetic.main.activity_manufacture.*
 import java.util.*
 
@@ -210,6 +212,11 @@ class ActivityManufactures : AppCompatActivity(),
 
     private fun setTitleBarButtons() {
         // 글작성, 글검색 버튼 클릭 리스너 달아주기
+        writeBtn.setOnClickListener {
+            val writeIntent = Intent(this, ActivityPostFirst::class.java)
+            writeIntent.putExtra("CATEGORY_TYPE", "MANUFACTURES")
+            startActivity(writeIntent)
+        }
     }
 
 
