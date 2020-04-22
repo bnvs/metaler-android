@@ -15,7 +15,8 @@ interface ContractPostFirst {
     }
 
     interface Presenter : BasePresenter {
-        fun getImageFromLocal()
+        fun getCategoryId(categoryId: Int)
+        fun getImageFromAlbum()
         fun getImageFromCamera()
         fun uploadImage()
         fun getAttachUrl()
