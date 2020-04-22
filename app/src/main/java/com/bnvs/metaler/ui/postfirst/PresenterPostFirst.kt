@@ -2,12 +2,14 @@ package com.bnvs.metaler.ui.postfirst
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import com.bnvs.metaler.data.addeditpost.model.AddEditPostRequest
 import com.bnvs.metaler.data.addeditpost.source.repository.AddEditPostRepository
 import com.bnvs.metaler.data.postdetails.source.repository.PostDetailsRepository
 import com.bnvs.metaler.network.NetworkUtil
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import java.io.File
 
 class PresenterPostFirst(
     private val categoryType: String,
@@ -128,21 +130,18 @@ class PresenterPostFirst(
     }
 
     override fun getImageFromAlbum(context: Context, data: Intent) {
-        val bitmaps = mutableListOf<Bitmap>()
         val clipData = data.clipData
         if (clipData != null) {
             for (i in 0..clipData.itemCount) {
                 val imageUri = clipData.getItemAt(i).uri
-                val inputStream = context.contentResolver.openInputStream(imageUri)
-                val bitmap = BitmapFactory.decodeStream(inputStream)
-                bitmaps.add(bitmap)
+                val file = File(imageUri.path)
+                uploadImage(file)
             }
         } else {
             val imageUri = data.data
             if (imageUri != null) {
-                val inputStream = context.contentResolver.openInputStream(imageUri)
-                val bitmap = BitmapFactory.decodeStream(inputStream)
-                bitmaps.add(bitmap)
+                val file = File(imageUri.path)
+                uploadImage(file)
             }
         }
     }
@@ -151,8 +150,19 @@ class PresenterPostFirst(
 
     }
 
-    override fun uploadImage() {
-
+    override fun uploadImage(file: File) {
+        val requestBody = file.asRequestBody("image/*".toMediaTypeOrNull())
+        val part = MultipartBody.Part.createFormData("upload", file.name, requestBody)
+        addEditPostRepository.uploadFile(
+            part,
+            onSuccess = { response ->
+                addEditPostRequest.attach_ids.add(response.attach_id)
+                view.addImage(response.url)
+            },
+            onFailure = { e ->
+                view.showUploadImageFailedDialog(NetworkUtil.getErrorMessage(e))
+            }
+        )
     }
 
     override fun getAttachUrl() {

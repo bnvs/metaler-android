@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import com.bnvs.metaler.BasePresenter
 import com.bnvs.metaler.BaseView
+import java.io.File
 
 interface ContractPostFirst {
     interface View : BaseView<Presenter> {
@@ -19,6 +20,7 @@ interface ContractPostFirst {
         fun deleteImage(imageIndex: Int)
         fun setContents(contents: String)
         fun showWhereToGetImageFromDialog()
+        fun showUploadImageFailedDialog(errorMessage: String)
         fun showPostDetailLoadFailedDialog(errorMessage: String)
         fun showImageDeleteDialog(adapterPosition: Int)
         fun showEmptyTitleDialog()
@@ -42,7 +44,7 @@ interface ContractPostFirst {
         fun getImageFromAlbumIntent(context: Context): Intent
         fun getImageFromAlbum(context: Context, data: Intent)
         fun getImageFromCamera()
-        fun uploadImage()
+        fun uploadImage(file: File)
         fun getAttachUrl()
         fun openPostSecond()
     }

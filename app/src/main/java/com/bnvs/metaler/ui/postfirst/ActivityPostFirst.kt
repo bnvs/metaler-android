@@ -35,6 +35,8 @@ class ActivityPostFirst : AppCompatActivity(), ContractPostFirst.View {
 
         thumbnailRV.adapter = thumbnailAdapter
 
+        initClickListeners()
+
         presenter.run {
             start()
         }
@@ -126,6 +128,10 @@ class ActivityPostFirst : AppCompatActivity(), ContractPostFirst.View {
     }
 
     override fun showPostDetailLoadFailedDialog(errorMessage: String) {
+    }
+
+    override fun showUploadImageFailedDialog(errorMessage: String) {
+
     }
 
     override fun showImageDeleteDialog(adapterPosition: Int) {
