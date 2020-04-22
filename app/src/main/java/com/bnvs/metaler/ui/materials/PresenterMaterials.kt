@@ -5,6 +5,7 @@ import android.content.Intent
 import android.widget.Toast
 import com.bnvs.metaler.data.bookmarks.model.AddBookmarkRequest
 import com.bnvs.metaler.data.bookmarks.model.AddBookmarkResponse
+import com.bnvs.metaler.data.bookmarks.model.DeleteBookmarkRequest
 import com.bnvs.metaler.data.bookmarks.source.repositroy.BookmarksRepository
 import com.bnvs.metaler.data.posts.model.Post
 import com.bnvs.metaler.data.posts.model.PostsRequest
@@ -25,6 +26,7 @@ class PresenterMaterials(
 
     private lateinit var postsRequest: PostsRequest
     private lateinit var addBookmarkRequest: AddBookmarkRequest
+    private lateinit var deleteBookmarkRequest: DeleteBookmarkRequest
 
     private var pageNum: Int = 0
 
@@ -101,6 +103,11 @@ class PresenterMaterials(
     override fun requestAddBookmark(postId: Int): AddBookmarkRequest {
         addBookmarkRequest = AddBookmarkRequest(postId)
         return addBookmarkRequest
+    }
+
+    override fun requestDeleteBookmark(postId: Int): DeleteBookmarkRequest {
+        deleteBookmarkRequest = DeleteBookmarkRequest(postId)
+        return deleteBookmarkRequest
     }
 
     override fun refreshPosts() {
