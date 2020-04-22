@@ -1,5 +1,6 @@
 package com.bnvs.metaler.ui.postfirst
 
+import android.content.Intent
 import com.bnvs.metaler.data.addeditpost.source.repository.AddEditPostRepository
 
 class PresenterPostFirst(
@@ -12,8 +13,8 @@ class PresenterPostFirst(
 
     }
 
-    override fun getCategoryId(categoryId: Int) {
-
+    override fun getCategoryId(intent: Intent) {
+        
     }
 
     override fun getImageFromAlbum() {

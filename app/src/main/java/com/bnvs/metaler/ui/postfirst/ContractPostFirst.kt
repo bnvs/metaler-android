@@ -1,5 +1,6 @@
 package com.bnvs.metaler.ui.postfirst
 
+import android.content.Intent
 import com.bnvs.metaler.BasePresenter
 import com.bnvs.metaler.BaseView
 
@@ -15,7 +16,7 @@ interface ContractPostFirst {
     }
 
     interface Presenter : BasePresenter {
-        fun getCategoryId(categoryId: Int)
+        fun getCategoryId(intent: Intent)
         fun getImageFromAlbum()
         fun getImageFromCamera()
         fun uploadImage()

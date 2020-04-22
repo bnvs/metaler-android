@@ -13,10 +13,15 @@ class ActivityPostFirst : AppCompatActivity(), ContractPostFirst.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_post_first)
+
+        presenter = PresenterPostFirst(this)
+
+        presenter.run {
+            getCategoryId(intent)
+        }
     }
 
     override fun showCategories() {
-        presenter = PresenterPostFirst(this)
     }
 
     override fun showImageDeleteDialog() {
