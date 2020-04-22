@@ -1,10 +1,15 @@
 package com.bnvs.metaler.ui.postfirst
 
+import android.Manifest
+import android.app.Activity
+import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.bnvs.metaler.R
 import kotlinx.android.synthetic.main.activity_post_first.*
@@ -15,14 +20,7 @@ class ActivityPostFirst : AppCompatActivity(), ContractPostFirst.View {
     override lateinit var presenter: ContractPostFirst.Presenter
     private val thumbnailAdapter = ThumbnailAdapter(
         itemClick = { adapterPosition ->
-            AlertDialog.Builder(applicationContext)
-                .setMessage("이미지를 삭제하시겠습니까?")
-                .setPositiveButton("삭제") { _, _ ->
-                    presenter.deleteImage(adapterPosition)
-                }
-                .setNegativeButton("취소") { _, _ ->
-                }
-                .show()
+            showImageDeleteDialog(adapterPosition)
         }
     )
 
@@ -108,11 +106,17 @@ class ActivityPostFirst : AppCompatActivity(), ContractPostFirst.View {
     }
 
     override fun showPostDetailLoadFailedDialog(errorMessage: String) {
-
     }
 
-    override fun showImageDeleteDialog() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun showImageDeleteDialog(adapterPosition: Int) {
+        AlertDialog.Builder(applicationContext)
+            .setMessage("이미지를 삭제하시겠습니까?")
+            .setPositiveButton("삭제") { _, _ ->
+                presenter.deleteImage(adapterPosition)
+            }
+            .setNegativeButton("취소") { _, _ ->
+            }
+            .show()
     }
 
     override fun showEmptyTitleDialog() {
