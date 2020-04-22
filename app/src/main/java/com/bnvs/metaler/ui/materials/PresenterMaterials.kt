@@ -3,6 +3,7 @@ package com.bnvs.metaler.ui.materials
 import android.content.Context
 import android.content.Intent
 import android.widget.Toast
+import com.bnvs.metaler.data.bookmarks.source.repositroy.BookmarksRepository
 import com.bnvs.metaler.data.posts.model.Post
 import com.bnvs.metaler.data.posts.model.PostsRequest
 import com.bnvs.metaler.data.posts.model.PostsResponse
@@ -18,6 +19,7 @@ class PresenterMaterials(
     val TAG = "PresenterMaterials.kt"
 
     private val postRepository: PostsRepository = PostsRepository(context)
+    private val bookmarksRepository: BookmarksRepository = BookmarksRepository(context)
 
     private lateinit var postsRequest: PostsRequest
 
