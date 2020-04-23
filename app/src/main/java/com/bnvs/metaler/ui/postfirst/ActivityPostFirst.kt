@@ -189,15 +189,15 @@ class ActivityPostFirst : AppCompatActivity(), ContractPostFirst.View {
 
     private fun checkPermission() {
         if (ActivityCompat.checkSelfPermission(
-                applicationContext,
+                this@ActivityPostFirst,
                 Manifest.permission.READ_EXTERNAL_STORAGE
             ) != PackageManager.PERMISSION_GRANTED
             && ActivityCompat.checkSelfPermission(
-                applicationContext,
+                this@ActivityPostFirst,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE
             ) != PackageManager.PERMISSION_GRANTED
             && ActivityCompat.checkSelfPermission(
-                applicationContext,
+                this@ActivityPostFirst,
                 Manifest.permission.CAMERA
             ) != PackageManager.PERMISSION_GRANTED
         ) {
