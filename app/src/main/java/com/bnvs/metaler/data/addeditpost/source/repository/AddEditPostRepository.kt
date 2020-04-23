@@ -1,6 +1,5 @@
 package com.bnvs.metaler.data.addeditpost.source.repository
 
-import android.util.Log
 import com.bnvs.metaler.data.addeditpost.model.*
 import com.bnvs.metaler.data.addeditpost.source.AddEditPostDataSource
 import com.bnvs.metaler.data.addeditpost.source.remote.AddEditPostRemoteDataSource
@@ -40,7 +39,6 @@ class AddEditPostRepository : AddEditPostDataSource {
         onSuccess: (response: UploadFileResponse) -> Unit,
         onFailure: (e: Throwable) -> Unit
     ) {
-        Log.d("레포지토리 업로드 파일", "이미지 업로드됨")
         addEditPostRemoteDataSource.uploadFile(file, onSuccess, onFailure)
     }
 }

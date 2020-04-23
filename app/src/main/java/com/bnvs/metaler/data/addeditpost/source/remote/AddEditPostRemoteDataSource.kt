@@ -1,6 +1,5 @@
 package com.bnvs.metaler.data.addeditpost.source.remote
 
-import android.util.Log
 import com.bnvs.metaler.data.addeditpost.model.*
 import com.bnvs.metaler.data.addeditpost.source.AddEditPostDataSource
 import com.bnvs.metaler.network.RetrofitClient
@@ -92,7 +91,22 @@ object AddEditPostRemoteDataSource : AddEditPostDataSource {
         onSuccess: (response: UploadFileResponse) -> Unit,
         onFailure: (e: Throwable) -> Unit
     ) {
-        Log.d("리모트 데이타 소스 업로드 파일", "이미지 업로드됨")
-        retrofitClient.uploadFile(file)
+        retrofitClient.uploadFile(file).enqueue(object : Callback<UploadFileResponse> {
+            override fun onResponse(
+                call: Call<UploadFileResponse>,
+                response: Response<UploadFileResponse>
+            ) {
+                val body = response.body()
+                if (body != null && response.isSuccessful) {
+                    onSuccess(body)
+                } else {
+                    onFailure(HttpException(response))
+                }
+            }
+
+            override fun onFailure(call: Call<UploadFileResponse>, t: Throwable) {
+                onFailure(t)
+            }
+        })
     }
 }
