@@ -18,7 +18,13 @@ import java.io.File
 
 class ActivityPostFirst : AppCompatActivity(), ContractPostFirst.View {
 
-    private val TAG = "ActivityPostFirst"
+    companion object {
+        private const val TAG = "ActivityPostFirst"
+        private const val REQUEST_ALBUM_IMAGE = 1
+        private const val REQUEST_CAMERA_IMAGE = 2
+        private const val REQUEST_RUN_TIME_PERMISSION = 100
+    }
+
     override lateinit var presenter: ContractPostFirst.Presenter
     private val thumbnailAdapter = ThumbnailAdapter(
         itemClick = { adapterPosition ->
@@ -120,10 +126,14 @@ class ActivityPostFirst : AppCompatActivity(), ContractPostFirst.View {
                     "사진" -> {
                         startActivityForResult(
                             presenter.getImageFromAlbumIntent(this@ActivityPostFirst),
-                            1
+                            REQUEST_ALBUM_IMAGE
                         )
                     }
                     "카메라" -> {
+                        startActivityForResult(
+                            presenter.getImageFromCameraIntent(this@ActivityPostFirst),
+                            REQUEST_CAMERA_IMAGE
+                        )
                     }
                 }
             }
@@ -208,7 +218,7 @@ class ActivityPostFirst : AppCompatActivity(), ContractPostFirst.View {
                     Manifest.permission.WRITE_EXTERNAL_STORAGE,
                     Manifest.permission.CAMERA
                 ),
-                100
+                REQUEST_RUN_TIME_PERMISSION
             )
             return
         }
@@ -216,10 +226,12 @@ class ActivityPostFirst : AppCompatActivity(), ContractPostFirst.View {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == 1 && resultCode == Activity.RESULT_OK) {
+        if (requestCode == REQUEST_ALBUM_IMAGE && resultCode == Activity.RESULT_OK) {
             if (data != null) {
                 presenter.getImageFromAlbum(this, data)
             }
+        } else if (requestCode == REQUEST_CAMERA_IMAGE && resultCode == Activity.RESULT_OK) {
+
         }
     }
 }
