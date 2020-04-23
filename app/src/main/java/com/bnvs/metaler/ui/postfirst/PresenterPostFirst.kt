@@ -5,6 +5,7 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
+import android.provider.MediaStore
 import android.util.Log
 import com.bnvs.metaler.data.addeditpost.model.AddEditPostRequest
 import com.bnvs.metaler.data.addeditpost.source.repository.AddEditPostRepository
@@ -153,6 +154,16 @@ class PresenterPostFirst(
         }
     }
 
+    override fun getImageFromCameraIntent(context: Context): Intent {
+        return Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { intent ->
+            intent.resolveActivity(context.packageManager)
+        }
+    }
+
+    override fun getImageFromCamera() {
+
+    }
+
     private fun getFileFromUri(context: Context, imageUri: Uri?): File {
         deleteCache(context.cacheDir)
         return if (imageUri != null) {
@@ -208,10 +219,6 @@ class PresenterPostFirst(
             }
         }
         return cacheDir.delete()
-    }
-
-    override fun getImageFromCamera() {
-
     }
 
     override fun uploadImage(file: File) {
