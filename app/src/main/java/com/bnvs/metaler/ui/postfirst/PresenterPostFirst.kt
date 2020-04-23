@@ -4,25 +4,16 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.net.Uri
 import android.util.Log
-import com.bnvs.metaler.BuildConfig
 import com.bnvs.metaler.data.addeditpost.model.AddEditPostRequest
-import com.bnvs.metaler.data.addeditpost.model.UploadFileResponse
 import com.bnvs.metaler.data.addeditpost.source.repository.AddEditPostRepository
 import com.bnvs.metaler.data.postdetails.source.repository.PostDetailsRepository
 import com.bnvs.metaler.network.NetworkUtil
-import com.bnvs.metaler.network.RetrofitInterface
 import com.bnvs.metaler.util.RealPathUtil
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
-import okhttp3.OkHttpClient
 import okhttp3.RequestBody.Companion.asRequestBody
-import okhttp3.logging.HttpLoggingInterceptor
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import java.io.File
 import java.io.FileOutputStream
 
@@ -157,27 +148,24 @@ class PresenterPostFirst(
             Log.d("clipData", "이미지 여러장 가져오는데 성공함")
             for (i in 0..clipData.itemCount) {
                 val imageUri = clipData.getItemAt(i).uri
-                deleteCache(context.cacheDir)
-                if (imageUri != null) {
-                    val inputStream = context.contentResolver.openInputStream(imageUri)
-                    val bitmap = BitmapFactory.decodeStream(inputStream)
-                    inputStream!!.close()
-                    val path = saveBitmapToCache(context, bitmap)
-                    val file = File(path)
-                    uploadImage(file)
-                }
+                uploadImage(getFileFromUri(context, imageUri))
             }
         } else {
-            deleteCache(context.cacheDir)
             val imageUri = data.data
-            if (imageUri != null) {
-                val inputStream = context.contentResolver.openInputStream(imageUri)
-                val bitmap = BitmapFactory.decodeStream(inputStream)
-                inputStream!!.close()
-                val path = saveBitmapToCache(context, bitmap)
-                val file = File(path)
-                uploadImage(file)
-            }
+            uploadImage(getFileFromUri(context, imageUri))
+        }
+    }
+
+    private fun getFileFromUri(context: Context, imageUri: Uri?): File {
+        deleteCache(context.cacheDir)
+        return if (imageUri != null) {
+            val inputStream = context.contentResolver.openInputStream(imageUri)
+            val bitmap = BitmapFactory.decodeStream(inputStream)
+            inputStream!!.close()
+            val path = saveBitmapToCache(context, bitmap)
+            File(path)
+        } else {
+            File("")
         }
     }
 
@@ -185,9 +173,30 @@ class PresenterPostFirst(
         val cacheFile = File(context.cacheDir, "cache_image")
         cacheFile.createNewFile()
         val outputStream = FileOutputStream(cacheFile)
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream)
         outputStream.close()
         return cacheFile.absolutePath
+    }
+
+    private fun scaleDown(context: Context, uri: Uri, resize: Int): Bitmap {
+        val options = BitmapFactory.Options()
+        var width = options.outWidth
+        var height = options.outHeight
+        var sampleSize = 1
+        while (true) {
+            if (width / 2 < resize || height / 2 < resize) {
+                break
+            }
+            width /= 2
+            height /= 2
+            sampleSize *= 2
+        }
+        options.inSampleSize = sampleSize
+        return BitmapFactory.decodeStream(
+            context.contentResolver.openInputStream(uri),
+            null,
+            options
+        )!!
     }
 
     private fun deleteCache(cacheDir: File): Boolean {
@@ -211,38 +220,8 @@ class PresenterPostFirst(
     override fun uploadImage(file: File) {
         val requestBody = file.asRequestBody("image/*".toMediaTypeOrNull())
         val part = MultipartBody.Part.createFormData("upload", file.name, requestBody)
-        Log.d("uploadImage", "이미지 업로드 로직 타고 들어옴")
-        Log.d("uploadImage", "이미지 업로드 로직 타고 들어온 파일 $file")
-        Log.d("uploadImage", "이미지 업로드 로직 타고 들어온 파일 $requestBody")
-        Log.d("uploadImage", "이미지 업로드 로직 타고 들어온 파일 $part")
-        val okHttpClient = OkHttpClient.Builder()
-            .addInterceptor(HttpLoggingInterceptor().apply {
-                level = if (BuildConfig.DEBUG) {
-                    HttpLoggingInterceptor.Level.BODY
-                } else {
-                    HttpLoggingInterceptor.Level.NONE
-                }
-            }).build()
-        val retrofit = Retrofit.Builder()
-            .baseUrl("http://file.metaler.kr/").client(okHttpClient)
-            .addConverterFactory(GsonConverterFactory.create()).build()
-        val service = retrofit.create(RetrofitInterface::class.java)
-
-        service.uploadFile(part).enqueue(object : Callback<UploadFileResponse> {
-            override fun onResponse(
-                call: Call<UploadFileResponse>,
-                response: Response<UploadFileResponse>
-            ) {
-                Log.d("uploadImage", "서버에 이미지 업로드 성공${response.body()}")
-            }
-
-            override fun onFailure(call: Call<UploadFileResponse>, t: Throwable) {
-                Log.d("uploadImage", "서버에 이미지 업로드 실패함$t")
-            }
-        })
-
         view.test(file)
-        /*addEditPostRepository.uploadFile(
+        addEditPostRepository.uploadFile(
             part,
             onSuccess = { response ->
                 Log.d("uploadImage", "서버에 이미지 업로드 성공")
@@ -252,7 +231,7 @@ class PresenterPostFirst(
                 Log.d("uploadImage", "서버에 이미지 업로드 실패함")
                 view.showUploadImageFailedDialog(NetworkUtil.getErrorMessage(e))
             }
-        )*/
+        )
     }
 
     override fun getAttachUrl() {
