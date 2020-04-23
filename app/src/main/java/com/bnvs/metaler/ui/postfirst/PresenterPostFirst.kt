@@ -10,7 +10,6 @@ import com.bnvs.metaler.data.addeditpost.model.AddEditPostRequest
 import com.bnvs.metaler.data.addeditpost.source.repository.AddEditPostRepository
 import com.bnvs.metaler.data.postdetails.source.repository.PostDetailsRepository
 import com.bnvs.metaler.network.NetworkUtil
-import com.bnvs.metaler.util.RealPathUtil
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
@@ -25,8 +24,6 @@ class PresenterPostFirst(
 
     private val addEditPostRepository = AddEditPostRepository()
     private val postDetailsRepository = PostDetailsRepository()
-
-    private val realPathUtil = RealPathUtil()
 
     private var addEditPostRequest = AddEditPostRequest(
         null,
