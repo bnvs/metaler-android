@@ -165,6 +165,7 @@ class PresenterPostFirst(
 
     override fun getImageFromCamera(context: Context, data: Intent) {
         this.context = context
+        deleteCache(context.cacheDir)
         val bitmap: Bitmap = data.extras!!.get("data") as Bitmap
         val path = saveBitmapToCache(bitmap)
         uploadImage(File(path))
