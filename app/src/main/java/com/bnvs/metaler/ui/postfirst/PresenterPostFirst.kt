@@ -5,7 +5,6 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
-import android.provider.MediaStore
 import android.util.Log
 import com.bnvs.metaler.data.addeditpost.model.AddEditPostRequest
 import com.bnvs.metaler.data.addeditpost.source.repository.AddEditPostRepository
@@ -59,7 +58,7 @@ class PresenterPostFirst(
                 setContents(response.content)
             },
             onFailure = { e ->
-                view.showPostDetailLoadFailedDialog(NetworkUtil.getErrorMessage(e))
+                view.showPostDetailLoadFailedToast(NetworkUtil.getErrorMessage(e))
             }
         )
     }
@@ -134,13 +133,6 @@ class PresenterPostFirst(
         view.showWhereToGetImageFromDialog()
     }
 
-    override fun getImageFromAlbumIntent(context: Context): Intent {
-        return Intent(Intent.ACTION_GET_CONTENT).apply {
-            putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
-            type = "image/*"
-        }
-    }
-
     override fun getImageFromAlbum(context: Context, data: Intent) {
         this.context = context
         Log.d("getImageFromAlbum", "이미지 앨범에서 가져옴")
@@ -154,12 +146,6 @@ class PresenterPostFirst(
         } else {
             val imageUri = data.data
             uploadImage(getFileFromUri(imageUri))
-        }
-    }
-
-    override fun getImageFromCameraIntent(context: Context): Intent {
-        return Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { intent ->
-            intent.resolveActivity(context.packageManager)
         }
     }
 
@@ -244,7 +230,7 @@ class PresenterPostFirst(
             },
             onFailure = { e ->
                 Log.d("uploadImage", "파일 크기 ${file.length()}Bytes")
-                view.showUploadImageFailedDialog(NetworkUtil.getErrorMessage(e))
+                view.showUploadImageFailedToast(NetworkUtil.getErrorMessage(e))
             }
         )
     }
@@ -253,7 +239,11 @@ class PresenterPostFirst(
 
     }
 
+    override fun setAddEditPostRequest() {
+
+    }
+
     override fun openPostSecond() {
-        view.showPostSecondUi()
+        view.showPostSecondUi(addEditPostRequest)
     }
 }

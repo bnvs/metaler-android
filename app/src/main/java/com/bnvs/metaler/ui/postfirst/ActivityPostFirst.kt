@@ -5,6 +5,7 @@ import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
@@ -13,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.bnvs.metaler.R
+import com.bnvs.metaler.data.addeditpost.model.AddEditPostRequest
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.activity_post_first.*
 import java.io.File
@@ -81,10 +83,10 @@ class ActivityPostFirst : AppCompatActivity(), ContractPostFirst.View {
 
     private fun setButtonEnabled(button: TextView, b: Boolean) {
         if (b) {
-            button.setBackgroundResource(R.drawable.job_btn_purple_rounding_border)
+            button.setBackgroundResource(R.drawable.purple_rounding_border)
             button.setTextColor(ContextCompat.getColor(this, R.color.colorPurple))
         } else {
-            button.setBackgroundResource(R.drawable.job_btn_lightgrey_rounding_border)
+            button.setBackgroundResource(R.drawable.lightgrey_rounding_border)
             button.setTextColor(ContextCompat.getColor(this, R.color.colorLightGrey))
         }
     }
@@ -99,6 +101,22 @@ class ActivityPostFirst : AppCompatActivity(), ContractPostFirst.View {
                 addImgGuideTxt.visibility = View.GONE
                 thumbnailRV.visibility = View.VISIBLE
             }
+        }
+    }
+
+    override fun openAlbum() {
+        Intent(Intent.ACTION_GET_CONTENT).apply {
+            putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
+            type = "image/*"
+        }.also { intent ->
+            startActivityForResult(intent, REQUEST_ALBUM_IMAGE)
+        }
+    }
+
+    override fun openCamera() {
+        Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { intent ->
+            intent.resolveActivity(packageManager)
+            startActivityForResult(intent, REQUEST_CAMERA_IMAGE)
         }
     }
 
@@ -126,21 +144,14 @@ class ActivityPostFirst : AppCompatActivity(), ContractPostFirst.View {
                 when (array[which]) {
                     "사진" -> {
                         if (isPermissionGranted()) {
-                            startActivityForResult(
-                                presenter.getImageFromAlbumIntent(this@ActivityPostFirst),
-                                REQUEST_ALBUM_IMAGE
-                            )
+                            openAlbum()
                         } else {
                             checkRunTimePermission()
                         }
-
                     }
                     "카메라" -> {
                         if (isPermissionGranted()) {
-                            startActivityForResult(
-                                presenter.getImageFromCameraIntent(this@ActivityPostFirst),
-                                REQUEST_CAMERA_IMAGE
-                            )
+                            openCamera()
                         } else {
                             checkRunTimePermission()
                         }
@@ -150,11 +161,12 @@ class ActivityPostFirst : AppCompatActivity(), ContractPostFirst.View {
             .show()
     }
 
-    override fun showPostDetailLoadFailedDialog(errorMessage: String) {
+    override fun showPostDetailLoadFailedToast(errorMessage: String) {
+        makeToast("게시물 내용을 불러오는데 실패했습니다 : $errorMessage")
     }
 
-    override fun showUploadImageFailedDialog(errorMessage: String) {
-
+    override fun showUploadImageFailedToast(errorMessage: String) {
+        makeToast("사진 업로드에 실패했습니다 : $errorMessage")
     }
 
     override fun showImageDeleteDialog(adapterPosition: Int) {
@@ -169,23 +181,23 @@ class ActivityPostFirst : AppCompatActivity(), ContractPostFirst.View {
     }
 
     override fun showEmptyTitleDialog() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        makeAlertDialog("제목을 입력해 주세요")
     }
 
     override fun showEmptyPriceDialog() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        makeAlertDialog("가격을 입력해 주세요")
     }
 
     override fun showEmptyPriceTypeDialog() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        makeAlertDialog("지불 방식을 선택해 주세요")
     }
 
     override fun showEmptyContentsDialog() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        makeAlertDialog("내용을 입력해 주세요")
     }
 
-    override fun showPostSecondUi() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun showPostSecondUi(addEditPostRequest: AddEditPostRequest) {
+
     }
 
     private fun initClickListeners() {
@@ -200,7 +212,8 @@ class ActivityPostFirst : AppCompatActivity(), ContractPostFirst.View {
     }
 
     private fun setPriceTypeButtons() {
-
+        cardBtn.setOnClickListener { presenter.setPriceType("card") }
+        cashBtn.setOnClickListener { presenter.setPriceType("cash") }
     }
 
     override fun test(file: File) {
@@ -254,5 +267,11 @@ class ActivityPostFirst : AppCompatActivity(), ContractPostFirst.View {
 
     private fun makeToast(message: String) {
         Toast.makeText(this@ActivityPostFirst, message, Toast.LENGTH_LONG).show()
+    }
+
+    private fun makeAlertDialog(message: String) {
+        AlertDialog.Builder(applicationContext)
+            .setMessage(message)
+            .show()
     }
 }

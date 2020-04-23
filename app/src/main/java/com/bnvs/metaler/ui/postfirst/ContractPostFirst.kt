@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import com.bnvs.metaler.BasePresenter
 import com.bnvs.metaler.BaseView
+import com.bnvs.metaler.data.addeditpost.model.AddEditPostRequest
 import java.io.File
 
 interface ContractPostFirst {
@@ -15,19 +16,23 @@ interface ContractPostFirst {
         fun setCardButton()
         fun setCashButton()
         fun setImageGuideText(b: Boolean)
+        fun openAlbum()
+        fun openCamera()
         fun setImages(images: List<String>)
         fun addImage(imageUrl: String)
         fun deleteImage(imageIndex: Int)
         fun setContents(contents: String)
+        fun showChooseCategory()
         fun showWhereToGetImageFromDialog()
-        fun showUploadImageFailedDialog(errorMessage: String)
-        fun showPostDetailLoadFailedDialog(errorMessage: String)
+        fun showUploadImageFailedToast(errorMessage: String)
+        fun showPostDetailLoadFailedToast(errorMessage: String)
         fun showImageDeleteDialog(adapterPosition: Int)
+        fun showEmptyCategory()
         fun showEmptyTitleDialog()
         fun showEmptyPriceDialog()
         fun showEmptyPriceTypeDialog()
         fun showEmptyContentsDialog()
-        fun showPostSecondUi()
+        fun showPostSecondUi(addEditPostRequest: AddEditPostRequest)
         fun test(file: File)
     }
 
@@ -42,12 +47,11 @@ interface ContractPostFirst {
         fun deleteImage(imageIndex: Int)
         fun setContents(contents: String)
         fun openWhereToGetImageFrom()
-        fun getImageFromAlbumIntent(context: Context): Intent
         fun getImageFromAlbum(context: Context, data: Intent)
-        fun getImageFromCameraIntent(context: Context): Intent
         fun getImageFromCamera(context: Context, data: Intent)
         fun uploadImage(file: File)
         fun getAttachUrl()
+        fun setAddEditPostRequest()
         fun openPostSecond()
     }
 }
