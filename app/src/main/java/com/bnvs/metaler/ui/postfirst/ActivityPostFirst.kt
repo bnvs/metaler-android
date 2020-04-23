@@ -12,7 +12,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.bnvs.metaler.R
+import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.activity_post_first.*
+import java.io.File
 
 class ActivityPostFirst : AppCompatActivity(), ContractPostFirst.View {
 
@@ -36,6 +38,8 @@ class ActivityPostFirst : AppCompatActivity(), ContractPostFirst.View {
         thumbnailRV.adapter = thumbnailAdapter
 
         initClickListeners()
+
+        checkPermission()
 
         presenter.run {
             start()
@@ -114,7 +118,6 @@ class ActivityPostFirst : AppCompatActivity(), ContractPostFirst.View {
             .setItems(array) { _, which ->
                 when (array[which]) {
                     "사진" -> {
-                        checkPermission()
                         startActivityForResult(
                             presenter.getImageFromAlbumIntent(this@ActivityPostFirst),
                             1
@@ -180,15 +183,26 @@ class ActivityPostFirst : AppCompatActivity(), ContractPostFirst.View {
 
     }
 
+    override fun test(file: File) {
+        Glide.with(this).load(file).skipMemoryCache(true).into(test)
+    }
+
     private fun checkPermission() {
         if (ActivityCompat.checkSelfPermission(
                 applicationContext,
                 Manifest.permission.READ_EXTERNAL_STORAGE
             ) != PackageManager.PERMISSION_GRANTED
+            && ActivityCompat.checkSelfPermission(
+                applicationContext,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+            ) != PackageManager.PERMISSION_GRANTED
         ) {
             ActivityCompat.requestPermissions(
                 this@ActivityPostFirst,
-                arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
+                arrayOf(
+                    Manifest.permission.READ_EXTERNAL_STORAGE,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE
+                ),
                 100
             )
             return
@@ -199,7 +213,7 @@ class ActivityPostFirst : AppCompatActivity(), ContractPostFirst.View {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 1 && resultCode == Activity.RESULT_OK) {
             if (data != null) {
-                presenter.getImageFromAlbum(data)
+                presenter.getImageFromAlbum(this, data)
             }
         }
     }

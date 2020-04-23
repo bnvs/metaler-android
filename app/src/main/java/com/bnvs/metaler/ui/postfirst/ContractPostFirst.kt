@@ -28,6 +28,7 @@ interface ContractPostFirst {
         fun showEmptyPriceTypeDialog()
         fun showEmptyContentsDialog()
         fun showPostSecondUi()
+        fun test(file: File)
     }
 
     interface Presenter : BasePresenter {
@@ -42,7 +43,7 @@ interface ContractPostFirst {
         fun setContents(contents: String)
         fun openWhereToGetImageFrom()
         fun getImageFromAlbumIntent(context: Context): Intent
-        fun getImageFromAlbum(data: Intent)
+        fun getImageFromAlbum(context: Context, data: Intent)
         fun getImageFromCamera()
         fun uploadImage(file: File)
         fun getAttachUrl()

@@ -2,15 +2,29 @@ package com.bnvs.metaler.ui.postfirst
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.util.Log
+import com.bnvs.metaler.BuildConfig
 import com.bnvs.metaler.data.addeditpost.model.AddEditPostRequest
+import com.bnvs.metaler.data.addeditpost.model.UploadFileResponse
 import com.bnvs.metaler.data.addeditpost.source.repository.AddEditPostRepository
 import com.bnvs.metaler.data.postdetails.source.repository.PostDetailsRepository
 import com.bnvs.metaler.network.NetworkUtil
+import com.bnvs.metaler.network.RetrofitInterface
+import com.bnvs.metaler.util.RealPathUtil
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
+import okhttp3.OkHttpClient
 import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import java.io.File
+import java.io.FileOutputStream
 
 class PresenterPostFirst(
     private val categoryType: String,
@@ -20,6 +34,8 @@ class PresenterPostFirst(
 
     private val addEditPostRepository = AddEditPostRepository()
     private val postDetailsRepository = PostDetailsRepository()
+
+    private val realPathUtil = RealPathUtil()
 
     private var addEditPostRequest = AddEditPostRequest(
         null,
@@ -106,8 +122,10 @@ class PresenterPostFirst(
 
     override fun addImage(attachId: Int, imageUrl: String) {
         Log.d("addImage", "이미지 추가됨")
+        if (addEditPostRequest.attach_ids.isEmpty()) {
+            view.setImageGuideText(false)
+        }
         addEditPostRequest.attach_ids.add(attachId)
-        view.setImageGuideText(false)
         view.addImage(imageUrl)
     }
 
@@ -132,27 +150,58 @@ class PresenterPostFirst(
         }
     }
 
-    override fun getImageFromAlbum(data: Intent) {
+    override fun getImageFromAlbum(context: Context, data: Intent) {
         Log.d("getImageFromAlbum", "이미지 앨범에서 가져옴")
         val clipData = data.clipData
         if (clipData != null) {
             Log.d("clipData", "이미지 여러장 가져오는데 성공함")
             for (i in 0..clipData.itemCount) {
                 val imageUri = clipData.getItemAt(i).uri
-                val file = File(imageUri.path!!)
-                uploadImage(file)
+                deleteCache(context.cacheDir)
+                if (imageUri != null) {
+                    val inputStream = context.contentResolver.openInputStream(imageUri)
+                    val bitmap = BitmapFactory.decodeStream(inputStream)
+                    inputStream!!.close()
+                    val path = saveBitmapToCache(context, bitmap)
+                    val file = File(path)
+                    uploadImage(file)
+                }
             }
         } else {
-            Log.d("imageUri", "이미지 한장만 가져오는데 성공함")
+            deleteCache(context.cacheDir)
             val imageUri = data.data
-            Log.d("imageUri", "이미지 Uri 는 다음과 같다 ${imageUri.toString()}")
             if (imageUri != null) {
-                val file = File(imageUri.path!!)
+                val inputStream = context.contentResolver.openInputStream(imageUri)
+                val bitmap = BitmapFactory.decodeStream(inputStream)
+                inputStream!!.close()
+                val path = saveBitmapToCache(context, bitmap)
+                val file = File(path)
                 uploadImage(file)
-            } else {
-                Log.d("imageUri", "이미지 못가져옴")
             }
         }
+    }
+
+    private fun saveBitmapToCache(context: Context, bitmap: Bitmap): String {
+        val cacheFile = File(context.cacheDir, "cache_image")
+        cacheFile.createNewFile()
+        val outputStream = FileOutputStream(cacheFile)
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
+        outputStream.close()
+        return cacheFile.absolutePath
+    }
+
+    private fun deleteCache(cacheDir: File): Boolean {
+        Log.d("deleteCache", "캐시 지움")
+        if (cacheDir.isDirectory) {
+            val files = cacheDir.list()
+            for (file in files) {
+                val deleteSuccess = deleteCache(File(cacheDir, file))
+                if (!deleteSuccess) {
+                    return false
+                }
+            }
+        }
+        return cacheDir.delete()
     }
 
     override fun getImageFromCamera() {
@@ -160,12 +209,40 @@ class PresenterPostFirst(
     }
 
     override fun uploadImage(file: File) {
+        val requestBody = file.asRequestBody("image/*".toMediaTypeOrNull())
+        val part = MultipartBody.Part.createFormData("upload", file.name, requestBody)
         Log.d("uploadImage", "이미지 업로드 로직 타고 들어옴")
         Log.d("uploadImage", "이미지 업로드 로직 타고 들어온 파일 $file")
-        val requestBody = file.asRequestBody("image/*".toMediaTypeOrNull())
         Log.d("uploadImage", "이미지 업로드 로직 타고 들어온 파일 $requestBody")
-        val part = MultipartBody.Part.createFormData("upload", file.name, requestBody)
-        addEditPostRepository.uploadFile(
+        Log.d("uploadImage", "이미지 업로드 로직 타고 들어온 파일 $part")
+        val okHttpClient = OkHttpClient.Builder()
+            .addInterceptor(HttpLoggingInterceptor().apply {
+                level = if (BuildConfig.DEBUG) {
+                    HttpLoggingInterceptor.Level.BODY
+                } else {
+                    HttpLoggingInterceptor.Level.NONE
+                }
+            }).build()
+        val retrofit = Retrofit.Builder()
+            .baseUrl("http://file.metaler.kr/").client(okHttpClient)
+            .addConverterFactory(GsonConverterFactory.create()).build()
+        val service = retrofit.create(RetrofitInterface::class.java)
+
+        service.uploadFile(part).enqueue(object : Callback<UploadFileResponse> {
+            override fun onResponse(
+                call: Call<UploadFileResponse>,
+                response: Response<UploadFileResponse>
+            ) {
+                Log.d("uploadImage", "서버에 이미지 업로드 성공${response.body()}")
+            }
+
+            override fun onFailure(call: Call<UploadFileResponse>, t: Throwable) {
+                Log.d("uploadImage", "서버에 이미지 업로드 실패함$t")
+            }
+        })
+
+        view.test(file)
+        /*addEditPostRepository.uploadFile(
             part,
             onSuccess = { response ->
                 Log.d("uploadImage", "서버에 이미지 업로드 성공")
@@ -175,7 +252,7 @@ class PresenterPostFirst(
                 Log.d("uploadImage", "서버에 이미지 업로드 실패함")
                 view.showUploadImageFailedDialog(NetworkUtil.getErrorMessage(e))
             }
-        )
+        )*/
     }
 
     override fun getAttachUrl() {
