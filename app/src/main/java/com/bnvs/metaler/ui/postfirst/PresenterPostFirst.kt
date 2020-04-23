@@ -36,6 +36,8 @@ class PresenterPostFirst(
         mutableListOf()
     )
 
+    private lateinit var context: Context
+
     override fun start() {
         if (categoryType == "MATERIALS") {
             view.showCategories()
@@ -140,17 +142,18 @@ class PresenterPostFirst(
     }
 
     override fun getImageFromAlbum(context: Context, data: Intent) {
+        this.context = context
         Log.d("getImageFromAlbum", "이미지 앨범에서 가져옴")
         val clipData = data.clipData
         if (clipData != null) {
             Log.d("clipData", "이미지 여러장 가져오는데 성공함")
             for (i in 0..clipData.itemCount) {
                 val imageUri = clipData.getItemAt(i).uri
-                uploadImage(getFileFromUri(context, imageUri))
+                uploadImage(getFileFromUri(imageUri))
             }
         } else {
             val imageUri = data.data
-            uploadImage(getFileFromUri(context, imageUri))
+            uploadImage(getFileFromUri(imageUri))
         }
     }
 
@@ -161,52 +164,48 @@ class PresenterPostFirst(
     }
 
     override fun getImageFromCamera(context: Context, data: Intent) {
+        this.context = context
         val bitmap: Bitmap = data.extras!!.get("data") as Bitmap
-        val path = saveBitmapToCache(context, bitmap)
+        val path = saveBitmapToCache(bitmap)
         uploadImage(File(path))
     }
 
-    private fun getFileFromUri(context: Context, imageUri: Uri?): File {
+    private fun getFileFromUri(imageUri: Uri?): File {
         deleteCache(context.cacheDir)
         return if (imageUri != null) {
             val inputStream = context.contentResolver.openInputStream(imageUri)
             val bitmap = BitmapFactory.decodeStream(inputStream)
             inputStream!!.close()
-            val path = saveBitmapToCache(context, bitmap)
+            val path = saveBitmapToCache(bitmap)
             File(path)
         } else {
             File("")
         }
     }
 
-    private fun saveBitmapToCache(context: Context, bitmap: Bitmap): String {
+    private fun saveBitmapToCache(bitmap: Bitmap): String {
         val cacheFile = File(context.cacheDir, "cache_image")
         cacheFile.createNewFile()
         val outputStream = FileOutputStream(cacheFile)
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream)
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
         outputStream.close()
         return cacheFile.absolutePath
     }
 
-    private fun scaleDown(context: Context, uri: Uri, resize: Int): Bitmap {
-        val options = BitmapFactory.Options()
-        var width = options.outWidth
-        var height = options.outHeight
-        var sampleSize = 1
-        while (true) {
-            if (width / 2 < resize || height / 2 < resize) {
-                break
-            }
-            width /= 2
-            height /= 2
-            sampleSize *= 2
+    private fun resize(file: File): File {
+        Log.d("resize", "리사이징함")
+        val options = BitmapFactory.Options().apply {
+            inSampleSize = 4
         }
-        options.inSampleSize = sampleSize
-        return BitmapFactory.decodeStream(
-            context.contentResolver.openInputStream(uri),
-            null,
-            options
-        )!!
+        val bitmap = BitmapFactory.decodeFile(file.absolutePath, options)
+        Bitmap.createScaledBitmap(
+            bitmap,
+            bitmap.width / 10,
+            bitmap.height / 10,
+            false
+        )
+        deleteCache(context.cacheDir)
+        return File(saveBitmapToCache(bitmap))
     }
 
     private fun deleteCache(cacheDir: File): Boolean {
@@ -224,6 +223,15 @@ class PresenterPostFirst(
     }
 
     override fun uploadImage(file: File) {
+        while (true) {
+            if (file.length() > 3145728) {
+                Log.d("uploadImage", "파일 크기 ${file.length()}Bytes")
+                resize(file)
+            } else {
+                break
+            }
+        }
+
         val requestBody = file.asRequestBody("image/*".toMediaTypeOrNull())
         val part = MultipartBody.Part.createFormData("upload", file.name, requestBody)
         view.test(file)
@@ -234,7 +242,7 @@ class PresenterPostFirst(
                 addImage(response.attach_id, response.url)
             },
             onFailure = { e ->
-                Log.d("uploadImage", "서버에 이미지 업로드 실패함")
+                Log.d("uploadImage", "파일 크기 ${file.length()}Bytes")
                 view.showUploadImageFailedDialog(NetworkUtil.getErrorMessage(e))
             }
         )
