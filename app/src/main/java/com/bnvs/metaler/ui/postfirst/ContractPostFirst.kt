@@ -45,7 +45,7 @@ interface ContractPostFirst {
         fun getImageFromAlbumIntent(context: Context): Intent
         fun getImageFromAlbum(context: Context, data: Intent)
         fun getImageFromCameraIntent(context: Context): Intent
-        fun getImageFromCamera()
+        fun getImageFromCamera(context: Context, data: Intent)
         fun uploadImage(file: File)
         fun getAttachUrl()
         fun openPostSecond()

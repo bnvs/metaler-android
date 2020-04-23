@@ -7,6 +7,7 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -243,7 +244,15 @@ class ActivityPostFirst : AppCompatActivity(), ContractPostFirst.View {
                 presenter.getImageFromAlbum(this, data)
             }
         } else if (requestCode == REQUEST_CAMERA_IMAGE && resultCode == Activity.RESULT_OK) {
-
+            if (data != null) {
+                presenter.getImageFromCamera(this, data)
+            }
+        } else {
+            makeToast("취소되었습니다")
         }
+    }
+
+    private fun makeToast(message: String) {
+        Toast.makeText(this@ActivityPostFirst, message, Toast.LENGTH_LONG).show()
     }
 }

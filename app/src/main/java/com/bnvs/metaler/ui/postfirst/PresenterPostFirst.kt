@@ -160,8 +160,10 @@ class PresenterPostFirst(
         }
     }
 
-    override fun getImageFromCamera() {
-
+    override fun getImageFromCamera(context: Context, data: Intent) {
+        val bitmap: Bitmap = data.extras!!.get("data") as Bitmap
+        val path = saveBitmapToCache(context, bitmap)
+        uploadImage(File(path))
     }
 
     private fun getFileFromUri(context: Context, imageUri: Uri?): File {
