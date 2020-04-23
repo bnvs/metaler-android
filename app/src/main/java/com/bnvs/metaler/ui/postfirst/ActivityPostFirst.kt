@@ -45,7 +45,7 @@ class ActivityPostFirst : AppCompatActivity(), ContractPostFirst.View {
 
         initClickListeners()
 
-        checkPermission()
+        checkRunTimePermission()
 
         presenter.run {
             start()
@@ -124,16 +124,25 @@ class ActivityPostFirst : AppCompatActivity(), ContractPostFirst.View {
             .setItems(array) { _, which ->
                 when (array[which]) {
                     "사진" -> {
-                        startActivityForResult(
-                            presenter.getImageFromAlbumIntent(this@ActivityPostFirst),
-                            REQUEST_ALBUM_IMAGE
-                        )
+                        if (isPermissionGranted()) {
+                            startActivityForResult(
+                                presenter.getImageFromAlbumIntent(this@ActivityPostFirst),
+                                REQUEST_ALBUM_IMAGE
+                            )
+                        } else {
+                            checkRunTimePermission()
+                        }
+
                     }
                     "카메라" -> {
-                        startActivityForResult(
-                            presenter.getImageFromCameraIntent(this@ActivityPostFirst),
-                            REQUEST_CAMERA_IMAGE
-                        )
+                        if (isPermissionGranted()) {
+                            startActivityForResult(
+                                presenter.getImageFromCameraIntent(this@ActivityPostFirst),
+                                REQUEST_CAMERA_IMAGE
+                            )
+                        } else {
+                            checkRunTimePermission()
+                        }
                     }
                 }
             }
@@ -197,20 +206,8 @@ class ActivityPostFirst : AppCompatActivity(), ContractPostFirst.View {
         Glide.with(this).load(file).skipMemoryCache(true).into(test)
     }
 
-    private fun checkPermission() {
-        if (ActivityCompat.checkSelfPermission(
-                this@ActivityPostFirst,
-                Manifest.permission.READ_EXTERNAL_STORAGE
-            ) != PackageManager.PERMISSION_GRANTED
-            && ActivityCompat.checkSelfPermission(
-                this@ActivityPostFirst,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE
-            ) != PackageManager.PERMISSION_GRANTED
-            && ActivityCompat.checkSelfPermission(
-                this@ActivityPostFirst,
-                Manifest.permission.CAMERA
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
+    private fun checkRunTimePermission() {
+        if (!isPermissionGranted()) {
             ActivityCompat.requestPermissions(
                 this@ActivityPostFirst,
                 arrayOf(
@@ -222,6 +219,21 @@ class ActivityPostFirst : AppCompatActivity(), ContractPostFirst.View {
             )
             return
         }
+    }
+
+    private fun isPermissionGranted(): Boolean {
+        return !(ActivityCompat.checkSelfPermission(
+            this@ActivityPostFirst,
+            Manifest.permission.READ_EXTERNAL_STORAGE
+        ) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(
+            this@ActivityPostFirst,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+        ) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(
+            this@ActivityPostFirst,
+            Manifest.permission.CAMERA
+        ) != PackageManager.PERMISSION_GRANTED)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
