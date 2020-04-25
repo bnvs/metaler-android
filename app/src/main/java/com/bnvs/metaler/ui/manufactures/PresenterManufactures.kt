@@ -47,6 +47,7 @@ class PresenterManufactures(
         postRepository.getPosts(
             postsRequest,
             onSuccess = { response: PostsResponse ->
+                resetPageNum()
                 view.showPosts(response.posts)
             },
             onFailure = { e ->
@@ -84,8 +85,11 @@ class PresenterManufactures(
         )
     }
 
-    override fun updatePosts(postsRequest: PostsRequest) {
+    override fun resetPageNum() {
         pageNum = 0
+    }
+
+    override fun updatePosts(postsRequest: PostsRequest) {
         Log.d(TAG,"리스트 업데이트 할 때 pageNum ? : ${pageNum}")
 
         postRepository.getPosts(
