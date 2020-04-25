@@ -107,7 +107,6 @@ class ActivityManufactures : AppCompatActivity(),
     override fun refreshPosts(posts: List<Post>) {
         postAdapter.resetList()
         postAdapter.addPosts(posts)
-        Log.d(TAG,"리스트 업데이트 할 때 데이터 ? : ${posts}")
         postAdapter.notifyDataSetChanged()
     }
 
