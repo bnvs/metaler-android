@@ -173,7 +173,6 @@ class ActivityManufactures : AppCompatActivity(),
     }
 
     override fun showPosts(posts: List<Post>) {
-//        postAdapter = PostAdapter(posts, loadMorePosts, itemListener)
         postAdapter = PostAdapter(itemListener)
         postAdapter.addPosts(posts)
         postAdapter.notifyDataSetChanged()
