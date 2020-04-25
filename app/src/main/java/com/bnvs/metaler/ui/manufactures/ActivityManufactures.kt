@@ -87,7 +87,7 @@ class ActivityManufactures : AppCompatActivity(),
 
         setRVScrollListener()
 
-
+        onRefresh()
     }
 
     override fun onResume() {
@@ -95,6 +95,13 @@ class ActivityManufactures : AppCompatActivity(),
         presenter.start()
     }
 
+    override fun onRefresh() {
+        refreshLayout.setOnRefreshListener {
+
+            // The method calls setRefreshing(false) when it's finished.
+            refreshLayout.setRefreshing(false);
+        }
+    }
 
     private fun setRVLayoutManager() {
         postLayoutManager = LinearLayoutManager(this)
