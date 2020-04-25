@@ -97,9 +97,8 @@ class ActivityManufactures : AppCompatActivity(),
 
     override fun onRefresh() {
         refreshLayout.setOnRefreshListener {
-
             presenter.resetPageNum()
-            presenter.updatePosts(presenter.requestPosts())
+            presenter.loadPosts(presenter.requestPosts())
             // The method calls setRefreshing(false) when it's finished.
             refreshLayout.setRefreshing(false);
         }
