@@ -186,7 +186,7 @@ class PresenterPostFirst(
     }
 
     private fun saveBitmapToCache(bitmap: Bitmap): String {
-        val cacheFile = File(context.cacheDir, "cache_image")
+        val cacheFile = File(context.cacheDir, "cache_image.jpg")
         cacheFile.createNewFile()
         val outputStream = FileOutputStream(cacheFile)
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
