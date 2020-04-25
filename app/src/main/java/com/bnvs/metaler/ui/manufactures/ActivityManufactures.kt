@@ -98,9 +98,17 @@ class ActivityManufactures : AppCompatActivity(),
     override fun onRefresh() {
         refreshLayout.setOnRefreshListener {
 
+            presenter.updatePosts(presenter.requestPosts())
             // The method calls setRefreshing(false) when it's finished.
             refreshLayout.setRefreshing(false);
         }
+    }
+
+    override fun refreshPosts(posts: List<Post>) {
+        postAdapter.resetList()
+        postAdapter.addPosts(posts)
+        Log.d(TAG,"리스트 업데이트 할 때 데이터 ? : ${posts}")
+        postAdapter.notifyDataSetChanged()
     }
 
     private fun setRVLayoutManager() {
