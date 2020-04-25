@@ -2,6 +2,7 @@ package com.bnvs.metaler.ui.manufactures
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.widget.Toast
 import com.bnvs.metaler.data.bookmarks.model.AddBookmarkRequest
 import com.bnvs.metaler.data.bookmarks.model.AddBookmarkResponse
@@ -83,10 +84,31 @@ class PresenterManufactures(
         )
     }
 
+    override fun updatePosts(postsRequest: PostsRequest) {
+        pageNum = 0
+        Log.d(TAG,"리스트 업데이트 할 때 pageNum ? : ${pageNum}")
+
+        postRepository.getPosts(
+            postsRequest,
+            onSuccess = { response: PostsResponse ->
+                view.refreshPosts(response.posts)
+            },
+            onFailure = { e ->
+                Toast.makeText(
+                    context,
+                    "서버 통신 실패 : ${NetworkUtil.getErrorMessage(e)}",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        )
+    }
+
 
     // getPosts api 요청 request body 반환하는 함수
     override fun requestPosts(): PostsRequest {
         pageNum++
+        Log.d(TAG,"요청할때 pageNum ? : ${pageNum}")
+
         postsRequest = PostsRequest(
             10,
             pageNum,
@@ -101,10 +123,6 @@ class PresenterManufactures(
     override fun requestAddBookmark(postId: Int): AddBookmarkRequest {
         addBookmarkRequest = AddBookmarkRequest(postId)
         return addBookmarkRequest
-    }
-
-    override fun refreshPosts() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun openPostDetail(postId: Int) {
