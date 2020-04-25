@@ -45,6 +45,7 @@ class PresenterMaterials(
     }
 
     override fun loadPosts(postsRequest: PostsRequest) {
+        resetPageNum()
         postRepository.getPosts(
             postsRequest,
             onSuccess = { response: PostsResponse ->
