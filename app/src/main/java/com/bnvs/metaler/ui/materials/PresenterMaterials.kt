@@ -110,8 +110,8 @@ class PresenterMaterials(
         return deleteBookmarkRequest
     }
 
-    override fun refreshPosts() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun resetPageNum() {
+        pageNum = 0
     }
 
     override fun openPostDetail(postId: Int) {
