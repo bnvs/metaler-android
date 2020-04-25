@@ -15,9 +15,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.bnvs.metaler.R
 import com.bnvs.metaler.data.addeditpost.model.AddEditPostRequest
-import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.activity_post_first.*
-import java.io.File
 
 class ActivityPostFirst : AppCompatActivity(), ContractPostFirst.View {
 
@@ -40,8 +38,11 @@ class ActivityPostFirst : AppCompatActivity(), ContractPostFirst.View {
         setContentView(R.layout.activity_post_first)
 
         val categoryType = intent.getStringExtra("CATEGORY_TYPE")
-        val postId = intent.getIntExtra("POST_ID", 0)
-
+        val postIdString = intent.getStringExtra("POST_ID")
+        var postId: Int? = null
+        if (postIdString != null) {
+            postId = postIdString.toInt()
+        }
         presenter = PresenterPostFirst(categoryType, postId, this)
 
         thumbnailRV.adapter = thumbnailAdapter
@@ -136,6 +137,10 @@ class ActivityPostFirst : AppCompatActivity(), ContractPostFirst.View {
         contentGuideTxt.setText(contents)
     }
 
+    override fun showChooseCategory() {
+
+    }
+
     override fun showWhereToGetImageFromDialog() {
         val array = arrayOf("사진", "카메라")
         AlertDialog.Builder(this@ActivityPostFirst)
@@ -161,6 +166,10 @@ class ActivityPostFirst : AppCompatActivity(), ContractPostFirst.View {
             .show()
     }
 
+    override fun showGetCategoriesFailedToast(errorMessage: String) {
+        makeToast("카테고리 목록을 조회하는데 실패했습니다 : $errorMessage")
+    }
+
     override fun showPostDetailLoadFailedToast(errorMessage: String) {
         makeToast("게시물 내용을 불러오는데 실패했습니다 : $errorMessage")
     }
@@ -170,7 +179,7 @@ class ActivityPostFirst : AppCompatActivity(), ContractPostFirst.View {
     }
 
     override fun showImageDeleteDialog(adapterPosition: Int) {
-        AlertDialog.Builder(applicationContext)
+        AlertDialog.Builder(this@ActivityPostFirst)
             .setMessage("이미지를 삭제하시겠습니까?")
             .setPositiveButton("삭제") { _, _ ->
                 presenter.deleteImage(adapterPosition)
@@ -178,6 +187,10 @@ class ActivityPostFirst : AppCompatActivity(), ContractPostFirst.View {
             .setNegativeButton("취소") { _, _ ->
             }
             .show()
+    }
+
+    override fun showEmptyCategoryDialog() {
+        makeAlertDialog("카테고리를 입력해 주세요")
     }
 
     override fun showEmptyTitleDialog() {
@@ -214,10 +227,6 @@ class ActivityPostFirst : AppCompatActivity(), ContractPostFirst.View {
     private fun setPriceTypeButtons() {
         cardBtn.setOnClickListener { presenter.setPriceType("card") }
         cashBtn.setOnClickListener { presenter.setPriceType("cash") }
-    }
-
-    override fun test(file: File) {
-        Glide.with(this).load(file).skipMemoryCache(true).into(test)
     }
 
     private fun checkRunTimePermission() {
@@ -270,7 +279,7 @@ class ActivityPostFirst : AppCompatActivity(), ContractPostFirst.View {
     }
 
     private fun makeAlertDialog(message: String) {
-        AlertDialog.Builder(applicationContext)
+        AlertDialog.Builder(this@ActivityPostFirst)
             .setMessage(message)
             .show()
     }

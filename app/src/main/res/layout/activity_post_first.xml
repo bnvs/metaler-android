@@ -166,14 +166,14 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/thumbnailRV"
-                android:orientation="horizontal"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/item_thumbnail_rv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
+                android:orientation="horizontal"
                 android:visibility="gone"
-                app:layout_constraintTop_toBottomOf="@id/addImgTxt" />
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintTop_toBottomOf="@id/addImgTxt"
+                tools:listitem="@layout/item_thumbnail_rv" />
 
             <androidx.constraintlayout.widget.Barrier
                 android:id="@+id/barrier"
@@ -202,12 +202,6 @@
                 android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/contentTxt" />
-
-            <ImageView
-                android:id="@+id/test"
-                android:layout_width="match_parent"
-                android:layout_height="500dp"
-                android:src="@mipmap/ic_launcher_metaler" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

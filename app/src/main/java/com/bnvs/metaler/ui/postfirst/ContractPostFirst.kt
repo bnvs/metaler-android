@@ -24,20 +24,21 @@ interface ContractPostFirst {
         fun setContents(contents: String)
         fun showChooseCategory()
         fun showWhereToGetImageFromDialog()
+        fun showGetCategoriesFailedToast(errorMessage: String)
         fun showUploadImageFailedToast(errorMessage: String)
         fun showPostDetailLoadFailedToast(errorMessage: String)
         fun showImageDeleteDialog(adapterPosition: Int)
-        fun showEmptyCategory()
+        fun showEmptyCategoryDialog()
         fun showEmptyTitleDialog()
         fun showEmptyPriceDialog()
         fun showEmptyPriceTypeDialog()
         fun showEmptyContentsDialog()
         fun showPostSecondUi(addEditPostRequest: AddEditPostRequest)
-        fun test(file: File)
     }
 
     interface Presenter : BasePresenter {
         fun populatePost(postId: Int)
+        fun getCategories()
         fun setCategory(categoryId: Int)
         fun setTitle(title: String)
         fun setPrice(price: Int)

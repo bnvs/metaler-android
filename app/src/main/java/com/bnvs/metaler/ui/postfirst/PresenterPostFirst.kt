@@ -8,6 +8,8 @@ import android.net.Uri
 import android.util.Log
 import com.bnvs.metaler.data.addeditpost.model.AddEditPostRequest
 import com.bnvs.metaler.data.addeditpost.source.repository.AddEditPostRepository
+import com.bnvs.metaler.data.categories.model.Category
+import com.bnvs.metaler.data.categories.source.repository.CategoriesRepository
 import com.bnvs.metaler.data.postdetails.source.repository.PostDetailsRepository
 import com.bnvs.metaler.network.NetworkUtil
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -17,13 +19,14 @@ import java.io.File
 import java.io.FileOutputStream
 
 class PresenterPostFirst(
-    private val categoryType: String,
-    private val postId: Int,
+    private val categoryType: String?,
+    private val postId: Int?,
     private val view: ContractPostFirst.View
 ) : ContractPostFirst.Presenter {
 
     private val addEditPostRepository = AddEditPostRepository()
     private val postDetailsRepository = PostDetailsRepository()
+    private val categoriesRepository = CategoriesRepository()
 
     private var addEditPostRequest = AddEditPostRequest(
         null,
@@ -36,14 +39,26 @@ class PresenterPostFirst(
     )
 
     private lateinit var context: Context
+    private lateinit var categories: List<Category>
 
     override fun start() {
         if (categoryType == "MATERIALS") {
             view.showCategories()
         }
-        if (postId != 0) {
+        if (postId != null) {
             populatePost(postId)
         }
+    }
+
+    override fun getCategories() {
+        categoriesRepository.getCategories(
+            onSuccess = { response ->
+                categories = response
+            },
+            onFailure = { e ->
+                view.showGetCategoriesFailedToast(NetworkUtil.getErrorMessage(e))
+            }
+        )
     }
 
     override fun populatePost(postId: Int) {
@@ -67,7 +82,7 @@ class PresenterPostFirst(
         addEditPostRequest.category_id = categoryId
         if (categoryType == "MATERIALS") {
             val category = when (categoryId) {
-                2 -> "적동/황동"
+                categories[0].id -> "적동/황동"
                 3 -> "스테인리스"
                 4 -> "알루미늄"
                 5 -> "철"
@@ -221,7 +236,6 @@ class PresenterPostFirst(
 
         val requestBody = file.asRequestBody("image/*".toMediaTypeOrNull())
         val part = MultipartBody.Part.createFormData("upload", file.name, requestBody)
-        view.test(file)
         addEditPostRepository.uploadFile(
             part,
             onSuccess = { response ->
