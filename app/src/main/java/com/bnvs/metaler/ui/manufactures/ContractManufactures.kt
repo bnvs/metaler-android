@@ -47,8 +47,6 @@ interface ContractManufactures {
 
         fun resetPageNum()
 
-        fun updatePosts(postsRequest: PostsRequest)
-
         fun openPostDetail(postId: Int)
 
         fun addBookmark(postId: Int)
