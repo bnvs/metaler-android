@@ -51,7 +51,7 @@ interface ContractMaterials {
 
         fun loadMorePosts(postsRequest: PostsRequest)
 
-        fun refreshPosts()
+        fun updatePosts(postsRequest: PostsRequest)
 
         fun openPostDetail(postId: Int)
 
