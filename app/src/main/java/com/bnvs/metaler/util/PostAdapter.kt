@@ -43,6 +43,10 @@ class PostAdapter(
         notifyDataSetChanged()
     }
 
+    fun resetList(){
+        tempArrayList.removeAll(tempArrayList)
+    }
+
 
     fun setBookmark(position: Int) {
         tempArrayList[position]!!.is_bookmark = !tempArrayList[position]!!.is_bookmark
