@@ -44,6 +44,7 @@ class PresenterManufactures(
 
 
     override fun loadPosts(postsRequest: PostsRequest) {
+        resetPageNum()
         postRepository.getPosts(
             postsRequest,
             onSuccess = { response: PostsResponse ->
@@ -111,7 +112,6 @@ class PresenterManufactures(
     // getPosts api 요청 request body 반환하는 함수
     override fun requestPosts(): PostsRequest {
         pageNum++
-        Log.d(TAG,"요청할때 pageNum ? : ${pageNum}")
 
         postsRequest = PostsRequest(
             10,
