@@ -117,23 +117,28 @@ class ActivityMaterials : AppCompatActivity(),
 
         setRVScrollListener()
 
-        // Set up RefreshListener
-        /*refreshLayout.apply {
-            setOnRefreshListener {
-                presenter.refreshPosts()
-                refreshLayout.isRefreshing = false
-            }
-            setColorSchemeColors(
-                ContextCompat.getColor(this@ActivityMaterials, R.color.colorPurple)
-            )
-        }*/
-
+        onRefresh()
 
     }
 
     override fun onResume() {
         super.onResume()
         presenter.start()
+    }
+
+    override fun onRefresh() {
+        refreshLayout.setOnRefreshListener {
+            presenter.resetPageNum()
+            presenter.loadPosts(presenter.requestPosts())
+            // The method calls setRefreshing(false) when it's finished.
+            refreshLayout.setRefreshing(false);
+        }
+    }
+
+    override fun refreshPosts(posts: List<Post>) {
+        postAdapter.resetList()
+        postAdapter.addPosts(posts)
+        postAdapter.notifyDataSetChanged()
     }
 
     private fun setRVLayoutManager() {
