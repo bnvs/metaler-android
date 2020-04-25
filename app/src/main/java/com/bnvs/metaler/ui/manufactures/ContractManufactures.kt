@@ -20,6 +20,8 @@ interface ContractManufactures {
 
         fun setRVScrollListener()
 
+        fun onRefresh()
+
         fun showPostDetailUi()
 
         fun showSearchUi()
