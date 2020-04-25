@@ -22,6 +22,8 @@ interface ContractManufactures {
 
         fun onRefresh()
 
+        fun refreshPosts(posts: List<Post>)
+
         fun showPostDetailUi()
 
         fun showSearchUi()
@@ -43,7 +45,7 @@ interface ContractManufactures {
 
         fun loadMorePosts(postsRequest: PostsRequest)
 
-        fun refreshPosts()
+        fun updatePosts(postsRequest: PostsRequest)
 
         fun openPostDetail(postId: Int)
 
