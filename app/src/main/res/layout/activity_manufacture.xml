@@ -65,35 +65,29 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="7dp"
+            android:visibility="gone"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tagSearchBox"
-            app:layout_goneMarginTop="7dp"
-            android:visibility="gone"
-            />
+            app:layout_goneMarginTop="7dp" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-<!--    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout-->
-<!--        android:id="@+id/refreshLayout"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="0dp"-->
-<!--        android:layout_marginTop="7dp"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@id/categoryCard"-->
-<!--        app:layout_constraintBottom_toTopOf="@id/tapBarCard"-->
-<!--        >-->
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/refreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="7dp"
+        app:layout_constraintBottom_toTopOf="@id/tabBarCard"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/categoryCard">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/postsRV"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginTop="7dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/categoryCard"
-            app:layout_constraintBottom_toTopOf="@id/tabBarCard" />
+            android:layout_height="match_parent" />
 
-<!--    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>-->
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/titleBarCard"

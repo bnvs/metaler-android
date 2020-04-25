@@ -83,21 +83,21 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <!--    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout-->
-    <!--        android:id="@+id/refreshLayout"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="match_parent">-->
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/postsRV"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/refreshLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="7dp"
+        app:layout_constraintBottom_toTopOf="@id/tabBarCard"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/categoryCard"
-        app:layout_constraintBottom_toTopOf="@id/tabBarCard" />
+        app:layout_constraintTop_toBottomOf="@id/categoryCard">
 
-    <!--    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>-->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/postsRV"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/titleBarCard"

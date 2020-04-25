@@ -2,6 +2,7 @@ package com.bnvs.metaler.ui.manufactures
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.widget.Toast
 import com.bnvs.metaler.data.bookmarks.model.AddBookmarkRequest
 import com.bnvs.metaler.data.bookmarks.model.AddBookmarkResponse
@@ -43,9 +44,11 @@ class PresenterManufactures(
 
 
     override fun loadPosts(postsRequest: PostsRequest) {
+        resetPageNum()
         postRepository.getPosts(
             postsRequest,
             onSuccess = { response: PostsResponse ->
+                resetPageNum()
                 view.showPosts(response.posts)
             },
             onFailure = { e ->
@@ -83,10 +86,14 @@ class PresenterManufactures(
         )
     }
 
+    override fun resetPageNum() {
+        pageNum = 0
+    }
 
     // getPosts api 요청 request body 반환하는 함수
     override fun requestPosts(): PostsRequest {
         pageNum++
+
         postsRequest = PostsRequest(
             10,
             pageNum,
@@ -101,10 +108,6 @@ class PresenterManufactures(
     override fun requestAddBookmark(postId: Int): AddBookmarkRequest {
         addBookmarkRequest = AddBookmarkRequest(postId)
         return addBookmarkRequest
-    }
-
-    override fun refreshPosts() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun openPostDetail(postId: Int) {

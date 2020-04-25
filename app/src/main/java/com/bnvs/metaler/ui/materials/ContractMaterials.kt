@@ -23,6 +23,10 @@ interface ContractMaterials {
 
         fun setRVScrollListener()
 
+        fun onRefresh()
+
+        fun refreshPosts(posts: List<Post>)
+
         fun showPostDetailUi()
 
         fun showSearchUi()
@@ -47,7 +51,7 @@ interface ContractMaterials {
 
         fun loadMorePosts(postsRequest: PostsRequest)
 
-        fun refreshPosts()
+        fun resetPageNum()
 
         fun openPostDetail(postId: Int)
 

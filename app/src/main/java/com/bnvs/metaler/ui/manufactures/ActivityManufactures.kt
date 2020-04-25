@@ -87,7 +87,7 @@ class ActivityManufactures : AppCompatActivity(),
 
         setRVScrollListener()
 
-
+        onRefresh()
     }
 
     override fun onResume() {
@@ -95,6 +95,20 @@ class ActivityManufactures : AppCompatActivity(),
         presenter.start()
     }
 
+    override fun onRefresh() {
+        refreshLayout.setOnRefreshListener {
+            presenter.resetPageNum()
+            presenter.loadPosts(presenter.requestPosts())
+            // The method calls setRefreshing(false) when it's finished.
+            refreshLayout.setRefreshing(false);
+        }
+    }
+
+    override fun refreshPosts(posts: List<Post>) {
+        postAdapter.resetList()
+        postAdapter.addPosts(posts)
+        postAdapter.notifyDataSetChanged()
+    }
 
     private fun setRVLayoutManager() {
         postLayoutManager = LinearLayoutManager(this)
@@ -157,7 +171,6 @@ class ActivityManufactures : AppCompatActivity(),
     }
 
     override fun showPosts(posts: List<Post>) {
-//        postAdapter = PostAdapter(posts, loadMorePosts, itemListener)
         postAdapter = PostAdapter(itemListener)
         postAdapter.addPosts(posts)
         postAdapter.notifyDataSetChanged()
