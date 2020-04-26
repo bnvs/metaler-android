@@ -15,7 +15,9 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.bnvs.metaler.R
 import com.bnvs.metaler.data.addeditpost.model.AddEditPostRequest
+import com.bnvs.metaler.ui.postsecond.ActivityPostSecond
 import kotlinx.android.synthetic.main.activity_post_first.*
+import org.json.JSONObject
 
 class ActivityPostFirst : AppCompatActivity(), ContractPostFirst.View {
 
@@ -56,8 +58,9 @@ class ActivityPostFirst : AppCompatActivity(), ContractPostFirst.View {
         }
     }
 
-    override fun showCategories() {
+    override fun showCategoryView() {
         materialsCategory.visibility = View.VISIBLE
+        setCategoryMoreButtons()
     }
 
     override fun setCategory(category: String) {
@@ -239,6 +242,12 @@ class ActivityPostFirst : AppCompatActivity(), ContractPostFirst.View {
                 put("content", contentGuideTxt.text.toString())
             }
             presenter.openPostSecond(contents)
+        }
+    }
+
+    private fun setCategoryMoreButtons() {
+        categoryMoreBtn.setOnClickListener {
+            presenter.openChooseCategory()
         }
     }
 
