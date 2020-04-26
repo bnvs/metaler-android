@@ -141,7 +141,11 @@ class PresenterPostFirst(
 
     override fun deleteImage(imageIndex: Int) {
         addEditPostRequest.attach_ids.removeAt(imageIndex)
+        if (addEditPostRequest.attach_ids.isEmpty()) {
+            view.setImageGuideText(true)
+        }
         view.deleteImage(imageIndex)
+
     }
 
     override fun setContents(contents: String) {
