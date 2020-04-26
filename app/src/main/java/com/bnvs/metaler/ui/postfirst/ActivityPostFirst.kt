@@ -50,9 +50,7 @@ class ActivityPostFirst : AppCompatActivity(), ContractPostFirst.View {
         thumbnailRV.adapter = thumbnailAdapter
 
         initClickListeners()
-
         checkRunTimePermission()
-
         presenter.run {
             start()
         }

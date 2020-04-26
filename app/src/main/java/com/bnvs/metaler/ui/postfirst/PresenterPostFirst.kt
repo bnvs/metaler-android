@@ -65,6 +65,17 @@ class PresenterPostFirst(
         )
     }
 
+    override fun getCategories() {
+        categoriesRepository.getCategories(
+            onSuccess = { response ->
+                categories = response
+            },
+            onFailure = { e ->
+                view.showGetCategoriesFailedToast(NetworkUtil.getErrorMessage(e))
+            }
+        )
+    }
+
     override fun populatePost(postId: Int) {
         postDetailsRepository.getPostDetails(
             postId,
@@ -145,7 +156,6 @@ class PresenterPostFirst(
             view.setImageGuideText(true)
         }
         view.deleteImage(imageIndex)
-
     }
 
     override fun setContents(contents: String) {
@@ -327,6 +337,10 @@ class PresenterPostFirst(
             return
         }
 
+        view.showPostSecondUi(addEditPostRequest)
+    }
+
+    override fun openPostSecond() {
         view.showPostSecondUi(addEditPostRequest)
     }
 }
