@@ -221,7 +221,14 @@ class ActivityPostFirst : AppCompatActivity(), ContractPostFirst.View {
     private fun setAppBarButtons() {
         backBtn.setOnClickListener { finish() }
         cameraBtn.setOnClickListener { presenter.openWhereToGetImageFrom() }
-        nextBtn.setOnClickListener { presenter.openPostSecond() }
+        nextBtn.setOnClickListener {
+            val contents = JSONObject().apply {
+                put("title", titleInput.text.toString())
+                put("price", priceInput.text.toString())
+                put("content", contentGuideTxt.text.toString())
+            }
+            presenter.openPostSecond(contents)
+        }
     }
 
     private fun setPriceTypeButtons() {
