@@ -1,13 +1,10 @@
 package com.bnvs.metaler.network
 
-import com.bnvs.metaler.data.addeditpost.model.AddEditPostRequest
-import com.bnvs.metaler.data.addeditpost.model.AddPostResponse
-import com.bnvs.metaler.data.addeditpost.model.DeletePostResponse
-import com.bnvs.metaler.data.addeditpost.model.EditPostResponse
+import com.bnvs.metaler.data.addeditpost.model.*
 import com.bnvs.metaler.data.bookmarks.model.AddBookmarkRequest
 import com.bnvs.metaler.data.bookmarks.model.AddBookmarkResponse
 import com.bnvs.metaler.data.bookmarks.model.BookmarksResponse
-import com.bnvs.metaler.data.categories.model.Categories
+import com.bnvs.metaler.data.categories.model.Category
 import com.bnvs.metaler.data.comments.model.*
 import com.bnvs.metaler.data.homeposts.model.HomePosts
 import com.bnvs.metaler.data.myposts.model.MyPosts
@@ -82,7 +79,7 @@ interface RetrofitInterface {
     /*** [2-1. 카테고리] ***/
     // 카테고리 조회 (재료, 가공)
     @GET("/categories")
-    fun getCategories(): Call<Categories>
+    fun getCategories(): Call<List<Category>>
 
     /*** [2-2. 글] ***/
     // 게시글 목록 조회
@@ -185,7 +182,7 @@ interface RetrofitInterface {
     @POST("/uploadFile.php")
     fun uploadFile(
         @Part file: MultipartBody.Part
-    ): Call<ResponseBody>
+    ): Call<UploadFileResponse>
 
     // 파일 다운로드
     @GET("/downloadFile.php")

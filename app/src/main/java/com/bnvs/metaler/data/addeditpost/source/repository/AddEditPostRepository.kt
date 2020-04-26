@@ -7,14 +7,14 @@ import okhttp3.MultipartBody
 
 class AddEditPostRepository : AddEditPostDataSource {
 
-    private val addeditPostRemoteDataSource = AddEditPostRemoteDataSource
+    private val addEditPostRemoteDataSource = AddEditPostRemoteDataSource
 
     override fun addPost(
         request: AddEditPostRequest,
         onSuccess: (response: AddPostResponse) -> Unit,
         onFailure: (e: Throwable) -> Unit
     ) {
-        addeditPostRemoteDataSource.addPost(request, onSuccess, onFailure)
+        addEditPostRemoteDataSource.addPost(request, onSuccess, onFailure)
     }
 
     override fun editPost(
@@ -23,7 +23,7 @@ class AddEditPostRepository : AddEditPostDataSource {
         onSuccess: (response: EditPostResponse) -> Unit,
         onFailure: (e: Throwable) -> Unit
     ) {
-        addeditPostRemoteDataSource.editPost(postId, request, onSuccess, onFailure)
+        addEditPostRemoteDataSource.editPost(postId, request, onSuccess, onFailure)
     }
 
     override fun deletePost(
@@ -31,7 +31,7 @@ class AddEditPostRepository : AddEditPostDataSource {
         onSuccess: (response: DeletePostResponse) -> Unit,
         onFailure: (e: Throwable) -> Unit
     ) {
-        addeditPostRemoteDataSource.deletePost(postId, onSuccess, onFailure)
+        addEditPostRemoteDataSource.deletePost(postId, onSuccess, onFailure)
     }
 
     override fun uploadFile(
@@ -39,6 +39,6 @@ class AddEditPostRepository : AddEditPostDataSource {
         onSuccess: (response: UploadFileResponse) -> Unit,
         onFailure: (e: Throwable) -> Unit
     ) {
-        addeditPostRemoteDataSource.uploadFile(file, onSuccess, onFailure)
+        addEditPostRemoteDataSource.uploadFile(file, onSuccess, onFailure)
     }
 }

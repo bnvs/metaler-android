@@ -1,6 +1,6 @@
 package com.bnvs.metaler.data.categories.source.remote
 
-import com.bnvs.metaler.data.categories.model.Categories
+import com.bnvs.metaler.data.categories.model.Category
 import com.bnvs.metaler.data.categories.source.CategoriesDataSource
 import com.bnvs.metaler.network.RetrofitClient
 import retrofit2.Call
@@ -13,11 +13,14 @@ object CategoriesRemoteDataSource : CategoriesDataSource {
     private val retrofitClient = RetrofitClient.client
 
     override fun getCategories(
-        onSuccess: (response: Categories) -> Unit,
+        onSuccess: (response: List<Category>) -> Unit,
         onFailure: (e: Throwable) -> Unit
     ) {
-        retrofitClient.getCategories().enqueue(object : Callback<Categories> {
-            override fun onResponse(call: Call<Categories>, response: Response<Categories>) {
+        retrofitClient.getCategories().enqueue(object : Callback<List<Category>> {
+            override fun onResponse(
+                call: Call<List<Category>>,
+                response: Response<List<Category>>
+            ) {
                 val body = response.body()
                 if (body != null && response.isSuccessful) {
                     onSuccess(body)
@@ -26,7 +29,7 @@ object CategoriesRemoteDataSource : CategoriesDataSource {
                 }
             }
 
-            override fun onFailure(call: Call<Categories>, t: Throwable) {
+            override fun onFailure(call: Call<List<Category>>, t: Throwable) {
                 onFailure(t)
             }
         })

@@ -169,8 +169,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
+                android:orientation="horizontal"
                 android:visibility="gone"
-                app:layout_constraintTop_toBottomOf="@id/addImgTxt" />
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintTop_toBottomOf="@id/addImgTxt"
+                tools:listitem="@layout/item_thumbnail_rv" />
 
             <androidx.constraintlayout.widget.Barrier
                 android:id="@+id/barrier"

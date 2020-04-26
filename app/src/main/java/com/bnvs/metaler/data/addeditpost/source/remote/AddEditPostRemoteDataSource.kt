@@ -91,6 +91,22 @@ object AddEditPostRemoteDataSource : AddEditPostDataSource {
         onSuccess: (response: UploadFileResponse) -> Unit,
         onFailure: (e: Throwable) -> Unit
     ) {
-        retrofitClient.uploadFile(file)
+        retrofitClient.uploadFile(file).enqueue(object : Callback<UploadFileResponse> {
+            override fun onResponse(
+                call: Call<UploadFileResponse>,
+                response: Response<UploadFileResponse>
+            ) {
+                val body = response.body()
+                if (body != null && response.isSuccessful) {
+                    onSuccess(body)
+                } else {
+                    onFailure(HttpException(response))
+                }
+            }
+
+            override fun onFailure(call: Call<UploadFileResponse>, t: Throwable) {
+                onFailure(t)
+            }
+        })
     }
 }

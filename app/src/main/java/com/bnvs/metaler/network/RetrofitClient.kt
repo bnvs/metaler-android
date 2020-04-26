@@ -26,6 +26,10 @@ object RetrofitClient {
                     || original.url.encodedPath.equals("/users/join", true)
                 ) {
                     chain.proceed(original)
+                } else if (original.url.encodedPath.equals("/uploadFile.php", true)) {
+                    chain.proceed(
+                        original.newBuilder().url("http://file.metaler.kr/uploadFile.php").build()
+                    )
                 } else {
                     chain.proceed(original.newBuilder().apply {
                         addHeader("Authorization", access_token)
