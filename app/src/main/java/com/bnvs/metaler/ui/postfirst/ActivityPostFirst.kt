@@ -280,7 +280,10 @@ class ActivityPostFirst : AppCompatActivity(), ContractPostFirst.View {
 
     private fun makeAlertDialog(message: String) {
         AlertDialog.Builder(this@ActivityPostFirst)
+            .setTitle("알림")
             .setMessage(message)
+            .setPositiveButton("확인") { _, _ ->
+            }
             .show()
     }
 }
