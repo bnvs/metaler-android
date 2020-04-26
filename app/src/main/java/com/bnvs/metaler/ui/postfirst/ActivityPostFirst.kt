@@ -137,8 +137,19 @@ class ActivityPostFirst : AppCompatActivity(), ContractPostFirst.View {
         contentGuideTxt.setText(contents)
     }
 
-    override fun showChooseCategory() {
-
+    override fun showChooseCategoryDialog(categories: List<JSONObject>) {
+        val list = mutableListOf<String>()
+        for (category in categories) {
+            list.add(category.getString("name"))
+        }
+        val array = list.toTypedArray()
+        AlertDialog.Builder(this@ActivityPostFirst)
+            .setTitle("카테고리")
+            .setItems(array) { _, which ->
+                val categoryId = categories[which].getInt("id")
+                presenter.setCategory(categoryId)
+            }
+            .show()
     }
 
     override fun showWhereToGetImageFromDialog() {
