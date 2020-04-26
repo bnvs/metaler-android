@@ -60,10 +60,10 @@
         <EditText
             android:id="@+id/titleInput"
             style="@style/titleEditText"
-            android:layout_marginLeft="@dimen/wideMargin"
             android:hint="@string/title_guide"
             app:layout_constraintBottom_toBottomOf="@id/titleLine"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/categoryLine" />
 
         <View
@@ -85,6 +85,7 @@
             android:id="@+id/priceInput"
             style="@style/numberEditText"
             android:hint="@string/post_price_guide"
+            android:gravity="right"
             android:paddingVertical="6dp"
             app:layout_constraintBottom_toTopOf="@id/priceLine"
             app:layout_constraintEnd_toStartOf="@id/wonTxt"
