@@ -6,6 +6,6 @@ data class AddEditPostRequest(
     var content: String?,
     var price: Int?,
     var price_type: String?,
-    var attach_ids: List<Int>?,
-    var tags: List<AddEditPostTag>?
+    var attach_ids: MutableList<Int>,
+    var tags: MutableList<AddEditPostTag>
 )
