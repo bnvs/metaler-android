@@ -48,9 +48,10 @@ class ActivityTermsAgree : AppCompatActivity(),
     }
 
     override fun showJobInputUi(addUserRequest: AddUserRequest) {
-        val intent = Intent(this, ActivityJobInput::class.java)
-        intent.putExtra("addUserRequest", addUserRequest)
-        startActivity(intent)
+        Intent(this, ActivityJobInput::class.java).apply {
+            putExtra("addUserRequest", addUserRequest)
+            startActivity(this)
+        }
     }
 
     private fun initClickListeners() {

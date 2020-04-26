@@ -15,7 +15,9 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.bnvs.metaler.R
 import com.bnvs.metaler.data.addeditpost.model.AddEditPostRequest
+import com.bnvs.metaler.ui.postsecond.ActivityPostSecond
 import kotlinx.android.synthetic.main.activity_post_first.*
+import org.json.JSONObject
 
 class ActivityPostFirst : AppCompatActivity(), ContractPostFirst.View {
 
@@ -48,16 +50,15 @@ class ActivityPostFirst : AppCompatActivity(), ContractPostFirst.View {
         thumbnailRV.adapter = thumbnailAdapter
 
         initClickListeners()
-
         checkRunTimePermission()
-
         presenter.run {
             start()
         }
     }
 
-    override fun showCategories() {
+    override fun showCategoryView() {
         materialsCategory.visibility = View.VISIBLE
+        setCategoryMoreButtons()
     }
 
     override fun setCategory(category: String) {
@@ -137,8 +138,19 @@ class ActivityPostFirst : AppCompatActivity(), ContractPostFirst.View {
         contentGuideTxt.setText(contents)
     }
 
-    override fun showChooseCategory() {
-
+    override fun showChooseCategoryDialog(categories: List<JSONObject>) {
+        val list = mutableListOf<String>()
+        for (category in categories) {
+            list.add(category.getString("name"))
+        }
+        val array = list.toTypedArray()
+        AlertDialog.Builder(this@ActivityPostFirst)
+            .setTitle("카테고리")
+            .setItems(array) { _, which ->
+                val categoryId = categories[which].getInt("id")
+                presenter.setCategory(categoryId)
+            }
+            .show()
     }
 
     override fun showWhereToGetImageFromDialog() {
@@ -210,7 +222,10 @@ class ActivityPostFirst : AppCompatActivity(), ContractPostFirst.View {
     }
 
     override fun showPostSecondUi(addEditPostRequest: AddEditPostRequest) {
-
+        Intent(this, ActivityPostSecond::class.java).apply {
+            putExtra("addEditPostRequest", addEditPostRequest)
+            startActivity(this)
+        }
     }
 
     private fun initClickListeners() {
@@ -221,7 +236,20 @@ class ActivityPostFirst : AppCompatActivity(), ContractPostFirst.View {
     private fun setAppBarButtons() {
         backBtn.setOnClickListener { finish() }
         cameraBtn.setOnClickListener { presenter.openWhereToGetImageFrom() }
-        nextBtn.setOnClickListener { presenter.openPostSecond() }
+        nextBtn.setOnClickListener {
+            val contents = JSONObject().apply {
+                put("title", titleInput.text.toString())
+                put("price", priceInput.text.toString())
+                put("content", contentGuideTxt.text.toString())
+            }
+            presenter.openPostSecond(contents)
+        }
+    }
+
+    private fun setCategoryMoreButtons() {
+        categoryMoreBtn.setOnClickListener {
+            presenter.openChooseCategory()
+        }
     }
 
     private fun setPriceTypeButtons() {
@@ -280,7 +308,10 @@ class ActivityPostFirst : AppCompatActivity(), ContractPostFirst.View {
 
     private fun makeAlertDialog(message: String) {
         AlertDialog.Builder(this@ActivityPostFirst)
+            .setTitle("알림")
             .setMessage(message)
+            .setPositiveButton("확인") { _, _ ->
+            }
             .show()
     }
 }

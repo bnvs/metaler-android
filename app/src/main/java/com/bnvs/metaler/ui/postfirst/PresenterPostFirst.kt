@@ -15,11 +15,12 @@ import com.bnvs.metaler.network.NetworkUtil
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
+import org.json.JSONObject
 import java.io.File
 import java.io.FileOutputStream
 
 class PresenterPostFirst(
-    private val categoryType: String?,
+    private var categoryType: String?,
     private val postId: Int?,
     private val view: ContractPostFirst.View
 ) : ContractPostFirst.Presenter {
@@ -40,14 +41,28 @@ class PresenterPostFirst(
 
     private lateinit var context: Context
     private lateinit var categories: List<Category>
+    private lateinit var materialCategories: MutableList<JSONObject>
 
     override fun start() {
-        if (categoryType == "MATERIALS") {
-            view.showCategories()
-        }
         if (postId != null) {
             populatePost(postId)
         }
+        getCategories()
+    }
+
+    override fun getCategories() {
+        Log.d("getCategories", "카테고리 가져옴")
+        categoriesRepository.getCategories(
+            onSuccess = { response ->
+                categories = response
+                Log.d("categories", categories.toString())
+                getMaterialCategories()
+                distinguishMaterialOrManufacture()
+            },
+            onFailure = { e ->
+                view.showGetCategoriesFailedToast(NetworkUtil.getErrorMessage(e))
+            }
+        )
     }
 
     override fun getCategories() {
@@ -71,6 +86,7 @@ class PresenterPostFirst(
                 setPriceType(response.price_type)
                 setImage(response.attach_ids, response.attach_urls)
                 setContents(response.content)
+                addEditPostRequest.tags.addAll(response.tags)
             },
             onFailure = { e ->
                 view.showPostDetailLoadFailedToast(NetworkUtil.getErrorMessage(e))
@@ -80,19 +96,19 @@ class PresenterPostFirst(
 
     override fun setCategory(categoryId: Int) {
         addEditPostRequest.category_id = categoryId
-        if (categoryType == "MATERIALS") {
-            val category = when (categoryId) {
-                categories[0].id -> "적동/황동"
-                3 -> "스테인리스"
-                4 -> "알루미늄"
-                5 -> "철"
-                6 -> "공구"
-                7 -> "화학 약품류"
-                8 -> "니켈/티타늄"
-                9 -> "기타"
-                else -> return
+        for (category in categories) {
+            if (categoryId == category.id) {
+                if (categoryType == null) {
+                    when (category.type) {
+                        "materials" -> categoryType = "MATERIALS"
+                        "manufacture" -> categoryType = "MANUFACTURES"
+                    }
+                }
+                if (categoryType == "MATERIALS") {
+                    view.setCategory(category.name)
+                }
+                break
             }
-            view.setCategory(category)
         }
     }
 
@@ -116,7 +132,7 @@ class PresenterPostFirst(
     }
 
     override fun setImage(attachIds: List<Int>, attachUrls: List<String>) {
-        addEditPostRequest.attach_ids = attachIds.toMutableList()
+        addEditPostRequest.attach_ids.addAll(attachIds)
         if (attachUrls.isEmpty()) {
             view.setImageGuideText(true)
         } else {
@@ -136,6 +152,9 @@ class PresenterPostFirst(
 
     override fun deleteImage(imageIndex: Int) {
         addEditPostRequest.attach_ids.removeAt(imageIndex)
+        if (addEditPostRequest.attach_ids.isEmpty()) {
+            view.setImageGuideText(true)
+        }
         view.deleteImage(imageIndex)
     }
 
@@ -146,6 +165,40 @@ class PresenterPostFirst(
 
     override fun openWhereToGetImageFrom() {
         view.showWhereToGetImageFromDialog()
+    }
+
+    override fun openChooseCategory() {
+        view.showChooseCategoryDialog(materialCategories)
+    }
+
+    private fun getMaterialCategories() {
+        val materialCategories = mutableListOf<JSONObject>()
+        for (category in categories) {
+            if (category.type == "materials") {
+                val json = JSONObject().apply {
+                    put("name", category.name)
+                    put("id", category.id)
+                }
+                materialCategories.add(json)
+            }
+        }
+        this.materialCategories = materialCategories
+    }
+
+    private fun distinguishMaterialOrManufacture() {
+        when (categoryType) {
+            "MATERIALS" -> {
+                view.showCategoryView()
+            }
+            "MANUFACTURES" -> {
+                for (category in categories) {
+                    if (category.type == "manufacture") {
+                        addEditPostRequest.category_id = category.id
+                        break
+                    }
+                }
+            }
+        }
     }
 
     override fun getImageFromAlbum(context: Context, data: Intent) {
@@ -197,7 +250,7 @@ class PresenterPostFirst(
     private fun resize(file: File): File {
         Log.d("resize", "리사이징함")
         val options = BitmapFactory.Options().apply {
-            inSampleSize = 4
+            inSampleSize = 2
         }
         val bitmap = BitmapFactory.decodeFile(file.absolutePath, options)
         Bitmap.createScaledBitmap(
@@ -230,6 +283,7 @@ class PresenterPostFirst(
                 Log.d("uploadImage", "파일 크기 ${file.length()}Bytes")
                 resize(file)
             } else {
+                Log.d("uploadImage", "파일 크기 ${file.length()}Bytes")
                 break
             }
         }
@@ -249,12 +303,41 @@ class PresenterPostFirst(
         )
     }
 
-    override fun getAttachUrl() {
-
+    override fun completeAddEditPostRequestExceptTags(contents: JSONObject) {
+        addEditPostRequest.apply {
+            title = contents.getString("title")
+            if (!contents.getString("price").isNullOrBlank()) {
+                price = contents.getString("price").toInt()
+            }
+            content = contents.getString("content")
+        }
     }
 
-    override fun setAddEditPostRequest() {
+    override fun openPostSecond(contents: JSONObject) {
+        completeAddEditPostRequestExceptTags(contents)
+        Log.d("addEditPostRequest 태그빼고 완성", addEditPostRequest.toString())
+        if (addEditPostRequest.category_id == null) {
+            view.showEmptyCategoryDialog()
+            return
+        }
+        if (addEditPostRequest.title.isNullOrBlank()) {
+            view.showEmptyTitleDialog()
+            return
+        }
+        if (addEditPostRequest.price == null) {
+            view.showEmptyPriceDialog()
+            return
+        }
+        if (addEditPostRequest.price_type.isNullOrBlank()) {
+            view.showEmptyPriceTypeDialog()
+            return
+        }
+        if (addEditPostRequest.content.isNullOrBlank()) {
+            view.showEmptyContentsDialog()
+            return
+        }
 
+        view.showPostSecondUi(addEditPostRequest)
     }
 
     override fun openPostSecond() {
