@@ -45,7 +45,7 @@ class PresenterMaterials(
 
     override fun loadCategories() {
         categoriesRepository.getCategories(
-            onSuccess = { response: Categories -> },
+            onSuccess = { response: Categories -> view.showCategories(response.categories)},
             onFailure = { e ->
                 Toast.makeText(
                     context,
