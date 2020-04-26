@@ -93,7 +93,6 @@ class ActivityMaterials : AppCompatActivity(),
 
 
     private val categoryAdapter = CategoryAdapter(
-        ArrayList(0),
         categoryItemListener
     )
     private val categoryLayoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
@@ -214,6 +213,8 @@ class ActivityMaterials : AppCompatActivity(),
         categoryAdapter.setCategories(categories)
         categoryAdapter.notifyDataSetChanged()
         materialsCategoryRV.adapter = categoryAdapter
+        materialsCategoryRV.layoutManager = categoryLayoutManager
+        materialsCategoryRV.setHasFixedSize(true)
         materialsCategoryRV.visibility = View.VISIBLE
     }
 
@@ -263,15 +264,16 @@ class ActivityMaterials : AppCompatActivity(),
      * 재료 탭의 카테고리 리사이클러뷰에 사용할 어댑터입니다.
      * */
     private class CategoryAdapter(
-        private var categories: List<Category>,
         private val itemListener: CategoryItemListener
     ) : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
+
+        lateinit var materialCategories: List<Category>
 
         var selectedPosition: Int = 0
 
         fun setCategories(list: List<Category>) {
-            this.categories = list
-        }
+            this.materialCategories = list
+           }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
             val inflatedView = LayoutInflater.from(parent.context)
@@ -280,11 +282,11 @@ class ActivityMaterials : AppCompatActivity(),
         }
 
         override fun getItemCount(): Int {
-            return categories.size
+            return materialCategories.size - 1
         }
 
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-            holder.bind(categories[position], position)
+            holder.bind(materialCategories[position], position)
         }
 
         inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
