@@ -1,5 +1,7 @@
 package com.bnvs.metaler.data.postdetails.model
 
+import com.bnvs.metaler.data.addeditpost.model.PostTag
+
 data class PostDetails(
     val post_id: Int,
     val category_id: Int,
@@ -14,7 +16,7 @@ data class PostDetails(
     val disliked: Int,
     val attach_ids: List<Int>,
     val attach_urls: List<String>,
-    val tags: List<String>,
+    val tags: List<PostTag>,
     val is_bookmark: Boolean,
     val comment_count: Int,
     val is_rating: Int
