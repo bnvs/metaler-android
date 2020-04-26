@@ -5,11 +5,12 @@ import android.content.Intent
 import com.bnvs.metaler.BasePresenter
 import com.bnvs.metaler.BaseView
 import com.bnvs.metaler.data.addeditpost.model.AddEditPostRequest
+import org.json.JSONObject
 import java.io.File
 
 interface ContractPostFirst {
     interface View : BaseView<Presenter> {
-        fun showCategories()
+        fun showCategoryView()
         fun setCategory(category: String)
         fun setTitle(title: String)
         fun setPrice(price: Int)
@@ -22,7 +23,7 @@ interface ContractPostFirst {
         fun addImage(imageUrl: String)
         fun deleteImage(imageIndex: Int)
         fun setContents(contents: String)
-        fun showChooseCategory()
+        fun showChooseCategoryDialog(categories: List<JSONObject>)
         fun showWhereToGetImageFromDialog()
         fun showGetCategoriesFailedToast(errorMessage: String)
         fun showUploadImageFailedToast(errorMessage: String)
@@ -48,11 +49,11 @@ interface ContractPostFirst {
         fun deleteImage(imageIndex: Int)
         fun setContents(contents: String)
         fun openWhereToGetImageFrom()
+        fun openChooseCategory()
         fun getImageFromAlbum(context: Context, data: Intent)
         fun getImageFromCamera(context: Context, data: Intent)
         fun uploadImage(file: File)
-        fun getAttachUrl()
-        fun setAddEditPostRequest()
-        fun openPostSecond()
+        fun completeAddEditPostRequestExceptTags(contents: JSONObject)
+        fun openPostSecond(contents: JSONObject)
     }
 }

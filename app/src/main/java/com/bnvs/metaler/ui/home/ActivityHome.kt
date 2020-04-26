@@ -9,6 +9,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.bnvs.metaler.R
+import com.bnvs.metaler.data.addeditpost.model.PostTag
 import com.bnvs.metaler.data.homeposts.model.HomePost
 import com.bnvs.metaler.data.profile.model.Profile
 import com.bnvs.metaler.ui.detail.ActivityDetail
@@ -138,10 +139,10 @@ class ActivityHome : AppCompatActivity(), ContractHome.View {
         }
     }
 
-    private fun parseTagList(tags: List<String>): String {
+    private fun parseTagList(tags: List<PostTag>): String {
         var tagString = ""
         for (tag in tags) {
-            tagString += "#$tag "
+            tagString += "#${tag.name} "
         }
         return tagString
     }
@@ -152,6 +153,7 @@ class ActivityHome : AppCompatActivity(), ContractHome.View {
 
     override fun showLoadHomePostFailedToast(errorMessage: String) {
         makeToast(errorMessage)
+        Log.d("error", errorMessage)
     }
 
     // 게시물 상세 내용 액티비티로 이동한다

@@ -1,5 +1,7 @@
 package com.bnvs.metaler.data.bookmarks.model
 
+import com.bnvs.metaler.data.addeditpost.model.PostTag
+
 data class Bookmark(
     val post_id: Int,
     val title: String,
@@ -9,6 +11,6 @@ data class Bookmark(
     val liked: Int,
     val dis_liked: Int,
     val thumbnail: String,
-    val tags: List<String>,
+    val tags: List<PostTag>,
     val is_bookmark: Boolean
 )

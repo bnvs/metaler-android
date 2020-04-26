@@ -1,6 +1,6 @@
 package com.bnvs.metaler.data.addeditpost.model
 
-data class AddEditPostTag(
-    val type: Int,
+data class PostTag(
+    val type: String,
     val name: String
 )

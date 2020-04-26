@@ -13,6 +13,6 @@
         android:layout_height="70dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:paddingRight="6dp"/>
+        android:paddingRight="3dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
