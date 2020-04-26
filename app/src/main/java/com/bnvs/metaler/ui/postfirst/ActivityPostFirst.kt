@@ -224,7 +224,10 @@ class ActivityPostFirst : AppCompatActivity(), ContractPostFirst.View {
     }
 
     override fun showPostSecondUi(addEditPostRequest: AddEditPostRequest) {
-
+        Intent(this, ActivityPostSecond::class.java).apply {
+            putExtra("addEditPostRequest", addEditPostRequest)
+            startActivity(this)
+        }
     }
 
     private fun initClickListeners() {
