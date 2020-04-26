@@ -112,6 +112,7 @@ class PresenterManufactures(
 
     override fun openPostDetail(postId: Int) {
         val detailIntent = Intent(context, ActivityDetail::class.java)
+        detailIntent.putExtra("POST_ID",postId)
         context.startActivity(detailIntent)
     }
 
