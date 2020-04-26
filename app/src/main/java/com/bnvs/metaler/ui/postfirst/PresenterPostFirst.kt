@@ -98,17 +98,18 @@ class PresenterPostFirst(
 
     override fun setCategory(categoryId: Int) {
         addEditPostRequest.category_id = categoryId
-        if (categoryType == "MATERIALS") {
-            val category = when (categoryId) {
-                categories[0].id -> "적동/황동"
-                3 -> "스테인리스"
-                4 -> "알루미늄"
-                5 -> "철"
-                6 -> "공구"
-                7 -> "화학 약품류"
-                8 -> "니켈/티타늄"
-                9 -> "기타"
-                else -> return
+        for (category in categories) {
+            if (categoryId == category.id) {
+                if (categoryType == null) {
+                    when (category.type) {
+                        "materials" -> categoryType = "MATERIALS"
+                        "manufacture" -> categoryType = "MANUFACTURES"
+                    }
+                }
+                if (categoryType == "MATERIALS") {
+                    view.setCategory(category.name)
+                }
+                break
             }
             view.setCategory(category)
         }
