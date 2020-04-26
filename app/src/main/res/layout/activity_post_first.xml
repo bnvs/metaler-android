@@ -21,7 +21,7 @@
             android:id="@+id/materialsCategory"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="gone"
+
             app:constraint_referenced_ids="categoryTxt,categoryMoreBtn,categoryLine" />
 
         <TextView
@@ -30,6 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/wideMargin"
             android:layout_marginTop="10dp"
+            android:paddingVertical="8dp"
             android:text="@string/category"
             android:textColor="@color/colorDarkGrey"
             android:textSize="14sp"
@@ -62,6 +63,7 @@
             style="@style/titleEditText"
             android:layout_marginLeft="@dimen/wideMargin"
             android:hint="@string/title_guide"
+            android:paddingVertical="6dp"
             app:layout_constraintBottom_toBottomOf="@id/titleLine"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/categoryLine" />
@@ -81,14 +83,18 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/priceInput" />
 
-        <EditText
+        <TextView
             android:id="@+id/priceInput"
-            style="@style/numberEditText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:gravity="end"
             android:hint="@string/post_price_guide"
             android:paddingVertical="6dp"
-            app:layout_constraintBottom_toTopOf="@id/priceLine"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@id/priceLine"
             app:layout_constraintEnd_toStartOf="@id/wonTxt"
-            app:layout_constraintTop_toBottomOf="@id/titleLine" />
+            app:layout_constraintTop_toTopOf="@id/titleLine" />
 
         <TextView
             android:id="@+id/wonTxt"
@@ -199,7 +205,7 @@
                 android:background="@android:color/transparent"
                 android:hint="@string/content_guide"
                 android:textColorHint="@color/colorLightGrey"
-                android:textSize="14sp"
+                android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/contentTxt" />
 
