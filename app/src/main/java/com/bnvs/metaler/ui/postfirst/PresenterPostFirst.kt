@@ -229,7 +229,7 @@ class PresenterPostFirst(
     private fun resize(file: File): File {
         Log.d("resize", "리사이징함")
         val options = BitmapFactory.Options().apply {
-            inSampleSize = 4
+            inSampleSize = 2
         }
         val bitmap = BitmapFactory.decodeFile(file.absolutePath, options)
         Bitmap.createScaledBitmap(
@@ -262,6 +262,7 @@ class PresenterPostFirst(
                 Log.d("uploadImage", "파일 크기 ${file.length()}Bytes")
                 resize(file)
             } else {
+                Log.d("uploadImage", "파일 크기 ${file.length()}Bytes")
                 break
             }
         }
