@@ -71,9 +71,10 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/materialsCategoryRV"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="@dimen/wideMargin"
+            android:paddingRight="@dimen/wideMargin"
             android:layout_marginTop="10dp"
             android:visibility="gone"
             app:layout_constraintStart_toStartOf="parent"
