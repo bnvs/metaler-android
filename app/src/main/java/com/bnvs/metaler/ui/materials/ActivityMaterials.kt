@@ -211,7 +211,10 @@ class ActivityMaterials : AppCompatActivity(),
 
 
     override fun showCategories(categories: List<Category>) {
-        tagRV.visibility = View.VISIBLE
+        categoryAdapter.setCategories(categories)
+        categoryAdapter.notifyDataSetChanged()
+        materialsCategoryRV.adapter = categoryAdapter
+        materialsCategoryRV.visibility = View.VISIBLE
     }
 
     override fun showPostDetailUi() {
