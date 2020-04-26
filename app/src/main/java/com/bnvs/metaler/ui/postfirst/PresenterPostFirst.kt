@@ -75,6 +75,7 @@ class PresenterPostFirst(
                 setPriceType(response.price_type)
                 setImage(response.attach_ids, response.attach_urls)
                 setContents(response.content)
+                addEditPostRequest.tags.addAll(response.tags)
             },
             onFailure = { e ->
                 view.showPostDetailLoadFailedToast(NetworkUtil.getErrorMessage(e))
@@ -120,7 +121,7 @@ class PresenterPostFirst(
     }
 
     override fun setImage(attachIds: List<Int>, attachUrls: List<String>) {
-        addEditPostRequest.attach_ids = attachIds.toMutableList()
+        addEditPostRequest.attach_ids.addAll(attachIds)
         if (attachUrls.isEmpty()) {
             view.setImageGuideText(true)
         } else {
