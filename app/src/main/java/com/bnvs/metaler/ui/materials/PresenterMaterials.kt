@@ -7,7 +7,6 @@ import com.bnvs.metaler.data.bookmarks.model.AddBookmarkRequest
 import com.bnvs.metaler.data.bookmarks.model.AddBookmarkResponse
 import com.bnvs.metaler.data.bookmarks.model.DeleteBookmarkRequest
 import com.bnvs.metaler.data.bookmarks.source.repositroy.BookmarksRepository
-import com.bnvs.metaler.data.categories.model.Categories
 import com.bnvs.metaler.data.categories.source.repository.CategoriesRepository
 import com.bnvs.metaler.data.posts.model.Post
 import com.bnvs.metaler.data.posts.model.PostsRequest
@@ -25,7 +24,7 @@ class PresenterMaterials(
 
     private val postRepository: PostsRepository = PostsRepository(context)
     private val bookmarksRepository: BookmarksRepository = BookmarksRepository(context)
-    private val categoriesRepository: CategoriesRepository = CategoriesRepository(context)
+    private val categoriesRepository: CategoriesRepository = CategoriesRepository()
 
     private lateinit var postsRequest: PostsRequest
     private lateinit var addBookmarkRequest: AddBookmarkRequest
@@ -45,7 +44,7 @@ class PresenterMaterials(
 
     override fun loadCategories() {
         categoriesRepository.getCategories(
-            onSuccess = { response: Categories -> view.showCategories(response.categories)},
+            onSuccess = { response -> view.showCategories(response) },
             onFailure = { e ->
                 Toast.makeText(
                     context,
