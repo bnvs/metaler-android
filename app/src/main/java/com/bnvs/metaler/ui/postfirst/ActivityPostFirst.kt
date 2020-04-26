@@ -2,11 +2,13 @@ package com.bnvs.metaler.ui.postfirst
 
 import android.Manifest
 import android.app.Activity
+import android.app.Dialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.View
+import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -18,6 +20,8 @@ import com.bnvs.metaler.data.addeditpost.model.AddEditPostRequest
 import com.bnvs.metaler.ui.postsecond.ActivityPostSecond
 import kotlinx.android.synthetic.main.activity_post_first.*
 import org.json.JSONObject
+import java.text.NumberFormat
+
 
 class ActivityPostFirst : AppCompatActivity(), ContractPostFirst.View {
 
@@ -50,6 +54,22 @@ class ActivityPostFirst : AppCompatActivity(), ContractPostFirst.View {
         thumbnailRV.adapter = thumbnailAdapter
 
         initClickListeners()
+
+        priceInput.setOnClickListener {
+            AlertDialog.Builder(this@ActivityPostFirst)
+                .setTitle("가격 입력")
+                .setView(R.layout.dialog_price_input)
+                .setPositiveButton("확인") { dialog, which ->
+                    val f = dialog as Dialog
+                    val input: EditText = f.findViewById(R.id.priceInputEditTxt)
+                    val price = input.text.toString().toInt()
+                    presenter.setPrice(price)
+                }
+                .setNegativeButton("취소") { _, _ ->
+                }
+                .show()
+        }
+
         checkRunTimePermission()
         presenter.run {
             start()
@@ -70,7 +90,7 @@ class ActivityPostFirst : AppCompatActivity(), ContractPostFirst.View {
     }
 
     override fun setPrice(price: Int) {
-        priceInput.setText(price)
+        priceInput.text = NumberFormat.getInstance().format(price)
     }
 
     override fun setCardButton() {
@@ -239,7 +259,6 @@ class ActivityPostFirst : AppCompatActivity(), ContractPostFirst.View {
         nextBtn.setOnClickListener {
             val contents = JSONObject().apply {
                 put("title", titleInput.text.toString())
-                put("price", priceInput.text.toString())
                 put("content", contentGuideTxt.text.toString())
             }
             presenter.openPostSecond(contents)

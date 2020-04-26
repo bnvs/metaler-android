@@ -295,9 +295,6 @@ class PresenterPostFirst(
     override fun completeAddEditPostRequestExceptTags(contents: JSONObject) {
         addEditPostRequest.apply {
             title = contents.getString("title")
-            if (!contents.getString("price").isNullOrBlank()) {
-                price = contents.getString("price").toInt()
-            }
             content = contents.getString("content")
         }
     }
