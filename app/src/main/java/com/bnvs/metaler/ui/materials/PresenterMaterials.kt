@@ -7,6 +7,7 @@ import com.bnvs.metaler.data.bookmarks.model.AddBookmarkRequest
 import com.bnvs.metaler.data.bookmarks.model.AddBookmarkResponse
 import com.bnvs.metaler.data.bookmarks.model.DeleteBookmarkRequest
 import com.bnvs.metaler.data.bookmarks.source.repositroy.BookmarksRepository
+import com.bnvs.metaler.data.categories.source.repository.CategoriesRepository
 import com.bnvs.metaler.data.posts.model.Post
 import com.bnvs.metaler.data.posts.model.PostsRequest
 import com.bnvs.metaler.data.posts.model.PostsResponse
@@ -23,6 +24,7 @@ class PresenterMaterials(
 
     private val postRepository: PostsRepository = PostsRepository(context)
     private val bookmarksRepository: BookmarksRepository = BookmarksRepository(context)
+    private val categoriesRepository: CategoriesRepository = CategoriesRepository(context)
 
     private lateinit var postsRequest: PostsRequest
     private lateinit var addBookmarkRequest: AddBookmarkRequest
