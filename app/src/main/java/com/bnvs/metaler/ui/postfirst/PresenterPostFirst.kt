@@ -20,7 +20,7 @@ import java.io.File
 import java.io.FileOutputStream
 
 class PresenterPostFirst(
-    private val categoryType: String?,
+    private var categoryType: String?,
     private val postId: Int?,
     private val view: ContractPostFirst.View
 ) : ContractPostFirst.Presenter {
