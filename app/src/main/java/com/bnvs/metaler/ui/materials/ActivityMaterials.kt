@@ -210,8 +210,8 @@ class ActivityMaterials : AppCompatActivity(),
     }
 
 
-    override fun showCategories() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun showCategories(categories: List<Category>) {
+        tagRV.visibility = View.VISIBLE
     }
 
     override fun showPostDetailUi() {
