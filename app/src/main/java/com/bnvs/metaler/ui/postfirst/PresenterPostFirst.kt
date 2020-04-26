@@ -48,30 +48,16 @@ class PresenterPostFirst(
             populatePost(postId)
         }
         getCategories()
-        when (categoryType) {
-            "MATERIALS" -> {
-                view.showCategoryView()
-            }
-            "MANUFACTURES" -> {
-                for (category in categories) {
-                    if (category.type == "manufacture") {
-                        addEditPostRequest.category_id = category.id
-                        break
-                    }
-                }
-            }
-        }
-        if (postId != null) {
-            populatePost(postId)
-        }
     }
 
     override fun getCategories() {
+        Log.d("getCategories", "카테고리 가져옴")
         categoriesRepository.getCategories(
             onSuccess = { response ->
                 categories = response
                 Log.d("categories", categories.toString())
                 getMaterialCategories()
+                distinguishMaterialOrManufacture()
             },
             onFailure = { e ->
                 view.showGetCategoriesFailedToast(NetworkUtil.getErrorMessage(e))
@@ -111,7 +97,6 @@ class PresenterPostFirst(
                 }
                 break
             }
-            view.setCategory(category)
         }
     }
 
@@ -179,6 +164,22 @@ class PresenterPostFirst(
             }
         }
         this.materialCategories = materialCategories
+    }
+
+    private fun distinguishMaterialOrManufacture() {
+        when (categoryType) {
+            "MATERIALS" -> {
+                view.showCategoryView()
+            }
+            "MANUFACTURES" -> {
+                for (category in categories) {
+                    if (category.type == "manufacture") {
+                        addEditPostRequest.category_id = category.id
+                        break
+                    }
+                }
+            }
+        }
     }
 
     override fun getImageFromAlbum(context: Context, data: Intent) {
