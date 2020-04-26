@@ -116,6 +116,9 @@
     </style>
 
     <style name="titleEditText" parent="editTextStyle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_marginLeft">@dimen/wideMargin</item>
+        <item name="android:layout_marginRight">@dimen/wideMargin</item>
         <item name="android:textSize">16sp</item>
     </style>
 
