@@ -44,8 +44,22 @@ class PresenterPostFirst(
     private lateinit var materialCategories: MutableList<JSONObject>
 
     override fun start() {
-        if (categoryType == "MATERIALS") {
-            view.showCategories()
+        if (postId != null) {
+            populatePost(postId)
+        }
+        getCategories()
+        when (categoryType) {
+            "MATERIALS" -> {
+                view.showCategoryView()
+            }
+            "MANUFACTURES" -> {
+                for (category in categories) {
+                    if (category.type == "manufacture") {
+                        addEditPostRequest.category_id = category.id
+                        break
+                    }
+                }
+            }
         }
         if (postId != null) {
             populatePost(postId)
