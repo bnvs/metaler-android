@@ -157,6 +157,10 @@ class PresenterPostFirst(
         view.showWhereToGetImageFromDialog()
     }
 
+    override fun openChooseCategory() {
+        view.showChooseCategoryDialog(materialCategories)
+    }
+
     private fun getMaterialCategories() {
         val materialCategories = mutableListOf<JSONObject>()
         for (category in categories) {
