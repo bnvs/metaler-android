@@ -7,6 +7,7 @@ import com.bnvs.metaler.data.bookmarks.model.AddBookmarkRequest
 import com.bnvs.metaler.data.bookmarks.model.AddBookmarkResponse
 import com.bnvs.metaler.data.bookmarks.model.DeleteBookmarkRequest
 import com.bnvs.metaler.data.bookmarks.source.repositroy.BookmarksRepository
+import com.bnvs.metaler.data.categories.model.Categories
 import com.bnvs.metaler.data.categories.source.repository.CategoriesRepository
 import com.bnvs.metaler.data.posts.model.Post
 import com.bnvs.metaler.data.posts.model.PostsRequest
@@ -43,7 +44,16 @@ class PresenterMaterials(
     }
 
     override fun loadCategories() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        categoriesRepository.getCategories(
+            onSuccess = { response: Categories -> },
+            onFailure = { e ->
+                Toast.makeText(
+                    context,
+                    "서버 통신 실패 : ${NetworkUtil.getErrorMessage(e)}",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        )
     }
 
     override fun loadPosts(postsRequest: PostsRequest) {
