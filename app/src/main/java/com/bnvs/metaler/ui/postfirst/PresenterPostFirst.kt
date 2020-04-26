@@ -15,6 +15,7 @@ import com.bnvs.metaler.network.NetworkUtil
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
+import org.json.JSONObject
 import java.io.File
 import java.io.FileOutputStream
 
@@ -257,7 +258,30 @@ class PresenterPostFirst(
 
     }
 
-    override fun openPostSecond() {
+    override fun openPostSecond(contents: JSONObject) {
+        completeAddEditPostRequestExceptTags(contents)
+        Log.d("addEditPostRequest 태그빼고 완성", addEditPostRequest.toString())
+        if (addEditPostRequest.category_id == null) {
+            view.showEmptyCategoryDialog()
+            return
+        }
+        if (addEditPostRequest.title.isNullOrBlank()) {
+            view.showEmptyTitleDialog()
+            return
+        }
+        if (addEditPostRequest.price == null) {
+            view.showEmptyPriceDialog()
+            return
+        }
+        if (addEditPostRequest.price_type.isNullOrBlank()) {
+            view.showEmptyPriceTypeDialog()
+            return
+        }
+        if (addEditPostRequest.content.isNullOrBlank()) {
+            view.showEmptyContentsDialog()
+            return
+        }
+
         view.showPostSecondUi(addEditPostRequest)
     }
 }
