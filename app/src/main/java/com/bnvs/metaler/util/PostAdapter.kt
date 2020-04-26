@@ -112,8 +112,9 @@ class PostAdapter(
         if (holder.itemViewType == Constant.VIEW_TYPE_ITEM) {
             if (tempArrayList[position] != null) {
                 var tagString = ""
+
                 for (tag in tempArrayList[position]!!.tags) {
-                    tagString += "#$tag "
+                    tagString += "#${tag.name} "
                 }
 
 
