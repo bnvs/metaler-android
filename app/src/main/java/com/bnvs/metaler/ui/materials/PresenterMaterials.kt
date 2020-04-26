@@ -40,6 +40,7 @@ class PresenterMaterials(
 
     override fun start() {
         loadPosts(requestPosts())
+        loadCategories()
     }
 
     override fun loadCategories() {
