@@ -41,6 +41,7 @@ class PresenterPostFirst(
 
     private lateinit var context: Context
     private lateinit var categories: List<Category>
+    private lateinit var materialCategories: MutableList<JSONObject>
 
     override fun start() {
         if (categoryType == "MATERIALS") {
@@ -55,6 +56,8 @@ class PresenterPostFirst(
         categoriesRepository.getCategories(
             onSuccess = { response ->
                 categories = response
+                Log.d("categories", categories.toString())
+                getMaterialCategories()
             },
             onFailure = { e ->
                 view.showGetCategoriesFailedToast(NetworkUtil.getErrorMessage(e))
@@ -147,6 +150,20 @@ class PresenterPostFirst(
 
     override fun openWhereToGetImageFrom() {
         view.showWhereToGetImageFromDialog()
+    }
+
+    private fun getMaterialCategories() {
+        val materialCategories = mutableListOf<JSONObject>()
+        for (category in categories) {
+            if (category.type == "materials") {
+                val json = JSONObject().apply {
+                    put("name", category.name)
+                    put("id", category.id)
+                }
+                materialCategories.add(json)
+            }
+        }
+        this.materialCategories = materialCategories
     }
 
     override fun getImageFromAlbum(context: Context, data: Intent) {
