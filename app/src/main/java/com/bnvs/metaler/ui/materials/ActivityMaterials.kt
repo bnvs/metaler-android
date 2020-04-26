@@ -60,7 +60,7 @@ class ActivityMaterials : AppCompatActivity(),
     private var itemListener: PostItemListener = object :
         PostItemListener {
         override fun onPostClick(view: View, clickedPostId: Int) {
-//            presenter.openPostDetail(clickedPostId)
+            presenter.openPostDetail(clickedPostId)
         }
 
         override fun onBookmarkButtonClick(
@@ -71,15 +71,7 @@ class ActivityMaterials : AppCompatActivity(),
         ) {
 
             if (!isBookmark) {
-
-//            if(!posts[position]!!.is_bookmark) {
-
-//                postAdapter.setBookmark(position)
-
-//                view.bookmarkBtn.setImageResource(R.drawable.ic_list_bookmark_active_x3)
-
-//                isBookmark == posts[position]!!.is_bookmark
-//                presenter.addBookmark(clickedPostId)
+                presenter.addBookmark(clickedPostId)
                 postAdapter.apply {
                     setBookmark(position)
                     notifyDataSetChanged()
@@ -87,10 +79,7 @@ class ActivityMaterials : AppCompatActivity(),
 
                 }
             } else {
-//                view.bookmarkBtn.setImageResource(R.drawable.ic_list_bookmark_inactive_x3)
-
-//                isBookmark == !posts[position]!!.is_bookmark
-//                presenter.deleteBookmark(clickedPostId)
+                presenter.deleteBookmark(clickedPostId)
                 postAdapter.apply {
                     setBookmark(position)
                     notifyDataSetChanged()
@@ -128,23 +117,28 @@ class ActivityMaterials : AppCompatActivity(),
 
         setRVScrollListener()
 
-        // Set up RefreshListener
-        /*refreshLayout.apply {
-            setOnRefreshListener {
-                presenter.refreshPosts()
-                refreshLayout.isRefreshing = false
-            }
-            setColorSchemeColors(
-                ContextCompat.getColor(this@ActivityMaterials, R.color.colorPurple)
-            )
-        }*/
-
+        onRefresh()
 
     }
 
     override fun onResume() {
         super.onResume()
         presenter.start()
+    }
+
+    override fun onRefresh() {
+        refreshLayout.setOnRefreshListener {
+            presenter.resetPageNum()
+            presenter.loadPosts(presenter.requestPosts())
+            // The method calls setRefreshing(false) when it's finished.
+            refreshLayout.setRefreshing(false);
+        }
+    }
+
+    override fun refreshPosts(posts: List<Post>) {
+        postAdapter.resetList()
+        postAdapter.addPosts(posts)
+        postAdapter.notifyDataSetChanged()
     }
 
     private fun setRVLayoutManager() {
@@ -216,8 +210,11 @@ class ActivityMaterials : AppCompatActivity(),
     }
 
 
-    override fun showCategories() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun showCategories(categories: List<Category>) {
+        categoryAdapter.setCategories(categories)
+        categoryAdapter.notifyDataSetChanged()
+        materialsCategoryRV.adapter = categoryAdapter
+        materialsCategoryRV.visibility = View.VISIBLE
     }
 
     override fun showPostDetailUi() {

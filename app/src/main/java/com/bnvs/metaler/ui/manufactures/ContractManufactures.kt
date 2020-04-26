@@ -2,6 +2,7 @@ package com.bnvs.metaler.ui.manufactures
 
 import com.bnvs.metaler.BasePresenter
 import com.bnvs.metaler.BaseView
+import com.bnvs.metaler.data.bookmarks.model.AddBookmarkRequest
 import com.bnvs.metaler.data.posts.model.Post
 import com.bnvs.metaler.data.posts.model.PostsRequest
 import com.bnvs.metaler.util.TapBarContract
@@ -19,6 +20,10 @@ interface ContractManufactures {
 
         fun setRVScrollListener()
 
+        fun onRefresh()
+
+        fun refreshPosts(posts: List<Post>)
+
         fun showPostDetailUi()
 
         fun showSearchUi()
@@ -34,11 +39,13 @@ interface ContractManufactures {
 
         fun requestPosts(): PostsRequest
 
+        fun requestAddBookmark(postId: Int): AddBookmarkRequest
+
         fun loadPosts(postsRequest: PostsRequest)
 
         fun loadMorePosts(postsRequest: PostsRequest)
 
-        fun refreshPosts()
+        fun resetPageNum()
 
         fun openPostDetail(postId: Int)
 

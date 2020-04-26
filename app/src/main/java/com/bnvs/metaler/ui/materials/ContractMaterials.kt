@@ -2,6 +2,9 @@ package com.bnvs.metaler.ui.materials
 
 import com.bnvs.metaler.BasePresenter
 import com.bnvs.metaler.BaseView
+import com.bnvs.metaler.data.bookmarks.model.AddBookmarkRequest
+import com.bnvs.metaler.data.bookmarks.model.DeleteBookmarkRequest
+import com.bnvs.metaler.data.categories.model.Category
 import com.bnvs.metaler.data.posts.model.Post
 import com.bnvs.metaler.data.posts.model.PostsRequest
 import com.bnvs.metaler.util.TapBarContract
@@ -12,14 +15,18 @@ import com.bnvs.metaler.util.TapBarContract
  * */
 
 interface ContractMaterials {
-    interface View : BaseView<Presenter>, TapBarContract.View{
-        fun showCategories()
+    interface View : BaseView<Presenter>, TapBarContract.View {
+        fun showCategories(categories: List<Category>)
 
         fun showPosts(posts: List<Post>)
 
         fun showMorePosts(posts: List<Post>)
 
         fun setRVScrollListener()
+
+        fun onRefresh()
+
+        fun refreshPosts(posts: List<Post>)
 
         fun showPostDetailUi()
 
@@ -37,11 +44,15 @@ interface ContractMaterials {
 
         fun requestPosts(): PostsRequest
 
+        fun requestAddBookmark(postId: Int): AddBookmarkRequest
+
+        fun requestDeleteBookmark(postId: Int): DeleteBookmarkRequest
+
         fun loadPosts(postsRequest: PostsRequest)
 
         fun loadMorePosts(postsRequest: PostsRequest)
 
-        fun refreshPosts()
+        fun resetPageNum()
 
         fun openPostDetail(postId: Int)
 

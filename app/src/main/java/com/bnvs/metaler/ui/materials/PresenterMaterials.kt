@@ -1,12 +1,20 @@
 package com.bnvs.metaler.ui.materials
 
 import android.content.Context
+import android.content.Intent
 import android.widget.Toast
+import com.bnvs.metaler.data.bookmarks.model.AddBookmarkRequest
+import com.bnvs.metaler.data.bookmarks.model.AddBookmarkResponse
+import com.bnvs.metaler.data.bookmarks.model.DeleteBookmarkRequest
+import com.bnvs.metaler.data.bookmarks.source.repositroy.BookmarksRepository
+import com.bnvs.metaler.data.categories.model.Categories
+import com.bnvs.metaler.data.categories.source.repository.CategoriesRepository
 import com.bnvs.metaler.data.posts.model.Post
 import com.bnvs.metaler.data.posts.model.PostsRequest
 import com.bnvs.metaler.data.posts.model.PostsResponse
 import com.bnvs.metaler.data.posts.source.repository.PostsRepository
 import com.bnvs.metaler.network.NetworkUtil
+import com.bnvs.metaler.ui.detail.ActivityDetail
 
 class PresenterMaterials(
     private val context: Context,
@@ -16,8 +24,12 @@ class PresenterMaterials(
     val TAG = "PresenterMaterials.kt"
 
     private val postRepository: PostsRepository = PostsRepository(context)
+    private val bookmarksRepository: BookmarksRepository = BookmarksRepository(context)
+    private val categoriesRepository: CategoriesRepository = CategoriesRepository(context)
 
     private lateinit var postsRequest: PostsRequest
+    private lateinit var addBookmarkRequest: AddBookmarkRequest
+    private lateinit var deleteBookmarkRequest: DeleteBookmarkRequest
 
     private var pageNum: Int = 0
 
@@ -32,10 +44,20 @@ class PresenterMaterials(
     }
 
     override fun loadCategories() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        categoriesRepository.getCategories(
+            onSuccess = { response: Categories -> view.showCategories(response.categories)},
+            onFailure = { e ->
+                Toast.makeText(
+                    context,
+                    "서버 통신 실패 : ${NetworkUtil.getErrorMessage(e)}",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        )
     }
 
     override fun loadPosts(postsRequest: PostsRequest) {
+        resetPageNum()
         postRepository.getPosts(
             postsRequest,
             onSuccess = { response: PostsResponse ->
@@ -90,20 +112,66 @@ class PresenterMaterials(
         return postsRequest
     }
 
-    override fun refreshPosts() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    // addBookmark api 요청을 반환하는 함수
+    override fun requestAddBookmark(postId: Int): AddBookmarkRequest {
+        addBookmarkRequest = AddBookmarkRequest(postId)
+        return addBookmarkRequest
+    }
+
+    override fun requestDeleteBookmark(postId: Int): DeleteBookmarkRequest {
+        deleteBookmarkRequest = DeleteBookmarkRequest(postId)
+        return deleteBookmarkRequest
+    }
+
+    override fun resetPageNum() {
+        pageNum = 0
     }
 
     override fun openPostDetail(postId: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val detailIntent = Intent(context, ActivityDetail::class.java)
+        detailIntent.putExtra("POST_ID", postId)
+        context.startActivity(detailIntent)
     }
 
     override fun addBookmark(postId: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        bookmarksRepository.addBookmark(
+            requestAddBookmark(postId),
+            onSuccess = { response: AddBookmarkResponse ->
+                Toast.makeText(
+                    context,
+                    "${response.bookmark_id} 북마크에 추가되었습니다.",
+                    Toast.LENGTH_SHORT
+                ).show()
+            },
+            onFailure = { e ->
+                Toast.makeText(
+                    context,
+                    "서버 통신 실패 : ${NetworkUtil.getErrorMessage(e)}",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        )
     }
 
     override fun deleteBookmark(postId: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        bookmarksRepository.deleteBookmark(
+            postId,
+            onSuccess = {
+                Toast.makeText(
+                    context,
+                    "북마크가 취소되었습니다.",
+                    Toast.LENGTH_SHORT
+                ).show()
+
+            },
+            onFailure = { e ->
+                Toast.makeText(
+                    context,
+                    "서버 통신 실패 : ${NetworkUtil.getErrorMessage(e)}",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        )
     }
 
     override fun openSearch() {
