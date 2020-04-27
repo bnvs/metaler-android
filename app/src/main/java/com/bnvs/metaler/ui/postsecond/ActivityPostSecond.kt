@@ -5,9 +5,11 @@ import android.os.Handler
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.bnvs.metaler.R
 import kotlinx.android.synthetic.main.activity_post_second.*
+import org.json.JSONObject
 
 class ActivityPostSecond : AppCompatActivity(), ContractPostSecond.View {
 
@@ -156,5 +158,23 @@ class ActivityPostSecond : AppCompatActivity(), ContractPostSecond.View {
 
     override fun setTagInput(tags: String) {
         tagInput.setText(tags)
+    }
+
+    override fun showEmptyTagsDialog() {
+        AlertDialog.Builder(this@ActivityPostSecond)
+            .setTitle("알림")
+            .setMessage("필수 태그를 입력해 주세요")
+            .setPositiveButton("확인") { _, _ ->
+            }
+            .show()
+    }
+
+    override fun showInvalidateTagDialog() {
+        AlertDialog.Builder(this@ActivityPostSecond)
+            .setTitle("알림")
+            .setMessage("'#태그' 형식의 띄어쓰기 없는 태그만 입력 가능합니다")
+            .setPositiveButton("확인") { _, _ ->
+            }
+            .show()
     }
 }
