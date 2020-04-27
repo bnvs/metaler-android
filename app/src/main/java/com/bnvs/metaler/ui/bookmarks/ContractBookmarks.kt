@@ -19,7 +19,7 @@ interface ContractBookmarks {
     interface Presenter : BasePresenter, TapBarContract.Presenter {
         fun loadBookmarkPosts(bookmarksRequest: BookmarksRequest)
 
-        fun requestPosts(categoryId: Int): BookmarksRequest
+        fun requestPosts(categoryType: String): BookmarksRequest
 
         fun openMaterialsList()
 
