@@ -90,7 +90,6 @@
             android:layout_marginEnd="10dp"
             android:gravity="end"
             android:hint="@string/post_price_guide"
-            android:gravity="right"
             android:paddingVertical="6dp"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="@id/priceLine"
