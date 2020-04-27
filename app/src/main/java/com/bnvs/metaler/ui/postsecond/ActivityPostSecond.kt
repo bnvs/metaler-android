@@ -34,6 +34,7 @@ class ActivityPostSecond : AppCompatActivity(), ContractPostSecond.View {
 
         presenter = PresenterPostSecond(categoryType!!, postId, this)
 
+        initClickListener()
         presenter.run {
             getAddEditPostRequest(intent)
             start()
@@ -177,4 +178,18 @@ class ActivityPostSecond : AppCompatActivity(), ContractPostSecond.View {
             }
             .show()
     }
+
+    private fun initClickListener() {
+        backBtn.setOnClickListener { finish() }
+        completeBtn.setOnClickListener {
+            val tags = JSONObject().apply {
+                put("store", shopNameInput.text.toString())
+                put("work", workInput.text.toString())
+                put("etc", tagInput.text.toString())
+            }
+            presenter.finishAddEditPost(tags)
+        }
+
+    }
+
 }
