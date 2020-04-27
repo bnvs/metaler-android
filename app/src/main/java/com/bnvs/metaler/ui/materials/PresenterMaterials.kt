@@ -31,6 +31,7 @@ class PresenterMaterials(
     private lateinit var deleteBookmarkRequest: DeleteBookmarkRequest
 
     private var pageNum: Int = 0
+    private var categoryId: Int = 0
 
     lateinit var posts: List<Post>
 
@@ -39,7 +40,7 @@ class PresenterMaterials(
     }
 
     override fun start() {
-        loadPosts(requestPosts())
+        loadPosts(requestPosts(1))
         loadCategories()
     }
 
@@ -101,10 +102,11 @@ class PresenterMaterials(
 
 
     // getPosts api 요청 request body 반환하는 함수
-    override fun requestPosts(): PostsRequest {
+    override fun requestPosts(categoryId: Int): PostsRequest {
         pageNum++
+        this.categoryId = categoryId
         postsRequest = PostsRequest(
-            1,
+            categoryId,
             pageNum,
             10,
             null,
@@ -126,6 +128,10 @@ class PresenterMaterials(
 
     override fun resetPageNum() {
         pageNum = 0
+    }
+
+    override fun getCategoryId(): Int {
+        return categoryId
     }
 
     override fun openPostDetail(postId: Int) {
