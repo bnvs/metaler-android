@@ -32,15 +32,19 @@ class HashTagAutoCompleteTextView : MultiAutoCompleteTextView {
                 if (selChar == ' ' && beforeSelChar == '#') {
                     if (selStart == string.length) {
                         val tag = string.substring(0, string.length - 1)
-                        this.setText(tag)
-                        this.setSelection(this.text.length)
+                        this.apply {
+                            setText(tag)
+                            setSelection(this.text.length)
+                        }
                     } else {
                         val tag = "${string.substring(0, selStart - 1)}${string.substring(
                             selStart,
                             string.length
                         )}"
-                        this.setText(tag)
-                        this.setSelection(this.text.length)
+                        this.apply {
+                            setText(tag)
+                            setSelection(this.text.length)
+                        }
                     }
 
                 }
@@ -48,15 +52,19 @@ class HashTagAutoCompleteTextView : MultiAutoCompleteTextView {
                 if (selChar != '#' && beforeSelChar == ' ') {
                     if (selStart == string.length) {
                         val tag = "${string.substring(0, string.length - 1)}#"
-                        this.setText(tag)
-                        this.setSelection(this.text.length)
+                        this.apply {
+                            setText(tag)
+                            setSelection(this.text.length)
+                        }
                     } else {
                         val tag = "${string.substring(0, selStart - 1)}#${string.substring(
                             selStart + 1,
                             string.length
                         )}"
-                        this.setText(tag)
-                        this.setSelection(this.text.length)
+                        this.apply {
+                            setText(tag)
+                            setSelection(this.text.length)
+                        }
                     }
                 }
 
@@ -68,8 +76,10 @@ class HashTagAutoCompleteTextView : MultiAutoCompleteTextView {
                                 selStart,
                                 string.length
                             )}"
-                            this.setText(tag)
-                            this.setSelection(this.text.length)
+                            this.apply {
+                                setText(tag)
+                                setSelection(this.text.length)
+                            }
                         }
                     }
                 }
@@ -79,31 +89,55 @@ class HashTagAutoCompleteTextView : MultiAutoCompleteTextView {
                     if (selStart == string.length) {
                         if (beforeSelChar != '#') {
                             val tag = "${string.substring(0, string.length - 1)} #"
-                            this.setText(tag)
-                            this.setSelection(this.text.length)
+                            this.apply {
+                                setText(tag)
+                                setSelection(this.text.length)
+                            }
                         } else {
                             val tag = string.substring(0, string.length - 1)
-                            this.setText(tag)
-                            this.setSelection(this.text.length)
+                            this.apply {
+                                setText(tag)
+                                setSelection(this.text.length)
+                            }
                         }
 
                     } else {
                         if (beforeSelChar != '#') {
-                            val tag = "${string.substring(
-                                0,
-                                selStart - 1
-                            )} #${string.substring(selStart + 1, string.length)}"
-                            this.setText(tag)
-                            this.setSelection(this.text.length)
+                            val tag = "${string.substring(0, selStart - 1)} #${string.substring(
+                                selStart,
+                                string.length
+                            )}"
+                            this.apply {
+                                setText(tag)
+                                setSelection(this.text.length)
+                            }
                         } else {
                             val tag = "${string.substring(0, selStart - 1)}${string.substring(
                                 selStart,
                                 string.length
                             )}"
-                            this.setText(tag)
-                            this.setSelection(this.text.length)
+                            this.apply {
+                                setText(tag)
+                                setSelection(this.text.length)
+                            }
                         }
 
+                    }
+                }
+
+                if (selChar == '#' && beforeSelChar == ' ') {
+                    if (selStart < string.length) {
+                        val afterSelChar = string[selStart]
+                        if (afterSelChar == ' ') {
+                            val tag = "${string.substring(0, selStart - 2)}${string.substring(
+                                selStart,
+                                string.length
+                            )}"
+                            this.apply {
+                                setText(tag)
+                                setSelection(this.text.length)
+                            }
+                        }
                     }
                 }
 
@@ -115,19 +149,40 @@ class HashTagAutoCompleteTextView : MultiAutoCompleteTextView {
                                 selStart,
                                 string.length
                             )}"
-                            this.setText(tag)
-                            this.setSelection(this.text.length)
+                            this.apply {
+                                setText(tag)
+                                setSelection(this.text.length)
+                            }
                         } else if (afterSelChar != '#' && beforeSelChar != '#') {
                             val tag = "${string.substring(0, selStart)}#${string.substring(
                                 selStart,
                                 string.length
                             )}"
-                            this.setText(tag)
-                            this.setSelection(this.text.length)
+                            this.apply {
+                                setText(tag)
+                                setSelection(this.text.length)
+                            }
                         }
                     }
                 }
 
+            } else {
+                val selChar = string[selStart - 1]
+                if (selChar != '#') {
+                    if (selStart == string.length) {
+                        val tag = "#"
+                        this.apply {
+                            setText(tag)
+                            setSelection(this.text.length)
+                        }
+                    } else {
+                        val tag = "#$string"
+                        this.apply {
+                            setText(tag)
+                            setSelection(this.text.length)
+                        }
+                    }
+                }
             }
         }
     }
