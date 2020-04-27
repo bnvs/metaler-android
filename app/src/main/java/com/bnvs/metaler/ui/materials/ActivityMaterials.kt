@@ -40,14 +40,14 @@ class ActivityMaterials : AppCompatActivity(),
      * */
     private var categoryItemListener: CategoryItemListener = object :
         CategoryItemListener {
-        override fun onCategoryClick(categoryType: String, position: Int) {
+        override fun onCategoryClick(categoryType: Int, position: Int) {
             if (categoryAdapter.selectedPosition != position) {
                 categoryAdapter.also {
                     it.selectedPosition = position
                     it.notifyDataSetChanged()
                 }
-                // TODO : 카테고리 타입에 맞는 post 를 불러오도록 presenter 수정해야함
-//                presenter.loadPosts()
+                presenter.resetPageNum()
+                presenter.loadPosts(presenter.requestPosts(categoryType))
             }
         }
     }
@@ -128,7 +128,7 @@ class ActivityMaterials : AppCompatActivity(),
     override fun onRefresh() {
         refreshLayout.setOnRefreshListener {
             presenter.resetPageNum()
-            presenter.loadPosts(presenter.requestPosts())
+            presenter.loadPosts(presenter.requestPosts(presenter.getCategoryId()))
             // The method calls setRefreshing(false) when it's finished.
             refreshLayout.setRefreshing(false);
         }
@@ -163,7 +163,7 @@ class ActivityMaterials : AppCompatActivity(),
                 if (!loadMorePosts.isEmpty()) {
                     //loadMorePosts의 마지막 값이 null값이 있으면 무한스크롤 로딩 중이기 때문에 데이터를 받아오고, 로딩뷰를 제거한다.
                     if (loadMorePosts[loadMorePosts.size - 1] == null) {
-                        presenter.loadMorePosts(presenter.requestPosts())
+                        presenter.loadMorePosts(presenter.requestPosts(presenter.getCategoryId()))
 //                        showMorePosts()
                     }
                 }
@@ -313,7 +313,7 @@ class ActivityMaterials : AppCompatActivity(),
                             setBackgroundResource(0)
                         }
                     }
-                    setOnClickListener { itemListener.onCategoryClick(item.name, position) }
+                    setOnClickListener { itemListener.onCategoryClick(item.id, position) }
                 }
 
             }
@@ -321,7 +321,7 @@ class ActivityMaterials : AppCompatActivity(),
     }
 
     private interface CategoryItemListener {
-        fun onCategoryClick(categoryType: String, position: Int)
+        fun onCategoryClick(categoryType: Int, position: Int)
     }
 
 }
