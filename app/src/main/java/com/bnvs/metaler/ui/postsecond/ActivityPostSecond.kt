@@ -49,7 +49,7 @@ class ActivityPostSecond : AppCompatActivity(), ContractPostSecond.View {
 
     override fun setShopNameTagInputAdapter() {
         val adapter = HashTagSuggestAdapter(this, android.R.layout.simple_list_item_1)
-        val handler = Handler(Handler.Callback { msg ->
+        val shopNameHandler = Handler(Handler.Callback { msg ->
             if (msg.what == TRIGGER_AUTO_COMPLETE) {
                 if (!shopNameInput.text.isNullOrEmpty()) {
                     // 태그 검색 추천 api 호출
@@ -72,8 +72,11 @@ class ActivityPostSecond : AppCompatActivity(), ContractPostSecond.View {
                 }
 
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                    handler.removeMessages(TRIGGER_AUTO_COMPLETE)
-                    handler.sendEmptyMessageDelayed(TRIGGER_AUTO_COMPLETE, AUTO_COMPLETE_DELAY)
+                    shopNameHandler.removeMessages(TRIGGER_AUTO_COMPLETE)
+                    shopNameHandler.sendEmptyMessageDelayed(
+                        TRIGGER_AUTO_COMPLETE,
+                        AUTO_COMPLETE_DELAY
+                    )
                 }
             })
         }
@@ -81,7 +84,7 @@ class ActivityPostSecond : AppCompatActivity(), ContractPostSecond.View {
 
     override fun setWorkTagInputAdapter() {
         val adapter = HashTagSuggestAdapter(this, android.R.layout.simple_list_item_1)
-        val handler = Handler(Handler.Callback { msg ->
+        val workHandler = Handler(Handler.Callback { msg ->
             if (msg.what == TRIGGER_AUTO_COMPLETE) {
                 if (!workInput.text.isNullOrEmpty()) {
                     // 태그 검색 추천 api 호출
@@ -104,8 +107,8 @@ class ActivityPostSecond : AppCompatActivity(), ContractPostSecond.View {
                 }
 
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                    handler.removeMessages(TRIGGER_AUTO_COMPLETE)
-                    handler.sendEmptyMessageDelayed(TRIGGER_AUTO_COMPLETE, AUTO_COMPLETE_DELAY)
+                    workHandler.removeMessages(TRIGGER_AUTO_COMPLETE)
+                    workHandler.sendEmptyMessageDelayed(TRIGGER_AUTO_COMPLETE, AUTO_COMPLETE_DELAY)
                 }
             })
         }
@@ -113,7 +116,7 @@ class ActivityPostSecond : AppCompatActivity(), ContractPostSecond.View {
 
     override fun setTagInputAdapter() {
         val adapter = HashTagSuggestAdapter(this, android.R.layout.simple_list_item_1)
-        val handler = Handler(Handler.Callback { msg ->
+        val tagHandler = Handler(Handler.Callback { msg ->
             if (msg.what == TRIGGER_AUTO_COMPLETE) {
                 if (!tagInput.text.isNullOrEmpty()) {
                     // 태그 검색 추천 api 호출
@@ -136,8 +139,8 @@ class ActivityPostSecond : AppCompatActivity(), ContractPostSecond.View {
                 }
 
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                    handler.removeMessages(TRIGGER_AUTO_COMPLETE)
-                    handler.sendEmptyMessageDelayed(TRIGGER_AUTO_COMPLETE, AUTO_COMPLETE_DELAY)
+                    tagHandler.removeMessages(TRIGGER_AUTO_COMPLETE)
+                    tagHandler.sendEmptyMessageDelayed(TRIGGER_AUTO_COMPLETE, AUTO_COMPLETE_DELAY)
                 }
             })
         }
