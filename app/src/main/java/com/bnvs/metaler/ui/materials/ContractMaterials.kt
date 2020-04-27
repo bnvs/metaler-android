@@ -22,6 +22,8 @@ interface ContractMaterials {
 
         fun showMorePosts(posts: List<Post>)
 
+        fun removeLoadingView()
+
         fun setRVScrollListener()
 
         fun onRefresh()

@@ -208,6 +208,9 @@ class ActivityMaterials : AppCompatActivity(),
 
     }
 
+    override fun removeLoadingView() {
+        postAdapter.removeLoadingView()
+    }
 
     override fun showCategories(categories: List<Category>) {
         categoryAdapter.setCategories(categories)
