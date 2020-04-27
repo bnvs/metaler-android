@@ -98,66 +98,6 @@ class ActivityBookmarks : AppCompatActivity(), ContractBookmarks.View {
     }
 
 
-    //북마크 리사이클러뷰 아이템 레이아웃(북마크 버튼 대신 delete 버튼있음)이 PostAdapter에서 쓰는 레이아웃이랑 달라서 일부 바꿈
-    /*private class BookmarkPostAdapter(
-        private var posts: List<Post>,
-        private val itemListener: BookmarkPostItemListener
-    ) : RecyclerView.Adapter<BookmarkPostAdapter.ViewHolder>() {
-
-        private val VIEW_TYPE_ITEM = 0
-        private val VIEW_TYPE_LOADING = 1
-
-
-        fun setPosts(list: List<Post>) {
-            this.posts = list
-        }
-
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-            val inflatedView = LayoutInflater.from(parent.context)
-                .inflate(R.layout.item_bookmark_rv, parent, false)
-            return ViewHolder(inflatedView)
-        }
-
-        override fun getItemCount(): Int {
-            return posts.size
-        }
-
-        override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-            holder.bind(posts[position], position)
-        }
-
-        inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-            private var view: View = itemView
-
-            fun bind(item: Post, position: Int) {
-
-                var tags = ""
-                for (tag in item.tags) {
-                    tags += "#$tag "
-                }
-
-                view.apply {
-                    title.text = item.title
-                    userName.text = item.nickname
-                    date.text = item.date
-//                    tag.text = item.tags
-                    dislikeNum.text = item.dis_like.toString()
-                    likeNum.text = item.like.toString()
-                    setOnClickListener { itemListener.onPostClick(item.post_id) }
-                    deleteBtn.setOnClickListener {
-                        itemListener.onDeleteButtonClick(view, item.post_id,position)
-                    }
-
-                }
-
-                Glide.with(view)
-                    .load(item.attach_url)
-                    .into(view.img)
-            }
-        }
-    }*/
-
-
     private interface BookmarkPostItemListener {
         fun onPostClick(clickedPostId: Int)
         fun onDeleteButtonClick(view: View, clickedPostId: Int, position: Int)
