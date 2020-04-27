@@ -68,6 +68,7 @@ class PresenterManufactures(
                 if (response.is_next) {
                     view.showMorePosts(response.posts)
                 } else {
+                    view.removeLoadingView()
                     Toast.makeText(
                         context,
                         "마지막 아이템입니다.",

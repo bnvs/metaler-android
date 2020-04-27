@@ -177,6 +177,10 @@ class ActivityManufactures : AppCompatActivity(),
         postsRV.adapter = postAdapter
     }
 
+    override fun removeLoadingView() {
+        postAdapter.removeLoadingView()
+    }
+
     override fun showPostDetailUi() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
