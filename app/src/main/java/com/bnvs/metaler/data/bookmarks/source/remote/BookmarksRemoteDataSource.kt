@@ -69,7 +69,7 @@ object BookmarksRemoteDataSource : BookmarksDataSource {
         onSuccess: (response: BookmarksResponse) -> Unit,
         onFailure: (e: Throwable) -> Unit
     ) {
-        retrofitClient.getMyBookmarks(request.page, request.limit)
+        retrofitClient.getMyBookmarks(request.page, request.limit, request.category_type)
             .enqueue(object : Callback<BookmarksResponse> {
                 override fun onResponse(
                     call: Call<BookmarksResponse>,
