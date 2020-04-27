@@ -60,9 +60,13 @@ class ActivityPostFirst : AppCompatActivity(), ContractPostFirst.View {
         }
     }
 
-    override fun showCategoryView() {
-        materialsCategory.visibility = View.VISIBLE
-        setCategoryMoreButtons()
+    override fun showCategoryView(b: Boolean) {
+        if (b) {
+            materialsCategory.visibility = View.VISIBLE
+            setCategoryMoreButtons()
+        } else {
+            materialsCategory.visibility = View.GONE
+        }
     }
 
     override fun setCategory(category: String) {
@@ -225,9 +229,17 @@ class ActivityPostFirst : AppCompatActivity(), ContractPostFirst.View {
         makeAlertDialog("내용을 입력해 주세요")
     }
 
-    override fun showPostSecondUi(addEditPostRequest: AddEditPostRequest) {
+    override fun showPostSecondUi(
+        categoryType: String,
+        postId: Int?,
+        addEditPostRequest: AddEditPostRequest
+    ) {
         Intent(this, ActivityPostSecond::class.java).apply {
             putExtra("addEditPostRequest", addEditPostRequest)
+            putExtra("CATEGORY_TYPE", categoryType)
+            if (postId != null) {
+                putExtra("POST_ID", postId.toString())
+            }
             startActivity(this)
         }
     }

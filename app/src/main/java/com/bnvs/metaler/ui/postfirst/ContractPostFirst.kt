@@ -10,7 +10,7 @@ import java.io.File
 
 interface ContractPostFirst {
     interface View : BaseView<Presenter> {
-        fun showCategoryView()
+        fun showCategoryView(b: Boolean)
         fun setCategory(category: String)
         fun setTitle(title: String)
         fun setPrice(price: Int)
@@ -34,7 +34,11 @@ interface ContractPostFirst {
         fun showEmptyPriceDialog()
         fun showEmptyPriceTypeDialog()
         fun showEmptyContentsDialog()
-        fun showPostSecondUi(addEditPostRequest: AddEditPostRequest)
+        fun showPostSecondUi(
+            categoryType: String,
+            postId: Int?,
+            addEditPostRequest: AddEditPostRequest
+        )
     }
 
     interface Presenter : BasePresenter {
