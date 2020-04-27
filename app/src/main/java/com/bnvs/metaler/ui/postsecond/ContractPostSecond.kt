@@ -16,6 +16,9 @@ interface ContractPostSecond {
         fun setTagInput(tags: String)
         fun showEmptyTagsDialog()
         fun showInvalidateTagDialog()
+        fun finishAddEditUi(categoryType: String)
+        fun showAddPostFailureToast(errorMessage: String)
+        fun showEditPostFailureToast(errorMessage: String)
     }
 
     interface Presenter : BasePresenter {
