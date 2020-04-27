@@ -25,7 +25,7 @@ import kotlinx.android.synthetic.main.item_posts_rv.view.likeNum
 import kotlinx.android.synthetic.main.item_posts_rv.view.title
 
 class BookmarkAdapter(
-    private var itemListener: PostItemListener
+    private var bookmarkItemListener: BookmarkPostItemListener
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     lateinit var context: Context
@@ -141,14 +141,13 @@ class BookmarkAdapter(
 
 
                     holder.itemView.setOnClickListener {
-                        itemListener.onPostClick(it, position)
+                        bookmarkItemListener.onPostClick(position)
                     }
 
                     deleteBtn.setOnClickListener {
-                        itemListener.onBookmarkButtonClick(
+                        bookmarkItemListener.onDeleteButtonClick(
                             bookmarkBtn,
                             tempArrayList[position]!!.post_id,
-                            tempArrayList[position]!!.is_bookmark,
                             position
                         )
                     }
