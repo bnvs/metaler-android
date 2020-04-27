@@ -145,4 +145,16 @@ class ActivityPostSecond : AppCompatActivity(), ContractPostSecond.View {
             })
         }
     }
+
+    override fun setShopNameInput(tags: String) {
+        shopNameInput.setText(tags)
+    }
+
+    override fun setWorkInput(tags: String) {
+        workInput.setText(tags)
+    }
+
+    override fun setTagInput(tags: String) {
+        tagInput.setText(tags)
+    }
 }
