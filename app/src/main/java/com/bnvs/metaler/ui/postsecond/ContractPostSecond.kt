@@ -3,6 +3,7 @@ package com.bnvs.metaler.ui.postsecond
 import android.content.Intent
 import com.bnvs.metaler.BasePresenter
 import com.bnvs.metaler.BaseView
+import org.json.JSONObject
 
 interface ContractPostSecond {
     interface View : BaseView<Presenter> {
@@ -13,6 +14,8 @@ interface ContractPostSecond {
         fun setShopNameInput(tags: String)
         fun setWorkInput(tags: String)
         fun setTagInput(tags: String)
+        fun showEmptyTagsDialog()
+        fun showInvalidateTagDialog()
     }
 
     interface Presenter : BasePresenter {
@@ -21,5 +24,9 @@ interface ContractPostSecond {
         fun setShopNameInput()
         fun setWorkInput()
         fun setTagInput()
+        fun finishAddEditPost(tags: JSONObject)
+        fun completeAddEditPostRequest()
+        fun addPost()
+        fun editPost()
     }
 }
