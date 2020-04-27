@@ -10,7 +10,7 @@ interface ContractBookmarks {
     interface View : BaseView<Presenter>, TapBarContract.View {
         fun showPostDetailUi(postId: Int)
 
-        fun showBookmarkPostsList(posts: List<Bookmark>)
+        fun showBookmarkPostsList(bookmarks: List<Bookmark>)
 
         fun showBookmarkDeleteDialog(postId: Int)
 
