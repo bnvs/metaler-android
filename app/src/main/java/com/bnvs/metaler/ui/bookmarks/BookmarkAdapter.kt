@@ -12,8 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bnvs.metaler.R
-import com.bnvs.metaler.data.posts.model.Post
-import com.bnvs.metaler.util.PostItemListener
+import com.bnvs.metaler.data.bookmarks.model.Bookmark
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.item_bookmark_rv.view.*
 import kotlinx.android.synthetic.main.item_loading.view.*
@@ -30,34 +29,29 @@ class BookmarkAdapter(
 
     lateinit var context: Context
 
-    // 서버와 통신해서 받아오는 Post타입의 데이터를 담는 변수
+    // 서버와 통신해서 받아오는 Bookmark타입의 데이터를 담는 변수
     // 어레이 리스트인 이유 : 무한스크롤할 때 로딩중이면 null값을 추가하고, 로딩이끝나면 null값을 빼기 때문에 수정이 가능한 어레이리스트가 필요함
-    var tempArrayList = ArrayList<Post?>()
+    var tempArrayList = ArrayList<Bookmark?>()
 
     class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
     class LoadingViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
     // 데이터를 처음 가져올 때 쓰는 함수
-    fun addPosts(list: List<Post>) {
+    fun addPosts(list: List<Bookmark>) {
         this.tempArrayList.addAll(list)
         notifyDataSetChanged()
     }
 
 
     // 다음 페이지 데이터를 가져오는 함수
-    fun addMorePosts(list: ArrayList<Post?>) {
+    fun addMorePosts(list: ArrayList<Bookmark?>) {
         this.tempArrayList.addAll(list)
         notifyDataSetChanged()
     }
 
     fun resetList() {
         tempArrayList.removeAll(tempArrayList)
-    }
-
-
-    fun setBookmark(position: Int) {
-        tempArrayList[position]!!.is_bookmark = !tempArrayList[position]!!.is_bookmark
     }
 
     fun getItemAtPosition(position: Int): String? {
@@ -103,7 +97,6 @@ class BookmarkAdapter(
     }
 
     override fun getItemCount(): Int {
-//        Log.d("어댑터", "123123 getItemCount ? : ${posts.size}")
         return tempArrayList.size
     }
 
@@ -131,7 +124,7 @@ class BookmarkAdapter(
                     title.text = tempArrayList[position]!!.title
                     date.text = tempArrayList[position]!!.date
                     tags.text = tagString
-                    dislikeNum.text = tempArrayList[position]!!.disliked.toString()
+                    dislikeNum.text = tempArrayList[position]!!.dis_liked.toString()
                     likeNum.text = tempArrayList[position]!!.liked.toString()
 
                     if (tempArrayList[position]!!.thumbnail != "") {
