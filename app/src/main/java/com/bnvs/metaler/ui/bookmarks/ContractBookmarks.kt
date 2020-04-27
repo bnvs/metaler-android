@@ -19,9 +19,9 @@ interface ContractBookmarks {
     }
 
     interface Presenter : BasePresenter, TapBarContract.Presenter {
-        fun loadMaterialsPost()
+        fun loadMaterialsPost(postsRequest: PostsRequest)
 
-        fun loadManufacturePost()
+        fun loadManufacturePost(postsRequest: PostsRequest)
 
         fun requestPosts(categoryId: Int): PostsRequest
 
