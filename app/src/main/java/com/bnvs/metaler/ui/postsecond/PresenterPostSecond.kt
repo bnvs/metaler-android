@@ -23,13 +23,26 @@ class PresenterPostSecond(
         }
     }
 
+    override fun getAddEditPostRequest(intent: Intent) {
+        addEditPostRequest = intent.getSerializableExtra("addEditPostRequest") as AddEditPostRequest
+    }
+
     private fun distinguishMaterialOrManufacture() {
         when (categoryType) {
             "MATERIALS" -> {
-                view.showManufactureWorkTagInput(false)
+                view.apply {
+                    showManufactureWorkTagInput(false)
+                    setShopNameTagInputAdapter()
+                    setWorkTagInputAdapter()
+                }
             }
             "MANUFACTURES" -> {
-                view.showManufactureWorkTagInput(true)
+                view.apply {
+                    showManufactureWorkTagInput(false)
+                    setShopNameTagInputAdapter()
+                    setWorkTagInputAdapter()
+                    setWorkTagInputAdapter()
+                }
             }
         }
     }
