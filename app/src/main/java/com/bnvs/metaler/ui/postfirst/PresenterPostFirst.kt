@@ -65,17 +65,6 @@ class PresenterPostFirst(
         )
     }
 
-    override fun getCategories() {
-        categoriesRepository.getCategories(
-            onSuccess = { response ->
-                categories = response
-            },
-            onFailure = { e ->
-                view.showGetCategoriesFailedToast(NetworkUtil.getErrorMessage(e))
-            }
-        )
-    }
-
     override fun populatePost(postId: Int) {
         postDetailsRepository.getPostDetails(
             postId,
@@ -306,9 +295,6 @@ class PresenterPostFirst(
     override fun completeAddEditPostRequestExceptTags(contents: JSONObject) {
         addEditPostRequest.apply {
             title = contents.getString("title")
-            if (!contents.getString("price").isNullOrBlank()) {
-                price = contents.getString("price").toInt()
-            }
             content = contents.getString("content")
         }
     }
@@ -337,10 +323,6 @@ class PresenterPostFirst(
             return
         }
 
-        view.showPostSecondUi(addEditPostRequest)
-    }
-
-    override fun openPostSecond() {
         view.showPostSecondUi(addEditPostRequest)
     }
 }
