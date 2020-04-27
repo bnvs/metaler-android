@@ -177,9 +177,10 @@ class PresenterPostFirst(
     private fun distinguishMaterialOrManufacture() {
         when (categoryType) {
             "MATERIALS" -> {
-                view.showCategoryView()
+                view.showCategoryView(true)
             }
             "MANUFACTURES" -> {
+                view.showCategoryView(false)
                 for (category in categories) {
                     if (category.type == "manufacture") {
                         addEditPostRequest.category_id = category.id
@@ -323,6 +324,6 @@ class PresenterPostFirst(
             return
         }
 
-        view.showPostSecondUi(addEditPostRequest)
+        view.showPostSecondUi(categoryType!!, postId, addEditPostRequest)
     }
 }
