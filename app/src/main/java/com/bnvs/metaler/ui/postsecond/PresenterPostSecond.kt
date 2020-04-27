@@ -4,6 +4,8 @@ import android.content.Intent
 import android.util.Log
 import com.bnvs.metaler.data.addeditpost.model.AddEditPostRequest
 import com.bnvs.metaler.data.addeditpost.model.PostTag
+import com.bnvs.metaler.data.addeditpost.source.repository.AddEditPostRepository
+import com.bnvs.metaler.network.NetworkUtil
 import org.json.JSONObject
 import java.util.regex.Pattern
 
@@ -13,6 +15,7 @@ class PresenterPostSecond(
     private val view: ContractPostSecond.View
 ) : ContractPostSecond.Presenter {
 
+    private val addEditPostRepository = AddEditPostRepository()
     private lateinit var addEditPostRequest: AddEditPostRequest
     private var shopNameTagString = ""
     private var workTagString = ""
@@ -112,10 +115,31 @@ class PresenterPostSecond(
 
     override fun addPost() {
         Log.d("addPost : 게시물 추가 완료", addEditPostRequest.toString())
+        addEditPostRepository.addPost(
+            addEditPostRequest,
+            onSuccess = {
+                view.finishAddEditUi(categoryType)
+            },
+            onFailure = { e ->
+                view.showAddPostFailureToast(NetworkUtil.getErrorMessage(e))
+                view.finishAddEditUi(categoryType)
+            }
+        )
     }
 
     override fun editPost() {
         Log.d("editPost : 게시물 수정 완료", addEditPostRequest.toString())
+        addEditPostRepository.editPost(
+            postId!!,
+            addEditPostRequest,
+            onSuccess = {
+                view.finishAddEditUi(categoryType)
+            },
+            onFailure = { e ->
+                view.showEditPostFailureToast(NetworkUtil.getErrorMessage(e))
+                view.finishAddEditUi(categoryType)
+            }
+        )
     }
 
     private fun setTagString(tags: JSONObject) {
