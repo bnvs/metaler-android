@@ -54,22 +54,6 @@ class ActivityPostFirst : AppCompatActivity(), ContractPostFirst.View {
         thumbnailRV.adapter = thumbnailAdapter
 
         initClickListeners()
-
-        priceInput.setOnClickListener {
-            AlertDialog.Builder(this@ActivityPostFirst)
-                .setTitle("가격 입력")
-                .setView(R.layout.dialog_price_input)
-                .setPositiveButton("확인") { dialog, which ->
-                    val f = dialog as Dialog
-                    val input: EditText = f.findViewById(R.id.priceInputEditTxt)
-                    val price = input.text.toString().toInt()
-                    presenter.setPrice(price)
-                }
-                .setNegativeButton("취소") { _, _ ->
-                }
-                .show()
-        }
-
         checkRunTimePermission()
         presenter.run {
             start()
@@ -250,6 +234,7 @@ class ActivityPostFirst : AppCompatActivity(), ContractPostFirst.View {
 
     private fun initClickListeners() {
         setAppBarButtons()
+        setPriceInputButton()
         setPriceTypeButtons()
     }
 
@@ -268,6 +253,23 @@ class ActivityPostFirst : AppCompatActivity(), ContractPostFirst.View {
     private fun setCategoryMoreButtons() {
         categoryMoreBtn.setOnClickListener {
             presenter.openChooseCategory()
+        }
+    }
+
+    private fun setPriceInputButton() {
+        priceInput.setOnClickListener {
+            AlertDialog.Builder(this@ActivityPostFirst)
+                .setTitle("가격 입력")
+                .setView(R.layout.dialog_price_input)
+                .setPositiveButton("확인") { dialog, which ->
+                    val f = dialog as Dialog
+                    val input: EditText = f.findViewById(R.id.priceInputEditTxt)
+                    val price = input.text.toString().toInt()
+                    presenter.setPrice(price)
+                }
+                .setNegativeButton("취소") { _, _ ->
+                }
+                .show()
         }
     }
 
