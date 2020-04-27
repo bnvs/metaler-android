@@ -3,8 +3,10 @@ package com.bnvs.metaler.ui.bookmarks
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.RecyclerView
 import com.bnvs.metaler.R
-import com.bnvs.metaler.data.posts.model.Post
+import com.bnvs.metaler.data.bookmarks.model.Bookmark
+import com.bnvs.metaler.util.EndlessRecyclerViewScrollListener
 import kotlinx.android.synthetic.main.activity_bookmark.*
 
 class ActivityBookmarks : AppCompatActivity(), ContractBookmarks.View {
@@ -13,6 +15,11 @@ class ActivityBookmarks : AppCompatActivity(), ContractBookmarks.View {
 
     override lateinit var presenter: ContractBookmarks.Presenter
 
+    lateinit var bookmarks: List<Bookmark>
+    lateinit var bookmarkAdapter: BookmarkAdapter
+    lateinit var scrollListener: EndlessRecyclerViewScrollListener
+    lateinit var bookmarkLayoutManager: RecyclerView.LayoutManager
+    var loadMorebookmarks: ArrayList<Bookmark?> = ArrayList()
 
     /**
      * 북마크 재료/가공 카테고리 눌렀을 때 보여지는 재료/가공 게시물 리사이클러뷰 아이템에 달아줄 클릭리스너입니다
@@ -31,10 +38,6 @@ class ActivityBookmarks : AppCompatActivity(), ContractBookmarks.View {
     }
     /*private val bookmarkPostAdapter = BookmarkPostAdapter(ArrayList(0), bookmarkItemListener)
     private val bookmarkPostLayoutManager = LinearLayoutManager(this)*/
-
-
-
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,18 +65,13 @@ class ActivityBookmarks : AppCompatActivity(), ContractBookmarks.View {
         }
 
 
-
     }
 
     override fun showPostDetailUi(postId: Int) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun showMaterialsList(posts: List<Post>) {
-        /*bookmarkPostAdapter.setPosts(posts)*/
-    }
-
-    override fun showManufacturesList(posts: List<Post>) {
+    override fun showBookmarkPostsList(bookmarks: List<Bookmark>) {
         /*bookmarkPostAdapter.setPosts(posts)*/
     }
 
@@ -86,7 +84,7 @@ class ActivityBookmarks : AppCompatActivity(), ContractBookmarks.View {
         setTapBarButtons()
     }
 
-    private fun setCategoryButtons(){
+    private fun setCategoryButtons() {
         materialsCategoryBtn.setOnClickListener { presenter.openMaterialsList() }
         manufactureCategoryBtn.setOnClickListener { presenter.openManufacturesList() }
     }
@@ -98,7 +96,6 @@ class ActivityBookmarks : AppCompatActivity(), ContractBookmarks.View {
         bookmarkBtn.setOnClickListener { presenter.openBookmarks(this, this) }
         myPageBtn.setOnClickListener { presenter.openMyPage(this, this) }
     }
-
 
 
     //북마크 리사이클러뷰 아이템 레이아웃(북마크 버튼 대신 delete 버튼있음)이 PostAdapter에서 쓰는 레이아웃이랑 달라서 일부 바꿈
