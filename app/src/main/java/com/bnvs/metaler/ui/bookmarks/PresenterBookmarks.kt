@@ -32,7 +32,7 @@ class PresenterBookmarks(
         bookmarksRepository.getMyBookmarks(
             bookmarksRequest,
             onSuccess = { response: BookmarksResponse ->
-                view.showMaterialsList(response.posts)
+                view.showBookmarkPostsList(response.posts)
             },
             onFailure = { e ->
                 Toast.makeText(
