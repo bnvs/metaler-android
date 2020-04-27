@@ -1,8 +1,11 @@
 package com.bnvs.metaler.ui.bookmarks
 
 import android.content.Context
+import android.widget.Toast
+import com.bnvs.metaler.data.bookmarks.model.BookmarksRequest
+import com.bnvs.metaler.data.bookmarks.model.BookmarksResponse
 import com.bnvs.metaler.data.bookmarks.source.repositroy.BookmarksRepository
-import com.bnvs.metaler.data.posts.model.PostsRequest
+import com.bnvs.metaler.network.NetworkUtil
 
 class PresenterBookmarks(
     private val context: Context,
@@ -12,7 +15,7 @@ class PresenterBookmarks(
     private val bookmarksRepository: BookmarksRepository =
         BookmarksRepository(context)
 
-    private lateinit var postsRequest: PostsRequest
+    private lateinit var bookmarksRequest: BookmarksRequest
 
     private var pageNum: Int = 0
     private var categoryId: Int = 0
@@ -22,28 +25,34 @@ class PresenterBookmarks(
     }
 
     override fun start() {
-        loadMaterialsPost()
+        loadBookmarkPosts(requestPosts(1))
     }
 
-    override fun loadMaterialsPost() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun loadBookmarkPosts(bookmarksRequest: BookmarksRequest) {
+        bookmarksRepository.getMyBookmarks(
+            bookmarksRequest,
+            onSuccess = { response: BookmarksResponse ->
+                view.showMaterialsList(response.posts)
+            },
+            onFailure = { e ->
+                Toast.makeText(
+                    context,
+                    "서버 통신 실패 : ${NetworkUtil.getErrorMessage(e)}",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        )
     }
 
-    override fun loadManufacturePost() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun requestPosts(categoryId: Int): PostsRequest {
+    override fun requestPosts(categoryId: Int): BookmarksRequest {
         pageNum++
         this.categoryId = categoryId
-        postsRequest = PostsRequest(
+        bookmarksRequest = BookmarksRequest(
             categoryId,
             pageNum,
-            10,
-            null,
-            null
+            10
         )
-        return postsRequest
+        return bookmarksRequest
     }
 
     override fun openMaterialsList() {
