@@ -1,13 +1,17 @@
 package com.bnvs.metaler.ui.postsecond
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.bnvs.metaler.R
+import com.bnvs.metaler.ui.manufactures.ActivityManufactures
+import com.bnvs.metaler.ui.materials.ActivityMaterials
 import kotlinx.android.synthetic.main.activity_post_second.*
 import org.json.JSONObject
 
@@ -179,6 +183,31 @@ class ActivityPostSecond : AppCompatActivity(), ContractPostSecond.View {
             .show()
     }
 
+    override fun finishAddEditUi(categoryType: String) {
+        when (categoryType) {
+            "MATERIALS" -> {
+                Intent(this, ActivityMaterials::class.java).apply {
+                    flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                    startActivity(this)
+                }
+            }
+            "MANUFACTURES" -> {
+                Intent(this, ActivityManufactures::class.java).apply {
+                    flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                    startActivity(this)
+                }
+            }
+        }
+    }
+
+    override fun showAddPostFailureToast(errorMessage: String) {
+        makeToast(errorMessage)
+    }
+
+    override fun showEditPostFailureToast(errorMessage: String) {
+        makeToast(errorMessage)
+    }
+
     private fun initClickListener() {
         backBtn.setOnClickListener { finish() }
         completeBtn.setOnClickListener {
@@ -190,6 +219,10 @@ class ActivityPostSecond : AppCompatActivity(), ContractPostSecond.View {
             presenter.finishAddEditPost(tags)
         }
 
+    }
+
+    private fun makeToast(message: String) {
+        Toast.makeText(this@ActivityPostSecond, message, Toast.LENGTH_LONG).show()
     }
 
 }
