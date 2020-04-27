@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -230,7 +231,7 @@ class ActivityMaterials : AppCompatActivity(),
     }
 
     override fun showSearchTags() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
     }
 
     override fun clearSearchTagBar() {
@@ -244,6 +245,18 @@ class ActivityMaterials : AppCompatActivity(),
     private fun initClickListeners() {
         setTitleBarButtons()
         setTapBarButtons()
+        setTagSearchButtons()
+    }
+
+    private fun setTagSearchButtons() {
+        tagInput.setOnEditorActionListener { v, actionId, event ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+//                doSomething()
+                true
+            } else {
+                false
+            }
+        }
     }
 
     private fun setTitleBarButtons() {

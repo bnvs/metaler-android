@@ -42,6 +42,8 @@
                     android:layout_marginLeft="7dp"
                     android:background="@null"
                     android:hint="#태그검색"
+                    android:imeOptions="actionSearch"
+                    android:inputType="text"
                     android:textColor="@color/colorGrey"
                     android:textSize="18sp"
                     app:layout_constraintBottom_toBottomOf="parent"
