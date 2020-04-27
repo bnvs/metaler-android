@@ -157,7 +157,8 @@ interface RetrofitInterface {
     @GET("/users/bookmarks")
     fun getMyBookmarks(
         @Query("page") page: Int,
-        @Query("limit") limit: Int
+        @Query("limit") limit: Int,
+        @Query("category_type") category_type: String
     ): Call<BookmarksResponse>
 
     /*** [2-5. 홈] ***/
