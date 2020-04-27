@@ -2,8 +2,8 @@ package com.bnvs.metaler.ui.bookmarks
 
 import com.bnvs.metaler.BasePresenter
 import com.bnvs.metaler.BaseView
+import com.bnvs.metaler.data.bookmarks.model.BookmarksRequest
 import com.bnvs.metaler.data.posts.model.Post
-import com.bnvs.metaler.data.posts.model.PostsRequest
 import com.bnvs.metaler.util.TapBarContract
 
 interface ContractBookmarks {
@@ -19,11 +19,11 @@ interface ContractBookmarks {
     }
 
     interface Presenter : BasePresenter, TapBarContract.Presenter {
-        fun loadMaterialsPost(postsRequest: PostsRequest)
+        fun loadMaterialsPost(bookmarksRequest: BookmarksRequest)
 
-        fun loadManufacturePost(postsRequest: PostsRequest)
+        fun loadManufacturePost(bookmarksRequest: BookmarksRequest)
 
-        fun requestPosts(categoryId: Int): PostsRequest
+        fun requestPosts(categoryId: Int): BookmarksRequest
 
         fun openMaterialsList()
 
