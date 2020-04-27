@@ -72,7 +72,10 @@ class ActivityBookmarks : AppCompatActivity(), ContractBookmarks.View {
     }
 
     override fun showBookmarkPostsList(bookmarks: List<Bookmark>) {
-        /*bookmarkPostAdapter.setPosts(posts)*/
+        bookmarkAdapter = BookmarkAdapter(bookmarkItemListener)
+        bookmarkAdapter.addPosts(bookmarks)
+        bookmarkAdapter.notifyDataSetChanged()
+        bookmarkRV.adapter = bookmarkAdapter
     }
 
     override fun showBookmarkDeleteDialog(postId: Int) {
@@ -97,11 +100,5 @@ class ActivityBookmarks : AppCompatActivity(), ContractBookmarks.View {
         myPageBtn.setOnClickListener { presenter.openMyPage(this, this) }
     }
 
-
-    private interface BookmarkPostItemListener {
-        fun onPostClick(clickedPostId: Int)
-        fun onDeleteButtonClick(view: View, clickedPostId: Int, position: Int)
-
-    }
 
 }
