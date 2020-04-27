@@ -34,12 +34,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <TextView
+                <EditText
                     android:id="@+id/tagInput"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="7dp"
-                    android:text="#태그검색"
+                    android:background="@null"
+                    android:hint="#태그검색"
                     android:textColor="@color/colorGrey"
                     android:textSize="18sp"
                     app:layout_constraintBottom_toBottomOf="parent"
