@@ -41,7 +41,7 @@ class PresenterPostSecond(
             }
             "MANUFACTURES" -> {
                 view.apply {
-                    showManufactureWorkTagInput(false)
+                    showManufactureWorkTagInput(true)
                     setShopNameTagInputAdapter()
                     setWorkTagInputAdapter()
                     setWorkTagInputAdapter()
