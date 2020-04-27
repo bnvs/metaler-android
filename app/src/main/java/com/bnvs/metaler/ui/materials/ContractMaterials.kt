@@ -44,7 +44,7 @@ interface ContractMaterials {
     interface Presenter : BasePresenter, TapBarContract.Presenter {
         fun loadCategories()
 
-        fun requestPosts(): PostsRequest
+        fun requestPosts(categoryId: Int): PostsRequest
 
         fun requestAddBookmark(postId: Int): AddBookmarkRequest
 
@@ -55,6 +55,8 @@ interface ContractMaterials {
         fun loadMorePosts(postsRequest: PostsRequest)
 
         fun resetPageNum()
+
+        fun getCategoryId(): Int
 
         fun openPostDetail(postId: Int)
 
