@@ -13,6 +13,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bnvs.metaler.R
 import com.bnvs.metaler.data.posts.model.Post
+import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.item_loading.view.*
 import kotlinx.android.synthetic.main.item_posts_rv.view.*
 
@@ -43,7 +44,7 @@ class PostAdapter(
         notifyDataSetChanged()
     }
 
-    fun resetList(){
+    fun resetList() {
         tempArrayList.removeAll(tempArrayList)
     }
 
@@ -124,6 +125,11 @@ class PostAdapter(
                     tags.text = tagString
                     dislikeNum.text = tempArrayList[position]!!.disliked.toString()
                     likeNum.text = tempArrayList[position]!!.liked.toString()
+
+                    if (tempArrayList[position]!!.thumbnail != "") {
+                        Glide.with(this).load(tempArrayList[position]!!.thumbnail)
+                            .into(img)
+                    } else img.visibility = View.INVISIBLE
 
                     if (tempArrayList[position]!!.is_bookmark) {
                         bookmarkBtn.setImageResource(R.drawable.ic_list_bookmark_active_x3)
