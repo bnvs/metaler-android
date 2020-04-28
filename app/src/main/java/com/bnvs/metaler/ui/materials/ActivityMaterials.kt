@@ -331,20 +331,19 @@ class ActivityMaterials : AppCompatActivity(),
             fun bind(item: Category, position: Int) {
 
                 view.apply {
-                    materialsCategoryBtn.apply {
-                        text = item.name
-                        if (selectedPosition == position) {
+                    if (selectedPosition == position) {
+                        materialsCategoryBtn.apply {
+                            text = item.name
                             setTextColor(ContextCompat.getColor(this.context, R.color.colorPurple))
-                            setBackgroundResource(R.drawable.active_bar)
-                        } else {
-                            setTextColor(
-                                ContextCompat.getColor(
-                                    this.context,
-                                    R.color.colorLightGrey
-                                )
-                            )
-                            setBackgroundResource(0)
                         }
+                        categoryActiveBar.visibility = View.VISIBLE
+
+                    } else {
+                        materialsCategoryBtn.apply {
+                            text = item.name
+                            setTextColor(ContextCompat.getColor(this.context, R.color.colorLightGrey))
+                        }
+                        categoryActiveBar.visibility = View.INVISIBLE
                     }
                     setOnClickListener { itemListener.onCategoryClick(item.id, position) }
                 }
