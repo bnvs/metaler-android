@@ -11,7 +11,7 @@ data class Post(
     val post_id: Int,
     val title: String,
     val content: String,
-    val profile_nickname: String,
+    val nickname: String,
     val date: String,
     val liked: Int,
     val disliked: Int,

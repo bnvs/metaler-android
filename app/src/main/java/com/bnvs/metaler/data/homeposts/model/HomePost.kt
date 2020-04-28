@@ -12,7 +12,7 @@ data class HomePost(
     val post_id: Int,
     val title: String,
     val content: String,
-    val profile_nickname: String,
+    val nickname: String,
     val date: String,
     val tags: List<PostTag>
 )
