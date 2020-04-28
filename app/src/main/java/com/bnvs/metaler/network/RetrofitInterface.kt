@@ -127,7 +127,9 @@ interface RetrofitInterface {
     // 댓글 목록 조회
     @GET("/posts/{id}/comments")
     fun getComments(
-        @Path("id") post_id: Int
+        @Path("id") post_id: Int,
+        @Query("page") page: Int,
+        @Query("limit") limit: Int
     ): Call<Comments>
 
     // 댓글 추가
