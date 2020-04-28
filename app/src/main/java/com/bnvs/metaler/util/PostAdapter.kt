@@ -58,7 +58,7 @@ class PostAdapter(
     }
 
     fun addLoadingView() {
-        //add loading item
+        //로딩 아이템 추가
         Handler().post {
             tempArrayList.add(null)
             notifyItemInserted(tempArrayList.size - 1)
@@ -66,7 +66,7 @@ class PostAdapter(
     }
 
     fun removeLoadingView() {
-        //Remove loading item
+        //로딩 아이템 삭제
         if (tempArrayList.size != 0) {
             tempArrayList.removeAt(tempArrayList.size - 1)
             notifyItemRemoved(tempArrayList.size)
@@ -95,7 +95,6 @@ class PostAdapter(
     }
 
     override fun getItemCount(): Int {
-//        Log.d("어댑터", "123123 getItemCount ? : ${posts.size}")
         return tempArrayList.size
     }
 
