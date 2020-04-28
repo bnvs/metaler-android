@@ -200,24 +200,26 @@ class PresenterPostFirst(
             Log.d("clipData", "이미지 여러장 가져오는데 성공함")
             for (i in 0..clipData.itemCount) {
                 val imageUri = clipData.getItemAt(i).uri
+                getTempFileName(imageUri)
                 uploadImage(getFileFromUri(imageUri))
             }
         } else {
-            data.data?.let { returnUri ->
-                context.contentResolver.query(returnUri, null, null, null, null)
-            }?.use { cursor ->
-                val nameIndex = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME)
-                val sizeIndex = cursor.getColumnIndex(OpenableColumns.SIZE)
-                cursor.moveToFirst()
-                val name = cursor.getString(nameIndex)
-                val size = cursor.getLong(sizeIndex).toString()
-                Log.d("이미지 이름, 사이즈 가져오기", "이미지 이름 : $name")
-                Log.d("이미지 이름, 사이즈 가져오기", "이미지 사이즈 : $size")
+            data.data?.let { imageUri ->
+                getTempFileName(imageUri)
+                uploadImage(getFileFromUri(imageUri))
             }
-
-            val imageUri = data.data
-            uploadImage(getFileFromUri(imageUri))
         }
+    }
+
+    private var tempFileName = ""
+
+    private fun getTempFileName(uri: Uri) {
+        context.contentResolver.query(uri, null, null, null, null)
+            ?.use { cursor ->
+                val nameIndex = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME)
+                cursor.moveToFirst()
+                tempFileName = "${cursor.getString(nameIndex).split(".")[0]}.jpg"
+            }
     }
 
     override fun getImageFromCamera(context: Context, data: Intent) {
@@ -242,7 +244,7 @@ class PresenterPostFirst(
     }
 
     private fun saveBitmapToCache(bitmap: Bitmap): String {
-        val cacheFile = File(context.cacheDir, "cache_image.jpg")
+        val cacheFile = File(context.cacheDir, tempFileName)
         cacheFile.createNewFile()
         val outputStream = FileOutputStream(cacheFile)
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
