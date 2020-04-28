@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/tag"
+        android:id="@+id/tagName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="7dp"
@@ -22,8 +22,8 @@
         android:layout_height="10dp"
         android:src="@drawable/ic_tag_delete_x3"
         android:layout_marginRight="5dp"
-        app:layout_constraintEnd_toEndOf="@id/tag"
-        app:layout_constraintTop_toTopOf="@id/tag"
-        app:layout_constraintBottom_toBottomOf="@id/tag"/>
+        app:layout_constraintEnd_toEndOf="@id/tagName"
+        app:layout_constraintTop_toTopOf="@id/tagName"
+        app:layout_constraintBottom_toBottomOf="@id/tagName"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
