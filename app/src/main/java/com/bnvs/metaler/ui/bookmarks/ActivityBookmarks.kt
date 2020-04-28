@@ -3,6 +3,8 @@ package com.bnvs.metaler.ui.bookmarks
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bnvs.metaler.R
 import com.bnvs.metaler.data.bookmarks.model.Bookmark
@@ -16,9 +18,9 @@ class ActivityBookmarks : AppCompatActivity(), ContractBookmarks.View {
     override lateinit var presenter: ContractBookmarks.Presenter
 
     lateinit var bookmarks: List<Bookmark>
-    lateinit var bookmarkAdapter: BookmarkAdapter
+    lateinit var bookmarkPostAdapter: BookmarkAdapter
     lateinit var scrollListener: EndlessRecyclerViewScrollListener
-    lateinit var bookmarkLayoutManager: RecyclerView.LayoutManager
+    lateinit var bookmarkPostLayoutManager: RecyclerView.LayoutManager
     var loadMorebookmarks: ArrayList<Bookmark?> = ArrayList()
 
     /**
@@ -53,17 +55,15 @@ class ActivityBookmarks : AppCompatActivity(), ContractBookmarks.View {
         // Set up Buttons
         initClickListeners()
 
-        // Set up posts recyclerView
-        /*bookmarkRV.apply {
-            adapter = bookmarkPostAdapter
-            layoutManager = bookmarkPostLayoutManager
-        }*/
-
+        activeMaterialsCategoryBtn()
 
         presenter.run {
             start()
         }
 
+        setRVLayoutManager()
+
+        setRVScrollListener()
 
     }
 
@@ -71,11 +71,43 @@ class ActivityBookmarks : AppCompatActivity(), ContractBookmarks.View {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
+    private fun setRVLayoutManager() {
+        bookmarkPostLayoutManager = LinearLayoutManager(this)
+        bookmarkRV.layoutManager = bookmarkPostLayoutManager
+        bookmarkRV.setHasFixedSize(true)
+    }
+
+    private fun setRVScrollListener() {
+        bookmarkPostLayoutManager = LinearLayoutManager(this)
+        scrollListener =
+            EndlessRecyclerViewScrollListener(bookmarkPostLayoutManager as LinearLayoutManager)
+        scrollListener.setOnLoadMoreListener(object :
+            EndlessRecyclerViewScrollListener.OnLoadMoreListener {
+            override fun onLoadMore() {
+
+
+                //loadMorePosts 에 null값을 추가해서 로딩뷰를 만든다.
+                bookmarkPostAdapter.addLoadingView()
+                loadMorebookmarks.add(null)
+
+                //loadMorebookmarks 는 다음페이지 데이터를 받아올 때만 데이터를 추가하기 때문에 조건절로 비어있는지 확인해야함
+                if (!loadMorebookmarks.isEmpty()) {
+                    //loadMorebookmarks 마지막 값이 null값이 있으면 무한스크롤 로딩 중이기 때문에 데이터를 받아오고, 로딩뷰를 제거한다.
+                    if (loadMorebookmarks[loadMorebookmarks.size - 1] == null) {
+//                        presenter.loadMorebookmarks(presenter.requestPosts(presenter.getCategoryId()))
+//                        showMorePosts()
+                    }
+                }
+
+            }
+        })
+        bookmarkRV.addOnScrollListener(scrollListener)
+    }
     override fun showBookmarkPostsList(bookmarks: List<Bookmark>) {
-        bookmarkAdapter = BookmarkAdapter(bookmarkItemListener)
-        bookmarkAdapter.addPosts(bookmarks)
-        bookmarkAdapter.notifyDataSetChanged()
-        bookmarkRV.adapter = bookmarkAdapter
+        bookmarkPostAdapter = BookmarkAdapter(bookmarkItemListener)
+        bookmarkPostAdapter.addPosts(bookmarks)
+        bookmarkPostAdapter.notifyDataSetChanged()
+        bookmarkRV.adapter = bookmarkPostAdapter
     }
 
     override fun showBookmarkDeleteDialog(postId: Int) {
@@ -85,6 +117,20 @@ class ActivityBookmarks : AppCompatActivity(), ContractBookmarks.View {
     private fun initClickListeners() {
         setCategoryButtons()
         setTapBarButtons()
+    }
+
+    private fun activeMaterialsCategoryBtn() {
+        materialsCategoryBtn.setTextColor(ContextCompat.getColor(this, R.color.colorPurple))
+        materialsBar.visibility = View.VISIBLE
+        manufactureCategoryBtn.setTextColor(ContextCompat.getColor(this, R.color.colorLightGrey))
+        manufactureBar.visibility = View.INVISIBLE
+    }
+
+    private fun activeManufactureCategoryBtn() {
+        manufactureCategoryBtn.setTextColor(ContextCompat.getColor(this, R.color.colorPurple))
+        manufactureBar.visibility = View.VISIBLE
+        materialsCategoryBtn.setTextColor(ContextCompat.getColor(this, R.color.colorLightGrey))
+        materialsBar.visibility = View.INVISIBLE
     }
 
     private fun setCategoryButtons() {
