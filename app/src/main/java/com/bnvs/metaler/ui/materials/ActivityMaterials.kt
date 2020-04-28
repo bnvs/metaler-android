@@ -16,9 +16,7 @@ import com.bnvs.metaler.R
 import com.bnvs.metaler.data.categories.model.Category
 import com.bnvs.metaler.data.posts.model.Post
 import com.bnvs.metaler.ui.postfirst.ActivityPostFirst
-import com.bnvs.metaler.util.EndlessRecyclerViewScrollListener
-import com.bnvs.metaler.util.PostAdapter
-import com.bnvs.metaler.util.PostItemListener
+import com.bnvs.metaler.util.*
 import kotlinx.android.synthetic.main.activity_materials.*
 import kotlinx.android.synthetic.main.item_materials_category_rv.view.*
 
@@ -35,6 +33,8 @@ class ActivityMaterials : AppCompatActivity(),
     lateinit var postLayoutManager: RecyclerView.LayoutManager
     var loadMorePosts: ArrayList<Post?> = ArrayList()
 
+    lateinit var tagSearchAdapter: TagSearchAdapter
+    private val tagSearchLayoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
 
     /**
      * 재료 탭의 카테고리 리사이클러뷰 아이템에 달아줄 리스너입니다
@@ -50,6 +50,16 @@ class ActivityMaterials : AppCompatActivity(),
                 presenter.resetPageNum()
                 presenter.loadPosts(presenter.requestPosts(categoryType))
             }
+        }
+    }
+
+    /**
+     * 재료 탭의 태그 검색 리사이클러뷰 아이템에 달아줄 리스너입니다
+     * */
+    private var tagSearchItemListener: TagSearchItemListener = object :
+        TagSearchItemListener {
+        override fun onTagDeleteBtnClick(position: Int) {
+            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         }
     }
 
@@ -230,10 +240,6 @@ class ActivityMaterials : AppCompatActivity(),
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun showSearchTags() {
-
-    }
-
     override fun clearSearchTagBar() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
@@ -248,16 +254,30 @@ class ActivityMaterials : AppCompatActivity(),
         setTagSearchButtons()
     }
 
+    override fun showSearchTags() {
+        Log.d(TAG,"태그입력값? : ${tagInput.text}")
+        var inputTag : String = tagInput.text.toString()
+        presenter.addSearchTag("tag",inputTag)
+        tagSearchAdapter = TagSearchAdapter(tagSearchItemListener)
+        tagSearchAdapter.addTags(inputTag)
+        categoryAdapter.notifyDataSetChanged()
+        tagRV.adapter = tagSearchAdapter
+        tagRV.layoutManager = tagSearchLayoutManager
+        tagRV.setHasFixedSize(true)
+        tagRV.visibility = View.VISIBLE
+    }
+
     private fun setTagSearchButtons() {
         tagInput.setOnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-//                doSomething()
+                showSearchTags()
                 true
             } else {
                 false
             }
         }
     }
+
 
     private fun setTitleBarButtons() {
         // 글작성, 글검색 버튼 클릭 리스너 달아주기

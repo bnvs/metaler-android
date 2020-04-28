@@ -3,6 +3,7 @@ package com.bnvs.metaler.ui.materials
 import android.content.Context
 import android.content.Intent
 import android.widget.Toast
+import androidx.core.content.contentValuesOf
 import com.bnvs.metaler.data.bookmarks.model.AddBookmarkRequest
 import com.bnvs.metaler.data.bookmarks.model.AddBookmarkResponse
 import com.bnvs.metaler.data.bookmarks.model.DeleteBookmarkRequest
@@ -32,6 +33,8 @@ class PresenterMaterials(
 
     private var pageNum: Int = 0
     private var categoryId: Int = 0
+    private var searchType: String? = null
+    private var searchWord: String? = null
 
     lateinit var posts: List<Post>
 
@@ -109,8 +112,8 @@ class PresenterMaterials(
             categoryId,
             pageNum,
             10,
-            null,
-            null
+            searchType,
+            searchWord
         )
         return postsRequest
     }
@@ -185,8 +188,9 @@ class PresenterMaterials(
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun addSearchTag() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun addSearchTag(searchType: String, searchWord: String) {
+        this.searchType = "tag"
+        this.searchWord = searchWord
     }
 
     override fun clearSearchTagBar() {

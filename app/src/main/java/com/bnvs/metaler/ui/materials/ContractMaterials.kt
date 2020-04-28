@@ -66,7 +66,7 @@ interface ContractMaterials {
 
         fun openSearch()
 
-        fun addSearchTag()
+        fun addSearchTag(searchType: String, searchWord: String)
 
         fun clearSearchTagBar()
 
