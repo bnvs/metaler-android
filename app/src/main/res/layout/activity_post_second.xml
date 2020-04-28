@@ -41,12 +41,14 @@
                 app:layout_constraintStart_toEndOf="@id/shopNameTxt"
                 app:layout_constraintTop_toTopOf="@id/shopNameTxt" />
 
-            <EditText
+            <com.bnvs.metaler.ui.postsecond.HashTagAutoCompleteTextView
                 android:id="@+id/shopNameInput"
                 style="@style/editTextStyle"
                 android:layout_width="match_parent"
                 android:layout_marginHorizontal="@dimen/wideMargin"
+                android:completionThreshold="2"
                 android:hint="@string/shop_name_guide"
+                android:textColor="@color/colorPurple"
                 app:layout_constraintStart_toStartOf="@id/shopNameTxt"
                 app:layout_constraintTop_toBottomOf="@id/shopNameTxt" />
 
@@ -82,12 +84,14 @@
                 app:layout_constraintStart_toEndOf="@id/workTxt"
                 app:layout_constraintTop_toTopOf="@id/workTxt" />
 
-            <EditText
+            <com.bnvs.metaler.ui.postsecond.HashTagAutoCompleteTextView
                 android:id="@+id/workInput"
                 style="@style/editTextStyle"
                 android:layout_width="match_parent"
                 android:layout_marginHorizontal="@dimen/wideMargin"
+                android:completionThreshold="2"
                 android:hint="@string/work_guide"
+                android:textColor="@color/colorPurple"
                 app:layout_constraintStart_toStartOf="@id/workTxt"
                 app:layout_constraintTop_toBottomOf="@id/workTxt" />
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -117,12 +121,14 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/workLine" />
 
-        <EditText
+        <com.bnvs.metaler.ui.postsecond.HashTagAutoCompleteTextView
             android:id="@+id/tagInput"
             style="@style/editTextStyle"
             android:layout_width="match_parent"
             android:layout_marginHorizontal="@dimen/wideMargin"
+            android:completionThreshold="2"
             android:hint="@string/tag_input_guide"
+            android:textColor="@color/colorPurple"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tagAddTxt" />
 
@@ -136,16 +142,6 @@
             app:layout_constraintRight_toLeftOf="@id/tagInput"
             app:layout_constraintStart_toStartOf="@id/tagAddTxt"
             app:layout_constraintTop_toBottomOf="@id/tagAddTxt" />
-
-        <ImageView
-            android:id="@+id/tagAddBtn"
-            android:layout_width="15dp"
-            android:layout_height="15dp"
-            android:layout_marginLeft="5dp"
-            android:src="@drawable/ic_tag_add_x3"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="@id/tagRV"
-            app:layout_constraintLeft_toRightOf="@id/tagRV" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
