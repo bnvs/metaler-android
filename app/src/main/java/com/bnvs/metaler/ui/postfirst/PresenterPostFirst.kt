@@ -5,6 +5,7 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
+import android.provider.OpenableColumns
 import android.util.Log
 import com.bnvs.metaler.data.addeditpost.model.AddEditPostRequest
 import com.bnvs.metaler.data.addeditpost.source.repository.AddEditPostRepository
@@ -199,17 +200,36 @@ class PresenterPostFirst(
             Log.d("clipData", "이미지 여러장 가져오는데 성공함")
             for (i in 0..clipData.itemCount) {
                 val imageUri = clipData.getItemAt(i).uri
+                getTempFileName(imageUri)
                 uploadImage(getFileFromUri(imageUri))
             }
         } else {
-            val imageUri = data.data
-            uploadImage(getFileFromUri(imageUri))
+            data.data?.let { imageUri ->
+                getTempFileName(imageUri)
+                uploadImage(getFileFromUri(imageUri))
+            }
         }
+    }
+
+    private var tempFileName = ""
+
+    private fun getTempFileName(uri: Uri) {
+        context.contentResolver.query(uri, null, null, null, null)
+            ?.use { cursor ->
+                val nameIndex = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME)
+                cursor.moveToFirst()
+                tempFileName = "${cursor.getString(nameIndex).split(".")[0]}.jpg"
+            }
+    }
+
+    private fun setTempFileName() {
+        tempFileName = "${System.currentTimeMillis()}.jpg"
     }
 
     override fun getImageFromCamera(context: Context, data: Intent) {
         this.context = context
         deleteCache(context.cacheDir)
+        setTempFileName()
         val bitmap: Bitmap = data.extras!!.get("data") as Bitmap
         val path = saveBitmapToCache(bitmap)
         uploadImage(File(path))
@@ -229,7 +249,7 @@ class PresenterPostFirst(
     }
 
     private fun saveBitmapToCache(bitmap: Bitmap): String {
-        val cacheFile = File(context.cacheDir, "cache_image.jpg")
+        val cacheFile = File(context.cacheDir, tempFileName)
         cacheFile.createNewFile()
         val outputStream = FileOutputStream(cacheFile)
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
