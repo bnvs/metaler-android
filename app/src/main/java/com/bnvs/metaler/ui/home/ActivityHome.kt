@@ -94,7 +94,7 @@ class ActivityHome : AppCompatActivity(), ContractHome.View {
             val material = materials[i]
             titles[i].text = material.title
             tags[i].text = parseTagList(material.tags)
-            userNames[i].text = material.profile_nickname
+            userNames[i].text = material.nickname
             dates[i].text = material.date
         }
     }
@@ -134,7 +134,7 @@ class ActivityHome : AppCompatActivity(), ContractHome.View {
             val material = manufactures[i]
             titles[i].text = material.title
             tags[i].text = parseTagList(material.tags)
-            userNames[i].text = material.profile_nickname
+            userNames[i].text = material.nickname
             dates[i].text = material.date
         }
     }
