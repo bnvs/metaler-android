@@ -222,9 +222,14 @@ class PresenterPostFirst(
             }
     }
 
+    private fun setTempFileName() {
+        tempFileName = "${System.currentTimeMillis()}.jpg"
+    }
+
     override fun getImageFromCamera(context: Context, data: Intent) {
         this.context = context
         deleteCache(context.cacheDir)
+        setTempFileName()
         val bitmap: Bitmap = data.extras!!.get("data") as Bitmap
         val path = saveBitmapToCache(bitmap)
         uploadImage(File(path))
