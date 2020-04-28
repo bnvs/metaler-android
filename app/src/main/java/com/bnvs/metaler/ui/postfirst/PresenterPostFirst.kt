@@ -5,6 +5,7 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
+import android.provider.OpenableColumns
 import android.util.Log
 import com.bnvs.metaler.data.addeditpost.model.AddEditPostRequest
 import com.bnvs.metaler.data.addeditpost.source.repository.AddEditPostRepository
@@ -202,6 +203,18 @@ class PresenterPostFirst(
                 uploadImage(getFileFromUri(imageUri))
             }
         } else {
+            data.data?.let { returnUri ->
+                context.contentResolver.query(returnUri, null, null, null, null)
+            }?.use { cursor ->
+                val nameIndex = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME)
+                val sizeIndex = cursor.getColumnIndex(OpenableColumns.SIZE)
+                cursor.moveToFirst()
+                val name = cursor.getString(nameIndex)
+                val size = cursor.getLong(sizeIndex).toString()
+                Log.d("이미지 이름, 사이즈 가져오기", "이미지 이름 : $name")
+                Log.d("이미지 이름, 사이즈 가져오기", "이미지 사이즈 : $size")
+            }
+
             val imageUri = data.data
             uploadImage(getFileFromUri(imageUri))
         }
