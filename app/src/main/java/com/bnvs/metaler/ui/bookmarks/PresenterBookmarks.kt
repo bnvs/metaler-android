@@ -18,14 +18,14 @@ class PresenterBookmarks(
     private lateinit var bookmarksRequest: BookmarksRequest
 
     private var pageNum: Int = 0
-    private var categoryId: Int = 0
+    private var categoryType: String = ""
 
     init {
         view.presenter = this
     }
 
     override fun start() {
-        loadBookmarkPosts(requestPosts(1))
+        loadBookmarkPosts(requestPosts("materials"))
     }
 
     override fun loadBookmarkPosts(bookmarksRequest: BookmarksRequest) {
@@ -44,11 +44,11 @@ class PresenterBookmarks(
         )
     }
 
-    override fun requestPosts(categoryId: Int): BookmarksRequest {
+    override fun requestPosts(categoryType: String): BookmarksRequest {
         pageNum++
-        this.categoryId = categoryId
+        this.categoryType = categoryType
         bookmarksRequest = BookmarksRequest(
-            categoryId,
+            categoryType,
             pageNum,
             10
         )
