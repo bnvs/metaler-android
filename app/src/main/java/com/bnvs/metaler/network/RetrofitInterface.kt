@@ -1,18 +1,24 @@
 package com.bnvs.metaler.network
 
-import com.bnvs.metaler.data.addeditpost.model.*
+import com.bnvs.metaler.data.addeditpost.model.AddEditPostRequest
+import com.bnvs.metaler.data.addeditpost.model.AddPostResponse
+import com.bnvs.metaler.data.addeditpost.model.UploadFileResponse
 import com.bnvs.metaler.data.bookmarks.model.AddBookmarkRequest
 import com.bnvs.metaler.data.bookmarks.model.AddBookmarkResponse
 import com.bnvs.metaler.data.bookmarks.model.BookmarksResponse
 import com.bnvs.metaler.data.categories.model.Category
-import com.bnvs.metaler.data.comments.model.*
+import com.bnvs.metaler.data.comments.model.AddCommentResponse
+import com.bnvs.metaler.data.comments.model.AddEditCommentRequest
+import com.bnvs.metaler.data.comments.model.Comments
 import com.bnvs.metaler.data.homeposts.model.HomePosts
 import com.bnvs.metaler.data.myposts.model.MyPosts
 import com.bnvs.metaler.data.postdetails.model.PostDetails
 import com.bnvs.metaler.data.posts.model.PostsResponse
 import com.bnvs.metaler.data.user.certification.model.*
 import com.bnvs.metaler.data.user.deactivation.model.DeleteUserResponse
-import com.bnvs.metaler.data.user.modification.model.*
+import com.bnvs.metaler.data.user.modification.model.Job
+import com.bnvs.metaler.data.user.modification.model.Jobs
+import com.bnvs.metaler.data.user.modification.model.Nickname
 import okhttp3.MultipartBody
 import okhttp3.ResponseBody
 import retrofit2.Call
@@ -52,6 +58,10 @@ interface RetrofitInterface {
     // 로그인
     @POST("/users/login")
     fun login(@Body request: LoginRequest): Call<LoginResponse>
+
+    // 로그아웃
+    @GET("/users/logout")
+    fun logout()
 
     /*** [1-2. 회원정보 수정] ***/
     // 소속조회
