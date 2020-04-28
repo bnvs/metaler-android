@@ -72,13 +72,13 @@ interface RetrofitInterface {
     @PUT("/users/jobs")
     fun modifyUserJob(
         @Body request: Job
-    ): Call<ModifyJobResponse>
+    )
 
     // 닉네임 수정
     @PUT("/users/nickname")
     fun modifyNickname(
         @Body request: Nickname
-    ): Call<ModifyNicknameResponse>
+    )
 
     // 회원탈퇴
     @DELETE("/users")
@@ -115,13 +115,13 @@ interface RetrofitInterface {
     fun modifyPost(
         @Path("id") post_id: Int,
         @Body request: AddEditPostRequest
-    ): Call<EditPostResponse>
+    )
 
     // 게시글 삭제
     @DELETE("/posts/{id}")
     fun deletePost(
         @Path("id") post_id: Int
-    ): Call<DeletePostResponse>
+    )
 
     /*** [2-3. 댓글] ***/
     // 댓글 목록 조회
@@ -142,13 +142,13 @@ interface RetrofitInterface {
     fun modifyComment(
         @Path("id") comment_id: Int,
         @Body request: AddEditCommentRequest
-    ): Call<EditCommentResponse>
+    )
 
     // 댓글 삭제
     @DELETE("comments/{id}")
     fun deleteComment(
         @Path("id") comment_id: Int
-    ): Call<DeleteCommentResponse>
+    )
 
     /*** [2-4. 북마크] ***/
     // 북마크 추가
@@ -161,7 +161,7 @@ interface RetrofitInterface {
     @DELETE("/users/bookmarks/{id}")
     fun deleteBookmark(
         @Path("id") bookmark_id: Int
-    ): Call<ResponseBody>
+    )
 
     // 북마크 목록 조회
     @GET("/users/bookmarks")
