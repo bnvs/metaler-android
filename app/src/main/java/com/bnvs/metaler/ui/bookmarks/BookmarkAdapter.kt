@@ -123,7 +123,7 @@ class BookmarkAdapter(
                 holder.itemView.apply {
                     title.text = tempArrayList[position]!!.title
                     date.text = tempArrayList[position]!!.date
-                    tags.text = tagString
+                    tags?.text = tagString
                     dislikeNum.text = tempArrayList[position]!!.dis_liked.toString()
                     likeNum.text = tempArrayList[position]!!.liked.toString()
 
