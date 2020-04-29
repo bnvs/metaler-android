@@ -1,6 +1,8 @@
 package com.bnvs.metaler.data.user.modification.source
 
-import com.bnvs.metaler.data.user.modification.model.*
+import com.bnvs.metaler.data.user.modification.model.Job
+import com.bnvs.metaler.data.user.modification.model.Jobs
+import com.bnvs.metaler.data.user.modification.model.Nickname
 import com.bnvs.metaler.data.user.modification.source.remote.UserModificationRemoteDataSource
 
 class UserModificationRepository : UserModificationDataSource {
@@ -17,7 +19,7 @@ class UserModificationRepository : UserModificationDataSource {
 
     override fun modifyUserJob(
         request: Job,
-        onSuccess: (response: ModifyJobResponse) -> Unit,
+        onSuccess: () -> Unit,
         onFailure: (e: Throwable) -> Unit
     ) {
         userRemoteDataSource.modifyUserJob(request, onSuccess, onFailure)
@@ -25,7 +27,7 @@ class UserModificationRepository : UserModificationDataSource {
 
     override fun modifyNickname(
         request: Nickname,
-        onSuccess: (response: ModifyNicknameResponse) -> Unit,
+        onSuccess: () -> Unit,
         onFailure: (e: Throwable) -> Unit
     ) {
         userRemoteDataSource.modifyNickname(request, onSuccess, onFailure)
