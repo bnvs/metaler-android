@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bnvs.metaler.R
 import com.bnvs.metaler.data.posts.model.Post
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import kotlinx.android.synthetic.main.item_loading.view.*
 import kotlinx.android.synthetic.main.item_posts_rv.view.*
 
@@ -128,8 +129,14 @@ class PostAdapter(
                         Glide.with(this)
                             .asBitmap()//gif 재생안되고 첫번째 프레임에서 멈추도록 강제함
                             .load(tempArrayList[position]!!.thumbnail)
+                            .centerCrop()
+                            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                             .into(img)
-                    } else img.visibility = View.INVISIBLE
+                    } else {
+                        Glide.with(this)
+                            .load(R.drawable.rounding_img_view)
+                            .into(img)
+                    }
 
                     if (tempArrayList[position]!!.is_bookmark) {
                         bookmarkBtn.setImageResource(R.drawable.ic_list_bookmark_active_x3)
