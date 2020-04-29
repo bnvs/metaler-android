@@ -1,8 +1,12 @@
 package com.bnvs.metaler.data.comments.source.remote
 
-import com.bnvs.metaler.data.comments.model.*
+import com.bnvs.metaler.data.comments.model.AddCommentResponse
+import com.bnvs.metaler.data.comments.model.AddEditCommentRequest
+import com.bnvs.metaler.data.comments.model.Comments
+import com.bnvs.metaler.data.comments.model.CommentsRequest
 import com.bnvs.metaler.data.comments.source.CommentsDataSource
 import com.bnvs.metaler.network.RetrofitClient
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.HttpException
@@ -14,6 +18,7 @@ object CommentsRemoteDataSource : CommentsDataSource {
 
     override fun getComments(
         postId: Int,
+        request: CommentsRequest,
         onSuccess: (response: Comments) -> Unit,
         onFailure: (e: Throwable) -> Unit
     ) {
@@ -61,24 +66,23 @@ object CommentsRemoteDataSource : CommentsDataSource {
     override fun editComment(
         commentId: Int,
         request: AddEditCommentRequest,
-        onSuccess: (response: EditCommentResponse) -> Unit,
+        onSuccess: () -> Unit,
         onFailure: (e: Throwable) -> Unit
     ) {
         retrofitClient.modifyComment(commentId, request)
-            .enqueue(object : Callback<EditCommentResponse> {
+            .enqueue(object : Callback<ResponseBody> {
                 override fun onResponse(
-                    call: Call<EditCommentResponse>,
-                    response: Response<EditCommentResponse>
+                    call: Call<ResponseBody>,
+                    response: Response<ResponseBody>
                 ) {
-                    val body = response.body()
-                    if (body != null && response.isSuccessful) {
-                        onSuccess(body)
+                    if (response.isSuccessful) {
+                        onSuccess()
                     } else {
                         onFailure(HttpException(response))
                     }
                 }
 
-                override fun onFailure(call: Call<EditCommentResponse>, t: Throwable) {
+                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                     onFailure(t)
                 }
             })
@@ -86,23 +90,22 @@ object CommentsRemoteDataSource : CommentsDataSource {
 
     override fun deleteComment(
         commentId: Int,
-        onSuccess: (response: DeleteCommentResponse) -> Unit,
+        onSuccess: () -> Unit,
         onFailure: (e: Throwable) -> Unit
     ) {
-        retrofitClient.deleteComment(commentId).enqueue(object : Callback<DeleteCommentResponse> {
+        retrofitClient.deleteComment(commentId).enqueue(object : Callback<ResponseBody> {
             override fun onResponse(
-                call: Call<DeleteCommentResponse>,
-                response: Response<DeleteCommentResponse>
+                call: Call<ResponseBody>,
+                response: Response<ResponseBody>
             ) {
-                val body = response.body()
-                if (body != null && response.isSuccessful) {
-                    onSuccess(body)
+                if (response.isSuccessful) {
+                    onSuccess()
                 } else {
                     onFailure(HttpException(response))
                 }
             }
 
-            override fun onFailure(call: Call<DeleteCommentResponse>, t: Throwable) {
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                 onFailure(t)
             }
         })
