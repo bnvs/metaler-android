@@ -22,20 +22,21 @@ object CommentsRemoteDataSource : CommentsDataSource {
         onSuccess: (response: Comments) -> Unit,
         onFailure: (e: Throwable) -> Unit
     ) {
-        retrofitClient.getComments(postId).enqueue(object : Callback<Comments> {
-            override fun onResponse(call: Call<Comments>, response: Response<Comments>) {
-                val body = response.body()
-                if (body != null && response.isSuccessful) {
-                    onSuccess(body)
-                } else {
-                    onFailure(HttpException(response))
+        retrofitClient.getComments(postId, request.page, request.limit)
+            .enqueue(object : Callback<Comments> {
+                override fun onResponse(call: Call<Comments>, response: Response<Comments>) {
+                    val body = response.body()
+                    if (body != null && response.isSuccessful) {
+                        onSuccess(body)
+                    } else {
+                        onFailure(HttpException(response))
+                    }
                 }
-            }
 
-            override fun onFailure(call: Call<Comments>, t: Throwable) {
-                onFailure(t)
-            }
-        })
+                override fun onFailure(call: Call<Comments>, t: Throwable) {
+                    onFailure(t)
+                }
+            })
     }
 
     override fun addComment(
