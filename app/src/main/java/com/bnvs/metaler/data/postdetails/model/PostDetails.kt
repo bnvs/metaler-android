@@ -15,7 +15,7 @@ data class PostDetails(
     val date: String,
     val liked: Int,
     val disliked: Int,
-    val attachs: List<ImageItem>,
+    val attachs: List<AttachImage>,
     val tags: List<PostTag>,
     val is_bookmark: Boolean,
     val comment_count: Int,
