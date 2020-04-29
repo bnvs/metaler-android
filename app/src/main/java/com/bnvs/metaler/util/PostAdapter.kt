@@ -124,12 +124,11 @@ class PostAdapter(
                     dislikeNum.text = tempArrayList[position]!!.disliked.toString()
                     likeNum.text = tempArrayList[position]!!.liked.toString()
 
-                    if (tempArrayList[position]!!.thumbnail != "") {
+                    if (!tempArrayList[position]!!.thumbnail.isEmpty()) {
                         Glide.with(this)
                             .asBitmap()//gif 재생안되고 첫번째 프레임에서 멈추도록 강제함
                             .load(tempArrayList[position]!!.thumbnail)
                             .into(img)
-
                     } else img.visibility = View.INVISIBLE
 
                     if (tempArrayList[position]!!.is_bookmark) {
