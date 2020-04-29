@@ -4,19 +4,20 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bnvs.metaler.R
+import com.bnvs.metaler.data.postdetails.model.AttachImage
 
 class ThumbnailAdapter(private val itemClick: (adapterPosition: Int) -> Unit) :
     RecyclerView.Adapter<ThumbnailViewHolder>() {
 
-    private val images = mutableListOf<String>()
+    private val images = mutableListOf<AttachImage>()
 
-    fun setImages(list: List<String>) {
-        this.images.addAll(list)
+    fun setImages(images: List<AttachImage>) {
+        this.images.addAll(images)
         notifyDataSetChanged()
     }
 
-    fun addImage(imageUrl: String) {
-        this.images.add(imageUrl)
+    fun addImage(image: AttachImage) {
+        this.images.add(image)
         notifyDataSetChanged()
     }
 
@@ -37,6 +38,6 @@ class ThumbnailAdapter(private val itemClick: (adapterPosition: Int) -> Unit) :
     }
 
     override fun onBindViewHolder(holder: ThumbnailViewHolder, position: Int) {
-        holder.bind(images[position])
+        holder.bind(images[position].url)
     }
 }

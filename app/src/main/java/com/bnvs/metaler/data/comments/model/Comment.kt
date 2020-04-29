@@ -5,6 +5,6 @@ data class Comment(
     val user_id: Int,
     val content: String,
     val date: String,
-    val profile_nickname: String,
+    val nickname: String,
     val profile_url: String
 )

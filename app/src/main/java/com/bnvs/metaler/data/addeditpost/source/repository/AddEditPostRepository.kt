@@ -1,6 +1,8 @@
 package com.bnvs.metaler.data.addeditpost.source.repository
 
-import com.bnvs.metaler.data.addeditpost.model.*
+import com.bnvs.metaler.data.addeditpost.model.AddEditPostRequest
+import com.bnvs.metaler.data.addeditpost.model.AddPostResponse
+import com.bnvs.metaler.data.addeditpost.model.UploadFileResponse
 import com.bnvs.metaler.data.addeditpost.source.AddEditPostDataSource
 import com.bnvs.metaler.data.addeditpost.source.remote.AddEditPostRemoteDataSource
 import okhttp3.MultipartBody
@@ -20,7 +22,7 @@ class AddEditPostRepository : AddEditPostDataSource {
     override fun editPost(
         postId: Int,
         request: AddEditPostRequest,
-        onSuccess: (response: EditPostResponse) -> Unit,
+        onSuccess: () -> Unit,
         onFailure: (e: Throwable) -> Unit
     ) {
         addEditPostRemoteDataSource.editPost(postId, request, onSuccess, onFailure)
@@ -28,7 +30,7 @@ class AddEditPostRepository : AddEditPostDataSource {
 
     override fun deletePost(
         postId: Int,
-        onSuccess: (response: DeletePostResponse) -> Unit,
+        onSuccess: () -> Unit,
         onFailure: (e: Throwable) -> Unit
     ) {
         addEditPostRemoteDataSource.deletePost(postId, onSuccess, onFailure)
