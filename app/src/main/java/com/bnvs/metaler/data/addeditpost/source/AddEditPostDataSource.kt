@@ -1,6 +1,8 @@
 package com.bnvs.metaler.data.addeditpost.source
 
-import com.bnvs.metaler.data.addeditpost.model.*
+import com.bnvs.metaler.data.addeditpost.model.AddEditPostRequest
+import com.bnvs.metaler.data.addeditpost.model.AddPostResponse
+import com.bnvs.metaler.data.addeditpost.model.UploadFileResponse
 import okhttp3.MultipartBody
 
 interface AddEditPostDataSource {
@@ -14,13 +16,13 @@ interface AddEditPostDataSource {
     fun editPost(
         postId: Int,
         request: AddEditPostRequest,
-        onSuccess: (response: EditPostResponse) -> Unit,
+        onSuccess: () -> Unit,
         onFailure: (e: Throwable) -> Unit
     )
 
     fun deletePost(
         postId: Int,
-        onSuccess: (response: DeletePostResponse) -> Unit,
+        onSuccess: () -> Unit,
         onFailure: (e: Throwable) -> Unit
     )
 
