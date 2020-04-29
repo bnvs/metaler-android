@@ -1,9 +1,12 @@
 package com.bnvs.metaler.data.addeditpost.source.remote
 
-import com.bnvs.metaler.data.addeditpost.model.*
+import com.bnvs.metaler.data.addeditpost.model.AddEditPostRequest
+import com.bnvs.metaler.data.addeditpost.model.AddPostResponse
+import com.bnvs.metaler.data.addeditpost.model.UploadFileResponse
 import com.bnvs.metaler.data.addeditpost.source.AddEditPostDataSource
 import com.bnvs.metaler.network.RetrofitClient
 import okhttp3.MultipartBody
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.HttpException
@@ -40,23 +43,19 @@ object AddEditPostRemoteDataSource : AddEditPostDataSource {
     override fun editPost(
         postId: Int,
         request: AddEditPostRequest,
-        onSuccess: (response: EditPostResponse) -> Unit,
+        onSuccess: () -> Unit,
         onFailure: (e: Throwable) -> Unit
     ) {
-        retrofitClient.modifyPost(postId, request).enqueue(object : Callback<EditPostResponse> {
-            override fun onResponse(
-                call: Call<EditPostResponse>,
-                response: Response<EditPostResponse>
-            ) {
-                val body = response.body()
-                if (body != null && response.isSuccessful) {
-                    onSuccess(body)
+        retrofitClient.modifyPost(postId, request).enqueue(object : Callback<ResponseBody> {
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                if (response.isSuccessful) {
+                    onSuccess()
                 } else {
                     onFailure(HttpException(response))
                 }
             }
 
-            override fun onFailure(call: Call<EditPostResponse>, t: Throwable) {
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                 onFailure(t)
             }
         })
@@ -64,23 +63,19 @@ object AddEditPostRemoteDataSource : AddEditPostDataSource {
 
     override fun deletePost(
         postId: Int,
-        onSuccess: (response: DeletePostResponse) -> Unit,
+        onSuccess: () -> Unit,
         onFailure: (e: Throwable) -> Unit
     ) {
-        retrofitClient.deletePost(postId).enqueue(object : Callback<DeletePostResponse> {
-            override fun onResponse(
-                call: Call<DeletePostResponse>,
-                response: Response<DeletePostResponse>
-            ) {
-                val body = response.body()
-                if (body != null && response.isSuccessful) {
-                    onSuccess(body)
+        retrofitClient.deletePost(postId).enqueue(object : Callback<ResponseBody> {
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                if (response.isSuccessful) {
+                    onSuccess()
                 } else {
                     onFailure(HttpException(response))
                 }
             }
 
-            override fun onFailure(call: Call<DeletePostResponse>, t: Throwable) {
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                 onFailure(t)
             }
         })

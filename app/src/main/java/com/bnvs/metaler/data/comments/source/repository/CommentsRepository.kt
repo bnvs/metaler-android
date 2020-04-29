@@ -1,7 +1,10 @@
 package com.bnvs.metaler.data.comments.source.repository
 
 import android.content.Context
-import com.bnvs.metaler.data.comments.model.*
+import com.bnvs.metaler.data.comments.model.AddCommentResponse
+import com.bnvs.metaler.data.comments.model.AddEditCommentRequest
+import com.bnvs.metaler.data.comments.model.Comments
+import com.bnvs.metaler.data.comments.model.CommentsRequest
 import com.bnvs.metaler.data.comments.source.CommentsDataSource
 import com.bnvs.metaler.data.comments.source.remote.CommentsRemoteDataSource
 
@@ -12,10 +15,11 @@ class CommentsRepository(context: Context) :
 
     override fun getComments(
         postId: Int,
+        request: CommentsRequest,
         onSuccess: (response: Comments) -> Unit,
         onFailure: (e: Throwable) -> Unit
     ) {
-        commentsRemoteDataSource.getComments(postId, onSuccess, onFailure)
+        commentsRemoteDataSource.getComments(postId, request, onSuccess, onFailure)
     }
 
     override fun addComment(
@@ -30,7 +34,7 @@ class CommentsRepository(context: Context) :
     override fun editComment(
         commentId: Int,
         request: AddEditCommentRequest,
-        onSuccess: (response: EditCommentResponse) -> Unit,
+        onSuccess: () -> Unit,
         onFailure: (e: Throwable) -> Unit
     ) {
         commentsRemoteDataSource.editComment(commentId, request, onSuccess, onFailure)
@@ -38,7 +42,7 @@ class CommentsRepository(context: Context) :
 
     override fun deleteComment(
         commentId: Int,
-        onSuccess: (response: DeleteCommentResponse) -> Unit,
+        onSuccess: () -> Unit,
         onFailure: (e: Throwable) -> Unit
     ) {
         commentsRemoteDataSource.deleteComment(commentId, onSuccess, onFailure)

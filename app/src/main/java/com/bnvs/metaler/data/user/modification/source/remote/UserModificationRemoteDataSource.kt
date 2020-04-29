@@ -1,8 +1,11 @@
 package com.bnvs.metaler.data.user.modification.source.remote
 
-import com.bnvs.metaler.data.user.modification.model.*
+import com.bnvs.metaler.data.user.modification.model.Job
+import com.bnvs.metaler.data.user.modification.model.Jobs
+import com.bnvs.metaler.data.user.modification.model.Nickname
 import com.bnvs.metaler.data.user.modification.source.UserModificationDataSource
 import com.bnvs.metaler.network.RetrofitClient
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.HttpException
@@ -34,23 +37,22 @@ object UserModificationRemoteDataSource : UserModificationDataSource {
 
     override fun modifyUserJob(
         request: Job,
-        onSuccess: (response: ModifyJobResponse) -> Unit,
+        onSuccess: () -> Unit,
         onFailure: (e: Throwable) -> Unit
     ) {
-        retrofitClient.modifyUserJob(request).enqueue(object : Callback<ModifyJobResponse> {
+        retrofitClient.modifyUserJob(request).enqueue(object : Callback<ResponseBody> {
             override fun onResponse(
-                call: Call<ModifyJobResponse>,
-                response: Response<ModifyJobResponse>
+                call: Call<ResponseBody>,
+                response: Response<ResponseBody>
             ) {
-                val body = response.body()
-                if (body != null && response.isSuccessful) {
-                    onSuccess(body)
+                if (response.isSuccessful) {
+                    onSuccess()
                 } else {
                     onFailure(HttpException(response))
                 }
             }
 
-            override fun onFailure(call: Call<ModifyJobResponse>, t: Throwable) {
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                 onFailure(t)
             }
         })
@@ -58,23 +60,22 @@ object UserModificationRemoteDataSource : UserModificationDataSource {
 
     override fun modifyNickname(
         request: Nickname,
-        onSuccess: (response: ModifyNicknameResponse) -> Unit,
+        onSuccess: () -> Unit,
         onFailure: (e: Throwable) -> Unit
     ) {
-        retrofitClient.modifyNickname(request).enqueue(object : Callback<ModifyNicknameResponse> {
+        retrofitClient.modifyNickname(request).enqueue(object : Callback<ResponseBody> {
             override fun onResponse(
-                call: Call<ModifyNicknameResponse>,
-                response: Response<ModifyNicknameResponse>
+                call: Call<ResponseBody>,
+                response: Response<ResponseBody>
             ) {
-                val body = response.body()
-                if (body != null && response.isSuccessful) {
-                    onSuccess(body)
+                if (response.isSuccessful) {
+                    onSuccess()
                 } else {
                     onFailure(HttpException(response))
                 }
             }
 
-            override fun onFailure(call: Call<ModifyNicknameResponse>, t: Throwable) {
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                 onFailure(t)
             }
         })

@@ -1,18 +1,24 @@
 package com.bnvs.metaler.network
 
-import com.bnvs.metaler.data.addeditpost.model.*
+import com.bnvs.metaler.data.addeditpost.model.AddEditPostRequest
+import com.bnvs.metaler.data.addeditpost.model.AddPostResponse
+import com.bnvs.metaler.data.addeditpost.model.UploadFileResponse
 import com.bnvs.metaler.data.bookmarks.model.AddBookmarkRequest
 import com.bnvs.metaler.data.bookmarks.model.AddBookmarkResponse
 import com.bnvs.metaler.data.bookmarks.model.BookmarksResponse
 import com.bnvs.metaler.data.categories.model.Category
-import com.bnvs.metaler.data.comments.model.*
+import com.bnvs.metaler.data.comments.model.AddCommentResponse
+import com.bnvs.metaler.data.comments.model.AddEditCommentRequest
+import com.bnvs.metaler.data.comments.model.Comments
 import com.bnvs.metaler.data.homeposts.model.HomePosts
 import com.bnvs.metaler.data.myposts.model.MyPosts
 import com.bnvs.metaler.data.postdetails.model.PostDetails
 import com.bnvs.metaler.data.posts.model.PostsResponse
 import com.bnvs.metaler.data.user.certification.model.*
 import com.bnvs.metaler.data.user.deactivation.model.DeleteUserResponse
-import com.bnvs.metaler.data.user.modification.model.*
+import com.bnvs.metaler.data.user.modification.model.Job
+import com.bnvs.metaler.data.user.modification.model.Jobs
+import com.bnvs.metaler.data.user.modification.model.Nickname
 import okhttp3.MultipartBody
 import okhttp3.ResponseBody
 import retrofit2.Call
@@ -53,6 +59,10 @@ interface RetrofitInterface {
     @POST("/users/login")
     fun login(@Body request: LoginRequest): Call<LoginResponse>
 
+    // 로그아웃
+    @GET("/users/logout")
+    fun logout(): Call<ResponseBody>
+
     /*** [1-2. 회원정보 수정] ***/
     // 소속조회
     @GET("/users/jobs")
@@ -62,13 +72,13 @@ interface RetrofitInterface {
     @PUT("/users/jobs")
     fun modifyUserJob(
         @Body request: Job
-    ): Call<ModifyJobResponse>
+    ): Call<ResponseBody>
 
     // 닉네임 수정
     @PUT("/users/nickname")
     fun modifyNickname(
         @Body request: Nickname
-    ): Call<ModifyNicknameResponse>
+    ): Call<ResponseBody>
 
     // 회원탈퇴
     @DELETE("/users")
@@ -105,19 +115,21 @@ interface RetrofitInterface {
     fun modifyPost(
         @Path("id") post_id: Int,
         @Body request: AddEditPostRequest
-    ): Call<EditPostResponse>
+    ): Call<ResponseBody>
 
     // 게시글 삭제
     @DELETE("/posts/{id}")
     fun deletePost(
         @Path("id") post_id: Int
-    ): Call<DeletePostResponse>
+    ): Call<ResponseBody>
 
     /*** [2-3. 댓글] ***/
     // 댓글 목록 조회
     @GET("/posts/{id}/comments")
     fun getComments(
-        @Path("id") post_id: Int
+        @Path("id") post_id: Int,
+        @Query("page") page: Int,
+        @Query("limit") limit: Int
     ): Call<Comments>
 
     // 댓글 추가
@@ -132,13 +144,13 @@ interface RetrofitInterface {
     fun modifyComment(
         @Path("id") comment_id: Int,
         @Body request: AddEditCommentRequest
-    ): Call<EditCommentResponse>
+    ): Call<ResponseBody>
 
     // 댓글 삭제
     @DELETE("comments/{id}")
     fun deleteComment(
         @Path("id") comment_id: Int
-    ): Call<DeleteCommentResponse>
+    ): Call<ResponseBody>
 
     /*** [2-4. 북마크] ***/
     // 북마크 추가

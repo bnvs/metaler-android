@@ -11,6 +11,7 @@ import com.bnvs.metaler.data.addeditpost.model.AddEditPostRequest
 import com.bnvs.metaler.data.addeditpost.source.repository.AddEditPostRepository
 import com.bnvs.metaler.data.categories.model.Category
 import com.bnvs.metaler.data.categories.source.repository.CategoriesRepository
+import com.bnvs.metaler.data.postdetails.model.AttachImage
 import com.bnvs.metaler.data.postdetails.source.repository.PostDetailsRepository
 import com.bnvs.metaler.network.NetworkUtil
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -43,6 +44,7 @@ class PresenterPostFirst(
     private lateinit var context: Context
     private lateinit var categories: List<Category>
     private lateinit var materialCategories: MutableList<JSONObject>
+    private val attachs = mutableListOf<AttachImage>()
 
     override fun start() {
         if (postId != null) {
@@ -74,7 +76,7 @@ class PresenterPostFirst(
                 setTitle(response.title)
                 setPrice(response.price)
                 setPriceType(response.price_type)
-                setImage(response.attach_ids, response.attach_urls)
+                setImage(response.attachs)
                 setContents(response.content)
                 addEditPostRequest.tags.addAll(response.tags)
             },
@@ -121,28 +123,28 @@ class PresenterPostFirst(
         }
     }
 
-    override fun setImage(attachIds: List<Int>, attachUrls: List<String>) {
-        addEditPostRequest.attach_ids.addAll(attachIds)
-        if (attachUrls.isEmpty()) {
+    override fun setImage(attachs: List<AttachImage>) {
+        this.attachs.addAll(attachs)
+        if (this.attachs.isEmpty()) {
             view.setImageGuideText(true)
         } else {
             view.setImageGuideText(false)
-            view.setImages(attachUrls)
+            view.setImages(attachs)
         }
     }
 
-    override fun addImage(attachId: Int, imageUrl: String) {
+    override fun addImage(image: AttachImage) {
         Log.d("addImage", "이미지 추가됨")
-        if (addEditPostRequest.attach_ids.isEmpty()) {
+        if (this.attachs.isEmpty()) {
             view.setImageGuideText(false)
         }
-        addEditPostRequest.attach_ids.add(attachId)
-        view.addImage(imageUrl)
+        this.attachs.add(image)
+        view.addImage(image)
     }
 
     override fun deleteImage(imageIndex: Int) {
-        addEditPostRequest.attach_ids.removeAt(imageIndex)
-        if (addEditPostRequest.attach_ids.isEmpty()) {
+        this.attachs.removeAt(imageIndex)
+        if (this.attachs.isEmpty()) {
             view.setImageGuideText(true)
         }
         view.deleteImage(imageIndex)
@@ -304,7 +306,7 @@ class PresenterPostFirst(
             part,
             onSuccess = { response ->
                 Log.d("uploadImage", "서버에 이미지 업로드 성공")
-                addImage(response.attach_id, response.url)
+                addImage(AttachImage(response.attach_id, response.url))
             },
             onFailure = { e ->
                 Log.d("uploadImage", "파일 크기 ${file.length()}Bytes")
@@ -313,10 +315,20 @@ class PresenterPostFirst(
         )
     }
 
+    private fun extractAttachIds(attachs: List<AttachImage>): List<Int> {
+        var attachIds = mutableListOf<Int>()
+        for (attach in attachs) {
+            attachIds.add(attach.id)
+        }
+        return attachIds
+    }
+
     override fun completeAddEditPostRequestExceptTags(contents: JSONObject) {
+        val attachIds = extractAttachIds(this.attachs)
         addEditPostRequest.apply {
             title = contents.getString("title")
             content = contents.getString("content")
+            attach_ids.addAll(attachIds)
         }
     }
 

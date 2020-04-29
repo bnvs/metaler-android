@@ -11,8 +11,6 @@ class ThumbnailViewHolder(
 ) :
     RecyclerView.ViewHolder(itemView) {
 
-    private var attachUrl = ""
-
     init {
         itemView.setOnLongClickListener {
             itemClick(adapterPosition)
@@ -21,7 +19,6 @@ class ThumbnailViewHolder(
     }
 
     fun bind(attachUrl: String) {
-        this.attachUrl = attachUrl
         Glide.with(itemView)
             .load(attachUrl)
             .into(itemView.thumbnailImg)

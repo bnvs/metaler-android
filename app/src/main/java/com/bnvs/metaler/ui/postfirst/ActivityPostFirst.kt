@@ -17,6 +17,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.bnvs.metaler.R
 import com.bnvs.metaler.data.addeditpost.model.AddEditPostRequest
+import com.bnvs.metaler.data.postdetails.model.AttachImage
 import com.bnvs.metaler.ui.postsecond.ActivityPostSecond
 import kotlinx.android.synthetic.main.activity_post_first.*
 import org.json.JSONObject
@@ -130,12 +131,12 @@ class ActivityPostFirst : AppCompatActivity(), ContractPostFirst.View {
         }
     }
 
-    override fun setImages(images: List<String>) {
+    override fun setImages(images: List<AttachImage>) {
         thumbnailAdapter.setImages(images)
     }
 
-    override fun addImage(imageUrl: String) {
-        thumbnailAdapter.addImage(imageUrl)
+    override fun addImage(image: AttachImage) {
+        thumbnailAdapter.addImage(image)
     }
 
     override fun deleteImage(imageIndex: Int) {
