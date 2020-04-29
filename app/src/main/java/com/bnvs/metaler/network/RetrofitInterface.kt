@@ -61,7 +61,7 @@ interface RetrofitInterface {
 
     // 로그아웃
     @GET("/users/logout")
-    fun logout()
+    fun logout(): Call<ResponseBody>
 
     /*** [1-2. 회원정보 수정] ***/
     // 소속조회
