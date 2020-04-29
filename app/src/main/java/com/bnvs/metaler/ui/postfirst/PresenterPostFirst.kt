@@ -44,6 +44,7 @@ class PresenterPostFirst(
     private lateinit var context: Context
     private lateinit var categories: List<Category>
     private lateinit var materialCategories: MutableList<JSONObject>
+    private val attachs = mutableListOf<AttachImage>()
 
     override fun start() {
         if (postId != null) {
@@ -123,9 +124,8 @@ class PresenterPostFirst(
     }
 
     override fun setImage(attachs: List<AttachImage>) {
-        val attachIds = extractAttachIds(attachs)
-        addEditPostRequest.attach_ids.addAll(attachIds)
-        if (attachs.isEmpty()) {
+        this.attachs.addAll(attachs)
+        if (this.attachs.isEmpty()) {
             view.setImageGuideText(true)
         } else {
             view.setImageGuideText(false)
@@ -133,26 +133,18 @@ class PresenterPostFirst(
         }
     }
 
-    private fun extractAttachIds(attachs: List<AttachImage>): List<Int> {
-        var attachIds = mutableListOf<Int>()
-        for (attach in attachs) {
-            attachIds.add(attach.id)
-        }
-        return attachIds
-    }
-
     override fun addImage(image: AttachImage) {
         Log.d("addImage", "이미지 추가됨")
-        if (addEditPostRequest.attach_ids.isEmpty()) {
+        if (this.attachs.isEmpty()) {
             view.setImageGuideText(false)
         }
-        addEditPostRequest.attach_ids.add(image.id)
+        this.attachs.add(image)
         view.addImage(image)
     }
 
     override fun deleteImage(imageIndex: Int) {
-        addEditPostRequest.attach_ids.removeAt(imageIndex)
-        if (addEditPostRequest.attach_ids.isEmpty()) {
+        this.attachs.removeAt(imageIndex)
+        if (this.attachs.isEmpty()) {
             view.setImageGuideText(true)
         }
         view.deleteImage(imageIndex)
@@ -323,10 +315,20 @@ class PresenterPostFirst(
         )
     }
 
+    private fun extractAttachIds(attachs: List<AttachImage>): List<Int> {
+        var attachIds = mutableListOf<Int>()
+        for (attach in attachs) {
+            attachIds.add(attach.id)
+        }
+        return attachIds
+    }
+
     override fun completeAddEditPostRequestExceptTags(contents: JSONObject) {
+        val attachIds = extractAttachIds(this.attachs)
         addEditPostRequest.apply {
             title = contents.getString("title")
             content = contents.getString("content")
+            attach_ids.addAll(attachIds)
         }
     }
 
