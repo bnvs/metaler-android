@@ -5,6 +5,7 @@ import android.content.Intent
 import com.bnvs.metaler.BasePresenter
 import com.bnvs.metaler.BaseView
 import com.bnvs.metaler.data.addeditpost.model.AddEditPostRequest
+import com.bnvs.metaler.data.postdetails.model.AttachImage
 import org.json.JSONObject
 import java.io.File
 
@@ -19,8 +20,8 @@ interface ContractPostFirst {
         fun setImageGuideText(b: Boolean)
         fun openAlbum()
         fun openCamera()
-        fun setImages(images: List<String>)
-        fun addImage(imageUrl: String)
+        fun setImages(images: List<AttachImage>)
+        fun addImage(image: AttachImage)
         fun deleteImage(imageIndex: Int)
         fun setContents(contents: String)
         fun showChooseCategoryDialog(categories: List<JSONObject>)
@@ -48,8 +49,8 @@ interface ContractPostFirst {
         fun setTitle(title: String)
         fun setPrice(price: Int)
         fun setPriceType(priceType: String)
-        fun setImage(attachIds: List<Int>, attachUrls: List<String>)
-        fun addImage(attachId: Int, imageUrl: String)
+        fun setImage(attachs: List<AttachImage>)
+        fun addImage(image: AttachImage)
         fun deleteImage(imageIndex: Int)
         fun setContents(contents: String)
         fun openWhereToGetImageFrom()
