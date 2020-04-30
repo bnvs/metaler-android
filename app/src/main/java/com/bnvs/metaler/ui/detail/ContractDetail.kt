@@ -2,17 +2,38 @@ package com.bnvs.metaler.ui.detail
 
 import com.bnvs.metaler.BasePresenter
 import com.bnvs.metaler.BaseView
+import com.bnvs.metaler.data.comments.model.Comment
+import com.bnvs.metaler.data.postdetails.model.PostDetails
 
 interface ContractDetail {
     interface View : BaseView<Presenter> {
-        fun showPostDetail()
+        fun showEmptyPostIdToast()
 
-        fun showComments()
+        fun initPostDetailAdapter(postDetails: PostDetails)
 
-        fun showMenuDialog()
+        fun initPostDetailScrollListener()
 
-        fun refreshRatingButtons()
+        fun showComments(comments: List<Comment>)
 
+        fun setCommentsLoading(b: Boolean)
+
+        fun addComments(comments: List<Comment>)
+
+        fun addComment(comment: Comment)
+
+        fun deleteComment(commentIndex: Int)
+
+        fun showOptionsMenu()
+
+        fun openEditPostUi(postId: Int)
+
+        fun likePost()
+
+        fun cancelLikePost()
+
+        fun dislikePost()
+
+        fun cancelDislikePost()
     }
 
     interface Presenter : BasePresenter {
@@ -20,16 +41,24 @@ interface ContractDetail {
 
         fun loadComments()
 
-        fun addBookmark(postId: Int)
+        fun loadMoreComments()
 
-        fun deleteBookmark(postId: Int)
+        fun hasNextPage(): Boolean
+
+        fun setHasNextPage(b: Boolean)
+
+        fun addBookmark()
+
+        fun deleteBookmark()
 
         fun openMenu()
 
-        fun deletePost(postId: Int)
+        fun deletePost()
 
-        fun modifyPost(postId: Int)
+        fun modifyPost()
 
-        fun ratePost(postId: Int)
+        fun likePost()
+
+        fun dislikePost()
     }
 }
