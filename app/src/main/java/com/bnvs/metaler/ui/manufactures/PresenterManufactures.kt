@@ -2,11 +2,9 @@ package com.bnvs.metaler.ui.manufactures
 
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import android.widget.Toast
 import com.bnvs.metaler.data.bookmarks.model.AddBookmarkRequest
 import com.bnvs.metaler.data.bookmarks.model.AddBookmarkResponse
-import com.bnvs.metaler.data.bookmarks.model.DeleteBookmarkRequest
 import com.bnvs.metaler.data.bookmarks.source.repositroy.BookmarksRepository
 import com.bnvs.metaler.data.posts.model.Post
 import com.bnvs.metaler.data.posts.model.PostsRequest
@@ -24,7 +22,7 @@ class PresenterManufactures(
     val TAG = "PresenterManufactures.kt"
 
     private val postRepository: PostsRepository = PostsRepository(context)
-    private val bookmarksRepository: BookmarksRepository = BookmarksRepository(context)
+    private val bookmarksRepository: BookmarksRepository = BookmarksRepository()
 
     private lateinit var postsRequest: PostsRequest
     private lateinit var addBookmarkRequest: AddBookmarkRequest
@@ -113,7 +111,7 @@ class PresenterManufactures(
 
     override fun openPostDetail(postId: Int) {
         val detailIntent = Intent(context, ActivityDetail::class.java)
-        detailIntent.putExtra("POST_ID",postId)
+        detailIntent.putExtra("POST_ID", postId)
         context.startActivity(detailIntent)
     }
 

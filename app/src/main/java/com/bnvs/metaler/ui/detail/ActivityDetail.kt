@@ -1,13 +1,19 @@
 package com.bnvs.metaler.ui.detail
 
+import android.content.Intent
 import android.os.Bundle
-import android.view.ContextMenu
-import android.view.MenuInflater
-import android.view.MenuItem
+import android.util.Log
 import android.view.View
+import android.widget.PopupMenu
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bnvs.metaler.R
+import com.bnvs.metaler.data.comments.model.Comment
+import com.bnvs.metaler.data.postdetails.model.PostDetails
+import com.bnvs.metaler.ui.postfirst.ActivityPostFirst
 import kotlinx.android.synthetic.main.activity_detail.*
 
 
@@ -17,85 +23,162 @@ class ActivityDetail : AppCompatActivity(), ContractDetail.View {
     private val TAG = "ActivityDetail"
 
     override lateinit var presenter: ContractDetail.Presenter
+    private lateinit var postDetailAdapter: PostDetailAdapter
+
+    private val postRatingListener = object : PostRatingListener {
+        override fun onLikeButtonClick() {
+            presenter.likePost()
+        }
+
+        override fun onDislikeButtonClick() {
+            presenter.dislikePost()
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
 
-        // Create the presenter
-        presenter = PresenterDetail(this, this)
+        val postId = intent.getIntExtra("POST_ID", -1)
+        Log.d(TAG, "intent 로 들어온 postId : $postId")
+        if (postId == -1) {
+            showEmptyPostIdToast()
+            finish()
+        }
 
-        // Set up Buttons
+        presenter = PresenterDetail(postId, this)
+
         initClickListeners()
-
-        // 재료 탭 presenter 시작
         presenter.run {
             start()
         }
 
-//        registerForContextMenu(moreBtn)
-
     }
 
-    override fun showPostDetail() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun initPostDetailAdapter(postDetails: PostDetails) {
+        postDetailAdapter = PostDetailAdapter(postDetails, postRatingListener)
+        postDetailRv.adapter = postDetailAdapter
     }
 
-    override fun showComments() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    override fun initPostDetailScrollListener() {
+        postDetailRv.addOnScrollListener(object : RecyclerView.OnScrollListener() {
 
-
-    override fun onCreateContextMenu(
-        menu: ContextMenu,
-        v: View,
-        menuInfo: ContextMenu.ContextMenuInfo?) {
-        super.onCreateContextMenu(menu, v, menuInfo)
-        val inflater : MenuInflater = menuInflater
-        inflater.inflate(R.menu.menu, menu)
-    }
-
-    override fun onContextItemSelected(item: MenuItem?): Boolean {
-        return when (item!!.itemId) {
-            R.id.modify ->{
-                //수정버튼 눌렀을 때, presenter 가 할 일 추가하기
-                Toast.makeText(applicationContext, "modify code", Toast.LENGTH_LONG).show()//test용 토스트메세지
-                return true
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                val layoutManager = postDetailRv.layoutManager
+                if (presenter.hasNextPage()) {
+                    val lastVisibleItem = (layoutManager as LinearLayoutManager)
+                        .findLastCompletelyVisibleItemPosition()
+                    if (layoutManager.itemCount <= lastVisibleItem + 5) {
+                        presenter.loadMoreComments()
+                        presenter.setHasNextPage(false)
+                    }
+                }
             }
-            R.id.delete ->{
-                //삭제버튼 눌렀을 때, presenter 가 할 일 추가하기
-                Toast.makeText(applicationContext, "delete code", Toast.LENGTH_LONG).show()//test용 토스트메세지
-                return true
+        })
+    }
+
+    override fun showComments(comments: List<Comment>) {
+        postDetailAdapter.setComments(comments)
+    }
+
+    override fun setCommentsLoading(b: Boolean) {
+        postDetailAdapter.setCommentsLoadingView(b)
+    }
+
+    override fun addComments(comments: List<Comment>) {
+        postDetailAdapter.addComments(comments)
+    }
+
+    override fun addComment(comment: Comment) {
+        postDetailAdapter.addComment(comment)
+    }
+
+    override fun deleteComment(commentIndex: Int) {
+        postDetailAdapter.deleteComment(commentIndex)
+    }
+
+    override fun showPopupMenu(v: View) {
+        Log.d(TAG, "옵션 메뉴 클릭")
+        val menu = PopupMenu(this@ActivityDetail, v)
+        menuInflater.inflate(R.menu.menu, menu.menu)
+        menu.setOnMenuItemClickListener { item ->
+            when (item.itemId) {
+                R.id.modify -> presenter.modifyPost()
+                R.id.delete -> presenter.deletePost()
             }
-            else -> super.onOptionsItemSelected(item)
+            return@setOnMenuItemClickListener false
+        }
+        menu.show()
+    }
+
+    override fun openEditPostUi(postId: Int) {
+        Intent(this, ActivityPostFirst::class.java).apply {
+            putExtra("POST_ID", postId.toString())
+            startActivity(this)
         }
     }
 
+    override fun likePost() {
+        postDetailAdapter.likePost()
+    }
 
-    override fun showMenuDialog() {
-        registerForContextMenu(moreBtn)
-        openContextMenu(moreBtn)
-        unregisterForContextMenu(moreBtn)
+    override fun cancelLikePost() {
+        postDetailAdapter.cancelLikePost()
+    }
+
+    override fun dislikePost() {
+        postDetailAdapter.dislikePost()
+    }
+
+    override fun cancelDislikePost() {
+        postDetailAdapter.cancelDislikePost()
     }
 
     private fun initClickListeners() {
         setTitleBarButtons()
-        setRatingButtons()
+    }
 
-        moreBtn.setOnClickListener { presenter.openMenu() }
+    override fun setBookmarkButton(b: Boolean) {
+        if (b) {
+            bookmarkBtn.isChecked = b
+        } else {
+            bookmarkBtn.isChecked = b
+        }
     }
 
     private fun setTitleBarButtons() {
-        // 백버튼, 북마크, more 버튼 클릭 리스너 달아주기
-
+        backBtn.setOnClickListener { finish() }
+        bookmarkBtn.setOnClickListener {
+            if (bookmarkBtn.isChecked) {
+                presenter.addBookmark()
+            } else {
+                presenter.deleteBookmark()
+            }
+        }
+        moreBtn.setOnClickListener { v ->
+            presenter.openMenu(v)
+        }
     }
 
-    private fun setRatingButtons() {
-        // 좋아요, 싫어요 버튼 클릭 리스너 달아주기
-
+    override fun showEmptyPostIdToast() {
+        makeToast("게시물을 불러오는데 실패했습니다")
     }
 
-    override fun refreshRatingButtons() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun showAlreadyRatedDialog() {
+        makeAlertDialog("이미 글에 평가를 하셨습니다")
+    }
+
+    private fun makeToast(message: String) {
+        Toast.makeText(this@ActivityDetail, message, Toast.LENGTH_LONG).show()
+    }
+
+    private fun makeAlertDialog(message: String) {
+        AlertDialog.Builder(this@ActivityDetail)
+            .setTitle("알림")
+            .setMessage(message)
+            .setPositiveButton("확인") { _, _ ->
+            }
+            .show()
     }
 }

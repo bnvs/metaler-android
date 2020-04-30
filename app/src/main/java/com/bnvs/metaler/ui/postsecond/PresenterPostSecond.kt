@@ -30,7 +30,7 @@ class PresenterPostSecond(
     }
 
     override fun getAddEditPostRequest(intent: Intent) {
-        addEditPostRequest = intent.getSerializableExtra("addEditPostRequest") as AddEditPostRequest
+        addEditPostRequest = intent.getParcelableExtra("addEditPostRequest") as AddEditPostRequest
     }
 
     private fun distinguishMaterialOrManufacture() {
@@ -39,7 +39,7 @@ class PresenterPostSecond(
                 view.apply {
                     showManufactureWorkTagInput(false)
                     setShopNameTagInputAdapter()
-                    setWorkTagInputAdapter()
+                    setTagInputAdapter()
                 }
             }
             "MANUFACTURES" -> {
@@ -47,7 +47,7 @@ class PresenterPostSecond(
                     showManufactureWorkTagInput(true)
                     setShopNameTagInputAdapter()
                     setWorkTagInputAdapter()
-                    setWorkTagInputAdapter()
+                    setTagInputAdapter()
                 }
             }
         }
@@ -205,7 +205,7 @@ class PresenterPostSecond(
         if (tagString.isNotBlank()) {
             val tags = tagString.split("\\s".toRegex())
             for (tag in tags) {
-                if (!pattern.matcher(tag).find()) {
+                if (tag.isNotBlank() && !pattern.matcher(tag).find()) {
                     return false
                 }
             }
@@ -220,7 +220,7 @@ class PresenterPostSecond(
         if (tagString.isNotBlank()) {
             val tags = tagString.split("\\s".toRegex())
             for (tag in tags) {
-                if (tag != "#") {
+                if (tag != "#" && tag.isNotBlank()) {
                     tagList.add(PostTag(type, tag.replace("#", "")))
                 }
             }

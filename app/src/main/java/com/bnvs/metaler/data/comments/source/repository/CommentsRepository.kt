@@ -1,6 +1,5 @@
 package com.bnvs.metaler.data.comments.source.repository
 
-import android.content.Context
 import com.bnvs.metaler.data.comments.model.AddCommentResponse
 import com.bnvs.metaler.data.comments.model.AddEditCommentRequest
 import com.bnvs.metaler.data.comments.model.Comments
@@ -8,7 +7,7 @@ import com.bnvs.metaler.data.comments.model.CommentsRequest
 import com.bnvs.metaler.data.comments.source.CommentsDataSource
 import com.bnvs.metaler.data.comments.source.remote.CommentsRemoteDataSource
 
-class CommentsRepository(context: Context) :
+class CommentsRepository :
     CommentsDataSource {
 
     private val commentsRemoteDataSource = CommentsRemoteDataSource

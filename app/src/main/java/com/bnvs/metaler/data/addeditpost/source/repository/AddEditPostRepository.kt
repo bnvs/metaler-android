@@ -28,14 +28,6 @@ class AddEditPostRepository : AddEditPostDataSource {
         addEditPostRemoteDataSource.editPost(postId, request, onSuccess, onFailure)
     }
 
-    override fun deletePost(
-        postId: Int,
-        onSuccess: () -> Unit,
-        onFailure: (e: Throwable) -> Unit
-    ) {
-        addEditPostRemoteDataSource.deletePost(postId, onSuccess, onFailure)
-    }
-
     override fun uploadFile(
         file: MultipartBody.Part,
         onSuccess: (response: UploadFileResponse) -> Unit,

@@ -13,7 +13,7 @@ class PresenterBookmarks(
 ) : ContractBookmarks.Presenter {
 
     private val bookmarksRepository: BookmarksRepository =
-        BookmarksRepository(context)
+        BookmarksRepository()
 
     private lateinit var bookmarksRequest: BookmarksRequest
 

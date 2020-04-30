@@ -13,11 +13,11 @@ data class PostDetails(
     val nickname: String,
     val profile_url: String,
     val date: String,
-    val liked: Int,
-    val disliked: Int,
+    var liked: Int,
+    var disliked: Int,
     val attachs: List<AttachImage>,
     val tags: List<PostTag>,
-    val is_bookmark: Boolean,
-    val comment_count: Int,
-    val rating: Int
+    var is_bookmark: Boolean,
+    var comment_count: Int,
+    var rating: Int
 )

@@ -1,6 +1,5 @@
 package com.bnvs.metaler.data.bookmarks.source.repositroy
 
-import android.content.Context
 import com.bnvs.metaler.data.bookmarks.model.AddBookmarkRequest
 import com.bnvs.metaler.data.bookmarks.model.AddBookmarkResponse
 import com.bnvs.metaler.data.bookmarks.model.BookmarksRequest
@@ -8,7 +7,7 @@ import com.bnvs.metaler.data.bookmarks.model.BookmarksResponse
 import com.bnvs.metaler.data.bookmarks.source.BookmarksDataSource
 import com.bnvs.metaler.data.bookmarks.source.remote.BookmarksRemoteDataSource
 
-class BookmarksRepository(context: Context) :
+class BookmarksRepository :
     BookmarksDataSource {
 
     private val bookmarksRemoteDataSource = BookmarksRemoteDataSource
