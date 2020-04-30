@@ -2,6 +2,7 @@ package com.bnvs.metaler.data.postdetails.source.local
 
 import android.content.Context
 import com.bnvs.metaler.data.postdetails.model.PostDetails
+import com.bnvs.metaler.data.postdetails.model.RatingRequest
 import com.bnvs.metaler.data.postdetails.source.PostDetailsDataSource
 
 class PostDetailsLocalDataSource(context: Context) : PostDetailsDataSource {
@@ -23,6 +24,19 @@ class PostDetailsLocalDataSource(context: Context) : PostDetailsDataSource {
         onSuccess: () -> Unit,
         onFailure: (e: Throwable) -> Unit
     ) {
+
+    }
+
+    override fun ratePost(
+        postId: Int,
+        request: RatingRequest,
+        onSuccess: () -> Unit,
+        onFailure: (e: Throwable) -> Unit
+    ) {
+
+    }
+
+    override fun unRatePost(postId: Int, onSuccess: () -> Unit, onFailure: (e: Throwable) -> Unit) {
 
     }
 }
