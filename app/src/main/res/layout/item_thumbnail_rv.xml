@@ -16,9 +16,11 @@
 
     <ProgressBar
         android:id="@+id/thumbnailLoading"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
         android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@id/thumbnailImg"
+        app:layout_constraintEnd_toEndOf="@id/thumbnailImg"
         app:layout_constraintStart_toStartOf="@id/thumbnailImg"
         app:layout_constraintTop_toTopOf="@id/thumbnailImg" />
 
