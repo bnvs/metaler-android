@@ -12,6 +12,7 @@
         style="@style/smallProfileIcon"
         android:layout_marginStart="20dp"
         android:layout_marginTop="5dp"
+        android:adjustViewBounds="true"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

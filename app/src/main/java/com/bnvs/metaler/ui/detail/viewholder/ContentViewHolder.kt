@@ -31,6 +31,7 @@ class ContentViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             Glide.with(this)
                 .load(postDetails.profile_url)
                 .error(R.drawable.ic_profile_x3)
+                .override(200, 200)
                 .transform(CircleCrop())
                 .into(userImg)
         }

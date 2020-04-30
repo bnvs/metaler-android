@@ -21,6 +21,7 @@ class CommentBottomViewHolder(
             Glide.with(this)
                 .load(comment.profile_url)
                 .error(R.drawable.ic_profile_x3)
+                .override(200, 200)
                 .transform(CircleCrop())
                 .into(userImg)
         }

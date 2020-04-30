@@ -63,6 +63,8 @@ class ThumbnailViewHolder(
                     return false
                 }
             })
+            .centerCrop()
+            .override(300, 300)
             .error(R.drawable.ic_broken_image_black_24dp)
             .into(itemView.thumbnailImg)
     }
