@@ -23,7 +23,7 @@ interface ContractDetail {
 
         fun deleteComment(commentIndex: Int)
 
-        fun showOptionsMenu()
+        fun showOptionsMenu(v: android.view.View)
 
         fun openEditPostUi(postId: Int)
 
@@ -51,7 +51,7 @@ interface ContractDetail {
 
         fun deleteBookmark()
 
-        fun openMenu()
+        fun openMenu(v: android.view.View)
 
         fun deletePost()
 
