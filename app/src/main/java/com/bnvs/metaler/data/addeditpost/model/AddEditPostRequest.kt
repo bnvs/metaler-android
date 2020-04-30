@@ -1,7 +1,9 @@
 package com.bnvs.metaler.data.addeditpost.model
 
-import java.io.Serializable
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class AddEditPostRequest(
     var category_id: Int?,
     var title: String?,
@@ -10,4 +12,4 @@ data class AddEditPostRequest(
     var price_type: String?,
     var attach_ids: MutableList<Int>,
     var tags: MutableList<PostTag>
-) : Serializable
+) : Parcelable
