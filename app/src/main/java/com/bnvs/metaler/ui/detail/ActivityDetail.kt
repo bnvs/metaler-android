@@ -139,9 +139,23 @@ class ActivityDetail : AppCompatActivity(), ContractDetail.View {
         setTitleBarButtons()
     }
 
+    override fun setBookmarkButton(b: Boolean) {
+        if (b) {
+            bookmarkBtn.isChecked = b
+        } else {
+            bookmarkBtn.isChecked = b
+        }
+    }
+
     private fun setTitleBarButtons() {
         backBtn.setOnClickListener { finish() }
-        bookmarkBtn.setOnClickListener { }
+        bookmarkBtn.setOnClickListener {
+            if (bookmarkBtn.isChecked) {
+                presenter.addBookmark()
+            } else {
+                presenter.deleteBookmark()
+            }
+        }
         moreBtn.setOnClickListener { v ->
             presenter.openMenu(v)
         }

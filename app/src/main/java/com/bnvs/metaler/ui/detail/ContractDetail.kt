@@ -23,6 +23,8 @@ interface ContractDetail {
 
         fun deleteComment(commentIndex: Int)
 
+        fun setBookmarkButton(b: Boolean)
+
         fun showPopupMenu(v: android.view.View)
 
         fun openEditPostUi(postId: Int)
@@ -34,6 +36,8 @@ interface ContractDetail {
         fun dislikePost()
 
         fun cancelDislikePost()
+
+        fun showAlreadyRatedDialog()
     }
 
     interface Presenter : BasePresenter {
@@ -57,8 +61,12 @@ interface ContractDetail {
 
         fun modifyPost()
 
+        fun ratePost(rating: Int)
+
         fun likePost()
 
         fun dislikePost()
+
+        fun unRatePost()
     }
 }

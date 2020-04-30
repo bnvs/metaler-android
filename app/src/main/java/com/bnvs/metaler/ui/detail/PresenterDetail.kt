@@ -6,6 +6,7 @@ import com.bnvs.metaler.data.bookmarks.source.repositroy.BookmarksRepository
 import com.bnvs.metaler.data.comments.model.CommentsRequest
 import com.bnvs.metaler.data.comments.source.repository.CommentsRepository
 import com.bnvs.metaler.data.postdetails.model.PostDetails
+import com.bnvs.metaler.data.postdetails.model.RatingRequest
 import com.bnvs.metaler.data.postdetails.source.repository.PostDetailsRepository
 
 class PresenterDetail(
@@ -34,6 +35,7 @@ class PresenterDetail(
             onSuccess = { response ->
                 postDetails = response
                 view.run {
+                    setBookmarkButton(response.is_bookmark)
                     initPostDetailAdapter(response)
                     loadComments()
                     initPostDetailScrollListener()
@@ -102,7 +104,8 @@ class PresenterDetail(
         bookmarksRepository.addBookmark(
             AddBookmarkRequest(postId),
             onSuccess = {
-
+                postDetails.is_bookmark = true
+                view.setBookmarkButton(true)
             },
             onFailure = {
 
@@ -114,7 +117,8 @@ class PresenterDetail(
         bookmarksRepository.deleteBookmark(
             postId,
             onSuccess = {
-
+                postDetails.is_bookmark = false
+                view.setBookmarkButton(false)
             },
             onFailure = {
 
