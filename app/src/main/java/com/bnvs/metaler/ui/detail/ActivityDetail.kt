@@ -3,8 +3,6 @@ package com.bnvs.metaler.ui.detail
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.Menu
-import android.view.MenuItem
 import android.view.View
 import android.widget.PopupMenu
 import android.widget.Toast
@@ -98,19 +96,6 @@ class ActivityDetail : AppCompatActivity(), ContractDetail.View {
 
     override fun deleteComment(commentIndex: Int) {
         postDetailAdapter.deleteComment(commentIndex)
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.modify -> presenter.modifyPost()
-            R.id.delete -> presenter.deletePost()
-        }
-        return super.onOptionsItemSelected(item)
     }
 
     override fun showOptionsMenu(v: View) {
