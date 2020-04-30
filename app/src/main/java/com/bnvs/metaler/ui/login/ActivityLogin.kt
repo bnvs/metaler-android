@@ -124,6 +124,7 @@ class ActivityLogin : AppCompatActivity() {
                 user.profile_email
             )
         )
+        profileRepository.saveUserInfo(user)
     }
 
     private fun checkMembership(result: MeV2Response) {
