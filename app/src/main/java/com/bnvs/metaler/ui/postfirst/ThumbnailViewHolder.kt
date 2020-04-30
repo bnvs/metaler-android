@@ -1,6 +1,11 @@
 package com.bnvs.metaler.ui.postfirst
 
+import android.graphics.BlendMode
+import android.graphics.BlendModeColorFilter
+import android.graphics.Color
+import android.graphics.PorterDuff
 import android.graphics.drawable.Drawable
+import android.os.Build
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.bnvs.metaler.R
@@ -21,6 +26,15 @@ class ThumbnailViewHolder(
         itemView.setOnLongClickListener {
             itemClick(adapterPosition)
             true
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            itemView.thumbnailLoading.indeterminateDrawable.colorFilter =
+                BlendModeColorFilter(R.color.colorLightPurple, BlendMode.SRC_ATOP)
+        } else {
+            itemView.thumbnailLoading.indeterminateDrawable.setColorFilter(
+                Color.GRAY,
+                PorterDuff.Mode.MULTIPLY
+            )
         }
     }
 

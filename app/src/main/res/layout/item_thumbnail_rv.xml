@@ -10,14 +10,14 @@
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:paddingEnd="3dp"
+        android:scaleType="centerCrop"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
+    <ProgressBar
         android:id="@+id/thumbnailLoading"
         android:layout_width="70dp"
         android:layout_height="70dp"
-        android:src="@drawable/ic_broken_image_black_24dp"
         android:visibility="visible"
         app:layout_constraintStart_toStartOf="@id/thumbnailImg"
         app:layout_constraintTop_toTopOf="@id/thumbnailImg" />
