@@ -1,13 +1,17 @@
 package com.bnvs.metaler.ui.detail
 
 import android.content.Intent
+import android.graphics.Typeface
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bnvs.metaler.R
@@ -198,6 +202,7 @@ class ActivityDetail : AppCompatActivity(), ContractDetail.View {
 
     private fun initClickListeners() {
         setTitleBarButtons()
+        setCommentInputListener()
     }
 
     override fun setBookmarkButton(b: Boolean) {
@@ -222,6 +227,34 @@ class ActivityDetail : AppCompatActivity(), ContractDetail.View {
         moreBtn.setOnClickListener { v ->
             presenter.openMenu(v)
         }
+    }
+
+    private fun setCommentInputListener() {
+        commentInput.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {}
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if (!commentInput.text.isNullOrBlank()) {
+                    commentRegisterBtn.setTextColor(
+                        ContextCompat.getColor(
+                            applicationContext,
+                            R.color.colorPurple
+                        )
+                    )
+                    commentRegisterBtn.setTypeface(null, Typeface.BOLD)
+                } else {
+                    commentRegisterBtn.setTextColor(
+                        ContextCompat.getColor(
+                            applicationContext,
+                            R.color.colorGrey
+                        )
+                    )
+                    commentRegisterBtn.setTypeface(null, Typeface.NORMAL)
+                }
+            }
+        })
     }
 
     override fun showAlreadyRatedDialog() {
