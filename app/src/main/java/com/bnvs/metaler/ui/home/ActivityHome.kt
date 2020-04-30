@@ -14,6 +14,7 @@ import com.bnvs.metaler.data.homeposts.model.HomePost
 import com.bnvs.metaler.data.profile.model.Profile
 import com.bnvs.metaler.ui.detail.ActivityDetail
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import kotlinx.android.synthetic.main.activity_home.*
 
 class ActivityHome : AppCompatActivity(), ContractHome.View {
@@ -53,6 +54,8 @@ class ActivityHome : AppCompatActivity(), ContractHome.View {
     override fun showProfile(profile: Profile) {
         Glide.with(this@ActivityHome)
             .load(profile.profile_image_url)
+            .transform(CircleCrop())
+            .error(R.drawable.ic_profile_x3)
             .into(profileImg)
         profileNickname.text = profile.profile_nickname
         profileEmail.text = profile.profile_email

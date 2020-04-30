@@ -61,26 +61,6 @@ object AddEditPostRemoteDataSource : AddEditPostDataSource {
         })
     }
 
-    override fun deletePost(
-        postId: Int,
-        onSuccess: () -> Unit,
-        onFailure: (e: Throwable) -> Unit
-    ) {
-        retrofitClient.deletePost(postId).enqueue(object : Callback<ResponseBody> {
-            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
-                if (response.isSuccessful) {
-                    onSuccess()
-                } else {
-                    onFailure(HttpException(response))
-                }
-            }
-
-            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                onFailure(t)
-            }
-        })
-    }
-
     override fun uploadFile(
         file: MultipartBody.Part,
         onSuccess: (response: UploadFileResponse) -> Unit,

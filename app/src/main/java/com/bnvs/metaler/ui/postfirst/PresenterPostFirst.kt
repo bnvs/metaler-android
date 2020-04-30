@@ -75,7 +75,7 @@ class PresenterPostFirst(
                 setCategory(response.category_id)
                 setTitle(response.title)
                 setPrice(response.price)
-                setPriceType(response.price_type)
+                setPriceType(convertPriceType(response.price_type))
                 setImage(response.attachs)
                 setContents(response.content)
                 addEditPostRequest.tags.addAll(response.tags)
@@ -84,6 +84,14 @@ class PresenterPostFirst(
                 view.showPostDetailLoadFailedToast(NetworkUtil.getErrorMessage(e))
             }
         )
+    }
+
+    private fun convertPriceType(priceType: String): String? {
+        return when (priceType) {
+            "카드" -> "card"
+            "현금" -> "cash"
+            else -> null
+        }
     }
 
     override fun setCategory(categoryId: Int) {
@@ -114,7 +122,7 @@ class PresenterPostFirst(
         view.setPrice(price)
     }
 
-    override fun setPriceType(priceType: String) {
+    override fun setPriceType(priceType: String?) {
         addEditPostRequest.price_type = priceType
         when (priceType) {
             "card" -> view.setCardButton()

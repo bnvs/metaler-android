@@ -8,7 +8,7 @@ class PresenterBookmarks (
     private val view: ContractBookmarks.View) : ContractBookmarks.Presenter {
 
     private val bookmarksRepository: BookmarksRepository =
-        BookmarksRepository(context)
+        BookmarksRepository()
 
     init {
         view.presenter = this

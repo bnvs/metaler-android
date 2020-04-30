@@ -13,6 +13,7 @@ import com.bnvs.metaler.data.comments.model.Comments
 import com.bnvs.metaler.data.homeposts.model.HomePosts
 import com.bnvs.metaler.data.myposts.model.MyPosts
 import com.bnvs.metaler.data.postdetails.model.PostDetails
+import com.bnvs.metaler.data.postdetails.model.RatingRequest
 import com.bnvs.metaler.data.posts.model.PostsResponse
 import com.bnvs.metaler.data.user.certification.model.*
 import com.bnvs.metaler.data.user.deactivation.model.DeleteUserResponse
@@ -103,6 +104,19 @@ interface RetrofitInterface {
     fun getPostDetails(
         @Path("id") post_id: Int
     ): Call<PostDetails>
+
+    // 글 평가 추가
+    @POST("posts/{id}/ratings")
+    fun ratePost(
+        @Path("id") post_id: Int,
+        @Body request: RatingRequest
+    ): Call<ResponseBody>
+
+    // 글 평가 삭제
+    @DELETE("posts/{id}/ratings")
+    fun unRatePost(
+        @Path("id") post_id: Int
+    ): Call<ResponseBody>
 
     // 게시글 작성
     @POST("/posts")

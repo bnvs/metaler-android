@@ -23,7 +23,7 @@ class PresenterMaterials(
     val TAG = "PresenterMaterials.kt"
 
     private val postRepository: PostsRepository = PostsRepository(context)
-    private val bookmarksRepository: BookmarksRepository = BookmarksRepository(context)
+    private val bookmarksRepository: BookmarksRepository = BookmarksRepository()
     private val categoriesRepository: CategoriesRepository = CategoriesRepository()
 
     private lateinit var postsRequest: PostsRequest
