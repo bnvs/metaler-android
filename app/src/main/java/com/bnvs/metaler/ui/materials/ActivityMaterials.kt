@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,9 +16,7 @@ import com.bnvs.metaler.R
 import com.bnvs.metaler.data.categories.model.Category
 import com.bnvs.metaler.data.posts.model.Post
 import com.bnvs.metaler.ui.postfirst.ActivityPostFirst
-import com.bnvs.metaler.util.EndlessRecyclerViewScrollListener
-import com.bnvs.metaler.util.PostAdapter
-import com.bnvs.metaler.util.PostItemListener
+import com.bnvs.metaler.util.*
 import kotlinx.android.synthetic.main.activity_materials.*
 import kotlinx.android.synthetic.main.item_materials_category_rv.view.*
 
@@ -34,21 +33,33 @@ class ActivityMaterials : AppCompatActivity(),
     lateinit var postLayoutManager: RecyclerView.LayoutManager
     var loadMorePosts: ArrayList<Post?> = ArrayList()
 
+    lateinit var tagSearchAdapter: TagSearchAdapter
+    private val tagSearchLayoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
 
     /**
      * 재료 탭의 카테고리 리사이클러뷰 아이템에 달아줄 리스너입니다
      * */
     private var categoryItemListener: CategoryItemListener = object :
         CategoryItemListener {
-        override fun onCategoryClick(categoryType: String, position: Int) {
+        override fun onCategoryClick(categoryType: Int, position: Int) {
             if (categoryAdapter.selectedPosition != position) {
                 categoryAdapter.also {
                     it.selectedPosition = position
                     it.notifyDataSetChanged()
                 }
-                // TODO : 카테고리 타입에 맞는 post 를 불러오도록 presenter 수정해야함
-//                presenter.loadPosts()
+                presenter.resetPageNum()
+                presenter.loadPosts(presenter.requestPosts(categoryType))
             }
+        }
+    }
+
+    /**
+     * 재료 탭의 태그 검색 리사이클러뷰 아이템에 달아줄 리스너입니다
+     * */
+    private var tagSearchItemListener: TagSearchItemListener = object :
+        TagSearchItemListener {
+        override fun onTagDeleteBtnClick(position: Int) {
+            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         }
     }
 
@@ -93,7 +104,6 @@ class ActivityMaterials : AppCompatActivity(),
 
 
     private val categoryAdapter = CategoryAdapter(
-        ArrayList(0),
         categoryItemListener
     )
     private val categoryLayoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
@@ -129,7 +139,7 @@ class ActivityMaterials : AppCompatActivity(),
     override fun onRefresh() {
         refreshLayout.setOnRefreshListener {
             presenter.resetPageNum()
-            presenter.loadPosts(presenter.requestPosts())
+            presenter.loadPosts(presenter.requestPosts(presenter.getCategoryId()))
             // The method calls setRefreshing(false) when it's finished.
             refreshLayout.setRefreshing(false);
         }
@@ -164,7 +174,7 @@ class ActivityMaterials : AppCompatActivity(),
                 if (!loadMorePosts.isEmpty()) {
                     //loadMorePosts의 마지막 값이 null값이 있으면 무한스크롤 로딩 중이기 때문에 데이터를 받아오고, 로딩뷰를 제거한다.
                     if (loadMorePosts[loadMorePosts.size - 1] == null) {
-                        presenter.loadMorePosts(presenter.requestPosts())
+                        presenter.loadMorePosts(presenter.requestPosts(presenter.getCategoryId()))
 //                        showMorePosts()
                     }
                 }
@@ -209,11 +219,16 @@ class ActivityMaterials : AppCompatActivity(),
 
     }
 
+    override fun removeLoadingView() {
+        postAdapter.removeLoadingView()
+    }
 
     override fun showCategories(categories: List<Category>) {
         categoryAdapter.setCategories(categories)
         categoryAdapter.notifyDataSetChanged()
         materialsCategoryRV.adapter = categoryAdapter
+        materialsCategoryRV.layoutManager = categoryLayoutManager
+        materialsCategoryRV.setHasFixedSize(true)
         materialsCategoryRV.visibility = View.VISIBLE
     }
 
@@ -222,10 +237,6 @@ class ActivityMaterials : AppCompatActivity(),
     }
 
     override fun showSearchUi() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun showSearchTags() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
@@ -240,7 +251,33 @@ class ActivityMaterials : AppCompatActivity(),
     private fun initClickListeners() {
         setTitleBarButtons()
         setTapBarButtons()
+        setTagSearchButtons()
     }
+
+    override fun showSearchTags() {
+        Log.d(TAG,"태그입력값? : ${tagInput.text}")
+        var inputTag : String = tagInput.text.toString()
+        presenter.addSearchTag("tag",inputTag)
+        tagSearchAdapter = TagSearchAdapter(tagSearchItemListener)
+        tagSearchAdapter.addTags(inputTag)
+        categoryAdapter.notifyDataSetChanged()
+        tagRV.adapter = tagSearchAdapter
+        tagRV.layoutManager = tagSearchLayoutManager
+        tagRV.setHasFixedSize(true)
+        tagRV.visibility = View.VISIBLE
+    }
+
+    private fun setTagSearchButtons() {
+        tagInput.setOnEditorActionListener { v, actionId, event ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                showSearchTags()
+                true
+            } else {
+                false
+            }
+        }
+    }
+
 
     private fun setTitleBarButtons() {
         // 글작성, 글검색 버튼 클릭 리스너 달아주기
@@ -263,15 +300,16 @@ class ActivityMaterials : AppCompatActivity(),
      * 재료 탭의 카테고리 리사이클러뷰에 사용할 어댑터입니다.
      * */
     private class CategoryAdapter(
-        private var categories: List<Category>,
         private val itemListener: CategoryItemListener
     ) : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
+
+        lateinit var materialCategories: List<Category>
 
         var selectedPosition: Int = 0
 
         fun setCategories(list: List<Category>) {
-            this.categories = list
-        }
+            this.materialCategories = list
+           }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
             val inflatedView = LayoutInflater.from(parent.context)
@@ -280,11 +318,11 @@ class ActivityMaterials : AppCompatActivity(),
         }
 
         override fun getItemCount(): Int {
-            return categories.size
+            return materialCategories.size - 1
         }
 
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-            holder.bind(categories[position], position)
+            holder.bind(materialCategories[position], position)
         }
 
         inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -293,22 +331,21 @@ class ActivityMaterials : AppCompatActivity(),
             fun bind(item: Category, position: Int) {
 
                 view.apply {
-                    materialsCategoryBtn.apply {
-                        text = item.name
-                        if (selectedPosition == position) {
+                    if (selectedPosition == position) {
+                        materialsCategoryBtn.apply {
+                            text = item.name
                             setTextColor(ContextCompat.getColor(this.context, R.color.colorPurple))
-                            setBackgroundResource(R.drawable.active_bar)
-                        } else {
-                            setTextColor(
-                                ContextCompat.getColor(
-                                    this.context,
-                                    R.color.colorLightGrey
-                                )
-                            )
-                            setBackgroundResource(0)
                         }
+                        categoryActiveBar.visibility = View.VISIBLE
+
+                    } else {
+                        materialsCategoryBtn.apply {
+                            text = item.name
+                            setTextColor(ContextCompat.getColor(this.context, R.color.colorLightGrey))
+                        }
+                        categoryActiveBar.visibility = View.INVISIBLE
                     }
-                    setOnClickListener { itemListener.onCategoryClick(item.name, position) }
+                    setOnClickListener { itemListener.onCategoryClick(item.id, position) }
                 }
 
             }
@@ -316,7 +353,7 @@ class ActivityMaterials : AppCompatActivity(),
     }
 
     private interface CategoryItemListener {
-        fun onCategoryClick(categoryType: String, position: Int)
+        fun onCategoryClick(categoryType: Int, position: Int)
     }
 
 }

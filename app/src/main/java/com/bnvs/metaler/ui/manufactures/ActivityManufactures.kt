@@ -3,17 +3,17 @@ package com.bnvs.metaler.ui.manufactures
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
 import android.view.View
+import android.view.inputmethod.EditorInfo
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bnvs.metaler.R
+import com.bnvs.metaler.data.posts.model.Post
+import com.bnvs.metaler.ui.postfirst.ActivityPostFirst
 import com.bnvs.metaler.util.EndlessRecyclerViewScrollListener
 import com.bnvs.metaler.util.PostAdapter
 import com.bnvs.metaler.util.PostItemListener
-import com.bnvs.metaler.data.posts.model.Post
-import com.bnvs.metaler.ui.postfirst.ActivityPostFirst
 import kotlinx.android.synthetic.main.activity_manufacture.*
 import java.util.*
 
@@ -146,7 +146,7 @@ class ActivityManufactures : AppCompatActivity(),
 
     override fun showMorePosts(posts: List<Post>) {
 
-        if(loadMorePosts[loadMorePosts.size-1] == null) {
+        if (loadMorePosts[loadMorePosts.size - 1] == null) {
             //Use Handler if the items are loading too fast.
             //If you remove it, the data will load so fast that you can't even see the LoadingView
             Handler().postDelayed({
@@ -177,6 +177,10 @@ class ActivityManufactures : AppCompatActivity(),
         postsRV.adapter = postAdapter
     }
 
+    override fun removeLoadingView() {
+        postAdapter.removeLoadingView()
+    }
+
     override fun showPostDetailUi() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
@@ -200,6 +204,18 @@ class ActivityManufactures : AppCompatActivity(),
     private fun initClickListeners() {
         setTitleBarButtons()
         setTapBarButtons()
+        setTagSearchButtons()
+    }
+
+    private fun setTagSearchButtons() {
+        tagInput.setOnEditorActionListener { v, actionId, event ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+//                doSomething()
+                true
+            } else {
+                false
+            }
+        }
     }
 
     private fun setTitleBarButtons() {

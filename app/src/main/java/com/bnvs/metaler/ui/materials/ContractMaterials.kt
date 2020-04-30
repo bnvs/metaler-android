@@ -22,6 +22,8 @@ interface ContractMaterials {
 
         fun showMorePosts(posts: List<Post>)
 
+        fun removeLoadingView()
+
         fun setRVScrollListener()
 
         fun onRefresh()
@@ -42,7 +44,7 @@ interface ContractMaterials {
     interface Presenter : BasePresenter, TapBarContract.Presenter {
         fun loadCategories()
 
-        fun requestPosts(): PostsRequest
+        fun requestPosts(categoryId: Int): PostsRequest
 
         fun requestAddBookmark(postId: Int): AddBookmarkRequest
 
@@ -54,6 +56,8 @@ interface ContractMaterials {
 
         fun resetPageNum()
 
+        fun getCategoryId(): Int
+
         fun openPostDetail(postId: Int)
 
         fun addBookmark(postId: Int)
@@ -62,7 +66,7 @@ interface ContractMaterials {
 
         fun openSearch()
 
-        fun addSearchTag()
+        fun addSearchTag(searchType: String, searchWord: String)
 
         fun clearSearchTagBar()
 

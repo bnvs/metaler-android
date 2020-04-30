@@ -11,24 +11,26 @@
         android:id="@+id/categoryCard"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintDimensionRatio="1:0.11"
         android:background="@color/colorWhite"
         android:translationY="-4dp"
+        app:layout_constraintDimensionRatio="1:0.11"
         app:layout_constraintTop_toBottomOf="@id/titleBarCard">
+
         <TextView
             android:id="@+id/materialsCategoryBtn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:gravity="center_horizontal"
-            android:text="@string/materials"
             android:paddingBottom="5dp"
+            android:text="@string/materials"
             android:textColor="@color/colorLightGrey"
-            app:layout_constraintHorizontal_weight="1"
+            android:textSize="16sp"
             app:layout_constraintBottom_toTopOf="@id/materialsBar"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/manufactureCategoryBtn"
-            />
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toStartOf="parent" />
+
         <View
             android:id="@+id/materialsBar"
             android:layout_width="0dp"
@@ -36,11 +38,10 @@
             android:layout_centerInParent="true"
             android:layout_marginTop="10dp"
             android:background="@color/colorPurple"
-            app:layout_constraintLeft_toLeftOf="@id/materialsCategoryBtn"
-            app:layout_constraintRight_toRightOf="@id/materialsCategoryBtn"
-            app:layout_constraintBottom_toBottomOf="parent"
             android:visibility="invisible"
-            />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="@id/materialsCategoryBtn"
+            app:layout_constraintRight_toRightOf="@id/materialsCategoryBtn" />
 
         <TextView
             android:id="@+id/manufactureCategoryBtn"
@@ -48,14 +49,14 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
             android:gravity="center_horizontal"
-            android:text="@string/manufactures"
             android:paddingBottom="5dp"
+            android:text="@string/manufactures"
             android:textColor="@color/colorLightGrey"
-            app:layout_constraintHorizontal_weight="1"
+            android:textSize="16sp"
             app:layout_constraintBottom_toTopOf="@id/materialsBar"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/materialsCategoryBtn"
-            />
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toEndOf="@id/materialsCategoryBtn" />
 
         <View
             android:id="@+id/manufactureBar"
@@ -64,10 +65,9 @@
             android:layout_centerInParent="true"
             android:background="@color/colorPurple"
             android:visibility="invisible"
-            app:layout_constraintLeft_toLeftOf="@id/manufactureCategoryBtn"
-            app:layout_constraintRight_toRightOf="@id/manufactureCategoryBtn"
             app:layout_constraintBottom_toBottomOf="parent"
-            />
+            app:layout_constraintLeft_toLeftOf="@id/manufactureCategoryBtn"
+            app:layout_constraintRight_toRightOf="@id/manufactureCategoryBtn" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -75,10 +75,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="7dp"
-        app:layout_constraintTop_toBottomOf="@id/categoryCard"
-        app:layout_constraintStart_toStartOf="parent"
         android:visibility="invisible"
-        />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/categoryCard" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/titleBarCard"

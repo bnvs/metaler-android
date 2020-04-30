@@ -3,6 +3,7 @@ package com.bnvs.metaler.ui.materials
 import android.content.Context
 import android.content.Intent
 import android.widget.Toast
+import androidx.core.content.contentValuesOf
 import com.bnvs.metaler.data.bookmarks.model.AddBookmarkRequest
 import com.bnvs.metaler.data.bookmarks.model.AddBookmarkResponse
 import com.bnvs.metaler.data.bookmarks.model.DeleteBookmarkRequest
@@ -31,6 +32,9 @@ class PresenterMaterials(
     private lateinit var deleteBookmarkRequest: DeleteBookmarkRequest
 
     private var pageNum: Int = 0
+    private var categoryId: Int = 0
+    private var searchType: String? = null
+    private var searchWord: String? = null
 
     lateinit var posts: List<Post>
 
@@ -39,7 +43,8 @@ class PresenterMaterials(
     }
 
     override fun start() {
-        loadPosts(requestPosts())
+        loadPosts(requestPosts(1))
+        loadCategories()
     }
 
     override fun loadCategories() {
@@ -79,6 +84,7 @@ class PresenterMaterials(
                 if (response.is_next) {
                     view.showMorePosts(response.posts)
                 } else {
+                    view.removeLoadingView()
                     Toast.makeText(
                         context,
                         "마지막 아이템입니다.",
@@ -99,14 +105,15 @@ class PresenterMaterials(
 
 
     // getPosts api 요청 request body 반환하는 함수
-    override fun requestPosts(): PostsRequest {
+    override fun requestPosts(categoryId: Int): PostsRequest {
         pageNum++
+        this.categoryId = categoryId
         postsRequest = PostsRequest(
-            1,
+            categoryId,
             pageNum,
             10,
-            null,
-            null
+            searchType,
+            searchWord
         )
         return postsRequest
     }
@@ -124,6 +131,10 @@ class PresenterMaterials(
 
     override fun resetPageNum() {
         pageNum = 0
+    }
+
+    override fun getCategoryId(): Int {
+        return categoryId
     }
 
     override fun openPostDetail(postId: Int) {
@@ -177,8 +188,9 @@ class PresenterMaterials(
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun addSearchTag() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun addSearchTag(searchType: String, searchWord: String) {
+        this.searchType = "tag"
+        this.searchWord = searchWord
     }
 
     override fun clearSearchTagBar() {

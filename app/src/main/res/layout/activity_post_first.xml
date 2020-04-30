@@ -61,11 +61,11 @@
         <EditText
             android:id="@+id/titleInput"
             style="@style/titleEditText"
-            android:layout_marginLeft="@dimen/wideMargin"
             android:hint="@string/title_guide"
             android:paddingVertical="6dp"
             app:layout_constraintBottom_toBottomOf="@id/titleLine"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/categoryLine" />
 
         <View
