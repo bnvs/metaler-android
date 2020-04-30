@@ -32,6 +32,9 @@ interface ContractDetail {
         fun cancelDislikePost()
         fun showAlreadyRatedDialog()
         fun showErrorToast(errorMessage: String)
+        fun clearCommentInput()
+        fun hideSoftInput()
+        fun scrollToEnd()
     }
 
     interface Presenter : BasePresenter {
@@ -52,5 +55,6 @@ interface ContractDetail {
         fun likePost()
         fun dislikePost()
         fun unRatePost()
+        fun addComment(comment: String)
     }
 }

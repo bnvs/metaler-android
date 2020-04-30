@@ -1,5 +1,6 @@
 package com.bnvs.metaler.ui.detail
 
+import android.content.Context
 import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
@@ -7,6 +8,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -203,6 +205,7 @@ class ActivityDetail : AppCompatActivity(), ContractDetail.View {
     private fun initClickListeners() {
         setTitleBarButtons()
         setCommentInputListener()
+        setCommentRegisterButton()
     }
 
     override fun setBookmarkButton(b: Boolean) {
@@ -255,6 +258,30 @@ class ActivityDetail : AppCompatActivity(), ContractDetail.View {
                 }
             }
         })
+    }
+
+    private fun setCommentRegisterButton() {
+        commentRegisterBtn.setOnClickListener {
+            if (!commentInput.text.isNullOrBlank()) {
+                presenter.addComment(commentInput.text.toString())
+            }
+        }
+    }
+
+    override fun clearCommentInput() {
+        commentInput.text.clear()
+    }
+
+    override fun hideSoftInput() {
+        val inputMethodManager =
+            getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(commentInput.windowToken, 0)
+    }
+
+    override fun scrollToEnd() {
+        postDetailRv.post {
+            postDetailRv.scrollToPosition(postDetailRv.adapter!!.itemCount - 1)
+        }
     }
 
     override fun showAlreadyRatedDialog() {

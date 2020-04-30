@@ -4,6 +4,8 @@ import android.content.Context
 import android.view.View
 import com.bnvs.metaler.data.bookmarks.model.AddBookmarkRequest
 import com.bnvs.metaler.data.bookmarks.source.repositroy.BookmarksRepository
+import com.bnvs.metaler.data.comments.model.AddEditCommentRequest
+import com.bnvs.metaler.data.comments.model.Comment
 import com.bnvs.metaler.data.comments.model.CommentsRequest
 import com.bnvs.metaler.data.comments.source.repository.CommentsRepository
 import com.bnvs.metaler.data.postdetails.model.PostDetails
@@ -12,6 +14,8 @@ import com.bnvs.metaler.data.postdetails.source.repository.PostDetailsRepository
 import com.bnvs.metaler.data.profile.source.repository.ProfileRepository
 import com.bnvs.metaler.data.user.certification.model.User
 import com.bnvs.metaler.network.NetworkUtil
+import java.text.SimpleDateFormat
+import java.util.*
 
 class PresenterDetail(
     private val postId: Int,
@@ -290,6 +294,41 @@ class PresenterDetail(
                 view.apply {
                     showErrorToast(
                         "게시물 평가 취소에 실패했습니다" +
+                                "\n ${NetworkUtil.getErrorMessage(e)}"
+                    )
+                }
+            }
+        )
+    }
+
+    override fun addComment(comment: String) {
+        val dataFormat = SimpleDateFormat("yyyy.MM.dd aa hh:mm")
+        val date = dataFormat.format(Date(System.currentTimeMillis()))
+
+        commentsRepository.addComment(
+            postId,
+            AddEditCommentRequest(comment),
+            onSuccess = { response ->
+                view.run {
+                    addComment(
+                        Comment(
+                            response.comment_id,
+                            userId,
+                            comment,
+                            date,
+                            userInfo.profile_nickname,
+                            userInfo.profile_image_url
+                        )
+                    )
+                    clearCommentInput()
+                    hideSoftInput()
+                    scrollToEnd()
+                }
+            },
+            onFailure = { e ->
+                view.apply {
+                    showErrorToast(
+                        "댓글 작성에 실패했습니다" +
                                 "\n ${NetworkUtil.getErrorMessage(e)}"
                     )
                 }
