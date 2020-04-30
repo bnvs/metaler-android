@@ -148,10 +148,51 @@ class PresenterDetail(
     }
 
     override fun likePost() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        when (postDetails.rating) {
+            -1 -> view.showAlreadyRatedDialog()
+            0 -> ratePost(1)
+            1 -> unRatePost()
+        }
     }
 
     override fun dislikePost() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        when (postDetails.rating) {
+            -1 -> unRatePost()
+            0 -> ratePost(-1)
+            1 -> view.showAlreadyRatedDialog()
+        }
+    }
+
+    override fun ratePost(rating: Int) {
+        postDetailsRepository.ratePost(
+            postId,
+            RatingRequest(rating),
+            onSuccess = {
+                postDetails.rating = rating
+                when (rating) {
+                    -1 -> view.dislikePost()
+                    1 -> view.likePost()
+                }
+            },
+            onFailure = {
+
+            }
+        )
+    }
+
+    override fun unRatePost() {
+        postDetailsRepository.unRatePost(
+            postId,
+            onSuccess = {
+                when (postDetails.rating) {
+                    -1 -> view.cancelDislikePost()
+                    1 -> view.cancelLikePost()
+                }
+                postDetails.rating = 0
+            },
+            onFailure = {
+
+            }
+        )
     }
 }

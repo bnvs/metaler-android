@@ -165,6 +165,10 @@ class ActivityDetail : AppCompatActivity(), ContractDetail.View {
         makeToast("게시물을 불러오는데 실패했습니다")
     }
 
+    override fun showAlreadyRatedDialog() {
+        makeAlertDialog("이미 글에 평가를 하셨습니다")
+    }
+
     private fun makeToast(message: String) {
         Toast.makeText(this@ActivityDetail, message, Toast.LENGTH_LONG).show()
     }
