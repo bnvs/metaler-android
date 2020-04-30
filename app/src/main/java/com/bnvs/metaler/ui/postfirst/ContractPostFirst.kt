@@ -48,7 +48,7 @@ interface ContractPostFirst {
         fun setCategory(categoryId: Int)
         fun setTitle(title: String)
         fun setPrice(price: Int)
-        fun setPriceType(priceType: String)
+        fun setPriceType(priceType: String?)
         fun setImage(attachs: List<AttachImage>)
         fun addImage(image: AttachImage)
         fun deleteImage(imageIndex: Int)
