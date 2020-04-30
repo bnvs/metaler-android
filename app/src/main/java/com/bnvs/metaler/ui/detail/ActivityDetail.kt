@@ -98,7 +98,7 @@ class ActivityDetail : AppCompatActivity(), ContractDetail.View {
         postDetailAdapter.deleteComment(commentIndex)
     }
 
-    override fun showOptionsMenu(v: View) {
+    override fun showPopupMenu(v: View) {
         Log.d(TAG, "옵션 메뉴 클릭")
         val menu = PopupMenu(this@ActivityDetail, v)
         menuInflater.inflate(R.menu.menu, menu.menu)

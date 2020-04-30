@@ -124,7 +124,7 @@ class PresenterDetail(
 
 
     override fun openMenu(v: View) {
-        view.showOptionsMenu(v)
+        view.showPopupMenu(v)
     }
 
     override fun deletePost() {

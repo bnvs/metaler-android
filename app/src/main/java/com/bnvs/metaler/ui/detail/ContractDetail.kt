@@ -23,7 +23,7 @@ interface ContractDetail {
 
         fun deleteComment(commentIndex: Int)
 
-        fun showOptionsMenu(v: android.view.View)
+        fun showPopupMenu(v: android.view.View)
 
         fun openEditPostUi(postId: Int)
 
