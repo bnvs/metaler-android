@@ -3,7 +3,7 @@ package com.bnvs.metaler.ui.detail.viewholder
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.bnvs.metaler.data.postdetails.model.PostDetails
-import com.bnvs.metaler.ui.detail.PostRatingListener
+import com.bnvs.metaler.ui.detail.listener.PostRatingListener
 import kotlinx.android.synthetic.main.item_detail_price.view.*
 
 class PriceViewHolder(

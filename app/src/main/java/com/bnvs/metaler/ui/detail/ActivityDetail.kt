@@ -14,6 +14,7 @@ import com.bnvs.metaler.R
 import com.bnvs.metaler.data.comments.model.Comment
 import com.bnvs.metaler.data.postdetails.model.PostDetails
 import com.bnvs.metaler.ui.detail.adapter.PostDetailAdapter
+import com.bnvs.metaler.ui.detail.listener.PostRatingListener
 import com.bnvs.metaler.ui.postfirst.ActivityPostFirst
 import kotlinx.android.synthetic.main.activity_detail.*
 
@@ -26,7 +27,8 @@ class ActivityDetail : AppCompatActivity(), ContractDetail.View {
     override lateinit var presenter: ContractDetail.Presenter
     private lateinit var postDetailAdapter: PostDetailAdapter
 
-    private val postRatingListener = object : PostRatingListener {
+    private val postRatingListener = object :
+        PostRatingListener {
         override fun onLikeButtonClick() {
             presenter.likePost()
         }
