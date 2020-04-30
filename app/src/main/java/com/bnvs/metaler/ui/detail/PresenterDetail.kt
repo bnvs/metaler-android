@@ -326,7 +326,8 @@ class PresenterDetail(
                 }
             },
             onFailure = { e ->
-                view.apply {
+                view.run {
+                    hideSoftInput()
                     showErrorToast(
                         "댓글 작성에 실패했습니다" +
                                 "\n ${NetworkUtil.getErrorMessage(e)}"
