@@ -10,8 +10,16 @@
         android:layout_height="265dp"
         android:paddingRight="10dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/ic_launcher_background"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/contentImgLoading"
+        android:layout_width="265dp"
+        android:layout_height="265dp"
+        android:src="@drawable/ic_broken_image_black_24dp"
+        android:visibility="visible"
+        app:layout_constraintStart_toStartOf="@id/contentImg"
+        app:layout_constraintTop_toTopOf="@id/contentImg" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
