@@ -31,6 +31,8 @@ class PresenterDetail(
     private lateinit var postDetails: PostDetails
     private lateinit var userInfo: User
     private var userId = 0
+    private lateinit var tempComment: Comment
+    private var tempCommentIndex = -1
 
     private var page = 0
     private val limit = 10
@@ -200,7 +202,7 @@ class PresenterDetail(
         if (userId == postDetails.user_id) {
             view.showDeletePostDialog()
         } else {
-            view.showDeleteFailedDialog()
+            view.showDeletePostFailedDialog()
         }
     }
 
@@ -330,6 +332,66 @@ class PresenterDetail(
                     hideSoftInput()
                     showErrorToast(
                         "댓글 작성에 실패했습니다" +
+                                "\n ${NetworkUtil.getErrorMessage(e)}"
+                    )
+                }
+            }
+        )
+    }
+
+    override fun openCommentMenu(comment: Comment, commentIndex: Int) {
+        this.tempComment = comment
+        this.tempCommentIndex = commentIndex
+        view.showCommentMenuDialog()
+    }
+
+    override fun openDeleteComment() {
+        if (userId == tempComment.user_id) {
+            view.showDeleteCommentDialog()
+        } else {
+            view.showDeleteCommentFailedDialog()
+        }
+    }
+
+    override fun deleteComment() {
+        commentsRepository.deleteComment(
+            tempComment.comment_id,
+            onSuccess = {
+                view.deleteComment(tempCommentIndex)
+            },
+            onFailure = { e ->
+                view.apply {
+                    showErrorToast(
+                        "댓글 삭제에 실패했습니다" +
+                                "\n ${NetworkUtil.getErrorMessage(e)}"
+                    )
+                }
+            }
+        )
+    }
+
+    override fun setModifyComment() {
+        if (userId == tempComment.user_id) {
+            view.run {
+                showCommentToModify(tempComment.content)
+                showSoftInput()
+            }
+        } else {
+            view.showEditCommentFailedDialog()
+        }
+    }
+
+    override fun modifyComment(comment: String) {
+        commentsRepository.editComment(
+            tempComment.comment_id,
+            AddEditCommentRequest(comment),
+            onSuccess = {
+
+            },
+            onFailure = { e ->
+                view.apply {
+                    showErrorToast(
+                        "댓글 수정에 실패했습니다" +
                                 "\n ${NetworkUtil.getErrorMessage(e)}"
                     )
                 }

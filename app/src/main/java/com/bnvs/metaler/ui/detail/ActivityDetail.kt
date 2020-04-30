@@ -20,6 +20,7 @@ import com.bnvs.metaler.R
 import com.bnvs.metaler.data.comments.model.Comment
 import com.bnvs.metaler.data.postdetails.model.PostDetails
 import com.bnvs.metaler.ui.detail.adapter.PostDetailAdapter
+import com.bnvs.metaler.ui.detail.listener.CommentMenuListener
 import com.bnvs.metaler.ui.detail.listener.PostRatingListener
 import com.bnvs.metaler.ui.postfirst.ActivityPostFirst
 import kotlinx.android.synthetic.main.activity_detail.*
@@ -41,6 +42,12 @@ class ActivityDetail : AppCompatActivity(), ContractDetail.View {
 
         override fun onDislikeButtonClick() {
             presenter.dislikePost()
+        }
+    }
+
+    private val commentMenuListener = object : CommentMenuListener {
+        override fun onClickMenuButton(comment: Comment, commentIndex: Int) {
+            presenter.openCommentMenu(comment, commentIndex)
         }
     }
 
@@ -66,7 +73,7 @@ class ActivityDetail : AppCompatActivity(), ContractDetail.View {
 
     override fun initPostDetailAdapter(postDetails: PostDetails) {
         postDetailAdapter =
-            PostDetailAdapter(postDetails, postRatingListener)
+            PostDetailAdapter(postDetails, postRatingListener, commentMenuListener)
         postDetailRv.adapter = postDetailAdapter
     }
 
@@ -133,7 +140,7 @@ class ActivityDetail : AppCompatActivity(), ContractDetail.View {
             .show()
     }
 
-    override fun showDeleteFailedDialog() {
+    override fun showDeletePostFailedDialog() {
         makeAlertDialog("타인이 작성한 게시물은 삭제할 수 없습니다")
     }
 
@@ -270,6 +277,51 @@ class ActivityDetail : AppCompatActivity(), ContractDetail.View {
 
     override fun clearCommentInput() {
         commentInput.text.clear()
+    }
+
+    override fun showCommentMenuDialog() {
+        val array = arrayOf("댓글 수정", "댓글 삭제")
+        AlertDialog.Builder(this@ActivityDetail)
+            .setItems(array) { _, which ->
+                when (array[which]) {
+                    "댓글 수정" -> {
+                        presenter.setModifyComment()
+                    }
+                    "댓글 삭제" -> {
+                        presenter.openDeleteComment()
+                    }
+                }
+            }
+            .show()
+    }
+
+    override fun showDeleteCommentDialog() {
+        AlertDialog.Builder(this@ActivityDetail)
+            .setTitle("게시글을 삭제하시겠습니까?")
+            .setPositiveButton("확인") { dialog, which ->
+                presenter.deleteComment()
+            }
+            .setNegativeButton("취소") { _, _ ->
+            }
+            .show()
+    }
+
+    override fun showDeleteCommentFailedDialog() {
+        makeAlertDialog("타인이 작성한 댓글은 삭제할 수 없습니다")
+    }
+
+    override fun showCommentToModify(comment: String) {
+        commentInput.setText(comment)
+    }
+
+    override fun showEditCommentFailedDialog() {
+        makeAlertDialog("타인이 작성한 댓글은 수정할 수 없습니다")
+    }
+
+    override fun showSoftInput() {
+        val inputMethodManager =
+            getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.showSoftInput(commentInput, 0)
     }
 
     override fun hideSoftInput() {

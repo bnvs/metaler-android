@@ -17,7 +17,7 @@ interface ContractDetail {
         fun setBookmarkButton(b: Boolean)
         fun showPopupMenu(v: android.view.View)
         fun showDeletePostDialog()
-        fun showDeleteFailedDialog()
+        fun showDeletePostFailedDialog()
         fun showPostDeletedToast()
         fun finishActivity()
         fun showBookmarkAddDialog()
@@ -33,8 +33,14 @@ interface ContractDetail {
         fun showAlreadyRatedDialog()
         fun showErrorToast(errorMessage: String)
         fun clearCommentInput()
+        fun showSoftInput()
         fun hideSoftInput()
         fun scrollToEnd()
+        fun showCommentMenuDialog()
+        fun showDeleteCommentDialog()
+        fun showDeleteCommentFailedDialog()
+        fun showCommentToModify(comment: String)
+        fun showEditCommentFailedDialog()
     }
 
     interface Presenter : BasePresenter {
@@ -56,5 +62,10 @@ interface ContractDetail {
         fun dislikePost()
         fun unRatePost()
         fun addComment(comment: String)
+        fun openCommentMenu(comment: Comment, commentIndex: Int)
+        fun openDeleteComment()
+        fun deleteComment()
+        fun setModifyComment()
+        fun modifyComment(comment: String)
     }
 }
