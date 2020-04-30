@@ -12,8 +12,18 @@ class PriceViewHolder(
 ) : RecyclerView.ViewHolder(itemView) {
 
     init {
-        itemView.dislikeBtn.setOnClickListener { listener.onDislikeButtonClick() }
-        itemView.likeBtn.setOnClickListener { listener.onLikeButtonClick() }
+        itemView.dislikeBtn.setOnClickListener {
+            listener.onDislikeButtonClick()
+            if (itemView.likeBtn.isChecked) {
+                itemView.dislikeBtn.isChecked = false
+            }
+        }
+        itemView.likeBtn.setOnClickListener {
+            listener.onLikeButtonClick()
+            if (itemView.dislikeBtn.isChecked) {
+                itemView.likeBtn.isChecked = false
+            }
+        }
     }
 
     fun bind(postDetails: PostDetails) {

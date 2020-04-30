@@ -52,7 +52,6 @@ class PostDetailAdapter(
 
     fun likePost() {
         this.postDetails.apply {
-            liked += 1
             rating = 1
         }
         notifyDataSetChanged()
@@ -60,7 +59,6 @@ class PostDetailAdapter(
 
     fun cancelLikePost() {
         this.postDetails.apply {
-            liked -= 1
             rating = 0
         }
         notifyDataSetChanged()
@@ -68,7 +66,6 @@ class PostDetailAdapter(
 
     fun dislikePost() {
         this.postDetails.apply {
-            disliked += 1
             rating = -1
         }
         notifyDataSetChanged()
@@ -76,7 +73,6 @@ class PostDetailAdapter(
 
     fun cancelDislikePost() {
         this.postDetails.apply {
-            liked -= 1
             rating = 0
         }
         notifyDataSetChanged()

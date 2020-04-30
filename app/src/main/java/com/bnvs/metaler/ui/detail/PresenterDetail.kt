@@ -170,8 +170,14 @@ class PresenterDetail(
             onSuccess = {
                 postDetails.rating = rating
                 when (rating) {
-                    -1 -> view.dislikePost()
-                    1 -> view.likePost()
+                    -1 -> {
+                        view.dislikePost()
+                        postDetails.disliked += 1
+                    }
+                    1 -> {
+                        view.likePost()
+                        postDetails.liked += 1
+                    }
                 }
             },
             onFailure = {
@@ -185,8 +191,14 @@ class PresenterDetail(
             postId,
             onSuccess = {
                 when (postDetails.rating) {
-                    -1 -> view.cancelDislikePost()
-                    1 -> view.cancelLikePost()
+                    -1 -> {
+                        view.cancelDislikePost()
+                        postDetails.disliked -= 1
+                    }
+                    1 -> {
+                        view.cancelLikePost()
+                        postDetails.liked -= 1
+                    }
                 }
                 postDetails.rating = 0
             },
