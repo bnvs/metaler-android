@@ -123,6 +123,8 @@ class ActivityMaterials : AppCompatActivity(),
         // Set up Buttons
         initClickListeners()
 
+        setRVAdapter()
+
         setRVLayoutManager()
 
         setRVScrollListener()
@@ -155,6 +157,18 @@ class ActivityMaterials : AppCompatActivity(),
         postLayoutManager = LinearLayoutManager(this)
         postsRV.layoutManager = postLayoutManager
         postsRV.setHasFixedSize(true)
+
+        materialsCategoryRV.layoutManager = categoryLayoutManager
+
+        tagRV.layoutManager = tagSearchLayoutManager
+    }
+
+    private fun setRVAdapter() {
+        materialsCategoryRV.adapter = categoryAdapter
+        materialsCategoryRV.setHasFixedSize(true)
+
+        tagSearchAdapter = TagSearchAdapter(tagSearchItemListener)
+        tagRV.adapter = tagSearchAdapter
     }
 
     override fun setRVScrollListener() {
@@ -226,9 +240,6 @@ class ActivityMaterials : AppCompatActivity(),
     override fun showCategories(categories: List<Category>) {
         categoryAdapter.setCategories(categories)
         categoryAdapter.notifyDataSetChanged()
-        materialsCategoryRV.adapter = categoryAdapter
-        materialsCategoryRV.layoutManager = categoryLayoutManager
-        materialsCategoryRV.setHasFixedSize(true)
         materialsCategoryRV.visibility = View.VISIBLE
     }
 
@@ -257,12 +268,9 @@ class ActivityMaterials : AppCompatActivity(),
     override fun showSearchTags() {
         Log.d(TAG,"태그입력값? : ${tagInput.text}")
         var inputTag : String = tagInput.text.toString()
-        presenter.addSearchTag("tag",inputTag)
-        tagSearchAdapter = TagSearchAdapter(tagSearchItemListener)
+        presenter.addSearchTag("tag",inputTag) //검색 내용에 맞게 새로운 데이터를 가져오기 위한 요청값 프레젠터에 전달
         tagSearchAdapter.addTags(inputTag)
         tagSearchAdapter.notifyDataSetChanged()
-        tagRV.adapter = tagSearchAdapter
-        tagRV.layoutManager = tagSearchLayoutManager
         tagRV.setHasFixedSize(true)
         tagRV.visibility = View.VISIBLE
     }
