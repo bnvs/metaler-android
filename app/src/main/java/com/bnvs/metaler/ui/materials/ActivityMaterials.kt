@@ -260,7 +260,7 @@ class ActivityMaterials : AppCompatActivity(),
         presenter.addSearchTag("tag",inputTag)
         tagSearchAdapter = TagSearchAdapter(tagSearchItemListener)
         tagSearchAdapter.addTags(inputTag)
-        categoryAdapter.notifyDataSetChanged()
+        tagSearchAdapter.notifyDataSetChanged()
         tagRV.adapter = tagSearchAdapter
         tagRV.layoutManager = tagSearchLayoutManager
         tagRV.setHasFixedSize(true)
