@@ -129,7 +129,7 @@ class PostAdapter(
                     } else bookmarkBtn.setImageResource(R.drawable.ic_list_bookmark_inactive_x3)
 
                     holder.itemView.setOnClickListener {
-                        itemListener.onPostClick(it, position)
+                        itemListener.onPostClick(it, tempArrayList[position]!!.post_id)
                     }
 //                setOnClickListener { itemListener.onPostClick(posts[position]!!.id) }
 
