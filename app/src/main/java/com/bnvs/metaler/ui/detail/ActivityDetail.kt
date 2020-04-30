@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bnvs.metaler.R
 import com.bnvs.metaler.data.comments.model.Comment
 import com.bnvs.metaler.data.postdetails.model.PostDetails
+import com.bnvs.metaler.ui.detail.adapter.PostDetailAdapter
 import com.bnvs.metaler.ui.postfirst.ActivityPostFirst
 import kotlinx.android.synthetic.main.activity_detail.*
 
@@ -56,7 +57,8 @@ class ActivityDetail : AppCompatActivity(), ContractDetail.View {
     }
 
     override fun initPostDetailAdapter(postDetails: PostDetails) {
-        postDetailAdapter = PostDetailAdapter(postDetails, postRatingListener)
+        postDetailAdapter =
+            PostDetailAdapter(postDetails, postRatingListener)
         postDetailRv.adapter = postDetailAdapter
     }
 

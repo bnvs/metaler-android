@@ -1,4 +1,4 @@
-package com.bnvs.metaler.ui.detail
+package com.bnvs.metaler.ui.detail.adapter
 
 import android.util.Log
 import android.view.LayoutInflater
@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bnvs.metaler.R
 import com.bnvs.metaler.data.comments.model.Comment
 import com.bnvs.metaler.data.postdetails.model.PostDetails
+import com.bnvs.metaler.ui.detail.PostRatingListener
 import com.bnvs.metaler.ui.detail.viewholder.*
 
 class PostDetailAdapter(
