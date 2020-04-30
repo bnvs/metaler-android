@@ -74,8 +74,10 @@
             android:layout_marginTop="12dp"
             android:orientation="horizontal"
             android:visibility="gone"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintStart_toStartOf="@id/userImg"
-            app:layout_constraintTop_toBottomOf="@id/contentLine" />
+            app:layout_constraintTop_toBottomOf="@id/contentLine"
+            tools:listitem="@layout/item_content_img_rv" />
 
         <TextView
             android:id="@+id/content"
@@ -101,7 +103,7 @@
             app:layout_constraintTop_toBottomOf="@id/content" />
 
         <TextView
-            android:id="@+id/tag"
+            android:id="@+id/tags"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
@@ -110,6 +112,7 @@
             android:textSize="14sp"
             android:textStyle="bold"
             app:layout_constraintTop_toBottomOf="@id/tagTxt"
+            tools:layout_editor_absoluteX="20dp"
             tools:text="#추가한태그" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

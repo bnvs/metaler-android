@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:clipToPadding="false"
+    android:paddingBottom="8dp">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/priceCard"
@@ -98,12 +100,14 @@
                 app:layout_constraintTop_toBottomOf="@id/dislikeTxt"
                 tools:text="10" />
 
-            <ImageView
+            <CheckBox
                 android:id="@+id/dislikeBtn"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_marginTop="10dp"
-                android:src="@drawable/ic_detail_thumbs_down_inactive_x3"
+                android:background="@drawable/detail_thumbs_down_checkbox"
+                android:button="@null"
+                android:checked="false"
                 app:layout_constraintEnd_toEndOf="@id/dislikeTxt"
                 app:layout_constraintStart_toStartOf="@id/dislikeTxt"
                 app:layout_constraintTop_toBottomOf="@id/dislikeNum" />
@@ -130,11 +134,13 @@
                 app:layout_constraintTop_toBottomOf="@id/likeTxt"
                 tools:text="10" />
 
-            <ImageView
+            <CheckBox
                 android:id="@+id/likeBtn"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:src="@drawable/ic_detail_thumbs_up_inactive_x3"
+                android:background="@drawable/detail_thumbs_up_checkbox"
+                android:button="@null"
+                android:checked="false"
                 app:layout_constraintEnd_toEndOf="@id/likeTxt"
                 app:layout_constraintStart_toStartOf="@id/likeTxt"
                 app:layout_constraintTop_toBottomOf="@id/likeNum" />
