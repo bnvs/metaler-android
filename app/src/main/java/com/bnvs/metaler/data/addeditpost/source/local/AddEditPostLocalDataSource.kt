@@ -24,14 +24,6 @@ class AddEditPostLocalDataSource : AddEditPostDataSource {
 
     }
 
-    override fun deletePost(
-        postId: Int,
-        onSuccess: () -> Unit,
-        onFailure: (e: Throwable) -> Unit
-    ) {
-
-    }
-
     override fun uploadFile(
         file: MultipartBody.Part,
         onSuccess: (response: UploadFileResponse) -> Unit,

@@ -20,12 +20,6 @@ interface AddEditPostDataSource {
         onFailure: (e: Throwable) -> Unit
     )
 
-    fun deletePost(
-        postId: Int,
-        onSuccess: () -> Unit,
-        onFailure: (e: Throwable) -> Unit
-    )
-
     fun uploadFile(
         file: MultipartBody.Part,
         onSuccess: (response: UploadFileResponse) -> Unit,

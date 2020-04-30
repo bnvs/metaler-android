@@ -17,4 +17,12 @@ class PostDetailsLocalDataSource(context: Context) : PostDetailsDataSource {
     ) {
 
     }
+
+    override fun deletePost(
+        postId: Int,
+        onSuccess: () -> Unit,
+        onFailure: (e: Throwable) -> Unit
+    ) {
+
+    }
 }

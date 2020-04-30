@@ -10,4 +10,10 @@ interface PostDetailsDataSource {
         onFailure: (e: Throwable) -> Unit
     )
 
+    fun deletePost(
+        postId: Int,
+        onSuccess: () -> Unit,
+        onFailure: (e: Throwable) -> Unit
+    )
+
 }

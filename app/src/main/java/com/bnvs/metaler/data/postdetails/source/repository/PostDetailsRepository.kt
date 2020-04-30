@@ -16,4 +16,12 @@ class PostDetailsRepository :
     ) {
         postDetailsRemoteDataSource.getPostDetails(postId, onSuccess, onFailure)
     }
+
+    override fun deletePost(
+        postId: Int,
+        onSuccess: () -> Unit,
+        onFailure: (e: Throwable) -> Unit
+    ) {
+        postDetailsRemoteDataSource.deletePost(postId, onSuccess, onFailure)
+    }
 }
