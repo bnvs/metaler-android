@@ -4,6 +4,7 @@ import android.content.Context
 import com.bnvs.metaler.data.profile.model.Profile
 import com.bnvs.metaler.data.profile.source.ProfileDataSource
 import com.bnvs.metaler.data.profile.source.local.ProfileLocalDataSource
+import com.bnvs.metaler.data.user.certification.model.User
 
 class ProfileRepository(context: Context) : ProfileDataSource {
 
@@ -18,5 +19,16 @@ class ProfileRepository(context: Context) : ProfileDataSource {
 
     override fun saveProfile(profile: Profile) {
         profileLocalDataSource.saveProfile(profile)
+    }
+
+    override fun getUserInfo(
+        onUserInfoLoaded: (user: User) -> Unit,
+        onUserInfoNotExist: () -> Unit
+    ) {
+        profileLocalDataSource.getUserInfo(onUserInfoLoaded, onUserInfoNotExist)
+    }
+
+    override fun saveUserInfo(user: User) {
+        profileLocalDataSource.saveUserInfo(user)
     }
 }

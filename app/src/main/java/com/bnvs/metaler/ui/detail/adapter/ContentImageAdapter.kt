@@ -1,4 +1,4 @@
-package com.bnvs.metaler.ui.detail
+package com.bnvs.metaler.ui.detail.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

@@ -1,4 +1,4 @@
-package com.bnvs.metaler.ui.detail
+package com.bnvs.metaler.ui.detail.listener
 
 interface PostRatingListener {
     fun onLikeButtonClick()

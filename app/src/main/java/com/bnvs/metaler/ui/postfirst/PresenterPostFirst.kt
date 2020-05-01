@@ -47,20 +47,20 @@ class PresenterPostFirst(
     private val attachs = mutableListOf<AttachImage>()
 
     override fun start() {
-        if (postId != null) {
-            populatePost(postId)
-        }
         getCategories()
     }
 
     override fun getCategories() {
-        Log.d("getCategories", "카테고리 가져옴")
+        Log.d("getCategories", "카테고리 가져오기")
         categoriesRepository.getCategories(
             onSuccess = { response ->
                 categories = response
                 Log.d("categories", categories.toString())
-                getMaterialCategories()
-                distinguishMaterialOrManufacture()
+                if (postId != null) {
+                    populatePost(postId)
+                } else {
+                    distinguishMaterialOrManufacture()
+                }
             },
             onFailure = { e ->
                 view.showGetCategoriesFailedToast(NetworkUtil.getErrorMessage(e))
@@ -98,15 +98,17 @@ class PresenterPostFirst(
         addEditPostRequest.category_id = categoryId
         for (category in categories) {
             if (categoryId == category.id) {
-                if (categoryType == null) {
-                    when (category.type) {
-                        "materials" -> categoryType = "MATERIALS"
-                        "manufacture" -> categoryType = "MANUFACTURES"
+                when (category.type) {
+                    "materials" -> {
+                        categoryType = "MATERIALS"
+                        view.setCategory(category.name)
+                        getMaterialCategories()
+                    }
+                    "manufacture" -> {
+                        categoryType = "MANUFACTURES"
                     }
                 }
-                if (categoryType == "MATERIALS") {
-                    view.setCategory(category.name)
-                }
+                distinguishMaterialOrManufacture()
                 break
             }
         }
@@ -189,6 +191,7 @@ class PresenterPostFirst(
         when (categoryType) {
             "MATERIALS" -> {
                 view.showCategoryView(true)
+                getMaterialCategories()
             }
             "MANUFACTURES" -> {
                 view.showCategoryView(false)
