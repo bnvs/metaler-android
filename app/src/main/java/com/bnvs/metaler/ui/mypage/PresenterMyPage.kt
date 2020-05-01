@@ -1,26 +1,32 @@
 package com.bnvs.metaler.ui.mypage
 
 import android.content.Context
+import com.bnvs.metaler.data.profile.source.repository.ProfileRepository
 
 class PresenterMyPage(
-    private val context: Context,
+    context: Context,
     private val view: ContractMyPage.View
 ) : ContractMyPage.Presenter {
 
-    init {
-        view.presenter = this
-    }
+    private val profileRepository = ProfileRepository(context)
 
     override fun start() {
         loadProfile()
     }
 
-    override fun loadProfile(){
-
+    override fun loadProfile() {
+        profileRepository.getProfile(
+            onProfileLoaded = { profile ->
+                view.showProfile(profile)
+            },
+            onProfileNotExist = {
+                view.showProfileNotExistToast()
+            }
+        )
     }
 
     override fun logout() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
     }
 
     override fun modifyJob() {
@@ -39,14 +45,24 @@ class PresenterMyPage(
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun openJobModify() { view.showJobModifyUi() }
+    override fun openJobModify() {
+        view.showJobModifyUi()
+    }
 
-    override fun openMyPosts() { view.showMyPostsUi() }
+    override fun openMyPosts() {
+        view.showMyPostsUi()
+    }
 
-    override fun openNicknameModify() { view.showNicknameModifyDialog() }
+    override fun openNicknameModify() {
+        view.showNicknameModifyDialog()
+    }
 
-    override fun openLogout() { view.showLogoutDialog() }
+    override fun openLogout() {
+        view.showLogoutDialog()
+    }
 
-    override fun openWithdrawal() { view.showWithdrawalDialog() }
+    override fun openWithdrawal() {
+        view.showWithdrawalDialog()
+    }
 
 }

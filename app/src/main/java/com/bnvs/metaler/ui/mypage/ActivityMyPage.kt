@@ -2,14 +2,14 @@ package com.bnvs.metaler.ui.mypage
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.EditText
-import androidx.appcompat.app.AlertDialog
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.bnvs.metaler.R
 import com.bnvs.metaler.data.profile.model.Profile
 import com.bnvs.metaler.ui.jobmodify.ActivityJobModify
 import com.bnvs.metaler.ui.myposts.ActivityMyPosts
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import kotlinx.android.synthetic.main.activity_my_page.*
 
 class ActivityMyPage : AppCompatActivity(), ContractMyPage.View {
@@ -42,9 +42,15 @@ class ActivityMyPage : AppCompatActivity(), ContractMyPage.View {
     override fun showProfile(profile: Profile) {
         Glide.with(this@ActivityMyPage)
             .load(profile.profile_image_url)
+            .transform(CircleCrop())
+            .error(R.drawable.ic_profile_x3)
             .into(profileImg)
         profileNickname.text = profile.profile_nickname
         profileEmail.text = profile.profile_email
+    }
+
+    override fun showProfileNotExistToast() {
+        makeToast("프로필 데이터를 불러오는데 실패했습니다")
     }
 
     override fun showJobModifyUi() {
@@ -68,61 +74,15 @@ class ActivityMyPage : AppCompatActivity(), ContractMyPage.View {
     }
 
     override fun showNicknameModifyDialog() {
-        val editText = EditText(this)
-        val builder = AlertDialog.Builder(this)
 
-        builder.setTitle(getString(R.string.nickname_modify_title))
-        builder.setMessage(getString(R.string.nickname_modify_content))
-        builder.setView(editText)
-
-        builder.setPositiveButton(getString(R.string.allow)) { dialogInterface, i ->
-            //TODO : 별명 입력 후 확인 눌렀을 때 기능 추가하기
-        }
-            .setNegativeButton(getString(R.string.cancel)) { dialogInterface, i ->
-
-            }
-            .show()
     }
 
     override fun showLogoutDialog() {
-        val builder = AlertDialog.Builder(this)
 
-        builder.setTitle(getString(R.string.logout_title))
-        builder.setMessage(getString(R.string.logout_content))
-
-        builder.setPositiveButton(getString(R.string.logout_allow)) { dialogInterface, i ->
-            //TODO : 로그아웃 눌렀을 때 기능 추가하기
-        }
-            .setNegativeButton(getString(R.string.cancel)) { dialogInterface, i ->
-
-            }
-            .show()
     }
 
     override fun showWithdrawalDialog() {
-        val editText = EditText(this)
-        val builder = AlertDialog.Builder(this)
 
-        builder.setTitle(getString(R.string.withdrawal_title))
-        builder.setMessage(getString(R.string.withdrawal_content))
-
-        builder.setPositiveButton(getString(R.string.withdrawal_allow)) { dialogInterface, i ->
-            builder.setTitle(getString(R.string.withdrawal_recheck_title))
-            builder.setMessage(getString(R.string.withdrawal_recheck_content))
-            builder.setView(editText)
-
-            builder.setPositiveButton(getString(R.string.withdrawal_allow)) { dialogInterface, i ->
-                //TODO : 회원탈퇴 재확인 이메일 입력 받고 탈퇴 눌렀을 때 기능 추가하기
-            }
-                .setNegativeButton(getString(R.string.cancel)) { dialogInterface, i ->
-
-                }
-                .show()
-        }
-            .setNegativeButton(getString(R.string.cancel)) { dialogInterface, i ->
-
-            }
-            .show()
     }
 
     private fun initClickListeners() {
@@ -155,6 +115,10 @@ class ActivityMyPage : AppCompatActivity(), ContractMyPage.View {
         manufactureBtn.setOnClickListener { presenter.openManufactures(this, this) }
         bookmarkBtn.setOnClickListener { presenter.openBookmarks(this, this) }
         myPageBtn.setOnClickListener { presenter.openMyPage(this, this) }
+    }
+
+    private fun makeToast(message: String) {
+        Toast.makeText(this@ActivityMyPage, message, Toast.LENGTH_LONG).show()
     }
 
 }
