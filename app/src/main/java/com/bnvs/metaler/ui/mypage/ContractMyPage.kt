@@ -32,7 +32,7 @@ interface ContractMyPage {
 
         fun modifyJob()
 
-        fun modifyNickName()
+        fun modifyNickName(nickname: String)
 
         fun logout()
 

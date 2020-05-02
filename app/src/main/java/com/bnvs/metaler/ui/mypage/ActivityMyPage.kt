@@ -1,8 +1,11 @@
 package com.bnvs.metaler.ui.mypage
 
+import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
+import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.bnvs.metaler.R
 import com.bnvs.metaler.data.profile.model.Profile
@@ -74,7 +77,19 @@ class ActivityMyPage : AppCompatActivity(), ContractMyPage.View {
     }
 
     override fun showNicknameModifyDialog() {
-
+        AlertDialog.Builder(this@ActivityMyPage)
+            .setTitle("별명 변경")
+            .setMessage("변경할 별명을 입력해주세요.")
+            .setView(R.layout.dialog_nickname_input)
+            .setPositiveButton("확인") { dialog, which ->
+                val f = dialog as Dialog
+                val input: EditText = f.findViewById(R.id.nicknameInputEditTxt)
+                val nickname = input.text.toString()
+                presenter.modifyNickName(nickname)
+            }
+            .setNegativeButton("취소") { _, _ ->
+            }
+            .show()
     }
 
     override fun showLogoutDialog() {

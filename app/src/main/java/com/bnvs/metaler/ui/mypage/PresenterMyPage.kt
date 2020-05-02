@@ -1,7 +1,10 @@
 package com.bnvs.metaler.ui.mypage
 
 import android.content.Context
+import android.util.Log
 import com.bnvs.metaler.data.profile.source.repository.ProfileRepository
+import com.bnvs.metaler.data.user.modification.model.Nickname
+import com.bnvs.metaler.data.user.modification.source.UserModificationRepository
 
 class PresenterMyPage(
     context: Context,
@@ -9,6 +12,7 @@ class PresenterMyPage(
 ) : ContractMyPage.Presenter {
 
     private val profileRepository = ProfileRepository(context)
+    private val userModificationRepository = UserModificationRepository()
 
     override fun start() {
         loadProfile()
@@ -33,8 +37,16 @@ class PresenterMyPage(
 
     }
 
-    override fun modifyNickName() {
+    override fun modifyNickName(nickname: String) {
+        userModificationRepository.modifyNickname(
+            Nickname(nickname),
+            onSuccess = {
+                Log.d("닉네임 수정 성공", "닉네임 수정 성공")
+            },
+            onFailure = {
 
+            }
+        )
     }
 
     override fun withdrawal() {
