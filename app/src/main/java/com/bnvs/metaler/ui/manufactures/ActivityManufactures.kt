@@ -100,7 +100,8 @@ class ActivityManufactures : AppCompatActivity(),
             presenter.resetPageNum()
             presenter.loadPosts(presenter.requestPosts())
             // The method calls setRefreshing(false) when it's finished.
-            refreshLayout.setRefreshing(false);
+            refreshLayout.setRefreshing(false)
+            scrollListener.setLoaded()
         }
     }
 
