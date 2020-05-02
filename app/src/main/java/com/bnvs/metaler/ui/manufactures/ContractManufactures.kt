@@ -47,6 +47,8 @@ interface ContractManufactures {
 
         fun loadMorePosts(postsRequest: PostsRequest)
 
+        fun refreshPosts(postsRequest: PostsRequest)
+
         fun resetPageNum()
 
         fun openPostDetail(postId: Int)
