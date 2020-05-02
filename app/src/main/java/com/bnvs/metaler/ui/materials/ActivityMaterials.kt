@@ -143,14 +143,16 @@ class ActivityMaterials : AppCompatActivity(),
             presenter.resetPageNum()
             presenter.loadPosts(presenter.requestPosts(presenter.getCategoryId()))
             // The method calls setRefreshing(false) when it's finished.
-            refreshLayout.setRefreshing(false);
+            refreshLayout.setRefreshing(false)
+            scrollListener.setLoaded()
         }
     }
 
-    override fun refreshPosts(posts: List<Post>) {
+    override fun showRefreshPosts(posts: List<Post>) {
         postAdapter.resetList()
         postAdapter.addPosts(posts)
         postAdapter.notifyDataSetChanged()
+        scrollListener.setLoaded()
     }
 
     private fun setRVLayoutManager() {
@@ -179,6 +181,7 @@ class ActivityMaterials : AppCompatActivity(),
             EndlessRecyclerViewScrollListener.OnLoadMoreListener {
             override fun onLoadMore() {
 
+                Log.d("TAG","스크롤리스너 onLoadMore 실행!!")
 
                 //loadMorePosts 에 null값을 추가해서 로딩뷰를 만든다.
                 postAdapter.addLoadingView()
