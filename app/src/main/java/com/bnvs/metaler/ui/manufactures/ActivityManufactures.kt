@@ -104,7 +104,7 @@ class ActivityManufactures : AppCompatActivity(),
         }
     }
 
-    override fun refreshPosts(posts: List<Post>) {
+    override fun showRefreshPosts(posts: List<Post>) {
         postAdapter.resetList()
         postAdapter.addPosts(posts)
         postAdapter.notifyDataSetChanged()
