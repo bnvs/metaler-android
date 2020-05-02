@@ -54,6 +54,8 @@ interface ContractMaterials {
 
         fun loadMorePosts(postsRequest: PostsRequest)
 
+        fun refreshPosts(postsRequest: PostsRequest)
+
         fun resetPageNum()
 
         fun getCategoryId(): Int
