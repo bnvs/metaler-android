@@ -103,6 +103,23 @@ class PresenterMaterials(
         )
     }
 
+    override fun refreshPosts(postsRequest: PostsRequest) {
+        resetPageNum()
+        postRepository.getPosts(
+            postsRequest,
+            onSuccess = { response: PostsResponse ->
+                view.showRefreshPosts(response.posts)
+            },
+            onFailure = { e ->
+                Toast.makeText(
+                    context,
+                    "서버 통신 실패 : ${NetworkUtil.getErrorMessage(e)}",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        )
+    }
+
 
     // getPosts api 요청 request body 반환하는 함수
     override fun requestPosts(categoryId: Int): PostsRequest {
