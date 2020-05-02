@@ -28,7 +28,7 @@ interface ContractMaterials {
 
         fun onRefresh()
 
-        fun refreshPosts(posts: List<Post>)
+        fun showRefreshPosts(posts: List<Post>)
 
         fun showPostDetailUi()
 
