@@ -1,24 +1,38 @@
 package com.bnvs.metaler.ui.detail
 
+import android.content.Context
 import android.view.View
 import com.bnvs.metaler.data.bookmarks.model.AddBookmarkRequest
 import com.bnvs.metaler.data.bookmarks.source.repositroy.BookmarksRepository
+import com.bnvs.metaler.data.comments.model.AddEditCommentRequest
+import com.bnvs.metaler.data.comments.model.Comment
 import com.bnvs.metaler.data.comments.model.CommentsRequest
 import com.bnvs.metaler.data.comments.source.repository.CommentsRepository
 import com.bnvs.metaler.data.postdetails.model.PostDetails
 import com.bnvs.metaler.data.postdetails.model.RatingRequest
 import com.bnvs.metaler.data.postdetails.source.repository.PostDetailsRepository
+import com.bnvs.metaler.data.profile.source.repository.ProfileRepository
+import com.bnvs.metaler.data.user.certification.model.User
+import com.bnvs.metaler.network.NetworkUtil
+import java.text.SimpleDateFormat
+import java.util.*
 
 class PresenterDetail(
     private val postId: Int,
-    private val view: ContractDetail.View
+    private val view: ContractDetail.View,
+    context: Context
 ) : ContractDetail.Presenter {
 
     private val postDetailsRepository = PostDetailsRepository()
     private val commentsRepository = CommentsRepository()
     private val bookmarksRepository = BookmarksRepository()
+    private val profileRepository = ProfileRepository(context)
 
     private lateinit var postDetails: PostDetails
+    private lateinit var userInfo: User
+    private var userId = 0
+    private lateinit var tempComment: Comment
+    private var tempCommentIndex = -1
 
     private var page = 0
     private val limit = 10
@@ -26,7 +40,20 @@ class PresenterDetail(
     private var isNext = false
 
     override fun start() {
+        getUserInfo()
         loadPostDetail()
+    }
+
+    private fun getUserInfo() {
+        profileRepository.getUserInfo(
+            onUserInfoLoaded = { user ->
+                this.userInfo = user
+                this.userId = user.id
+            },
+            onUserInfoNotExist = {
+                view.showErrorToast("유저 정보를 불러오는 데 실패했습니다")
+            }
+        )
     }
 
     override fun loadPostDetail() {
@@ -41,8 +68,14 @@ class PresenterDetail(
                     initPostDetailScrollListener()
                 }
             },
-            onFailure = {
-
+            onFailure = { e ->
+                view.apply {
+                    showErrorToast(
+                        "게시물을 불러오는데 실패했습니다" +
+                                "\n ${NetworkUtil.getErrorMessage(e)}"
+                    )
+                    finishActivity()
+                }
             }
         )
     }
@@ -57,8 +90,13 @@ class PresenterDetail(
                 commentCount = response.comment_count
                 isNext = response.is_next
             },
-            onFailure = {
-
+            onFailure = { e ->
+                view.apply {
+                    showErrorToast(
+                        "댓글을 불러오는데 실패했습니다" +
+                                "\n ${NetworkUtil.getErrorMessage(e)}"
+                    )
+                }
             }
         )
     }
@@ -76,8 +114,13 @@ class PresenterDetail(
                     commentCount = response.comment_count
                     isNext = response.is_next
                 },
-                onFailure = {
-
+                onFailure = { e ->
+                    view.apply {
+                        showErrorToast(
+                            "댓글을 불러오는데 실패했습니다" +
+                                    "\n ${NetworkUtil.getErrorMessage(e)}"
+                        )
+                    }
                 }
             )
         }, 1000)
@@ -100,15 +143,31 @@ class PresenterDetail(
         return CommentsRequest(page, limit)
     }
 
+    override fun openAddBookmark() {
+        view.showBookmarkAddDialog()
+    }
+
+    override fun openDeleteBookmark() {
+        view.showBookmarkDeleteDialog()
+    }
+
     override fun addBookmark() {
         bookmarksRepository.addBookmark(
             AddBookmarkRequest(postId),
             onSuccess = {
                 postDetails.is_bookmark = true
-                view.setBookmarkButton(true)
+                view.apply {
+                    setBookmarkButton(true)
+                    showBookmarkAddedToast()
+                }
             },
-            onFailure = {
-
+            onFailure = { e ->
+                view.apply {
+                    showErrorToast(
+                        "북마크 추가에 실패했습니다" +
+                                "\n ${NetworkUtil.getErrorMessage(e)}"
+                    )
+                }
             }
         )
     }
@@ -118,10 +177,18 @@ class PresenterDetail(
             postId,
             onSuccess = {
                 postDetails.is_bookmark = false
-                view.setBookmarkButton(false)
+                view.apply {
+                    setBookmarkButton(false)
+                    showBookmarkDeletedToast()
+                }
             },
-            onFailure = {
-
+            onFailure = { e ->
+                view.apply {
+                    showErrorToast(
+                        "북마크 취소에 실패했습니다" +
+                                "\n ${NetworkUtil.getErrorMessage(e)}"
+                    )
+                }
             }
         )
     }
@@ -131,20 +198,38 @@ class PresenterDetail(
         view.showPopupMenu(v)
     }
 
+    override fun openDeletePost() {
+        if (userId == postDetails.user_id) {
+            view.showDeletePostDialog()
+        } else {
+            view.showDeletePostFailedDialog()
+        }
+    }
+
     override fun deletePost() {
         postDetailsRepository.deletePost(
             postId,
             onSuccess = {
-
+                view.showPostDeletedToast()
+                view.finishActivity()
             },
-            onFailure = {
-
+            onFailure = { e ->
+                view.apply {
+                    showErrorToast(
+                        "게시글 삭제에 실패했습니다" +
+                                "\n ${NetworkUtil.getErrorMessage(e)}"
+                    )
+                }
             }
         )
     }
 
     override fun modifyPost() {
-        view.openEditPostUi(postId)
+        if (userId == postDetails.user_id) {
+            view.openEditPostUi(postId)
+        } else {
+            view.showEditPostFailedDialog()
+        }
     }
 
     override fun likePost() {
@@ -180,8 +265,13 @@ class PresenterDetail(
                     }
                 }
             },
-            onFailure = {
-
+            onFailure = { e ->
+                view.apply {
+                    showErrorToast(
+                        "게시불 평가에 실패했습니다" +
+                                "\n ${NetworkUtil.getErrorMessage(e)}"
+                    )
+                }
             }
         )
     }
@@ -202,8 +292,109 @@ class PresenterDetail(
                 }
                 postDetails.rating = 0
             },
-            onFailure = {
+            onFailure = { e ->
+                view.apply {
+                    showErrorToast(
+                        "게시물 평가 취소에 실패했습니다" +
+                                "\n ${NetworkUtil.getErrorMessage(e)}"
+                    )
+                }
+            }
+        )
+    }
 
+    override fun addComment(comment: String) {
+        val dataFormat = SimpleDateFormat("yyyy.MM.dd aa hh:mm")
+        val date = dataFormat.format(Date(System.currentTimeMillis()))
+
+        commentsRepository.addComment(
+            postId,
+            AddEditCommentRequest(comment),
+            onSuccess = { response ->
+                view.run {
+                    addComment(
+                        Comment(
+                            response.comment_id,
+                            userId,
+                            comment,
+                            date,
+                            userInfo.profile_nickname,
+                            userInfo.profile_image_url
+                        )
+                    )
+                    clearCommentInput()
+                    hideSoftInput()
+                    scrollToEnd()
+                }
+            },
+            onFailure = { e ->
+                view.run {
+                    hideSoftInput()
+                    showErrorToast(
+                        "댓글 작성에 실패했습니다" +
+                                "\n ${NetworkUtil.getErrorMessage(e)}"
+                    )
+                }
+            }
+        )
+    }
+
+    override fun openCommentMenu(comment: Comment, commentIndex: Int) {
+        this.tempComment = comment
+        this.tempCommentIndex = commentIndex
+        view.showCommentMenuDialog()
+    }
+
+    override fun openDeleteComment() {
+        if (userId == tempComment.user_id) {
+            view.showDeleteCommentDialog()
+        } else {
+            view.showDeleteCommentFailedDialog()
+        }
+    }
+
+    override fun deleteComment() {
+        commentsRepository.deleteComment(
+            tempComment.comment_id,
+            onSuccess = {
+                view.deleteComment(tempCommentIndex)
+            },
+            onFailure = { e ->
+                view.apply {
+                    showErrorToast(
+                        "댓글 삭제에 실패했습니다" +
+                                "\n ${NetworkUtil.getErrorMessage(e)}"
+                    )
+                }
+            }
+        )
+    }
+
+    override fun setModifyComment() {
+        if (userId == tempComment.user_id) {
+            view.run {
+                showCommentToModify(tempComment.content)
+                showSoftInput()
+            }
+        } else {
+            view.showEditCommentFailedDialog()
+        }
+    }
+
+    override fun modifyComment(comment: String) {
+        commentsRepository.editComment(
+            tempComment.comment_id,
+            AddEditCommentRequest(comment),
+            onSuccess = {
+
+            },
+            onFailure = { e ->
+                view.apply {
+                    showErrorToast(
+                        "댓글 수정에 실패했습니다" +
+                                "\n ${NetworkUtil.getErrorMessage(e)}"
+                    )
+                }
             }
         )
     }

@@ -7,212 +7,227 @@
     android:background="@color/colorGreyBG"
     tools:context=".ui.postfirst.ActivityPostFirst">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/categoryCard"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/bottom_round_bg"
-        android:paddingBottom="@dimen/wideMargin"
-        android:translationY="-4dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/titleBarCard">
 
-        <androidx.constraintlayout.widget.Group
-            android:id="@+id/materialsCategory"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            app:constraint_referenced_ids="categoryTxt,categoryMoreBtn,categoryLine" />
-
-        <TextView
-            android:id="@+id/categoryTxt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/wideMargin"
-            android:layout_marginTop="10dp"
-            android:paddingVertical="8dp"
-            android:text="@string/category"
-            android:textColor="@color/colorDarkGrey"
-            android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/categoryMoreBtn"
-            style="@style/titleBarIconBtn"
-            android:layout_marginRight="30dp"
-            android:src="@drawable/ic_post_arrow_drop_down_24dp"
-            app:layout_constraintBottom_toBottomOf="@id/categoryLine"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <View
-            android:id="@+id/categoryLine"
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:layout_marginHorizontal="@dimen/wideMargin"
-            android:layout_marginTop="6dp"
-            android:background="?android:attr/listDivider"
-            android:paddingBottom="6dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/categoryTxt" />
-
-
-        <EditText
-            android:id="@+id/titleInput"
-            style="@style/titleEditText"
-            android:hint="@string/title_guide"
-            android:paddingVertical="6dp"
-            app:layout_constraintBottom_toBottomOf="@id/titleLine"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/categoryLine" />
-
-        <View
-            android:id="@+id/titleLine"
-            style="@style/postDivider"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/titleInput" />
-
-        <TextView
-            android:id="@+id/priceTxt"
-            style="@style/postMenuTextView"
-            android:layout_marginLeft="@dimen/wideMargin"
-            android:text="@string/price"
-            app:layout_constraintBottom_toBottomOf="@id/priceInput"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/priceInput" />
-
-        <TextView
-            android:id="@+id/priceInput"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
-            android:gravity="end"
-            android:hint="@string/post_price_guide"
-            android:paddingVertical="6dp"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@id/priceLine"
-            app:layout_constraintEnd_toStartOf="@id/wonTxt"
-            app:layout_constraintTop_toTopOf="@id/titleLine" />
-
-        <TextView
-            android:id="@+id/wonTxt"
-            style="@style/postMenuTextView"
-            android:layout_marginRight="@dimen/wideMargin"
-            android:text="@string/won"
-            app:layout_constraintBottom_toBottomOf="@id/priceInput"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/priceInput" />
-
-        <View
-            android:id="@+id/priceLine"
-            style="@style/postDivider"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/priceInput" />
-
-        <TextView
-            android:id="@+id/priceTypeTxt"
-            style="@style/postMenuTextView"
-            android:layout_marginLeft="@dimen/wideMargin"
-            android:text="@string/price_type"
-            app:layout_constraintBottom_toBottomOf="@id/cardBtn"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/cardBtn" />
-
-        <TextView
-            android:id="@+id/cardBtn"
-            style="@style/roundingBorderInactiveTextView"
-            android:layout_marginRight="15dp"
-            android:text="@string/card_type"
-            app:layout_constraintEnd_toStartOf="@id/cashBtn"
-            app:layout_constraintTop_toBottomOf="@id/priceLine"
-            app:layout_constraintTop_toTopOf="@id/cashBtn" />
-
-        <TextView
-            android:id="@+id/cashBtn"
-            style="@style/roundingBorderInactiveTextView"
-            android:layout_marginTop="6dp"
-            android:layout_marginRight="@dimen/wideMargin"
-            android:text="@string/cash_type"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/priceLine" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/contentCard"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:cardCornerRadius="20dp"
-        app:cardElevation="2dp"
-        app:layout_constraintDimensionRatio="1:3"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/categoryCard">
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginHorizontal="@dimen/wideMargin">
+            android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/addImgTxt"
-                style="@style/postMenuTextView"
-                android:layout_marginTop="6dp"
-                android:text="@string/add_img"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/addImgGuideTxt"
-                style="@style/lightGuideTextView"
-                android:layout_marginTop="6dp"
-                android:text="@string/add_img_guide"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/addImgTxt" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/thumbnailRV"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/categoryCard"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
-                android:orientation="horizontal"
-                android:visibility="gone"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintTop_toBottomOf="@id/addImgTxt"
-                tools:listitem="@layout/item_thumbnail_rv" />
+                android:layout_height="0dp"
+                android:background="@drawable/bottom_round_bg"
+                android:paddingBottom="@dimen/wideMargin"
+                android:translationY="-4dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-            <androidx.constraintlayout.widget.Barrier
-                android:id="@+id/barrier"
+                <androidx.constraintlayout.widget.Group
+                    android:id="@+id/materialsCategory"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    app:constraint_referenced_ids="categoryTxt,categoryMoreBtn,categoryLine" />
+
+                <TextView
+                    android:id="@+id/categoryTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/wideMargin"
+                    android:layout_marginTop="10dp"
+                    android:paddingVertical="8dp"
+                    android:text="@string/category"
+                    android:textColor="@color/colorDarkGrey"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/categoryMoreBtn"
+                    style="@style/titleBarIconBtn"
+                    android:layout_marginRight="30dp"
+                    android:src="@drawable/ic_post_arrow_drop_down_24dp"
+                    app:layout_constraintBottom_toBottomOf="@id/categoryLine"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:id="@+id/categoryLine"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginHorizontal="@dimen/wideMargin"
+                    android:layout_marginTop="6dp"
+                    android:background="?android:attr/listDivider"
+                    android:paddingBottom="6dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/categoryTxt" />
+
+
+                <EditText
+                    android:id="@+id/titleInput"
+                    style="@style/titleEditText"
+                    android:hint="@string/title_guide"
+                    android:paddingVertical="6dp"
+                    app:layout_constraintBottom_toBottomOf="@id/titleLine"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/categoryLine" />
+
+                <View
+                    android:id="@+id/titleLine"
+                    style="@style/postDivider"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/titleInput" />
+
+                <TextView
+                    android:id="@+id/priceTxt"
+                    style="@style/postMenuTextView"
+                    android:layout_marginLeft="@dimen/wideMargin"
+                    android:text="@string/price"
+                    app:layout_constraintBottom_toBottomOf="@id/priceInput"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/priceInput" />
+
+                <TextView
+                    android:id="@+id/priceInput"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:gravity="end"
+                    android:hint="@string/post_price_guide"
+                    android:paddingVertical="6dp"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="@id/priceLine"
+                    app:layout_constraintEnd_toStartOf="@id/wonTxt"
+                    app:layout_constraintTop_toTopOf="@id/titleLine" />
+
+                <TextView
+                    android:id="@+id/wonTxt"
+                    style="@style/postMenuTextView"
+                    android:layout_marginRight="@dimen/wideMargin"
+                    android:text="@string/won"
+                    app:layout_constraintBottom_toBottomOf="@id/priceInput"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/priceInput" />
+
+                <View
+                    android:id="@+id/priceLine"
+                    style="@style/postDivider"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/priceInput" />
+
+                <TextView
+                    android:id="@+id/priceTypeTxt"
+                    style="@style/postMenuTextView"
+                    android:layout_marginLeft="@dimen/wideMargin"
+                    android:text="@string/price_type"
+                    app:layout_constraintBottom_toBottomOf="@id/cardBtn"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/cardBtn" />
+
+                <TextView
+                    android:id="@+id/cardBtn"
+                    style="@style/roundingBorderInactiveTextView"
+                    android:layout_marginRight="15dp"
+                    android:text="@string/card_type"
+                    app:layout_constraintEnd_toStartOf="@id/cashBtn"
+                    app:layout_constraintTop_toBottomOf="@id/priceLine"
+                    app:layout_constraintTop_toTopOf="@id/cashBtn" />
+
+                <TextView
+                    android:id="@+id/cashBtn"
+                    style="@style/roundingBorderInactiveTextView"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginRight="@dimen/wideMargin"
+                    android:text="@string/cash_type"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/priceLine" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/contentCard"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:barrierDirection="bottom"
-                app:constraint_referenced_ids="addImgGuideTxt,thumbnailRV"
+                android:layout_height="0dp"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="2dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/addImgTxt" />
+                app:layout_constraintTop_toBottomOf="@id/categoryCard">
 
-            <TextView
-                android:id="@+id/contentTxt"
-                style="@style/postMenuTextView"
-                android:layout_marginTop="6dp"
-                android:text="@string/content"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/barrier" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/wideMargin">
 
-            <EditText
-                android:id="@+id/contentGuideTxt"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:hint="@string/content_guide"
-                android:textColorHint="@color/colorLightGrey"
-                android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/contentTxt" />
+                    <TextView
+                        android:id="@+id/addImgTxt"
+                        style="@style/postMenuTextView"
+                        android:layout_marginTop="6dp"
+                        android:text="@string/add_img"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/addImgGuideTxt"
+                        style="@style/lightGuideTextView"
+                        android:layout_marginTop="6dp"
+                        android:text="@string/add_img_guide"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/addImgTxt" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/thumbnailRV"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:orientation="horizontal"
+                        android:visibility="gone"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:layout_constraintTop_toBottomOf="@id/addImgTxt"
+                        tools:listitem="@layout/item_thumbnail_rv" />
+
+                    <androidx.constraintlayout.widget.Barrier
+                        android:id="@+id/barrier"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:barrierDirection="bottom"
+                        app:constraint_referenced_ids="addImgGuideTxt,thumbnailRV"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/addImgTxt" />
+
+                    <TextView
+                        android:id="@+id/contentTxt"
+                        style="@style/postMenuTextView"
+                        android:layout_marginTop="6dp"
+                        android:text="@string/content"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/barrier" />
+
+                    <EditText
+                        android:id="@+id/contentGuideTxt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:hint="@string/content_guide"
+                        android:paddingBottom="500dp"
+                        android:textColorHint="@color/colorLightGrey"
+                        android:textSize="16sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/contentTxt" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            </androidx.cardview.widget.CardView>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-    </androidx.cardview.widget.CardView>
+    </androidx.core.widget.NestedScrollView>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/titleBarCard"

@@ -1,4 +1,4 @@
-package com.bnvs.metaler.ui.detail
+package com.bnvs.metaler.ui.detail.adapter
 
 import android.util.Log
 import android.view.LayoutInflater
@@ -7,11 +7,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bnvs.metaler.R
 import com.bnvs.metaler.data.comments.model.Comment
 import com.bnvs.metaler.data.postdetails.model.PostDetails
+import com.bnvs.metaler.ui.detail.listener.CommentMenuListener
+import com.bnvs.metaler.ui.detail.listener.PostRatingListener
 import com.bnvs.metaler.ui.detail.viewholder.*
 
 class PostDetailAdapter(
     private val postDetails: PostDetails,
-    private val listener: PostRatingListener
+    private val ratingListener: PostRatingListener,
+    private val menuListener: CommentMenuListener
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
@@ -115,7 +118,7 @@ class PostDetailAdapter(
                 val inflatedView = LayoutInflater
                     .from(parent.context)
                     .inflate(R.layout.item_detail_price, parent, false)
-                return PriceViewHolder(inflatedView, listener)
+                return PriceViewHolder(inflatedView, ratingListener)
             }
             TYPE_COMMENT_COUNT -> {
                 val inflatedView = LayoutInflater
@@ -127,13 +130,13 @@ class PostDetailAdapter(
                 val inflatedView = LayoutInflater
                     .from(parent.context)
                     .inflate(R.layout.item_detail_comment_rv, parent, false)
-                return CommentViewHolder(inflatedView)
+                return CommentViewHolder(inflatedView, menuListener)
             }
             TYPE_COMMENT_BOTTOM -> {
                 val inflatedView = LayoutInflater
                     .from(parent.context)
                     .inflate(R.layout.item_detail_comment_bottom, parent, false)
-                return CommentBottomViewHolder(inflatedView)
+                return CommentBottomViewHolder(inflatedView, menuListener)
             }
             else -> {
                 val inflatedView = LayoutInflater

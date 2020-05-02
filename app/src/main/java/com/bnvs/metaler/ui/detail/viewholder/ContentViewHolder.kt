@@ -5,7 +5,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bnvs.metaler.R
 import com.bnvs.metaler.data.addeditpost.model.PostTag
 import com.bnvs.metaler.data.postdetails.model.PostDetails
-import com.bnvs.metaler.ui.detail.ContentImageAdapter
+import com.bnvs.metaler.ui.detail.adapter.ContentImageAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import kotlinx.android.synthetic.main.item_detail_content.view.*
@@ -31,6 +31,7 @@ class ContentViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             Glide.with(this)
                 .load(postDetails.profile_url)
                 .error(R.drawable.ic_profile_x3)
+                .override(200, 200)
                 .transform(CircleCrop())
                 .into(userImg)
         }
