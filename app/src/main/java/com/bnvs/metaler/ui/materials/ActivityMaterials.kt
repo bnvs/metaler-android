@@ -275,6 +275,7 @@ class ActivityMaterials : AppCompatActivity(),
         tagSearchAdapter.notifyDataSetChanged()
         tagRV.setHasFixedSize(true)
         tagRV.visibility = View.VISIBLE
+        tagInput.text.clear()
     }
 
     private fun setTagSearchButtons() {
