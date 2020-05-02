@@ -31,19 +31,21 @@ class CommentsRepository :
     }
 
     override fun editComment(
+        postId: Int,
         commentId: Int,
         request: AddEditCommentRequest,
         onSuccess: () -> Unit,
         onFailure: (e: Throwable) -> Unit
     ) {
-        commentsRemoteDataSource.editComment(commentId, request, onSuccess, onFailure)
+        commentsRemoteDataSource.editComment(postId, commentId, request, onSuccess, onFailure)
     }
 
     override fun deleteComment(
+        postId: Int,
         commentId: Int,
         onSuccess: () -> Unit,
         onFailure: (e: Throwable) -> Unit
     ) {
-        commentsRemoteDataSource.deleteComment(commentId, onSuccess, onFailure)
+        commentsRemoteDataSource.deleteComment(postId, commentId, onSuccess, onFailure)
     }
 }

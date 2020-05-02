@@ -22,6 +22,7 @@ interface CommentsDataSource {
     )
 
     fun editComment(
+        postId: Int,
         commentId: Int,
         request: AddEditCommentRequest,
         onSuccess: () -> Unit,
@@ -29,6 +30,7 @@ interface CommentsDataSource {
     )
 
     fun deleteComment(
+        postId: Int,
         commentId: Int,
         onSuccess: () -> Unit,
         onFailure: (e: Throwable) -> Unit

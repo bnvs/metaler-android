@@ -31,6 +31,7 @@ class CommentsLocalDataSource(context: Context) : CommentsDataSource {
     }
 
     override fun editComment(
+        postId: Int,
         commentId: Int,
         request: AddEditCommentRequest,
         onSuccess: () -> Unit,
@@ -40,10 +41,11 @@ class CommentsLocalDataSource(context: Context) : CommentsDataSource {
     }
 
     override fun deleteComment(
+        postId: Int,
         commentId: Int,
         onSuccess: () -> Unit,
         onFailure: (e: Throwable) -> Unit
     ) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
     }
 }
