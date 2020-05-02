@@ -154,15 +154,17 @@ interface RetrofitInterface {
     ): Call<AddCommentResponse>
 
     // 댓글 수정
-    @PUT("comments/{id}")
+    @PUT("/posts/{post_id}/comments/{id}")
     fun modifyComment(
+        @Path("post_id") post_id: Int,
         @Path("id") comment_id: Int,
         @Body request: AddEditCommentRequest
     ): Call<ResponseBody>
 
     // 댓글 삭제
-    @DELETE("comments/{id}")
+    @DELETE("/posts/{post_id}/comments/{id}")
     fun deleteComment(
+        @Path("post_id") post_id: Int,
         @Path("id") comment_id: Int
     ): Call<ResponseBody>
 

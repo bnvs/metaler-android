@@ -65,12 +65,13 @@ object CommentsRemoteDataSource : CommentsDataSource {
     }
 
     override fun editComment(
+        postId: Int,
         commentId: Int,
         request: AddEditCommentRequest,
         onSuccess: () -> Unit,
         onFailure: (e: Throwable) -> Unit
     ) {
-        retrofitClient.modifyComment(commentId, request)
+        retrofitClient.modifyComment(postId, commentId, request)
             .enqueue(object : Callback<ResponseBody> {
                 override fun onResponse(
                     call: Call<ResponseBody>,
@@ -90,11 +91,12 @@ object CommentsRemoteDataSource : CommentsDataSource {
     }
 
     override fun deleteComment(
+        postId: Int,
         commentId: Int,
         onSuccess: () -> Unit,
         onFailure: (e: Throwable) -> Unit
     ) {
-        retrofitClient.deleteComment(commentId).enqueue(object : Callback<ResponseBody> {
+        retrofitClient.deleteComment(postId, commentId).enqueue(object : Callback<ResponseBody> {
             override fun onResponse(
                 call: Call<ResponseBody>,
                 response: Response<ResponseBody>
