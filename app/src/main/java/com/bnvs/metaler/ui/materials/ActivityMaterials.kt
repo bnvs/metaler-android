@@ -152,7 +152,6 @@ class ActivityMaterials : AppCompatActivity(),
         postAdapter.resetList()
         postAdapter.addPosts(posts)
         postAdapter.notifyDataSetChanged()
-        scrollListener.setLoaded()
     }
 
     private fun setRVLayoutManager() {
