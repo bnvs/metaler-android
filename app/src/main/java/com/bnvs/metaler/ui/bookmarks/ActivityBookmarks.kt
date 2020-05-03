@@ -38,9 +38,6 @@ class ActivityBookmarks : AppCompatActivity(), ContractBookmarks.View {
             TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         }
     }
-    /*private val bookmarkPostAdapter = BookmarkPostAdapter(ArrayList(0), bookmarkItemListener)
-    private val bookmarkPostLayoutManager = LinearLayoutManager(this)*/
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
