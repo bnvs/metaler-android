@@ -85,7 +85,6 @@ class ActivityBookmarks : AppCompatActivity(), ContractBookmarks.View {
             EndlessRecyclerViewScrollListener.OnLoadMoreListener {
             override fun onLoadMore() {
 
-
                 //loadMorePosts 에 null값을 추가해서 로딩뷰를 만든다.
                 bookmarkPostAdapter.addLoadingView()
                 loadMorebookmarks.add(null)
@@ -136,8 +135,15 @@ class ActivityBookmarks : AppCompatActivity(), ContractBookmarks.View {
     }
 
     private fun setCategoryButtons() {
-        materialsCategoryBtn.setOnClickListener { presenter.openMaterialsList() }
-        manufactureCategoryBtn.setOnClickListener { presenter.openManufacturesList() }
+        materialsCategoryBtn.setOnClickListener {
+            activeMaterialsCategoryBtn()
+            bookmarkPostAdapter.resetList()
+            presenter.openMaterialsList()
+        }
+        manufactureCategoryBtn.setOnClickListener {
+            activeManufactureCategoryBtn()
+            bookmarkPostAdapter.resetList()
+            presenter.openManufacturesList() }
     }
 
     private fun setTapBarButtons() {

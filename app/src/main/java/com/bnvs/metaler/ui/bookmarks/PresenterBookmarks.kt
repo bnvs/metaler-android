@@ -56,11 +56,11 @@ class PresenterBookmarks(
     }
 
     override fun openMaterialsList() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        loadBookmarkPosts(requestPosts("materials"))
     }
 
     override fun openManufacturesList() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        loadBookmarkPosts(requestPosts("manufacture"))
     }
 
     override fun openPostDetail(postId: Int) {
