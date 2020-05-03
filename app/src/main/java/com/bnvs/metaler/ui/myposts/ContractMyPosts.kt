@@ -14,7 +14,7 @@ interface ContractMyPosts {
     }
 
     interface Presenter : BasePresenter, TapBarContract.Presenter {
-        fun loadMatrialsPosts(myPostsRequest: MyPostsRequest)
+        fun loadMyPosts(myPostsRequest: MyPostsRequest)
 
         fun openMaterialsList()
 
