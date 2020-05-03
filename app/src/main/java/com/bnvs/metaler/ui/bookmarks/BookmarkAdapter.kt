@@ -17,14 +17,9 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import kotlinx.android.synthetic.main.activity_bookmark.view.*
 import kotlinx.android.synthetic.main.item_bookmark_rv.view.*
 import kotlinx.android.synthetic.main.item_loading.view.*
-import kotlinx.android.synthetic.main.item_posts_rv.view.*
-import kotlinx.android.synthetic.main.item_posts_rv.view.date
-import kotlinx.android.synthetic.main.item_posts_rv.view.dislikeNum
-import kotlinx.android.synthetic.main.item_posts_rv.view.img
-import kotlinx.android.synthetic.main.item_posts_rv.view.likeNum
-import kotlinx.android.synthetic.main.item_posts_rv.view.title
 
 class BookmarkAdapter(
     private var bookmarkItemListener: BookmarkPostItemListener
@@ -125,15 +120,16 @@ class BookmarkAdapter(
 
                 holder.itemView.apply {
                     title.text = tempArrayList[position]!!.title
+                    userName.text = tempArrayList[position]!!.profile_nickname.toString()
                     date.text = tempArrayList[position]!!.date
-                    tags?.text = tagString
+                    tagName.text = tagString
                     dislikeNum.text = tempArrayList[position]!!.dis_liked.toString()
                     likeNum.text = tempArrayList[position]!!.liked.toString()
 
                     if (!tempArrayList[position]!!.thumbnail.isEmpty()) {
                         Glide.with(this)
                             .asBitmap()//gif 재생안되고 첫번째 프레임에서 멈추도록 강제함
-                            .load("http://file.metaler.kr/upload/"+tempArrayList[position]!!.thumbnail)
+                            .load("http://file.metaler.kr/upload/" + tempArrayList[position]!!.thumbnail)
                             .transform(CenterCrop(), RoundedCorners(24))
                             .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                             .into(img)
