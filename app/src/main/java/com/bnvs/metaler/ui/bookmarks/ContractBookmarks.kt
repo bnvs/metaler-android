@@ -12,12 +12,16 @@ interface ContractBookmarks {
 
         fun showBookmarkPostsList(bookmarks: List<Bookmark>)
 
+        fun showMoreBookmarkPostsList(bookmarks: List<Bookmark>)
+
         fun showBookmarkDeleteDialog(postId: Int)
 
     }
 
     interface Presenter : BasePresenter, TapBarContract.Presenter {
         fun loadBookmarkPosts(bookmarksRequest: BookmarksRequest)
+
+        fun loadMoreBookmarkPosts(bookmarksRequest: BookmarksRequest)
 
         fun requestPosts(categoryType: String): BookmarksRequest
 
