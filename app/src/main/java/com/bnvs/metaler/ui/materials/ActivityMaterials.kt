@@ -155,19 +155,24 @@ class ActivityMaterials : AppCompatActivity(),
     }
 
     private fun setRVLayoutManager() {
+        //게시글 리사이클러뷰
         postLayoutManager = LinearLayoutManager(this)
         postsRV.layoutManager = postLayoutManager
         postsRV.setHasFixedSize(true)
 
+        //카테고리 리사이클러뷰
         materialsCategoryRV.layoutManager = categoryLayoutManager
 
+        //태그 검색 리사이클러뷰
         tagRV.layoutManager = tagSearchLayoutManager
     }
 
     private fun setRVAdapter() {
+        //카테고리 리사이클러뷰  어댑터 연결
         materialsCategoryRV.adapter = categoryAdapter
         materialsCategoryRV.setHasFixedSize(true)
 
+        //태그 검색 리사이클러뷰 어댑터 연결
         tagSearchAdapter = TagSearchAdapter(tagSearchItemListener)
         tagRV.adapter = tagSearchAdapter
     }
@@ -270,7 +275,7 @@ class ActivityMaterials : AppCompatActivity(),
     override fun showSearchTags() {
         Log.d(TAG,"태그입력값? : ${tagInput.text}")
         var inputTag : String = tagInput.text.toString()
-        presenter.addSearchTag("tag",inputTag) //검색 내용에 맞게 새로운 데이터를 가져오기 위한 요청값 프레젠터에 전달
+        presenter.addSearchTag(presenter.getCategoryId() ,"store",inputTag) //검색 내용에 맞게 새로운 데이터를 가져오기 위한 요청값 프레젠터에 전달
         tagSearchAdapter.addTags(inputTag)
         tagSearchAdapter.notifyDataSetChanged()
         tagRV.setHasFixedSize(true)
