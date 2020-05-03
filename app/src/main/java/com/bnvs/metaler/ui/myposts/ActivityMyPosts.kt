@@ -3,10 +3,12 @@ package com.bnvs.metaler.ui.myposts
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bnvs.metaler.R
 import com.bnvs.metaler.data.myposts.model.MyPost
 import com.bnvs.metaler.util.EndlessRecyclerViewScrollListener
+import kotlinx.android.synthetic.main.activity_my_posts.*
 
 class ActivityMyPosts : AppCompatActivity(), ContractMyPosts.View {
 
@@ -51,7 +53,29 @@ class ActivityMyPosts : AppCompatActivity(), ContractMyPosts.View {
 
     //리사이클러뷰
     private fun setRVLayoutManager() {
+        myPostLayoutManager = LinearLayoutManager(this)
+        postsRV.layoutManager = myPostLayoutManager
+        postsRV.setHasFixedSize(true)
+    }
 
+    private fun setRVScrollListener() {
+        myPostLayoutManager = LinearLayoutManager(this)
+        scrollListener = EndlessRecyclerViewScrollListener(myPostLayoutManager as LinearLayoutManager)
+        scrollListener.setOnLoadMoreListener(object :
+        EndlessRecyclerViewScrollListener.OnLoadMoreListener{
+            override fun onLoadMore() {
+                //loadMoreMyPosts 에 null값을 추가해서 로딩뷰를 만든다.
+                myPostAdapter.addLoadingView()
+                loadMoreMyPosts.add(null)
+
+                //loadMoreMyPosts 리스트에는 다음페이지 데이터가 있을때만 데이터를 추가하기 때문에 조건절로 비어있는지 확인해야함
+                if (!loadMoreMyPosts.isEmpty()) {
+                    //loadMoreMyPosts 마지막 값이 null값이 있으면 무한스크롤 로딩 중이기 때문에 데이터를 받아오고, 로딩뷰를 제거한다.
+
+                }
+
+            }
+        })
     }
 
     override fun showMyPostsList(myPosts: List<MyPost>) {
