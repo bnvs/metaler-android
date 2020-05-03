@@ -14,10 +14,11 @@ interface ContractMyPosts {
     }
 
     interface Presenter : BasePresenter, TapBarContract.Presenter {
+        fun loadMatrialsPosts(myPostsRequest: MyPostsRequest)
 
-        fun openMaterialsList(myPostsRequest: MyPostsRequest)
+        fun openMaterialsList()
 
-        fun openManufacturesList(myPostsRequest: MyPostsRequest)
+        fun openManufacturesList()
 
         fun requestPosts(categoryType: String): MyPostsRequest
 
