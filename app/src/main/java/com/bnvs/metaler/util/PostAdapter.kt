@@ -122,6 +122,7 @@ class PostAdapter(
 
                 holder.itemView.apply {
                     title.text = tempArrayList[position]!!.title
+                    userName.text = tempArrayList[position]!!.nickname
                     date.text = tempArrayList[position]!!.date
                     tags.text = tagString
                     dislikeNum.text = tempArrayList[position]!!.disliked.toString()
