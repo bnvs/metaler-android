@@ -14,6 +14,8 @@ interface ContractBookmarks {
 
         fun showMoreBookmarkPostsList(bookmarks: List<Bookmark>)
 
+        fun removeLoadingView()
+
         fun showBookmarkDeleteDialog(postId: Int)
 
     }
@@ -24,6 +26,8 @@ interface ContractBookmarks {
         fun loadMoreBookmarkPosts(bookmarksRequest: BookmarksRequest)
 
         fun requestPosts(categoryType: String): BookmarksRequest
+
+        fun getCategoryType(): String
 
         fun openMaterialsList()
 

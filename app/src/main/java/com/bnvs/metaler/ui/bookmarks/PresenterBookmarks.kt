@@ -50,6 +50,13 @@ class PresenterBookmarks(
             onSuccess = { response: BookmarksResponse ->
                 if (response.is_next) {
                     view.showMoreBookmarkPostsList(response.posts)
+                } else {
+                    view.removeLoadingView()
+                    Toast.makeText(
+                        context,
+                        "마지막 아이템입니다.",
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
             },
             onFailure = { e ->
@@ -71,6 +78,10 @@ class PresenterBookmarks(
             10
         )
         return bookmarksRequest
+    }
+
+    override fun getCategoryType(): String {
+        return categoryType
     }
 
     override fun openMaterialsList() {

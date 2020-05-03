@@ -1,6 +1,7 @@
 package com.bnvs.metaler.ui.bookmarks
 
 import android.os.Bundle
+import android.os.Handler
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -90,8 +91,7 @@ class ActivityBookmarks : AppCompatActivity(), ContractBookmarks.View {
                 if (!loadMorebookmarks.isEmpty()) {
                     //loadMorebookmarks 마지막 값이 null값이 있으면 무한스크롤 로딩 중이기 때문에 데이터를 받아오고, 로딩뷰를 제거한다.
                     if (loadMorebookmarks[loadMorebookmarks.size - 1] == null) {
-//                        presenter.loadMorebookmarks(presenter.requestPosts(presenter.getCategoryId()))
-//                        showMorePosts()
+                        presenter.loadMoreBookmarkPosts(presenter.requestPosts(presenter.getCategoryType()))
                     }
                 }
 
@@ -100,12 +100,36 @@ class ActivityBookmarks : AppCompatActivity(), ContractBookmarks.View {
         bookmarkRV.addOnScrollListener(scrollListener)
     }
 
+    override fun removeLoadingView() {
+        bookmarkPostAdapter.removeLoadingView()
+    }
+
     override fun showBookmarkPostsList(bookmarks: List<Bookmark>) {
         bookmarkPostAdapter = BookmarkAdapter(bookmarkItemListener)
         bookmarkPostAdapter.addPosts(bookmarks)
         bookmarkPostAdapter.notifyDataSetChanged()
         bookmarkRV.adapter = bookmarkPostAdapter
         bookmarkRV.visibility = View.VISIBLE
+    }
+
+    override fun showMoreBookmarkPostsList(bookmarks: List<Bookmark>) {
+
+        if (loadMorebookmarks[loadMorebookmarks.size - 1] == null) {
+            Handler().postDelayed({
+                bookmarkPostAdapter.removeLoadingView()
+
+                loadMorebookmarks.removeAll(loadMorebookmarks)
+                loadMorebookmarks.addAll(bookmarks)
+
+                bookmarkPostAdapter.addMorePosts(loadMorebookmarks)
+                scrollListener.setLoaded()
+
+                bookmarkRV.post {
+                    bookmarkPostAdapter.notifyDataSetChanged()
+                }
+
+            }, 1000)
+        }
     }
 
     override fun showBookmarkDeleteDialog(postId: Int) {
@@ -140,7 +164,8 @@ class ActivityBookmarks : AppCompatActivity(), ContractBookmarks.View {
         manufactureCategoryBtn.setOnClickListener {
             activeManufactureCategoryBtn()
             bookmarkPostAdapter.resetList()
-            presenter.openManufacturesList() }
+            presenter.openManufacturesList()
+        }
     }
 
     private fun setTapBarButtons() {
