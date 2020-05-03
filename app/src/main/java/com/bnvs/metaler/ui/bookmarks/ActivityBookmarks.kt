@@ -103,11 +103,13 @@ class ActivityBookmarks : AppCompatActivity(), ContractBookmarks.View {
         })
         bookmarkRV.addOnScrollListener(scrollListener)
     }
+
     override fun showBookmarkPostsList(bookmarks: List<Bookmark>) {
         bookmarkPostAdapter = BookmarkAdapter(bookmarkItemListener)
         bookmarkPostAdapter.addPosts(bookmarks)
         bookmarkPostAdapter.notifyDataSetChanged()
         bookmarkRV.adapter = bookmarkPostAdapter
+        bookmarkRV.visibility = View.VISIBLE
     }
 
     override fun showBookmarkDeleteDialog(postId: Int) {
