@@ -44,6 +44,24 @@ class PresenterBookmarks(
         )
     }
 
+    override fun loadMoreBookmarkPosts(bookmarksRequest: BookmarksRequest) {
+        bookmarksRepository.getMyBookmarks(
+            bookmarksRequest,
+            onSuccess = { response: BookmarksResponse ->
+                if (response.is_next) {
+                    view.showMoreBookmarkPostsList(response.posts)
+                }
+            },
+            onFailure = { e ->
+                Toast.makeText(
+                    context,
+                    "서버 통신 실패 : ${NetworkUtil.getErrorMessage(e)}",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        )
+    }
+
     override fun requestPosts(categoryType: String): BookmarksRequest {
         pageNum++
         this.categoryType = categoryType
