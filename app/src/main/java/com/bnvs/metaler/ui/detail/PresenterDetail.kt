@@ -355,6 +355,7 @@ class PresenterDetail(
 
     override fun deleteComment() {
         commentsRepository.deleteComment(
+            postId,
             tempComment.comment_id,
             onSuccess = {
                 view.deleteComment(tempCommentIndex)
@@ -383,6 +384,7 @@ class PresenterDetail(
 
     override fun modifyComment(comment: String) {
         commentsRepository.editComment(
+            postId,
             tempComment.comment_id,
             AddEditCommentRequest(comment),
             onSuccess = {

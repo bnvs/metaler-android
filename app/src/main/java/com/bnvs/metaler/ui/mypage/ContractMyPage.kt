@@ -9,6 +9,8 @@ interface ContractMyPage {
     interface View : BaseView<Presenter>, TapBarContract.View {
         fun showProfile(profile: Profile)
 
+        fun showProfileNotExistToast()
+
         fun showJobModifyUi()
 
         fun showMyPostsUi()
@@ -30,7 +32,7 @@ interface ContractMyPage {
 
         fun modifyJob()
 
-        fun modifyNickName()
+        fun modifyNickName(nickname: String)
 
         fun logout()
 
