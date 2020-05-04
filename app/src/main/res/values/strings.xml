@@ -120,4 +120,8 @@
     <string name="modify">수정</string>
     <string name="delete">삭제</string>
 
+    <!--  게시글이 없을때 사용되는 문자열  -->
+    <string name="error_404">등록된 게시글이 없습니다.</string>
+    <string name="bookmark_error_404">등록된 북마크가 없습니다.</string>
+
 </resources>
