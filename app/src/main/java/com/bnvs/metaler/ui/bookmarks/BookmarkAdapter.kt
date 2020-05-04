@@ -146,10 +146,12 @@ class BookmarkAdapter(
 
                     deleteBtn.setOnClickListener {
                         bookmarkItemListener.onDeleteButtonClick(
-                            bookmarkBtn,
+                            deleteBtn,
                             tempArrayList[position]!!.post_id,
                             position
                         )
+                        tempArrayList.removeAt(position)
+                        notifyItemRemoved(position)
                     }
 
                 }

@@ -107,7 +107,24 @@ class PresenterBookmarks(
     }
 
     override fun deleteBookmark(postId: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        bookmarksRepository.deleteBookmark(
+            postId,
+            onSuccess = {
+                Toast.makeText(
+                    context,
+                    "북마크가 취소되었습니다.",
+                    Toast.LENGTH_SHORT
+                ).show()
+
+            },
+            onFailure = { e ->
+                Toast.makeText(
+                    context,
+                    "서버 통신 실패 : ${NetworkUtil.getErrorMessage(e)}",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        )
     }
 
 }

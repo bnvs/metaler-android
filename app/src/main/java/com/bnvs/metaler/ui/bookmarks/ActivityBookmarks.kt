@@ -36,7 +36,7 @@ class ActivityBookmarks : AppCompatActivity(), ContractBookmarks.View {
         }
 
         override fun onDeleteButtonClick(view: View, clickedPostId: Int, position: Int) {
-            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            presenter.deleteBookmark(clickedPostId)
         }
     }
 
