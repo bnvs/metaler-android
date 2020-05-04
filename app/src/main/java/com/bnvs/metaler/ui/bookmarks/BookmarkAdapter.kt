@@ -141,7 +141,7 @@ class BookmarkAdapter(
 
 
                     holder.itemView.setOnClickListener {
-                        bookmarkItemListener.onPostClick(position)
+                        bookmarkItemListener.onPostClick(it, tempArrayList[position]!!.post_id)
                     }
 
                     deleteBtn.setOnClickListener {

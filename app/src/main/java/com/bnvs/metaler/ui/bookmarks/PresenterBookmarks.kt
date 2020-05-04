@@ -1,11 +1,13 @@
 package com.bnvs.metaler.ui.bookmarks
 
 import android.content.Context
+import android.content.Intent
 import android.widget.Toast
 import com.bnvs.metaler.data.bookmarks.model.BookmarksRequest
 import com.bnvs.metaler.data.bookmarks.model.BookmarksResponse
 import com.bnvs.metaler.data.bookmarks.source.repositroy.BookmarksRepository
 import com.bnvs.metaler.network.NetworkUtil
+import com.bnvs.metaler.ui.detail.ActivityDetail
 
 class PresenterBookmarks(
     private val context: Context,
@@ -95,7 +97,9 @@ class PresenterBookmarks(
     }
 
     override fun openPostDetail(postId: Int) {
-        view.showPostDetailUi(postId)
+        val detailIntent = Intent(context, ActivityDetail::class.java)
+        detailIntent.putExtra("POST_ID", postId)
+        context.startActivity(detailIntent)
     }
 
     override fun openBookmarkDelete(postId: Int) {

@@ -31,7 +31,7 @@ class ActivityBookmarks : AppCompatActivity(), ContractBookmarks.View {
      * onDeleteButtonClick -> 북마크 제거 버튼을 클릭한 경우
      * */
     private var bookmarkItemListener: BookmarkPostItemListener = object : BookmarkPostItemListener {
-        override fun onPostClick(clickedPostId: Int) {
+        override fun onPostClick(view: View, clickedPostId: Int) {
             presenter.openPostDetail(clickedPostId)
         }
 
