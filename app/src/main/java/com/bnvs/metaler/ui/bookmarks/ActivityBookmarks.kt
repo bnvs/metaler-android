@@ -65,10 +65,6 @@ class ActivityBookmarks : AppCompatActivity(), ContractBookmarks.View {
 
     }
 
-    override fun showPostDetailUi(postId: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
     private fun setRVLayoutManager() {
         bookmarkPostLayoutManager = LinearLayoutManager(this)
         bookmarkRV.layoutManager = bookmarkPostLayoutManager
