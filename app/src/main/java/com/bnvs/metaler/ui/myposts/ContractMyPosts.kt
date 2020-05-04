@@ -11,6 +11,10 @@ interface ContractMyPosts {
         fun showMyPostsList(myPosts: List<MyPost>)
 
         fun showPostDetailUi(postId: Int)
+
+        fun activeMaterialsCategoryBtn()
+
+        fun activeManufactureCategoryBtn()
     }
 
     interface Presenter : BasePresenter, TapBarContract.Presenter {

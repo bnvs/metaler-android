@@ -3,6 +3,7 @@ package com.bnvs.metaler.ui.myposts
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bnvs.metaler.R
@@ -25,6 +26,8 @@ class ActivityMyPosts : AppCompatActivity(), ContractMyPosts.View {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_posts)
 
+        activeMaterialsCategoryBtn()
+
         presenter = PresenterMyPosts(
             this@ActivityMyPosts,
             this@ActivityMyPosts
@@ -33,6 +36,10 @@ class ActivityMyPosts : AppCompatActivity(), ContractMyPosts.View {
         presenter.run {
             start()
         }
+
+        setRVLayoutManager()
+
+        setRVScrollListener()
     }
 
     /**
@@ -79,11 +86,29 @@ class ActivityMyPosts : AppCompatActivity(), ContractMyPosts.View {
     }
 
     override fun showMyPostsList(myPosts: List<MyPost>) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        myPostAdapter = MyPostsAdapter(myPostsItemListener)
+        myPostAdapter.addPosts(myPosts)
+        myPostAdapter.notifyDataSetChanged()
+        postsRV.adapter = myPostAdapter
+        postsRV.visibility = View.VISIBLE
     }
 
     override fun showPostDetailUi(postId: Int) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun activeMaterialsCategoryBtn() {
+        materialsCategoryBtn.setTextColor(ContextCompat.getColor(this, R.color.colorPurple))
+        materialsBar.visibility = View.VISIBLE
+        manufactureCategoryBtn.setTextColor(ContextCompat.getColor(this, R.color.colorLightGrey))
+        manufactureBar.visibility = View.INVISIBLE
+    }
+
+    override fun activeManufactureCategoryBtn() {
+        manufactureCategoryBtn.setTextColor(ContextCompat.getColor(this, R.color.colorPurple))
+        manufactureBar.visibility = View.VISIBLE
+        materialsCategoryBtn.setTextColor(ContextCompat.getColor(this, R.color.colorLightGrey))
+        materialsBar.visibility = View.INVISIBLE
     }
 
 }
