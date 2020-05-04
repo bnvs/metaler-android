@@ -40,11 +40,13 @@ class PresenterMyPosts(
     override fun loadMyPosts(myPostsRequest: MyPostsRequest) {
         myPostsRepository.getMyPosts(
             myPostsRequest,
-            onSuccess = {response: MyPosts ->
-                view.showMyPostsList(response.posts)
+            onSuccess = { response: MyPosts ->
+                if (response.count == 0) {
+                    view.showError404()
+                } else
+                    view.showMyPostsList(response.posts)
             },
-            onFailure =  {
-                    e ->
+            onFailure = { e ->
                 Toast.makeText(
                     context,
                     "서버 통신 실패 : ${NetworkUtil.getErrorMessage(e)}",
