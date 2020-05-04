@@ -12,6 +12,10 @@ interface ContractBookmarks {
 
         fun showBookmarkPostsList(bookmarks: List<Bookmark>)
 
+        fun showMoreBookmarkPostsList(bookmarks: List<Bookmark>)
+
+        fun removeLoadingView()
+
         fun showBookmarkDeleteDialog(postId: Int)
 
     }
@@ -19,7 +23,11 @@ interface ContractBookmarks {
     interface Presenter : BasePresenter, TapBarContract.Presenter {
         fun loadBookmarkPosts(bookmarksRequest: BookmarksRequest)
 
+        fun loadMoreBookmarkPosts(bookmarksRequest: BookmarksRequest)
+
         fun requestPosts(categoryType: String): BookmarksRequest
+
+        fun getCategoryType(): String
 
         fun openMaterialsList()
 

@@ -24,7 +24,7 @@ interface ContractManufactures {
 
         fun onRefresh()
 
-        fun refreshPosts(posts: List<Post>)
+        fun showRefreshPosts(posts: List<Post>)
 
         fun showPostDetailUi()
 
@@ -46,6 +46,8 @@ interface ContractManufactures {
         fun loadPosts(postsRequest: PostsRequest)
 
         fun loadMorePosts(postsRequest: PostsRequest)
+
+        fun refreshPosts(postsRequest: PostsRequest)
 
         fun resetPageNum()
 

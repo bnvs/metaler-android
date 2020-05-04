@@ -123,6 +123,8 @@ class ActivityMaterials : AppCompatActivity(),
         // Set up Buttons
         initClickListeners()
 
+        setRVAdapter()
+
         setRVLayoutManager()
 
         setRVScrollListener()
@@ -141,20 +143,38 @@ class ActivityMaterials : AppCompatActivity(),
             presenter.resetPageNum()
             presenter.loadPosts(presenter.requestPosts(presenter.getCategoryId()))
             // The method calls setRefreshing(false) when it's finished.
-            refreshLayout.setRefreshing(false);
+            refreshLayout.setRefreshing(false)
+            scrollListener.setLoaded()
         }
     }
 
-    override fun refreshPosts(posts: List<Post>) {
+    override fun showRefreshPosts(posts: List<Post>) {
         postAdapter.resetList()
         postAdapter.addPosts(posts)
         postAdapter.notifyDataSetChanged()
     }
 
     private fun setRVLayoutManager() {
+        //게시글 리사이클러뷰
         postLayoutManager = LinearLayoutManager(this)
         postsRV.layoutManager = postLayoutManager
         postsRV.setHasFixedSize(true)
+
+        //카테고리 리사이클러뷰
+        materialsCategoryRV.layoutManager = categoryLayoutManager
+
+        //태그 검색 리사이클러뷰
+        tagRV.layoutManager = tagSearchLayoutManager
+    }
+
+    private fun setRVAdapter() {
+        //카테고리 리사이클러뷰  어댑터 연결
+        materialsCategoryRV.adapter = categoryAdapter
+        materialsCategoryRV.setHasFixedSize(true)
+
+        //태그 검색 리사이클러뷰 어댑터 연결
+        tagSearchAdapter = TagSearchAdapter(tagSearchItemListener)
+        tagRV.adapter = tagSearchAdapter
     }
 
     override fun setRVScrollListener() {
@@ -165,6 +185,7 @@ class ActivityMaterials : AppCompatActivity(),
             EndlessRecyclerViewScrollListener.OnLoadMoreListener {
             override fun onLoadMore() {
 
+                Log.d("TAG","스크롤리스너 onLoadMore 실행!!")
 
                 //loadMorePosts 에 null값을 추가해서 로딩뷰를 만든다.
                 postAdapter.addLoadingView()
@@ -226,9 +247,6 @@ class ActivityMaterials : AppCompatActivity(),
     override fun showCategories(categories: List<Category>) {
         categoryAdapter.setCategories(categories)
         categoryAdapter.notifyDataSetChanged()
-        materialsCategoryRV.adapter = categoryAdapter
-        materialsCategoryRV.layoutManager = categoryLayoutManager
-        materialsCategoryRV.setHasFixedSize(true)
         materialsCategoryRV.visibility = View.VISIBLE
     }
 
@@ -257,14 +275,12 @@ class ActivityMaterials : AppCompatActivity(),
     override fun showSearchTags() {
         Log.d(TAG,"태그입력값? : ${tagInput.text}")
         var inputTag : String = tagInput.text.toString()
-        presenter.addSearchTag("tag",inputTag)
-        tagSearchAdapter = TagSearchAdapter(tagSearchItemListener)
+        presenter.addSearchTag(presenter.getCategoryId() ,"store",inputTag) //검색 내용에 맞게 새로운 데이터를 가져오기 위한 요청값 프레젠터에 전달
         tagSearchAdapter.addTags(inputTag)
-        categoryAdapter.notifyDataSetChanged()
-        tagRV.adapter = tagSearchAdapter
-        tagRV.layoutManager = tagSearchLayoutManager
+        tagSearchAdapter.notifyDataSetChanged()
         tagRV.setHasFixedSize(true)
         tagRV.visibility = View.VISIBLE
+        tagInput.text.clear()
     }
 
     private fun setTagSearchButtons() {

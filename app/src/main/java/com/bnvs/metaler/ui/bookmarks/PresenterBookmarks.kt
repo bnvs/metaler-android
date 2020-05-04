@@ -1,11 +1,13 @@
 package com.bnvs.metaler.ui.bookmarks
 
 import android.content.Context
+import android.content.Intent
 import android.widget.Toast
 import com.bnvs.metaler.data.bookmarks.model.BookmarksRequest
 import com.bnvs.metaler.data.bookmarks.model.BookmarksResponse
 import com.bnvs.metaler.data.bookmarks.source.repositroy.BookmarksRepository
 import com.bnvs.metaler.network.NetworkUtil
+import com.bnvs.metaler.ui.detail.ActivityDetail
 
 class PresenterBookmarks(
     private val context: Context,
@@ -25,7 +27,7 @@ class PresenterBookmarks(
     }
 
     override fun start() {
-        loadBookmarkPosts(requestPosts("materials"))
+        loadBookmarkPosts(requestPosts("manufacture"))
     }
 
     override fun loadBookmarkPosts(bookmarksRequest: BookmarksRequest) {
@@ -33,6 +35,31 @@ class PresenterBookmarks(
             bookmarksRequest,
             onSuccess = { response: BookmarksResponse ->
                 view.showBookmarkPostsList(response.posts)
+            },
+            onFailure = { e ->
+                Toast.makeText(
+                    context,
+                    "서버 통신 실패 : ${NetworkUtil.getErrorMessage(e)}",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        )
+    }
+
+    override fun loadMoreBookmarkPosts(bookmarksRequest: BookmarksRequest) {
+        bookmarksRepository.getMyBookmarks(
+            bookmarksRequest,
+            onSuccess = { response: BookmarksResponse ->
+                if (response.is_next) {
+                    view.showMoreBookmarkPostsList(response.posts)
+                } else {
+                    view.removeLoadingView()
+                    Toast.makeText(
+                        context,
+                        "마지막 아이템입니다.",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
             },
             onFailure = { e ->
                 Toast.makeText(
@@ -55,16 +82,24 @@ class PresenterBookmarks(
         return bookmarksRequest
     }
 
+    override fun getCategoryType(): String {
+        return categoryType
+    }
+
     override fun openMaterialsList() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        pageNum = 0
+        loadBookmarkPosts(requestPosts("manufacture"))
     }
 
     override fun openManufacturesList() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        pageNum = 0
+        loadBookmarkPosts(requestPosts("materials"))
     }
 
     override fun openPostDetail(postId: Int) {
-        view.showPostDetailUi(postId)
+        val detailIntent = Intent(context, ActivityDetail::class.java)
+        detailIntent.putExtra("POST_ID", postId)
+        context.startActivity(detailIntent)
     }
 
     override fun openBookmarkDelete(postId: Int) {
@@ -72,7 +107,24 @@ class PresenterBookmarks(
     }
 
     override fun deleteBookmark(postId: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        bookmarksRepository.deleteBookmark(
+            postId,
+            onSuccess = {
+                Toast.makeText(
+                    context,
+                    "북마크가 취소되었습니다.",
+                    Toast.LENGTH_SHORT
+                ).show()
+
+            },
+            onFailure = { e ->
+                Toast.makeText(
+                    context,
+                    "서버 통신 실패 : ${NetworkUtil.getErrorMessage(e)}",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        )
     }
 
 }

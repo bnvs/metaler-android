@@ -1,4 +1,4 @@
-package com.bnvs.metaler.ui.bookmarks
+package com.bnvs.metaler.ui.myposts
 
 import android.content.Context
 import android.graphics.BlendMode
@@ -12,63 +12,64 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bnvs.metaler.R
-import com.bnvs.metaler.data.bookmarks.model.Bookmark
+import com.bnvs.metaler.data.myposts.model.MyPost
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
-import kotlinx.android.synthetic.main.activity_bookmark.view.*
-import kotlinx.android.synthetic.main.item_bookmark_rv.view.*
 import kotlinx.android.synthetic.main.item_loading.view.*
+import kotlinx.android.synthetic.main.item_my_posts_rv.view.*
 
-class BookmarkAdapter(
-    private var bookmarkItemListener: BookmarkPostItemListener
+class MyPostsAdapter(
+    private var myPostsItemListener: MyPostsItemListener
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     lateinit var context: Context
 
-    // 서버와 통신해서 받아오는 Bookmark타입의 데이터를 담는 변수
-    // 어레이 리스트인 이유 : 무한스크롤할 때 로딩중이면 null값을 추가하고, 로딩이끝나면 null값을 빼기 때문에 수정이 가능한 어레이리스트가 필요함
-    var tempArrayList = ArrayList<Bookmark?>()
+    var myPostsList = mutableListOf<MyPost?>()
 
     class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
-
     class LoadingViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
+    object Constant {
+        const val VIEW_TYPE_ITEM = 0
+        const val VIEW_TYPE_LOADING = 1
+    }
+
     // 데이터를 처음 가져올 때 쓰는 함수
-    fun addPosts(list: List<Bookmark>) {
-        this.tempArrayList.addAll(list)
+    fun addPosts(list: List<MyPost>) {
+        this.myPostsList.addAll(list)
         notifyDataSetChanged()
     }
 
 
     // 다음 페이지 데이터를 가져오는 함수
-    fun addMorePosts(list: ArrayList<Bookmark?>) {
-        this.tempArrayList.addAll(list)
+    fun addMorePosts(list: ArrayList<MyPost?>) {
+        this.myPostsList.addAll(list)
         notifyDataSetChanged()
     }
 
     fun resetList() {
-        tempArrayList.removeAll(tempArrayList)
+        myPostsList.removeAll(myPostsList)
     }
 
     fun getItemAtPosition(position: Int): String? {
-        return tempArrayList[position].toString()
+        return myPostsList[position].toString()
     }
 
     fun addLoadingView() {
         //add loading item
         Handler().post {
-            tempArrayList.add(null)
-            notifyItemInserted(tempArrayList.size - 1)
+            myPostsList.add(null)
+            notifyItemInserted(myPostsList.size - 1)
         }
     }
 
     fun removeLoadingView() {
         //Remove loading item
-        if (tempArrayList.size != 0) {
-            tempArrayList.removeAt(tempArrayList.size - 1)
-            notifyItemRemoved(tempArrayList.size)
+        if (myPostsList.size != 0) {
+            myPostsList.removeAt(myPostsList.size - 1)
+            notifyItemRemoved(myPostsList.size)
         }
     }
 
@@ -77,7 +78,7 @@ class BookmarkAdapter(
         return if (viewType == Constant.VIEW_TYPE_ITEM) {
             val view =
                 LayoutInflater.from(parent.context)
-                    .inflate(R.layout.item_bookmark_rv, parent, false)
+                    .inflate(R.layout.item_my_posts_rv, parent, false)
             ItemViewHolder(view)
         } else {
             val view = LayoutInflater.from(context).inflate(R.layout.item_loading, parent, false)
@@ -95,12 +96,12 @@ class BookmarkAdapter(
     }
 
     override fun getItemCount(): Int {
-        return tempArrayList.size
+        return myPostsList.size
     }
 
     override fun getItemViewType(position: Int): Int {
         //null값이 들어오는지 안들어오는지 확인함. null값이 들어있으면 로딩뷰로 리턴한다.
-        val comparable = tempArrayList[position]
+        val comparable = myPostsList[position]
         return when (comparable) {
             null -> Constant.VIEW_TYPE_LOADING
             else -> Constant.VIEW_TYPE_ITEM
@@ -110,26 +111,25 @@ class BookmarkAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder.itemViewType == Constant.VIEW_TYPE_ITEM) {
-            if (tempArrayList[position] != null) {
+            if (myPostsList[position] != null) {
                 var tagString = ""
 
-                for (tag in tempArrayList[position]!!.tags) {
+                for (tag in myPostsList[position]!!.tags) {
                     tagString += "#${tag.name} "
                 }
 
-
                 holder.itemView.apply {
-                    title.text = tempArrayList[position]!!.title
-                    userName.text = tempArrayList[position]!!.profile_nickname.toString()
-                    date.text = tempArrayList[position]!!.date
+                    title.text = myPostsList[position]!!.title
+                    userName.text = myPostsList[position]!!.profile_nickname.toString()
+                    date.text = myPostsList[position]!!.date
                     tagName.text = tagString
-                    dislikeNum.text = tempArrayList[position]!!.dis_liked.toString()
-                    likeNum.text = tempArrayList[position]!!.liked.toString()
+                    dislikeNum.text = myPostsList[position]!!.disliked.toString()
+                    likeNum.text = myPostsList[position]!!.liked.toString()
 
-                    if (!tempArrayList[position]!!.thumbnail.isEmpty()) {
+                    if (!myPostsList[position]!!.thumbnail.isEmpty()) {
                         Glide.with(this)
                             .asBitmap()//gif 재생안되고 첫번째 프레임에서 멈추도록 강제함
-                            .load("http://file.metaler.kr/upload/" + tempArrayList[position]!!.thumbnail)
+                            .load("http://file.metaler.kr/upload/" + myPostsList[position]!!.thumbnail)
                             .transform(CenterCrop(), RoundedCorners(24))
                             .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                             .into(img)
@@ -141,29 +141,21 @@ class BookmarkAdapter(
 
 
                     holder.itemView.setOnClickListener {
-                        bookmarkItemListener.onPostClick(it, tempArrayList[position]!!.post_id)
+                        myPostsItemListener.onPostClick(position)
                     }
 
-                    deleteBtn.setOnClickListener {
-                        bookmarkItemListener.onDeleteButtonClick(
-                            deleteBtn,
-                            tempArrayList[position]!!.post_id,
+                    moreBtn.setOnClickListener {
+                        myPostsItemListener.onMoreButtonClick(
+                            moreBtn,
+                            myPostsList[position]!!.id,
                             position
                         )
-                        tempArrayList.removeAt(position)
-                        notifyItemRemoved(position)
                     }
 
                 }
             }
 
         }
-    }
-
-
-    object Constant {
-        const val VIEW_TYPE_ITEM = 0
-        const val VIEW_TYPE_LOADING = 1
     }
 
 }

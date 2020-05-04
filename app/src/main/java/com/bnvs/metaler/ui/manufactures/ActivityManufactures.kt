@@ -100,11 +100,12 @@ class ActivityManufactures : AppCompatActivity(),
             presenter.resetPageNum()
             presenter.loadPosts(presenter.requestPosts())
             // The method calls setRefreshing(false) when it's finished.
-            refreshLayout.setRefreshing(false);
+            refreshLayout.setRefreshing(false)
+            scrollListener.setLoaded()
         }
     }
 
-    override fun refreshPosts(posts: List<Post>) {
+    override fun showRefreshPosts(posts: List<Post>) {
         postAdapter.resetList()
         postAdapter.addPosts(posts)
         postAdapter.notifyDataSetChanged()

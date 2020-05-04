@@ -14,7 +14,6 @@ class TagSearchAdapter(
     private val itemListener: TagSearchItemListener
 ) : RecyclerView.Adapter<TagSearchAdapter.ViewHolder>() {
 
-    //    lateinit var tags: ArrayList<String>
     var tags = ArrayList<String>()
 
     var selectedPosition: Int = 0
@@ -26,12 +25,12 @@ class TagSearchAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflatedView = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_materials_category_rv, parent, false)
+            .inflate(R.layout.item_tag_rv, parent, false)
         return ViewHolder(inflatedView)
     }
 
     override fun getItemCount(): Int {
-        return tags.size - 1
+        return tags.size
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
