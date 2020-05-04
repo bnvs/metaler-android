@@ -5,18 +5,16 @@
     <color name="colorAccent">#fa6400</color>
 
 
-
-
     <color name="colorYellow">#fad256</color>
 
     <color name="colorGrey">#868685</color>
     <color name="colorDarkGrey">#717171</color>
     <color name="colorLightGrey">#e3e3e3</color>
 
-<!--  필수 입력 사항 글자에 쓰이는 주의 안내 색상  -->
+    <!--  필수 입력 사항 글자에 쓰이는 주의 안내 색상  -->
     <color name="colorCaution">#fa6400</color>
 
-<!--  본문에 쓰이는 가장 어두운 블랙  -->
+    <!--  본문에 쓰이는 가장 어두운 블랙  -->
     <color name="colorBlack">#434343</color>
 
     <color name="colorWhite">#ffffff</color>
@@ -27,6 +25,7 @@
     <color name="colorLightPurple">#b180f6</color>
     <color name="colorPurple">#6b5eb2</color>
     <color name="colorDakrPurple">#493c7e</color>
+    <color name="colorGreyPurple">#D2CCDD</color>
 
     <color name="colorActiveTapbar">#6b5eb2</color>
     <color name="colorInactiveTapbar">#d8d8d8</color>
