@@ -26,8 +26,6 @@ class ActivityMyPosts : AppCompatActivity(), ContractMyPosts.View {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_posts)
 
-        activeMaterialsCategoryBtn()
-
         presenter = PresenterMyPosts(
             this@ActivityMyPosts,
             this@ActivityMyPosts
@@ -36,6 +34,10 @@ class ActivityMyPosts : AppCompatActivity(), ContractMyPosts.View {
         presenter.run {
             start()
         }
+
+        activeMaterialsCategoryBtn()
+
+        setCategoryButtons()
 
         setRVLayoutManager()
 
@@ -93,8 +95,30 @@ class ActivityMyPosts : AppCompatActivity(), ContractMyPosts.View {
         postsRV.visibility = View.VISIBLE
     }
 
+    override fun hideError404() {
+        error404Group.visibility = View.INVISIBLE
+    }
+
+    override fun showError404() {
+        error404Group.visibility = View.VISIBLE
+    }
+
     override fun showPostDetailUi(postId: Int) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun setCategoryButtons() {
+        materialsCategoryBtn.setOnClickListener {
+            activeMaterialsCategoryBtn()
+            myPostAdapter.resetList()
+            presenter.openMaterialsList()
+        }
+
+        manufactureCategoryBtn.setOnClickListener {
+            activeManufactureCategoryBtn()
+            myPostAdapter.resetList()
+            presenter.openManufacturesList()
+        }
     }
 
     override fun activeMaterialsCategoryBtn() {
