@@ -2,6 +2,7 @@ package com.bnvs.metaler.ui.materials
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.widget.Toast
 import androidx.core.content.contentValuesOf
 import com.bnvs.metaler.data.bookmarks.model.AddBookmarkRequest
@@ -33,6 +34,8 @@ class PresenterMaterials(
 
     private var pageNum: Int = 0
     private var categoryId: Int = 0
+
+    private var tags: MutableList<String>? =null
     private var searchType: String? = null
     private var searchWord: String? = null
 
@@ -92,6 +95,23 @@ class PresenterMaterials(
                     ).show()
                 }
 
+            },
+            onFailure = { e ->
+                Toast.makeText(
+                    context,
+                    "서버 통신 실패 : ${NetworkUtil.getErrorMessage(e)}",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        )
+    }
+
+    override fun refreshPosts(postsRequest: PostsRequest) {
+        resetPageNum()
+        postRepository.getPosts(
+            postsRequest,
+            onSuccess = { response: PostsResponse ->
+                view.showRefreshPosts(response.posts)
             },
             onFailure = { e ->
                 Toast.makeText(
@@ -188,9 +208,15 @@ class PresenterMaterials(
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun addSearchTag(searchType: String, searchWord: String) {
-        this.searchType = "tag"
-        this.searchWord = searchWord
+    override fun addSearchTag(categoryId: Int, searchType: String, searchWord: String) {
+        var searchTagRequest = PostsRequest(
+            categoryId,
+            pageNum,
+            10,
+            searchType,
+            searchWord
+        )
+        refreshPosts(searchTagRequest)
     }
 
     override fun clearSearchTagBar() {

@@ -85,6 +85,24 @@ class PresenterManufactures(
         )
     }
 
+    override fun refreshPosts(postsRequest: PostsRequest) {
+        resetPageNum()
+        postRepository.getPosts(
+            postsRequest,
+            onSuccess = { response: PostsResponse ->
+                resetPageNum()
+                view.showRefreshPosts(response.posts)
+            },
+            onFailure = { e ->
+                Toast.makeText(
+                    context,
+                    "서버 통신 실패 : ${NetworkUtil.getErrorMessage(e)}",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        )
+    }
+
     override fun resetPageNum() {
         pageNum = 0
     }

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -28,14 +29,14 @@
                 android:layout_marginTop="10dp"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="제목이 보여지는 부분이다."
                 android:textColor="@color/colorPurple"
                 android:textSize="16sp"
                 app:layout_constrainedWidth="true"
                 app:layout_constraintEnd_toStartOf="@id/img"
                 app:layout_constraintHorizontal_chainStyle="spread_inside"
                 app:layout_constraintStart_toStartOf="@id/userName"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="제목이 보여지는 부분이다." />
 
             <ImageView
                 android:id="@+id/img"
@@ -95,11 +96,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="2dp"
                 android:layout_marginRight="28dp"
-                android:text="10"
                 android:textColor="@color/colorGrey"
                 android:textSize="10sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/tags" />
+                app:layout_constraintTop_toTopOf="@id/tags"
+                tools:text="10" />
 
 
             <TextView
@@ -107,11 +108,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:text="작성자이름"
                 android:textColor="@color/colorGrey"
                 android:textSize="10sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/title" />
+                app:layout_constraintTop_toBottomOf="@id/title"
+                tools:text="작성자이름" />
 
             <TextView
                 android:id="@+id/userNameLine"
@@ -131,12 +132,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="4dp"
-                android:text="2020.10.10"
                 android:textColor="@color/colorGrey"
                 android:textSize="10sp"
                 app:layout_constraintBottom_toBottomOf="@id/userName"
                 app:layout_constraintStart_toEndOf="@id/userNameLine"
-                app:layout_constraintTop_toTopOf="@id/userName" />
+                app:layout_constraintTop_toTopOf="@id/userName"
+                tools:text="2020.10.10" />
 
             <TextView
                 android:id="@+id/tags"
@@ -145,12 +146,12 @@
                 android:layout_marginBottom="10dp"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="#태그들어가는부분"
                 android:textColor="@color/colorPurple"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="@id/title"
-                app:layout_constraintRight_toLeftOf="@id/dislikeIcon" />
+                app:layout_constraintRight_toLeftOf="@id/dislikeIcon"
+                tools:text="#태그들어가는부분" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -28,7 +28,7 @@ interface ContractMaterials {
 
         fun onRefresh()
 
-        fun refreshPosts(posts: List<Post>)
+        fun showRefreshPosts(posts: List<Post>)
 
         fun showPostDetailUi()
 
@@ -54,6 +54,8 @@ interface ContractMaterials {
 
         fun loadMorePosts(postsRequest: PostsRequest)
 
+        fun refreshPosts(postsRequest: PostsRequest)
+
         fun resetPageNum()
 
         fun getCategoryId(): Int
@@ -66,7 +68,7 @@ interface ContractMaterials {
 
         fun openSearch()
 
-        fun addSearchTag(searchType: String, searchWord: String)
+        fun addSearchTag(categoryId: Int, searchType: String, searchWord: String)
 
         fun clearSearchTagBar()
 
