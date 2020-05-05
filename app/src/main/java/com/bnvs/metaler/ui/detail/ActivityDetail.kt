@@ -249,6 +249,7 @@ class ActivityDetail : AppCompatActivity(), ContractDetail.View {
 
     private fun setTitleBarButtons() {
         backBtn.setOnClickListener { finish() }
+        currentTitleText.setOnClickListener { finish() }
         bookmarkBtn.setOnClickListener {
             if (bookmarkBtn.isChecked) {
                 bookmarkBtn.isChecked = false

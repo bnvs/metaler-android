@@ -89,6 +89,7 @@ class ActivityModifyComment : AppCompatActivity(), ContractModifyComment.View {
 
     private fun setTitleBarButtons() {
         backBtn.setOnClickListener { finish() }
+        currentTitleText.setOnClickListener { finish() }
     }
 
     private fun setCommentInputListener() {
