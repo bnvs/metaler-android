@@ -6,6 +6,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
 
 object RetrofitClient {
     val client: RetrofitInterface
@@ -19,6 +20,8 @@ object RetrofitClient {
 
     init {
         val okHttpClient = OkHttpClient.Builder()
+            .connectTimeout(100, TimeUnit.SECONDS)
+            .readTimeout(100, TimeUnit.SECONDS)
             .addInterceptor { chain: Interceptor.Chain ->
                 val original = chain.request()
                 if (original.url.encodedPath.equals("/users/check", true)
