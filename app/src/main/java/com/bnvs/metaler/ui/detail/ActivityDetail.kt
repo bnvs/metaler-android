@@ -84,6 +84,7 @@ class ActivityDetail : AppCompatActivity(), ContractDetail.View {
 
     override fun getRecyclerViewState() {
         postDetailRv.layoutManager!!.onRestoreInstanceState(recyclerViewState)
+        recyclerViewState = null
     }
 
     override fun initPostDetailAdapter(postDetails: PostDetails) {
