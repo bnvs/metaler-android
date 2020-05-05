@@ -226,7 +226,11 @@ class PresenterDetail(
 
     override fun modifyPost() {
         if (userId == postDetails.user_id) {
-            view.openEditPostUi(postId)
+            if (postDetails.liked != 0 || postDetails.disliked != 0) {
+                view.showCannotModifyRatedPostDialog()
+            } else {
+                view.openEditPostUi(postId)
+            }
         } else {
             view.showEditPostFailedDialog()
         }

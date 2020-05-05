@@ -17,6 +17,7 @@ interface ContractDetail {
         fun setBookmarkButton(b: Boolean)
         fun showPopupMenu(v: android.view.View)
         fun showDeletePostDialog()
+        fun showCannotModifyRatedPostDialog()
         fun showDeletePostFailedDialog()
         fun showPostDeletedToast()
         fun finishActivity()
