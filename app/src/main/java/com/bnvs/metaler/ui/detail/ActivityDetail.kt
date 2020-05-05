@@ -289,7 +289,7 @@ class ActivityDetail : AppCompatActivity(), ContractDetail.View {
             .setItems(array) { _, which ->
                 when (array[which]) {
                     "댓글 수정" -> {
-                        presenter.setModifyComment()
+                        presenter.openModifyCommentUi()
                     }
                     "댓글 삭제" -> {
                         presenter.openDeleteComment()

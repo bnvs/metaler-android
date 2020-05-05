@@ -66,7 +66,7 @@ interface ContractDetail {
         fun openCommentMenu(comment: Comment, commentIndex: Int)
         fun openDeleteComment()
         fun deleteComment()
-        fun setModifyComment()
+        fun openModifyCommentUi()
         fun modifyComment(comment: String)
     }
 }

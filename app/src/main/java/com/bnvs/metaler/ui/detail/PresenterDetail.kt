@@ -379,7 +379,7 @@ class PresenterDetail(
         )
     }
 
-    override fun setModifyComment() {
+    override fun openModifyCommentUi() {
         if (userId == tempComment.user_id) {
             view.run {
                 showCommentToModify(tempComment.content)
