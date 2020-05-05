@@ -19,4 +19,12 @@ interface ProfileDataSource {
 
     fun saveUserInfo(user: User)
 
+    fun modifyNickname(
+        nickname: String,
+        onSuccess: () -> Unit,
+        onFailure: () -> Unit
+    )
+
+    fun modifyJob()
+
 }

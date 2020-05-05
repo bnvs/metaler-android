@@ -45,4 +45,33 @@ class ProfileLocalDataSource(context: Context) : ProfileDataSource {
         editor.putString("userInfo", GsonBuilder().create().toJson(user))
         editor.commit()
     }
+
+    override fun modifyNickname(
+        nickname: String,
+        onSuccess: () -> Unit,
+        onFailure: () -> Unit
+    ) {
+        val profile = sharedPreferences.getString("profile", null)
+        val userInfo = sharedPreferences.getString("userInfo", null)
+        if (profile != null && userInfo != null) {
+            val profileData = GsonBuilder().create().fromJson(profile, Profile::class.java)
+            val modifiedProfileData =
+                Profile(nickname, profileData.profile_image_url, profileData.profile_email)
+            editor.putString("profile", GsonBuilder().create().toJson(modifiedProfileData))
+            editor.commit()
+
+            val userInfoData = GsonBuilder().create().fromJson(userInfo, User::class.java)
+            userInfoData.profile_nickname = nickname
+            editor.putString("userInfo", GsonBuilder().create().toJson(userInfoData))
+            editor.commit()
+
+            onSuccess()
+        } else {
+            onFailure()
+        }
+    }
+
+    override fun modifyJob() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 }
