@@ -2,6 +2,7 @@ package com.bnvs.metaler.ui.mypage
 
 import android.content.Context
 import android.util.Log
+import com.bnvs.metaler.data.profile.model.Profile
 import com.bnvs.metaler.data.profile.source.repository.ProfileRepository
 import com.bnvs.metaler.data.user.modification.model.Nickname
 import com.bnvs.metaler.data.user.modification.source.UserModificationRepository
@@ -13,6 +14,7 @@ class PresenterMyPage(
 
     private val profileRepository = ProfileRepository(context)
     private val userModificationRepository = UserModificationRepository()
+    private lateinit var profile: Profile
 
     override fun start() {
         loadProfile()
@@ -21,6 +23,7 @@ class PresenterMyPage(
     override fun loadProfile() {
         profileRepository.getProfile(
             onProfileLoaded = { profile ->
+                this.profile = profile
                 view.showProfile(profile)
             },
             onProfileNotExist = {
@@ -42,9 +45,18 @@ class PresenterMyPage(
             Nickname(nickname),
             onSuccess = {
                 Log.d("닉네임 수정 성공", "닉네임 수정 성공")
+                profileRepository.modifyNickname(
+                    nickname,
+                    onSuccess = {
+                        loadProfile()
+                    },
+                    onFailure = {
+                        view.showLocalNicknameChangeFailedToast()
+                    }
+                )
             },
             onFailure = {
-
+                view.showLocalNicknameChangeFailedToast()
             }
         )
     }

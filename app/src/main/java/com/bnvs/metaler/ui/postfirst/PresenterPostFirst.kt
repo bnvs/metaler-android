@@ -206,6 +206,7 @@ class PresenterPostFirst(
     }
 
     override fun getImageFromAlbum(context: Context, data: Intent) {
+        view.showTransparentLoadingLayer(true)
         this.context = context
         Log.d("getImageFromAlbum", "이미지 앨범에서 가져옴")
         val clipData = data.clipData
@@ -240,6 +241,7 @@ class PresenterPostFirst(
     }
 
     override fun getImageFromCamera(context: Context, data: Intent) {
+        view.showTransparentLoadingLayer(true)
         this.context = context
         deleteCache(context.cacheDir)
         setTempFileName()
@@ -317,10 +319,12 @@ class PresenterPostFirst(
             part,
             onSuccess = { response ->
                 Log.d("uploadImage", "서버에 이미지 업로드 성공")
+                view.showTransparentLoadingLayer(false)
                 addImage(AttachImage(response.attach_id, response.url))
             },
             onFailure = { e ->
                 Log.d("uploadImage", "파일 크기 ${file.length()}Bytes")
+                view.showTransparentLoadingLayer(false)
                 view.showUploadImageFailedToast(NetworkUtil.getErrorMessage(e))
             }
         )

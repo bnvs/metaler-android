@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
+import android.os.Parcelable
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
@@ -34,6 +35,8 @@ class ActivityDetail : AppCompatActivity(), ContractDetail.View {
 
     override lateinit var presenter: ContractDetail.Presenter
     private lateinit var postDetailAdapter: PostDetailAdapter
+
+    private var recyclerViewState: Parcelable? = null
 
     private val postRatingListener = object :
         PostRatingListener {
@@ -70,6 +73,21 @@ class ActivityDetail : AppCompatActivity(), ContractDetail.View {
             start()
         }
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (recyclerViewState != null) {
+            refreshingTransparentLayer.bringToFront()
+            refreshingTransparentLayer.visibility = View.VISIBLE
+            presenter.refreshForModifiedComment()
+        }
+    }
+
+    override fun getRecyclerViewState() {
+        refreshingTransparentLayer.visibility = View.GONE
+        postDetailRv.layoutManager!!.onRestoreInstanceState(recyclerViewState)
+        recyclerViewState = null
     }
 
     override fun initPostDetailAdapter(postDetails: PostDetails) {
@@ -216,6 +234,7 @@ class ActivityDetail : AppCompatActivity(), ContractDetail.View {
 
     private fun initClickListeners() {
         setTitleBarButtons()
+        setRefreshListener()
         setCommentInputListener()
         setCommentRegisterButton()
     }
@@ -230,6 +249,7 @@ class ActivityDetail : AppCompatActivity(), ContractDetail.View {
 
     private fun setTitleBarButtons() {
         backBtn.setOnClickListener { finish() }
+        currentTitleText.setOnClickListener { finish() }
         bookmarkBtn.setOnClickListener {
             if (bookmarkBtn.isChecked) {
                 bookmarkBtn.isChecked = false
@@ -242,6 +262,16 @@ class ActivityDetail : AppCompatActivity(), ContractDetail.View {
         moreBtn.setOnClickListener { v ->
             presenter.openMenu(v)
         }
+    }
+
+    private fun setRefreshListener() {
+        refreshLayout.setOnRefreshListener {
+            presenter.refresh()
+        }
+    }
+
+    override fun setRefreshing(b: Boolean) {
+        refreshLayout.isRefreshing = b
     }
 
     private fun setCommentInputListener() {
@@ -316,6 +346,7 @@ class ActivityDetail : AppCompatActivity(), ContractDetail.View {
     }
 
     override fun openModifyCommentUi(postId: Int, comment: Comment) {
+        recyclerViewState = postDetailRv.layoutManager!!.onSaveInstanceState()
         Intent(this, ActivityModifyComment::class.java).apply {
             putExtra("POST_ID", postId)
             putExtra("COMMENT", comment)
