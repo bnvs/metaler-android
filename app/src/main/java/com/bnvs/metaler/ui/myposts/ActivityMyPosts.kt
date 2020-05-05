@@ -1,6 +1,7 @@
 package com.bnvs.metaler.ui.myposts
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -39,6 +40,8 @@ class ActivityMyPosts : AppCompatActivity(), ContractMyPosts.View {
 
         setCategoryButtons()
 
+        setRVAdapter()
+
         setRVLayoutManager()
 
         setRVScrollListener()
@@ -61,6 +64,10 @@ class ActivityMyPosts : AppCompatActivity(), ContractMyPosts.View {
     }
 
     //리사이클러뷰
+    private fun setRVAdapter() {
+        myPostAdapter = MyPostsAdapter(myPostsItemListener)
+    }
+
     private fun setRVLayoutManager() {
         myPostLayoutManager = LinearLayoutManager(this)
         postsRV.layoutManager = myPostLayoutManager
@@ -88,7 +95,7 @@ class ActivityMyPosts : AppCompatActivity(), ContractMyPosts.View {
     }
 
     override fun showMyPostsList(myPosts: List<MyPost>) {
-        myPostAdapter = MyPostsAdapter(myPostsItemListener)
+        Log.d(TAG,"myPosts? : $myPosts")
         myPostAdapter.addPosts(myPosts)
         myPostAdapter.notifyDataSetChanged()
         postsRV.adapter = myPostAdapter
