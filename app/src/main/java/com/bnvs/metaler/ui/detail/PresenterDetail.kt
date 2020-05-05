@@ -105,7 +105,6 @@ class PresenterDetail(
                     if (refreshingCommentsUntil > 1) {
                         loadMoreComments()
                     } else {
-                        view.setRefreshing(false)
                         view.getRecyclerViewState()
                         isRefreshingForModifiedComment = false
                     }
@@ -129,7 +128,6 @@ class PresenterDetail(
 
     override fun refreshForModifiedComment() {
         isRefreshingForModifiedComment = true
-        view.setRefreshing(true)
         loadPostDetail()
     }
 
@@ -149,7 +147,6 @@ class PresenterDetail(
                         if (refreshingCommentsUntil > page) {
                             loadMoreComments()
                         } else {
-                            view.setRefreshing(false)
                             view.getRecyclerViewState()
                             isRefreshingForModifiedComment = false
                         }

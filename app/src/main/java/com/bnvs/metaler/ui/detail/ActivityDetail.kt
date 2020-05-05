@@ -78,11 +78,14 @@ class ActivityDetail : AppCompatActivity(), ContractDetail.View {
     override fun onResume() {
         super.onResume()
         if (recyclerViewState != null) {
+            refreshingTransparentLayer.bringToFront()
+            refreshingTransparentLayer.visibility = View.VISIBLE
             presenter.refreshForModifiedComment()
         }
     }
 
     override fun getRecyclerViewState() {
+        refreshingTransparentLayer.visibility = View.GONE
         postDetailRv.layoutManager!!.onRestoreInstanceState(recyclerViewState)
         recyclerViewState = null
     }

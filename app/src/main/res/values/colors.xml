@@ -4,7 +4,8 @@
     <color name="colorPrimaryDark">#493c7e</color>
     <color name="colorAccent">#fa6400</color>
 
-
+    <!-- 반투명 색 -->
+    <color name="colorTransparentBlack">#66434343</color>
 
 
     <color name="colorYellow">#fad256</color>
