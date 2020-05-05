@@ -62,7 +62,11 @@ class PresenterDetail(
             onSuccess = { response ->
                 postDetails = response
                 view.run {
-                    setBookmarkButton(response.is_bookmark)
+                    if (response.bookmark_id == 0) {
+                        setBookmarkButton(false)
+                    } else {
+                        setBookmarkButton(true)
+                    }
                     initPostDetailAdapter(response)
                     loadComments()
                     initPostDetailScrollListener()
@@ -154,8 +158,8 @@ class PresenterDetail(
     override fun addBookmark() {
         bookmarksRepository.addBookmark(
             AddBookmarkRequest(postId),
-            onSuccess = {
-                postDetails.is_bookmark = true
+            onSuccess = { response ->
+                postDetails.bookmark_id = response.bookmark_id
                 view.apply {
                     setBookmarkButton(true)
                     showBookmarkAddedToast()
@@ -176,7 +180,7 @@ class PresenterDetail(
         bookmarksRepository.deleteBookmark(
             postId,
             onSuccess = {
-                postDetails.is_bookmark = false
+                postDetails.bookmark_id = 0
                 view.apply {
                     setBookmarkButton(false)
                     showBookmarkDeletedToast()
@@ -226,7 +230,11 @@ class PresenterDetail(
 
     override fun modifyPost() {
         if (userId == postDetails.user_id) {
-            view.openEditPostUi(postId)
+            if (postDetails.liked != 0 || postDetails.disliked != 0) {
+                view.showCannotModifyRatedPostDialog()
+            } else {
+                view.openEditPostUi(postId)
+            }
         } else {
             view.showEditPostFailedDialog()
         }
@@ -371,7 +379,7 @@ class PresenterDetail(
         )
     }
 
-    override fun setModifyComment() {
+    override fun openModifyCommentUi() {
         if (userId == tempComment.user_id) {
             view.run {
                 showCommentToModify(tempComment.content)

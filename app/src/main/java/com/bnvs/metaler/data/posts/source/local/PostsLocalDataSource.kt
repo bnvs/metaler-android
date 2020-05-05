@@ -3,6 +3,8 @@ package com.bnvs.metaler.data.posts.source.local
 import android.content.Context
 import com.bnvs.metaler.data.posts.model.PostsRequest
 import com.bnvs.metaler.data.posts.model.PostsResponse
+import com.bnvs.metaler.data.posts.model.PostsWithContentRequest
+import com.bnvs.metaler.data.posts.model.PostsWithTagRequest
 import com.bnvs.metaler.data.posts.source.PostsDataSource
 
 class PostsLocalDataSource(context: Context) : PostsDataSource{
@@ -13,6 +15,22 @@ class PostsLocalDataSource(context: Context) : PostsDataSource{
 
     override fun getPosts(
         request: PostsRequest,
+        onSuccess: (response: PostsResponse) -> Unit,
+        onFailure: (e: Throwable) -> Unit
+    ) {
+
+    }
+
+    override fun getPostsWithSearchTypeContent(
+        request: PostsWithContentRequest,
+        onSuccess: (response: PostsResponse) -> Unit,
+        onFailure: (e: Throwable) -> Unit
+    ) {
+
+    }
+
+    override fun getPostsWithSearchTypeTag(
+        request: PostsWithTagRequest,
         onSuccess: (response: PostsResponse) -> Unit,
         onFailure: (e: Throwable) -> Unit
     ) {

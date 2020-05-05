@@ -17,7 +17,7 @@ data class PostDetails(
     var disliked: Int,
     val attachs: List<AttachImage>,
     val tags: List<PostTag>,
-    var is_bookmark: Boolean,
+    var bookmark_id: Int,
     var comment_count: Int,
     var rating: Int
 )

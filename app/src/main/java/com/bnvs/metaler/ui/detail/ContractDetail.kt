@@ -17,6 +17,7 @@ interface ContractDetail {
         fun setBookmarkButton(b: Boolean)
         fun showPopupMenu(v: android.view.View)
         fun showDeletePostDialog()
+        fun showCannotModifyRatedPostDialog()
         fun showDeletePostFailedDialog()
         fun showPostDeletedToast()
         fun finishActivity()
@@ -65,7 +66,7 @@ interface ContractDetail {
         fun openCommentMenu(comment: Comment, commentIndex: Int)
         fun openDeleteComment()
         fun deleteComment()
-        fun setModifyComment()
+        fun openModifyCommentUi()
         fun modifyComment(comment: String)
     }
 }

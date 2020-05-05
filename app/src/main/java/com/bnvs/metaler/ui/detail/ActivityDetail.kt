@@ -140,6 +140,10 @@ class ActivityDetail : AppCompatActivity(), ContractDetail.View {
             .show()
     }
 
+    override fun showCannotModifyRatedPostDialog() {
+        makeAlertDialog("가격 평가가 진행된 게시물은 수정할 수 없습니다")
+    }
+
     override fun showDeletePostFailedDialog() {
         makeAlertDialog("타인이 작성한 게시물은 삭제할 수 없습니다")
     }
@@ -285,7 +289,7 @@ class ActivityDetail : AppCompatActivity(), ContractDetail.View {
             .setItems(array) { _, which ->
                 when (array[which]) {
                     "댓글 수정" -> {
-                        presenter.setModifyComment()
+                        presenter.openModifyCommentUi()
                     }
                     "댓글 삭제" -> {
                         presenter.openDeleteComment()
