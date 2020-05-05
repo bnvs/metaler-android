@@ -58,8 +58,11 @@ class ActivityMaterials : AppCompatActivity(),
      * */
     private var tagSearchItemListener: TagSearchItemListener = object :
         TagSearchItemListener {
-        override fun onTagDeleteBtnClick(position: Int) {
-            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        override fun onTagDeleteBtnClick(view: View, position: Int) {
+            tagSearchAdapter.removeTag(position)
+            if (position == 0) {
+                tagRV.visibility = View.GONE
+            }
         }
     }
 
