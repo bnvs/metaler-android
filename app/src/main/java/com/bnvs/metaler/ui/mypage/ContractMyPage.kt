@@ -11,6 +11,8 @@ interface ContractMyPage {
 
         fun showProfileNotExistToast()
 
+        fun showLocalNicknameChangeFailedToast()
+
         fun showJobModifyUi()
 
         fun showMyPostsUi()

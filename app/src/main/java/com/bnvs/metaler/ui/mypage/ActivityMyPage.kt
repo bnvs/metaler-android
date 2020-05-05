@@ -56,6 +56,10 @@ class ActivityMyPage : AppCompatActivity(), ContractMyPage.View {
         makeToast("프로필 데이터를 불러오는데 실패했습니다")
     }
 
+    override fun showLocalNicknameChangeFailedToast() {
+        makeToast("닉네임 수정 실패")
+    }
+
     override fun showJobModifyUi() {
         Intent(this@ActivityMyPage, ActivityJobModify::class.java).also {
             startActivity(it)
