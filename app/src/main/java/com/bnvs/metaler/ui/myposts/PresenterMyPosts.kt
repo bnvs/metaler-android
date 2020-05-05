@@ -41,9 +41,10 @@ class PresenterMyPosts(
         myPostsRepository.getMyPosts(
             myPostsRequest,
             onSuccess = { response: MyPosts ->
-                if (response.count == 0) {
+                if (response.posts.isEmpty()) {
                     view.showError404()
                 } else
+                    view.hideError404()
                     view.showMyPostsList(response.posts)
             },
             onFailure = { e ->
