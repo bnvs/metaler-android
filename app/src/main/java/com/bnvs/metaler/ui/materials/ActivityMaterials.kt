@@ -259,7 +259,7 @@ class ActivityMaterials : AppCompatActivity(),
     }
 
     override fun clearSearchTagBar() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        tagInputDeleteBtn.setOnClickListener { tagInput.text.clear() }
     }
 
     override fun deleteSearchTag() {
@@ -270,12 +270,13 @@ class ActivityMaterials : AppCompatActivity(),
         setTitleBarButtons()
         setTapBarButtons()
         setTagSearchButtons()
+        clearSearchTagBar()
     }
 
     override fun showSearchTags() {
         Log.d(TAG,"태그입력값? : ${tagInput.text}")
         var inputTag : String = tagInput.text.toString()
-        presenter.addSearchTag(presenter.getCategoryId() ,"store",inputTag) //검색 내용에 맞게 새로운 데이터를 가져오기 위한 요청값 프레젠터에 전달
+        presenter.addSearchTag(presenter.getCategoryId() ,"tag",inputTag) //검색 내용에 맞게 새로운 데이터를 가져오기 위한 요청값 프레젠터에 전달
         tagSearchAdapter.addTags(inputTag)
         tagSearchAdapter.notifyDataSetChanged()
         tagRV.setHasFixedSize(true)
