@@ -24,7 +24,7 @@ class PresenterDetail(
 ) : ContractDetail.Presenter {
 
     private val postDetailsRepository = PostDetailsRepository()
-    private val commentsRepository = CommentsRepository()
+    private val commentsRepository = CommentsRepository(context)
     private val bookmarksRepository = BookmarksRepository()
     private val profileRepository = ProfileRepository(context)
 
@@ -105,7 +105,10 @@ class PresenterDetail(
                     if (refreshingCommentsUntil > 1) {
                         loadMoreComments()
                     } else {
-                        view.getRecyclerViewState()
+                        view.run {
+                            setTransparentRefreshingLayer(false)
+                            getRecyclerViewState()
+                        }
                         isRefreshingForModifiedComment = false
                     }
                 }
@@ -127,8 +130,12 @@ class PresenterDetail(
     }
 
     override fun refreshForModifiedComment() {
-        isRefreshingForModifiedComment = true
-        loadPostDetail()
+        if (commentsRepository.isCommentModified()) {
+            commentsRepository.saveIsCommentModified(false)
+            isRefreshingForModifiedComment = true
+            view.setTransparentRefreshingLayer(true)
+            loadPostDetail()
+        }
     }
 
     override fun loadMoreComments() {
@@ -147,7 +154,10 @@ class PresenterDetail(
                         if (refreshingCommentsUntil > page) {
                             loadMoreComments()
                         } else {
-                            view.getRecyclerViewState()
+                            view.run {
+                                setTransparentRefreshingLayer(false)
+                                getRecyclerViewState()
+                            }
                             isRefreshingForModifiedComment = false
                         }
                     }

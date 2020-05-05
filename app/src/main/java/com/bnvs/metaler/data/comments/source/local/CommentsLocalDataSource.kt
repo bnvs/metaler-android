@@ -48,4 +48,13 @@ class CommentsLocalDataSource(context: Context) : CommentsDataSource {
     ) {
 
     }
+
+    override fun saveIsCommentModified(isCommentModified: Boolean) {
+        editor.putBoolean("isCommentModified", isCommentModified)
+        editor.commit()
+    }
+
+    override fun isCommentModified(): Boolean {
+        return sharedPreferences.getBoolean("isCommentModified", false)
+    }
 }
