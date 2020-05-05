@@ -2,6 +2,8 @@ package com.bnvs.metaler.data.posts.source.remote
 
 import com.bnvs.metaler.data.posts.model.PostsRequest
 import com.bnvs.metaler.data.posts.model.PostsResponse
+import com.bnvs.metaler.data.posts.model.PostsWithContentRequest
+import com.bnvs.metaler.data.posts.model.PostsWithTagRequest
 import com.bnvs.metaler.data.posts.source.PostsDataSource
 import com.bnvs.metaler.network.RetrofitClient
 import retrofit2.Call
@@ -35,18 +37,79 @@ object PostsRemoteDataSource : PostsDataSource {
         })
     }
 
+    override fun getPostsWithSearchTypeContent(
+        request: PostsWithContentRequest,
+        onSuccess: (response: PostsResponse) -> Unit,
+        onFailure: (e: Throwable) -> Unit
+    ) {
+        retrofitClient.getPosts(getContentOptions(request))
+            .enqueue(object : Callback<PostsResponse> {
+                override fun onResponse(
+                    call: Call<PostsResponse>,
+                    response: Response<PostsResponse>
+                ) {
+                    val body = response.body()
+                    if (body != null && response.isSuccessful) {
+                        onSuccess(body)
+                    } else {
+                        onFailure(HttpException(response))
+                    }
+                }
+
+                override fun onFailure(call: Call<PostsResponse>, t: Throwable) {
+                    onFailure(t)
+                }
+
+            })
+    }
+
+    override fun getPostsWithSearchTypeTag(
+        request: PostsWithTagRequest,
+        onSuccess: (response: PostsResponse) -> Unit,
+        onFailure: (e: Throwable) -> Unit
+    ) {
+        retrofitClient.getPosts(geTagOptions(request)).enqueue(object : Callback<PostsResponse> {
+            override fun onResponse(call: Call<PostsResponse>, response: Response<PostsResponse>) {
+                val body = response.body()
+                if (body != null && response.isSuccessful) {
+                    onSuccess(body)
+                } else {
+                    onFailure(HttpException(response))
+                }
+            }
+
+            override fun onFailure(call: Call<PostsResponse>, t: Throwable) {
+                onFailure(t)
+            }
+
+        })
+    }
+
     private fun getOptions(request: PostsRequest): MutableMap<String, Any> {
-        return mutableMapOf<String, Any>(
+        return mutableMapOf(
             "category_id" to request.category_id,
             "page" to request.page,
             "limit" to request.limit
-        ).apply {
-            if (request.search_type != null && request.search_type.isNotEmpty()) {
-                put("search_type", request.search_type)
-            }
-            if (request.search_word != null && request.search_word.isNotEmpty()) {
-                put("search_word", request.search_word)
-            }
-        }
+        )
+    }
+
+    private fun getContentOptions(request: PostsWithContentRequest): MutableMap<String, Any> {
+        return mutableMapOf(
+            "category_id" to request.category_id,
+            "page" to request.page,
+            "limit" to request.limit,
+            "search_type" to request.search_type,
+            "search_word" to request.search_word
+        )
+    }
+
+    private fun geTagOptions(request: PostsWithTagRequest): MutableMap<String, Any> {
+        return mutableMapOf(
+            "category_id" to request.category_id,
+            "page" to request.page,
+            "limit" to request.limit,
+            "search_type" to request.search_type,
+            "search_word" to request.search_word
+        )
     }
 }
