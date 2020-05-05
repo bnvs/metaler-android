@@ -40,6 +40,8 @@ class PresenterDetail(
     private var isNext = false
 
     private var isRefreshing = false
+    private var isRefreshingForModifiedComment = false
+    private var refreshingCommentsUntil = 0
 
     override fun start() {
         getUserInfo()
@@ -99,6 +101,15 @@ class PresenterDetail(
                     view.setRefreshing(false)
                     isRefreshing = false
                 }
+                if (isRefreshingForModifiedComment) {
+                    if (refreshingCommentsUntil > 1) {
+                        loadMoreComments()
+                    } else {
+                        view.setRefreshing(false)
+                        view.getRecyclerViewState()
+                        isRefreshingForModifiedComment = false
+                    }
+                }
             },
             onFailure = { e ->
                 view.apply {
@@ -116,6 +127,12 @@ class PresenterDetail(
         loadPostDetail()
     }
 
+    override fun refreshForModifiedComment() {
+        isRefreshingForModifiedComment = true
+        view.setRefreshing(true)
+        loadPostDetail()
+    }
+
     override fun loadMoreComments() {
         view.setCommentsLoading(true)
         val handler = android.os.Handler()
@@ -128,6 +145,15 @@ class PresenterDetail(
                     view.addComments(response.comments)
                     commentCount = response.comment_count
                     isNext = response.is_next
+                    if (isRefreshingForModifiedComment) {
+                        if (refreshingCommentsUntil > page) {
+                            loadMoreComments()
+                        } else {
+                            view.setRefreshing(false)
+                            view.getRecyclerViewState()
+                            isRefreshingForModifiedComment = false
+                        }
+                    }
                 },
                 onFailure = { e ->
                     view.apply {
@@ -392,6 +418,7 @@ class PresenterDetail(
 
     override fun openModifyComment() {
         if (userId == tempComment.user_id) {
+            refreshingCommentsUntil = page
             view.openModifyCommentUi(postId, tempComment)
         } else {
             view.showEditCommentFailedDialog()

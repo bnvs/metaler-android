@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
+import android.os.Parcelable
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
@@ -34,6 +35,8 @@ class ActivityDetail : AppCompatActivity(), ContractDetail.View {
 
     override lateinit var presenter: ContractDetail.Presenter
     private lateinit var postDetailAdapter: PostDetailAdapter
+
+    private var recyclerViewState: Parcelable? = null
 
     private val postRatingListener = object :
         PostRatingListener {
@@ -70,6 +73,17 @@ class ActivityDetail : AppCompatActivity(), ContractDetail.View {
             start()
         }
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (recyclerViewState != null) {
+            presenter.refreshForModifiedComment()
+        }
+    }
+
+    override fun getRecyclerViewState() {
+        postDetailRv.layoutManager!!.onRestoreInstanceState(recyclerViewState)
     }
 
     override fun initPostDetailAdapter(postDetails: PostDetails) {
@@ -327,6 +341,7 @@ class ActivityDetail : AppCompatActivity(), ContractDetail.View {
     }
 
     override fun openModifyCommentUi(postId: Int, comment: Comment) {
+        recyclerViewState = postDetailRv.layoutManager!!.onSaveInstanceState()
         Intent(this, ActivityModifyComment::class.java).apply {
             putExtra("POST_ID", postId)
             putExtra("COMMENT", comment)
