@@ -16,6 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".ui.modifycomment.ActivityModifyComment"></activity>
 
         <meta-data
             android:name="com.kakao.sdk.AppKey"
@@ -29,10 +30,10 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".ui.home.ActivityHome"></activity>
+        <activity android:name=".ui.home.ActivityHome" />
         <activity android:name=".ui.materials.ActivityMaterials" />
         <activity android:name=".ui.manufactures.ActivityManufactures" />
-        <activity android:name="com.bnvs.metaler.ui.bookmarks.ActivityBookmarks" />
+        <activity android:name=".ui.bookmarks.ActivityBookmarks" />
         <activity android:name=".ui.mypage.ActivityMyPage" />
         <activity android:name=".ui.search.ActivitySearch" />
         <activity android:name=".ui.detail.ActivityDetail" />
