@@ -64,6 +64,10 @@ class ActivityModifyComment : AppCompatActivity(), ContractModifyComment.View {
         commentInput.setText(comment)
     }
 
+    override fun setCurrentTitleText(text: String) {
+        currentTitleText.text = text
+    }
+
     override fun hideSoftInput() {
         val inputMethodManager =
             getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -84,7 +88,7 @@ class ActivityModifyComment : AppCompatActivity(), ContractModifyComment.View {
     }
 
     private fun setTitleBarButtons() {
-
+        backBtn.setOnClickListener { finish() }
     }
 
     private fun setCommentInputListener() {

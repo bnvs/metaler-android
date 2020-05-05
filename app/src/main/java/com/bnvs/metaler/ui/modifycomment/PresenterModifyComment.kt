@@ -31,6 +31,7 @@ class PresenterModifyComment(
                 view.run {
                     showModifyCommentSuccessToast()
                     showModifiedComment(comment)
+                    setCurrentTitleText("돌아가기")
                     hideSoftInput()
                 }
             },

@@ -10,6 +10,7 @@ interface ContractModifyComment {
         fun showModifiedComment(comment: String)
         fun showModifyCommentSuccessToast()
         fun setCommentToModify(comment: String)
+        fun setCurrentTitleText(text: String)
         fun hideSoftInput()
         fun showSoftInput()
         fun showErrorToast(errorMessage: String)
