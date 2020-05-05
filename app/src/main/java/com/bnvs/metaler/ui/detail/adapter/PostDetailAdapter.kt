@@ -161,7 +161,13 @@ class PostDetailAdapter(
                 0 -> TYPE_CONTENT
                 1 -> TYPE_PRICE
                 2 -> TYPE_COMMENT_COUNT
-                postDetails.comment_count + 2 -> TYPE_COMMENT_BOTTOM
+                postDetails.comment_count + 2 -> {
+                    if (comments[position - 3] == null) {
+                        TYPE_LOADING_COMMENT
+                    } else {
+                        TYPE_COMMENT_BOTTOM
+                    }
+                }
                 else -> {
                     if (comments[position - 3] == null) {
                         TYPE_LOADING_COMMENT
