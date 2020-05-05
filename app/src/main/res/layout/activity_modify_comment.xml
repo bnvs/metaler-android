@@ -56,77 +56,86 @@
         </androidx.cardview.widget.CardView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.cardview.widget.CardView
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:cardBackgroundColor="@color/colorWhite"
-        app:cardCornerRadius="15dp"
-        app:cardElevation="2dp"
+        app:layout_constraintBottom_toTopOf="@id/commentInputCard"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/titleBarCard">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingVertical="20dp">
+            android:layout_height="0dp"
+            app:cardBackgroundColor="@color/colorWhite"
+            app:cardCornerRadius="15dp"
+            app:cardElevation="2dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/titleBarCard">
 
-            <ImageView
-                android:id="@+id/userImg"
-                style="@style/smallProfileIcon"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="5dp"
-                android:adjustViewBounds="true"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/userName"
-                android:layout_width="wrap_content"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:text="작성자이름"
-                android:textColor="@color/colorGrey"
-                android:textSize="10sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toEndOf="@id/userImg"
-                app:layout_constraintTop_toTopOf="@id/userImg" />
+                android:paddingVertical="20dp">
 
-            <TextView
-                android:id="@+id/date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="2020.10.10"
-                android:textColor="@color/colorGrey"
-                android:textSize="10sp"
-                app:layout_constraintStart_toStartOf="@id/userName"
-                app:layout_constraintTop_toBottomOf="@id/userName" />
+                <ImageView
+                    android:id="@+id/userImg"
+                    style="@style/smallProfileIcon"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="5dp"
+                    android:adjustViewBounds="true"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/commentContent"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="7dp"
-                android:layout_marginEnd="20dp"
-                android:textColor="@color/colorDarkGrey"
-                android:textSize="14sp"
-                app:layout_constraintLeft_toLeftOf="@id/userName"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/date"
-                tools:text="댓글을 달아볼까요????" />
+                <TextView
+                    android:id="@+id/userName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="작성자이름"
+                    android:textColor="@color/colorGrey"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toEndOf="@id/userImg"
+                    app:layout_constraintTop_toTopOf="@id/userImg" />
 
-            <ImageView
-                android:id="@+id/moreBtn"
-                android:layout_width="27dp"
-                android:layout_height="27dp"
-                android:src="@drawable/ic_nav_more_x3"
-                android:visibility="gone"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/userImg" />
+                <TextView
+                    android:id="@+id/date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2020.10.10"
+                    android:textColor="@color/colorGrey"
+                    android:textSize="10sp"
+                    app:layout_constraintStart_toStartOf="@id/userName"
+                    app:layout_constraintTop_toBottomOf="@id/userName" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                <TextView
+                    android:id="@+id/commentContent"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="7dp"
+                    android:layout_marginEnd="20dp"
+                    android:textColor="@color/colorDarkGrey"
+                    android:textSize="14sp"
+                    app:layout_constraintLeft_toLeftOf="@id/userName"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/date"
+                    tools:text="댓글을 달아볼까요????" />
 
-    </androidx.cardview.widget.CardView>
+                <ImageView
+                    android:id="@+id/moreBtn"
+                    android:layout_width="27dp"
+                    android:layout_height="27dp"
+                    android:src="@drawable/ic_nav_more_x3"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/userImg" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+    </ScrollView>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/commentInputCard"

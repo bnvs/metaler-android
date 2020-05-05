@@ -34,13 +34,12 @@ interface ContractDetail {
         fun showAlreadyRatedDialog()
         fun showErrorToast(errorMessage: String)
         fun clearCommentInput()
-        fun showSoftInput()
         fun hideSoftInput()
         fun scrollToEnd()
         fun showCommentMenuDialog()
         fun showDeleteCommentDialog()
         fun showDeleteCommentFailedDialog()
-        fun showCommentToModify(comment: String)
+        fun openModifyCommentUi(postId: Int, comment: Comment)
         fun showEditCommentFailedDialog()
     }
 
@@ -66,7 +65,6 @@ interface ContractDetail {
         fun openCommentMenu(comment: Comment, commentIndex: Int)
         fun openDeleteComment()
         fun deleteComment()
-        fun openModifyCommentUi()
-        fun modifyComment(comment: String)
+        fun openModifyComment()
     }
 }

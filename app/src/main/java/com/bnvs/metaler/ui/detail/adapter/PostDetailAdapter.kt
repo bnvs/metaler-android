@@ -81,13 +81,13 @@ class PostDetailAdapter(
         notifyDataSetChanged()
     }
 
-    fun addBookmark() {
-        this.postDetails.is_bookmark = true
+    fun addBookmark(bookmarkId: Int) {
+        this.postDetails.bookmark_id = bookmarkId
         notifyDataSetChanged()
     }
 
     fun deleteBookmark() {
-        this.postDetails.is_bookmark = false
+        this.postDetails.bookmark_id = 0
         notifyDataSetChanged()
     }
 

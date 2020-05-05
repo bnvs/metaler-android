@@ -22,6 +22,7 @@ import com.bnvs.metaler.data.postdetails.model.PostDetails
 import com.bnvs.metaler.ui.detail.adapter.PostDetailAdapter
 import com.bnvs.metaler.ui.detail.listener.CommentMenuListener
 import com.bnvs.metaler.ui.detail.listener.PostRatingListener
+import com.bnvs.metaler.ui.modifycomment.ActivityModifyComment
 import com.bnvs.metaler.ui.postfirst.ActivityPostFirst
 import kotlinx.android.synthetic.main.activity_detail.*
 
@@ -289,7 +290,7 @@ class ActivityDetail : AppCompatActivity(), ContractDetail.View {
             .setItems(array) { _, which ->
                 when (array[which]) {
                     "댓글 수정" -> {
-                        presenter.openModifyCommentUi()
+                        presenter.openModifyComment()
                     }
                     "댓글 삭제" -> {
                         presenter.openDeleteComment()
@@ -314,18 +315,16 @@ class ActivityDetail : AppCompatActivity(), ContractDetail.View {
         makeAlertDialog("타인이 작성한 댓글은 삭제할 수 없습니다")
     }
 
-    override fun showCommentToModify(comment: String) {
-        commentInput.setText(comment)
+    override fun openModifyCommentUi(postId: Int, comment: Comment) {
+        Intent(this, ActivityModifyComment::class.java).apply {
+            putExtra("POST_ID", postId)
+            putExtra("COMMENT", comment)
+            startActivity(this)
+        }
     }
 
     override fun showEditCommentFailedDialog() {
         makeAlertDialog("타인이 작성한 댓글은 수정할 수 없습니다")
-    }
-
-    override fun showSoftInput() {
-        val inputMethodManager =
-            getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        inputMethodManager.showSoftInput(commentInput, 0)
     }
 
     override fun hideSoftInput() {
