@@ -33,6 +33,7 @@ interface ContractDetail {
         fun cancelDislikePost()
         fun showAlreadyRatedDialog()
         fun showErrorToast(errorMessage: String)
+        fun setRefreshing(b: Boolean)
         fun clearCommentInput()
         fun hideSoftInput()
         fun scrollToEnd()
@@ -46,6 +47,7 @@ interface ContractDetail {
     interface Presenter : BasePresenter {
         fun loadPostDetail()
         fun loadComments()
+        fun refresh()
         fun loadMoreComments()
         fun hasNextPage(): Boolean
         fun setHasNextPage(b: Boolean)

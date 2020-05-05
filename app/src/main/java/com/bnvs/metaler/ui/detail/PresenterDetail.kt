@@ -39,6 +39,8 @@ class PresenterDetail(
     private var commentCount = 0
     private var isNext = false
 
+    private var isRefreshing = false
+
     override fun start() {
         getUserInfo()
         loadPostDetail()
@@ -93,6 +95,10 @@ class PresenterDetail(
                 view.showComments(response.comments)
                 commentCount = response.comment_count
                 isNext = response.is_next
+                if (isRefreshing) {
+                    view.setRefreshing(false)
+                    isRefreshing = false
+                }
             },
             onFailure = { e ->
                 view.apply {
@@ -103,6 +109,11 @@ class PresenterDetail(
                 }
             }
         )
+    }
+
+    override fun refresh() {
+        isRefreshing = true
+        loadPostDetail()
     }
 
     override fun loadMoreComments() {

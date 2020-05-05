@@ -216,6 +216,7 @@ class ActivityDetail : AppCompatActivity(), ContractDetail.View {
 
     private fun initClickListeners() {
         setTitleBarButtons()
+        setRefreshListener()
         setCommentInputListener()
         setCommentRegisterButton()
     }
@@ -242,6 +243,16 @@ class ActivityDetail : AppCompatActivity(), ContractDetail.View {
         moreBtn.setOnClickListener { v ->
             presenter.openMenu(v)
         }
+    }
+
+    private fun setRefreshListener() {
+        refreshLayout.setOnRefreshListener {
+            presenter.refresh()
+        }
+    }
+
+    override fun setRefreshing(b: Boolean) {
+        refreshLayout.isRefreshing = b
     }
 
     private fun setCommentInputListener() {
