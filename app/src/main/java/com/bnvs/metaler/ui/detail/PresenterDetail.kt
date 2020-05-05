@@ -379,33 +379,12 @@ class PresenterDetail(
         )
     }
 
-    override fun openModifyCommentUi() {
+    override fun openModifyComment() {
         if (userId == tempComment.user_id) {
-            view.run {
-                showCommentToModify(tempComment.content)
-                showSoftInput()
-            }
+            view.openModifyCommentUi(postId, tempComment)
         } else {
             view.showEditCommentFailedDialog()
         }
     }
 
-    override fun modifyComment(comment: String) {
-        commentsRepository.editComment(
-            postId,
-            tempComment.comment_id,
-            AddEditCommentRequest(comment),
-            onSuccess = {
-
-            },
-            onFailure = { e ->
-                view.apply {
-                    showErrorToast(
-                        "댓글 수정에 실패했습니다" +
-                                "\n ${NetworkUtil.getErrorMessage(e)}"
-                    )
-                }
-            }
-        )
-    }
 }
