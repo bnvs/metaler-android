@@ -60,7 +60,7 @@ interface RetrofitInterface {
     fun login(@Body request: LoginRequest): Call<LoginResponse>
 
     // 로그아웃
-    @GET("/users/logout")
+    @POST("/users/logout")
     fun logout(): Call<ResponseBody>
 
     /*** [1-2. 회원정보 수정] ***/
