@@ -30,7 +30,6 @@ import retrofit2.http.*
  * 반환되는 값은 Call<객체타입> 형태로 작성
  *
  *          <목차> - ctrl + F 로 검색하세요
- *          0. 이용약관
  *          1. 유저
  *              1-1. 인증관련
  *              1-2. 회원정보수정
@@ -45,11 +44,6 @@ import retrofit2.http.*
  * */
 
 interface RetrofitInterface {
-
-    /*** [0. 이용약관] ***/
-    // 이용약관 확인
-    @GET("/users/terms")
-    fun checkTerms(): Call<ResponseBody>
 
     /*** [1. 유저] ***/
     /*** [1-1. 인증관련] ***/
