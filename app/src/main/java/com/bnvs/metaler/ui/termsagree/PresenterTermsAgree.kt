@@ -25,6 +25,9 @@ class PresenterTermsAgree(
             if (result["fourthTerm"] == true) {
                 addUserRequest.push_allowed = 1
                 view.showJobInputUi(addUserRequest)
+            } else {
+                addUserRequest.push_allowed = 0
+                view.showJobInputUi(addUserRequest)
             }
         }else {
             view.showEssentialAgreeNotCheckedDialog()

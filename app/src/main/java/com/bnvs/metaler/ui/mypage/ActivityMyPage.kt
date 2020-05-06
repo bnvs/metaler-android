@@ -130,9 +130,9 @@ class ActivityMyPage : AppCompatActivity(), ContractMyPage.View {
     }
 
     override fun openLoginActivity() {
-        Intent(this, ActivityLogin::class.java).apply {
-            flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            startActivity(this)
+        finishAffinity()
+        Intent(this, ActivityLogin::class.java).also {
+            startActivity(it)
         }
     }
 
