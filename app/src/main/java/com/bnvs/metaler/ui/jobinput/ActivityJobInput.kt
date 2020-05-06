@@ -115,7 +115,7 @@ class ActivityJobInput : AppCompatActivity(), ContractJobInput.View {
         Intent(this, ActivityHome::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK
             flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
-        }.also(this::startActivity)
+        }.also { startActivity(it) }
         finish()
     }
 
