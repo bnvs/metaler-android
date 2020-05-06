@@ -14,5 +14,10 @@ class UserDeactivationRepository : UserDeactivationDataSource {
         userRemoteDataSource.deleteUser(onSuccess, onFailure)
     }
 
-    override fun logout() {}
+    override fun logout(
+        onSuccess: () -> Unit,
+        onFailure: (e: Throwable) -> Unit
+    ) {
+        userRemoteDataSource.logout(onSuccess, onFailure)
+    }
 }

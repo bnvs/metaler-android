@@ -35,5 +35,25 @@ object UserDeactivationRemoteDataSource : UserDeactivationDataSource {
         })
     }
 
-    override fun logout() {}
+    override fun logout(
+        onSuccess: () -> Unit,
+        onFailure: (e: Throwable) -> Unit
+    ) {
+        retrofitClient.logout().enqueue(object : Callback<okhttp3.ResponseBody> {
+            override fun onResponse(
+                call: Call<okhttp3.ResponseBody>,
+                response: Response<okhttp3.ResponseBody>
+            ) {
+                if (response.isSuccessful) {
+                    onSuccess()
+                } else {
+                    onFailure(HttpException(response))
+                }
+            }
+
+            override fun onFailure(call: Call<okhttp3.ResponseBody>, t: Throwable) {
+                onFailure(t)
+            }
+        })
+    }
 }

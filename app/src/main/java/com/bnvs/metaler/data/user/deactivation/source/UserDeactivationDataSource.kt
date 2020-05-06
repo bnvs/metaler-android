@@ -9,6 +9,9 @@ interface UserDeactivationDataSource {
         onFailure: (e: Throwable) -> Unit
     )
 
-    fun logout()
+    fun logout(
+        onSuccess: () -> Unit,
+        onFailure: (e: Throwable) -> Unit
+    )
 
 }
