@@ -16,7 +16,6 @@ import com.bnvs.metaler.data.postdetails.model.PostDetails
 import com.bnvs.metaler.data.postdetails.model.RatingRequest
 import com.bnvs.metaler.data.posts.model.PostsResponse
 import com.bnvs.metaler.data.user.certification.model.*
-import com.bnvs.metaler.data.user.deactivation.model.DeleteUserResponse
 import com.bnvs.metaler.data.user.modification.model.Job
 import com.bnvs.metaler.data.user.modification.model.Jobs
 import com.bnvs.metaler.data.user.modification.model.Nickname
@@ -83,7 +82,7 @@ interface RetrofitInterface {
 
     // 회원탈퇴
     @DELETE("/users")
-    fun deleteUser(): Call<DeleteUserResponse>
+    fun deleteUser(): Call<ResponseBody>
 
 
     /*** [2. 게시글] ***/
