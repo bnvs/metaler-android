@@ -1,16 +1,19 @@
 package com.bnvs.metaler.data.comments.source.repository
 
+import android.content.Context
 import com.bnvs.metaler.data.comments.model.AddCommentResponse
 import com.bnvs.metaler.data.comments.model.AddEditCommentRequest
 import com.bnvs.metaler.data.comments.model.Comments
 import com.bnvs.metaler.data.comments.model.CommentsRequest
 import com.bnvs.metaler.data.comments.source.CommentsDataSource
+import com.bnvs.metaler.data.comments.source.local.CommentsLocalDataSource
 import com.bnvs.metaler.data.comments.source.remote.CommentsRemoteDataSource
 
-class CommentsRepository :
+class CommentsRepository(context: Context) :
     CommentsDataSource {
 
     private val commentsRemoteDataSource = CommentsRemoteDataSource
+    private val commentsLocalDataSource = CommentsLocalDataSource(context)
 
     override fun getComments(
         postId: Int,
@@ -47,5 +50,13 @@ class CommentsRepository :
         onFailure: (e: Throwable) -> Unit
     ) {
         commentsRemoteDataSource.deleteComment(postId, commentId, onSuccess, onFailure)
+    }
+
+    override fun saveIsCommentModified(isCommentModified: Boolean) {
+        commentsLocalDataSource.saveIsCommentModified(isCommentModified)
+    }
+
+    override fun isCommentModified(): Boolean {
+        return commentsLocalDataSource.isCommentModified()
     }
 }

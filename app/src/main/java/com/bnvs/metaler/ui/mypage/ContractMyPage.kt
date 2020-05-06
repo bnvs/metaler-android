@@ -25,20 +25,25 @@ interface ContractMyPage {
 
         fun showWithdrawalDialog()
 
-        fun showSuccessDialog()
+        fun openLoginActivity()
 
+        fun showLogoutSuccessToast()
+
+        fun showWithdrawalSuccessToast()
+
+        fun showInvalidWithdrawalConfirmInputToast()
+
+        fun showErrorToast(errorMessage: String)
     }
 
     interface Presenter : BasePresenter, TapBarContract.Presenter {
         fun loadProfile()
 
-        fun modifyJob()
-
         fun modifyNickName(nickname: String)
 
         fun logout()
 
-        fun withdrawal()
+        fun withdrawal(confirmInput: String)
 
         fun openMyPosts()
 
@@ -48,10 +53,10 @@ interface ContractMyPage {
 
         fun openLogout()
 
-        fun openTerms()
-
         fun openWithdrawal()
 
+        fun deleteTokens()
 
+        fun openTerms()
     }
 }

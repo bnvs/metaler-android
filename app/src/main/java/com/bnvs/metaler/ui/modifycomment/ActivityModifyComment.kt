@@ -31,7 +31,7 @@ class ActivityModifyComment : AppCompatActivity(), ContractModifyComment.View {
         }
         val comment = intent.getSerializableExtra("COMMENT") as Comment
 
-        presenter = PresenterModifyComment(postId, comment, this)
+        presenter = PresenterModifyComment(postId, comment, this, this)
 
         initClickListeners()
         presenter.run {

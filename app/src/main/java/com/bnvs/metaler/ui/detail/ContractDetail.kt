@@ -8,6 +8,7 @@ import com.bnvs.metaler.data.postdetails.model.PostDetails
 interface ContractDetail {
     interface View : BaseView<Presenter> {
         fun getRecyclerViewState()
+        fun setTransparentRefreshingLayer(b: Boolean)
         fun initPostDetailAdapter(postDetails: PostDetails)
         fun initPostDetailScrollListener()
         fun showComments(comments: List<Comment>)

@@ -1,8 +1,8 @@
 package com.bnvs.metaler.data.user.deactivation.source.remote
 
-import com.bnvs.metaler.data.user.deactivation.model.DeleteUserResponse
 import com.bnvs.metaler.data.user.deactivation.source.UserDeactivationDataSource
 import com.bnvs.metaler.network.RetrofitClient
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.HttpException
@@ -13,27 +13,46 @@ object UserDeactivationRemoteDataSource : UserDeactivationDataSource {
     private val retrofitClient = RetrofitClient.client
 
     override fun deleteUser(
-        onSuccess: (response: DeleteUserResponse) -> Unit,
+        onSuccess: () -> Unit,
         onFailure: (e: Throwable) -> Unit
     ) {
-        retrofitClient.deleteUser().enqueue(object : Callback<DeleteUserResponse> {
+        retrofitClient.deleteUser().enqueue(object : Callback<ResponseBody> {
             override fun onResponse(
-                call: Call<DeleteUserResponse>,
-                response: Response<DeleteUserResponse>
+                call: Call<ResponseBody>,
+                response: Response<ResponseBody>
             ) {
-                val body = response.body()
-                if (body != null && response.isSuccessful) {
-                    onSuccess(body)
+                if (response.isSuccessful) {
+                    onSuccess()
                 } else {
                     onFailure(HttpException(response))
                 }
             }
 
-            override fun onFailure(call: Call<DeleteUserResponse>, t: Throwable) {
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                 onFailure(t)
             }
         })
     }
 
-    override fun logout() {}
+    override fun logout(
+        onSuccess: () -> Unit,
+        onFailure: (e: Throwable) -> Unit
+    ) {
+        retrofitClient.logout().enqueue(object : Callback<okhttp3.ResponseBody> {
+            override fun onResponse(
+                call: Call<okhttp3.ResponseBody>,
+                response: Response<okhttp3.ResponseBody>
+            ) {
+                if (response.isSuccessful) {
+                    onSuccess()
+                } else {
+                    onFailure(HttpException(response))
+                }
+            }
+
+            override fun onFailure(call: Call<okhttp3.ResponseBody>, t: Throwable) {
+                onFailure(t)
+            }
+        })
+    }
 }

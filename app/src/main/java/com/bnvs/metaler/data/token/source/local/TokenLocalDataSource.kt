@@ -42,4 +42,8 @@ class TokenLocalDataSource(context: Context) : TokenDataSource {
         editor.putString("access_token", token.access_token)
         editor.commit()
     }
+
+    override fun deleteTokens() {
+        editor.clear().commit()
+    }
 }
