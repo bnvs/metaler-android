@@ -31,4 +31,8 @@ class TokenRepository(context: Context) : TokenDataSource {
     override fun saveAccessToken(token: AccessToken) {
         tokenLocalDataSource.saveAccessToken(token)
     }
+
+    override fun deleteTokens() {
+        tokenLocalDataSource.deleteTokens()
+    }
 }

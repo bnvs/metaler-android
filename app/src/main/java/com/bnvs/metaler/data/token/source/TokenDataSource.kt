@@ -19,4 +19,6 @@ interface TokenDataSource {
 
     fun saveAccessToken(token: AccessToken)
 
+    fun deleteTokens()
+
 }
