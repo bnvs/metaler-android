@@ -1,6 +1,5 @@
 package com.bnvs.metaler.ui.detail.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -95,7 +94,6 @@ class PostDetailAdapter(
         if (b) {
             android.os.Handler().post {
                 this.comments.add(null)
-                Log.d("setCommentsLoadingView : asdfasdfasdf", comments.toString())
                 notifyItemInserted(comments.size + 2)
             }
         } else {
