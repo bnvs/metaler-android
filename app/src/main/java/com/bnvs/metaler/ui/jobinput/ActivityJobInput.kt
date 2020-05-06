@@ -112,11 +112,10 @@ class ActivityJobInput : AppCompatActivity(), ContractJobInput.View {
     }
 
     override fun showHomeUi() {
-        Intent(this, ActivityHome::class.java).apply {
-            flags = Intent.FLAG_ACTIVITY_NEW_TASK
-            flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
-        }.also { startActivity(it) }
-        finish()
+        finishAffinity()
+        Intent(this, ActivityHome::class.java).also {
+            startActivity(it)
+        }
     }
 
     // 클릭리스너 초기화
