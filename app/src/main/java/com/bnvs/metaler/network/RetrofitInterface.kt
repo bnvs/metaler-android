@@ -19,6 +19,7 @@ import com.bnvs.metaler.data.user.certification.model.*
 import com.bnvs.metaler.data.user.modification.model.Job
 import com.bnvs.metaler.data.user.modification.model.Jobs
 import com.bnvs.metaler.data.user.modification.model.Nickname
+import com.bnvs.metaler.data.user.modification.model.Terms
 import okhttp3.MultipartBody
 import okhttp3.ResponseBody
 import retrofit2.Call
@@ -30,6 +31,7 @@ import retrofit2.http.*
  * 반환되는 값은 Call<객체타입> 형태로 작성
  *
  *          <목차> - ctrl + F 로 검색하세요
+ *          0. 이용약관
  *          1. 유저
  *              1-1. 인증관련
  *              1-2. 회원정보수정
@@ -44,6 +46,11 @@ import retrofit2.http.*
  * */
 
 interface RetrofitInterface {
+
+    /*** [0. 이용약관] ***/
+    // 이용약관 확인
+    @GET("/users/terms")
+    fun getTerms(): Call<Terms>
 
     /*** [1. 유저] ***/
     /*** [1-1. 인증관련] ***/
