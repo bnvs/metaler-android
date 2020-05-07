@@ -1,14 +1,13 @@
 package com.bnvs.metaler.data.user.modification.source
 
 import com.bnvs.metaler.data.user.modification.model.Job
-import com.bnvs.metaler.data.user.modification.model.Jobs
 import com.bnvs.metaler.data.user.modification.model.Nickname
 import com.bnvs.metaler.data.user.modification.model.Terms
 
 interface UserModificationDataSource {
 
     fun getUserJob(
-        onSuccess: (response: Jobs) -> Unit,
+        onSuccess: (response: Job) -> Unit,
         onFailure: (e: Throwable) -> Unit
     )
 

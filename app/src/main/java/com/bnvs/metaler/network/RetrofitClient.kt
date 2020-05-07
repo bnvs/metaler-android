@@ -25,8 +25,9 @@ object RetrofitClient {
             .addInterceptor { chain: Interceptor.Chain ->
                 val original = chain.request()
                 if (original.url.encodedPath.equals("/users/check", true)
+                    || original.url.encodedPath.equals("/users/terms", true)
                     || original.url.encodedPath.equals("/users/join", true)
-                    || original.url.encodedPath.equals("/users/join", true)
+                    || original.url.encodedPath.equals("/users/login", true)
                 ) {
                     chain.proceed(original)
                 } else if (original.url.encodedPath.equals("/uploadFile.php", true)) {
