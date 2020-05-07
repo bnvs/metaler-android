@@ -1,8 +1,10 @@
 package com.bnvs.metaler.ui.jobmodify
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -188,6 +190,12 @@ class ActivityJobModify : AppCompatActivity(), ContractJobModify.View {
                 }
             }
         }
+    }
+
+    override fun hideSoftInput() {
+        val inputMethodManager =
+            getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(universityNameInput.windowToken, 0)
     }
 
     private fun makeToast(message: String) {

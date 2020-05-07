@@ -26,6 +26,8 @@ interface ContractJobModify {
 
         fun showEmptyTextDialog()
 
+        fun hideSoftInput()
+
         fun showErrorMessage(errorMessage: String)
 
         fun showJobModifyCompleteDialog()

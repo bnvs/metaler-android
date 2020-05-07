@@ -109,10 +109,16 @@ class PresenterJobModify(
         userRepository.modifyUserJob(
             Job(job, job_type, job_detail),
             onSuccess = {
-                view.showJobModifyCompleteDialog()
+                view.run {
+                    showJobModifyCompleteDialog()
+                    hideSoftInput()
+                }
             },
             onFailure = { e ->
-                view.showErrorMessage(NetworkUtil.getErrorMessage(e))
+                view.run {
+                    showErrorMessage(NetworkUtil.getErrorMessage(e))
+                    hideSoftInput()
+                }
             }
         )
     }
