@@ -5,6 +5,7 @@ import android.util.Log
 import android.widget.EditText
 import com.bnvs.metaler.data.user.modification.model.Job
 import com.bnvs.metaler.data.user.modification.source.UserModificationRepository
+import com.bnvs.metaler.network.NetworkUtil
 
 class PresenterJobModify(
     private val view: ContractJobModify.View
@@ -22,13 +23,58 @@ class PresenterJobModify(
 
     override fun getUserJob() {
         userRepository.getUserJob(
-            onSuccess = {
-
+            onSuccess = { response ->
+                this.job = response.job
+                this.job_type = response.job_type
+                this.job_detail = response.job_detail
+                setUserJob()
             },
-            onFailure = {
-
+            onFailure = { e ->
+                view.showErrorMessage(NetworkUtil.getErrorMessage(e))
             }
         )
+    }
+
+    override fun setUserJob() {
+        when (job) {
+            "student" -> {
+                view.run {
+                    showStudent()
+                    setStudent(job_type, job_detail)
+                }
+            }
+            "expert" -> {
+                when (job_type) {
+                    "company" -> {
+                        view.run {
+                            showExpert(job_type)
+                            showCompany()
+                            setCompany(job_detail)
+                        }
+                    }
+                    "founded" -> {
+                        view.run {
+                            showExpert(job_type)
+                            showFounded()
+                            setFounded(job_detail)
+                        }
+                    }
+                    "freelancer" -> {
+                        view.run {
+                            showExpert(job_type)
+                            showFreelancer()
+                        }
+                    }
+                    else -> view.showErrorMessage("올바른 직업 형식이 아닙니다")
+                }
+            }
+            "empty" -> {
+                view.showNothing()
+            }
+            else -> {
+                view.showErrorMessage("올바른 직업 형식이 아닙니다")
+            }
+        }
     }
 
     override fun completeJobInput(jobTypeInput: String, jobDetailInput: String) {
@@ -63,10 +109,10 @@ class PresenterJobModify(
         userRepository.modifyUserJob(
             Job(job, job_type, job_detail),
             onSuccess = {
-
+                view.showJobModifyCompleteDialog()
             },
-            onFailure = {
-
+            onFailure = { e ->
+                view.showErrorMessage(NetworkUtil.getErrorMessage(e))
             }
         )
     }
@@ -86,38 +132,40 @@ class PresenterJobModify(
     }
 
     override fun openStudent() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        job = "student"
+        view.showStudent()
     }
 
     override fun openExpert() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        job = "expert"
+        view.showExpert(job_type)
     }
 
     override fun openNothing() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        job = "empty"
+        view.showNothing()
     }
 
     override fun openCompany() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        job_type = "company"
+        view.showCompany()
     }
 
     override fun openFounded() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        job_type = "founded"
+        view.showFounded()
     }
 
     override fun openFreelancer() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        job_type = "freelancer"
+        view.showFreelancer()
     }
 
     override fun getSelectedJob(): String {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return job
     }
 
     override fun getSelectedJobType(): String {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun getLastSelectedJobType(): String {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return job_type
     }
 }
