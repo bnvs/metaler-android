@@ -101,9 +101,8 @@
         android:layout_marginLeft="20dp"
         android:layout_marginTop="5dp"
         android:layout_marginRight="20dp"
-        android:gravity="right"
         android:text="@string/university_name_guide"
-        android:textColor="@color/colorLightGrey"
+        android:textColorHint="@color/colorLightGrey"
         android:textSize="18sp"
         app:layout_constraintLeft_toRightOf="@id/universityNameTxt"
         app:layout_constraintRight_toRightOf="parent"
@@ -136,9 +135,8 @@
         android:layout_marginLeft="20dp"
         android:layout_marginTop="5dp"
         android:layout_marginRight="20dp"
-        android:gravity="right"
         android:text="@string/major_name_guide"
-        android:textColor="@color/colorLightGrey"
+        android:textColorHint="@color/colorLightGrey"
         android:textSize="18sp"
         app:layout_constraintLeft_toRightOf="@id/majorNameTxt"
         app:layout_constraintRight_toRightOf="parent"
@@ -160,7 +158,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone"
-        app:constraint_referenced_ids="jobTypeTxt,companyBtn,shopOwnerBtn,freelancerBtn,jobTypeLine,companyGroup,shopOwnerGroup" />
+        app:constraint_referenced_ids="jobTypeTxt,companyBtn,shopOwnerBtn,freelancerBtn,jobTypeLine" />
 
     <TextView
         android:id="@+id/jobTypeTxt"
@@ -233,6 +231,7 @@
         android:id="@+id/companyGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         app:constraint_referenced_ids="companyNameTxt,companyNameInput,companyNameLine" />
 
     <TextView
@@ -253,9 +252,8 @@
         android:layout_marginLeft="20dp"
         android:layout_marginTop="5dp"
         android:layout_marginRight="20dp"
-        android:gravity="right"
         android:text="@string/company_name_guide"
-        android:textColor="@color/colorLightGrey"
+        android:textColorHint="@color/colorLightGrey"
         android:textSize="18sp"
         app:layout_constraintLeft_toRightOf="@id/companyNameTxt"
         app:layout_constraintRight_toRightOf="parent"
@@ -276,7 +274,8 @@
         android:id="@+id/shopOwnerGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:constraint_referenced_ids="shopNameTxt,shopNameInput" />
+        android:visibility="gone"
+        app:constraint_referenced_ids="shopNameTxt,shopNameInput,shopNameLine" />
 
     <TextView
         android:id="@+id/shopNameTxt"
@@ -296,9 +295,8 @@
         android:layout_marginLeft="20dp"
         android:layout_marginTop="5dp"
         android:layout_marginRight="20dp"
-        android:gravity="right"
         android:text="@string/shop_name_guide"
-        android:textColor="@color/colorLightGrey"
+        android:textColorHint="@color/colorLightGrey"
         android:textSize="18sp"
         app:layout_constraintLeft_toRightOf="@id/shopNameTxt"
         app:layout_constraintRight_toRightOf="parent"
