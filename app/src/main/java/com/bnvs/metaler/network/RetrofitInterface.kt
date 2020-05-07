@@ -17,7 +17,6 @@ import com.bnvs.metaler.data.postdetails.model.RatingRequest
 import com.bnvs.metaler.data.posts.model.PostsResponse
 import com.bnvs.metaler.data.user.certification.model.*
 import com.bnvs.metaler.data.user.modification.model.Job
-import com.bnvs.metaler.data.user.modification.model.Jobs
 import com.bnvs.metaler.data.user.modification.model.Nickname
 import com.bnvs.metaler.data.user.modification.model.Terms
 import okhttp3.MultipartBody
@@ -73,7 +72,7 @@ interface RetrofitInterface {
     /*** [1-2. 회원정보 수정] ***/
     // 소속조회
     @GET("/users/jobs")
-    fun getUserJob(): Call<Jobs>
+    fun getUserJob(): Call<Job>
 
     // 소속수정
     @PUT("/users/jobs")

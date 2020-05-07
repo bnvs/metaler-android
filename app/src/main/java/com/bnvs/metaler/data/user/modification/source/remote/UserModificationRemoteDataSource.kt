@@ -1,7 +1,6 @@
 package com.bnvs.metaler.data.user.modification.source.remote
 
 import com.bnvs.metaler.data.user.modification.model.Job
-import com.bnvs.metaler.data.user.modification.model.Jobs
 import com.bnvs.metaler.data.user.modification.model.Nickname
 import com.bnvs.metaler.data.user.modification.model.Terms
 import com.bnvs.metaler.data.user.modification.source.UserModificationDataSource
@@ -17,11 +16,11 @@ object UserModificationRemoteDataSource : UserModificationDataSource {
     private val retrofitClient = RetrofitClient.client
 
     override fun getUserJob(
-        onSuccess: (response: Jobs) -> Unit,
+        onSuccess: (response: Job) -> Unit,
         onFailure: (e: Throwable) -> Unit
     ) {
-        retrofitClient.getUserJob().enqueue(object : Callback<Jobs> {
-            override fun onResponse(call: Call<Jobs>, response: Response<Jobs>) {
+        retrofitClient.getUserJob().enqueue(object : Callback<Job> {
+            override fun onResponse(call: Call<Job>, response: Response<Job>) {
                 val body = response.body()
                 if (body != null && response.isSuccessful) {
                     onSuccess(body)
@@ -30,7 +29,7 @@ object UserModificationRemoteDataSource : UserModificationDataSource {
                 }
             }
 
-            override fun onFailure(call: Call<Jobs>, t: Throwable) {
+            override fun onFailure(call: Call<Job>, t: Throwable) {
                 onFailure(t)
             }
         })
