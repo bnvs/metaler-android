@@ -8,7 +8,7 @@ interface ContractJobModify {
     interface View : BaseView<Presenter> {
         fun showStudent()
 
-        fun showExpert()
+        fun showExpert(jobType: String)
 
         fun showNothing()
 
@@ -18,13 +18,23 @@ interface ContractJobModify {
 
         fun showFreelancer()
 
+        fun setStudent(jobType: String, jobDetail: String)
+
+        fun setCompany(jobDetail: String)
+
+        fun setFounded(jobDetail: String)
+
         fun showEmptyTextDialog()
 
-        fun showjobModifyCompleteToast()
+        fun showErrorMessage(errorMessage: String)
+
+        fun showJobModifyCompleteDialog()
     }
 
     interface Presenter : BasePresenter {
         fun getUserJob()
+
+        fun setUserJob()
 
         fun openStudent()
 
@@ -41,8 +51,6 @@ interface ContractJobModify {
         fun getSelectedJob(): String
 
         fun getSelectedJobType(): String
-
-        fun getLastSelectedJobType(): String
 
         fun completeJobInput(jobTypeInput: String, jobDetailInput: String)
 
