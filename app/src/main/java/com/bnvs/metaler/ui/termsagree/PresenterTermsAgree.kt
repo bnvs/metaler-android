@@ -12,7 +12,7 @@ class PresenterTermsAgree(
 ) : ContractTermsAgree.Presenter {
 
     private lateinit var addUserRequest: AddUserRequest
-    private lateinit var userModificationRepository: UserModificationRepository
+    private val userModificationRepository = UserModificationRepository()
     private lateinit var terms: Terms
 
     override fun start() {
