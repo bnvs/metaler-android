@@ -31,7 +31,6 @@ class PresenterTermsAgree(
             onFailure = { e ->
                 view.run {
                     makeToast(NetworkUtil.getErrorMessage(e))
-                    restartApp()
                 }
             }
         )

@@ -14,8 +14,6 @@ interface ContractTermsAgree {
 
         fun makeToast(message: String)
 
-        fun restartApp()
-
         fun showJobInputUi(addUserRequest: AddUserRequest)
     }
     interface Presenter : BasePresenter {

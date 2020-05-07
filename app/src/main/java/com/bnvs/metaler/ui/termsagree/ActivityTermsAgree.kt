@@ -11,7 +11,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.bnvs.metaler.R
 import com.bnvs.metaler.data.user.certification.model.AddUserRequest
 import com.bnvs.metaler.ui.jobinput.ActivityJobInput
-import com.bnvs.metaler.ui.login.ActivityLogin
 import kotlinx.android.synthetic.main.activity_terms_agree.*
 import org.json.JSONObject
 
@@ -69,13 +68,6 @@ class ActivityTermsAgree : AppCompatActivity(),
 
     override fun makeToast(message: String) {
         Toast.makeText(this@ActivityTermsAgree, message, Toast.LENGTH_LONG).show()
-    }
-
-    override fun restartApp() {
-        finishAffinity()
-        Intent(this, ActivityLogin::class.java).also {
-            startActivity(it)
-        }
     }
 
     override fun showJobInputUi(addUserRequest: AddUserRequest) {
