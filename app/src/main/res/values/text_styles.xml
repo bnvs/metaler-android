@@ -101,6 +101,14 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="error404TextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:text">@string/error_404</item>
+        <item name="android:textColor">@color/colorGreyPurple</item>
+    </style>
+
     <!-- EditText 스타일 속성 -->
     <style name="editTextStyle">
         <item name="android:layout_width">wrap_content</item>

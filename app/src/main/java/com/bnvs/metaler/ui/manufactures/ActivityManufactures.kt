@@ -46,17 +46,17 @@ class ActivityManufactures : AppCompatActivity(),
         override fun onBookmarkButtonClick(
             view: View,
             clickedPostId: Int,
-            isBookmark: Boolean,
+            isBookmark: Int,
             position: Int
         ) {
 
-            if (!isBookmark) {
+            if (isBookmark == 0) {
                 presenter.addBookmark(clickedPostId)
                 postAdapter.apply {
                     setBookmark(position)
                     notifyDataSetChanged()
                 }
-            } else {
+            } else if (isBookmark == 1) {
                 presenter.deleteBookmark(clickedPostId)
                 postAdapter.apply {
                     setBookmark(position)

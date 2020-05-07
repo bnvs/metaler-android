@@ -129,7 +129,7 @@ class BookmarkAdapter(
                     if (!tempArrayList[position]!!.thumbnail.isEmpty()) {
                         Glide.with(this)
                             .asBitmap()//gif 재생안되고 첫번째 프레임에서 멈추도록 강제함
-                            .load("http://file.metaler.kr/upload/" + tempArrayList[position]!!.thumbnail)
+                            .load(tempArrayList[position]!!.thumbnail)
                             .transform(CenterCrop(), RoundedCorners(24))
                             .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                             .into(img)

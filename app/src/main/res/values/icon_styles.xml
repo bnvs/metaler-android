@@ -27,4 +27,16 @@
         <item name="android:layout_marginRight">@dimen/wideMargin</item>
         <item name="android:src">@drawable/ic_home_more_arrow_x3</item>
     </style>
+
+    <style name="error404BigIcon">
+        <item name="android:layout_width">175dp</item>
+        <item name="android:layout_height">175dp</item>
+        <item name="android:src">@drawable/ic_404_error_x3</item>
+    </style>
+
+    <style name="error404SmallIcon">
+        <item name="android:layout_width">125dp</item>
+        <item name="android:layout_height">125dp</item>
+        <item name="android:src">@drawable/ic_404_error_x3</item>
+    </style>
 </resources>

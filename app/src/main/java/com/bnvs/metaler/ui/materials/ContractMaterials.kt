@@ -7,6 +7,7 @@ import com.bnvs.metaler.data.bookmarks.model.DeleteBookmarkRequest
 import com.bnvs.metaler.data.categories.model.Category
 import com.bnvs.metaler.data.posts.model.Post
 import com.bnvs.metaler.data.posts.model.PostsRequest
+import com.bnvs.metaler.data.posts.model.PostsWithTagRequest
 import com.bnvs.metaler.util.TapBarContract
 
 /**
@@ -56,6 +57,8 @@ interface ContractMaterials {
 
         fun refreshPosts(postsRequest: PostsRequest)
 
+        fun refreshTagSearchPosts(postsWithTagRequest: PostsWithTagRequest)
+
         fun resetPageNum()
 
         fun getCategoryId(): Int
@@ -68,7 +71,7 @@ interface ContractMaterials {
 
         fun openSearch()
 
-        fun addSearchTag(categoryId: Int, searchType: String, searchWord: String)
+        fun addSearchTag(categoryId: Int, searchType: String, searchWord: List<String>)
 
         fun clearSearchTagBar()
 

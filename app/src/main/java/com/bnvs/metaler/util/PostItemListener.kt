@@ -12,5 +12,5 @@ import android.view.View
 interface PostItemListener {
     fun onPostClick(view: View, clickedPostId: Int)
 
-    fun onBookmarkButtonClick(view: View, clickedPostId: Int, isBookmark: Boolean, position: Int)
+    fun onBookmarkButtonClick(view: View, clickedPostId: Int, isBookmark: Int, position: Int)
 }
