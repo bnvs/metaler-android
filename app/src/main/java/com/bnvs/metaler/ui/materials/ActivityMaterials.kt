@@ -33,6 +33,8 @@ class ActivityMaterials : AppCompatActivity(),
     lateinit var postLayoutManager: RecyclerView.LayoutManager
     var loadMorePosts: ArrayList<Post?> = ArrayList()
 
+    var tagSearchWords: MutableList<String?> = mutableListOf()
+
     lateinit var tagSearchAdapter: TagSearchAdapter
     private val tagSearchLayoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
 
@@ -58,8 +60,11 @@ class ActivityMaterials : AppCompatActivity(),
      * */
     private var tagSearchItemListener: TagSearchItemListener = object :
         TagSearchItemListener {
-        override fun onTagDeleteBtnClick(position: Int) {
-            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        override fun onTagDeleteBtnClick(view: View, position: Int) {
+            tagSearchAdapter.removeTag(position)
+            if (position == 0) {
+                tagRV.visibility = View.GONE
+            }
         }
     }
 
@@ -77,11 +82,11 @@ class ActivityMaterials : AppCompatActivity(),
         override fun onBookmarkButtonClick(
             view: View,
             clickedPostId: Int,
-            isBookmark: Boolean,
+            isBookmark: Int,
             position: Int
         ) {
 
-            if (!isBookmark) {
+            if (isBookmark == 0) {
                 presenter.addBookmark(clickedPostId)
                 postAdapter.apply {
                     setBookmark(position)
@@ -89,7 +94,7 @@ class ActivityMaterials : AppCompatActivity(),
                     Log.d(TAG, "isBookmark ? : ${isBookmark}")
 
                 }
-            } else {
+            } else if (isBookmark == 1){
                 presenter.deleteBookmark(clickedPostId)
                 postAdapter.apply {
                     setBookmark(position)
@@ -259,7 +264,7 @@ class ActivityMaterials : AppCompatActivity(),
     }
 
     override fun clearSearchTagBar() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        tagInputDeleteBtn.setOnClickListener { tagInput.text.clear() }
     }
 
     override fun deleteSearchTag() {
@@ -270,12 +275,15 @@ class ActivityMaterials : AppCompatActivity(),
         setTitleBarButtons()
         setTapBarButtons()
         setTagSearchButtons()
+        clearSearchTagBar()
     }
 
     override fun showSearchTags() {
         Log.d(TAG,"태그입력값? : ${tagInput.text}")
         var inputTag : String = tagInput.text.toString()
-        presenter.addSearchTag(presenter.getCategoryId() ,"store",inputTag) //검색 내용에 맞게 새로운 데이터를 가져오기 위한 요청값 프레젠터에 전달
+        tagSearchWords.add(inputTag)
+        val tagSearchWordsList: List<String> = listOf(tagSearchWords.toString()) // List타입으로 형변환
+        presenter.addSearchTag(presenter.getCategoryId() ,"tag",tagSearchWordsList) //검색 내용에 맞게 새로운 데이터를 가져오기 위한 요청값 프레젠터에 전달
         tagSearchAdapter.addTags(inputTag)
         tagSearchAdapter.notifyDataSetChanged()
         tagRV.setHasFixedSize(true)

@@ -23,6 +23,11 @@ class TagSearchAdapter(
         notifyDataSetChanged()
     }
 
+    fun removeTag(position: Int) {
+        tags.removeAt(position)
+        notifyItemRemoved(position)
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflatedView = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_tag_rv, parent, false)
@@ -45,7 +50,12 @@ class TagSearchAdapter(
                 tagName.apply {
                     text = item
                 }
-                tagDeleteBtn.setOnClickListener { itemListener.onTagDeleteBtnClick(position) }
+                tagDeleteBtn.setOnClickListener {
+                    itemListener.onTagDeleteBtnClick(
+                        tagDeleteBtn,
+                        position
+                    )
+                }
             }
 
         }

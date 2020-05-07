@@ -8,7 +8,6 @@ import com.bnvs.metaler.util.TapBarContract
 
 interface ContractBookmarks {
     interface View : BaseView<Presenter>, TapBarContract.View {
-        fun showPostDetailUi(postId: Int)
 
         fun showBookmarkPostsList(bookmarks: List<Bookmark>)
 

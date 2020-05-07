@@ -13,6 +13,7 @@ import com.bnvs.metaler.data.categories.source.repository.CategoriesRepository
 import com.bnvs.metaler.data.posts.model.Post
 import com.bnvs.metaler.data.posts.model.PostsRequest
 import com.bnvs.metaler.data.posts.model.PostsResponse
+import com.bnvs.metaler.data.posts.model.PostsWithTagRequest
 import com.bnvs.metaler.data.posts.source.repository.PostsRepository
 import com.bnvs.metaler.network.NetworkUtil
 import com.bnvs.metaler.ui.detail.ActivityDetail
@@ -37,7 +38,8 @@ class PresenterMaterials(
 
     private var tags: MutableList<String>? =null
     private var searchType: String? = null
-    private var searchWord: String? = null
+//    private var searchWord: String? = null
+    private var searchTags: MutableList<String?> = mutableListOf()
 
     lateinit var posts: List<Post>
 
@@ -123,6 +125,23 @@ class PresenterMaterials(
         )
     }
 
+    override fun refreshTagSearchPosts(postsWithTagRequest: PostsWithTagRequest) {
+        resetPageNum()
+        postRepository.getPostsWithSearchTypeTag(
+            postsWithTagRequest,
+            onSuccess = {response: PostsResponse ->
+                view.showRefreshPosts(response.posts)
+            },
+            onFailure = { e ->
+                Toast.makeText(
+                    context,
+                    "서버 통신 실패 : ${NetworkUtil.getErrorMessage(e)}",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        )
+    }
+
 
     // getPosts api 요청 request body 반환하는 함수
     override fun requestPosts(categoryId: Int): PostsRequest {
@@ -131,9 +150,7 @@ class PresenterMaterials(
         postsRequest = PostsRequest(
             categoryId,
             pageNum,
-            10,
-            searchType,
-            searchWord
+            10
         )
         return postsRequest
     }
@@ -208,15 +225,15 @@ class PresenterMaterials(
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun addSearchTag(categoryId: Int, searchType: String, searchWord: String) {
-        var searchTagRequest = PostsRequest(
+    override fun addSearchTag(categoryId: Int, searchType: String, searchWord: List<String>) {
+        var searchTagRequest = PostsWithTagRequest(
             categoryId,
             pageNum,
             10,
             searchType,
             searchWord
         )
-        refreshPosts(searchTagRequest)
+        refreshTagSearchPosts(searchTagRequest)
     }
 
     override fun clearSearchTagBar() {

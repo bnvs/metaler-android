@@ -28,6 +28,7 @@
     <color name="colorLightPurple">#b180f6</color>
     <color name="colorPurple">#6b5eb2</color>
     <color name="colorDakrPurple">#493c7e</color>
+    <color name="colorGreyPurple">#D2CCDD</color>
 
     <color name="colorActiveTapbar">#6b5eb2</color>
     <color name="colorInactiveTapbar">#d8d8d8</color>
