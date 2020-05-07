@@ -12,6 +12,7 @@ import com.bnvs.metaler.data.profile.model.Profile
 import com.bnvs.metaler.ui.jobmodify.ActivityJobModify
 import com.bnvs.metaler.ui.login.ActivityLogin
 import com.bnvs.metaler.ui.myposts.ActivityMyPosts
+import com.bnvs.metaler.ui.termscheck.ActivityTermsCheck
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import kotlinx.android.synthetic.main.activity_my_page.*
@@ -74,7 +75,9 @@ class ActivityMyPage : AppCompatActivity(), ContractMyPage.View {
     }
 
     override fun showTermsCheckUi() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        Intent(this@ActivityMyPage, ActivityTermsCheck::class.java).also {
+            startActivity(it)
+        }
     }
 
     override fun showNicknameModifyDialog() {
@@ -151,6 +154,9 @@ class ActivityMyPage : AppCompatActivity(), ContractMyPage.View {
 
         myPostsBtn.setOnClickListener { presenter.openMyPosts() }
         myPostsMoreBtn.setOnClickListener { presenter.openMyPosts() }
+
+        termsBtn.setOnClickListener { presenter.openTerms() }
+        termsMoreBtn.setOnClickListener { presenter.openTerms() }
 
         logoutBtn.setOnClickListener { presenter.openLogout() }
         logoutMoreBtn.setOnClickListener { presenter.openLogout() }

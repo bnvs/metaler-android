@@ -3,6 +3,7 @@ package com.bnvs.metaler.data.user.modification.source.remote
 import com.bnvs.metaler.data.user.modification.model.Job
 import com.bnvs.metaler.data.user.modification.model.Jobs
 import com.bnvs.metaler.data.user.modification.model.Nickname
+import com.bnvs.metaler.data.user.modification.model.Terms
 import com.bnvs.metaler.data.user.modification.source.UserModificationDataSource
 import com.bnvs.metaler.network.RetrofitClient
 import okhttp3.ResponseBody
@@ -76,6 +77,26 @@ object UserModificationRemoteDataSource : UserModificationDataSource {
             }
 
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                onFailure(t)
+            }
+        })
+    }
+
+    override fun getTerms(
+        onSuccess: (Terms) -> Unit,
+        onFailure: (e: Throwable) -> Unit
+    ) {
+        retrofitClient.getTerms().enqueue(object : Callback<Terms> {
+            override fun onResponse(call: Call<Terms>, response: Response<Terms>) {
+                val body = response.body()
+                if (body != null && response.isSuccessful) {
+                    onSuccess(body)
+                } else {
+                    onFailure(HttpException(response))
+                }
+            }
+
+            override fun onFailure(call: Call<Terms>, t: Throwable) {
                 onFailure(t)
             }
         })
