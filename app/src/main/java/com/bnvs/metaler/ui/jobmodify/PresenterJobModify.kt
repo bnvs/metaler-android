@@ -13,6 +13,8 @@ class PresenterJobModify(
 
     private val userRepository = UserModificationRepository()
 
+    private lateinit var originalJob: Job
+
     private var job = ""
     private var job_type = ""
     private var job_detail = ""
@@ -24,6 +26,7 @@ class PresenterJobModify(
     override fun getUserJob() {
         userRepository.getUserJob(
             onSuccess = { response ->
+                originalJob = response
                 this.job = response.job
                 this.job_type = response.job_type
                 this.job_detail = response.job_detail
@@ -86,18 +89,30 @@ class PresenterJobModify(
                 if (isEmptyText(job_type) || isEmptyText(job_detail)) {
                     view.showEmptyTextDialog().also { showLog() }
                 } else {
-                    modifyUserJob().also { showLog() }
+                    if (isUserJobChanged()) {
+                        modifyUserJob().also { showLog() }
+                    } else {
+                        view.showModifyTheJobDialog()
+                    }
                 }
             }
             "expert" -> {
                 if (isEmptyText(job_detail)) {
                     view.showEmptyTextDialog().also { showLog() }
                 } else {
-                    modifyUserJob().also { showLog() }
+                    if (isUserJobChanged()) {
+                        modifyUserJob().also { showLog() }
+                    } else {
+                        view.showModifyTheJobDialog()
+                    }
                 }
             }
             "empty" -> {
-                modifyUserJob().also { showLog() }
+                if (isUserJobChanged()) {
+                    modifyUserJob().also { showLog() }
+                } else {
+                    view.showModifyTheJobDialog()
+                }
             }
             else -> {
                 view.showEmptyTextDialog().also { showLog() }
@@ -105,11 +120,18 @@ class PresenterJobModify(
         }
     }
 
+    private fun isUserJobChanged(): Boolean {
+        return !(job == originalJob.job
+                && job_type == originalJob.job_type
+                && job_detail == originalJob.job_detail)
+    }
+
     override fun modifyUserJob() {
         userRepository.modifyUserJob(
             Job(job, job_type, job_detail),
             onSuccess = {
                 view.run {
+                    originalJob = Job(job, job_type, job_detail)
                     showJobModifyCompleteDialog()
                     hideSoftInput()
                 }

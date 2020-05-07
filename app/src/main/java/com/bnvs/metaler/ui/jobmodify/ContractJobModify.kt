@@ -30,6 +30,8 @@ interface ContractJobModify {
 
         fun showErrorMessage(errorMessage: String)
 
+        fun showModifyTheJobDialog()
+
         fun showJobModifyCompleteDialog()
     }
 

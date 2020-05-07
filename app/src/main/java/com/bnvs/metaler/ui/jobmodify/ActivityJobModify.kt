@@ -118,6 +118,16 @@ class ActivityJobModify : AppCompatActivity(), ContractJobModify.View {
         makeToast(errorMessage)
     }
 
+    override fun showModifyTheJobDialog() {
+        AlertDialog.Builder(this).apply {
+            setTitle(getString(R.string.job_input_alert))
+                .setMessage("소속을 변경해 주세요")
+                .setPositiveButton("확인") { _, _ ->
+                }
+                .show()
+        }
+    }
+
     private fun initClickListeners() {
         setTitleBarButton()
         setFirstCategoryButtons()
