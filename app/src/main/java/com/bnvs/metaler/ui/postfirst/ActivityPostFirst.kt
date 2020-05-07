@@ -187,6 +187,15 @@ class ActivityPostFirst : AppCompatActivity(), ContractPostFirst.View {
             .show()
     }
 
+    override fun showTransparentLoadingLayer(b: Boolean) {
+        if (b) {
+            transparentLoadingLayer.bringToFront()
+            transparentLoadingLayer.visibility = View.VISIBLE
+        } else {
+            transparentLoadingLayer.visibility = View.GONE
+        }
+    }
+
     override fun showGetCategoriesFailedToast(errorMessage: String) {
         makeToast("카테고리 목록을 조회하는데 실패했습니다 : $errorMessage")
     }

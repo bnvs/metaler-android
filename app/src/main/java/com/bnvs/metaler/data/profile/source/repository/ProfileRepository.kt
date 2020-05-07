@@ -31,4 +31,12 @@ class ProfileRepository(context: Context) : ProfileDataSource {
     override fun saveUserInfo(user: User) {
         profileLocalDataSource.saveUserInfo(user)
     }
+
+    override fun modifyNickname(nickname: String, onSuccess: () -> Unit, onFailure: () -> Unit) {
+        profileLocalDataSource.modifyNickname(nickname, onSuccess, onFailure)
+    }
+
+    override fun modifyJob() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 }

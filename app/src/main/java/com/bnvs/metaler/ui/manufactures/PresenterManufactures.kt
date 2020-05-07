@@ -114,9 +114,7 @@ class PresenterManufactures(
         postsRequest = PostsRequest(
             10,
             pageNum,
-            10,
-            null,
-            null
+            10
         )
         return postsRequest
     }

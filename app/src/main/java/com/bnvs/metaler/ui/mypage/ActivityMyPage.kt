@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.bnvs.metaler.R
 import com.bnvs.metaler.data.profile.model.Profile
 import com.bnvs.metaler.ui.jobmodify.ActivityJobModify
+import com.bnvs.metaler.ui.login.ActivityLogin
 import com.bnvs.metaler.ui.myposts.ActivityMyPosts
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
@@ -56,6 +57,10 @@ class ActivityMyPage : AppCompatActivity(), ContractMyPage.View {
         makeToast("프로필 데이터를 불러오는데 실패했습니다")
     }
 
+    override fun showLocalNicknameChangeFailedToast() {
+        makeToast("닉네임 수정 실패")
+    }
+
     override fun showJobModifyUi() {
         Intent(this@ActivityMyPage, ActivityJobModify::class.java).also {
             startActivity(it)
@@ -69,10 +74,6 @@ class ActivityMyPage : AppCompatActivity(), ContractMyPage.View {
     }
 
     override fun showTermsCheckUi() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun showSuccessDialog() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
@@ -93,11 +94,46 @@ class ActivityMyPage : AppCompatActivity(), ContractMyPage.View {
     }
 
     override fun showLogoutDialog() {
-
+        AlertDialog.Builder(this@ActivityMyPage)
+            .setTitle("로그아웃")
+            .setMessage("로그아웃 하시겠습니까?")
+            .setPositiveButton("로그아웃") { dialog, which ->
+                presenter.logout()
+            }
+            .setNegativeButton("취소") { _, _ ->
+            }
+            .show()
     }
 
     override fun showWithdrawalDialog() {
+        AlertDialog.Builder(this@ActivityMyPage)
+            .setTitle("회원 탈퇴")
+            .setMessage(
+                "계정을 삭제하시겠습니까?\n" +
+                        "계정 삭제시 지금까지 작성하신 게시물은 자동으로 삭제되지 않습니다.\n" +
+                        "상기 내용에 동의하시는 경우, \"동의합니다\"를 입력 후 탈퇴를 누르면 계정이 삭제됩니다"
+            )
+            .setView(R.layout.dialog_withdrawal_confirm_input)
+            .setPositiveButton("탈퇴") { dialog, which ->
+                val f = dialog as Dialog
+                val input: EditText = f.findViewById(R.id.withdrawalConfirmInputEditTxt)
+                val confirmInput = input.text.toString()
+                presenter.withdrawal(confirmInput)
+            }
+            .setNegativeButton("취소") { _, _ ->
+            }
+            .show()
+    }
 
+    override fun showInvalidWithdrawalConfirmInputToast() {
+        makeToast("\"동의합니다\"를 올바르게 입력해주세요")
+    }
+
+    override fun openLoginActivity() {
+        Intent(this, ActivityLogin::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(this)
+        }
     }
 
     private fun initClickListeners() {
@@ -130,6 +166,18 @@ class ActivityMyPage : AppCompatActivity(), ContractMyPage.View {
         manufactureBtn.setOnClickListener { presenter.openManufactures(this, this) }
         bookmarkBtn.setOnClickListener { presenter.openBookmarks(this, this) }
         myPageBtn.setOnClickListener { presenter.openMyPage(this, this) }
+    }
+
+    override fun showLogoutSuccessToast() {
+        makeToast("로그아웃 되었습니다")
+    }
+
+    override fun showWithdrawalSuccessToast() {
+        makeToast("회원탈퇴가 완료되었습니다.\n그동안 메탈러 서비스를 이용해 주셔서 감사합니다.")
+    }
+
+    override fun showErrorToast(errorMessage: String) {
+        makeToast(errorMessage)
     }
 
     private fun makeToast(message: String) {

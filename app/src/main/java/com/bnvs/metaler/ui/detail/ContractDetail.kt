@@ -7,6 +7,8 @@ import com.bnvs.metaler.data.postdetails.model.PostDetails
 
 interface ContractDetail {
     interface View : BaseView<Presenter> {
+        fun getRecyclerViewState()
+        fun setTransparentRefreshingLayer(b: Boolean)
         fun initPostDetailAdapter(postDetails: PostDetails)
         fun initPostDetailScrollListener()
         fun showComments(comments: List<Comment>)
@@ -33,20 +35,22 @@ interface ContractDetail {
         fun cancelDislikePost()
         fun showAlreadyRatedDialog()
         fun showErrorToast(errorMessage: String)
+        fun setRefreshing(b: Boolean)
         fun clearCommentInput()
-        fun showSoftInput()
         fun hideSoftInput()
         fun scrollToEnd()
         fun showCommentMenuDialog()
         fun showDeleteCommentDialog()
         fun showDeleteCommentFailedDialog()
-        fun showCommentToModify(comment: String)
+        fun openModifyCommentUi(postId: Int, comment: Comment)
         fun showEditCommentFailedDialog()
     }
 
     interface Presenter : BasePresenter {
         fun loadPostDetail()
         fun loadComments()
+        fun refresh()
+        fun refreshForModifiedComment()
         fun loadMoreComments()
         fun hasNextPage(): Boolean
         fun setHasNextPage(b: Boolean)
@@ -66,7 +70,6 @@ interface ContractDetail {
         fun openCommentMenu(comment: Comment, commentIndex: Int)
         fun openDeleteComment()
         fun deleteComment()
-        fun openModifyCommentUi()
-        fun modifyComment(comment: String)
+        fun openModifyComment()
     }
 }

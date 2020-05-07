@@ -7,6 +7,29 @@
     android:background="@color/colorGreyBG"
     tools:context=".ui.postfirst.ActivityPostFirst">
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/transparentLoadingLayer"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/colorTransparentBlack"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/titleBarCard">
+
+        <ProgressBar
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:indeterminateTint="@color/colorPurple"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.25" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"

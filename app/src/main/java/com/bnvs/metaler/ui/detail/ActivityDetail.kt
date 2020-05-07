@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
+import android.os.Parcelable
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
@@ -22,6 +23,7 @@ import com.bnvs.metaler.data.postdetails.model.PostDetails
 import com.bnvs.metaler.ui.detail.adapter.PostDetailAdapter
 import com.bnvs.metaler.ui.detail.listener.CommentMenuListener
 import com.bnvs.metaler.ui.detail.listener.PostRatingListener
+import com.bnvs.metaler.ui.modifycomment.ActivityModifyComment
 import com.bnvs.metaler.ui.postfirst.ActivityPostFirst
 import kotlinx.android.synthetic.main.activity_detail.*
 
@@ -33,6 +35,8 @@ class ActivityDetail : AppCompatActivity(), ContractDetail.View {
 
     override lateinit var presenter: ContractDetail.Presenter
     private lateinit var postDetailAdapter: PostDetailAdapter
+
+    private var recyclerViewState: Parcelable? = null
 
     private val postRatingListener = object :
         PostRatingListener {
@@ -69,6 +73,27 @@ class ActivityDetail : AppCompatActivity(), ContractDetail.View {
             start()
         }
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (recyclerViewState != null) {
+            presenter.refreshForModifiedComment()
+        }
+    }
+
+    override fun getRecyclerViewState() {
+        postDetailRv.layoutManager!!.onRestoreInstanceState(recyclerViewState)
+        recyclerViewState = null
+    }
+
+    override fun setTransparentRefreshingLayer(b: Boolean) {
+        if (b) {
+            refreshingTransparentLayer.bringToFront()
+            refreshingTransparentLayer.visibility = View.VISIBLE
+        } else {
+            refreshingTransparentLayer.visibility = View.GONE
+        }
     }
 
     override fun initPostDetailAdapter(postDetails: PostDetails) {
@@ -215,6 +240,7 @@ class ActivityDetail : AppCompatActivity(), ContractDetail.View {
 
     private fun initClickListeners() {
         setTitleBarButtons()
+        setRefreshListener()
         setCommentInputListener()
         setCommentRegisterButton()
     }
@@ -229,6 +255,7 @@ class ActivityDetail : AppCompatActivity(), ContractDetail.View {
 
     private fun setTitleBarButtons() {
         backBtn.setOnClickListener { finish() }
+        currentTitleText.setOnClickListener { finish() }
         bookmarkBtn.setOnClickListener {
             if (bookmarkBtn.isChecked) {
                 bookmarkBtn.isChecked = false
@@ -241,6 +268,16 @@ class ActivityDetail : AppCompatActivity(), ContractDetail.View {
         moreBtn.setOnClickListener { v ->
             presenter.openMenu(v)
         }
+    }
+
+    private fun setRefreshListener() {
+        refreshLayout.setOnRefreshListener {
+            presenter.refresh()
+        }
+    }
+
+    override fun setRefreshing(b: Boolean) {
+        refreshLayout.isRefreshing = b
     }
 
     private fun setCommentInputListener() {
@@ -289,7 +326,7 @@ class ActivityDetail : AppCompatActivity(), ContractDetail.View {
             .setItems(array) { _, which ->
                 when (array[which]) {
                     "댓글 수정" -> {
-                        presenter.openModifyCommentUi()
+                        presenter.openModifyComment()
                     }
                     "댓글 삭제" -> {
                         presenter.openDeleteComment()
@@ -314,18 +351,17 @@ class ActivityDetail : AppCompatActivity(), ContractDetail.View {
         makeAlertDialog("타인이 작성한 댓글은 삭제할 수 없습니다")
     }
 
-    override fun showCommentToModify(comment: String) {
-        commentInput.setText(comment)
+    override fun openModifyCommentUi(postId: Int, comment: Comment) {
+        recyclerViewState = postDetailRv.layoutManager!!.onSaveInstanceState()
+        Intent(this, ActivityModifyComment::class.java).apply {
+            putExtra("POST_ID", postId)
+            putExtra("COMMENT", comment)
+            startActivity(this)
+        }
     }
 
     override fun showEditCommentFailedDialog() {
         makeAlertDialog("타인이 작성한 댓글은 수정할 수 없습니다")
-    }
-
-    override fun showSoftInput() {
-        val inputMethodManager =
-            getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        inputMethodManager.showSoftInput(commentInput, 0)
     }
 
     override fun hideSoftInput() {

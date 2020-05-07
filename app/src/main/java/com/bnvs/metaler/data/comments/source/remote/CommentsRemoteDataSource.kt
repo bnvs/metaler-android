@@ -113,4 +113,10 @@ object CommentsRemoteDataSource : CommentsDataSource {
             }
         })
     }
+
+    override fun saveIsCommentModified(isCommentModified: Boolean) {}
+
+    override fun isCommentModified(): Boolean {
+        return false
+    }
 }

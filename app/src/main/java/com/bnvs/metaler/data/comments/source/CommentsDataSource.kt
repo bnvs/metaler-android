@@ -36,4 +36,10 @@ interface CommentsDataSource {
         onFailure: (e: Throwable) -> Unit
     )
 
+    fun saveIsCommentModified(
+        isCommentModified: Boolean
+    )
+
+    fun isCommentModified(): Boolean
+
 }

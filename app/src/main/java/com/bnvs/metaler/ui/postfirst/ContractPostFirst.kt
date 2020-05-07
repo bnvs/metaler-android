@@ -26,6 +26,7 @@ interface ContractPostFirst {
         fun setContents(contents: String)
         fun showChooseCategoryDialog(categories: List<JSONObject>)
         fun showWhereToGetImageFromDialog()
+        fun showTransparentLoadingLayer(b: Boolean)
         fun showGetCategoriesFailedToast(errorMessage: String)
         fun showUploadImageFailedToast(errorMessage: String)
         fun showPostDetailLoadFailedToast(errorMessage: String)

@@ -1,6 +1,5 @@
 package com.bnvs.metaler.ui.detail.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -81,13 +80,13 @@ class PostDetailAdapter(
         notifyDataSetChanged()
     }
 
-    fun addBookmark() {
-        this.postDetails.is_bookmark = true
+    fun addBookmark(bookmarkId: Int) {
+        this.postDetails.bookmark_id = bookmarkId
         notifyDataSetChanged()
     }
 
     fun deleteBookmark() {
-        this.postDetails.is_bookmark = false
+        this.postDetails.bookmark_id = 0
         notifyDataSetChanged()
     }
 
@@ -95,7 +94,6 @@ class PostDetailAdapter(
         if (b) {
             android.os.Handler().post {
                 this.comments.add(null)
-                Log.d("setCommentsLoadingView : asdfasdfasdf", comments.toString())
                 notifyItemInserted(comments.size + 2)
             }
         } else {
@@ -161,7 +159,13 @@ class PostDetailAdapter(
                 0 -> TYPE_CONTENT
                 1 -> TYPE_PRICE
                 2 -> TYPE_COMMENT_COUNT
-                postDetails.comment_count + 2 -> TYPE_COMMENT_BOTTOM
+                postDetails.comment_count + 2 -> {
+                    if (comments[position - 3] == null) {
+                        TYPE_LOADING_COMMENT
+                    } else {
+                        TYPE_COMMENT_BOTTOM
+                    }
+                }
                 else -> {
                     if (comments[position - 3] == null) {
                         TYPE_LOADING_COMMENT

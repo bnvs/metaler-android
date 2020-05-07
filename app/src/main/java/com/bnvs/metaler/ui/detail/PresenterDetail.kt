@@ -24,7 +24,7 @@ class PresenterDetail(
 ) : ContractDetail.Presenter {
 
     private val postDetailsRepository = PostDetailsRepository()
-    private val commentsRepository = CommentsRepository()
+    private val commentsRepository = CommentsRepository(context)
     private val bookmarksRepository = BookmarksRepository()
     private val profileRepository = ProfileRepository(context)
 
@@ -38,6 +38,10 @@ class PresenterDetail(
     private val limit = 10
     private var commentCount = 0
     private var isNext = false
+
+    private var isRefreshing = false
+    private var isRefreshingForModifiedComment = false
+    private var refreshingCommentsUntil = 0
 
     override fun start() {
         getUserInfo()
@@ -93,6 +97,21 @@ class PresenterDetail(
                 view.showComments(response.comments)
                 commentCount = response.comment_count
                 isNext = response.is_next
+                if (isRefreshing) {
+                    view.setRefreshing(false)
+                    isRefreshing = false
+                }
+                if (isRefreshingForModifiedComment) {
+                    if (refreshingCommentsUntil > 1) {
+                        loadMoreComments()
+                    } else {
+                        view.run {
+                            setTransparentRefreshingLayer(false)
+                            getRecyclerViewState()
+                        }
+                        isRefreshingForModifiedComment = false
+                    }
+                }
             },
             onFailure = { e ->
                 view.apply {
@@ -103,6 +122,20 @@ class PresenterDetail(
                 }
             }
         )
+    }
+
+    override fun refresh() {
+        isRefreshing = true
+        loadPostDetail()
+    }
+
+    override fun refreshForModifiedComment() {
+        if (commentsRepository.isCommentModified()) {
+            commentsRepository.saveIsCommentModified(false)
+            isRefreshingForModifiedComment = true
+            view.setTransparentRefreshingLayer(true)
+            loadPostDetail()
+        }
     }
 
     override fun loadMoreComments() {
@@ -117,6 +150,17 @@ class PresenterDetail(
                     view.addComments(response.comments)
                     commentCount = response.comment_count
                     isNext = response.is_next
+                    if (isRefreshingForModifiedComment) {
+                        if (refreshingCommentsUntil > page) {
+                            loadMoreComments()
+                        } else {
+                            view.run {
+                                setTransparentRefreshingLayer(false)
+                                getRecyclerViewState()
+                            }
+                            isRefreshingForModifiedComment = false
+                        }
+                    }
                 },
                 onFailure = { e ->
                     view.apply {
@@ -379,33 +423,13 @@ class PresenterDetail(
         )
     }
 
-    override fun openModifyCommentUi() {
+    override fun openModifyComment() {
         if (userId == tempComment.user_id) {
-            view.run {
-                showCommentToModify(tempComment.content)
-                showSoftInput()
-            }
+            refreshingCommentsUntil = page
+            view.openModifyCommentUi(postId, tempComment)
         } else {
             view.showEditCommentFailedDialog()
         }
     }
 
-    override fun modifyComment(comment: String) {
-        commentsRepository.editComment(
-            postId,
-            tempComment.comment_id,
-            AddEditCommentRequest(comment),
-            onSuccess = {
-
-            },
-            onFailure = { e ->
-                view.apply {
-                    showErrorToast(
-                        "댓글 수정에 실패했습니다" +
-                                "\n ${NetworkUtil.getErrorMessage(e)}"
-                    )
-                }
-            }
-        )
-    }
 }

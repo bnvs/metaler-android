@@ -4,6 +4,9 @@
     <color name="colorPrimaryDark">#493c7e</color>
     <color name="colorAccent">#fa6400</color>
 
+    <!-- 반투명 색 -->
+    <color name="colorTransparentBlack">#66434343</color>
+
 
     <color name="colorYellow">#fad256</color>
 
@@ -11,10 +14,10 @@
     <color name="colorDarkGrey">#717171</color>
     <color name="colorLightGrey">#e3e3e3</color>
 
-    <!--  필수 입력 사항 글자에 쓰이는 주의 안내 색상  -->
+<!--  필수 입력 사항 글자에 쓰이는 주의 안내 색상  -->
     <color name="colorCaution">#fa6400</color>
 
-    <!--  본문에 쓰이는 가장 어두운 블랙  -->
+<!--  본문에 쓰이는 가장 어두운 블랙  -->
     <color name="colorBlack">#434343</color>
 
     <color name="colorWhite">#ffffff</color>

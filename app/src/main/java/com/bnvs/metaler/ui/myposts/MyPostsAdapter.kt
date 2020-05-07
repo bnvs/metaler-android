@@ -7,6 +7,7 @@ import android.graphics.Color
 import android.graphics.PorterDuff
 import android.os.Build
 import android.os.Handler
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,7 +27,7 @@ class MyPostsAdapter(
 
     lateinit var context: Context
 
-    var myPostsList = mutableListOf<MyPost?>()
+    private var myPostsList = mutableListOf<MyPost?>()
 
     class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
     class LoadingViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
@@ -120,24 +121,25 @@ class MyPostsAdapter(
 
                 holder.itemView.apply {
                     title.text = myPostsList[position]!!.title
-                    userName.text = myPostsList[position]!!.profile_nickname.toString()
+                    userName.text = myPostsList[position]!!.profile_nickname
                     date.text = myPostsList[position]!!.date
                     tagName.text = tagString
                     dislikeNum.text = myPostsList[position]!!.disliked.toString()
                     likeNum.text = myPostsList[position]!!.liked.toString()
 
-                    if (!myPostsList[position]!!.thumbnail.isEmpty()) {
-                        Glide.with(this)
-                            .asBitmap()//gif 재생안되고 첫번째 프레임에서 멈추도록 강제함
-                            .load("http://file.metaler.kr/upload/" + myPostsList[position]!!.thumbnail)
-                            .transform(CenterCrop(), RoundedCorners(24))
-                            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
-                            .into(img)
-                    } else {
-                        Glide.with(this)
-                            .load(R.drawable.rounding_img_view)
-                            .into(img)
-                    }
+//                    if (!myPostsList[position]!!.thumbnail.isEmpty()) {
+//                        Log.d("마이포스트어댑터","url ? : ${myPostsList[position]!!.thumbnail[0].url}")
+//                        Glide.with(this)
+//                            .asBitmap()//gif 재생안되고 첫번째 프레임에서 멈추도록 강제함
+//                            .load(myPostsList[position]!!.thumbnail[0].url)
+//                            .transform(CenterCrop(), RoundedCorners(24))
+//                            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+//                            .into(img)
+//                    } else {
+//                        Glide.with(this)
+//                            .load(R.drawable.rounding_img_view)
+//                            .into(img)
+//                    }
 
 
                     holder.itemView.setOnClickListener {
