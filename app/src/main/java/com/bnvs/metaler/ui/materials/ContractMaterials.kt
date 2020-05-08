@@ -47,6 +47,8 @@ interface ContractMaterials {
 
         fun requestPosts(categoryId: Int): PostsRequest
 
+        fun requestAddSearchTag(categoryId: Int, searchType: String, searchWord: List<String>): PostsWithTagRequest
+
         fun requestAddBookmark(postId: Int): AddBookmarkRequest
 
         fun requestDeleteBookmark(postId: Int): DeleteBookmarkRequest
@@ -54,6 +56,10 @@ interface ContractMaterials {
         fun loadPosts(postsRequest: PostsRequest)
 
         fun loadMorePosts(postsRequest: PostsRequest)
+
+        fun loadSearchTagPosts(postsWithTagRequest: PostsWithTagRequest)
+
+        fun loadMoreSearchTagPosts(postsWithTagRequest: PostsWithTagRequest)
 
         fun refreshPosts(postsRequest: PostsRequest)
 
@@ -70,8 +76,6 @@ interface ContractMaterials {
         fun deleteBookmark(postId: Int)
 
         fun openSearch()
-
-        fun requestAddSearchTag(categoryId: Int, searchType: String, searchWord: List<String>)
 
         fun clearSearchTagBar()
 

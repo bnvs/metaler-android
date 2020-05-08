@@ -33,7 +33,10 @@ class ActivityMaterials : AppCompatActivity(),
     lateinit var postLayoutManager: RecyclerView.LayoutManager
     var loadMorePosts: ArrayList<Post?> = ArrayList()
 
+    //MutableList 의 값을 PostsWithTagRequest 모델 타입인 List 에 맞추기 위해 String으로 변환해서 넣음
     var tagSearchWords: MutableList<String?> = mutableListOf()
+    var tagString: String = ""
+    lateinit var tagSearchWordsList: List<String>
 
     lateinit var tagSearchAdapter: TagSearchAdapter
     private val tagSearchLayoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
@@ -190,18 +193,30 @@ class ActivityMaterials : AppCompatActivity(),
             EndlessRecyclerViewScrollListener.OnLoadMoreListener {
             override fun onLoadMore() {
 
-                Log.d("TAG", "스크롤리스너 onLoadMore 실행!!")
-
                 //loadMorePosts 에 null값을 추가해서 로딩뷰를 만든다.
                 postAdapter.addLoadingView()
                 loadMorePosts.add(null)
 
                 //loadMorePosts 는 다음페이지 데이터를 받아올 때만 데이터를 추가하기 때문에 조건절로 비어있는지 확인해야함
-                if (!loadMorePosts.isEmpty()) {
+                if (!loadMorePosts.isEmpty() && tagSearchWords.isEmpty()) {
                     //loadMorePosts의 마지막 값이 null값이 있으면 무한스크롤 로딩 중이기 때문에 데이터를 받아오고, 로딩뷰를 제거한다.
                     if (loadMorePosts[loadMorePosts.size - 1] == null) {
                         presenter.loadMorePosts(presenter.requestPosts(presenter.getCategoryId()))
-//                        showMorePosts()
+                    }
+                }
+
+                else if (!loadMorePosts.isEmpty() && !tagSearchWords.isEmpty()) {
+                    Log.d("TAG", "111 들어옴 ")
+                    if (loadMorePosts[loadMorePosts.size - 1] == null) {
+                        Log.d("TAG", "111222 들어옴 ")
+
+                        presenter.loadMoreSearchTagPosts(
+                            presenter.requestAddSearchTag(
+                                presenter.getCategoryId(),
+                                "tag",
+                                tagSearchWordsList
+                            )
+                        )
                     }
                 }
 
@@ -283,27 +298,28 @@ class ActivityMaterials : AppCompatActivity(),
         tagSearchWords.add(inputTag)
 
         //MutableList 의 값을 List 에 넣기 위해 String으로 변환해서 넣음
-        var tagString: String = ""
+        tagString = ""
 
         for (i in 0..tagSearchWords.size) {
             if (i == 0) {
                 tagString = "$tagString" + "\"${tagSearchWords[i]}\""
             } else if (i == tagSearchWords.size - 1) {
-                tagString = "$tagString" + ","+"\"${tagSearchWords[i]}\""
-            } else if (i != 0 && i < tagSearchWords.size - 1 ) {
-                tagString = "$tagString" + ","+"\"${tagSearchWords[i]}\""
+                tagString = "$tagString" + "," + "\"${tagSearchWords[i]}\""
+            } else if (i != 0 && i < tagSearchWords.size - 1) {
+                tagString = "$tagString" + "," + "\"${tagSearchWords[i]}\""
             }
         }
 
         // 모델 형식에 맞춰서 List 타입으로 형변환
-        val tagSearchWordsList: List<String> = listOf(tagString)
+        tagSearchWordsList = listOf(tagString)
         Log.d(TAG, "777 tagSearchWordsList? : ${tagSearchWordsList}")
 
         presenter.requestAddSearchTag(
             presenter.getCategoryId(),
             "tag",
             tagSearchWordsList
-        ) //검색 내용에 맞게 새로운 데이터를 가져오기 위한 요청값 프레젠터에 전달
+        )
+        //검색 내용에 맞게 새로운 데이터를 가져오기 위한 요청값 프레젠터에 전달
         tagSearchAdapter.addTags(inputTag)
         tagSearchAdapter.notifyDataSetChanged()
         tagRV.setHasFixedSize(true)
@@ -319,6 +335,7 @@ class ActivityMaterials : AppCompatActivity(),
     private fun setTagSearchButtons() {
         tagInput.setOnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                presenter.resetPageNum()
                 showSearchTags()
                 true
             } else {

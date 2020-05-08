@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.util.Log
 import android.widget.Toast
-import androidx.core.content.contentValuesOf
 import com.bnvs.metaler.data.bookmarks.model.AddBookmarkRequest
 import com.bnvs.metaler.data.bookmarks.model.AddBookmarkResponse
 import com.bnvs.metaler.data.bookmarks.model.DeleteBookmarkRequest
@@ -30,16 +29,16 @@ class PresenterMaterials(
     private val categoriesRepository: CategoriesRepository = CategoriesRepository()
 
     private lateinit var postsRequest: PostsRequest
+    private lateinit var postsWithTagRequest: PostsWithTagRequest
     private lateinit var addBookmarkRequest: AddBookmarkRequest
     private lateinit var deleteBookmarkRequest: DeleteBookmarkRequest
 
     private var pageNum: Int = 0
     private var categoryId: Int = 0
 
-    private var tags: MutableList<String>? =null
+    private var tags: MutableList<String>? = null
     private var searchType: String? = null
-//    private var searchWord: String? = null
-    private var searchTags: MutableList<String?> = mutableListOf()
+    lateinit var searchWord: List<String>
 
     lateinit var posts: List<Post>
 
@@ -86,7 +85,50 @@ class PresenterMaterials(
         postRepository.getPosts(
             postsRequest,
             onSuccess = { response: PostsResponse ->
-                if (response.is_next) {
+                if (response.posts.isNotEmpty()) {
+                    view.showMorePosts(response.posts)
+                } else {
+                    view.removeLoadingView()
+                    Toast.makeText(
+                        context,
+                        "마지막 아이템입니다.",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+
+            },
+            onFailure = { e ->
+                Toast.makeText(
+                    context,
+                    "서버 통신 실패 : ${NetworkUtil.getErrorMessage(e)}",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        )
+    }
+
+    override fun loadSearchTagPosts(postsWithTagRequest: PostsWithTagRequest) {
+        resetPageNum()
+        postRepository.getPostsWithSearchTypeTag(
+            postsWithTagRequest,
+            onSuccess = { response: PostsResponse ->
+                view.showRefreshPosts(response.posts)
+            },
+            onFailure = { e ->
+                Toast.makeText(
+                    context,
+                    "서버 통신 실패 : ${NetworkUtil.getErrorMessage(e)}",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        )
+    }
+
+    override fun loadMoreSearchTagPosts(postsWithTagRequest: PostsWithTagRequest) {
+        postRepository.getPostsWithSearchTypeTag(
+            postsWithTagRequest,
+            onSuccess = { response: PostsResponse ->
+                if (response.posts.isNotEmpty()) {
                     view.showMorePosts(response.posts)
                 } else {
                     view.removeLoadingView()
@@ -129,7 +171,7 @@ class PresenterMaterials(
         resetPageNum()
         postRepository.getPostsWithSearchTypeTag(
             postsWithTagRequest,
-            onSuccess = {response: PostsResponse ->
+            onSuccess = { response: PostsResponse ->
                 view.showRefreshPosts(response.posts)
             },
             onFailure = { e ->
@@ -153,6 +195,26 @@ class PresenterMaterials(
             10
         )
         return postsRequest
+    }
+
+    override fun requestAddSearchTag(
+        categoryId: Int,
+        searchType: String,
+        searchWord: List<String>
+    ): PostsWithTagRequest {
+        pageNum++
+        this.categoryId = categoryId
+        this.searchType = searchType
+        this.searchWord = searchWord
+        postsWithTagRequest = PostsWithTagRequest(
+            categoryId,
+            pageNum,
+            10,
+            searchType,
+            searchWord
+        )
+//        refreshTagSearchPosts(searchTagRequest)
+        return postsWithTagRequest
     }
 
     // addBookmark api 요청을 반환하는 함수
@@ -223,18 +285,6 @@ class PresenterMaterials(
 
     override fun openSearch() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun requestAddSearchTag(categoryId: Int, searchType: String, searchWord: List<String>) {
-        pageNum++
-        var searchTagRequest = PostsWithTagRequest(
-            categoryId,
-            pageNum,
-            10,
-            searchType,
-            searchWord
-        )
-        refreshTagSearchPosts(searchTagRequest)
     }
 
     override fun clearSearchTagBar() {
