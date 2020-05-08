@@ -273,6 +273,9 @@ class ActivityPostFirst : AppCompatActivity(), ContractPostFirst.View {
     }
 
     private fun setCategoryMoreButtons() {
+        categoryTxt.setOnClickListener {
+            presenter.openChooseCategory()
+        }
         categoryMoreBtn.setOnClickListener {
             presenter.openChooseCategory()
         }
