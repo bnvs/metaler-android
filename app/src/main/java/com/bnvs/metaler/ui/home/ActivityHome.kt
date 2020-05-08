@@ -174,8 +174,14 @@ class ActivityHome : AppCompatActivity(), ContractHome.View {
     }
 
     private fun setMoreButtons() {
-        materialsMoreBtn.setOnClickListener { presenter.openMaterials(this, this) }
-        manufactureMoreBtn.setOnClickListener { presenter.openManufactures(this, this) }
+        materialsBtn.setOnClickListener {
+            presenter.openMaterials(this, this)
+            finishActivity()
+        }
+        manufactureBtn.setOnClickListener {
+            presenter.openManufactures(this, this)
+            finishActivity()
+        }
     }
 
     private fun setTapBarButtons() {
