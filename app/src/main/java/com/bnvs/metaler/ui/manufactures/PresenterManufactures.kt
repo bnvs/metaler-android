@@ -63,7 +63,7 @@ class PresenterManufactures(
         postRepository.getPosts(
             postsRequest,
             onSuccess = { response: PostsResponse ->
-                if (response.is_next) {
+                if (response.posts.isNotEmpty()) {
                     view.showMorePosts(response.posts)
                 } else {
                     view.removeLoadingView()
