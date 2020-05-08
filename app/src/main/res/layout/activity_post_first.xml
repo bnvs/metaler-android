@@ -60,7 +60,7 @@
 
                 <TextView
                     android:id="@+id/categoryTxt"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/wideMargin"
                     android:layout_marginTop="10dp"
@@ -68,14 +68,16 @@
                     android:text="@string/category"
                     android:textColor="@color/colorDarkGrey"
                     android:textSize="14sp"
+                    app:layout_constraintEnd_toStartOf="@id/categoryMoreBtn"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
                     android:id="@+id/categoryMoreBtn"
-                    style="@style/titleBarIconBtn"
+                    android:layout_width="13dp"
+                    android:layout_height="13dp"
                     android:layout_marginRight="30dp"
-                    android:src="@drawable/ic_post_arrow_drop_down_24dp"
+                    android:src="@drawable/ic_post_arrow_drop_down_x3"
                     app:layout_constraintBottom_toBottomOf="@id/categoryLine"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
