@@ -5,7 +5,6 @@ import com.bnvs.metaler.data.addeditpost.model.PostTag
 data class Bookmark(
     val post_id: Int,
     val title: String,
-    val content: String,
     val profile_nickname: Int,
     val date: String,
     val liked: Int,

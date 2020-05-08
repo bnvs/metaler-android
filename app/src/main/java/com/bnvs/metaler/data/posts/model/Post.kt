@@ -10,7 +10,6 @@ import com.bnvs.metaler.data.addeditpost.model.PostTag
 data class Post(
     val post_id: Int,
     val title: String,
-    val content: String,
     val nickname: String,
     val date: String,
     val liked: Int,
