@@ -222,7 +222,7 @@ class PresenterDetail(
 
     override fun deleteBookmark() {
         bookmarksRepository.deleteBookmark(
-            postId,
+            postDetails.bookmark_id,
             onSuccess = {
                 postDetails.bookmark_id = 0
                 view.apply {
