@@ -94,7 +94,7 @@ class ActivityMaterials : AppCompatActivity(),
                     Log.d(TAG, "isBookmark ? : ${isBookmark}")
 
                 }
-            } else if (isBookmark == 1){
+            } else if (isBookmark == 1) {
                 presenter.deleteBookmark(clickedPostId)
                 postAdapter.apply {
                     setBookmark(position)
@@ -190,7 +190,7 @@ class ActivityMaterials : AppCompatActivity(),
             EndlessRecyclerViewScrollListener.OnLoadMoreListener {
             override fun onLoadMore() {
 
-                Log.d("TAG","스크롤리스너 onLoadMore 실행!!")
+                Log.d("TAG", "스크롤리스너 onLoadMore 실행!!")
 
                 //loadMorePosts 에 null값을 추가해서 로딩뷰를 만든다.
                 postAdapter.addLoadingView()
@@ -279,13 +279,31 @@ class ActivityMaterials : AppCompatActivity(),
     }
 
     override fun showSearchTags() {
-        Log.d(TAG,"태그입력값? : ${tagInput.text}")
-        var inputTag : String = tagInput.text.toString()
+        var inputTag: String = tagInput.text.toString()
         tagSearchWords.add(inputTag)
-        val tagSearchWordsList: List<String> = listOf("\"${inputTag}\"") // List타입으로 형변환
-        Log.d(TAG,"tagSearchWordsList? : ${tagSearchWordsList}")
 
-        presenter.requestAddSearchTag(presenter.getCategoryId() ,"tag",tagSearchWordsList) //검색 내용에 맞게 새로운 데이터를 가져오기 위한 요청값 프레젠터에 전달
+        //MutableList 의 값을 List 에 넣기 위해 String으로 변환해서 넣음
+        var tagString: String = ""
+
+        for (i in 0..tagSearchWords.size) {
+            if (i == 0) {
+                tagString = "$tagString" + "\"${tagSearchWords[i]}\""
+            } else if (i == tagSearchWords.size - 1) {
+                tagString = "$tagString" + ","+"\"${tagSearchWords[i]}\""
+            } else if (i != 0 && i < tagSearchWords.size - 1 ) {
+                tagString = "$tagString" + ","+"\"${tagSearchWords[i]}\""
+            }
+        }
+
+        // 모델 형식에 맞춰서 List 타입으로 형변환
+        val tagSearchWordsList: List<String> = listOf(tagString)
+        Log.d(TAG, "777 tagSearchWordsList? : ${tagSearchWordsList}")
+
+        presenter.requestAddSearchTag(
+            presenter.getCategoryId(),
+            "tag",
+            tagSearchWordsList
+        ) //검색 내용에 맞게 새로운 데이터를 가져오기 위한 요청값 프레젠터에 전달
         tagSearchAdapter.addTags(inputTag)
         tagSearchAdapter.notifyDataSetChanged()
         tagRV.setHasFixedSize(true)
@@ -340,7 +358,7 @@ class ActivityMaterials : AppCompatActivity(),
 
         fun setCategories(list: List<Category>) {
             this.materialCategories = list
-           }
+        }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
             val inflatedView = LayoutInflater.from(parent.context)
@@ -372,7 +390,12 @@ class ActivityMaterials : AppCompatActivity(),
                     } else {
                         materialsCategoryBtn.apply {
                             text = item.name
-                            setTextColor(ContextCompat.getColor(this.context, R.color.colorLightGrey))
+                            setTextColor(
+                                ContextCompat.getColor(
+                                    this.context,
+                                    R.color.colorLightGrey
+                                )
+                            )
                         }
                         categoryActiveBar.visibility = View.INVISIBLE
                     }
