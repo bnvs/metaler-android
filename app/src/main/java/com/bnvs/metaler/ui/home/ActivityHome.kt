@@ -181,11 +181,28 @@ class ActivityHome : AppCompatActivity(), ContractHome.View {
     private fun setTapBarButtons() {
         // TODO : presenter 의 함수 파라미터에 view 를 넣지 않고,
         //  presenter 의 멤버변수로 선언된 view 를 사용하는 방법이 없을까?
-        homeBtn.setOnClickListener { presenter.openHome(this, this) }
-        materialsBtn.setOnClickListener { presenter.openMaterials(this, this) }
-        manufactureBtn.setOnClickListener { presenter.openManufactures(this, this) }
-        bookmarkBtn.setOnClickListener { presenter.openBookmarks(this, this) }
-        myPageBtn.setOnClickListener { presenter.openMyPage(this, this) }
+        homeBtn.setOnClickListener { }
+        materialsBtn.setOnClickListener {
+            presenter.openMaterials(this, this)
+            finishActivity()
+        }
+        manufactureBtn.setOnClickListener {
+            presenter.openManufactures(this, this)
+            finishActivity()
+        }
+        bookmarkBtn.setOnClickListener {
+            presenter.openBookmarks(this, this)
+            finishActivity()
+        }
+        myPageBtn.setOnClickListener {
+            presenter.openMyPage(this, this)
+            finishActivity()
+        }
+    }
+
+    private fun finishActivity() {
+        finish()
+        overridePendingTransition(0, 0)
     }
 
     // 상태 바를 투명하게 하고, padding 을 조절한다

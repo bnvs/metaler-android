@@ -94,7 +94,7 @@ class ActivityMaterials : AppCompatActivity(),
                     Log.d(TAG, "isBookmark ? : ${isBookmark}")
 
                 }
-            } else if (isBookmark == 1){
+            } else if (isBookmark == 1) {
                 presenter.deleteBookmark(clickedPostId)
                 postAdapter.apply {
                     setBookmark(position)
@@ -148,7 +148,7 @@ class ActivityMaterials : AppCompatActivity(),
             presenter.resetPageNum()
             presenter.loadPosts(presenter.requestPosts(presenter.getCategoryId()))
             // The method calls setRefreshing(false) when it's finished.
-            refreshLayout.setRefreshing(false)
+            refreshLayout.isRefreshing = false
             scrollListener.setLoaded()
         }
     }
@@ -190,7 +190,7 @@ class ActivityMaterials : AppCompatActivity(),
             EndlessRecyclerViewScrollListener.OnLoadMoreListener {
             override fun onLoadMore() {
 
-                Log.d("TAG","스크롤리스너 onLoadMore 실행!!")
+                Log.d("TAG", "스크롤리스너 onLoadMore 실행!!")
 
                 //loadMorePosts 에 null값을 추가해서 로딩뷰를 만든다.
                 postAdapter.addLoadingView()
@@ -279,11 +279,15 @@ class ActivityMaterials : AppCompatActivity(),
     }
 
     override fun showSearchTags() {
-        Log.d(TAG,"태그입력값? : ${tagInput.text}")
-        var inputTag : String = tagInput.text.toString()
+        Log.d(TAG, "태그입력값? : ${tagInput.text}")
+        var inputTag: String = tagInput.text.toString()
         tagSearchWords.add(inputTag)
         val tagSearchWordsList: List<String> = listOf(tagSearchWords.toString()) // List타입으로 형변환
-        presenter.addSearchTag(presenter.getCategoryId() ,"tag",tagSearchWordsList) //검색 내용에 맞게 새로운 데이터를 가져오기 위한 요청값 프레젠터에 전달
+        presenter.addSearchTag(
+            presenter.getCategoryId(),
+            "tag",
+            tagSearchWordsList
+        ) //검색 내용에 맞게 새로운 데이터를 가져오기 위한 요청값 프레젠터에 전달
         tagSearchAdapter.addTags(inputTag)
         tagSearchAdapter.notifyDataSetChanged()
         tagRV.setHasFixedSize(true)
@@ -313,11 +317,28 @@ class ActivityMaterials : AppCompatActivity(),
     }
 
     private fun setTapBarButtons() {
-        homeBtn.setOnClickListener { presenter.openHome(this, this) }
-        materialsBtn.setOnClickListener { presenter.openMaterials(this, this) }
-        manufactureBtn.setOnClickListener { presenter.openManufactures(this, this) }
-        bookmarkBtn.setOnClickListener { presenter.openBookmarks(this, this) }
-        myPageBtn.setOnClickListener { presenter.openMyPage(this, this) }
+        homeBtn.setOnClickListener {
+            presenter.openHome(this, this)
+            finishActivity()
+        }
+        materialsBtn.setOnClickListener { }
+        manufactureBtn.setOnClickListener {
+            presenter.openManufactures(this, this)
+            finishActivity()
+        }
+        bookmarkBtn.setOnClickListener {
+            presenter.openBookmarks(this, this)
+            finishActivity()
+        }
+        myPageBtn.setOnClickListener {
+            presenter.openMyPage(this, this)
+            finishActivity()
+        }
+    }
+
+    private fun finishActivity() {
+        finish()
+        overridePendingTransition(0, 0)
     }
 
     /**
@@ -333,7 +354,7 @@ class ActivityMaterials : AppCompatActivity(),
 
         fun setCategories(list: List<Category>) {
             this.materialCategories = list
-           }
+        }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
             val inflatedView = LayoutInflater.from(parent.context)
@@ -365,7 +386,12 @@ class ActivityMaterials : AppCompatActivity(),
                     } else {
                         materialsCategoryBtn.apply {
                             text = item.name
-                            setTextColor(ContextCompat.getColor(this.context, R.color.colorLightGrey))
+                            setTextColor(
+                                ContextCompat.getColor(
+                                    this.context,
+                                    R.color.colorLightGrey
+                                )
+                            )
                         }
                         categoryActiveBar.visibility = View.INVISIBLE
                     }
