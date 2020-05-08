@@ -225,7 +225,7 @@ class PresenterMaterials(
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun addSearchTag(categoryId: Int, searchType: String, searchWord: List<String>) {
+    override fun requestAddSearchTag(categoryId: Int, searchType: String, searchWord: List<String>) {
         pageNum++
         var searchTagRequest = PostsWithTagRequest(
             categoryId,
