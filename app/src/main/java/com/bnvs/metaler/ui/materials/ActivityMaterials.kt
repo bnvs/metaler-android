@@ -282,13 +282,20 @@ class ActivityMaterials : AppCompatActivity(),
         Log.d(TAG,"태그입력값? : ${tagInput.text}")
         var inputTag : String = tagInput.text.toString()
         tagSearchWords.add(inputTag)
-        val tagSearchWordsList: List<String> = listOf(tagSearchWords.toString()) // List타입으로 형변환
-        presenter.addSearchTag(presenter.getCategoryId() ,"tag",tagSearchWordsList) //검색 내용에 맞게 새로운 데이터를 가져오기 위한 요청값 프레젠터에 전달
+        val tagSearchWordsList: List<String> = listOf("\"${inputTag}\"") // List타입으로 형변환
+        Log.d(TAG,"tagSearchWordsList? : ${tagSearchWordsList}")
+
+        presenter.requestAddSearchTag(presenter.getCategoryId() ,"tag",tagSearchWordsList) //검색 내용에 맞게 새로운 데이터를 가져오기 위한 요청값 프레젠터에 전달
         tagSearchAdapter.addTags(inputTag)
         tagSearchAdapter.notifyDataSetChanged()
         tagRV.setHasFixedSize(true)
         tagRV.visibility = View.VISIBLE
         tagInput.text.clear()
+    }
+
+    //태그 검색어 리스트에 추가하기
+    fun setTagSearchWords() {
+
     }
 
     private fun setTagSearchButtons() {
