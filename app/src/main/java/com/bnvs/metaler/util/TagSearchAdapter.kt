@@ -28,6 +28,10 @@ class TagSearchAdapter(
         notifyItemRemoved(position)
     }
 
+    fun resetTagList() {
+        tags.removeAll(tags)
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflatedView = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_tag_rv, parent, false)
