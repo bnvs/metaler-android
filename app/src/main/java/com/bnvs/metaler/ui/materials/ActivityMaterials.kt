@@ -312,7 +312,6 @@ class ActivityMaterials : AppCompatActivity(),
 
         // 모델 형식에 맞춰서 List 타입으로 형변환
         tagSearchWordsList = listOf(tagString)
-        Log.d(TAG, "777 tagSearchWordsList? : ${tagSearchWordsList}")
 
         presenter.requestAddSearchTag(
             presenter.getCategoryId(),
@@ -325,11 +324,6 @@ class ActivityMaterials : AppCompatActivity(),
         tagRV.setHasFixedSize(true)
         tagRV.visibility = View.VISIBLE
         tagInput.text.clear()
-    }
-
-    //태그 검색어 리스트에 추가하기
-    fun setTagSearchWords() {
-
     }
 
     private fun setTagSearchButtons() {
