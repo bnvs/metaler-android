@@ -167,11 +167,28 @@ class ActivityMyPage : AppCompatActivity(), ContractMyPage.View {
     }
 
     private fun setTapBarButtons() {
-        homeBtn.setOnClickListener { presenter.openHome(this, this) }
-        materialsBtn.setOnClickListener { presenter.openMaterials(this, this) }
-        manufactureBtn.setOnClickListener { presenter.openManufactures(this, this) }
-        bookmarkBtn.setOnClickListener { presenter.openBookmarks(this, this) }
-        myPageBtn.setOnClickListener { presenter.openMyPage(this, this) }
+        homeBtn.setOnClickListener {
+            presenter.openHome(this, this)
+            finishActivity()
+        }
+        materialsBtn.setOnClickListener {
+            presenter.openMaterials(this, this)
+            finishActivity()
+        }
+        manufactureBtn.setOnClickListener {
+            presenter.openManufactures(this, this)
+            finishActivity()
+        }
+        bookmarkBtn.setOnClickListener {
+            presenter.openBookmarks(this, this)
+            finishActivity()
+        }
+        myPageBtn.setOnClickListener { }
+    }
+
+    private fun finishActivity() {
+        finish()
+        overridePendingTransition(0, 0)
     }
 
     override fun showLogoutSuccessToast() {
