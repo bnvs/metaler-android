@@ -226,6 +226,7 @@ class PresenterMaterials(
     }
 
     override fun addSearchTag(categoryId: Int, searchType: String, searchWord: List<String>) {
+        pageNum++
         var searchTagRequest = PostsWithTagRequest(
             categoryId,
             pageNum,
