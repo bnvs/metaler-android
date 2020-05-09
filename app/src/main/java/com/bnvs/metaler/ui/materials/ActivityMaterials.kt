@@ -215,9 +215,7 @@ class ActivityMaterials : AppCompatActivity(),
                     if (loadMorePosts[loadMorePosts.size - 1] == null) {
                         presenter.loadMorePosts(presenter.requestPosts(presenter.getCategoryId()))
                     }
-                }
-
-                else if (!loadMorePosts.isEmpty() && !tagSearchWords.isEmpty()) {
+                } else if (!loadMorePosts.isEmpty() && !tagSearchWords.isEmpty()) {
                     if (loadMorePosts[loadMorePosts.size - 1] == null) {
                         presenter.loadMoreSearchTagPosts(
                             presenter.requestAddSearchTag(
@@ -312,9 +310,7 @@ class ActivityMaterials : AppCompatActivity(),
         for (i in 0..tagSearchWords.size) {
             if (i == 0) {
                 tagString = "$tagString" + "\"${tagSearchWords[i]}\""
-            } else if (i == tagSearchWords.size - 1) {
-                tagString = "$tagString" + "," + "\"${tagSearchWords[i]}\""
-            } else if (i != 0 && i < tagSearchWords.size - 1) {
+            } else if (i != 0 && i <= tagSearchWords.size - 1) {
                 tagString = "$tagString" + "," + "\"${tagSearchWords[i]}\""
             }
         }
