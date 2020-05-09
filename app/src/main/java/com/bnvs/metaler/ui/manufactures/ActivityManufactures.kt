@@ -278,10 +278,6 @@ class ActivityManufactures : AppCompatActivity(),
         tagInputDeleteBtn.setOnClickListener { tagInput.text.clear() }
     }
 
-    override fun deleteSearchTag() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
     private fun initClickListeners() {
         setTitleBarButtons()
         setTapBarButtons()

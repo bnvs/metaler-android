@@ -39,7 +39,6 @@ interface ContractManufactures {
 
         fun clearSearchTagBar()
 
-        fun deleteSearchTag()
     }
 
     interface Presenter : BasePresenter, TapBarContract.Presenter {
