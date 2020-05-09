@@ -31,6 +31,10 @@ interface ContractMaterials {
 
         fun showRefreshPosts(posts: List<Post>)
 
+        fun hideError404()
+
+        fun showError404()
+
         fun showPostDetailUi()
 
         fun showSearchUi()

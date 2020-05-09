@@ -162,6 +162,18 @@ class ActivityMaterials : AppCompatActivity(),
         postAdapter.notifyDataSetChanged()
     }
 
+    override fun showError404() {
+        postAdapter.resetList()
+        postAdapter.notifyDataSetChanged()
+        postsRV.visibility = View.INVISIBLE
+        error404Group.visibility = View.VISIBLE
+    }
+
+    override fun hideError404() {
+        postsRV.visibility = View.VISIBLE
+        error404Group.visibility = View.INVISIBLE
+    }
+
     private fun setRVLayoutManager() {
         //게시글 리사이클러뷰
         postLayoutManager = LinearLayoutManager(this)
@@ -206,10 +218,7 @@ class ActivityMaterials : AppCompatActivity(),
                 }
 
                 else if (!loadMorePosts.isEmpty() && !tagSearchWords.isEmpty()) {
-                    Log.d("TAG", "111 들어옴 ")
                     if (loadMorePosts[loadMorePosts.size - 1] == null) {
-                        Log.d("TAG", "111222 들어옴 ")
-
                         presenter.loadMoreSearchTagPosts(
                             presenter.requestAddSearchTag(
                                 presenter.getCategoryId(),
@@ -313,11 +322,14 @@ class ActivityMaterials : AppCompatActivity(),
         // 모델 형식에 맞춰서 List 타입으로 형변환
         tagSearchWordsList = listOf(tagString)
 
-        presenter.requestAddSearchTag(
-            presenter.getCategoryId(),
-            "tag",
-            tagSearchWordsList
+        presenter.loadSearchTagPosts(
+            presenter.requestAddSearchTag(
+                presenter.getCategoryId(),
+                "tag",
+                tagSearchWordsList
+            )
         )
+
         //검색 내용에 맞게 새로운 데이터를 가져오기 위한 요청값 프레젠터에 전달
         tagSearchAdapter.addTags(inputTag)
         tagSearchAdapter.notifyDataSetChanged()

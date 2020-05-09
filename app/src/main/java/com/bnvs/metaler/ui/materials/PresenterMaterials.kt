@@ -69,7 +69,13 @@ class PresenterMaterials(
         postRepository.getPosts(
             postsRequest,
             onSuccess = { response: PostsResponse ->
-                view.showPosts(response.posts)
+                if (response.posts.isNotEmpty()) {
+                    resetPageNum()
+                    view.hideError404()
+                    view.showPosts(response.posts)
+                } else {
+                    view.showError404()
+                }
             },
             onFailure = { e ->
                 Toast.makeText(
@@ -112,7 +118,12 @@ class PresenterMaterials(
         postRepository.getPostsWithSearchTypeTag(
             postsWithTagRequest,
             onSuccess = { response: PostsResponse ->
-                view.showRefreshPosts(response.posts)
+                if (response.posts.isNotEmpty()) {
+                    view.hideError404()
+                    view.showRefreshPosts(response.posts)
+                } else {
+                    view.showError404()
+                }
             },
             onFailure = { e ->
                 Toast.makeText(
@@ -213,7 +224,6 @@ class PresenterMaterials(
             searchType,
             searchWord
         )
-//        refreshTagSearchPosts(searchTagRequest)
         return postsWithTagRequest
     }
 
