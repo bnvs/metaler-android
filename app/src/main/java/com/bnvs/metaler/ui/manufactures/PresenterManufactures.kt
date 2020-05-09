@@ -9,6 +9,7 @@ import com.bnvs.metaler.data.bookmarks.source.repositroy.BookmarksRepository
 import com.bnvs.metaler.data.posts.model.Post
 import com.bnvs.metaler.data.posts.model.PostsRequest
 import com.bnvs.metaler.data.posts.model.PostsResponse
+import com.bnvs.metaler.data.posts.model.PostsWithTagRequest
 import com.bnvs.metaler.data.posts.source.repository.PostsRepository
 import com.bnvs.metaler.network.NetworkUtil
 import com.bnvs.metaler.ui.detail.ActivityDetail
@@ -25,9 +26,14 @@ class PresenterManufactures(
     private val bookmarksRepository: BookmarksRepository = BookmarksRepository()
 
     private lateinit var postsRequest: PostsRequest
+    private lateinit var postsWithTagRequest: PostsWithTagRequest
     private lateinit var addBookmarkRequest: AddBookmarkRequest
 
     private var pageNum: Int = 0
+    private var categoryId: Int = 10 //가공탭은 categoryId 10으로 고정
+
+    private var searchType: String? = null
+    lateinit var searchWord: List<String>
 
     lateinit var posts: List<Post>
 
@@ -63,7 +69,56 @@ class PresenterManufactures(
         postRepository.getPosts(
             postsRequest,
             onSuccess = { response: PostsResponse ->
-                if (response.is_next) {
+                if (response.posts.isNotEmpty()) {
+                    view.showMorePosts(response.posts)
+                } else {
+                    view.removeLoadingView()
+                    Toast.makeText(
+                        context,
+                        "마지막 아이템입니다.",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+
+            },
+            onFailure = { e ->
+                Toast.makeText(
+                    context,
+                    "서버 통신 실패 : ${NetworkUtil.getErrorMessage(e)}",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        )
+    }
+
+    override fun loadSearchTagPosts(postsWithTagRequest: PostsWithTagRequest) {
+        resetPageNum()
+        postRepository.getPostsWithSearchTypeTag(
+            postsWithTagRequest,
+            onSuccess = { response: PostsResponse ->
+                if (response.posts.isNotEmpty()) {
+                    view.hideError404()
+                    view.showRefreshPosts(response.posts)
+                } else {
+                    view.showError404()
+                }
+
+            },
+            onFailure = { e ->
+                Toast.makeText(
+                    context,
+                    "서버 통신 실패 : ${NetworkUtil.getErrorMessage(e)}",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        )
+    }
+
+    override fun loadMoreSearchTagPosts(postsWithTagRequest: PostsWithTagRequest) {
+        postRepository.getPostsWithSearchTypeTag(
+            postsWithTagRequest,
+            onSuccess = { response: PostsResponse ->
+                if (response.posts.isNotEmpty()) {
                     view.showMorePosts(response.posts)
                 } else {
                     view.removeLoadingView()
@@ -103,8 +158,29 @@ class PresenterManufactures(
         )
     }
 
+    override fun refreshTagSearchPosts(postsWithTagRequest: PostsWithTagRequest) {
+        resetPageNum()
+        postRepository.getPostsWithSearchTypeTag(
+            postsWithTagRequest,
+            onSuccess = { response: PostsResponse ->
+                view.showRefreshPosts(response.posts)
+            },
+            onFailure = { e ->
+                Toast.makeText(
+                    context,
+                    "서버 통신 실패 : ${NetworkUtil.getErrorMessage(e)}",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        )
+    }
+
     override fun resetPageNum() {
         pageNum = 0
+    }
+
+    override fun getCategoryId(): Int {
+        return categoryId
     }
 
     // getPosts api 요청 request body 반환하는 함수
@@ -117,6 +193,24 @@ class PresenterManufactures(
             10
         )
         return postsRequest
+    }
+
+    override fun requestAddSearchTag(
+        categoryId: Int,
+        searchType: String,
+        searchWord: List<String>
+    ): PostsWithTagRequest {
+        pageNum++
+        this.searchType = searchType
+        this.searchWord = searchWord
+        postsWithTagRequest = PostsWithTagRequest(
+            categoryId,
+            pageNum,
+            10,
+            searchType,
+            searchWord
+        )
+        return postsWithTagRequest
     }
 
     // addBookmark api 요청을 반환하는 함수

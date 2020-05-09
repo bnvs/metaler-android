@@ -10,7 +10,7 @@ data class MyPost(
     val profile_nickname: String,
     val liked: Int,
     val disliked: Int,
-//    val thumbnail: List<AttachImage>,
+    val thumbnail: String,
     val tags: List<PostTag>,
     val is_bookmark: Boolean
 )

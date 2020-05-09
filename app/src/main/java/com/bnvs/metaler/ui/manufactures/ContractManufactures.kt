@@ -5,6 +5,7 @@ import com.bnvs.metaler.BaseView
 import com.bnvs.metaler.data.bookmarks.model.AddBookmarkRequest
 import com.bnvs.metaler.data.posts.model.Post
 import com.bnvs.metaler.data.posts.model.PostsRequest
+import com.bnvs.metaler.data.posts.model.PostsWithTagRequest
 import com.bnvs.metaler.util.TapBarContract
 
 /**
@@ -26,6 +27,10 @@ interface ContractManufactures {
 
         fun showRefreshPosts(posts: List<Post>)
 
+        fun hideError404()
+
+        fun showError404()
+
         fun showPostDetailUi()
 
         fun showSearchUi()
@@ -34,12 +39,13 @@ interface ContractManufactures {
 
         fun clearSearchTagBar()
 
-        fun deleteSearchTag()
     }
 
     interface Presenter : BasePresenter, TapBarContract.Presenter {
 
         fun requestPosts(): PostsRequest
+
+        fun requestAddSearchTag(categoryId: Int, searchType: String, searchWord: List<String>): PostsWithTagRequest
 
         fun requestAddBookmark(postId: Int): AddBookmarkRequest
 
@@ -47,9 +53,17 @@ interface ContractManufactures {
 
         fun loadMorePosts(postsRequest: PostsRequest)
 
+        fun loadSearchTagPosts(postsWithTagRequest: PostsWithTagRequest)
+
+        fun loadMoreSearchTagPosts(postsWithTagRequest: PostsWithTagRequest)
+
         fun refreshPosts(postsRequest: PostsRequest)
 
+        fun refreshTagSearchPosts(postsWithTagRequest: PostsWithTagRequest)
+
         fun resetPageNum()
+
+        fun getCategoryId(): Int
 
         fun openPostDetail(postId: Int)
 

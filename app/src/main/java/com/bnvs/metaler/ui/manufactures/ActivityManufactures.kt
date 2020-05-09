@@ -11,9 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bnvs.metaler.R
 import com.bnvs.metaler.data.posts.model.Post
 import com.bnvs.metaler.ui.postfirst.ActivityPostFirst
-import com.bnvs.metaler.util.EndlessRecyclerViewScrollListener
-import com.bnvs.metaler.util.PostAdapter
-import com.bnvs.metaler.util.PostItemListener
+import com.bnvs.metaler.util.*
 import kotlinx.android.synthetic.main.activity_manufacture.*
 import java.util.*
 
@@ -31,7 +29,13 @@ class ActivityManufactures : AppCompatActivity(),
     lateinit var scrollListener: EndlessRecyclerViewScrollListener
     lateinit var postLayoutManager: RecyclerView.LayoutManager
 
-//    lateinit var itemListener: PostItemListener
+    lateinit var tagSearchAdapter: TagSearchAdapter
+    private val tagSearchLayoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
+
+    //MutableList 의 값을 PostsWithTagRequest 모델 타입인 List 에 맞추기 위해 String으로 변환해서 넣음
+    var tagSearchWords: MutableList<String?> = mutableListOf()
+    var tagString: String = ""
+
     /**
      * 가공 탭에서 보여지는 가공 게시물 리사이클러뷰 아이템에 달아줄 클릭리스너입니다
      * onPostClick -> 게시물을 클릭한 경우
@@ -67,6 +71,48 @@ class ActivityManufactures : AppCompatActivity(),
 
     }
 
+    /**
+     * 가공 탭의 태그 검색 리사이클러뷰 아이템에 달아줄 리스너입니다
+     * */
+    private var tagSearchItemListener: TagSearchItemListener = object :
+        TagSearchItemListener {
+        override fun onTagDeleteBtnClick(view: View, position: Int) {
+            tagSearchAdapter.removeTag(position)
+            tagSearchAdapter.notifyDataSetChanged()
+
+            tagSearchWords.removeAt(position)
+
+            //초기화
+            tagString = ""
+
+            if (tagSearchWords.size > 0){
+                //MutableList 의 값을 List 에 넣기 위해 String(tagString) 으로 변환해서 넣음
+                for (i in 0 until tagSearchWords.size) {
+                    if (i == 0) {
+                        tagString = "$tagString" + "\"${tagSearchWords[i]}\""
+                    } else if (i != 0 && i <= tagSearchWords.size - 1) {
+                        tagString = "$tagString" + "," + "\"${tagSearchWords[i]}\""
+                    }
+                }
+                // 모델 형식에 맞춰서 List 타입으로 형변환
+                val tagSearchWordsList: List<String> = listOf(tagString)
+
+                presenter.loadSearchTagPosts(
+                    presenter.requestAddSearchTag(
+                        presenter.getCategoryId(),
+                        "tag",
+                        tagSearchWordsList
+                    )
+                )
+            }
+
+            if (tagSearchWords.size == 0) {
+                tagRV.visibility = View.GONE
+                presenter.loadPosts(presenter.requestPosts())
+            }
+        }
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -82,6 +128,8 @@ class ActivityManufactures : AppCompatActivity(),
 
         // Set up Buttons
         initClickListeners()
+
+        setRVAdapter()
 
         setRVLayoutManager()
 
@@ -111,10 +159,32 @@ class ActivityManufactures : AppCompatActivity(),
         postAdapter.notifyDataSetChanged()
     }
 
+    override fun showError404() {
+        postAdapter.resetList()
+        postAdapter.notifyDataSetChanged()
+        postsRV.visibility = View.INVISIBLE
+        error404Group.visibility = View.VISIBLE
+    }
+
+    override fun hideError404() {
+        postsRV.visibility = View.VISIBLE
+        error404Group.visibility = View.INVISIBLE
+    }
+
     private fun setRVLayoutManager() {
+        //게시글 리사이클러뷰
         postLayoutManager = LinearLayoutManager(this)
         postsRV.layoutManager = postLayoutManager
         postsRV.setHasFixedSize(true)
+
+        //태그 검색 리사이클러뷰
+        tagRV.layoutManager = tagSearchLayoutManager
+    }
+
+    private fun setRVAdapter() {
+        //태그 검색 리사이클러뷰 어댑터 연결
+        tagSearchAdapter = TagSearchAdapter(tagSearchItemListener)
+        tagRV.adapter = tagSearchAdapter
     }
 
     override fun setRVScrollListener() {
@@ -126,16 +196,26 @@ class ActivityManufactures : AppCompatActivity(),
             override fun onLoadMore() {
                 //loadMorePosts 에 null값을 추가해서 로딩뷰를 만든다.
                 postAdapter.addLoadingView()
-                loadMorePosts.add(null) // 이렇게 넣어줘야 하나 ?.. 어댑터랑 연결해서 넣어줄 수 없나
-
-//                Log.d(TAG, "addLoadingView 실행 후 loadMorePosts 값 ? : ${loadMorePosts}")
+                loadMorePosts.add(null)
 
                 //loadMorePosts 는 다음페이지 데이터를 받아올 때만 데이터를 추가하기 때문에 조건절로 비어있는지 확인해야함
-                if (!loadMorePosts.isEmpty()) {
+                if (!loadMorePosts.isEmpty() && tagSearchWords.isEmpty()) {
                     //loadMorePosts의 마지막 값이 null값이 있으면 무한스크롤 로딩 중이기 때문에 데이터를 받아오고, 로딩뷰를 제거한다.
                     if (loadMorePosts[loadMorePosts.size - 1] == null) {
                         presenter.loadMorePosts(presenter.requestPosts())
-//                        showMorePosts()
+                    }
+                } else if (!loadMorePosts.isEmpty() && !tagSearchWords.isEmpty()) {
+
+                    val tagSearchWordsList: List<String> = listOf(tagString)
+
+                    if (loadMorePosts[loadMorePosts.size - 1] == null) {
+                        presenter.loadMoreSearchTagPosts(
+                            presenter.requestAddSearchTag(
+                                presenter.getCategoryId(),
+                                "tag",
+                                tagSearchWordsList
+                            )
+                        )
                     }
                 }
 
@@ -144,6 +224,12 @@ class ActivityManufactures : AppCompatActivity(),
         postsRV.addOnScrollListener(scrollListener)
     }
 
+    override fun showPosts(posts: List<Post>) {
+        postAdapter = PostAdapter(itemListener)
+        postAdapter.addPosts(posts)
+        postAdapter.notifyDataSetChanged()
+        postsRV.adapter = postAdapter
+    }
 
     override fun showMorePosts(posts: List<Post>) {
 
@@ -171,13 +257,6 @@ class ActivityManufactures : AppCompatActivity(),
 
     }
 
-    override fun showPosts(posts: List<Post>) {
-        postAdapter = PostAdapter(itemListener)
-        postAdapter.addPosts(posts)
-        postAdapter.notifyDataSetChanged()
-        postsRV.adapter = postAdapter
-    }
-
     override fun removeLoadingView() {
         postAdapter.removeLoadingView()
     }
@@ -191,26 +270,60 @@ class ActivityManufactures : AppCompatActivity(),
     }
 
     override fun showSearchTags() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        var inputTag: String = tagInput.text.toString()
+        tagSearchWords.add(inputTag)
+
+        //초기화
+        tagString = ""
+
+        //MutableList 의 값을 List 에 넣기 위해 String(tagString)으로 변환해서 넣음
+        for (i in 0..tagSearchWords.size) {
+            if (i == 0) {
+                tagString = "$tagString" + "\"${tagSearchWords[i]}\""
+            } else if (i != 0 && i <= tagSearchWords.size - 1) {
+                tagString = "$tagString" + "," + "\"${tagSearchWords[i]}\""
+            }
+        }
+
+        // 모델 형식에 맞춰서 List 타입으로 형변환
+        val tagSearchWordsList: List<String> = listOf(tagString)
+
+        presenter.loadSearchTagPosts(
+            presenter.requestAddSearchTag(
+                presenter.getCategoryId(),
+                "tag",
+                tagSearchWordsList
+            )
+        )
+
+        //검색 내용에 맞게 새로운 데이터를 가져오기 위한 요청값 프레젠터에 전달
+        tagSearchAdapter.addTags(inputTag)
+        tagSearchAdapter.notifyDataSetChanged()
+        tagRV.setHasFixedSize(true)
+        tagRV.visibility = View.VISIBLE
+        tagInput.text.clear()
     }
 
     override fun clearSearchTagBar() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun deleteSearchTag() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        tagInputDeleteBtn.setOnClickListener { tagInput.text.clear() }
     }
 
     private fun initClickListeners() {
         setTitleBarButtons()
         setTapBarButtons()
         setTagSearchButtons()
+        clearSearchTagBar()
     }
 
     private fun setTagSearchButtons() {
         tagInput.setOnEditorActionListener { v, actionId, event ->
-            actionId == EditorInfo.IME_ACTION_SEARCH
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                presenter.resetPageNum()
+                showSearchTags()
+                true
+            } else {
+                false
+            }
         }
     }
 

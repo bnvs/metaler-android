@@ -31,6 +31,10 @@ interface ContractMaterials {
 
         fun showRefreshPosts(posts: List<Post>)
 
+        fun hideError404()
+
+        fun showError404()
+
         fun showPostDetailUi()
 
         fun showSearchUi()
@@ -39,13 +43,14 @@ interface ContractMaterials {
 
         fun clearSearchTagBar()
 
-        fun deleteSearchTag()
     }
 
     interface Presenter : BasePresenter, TapBarContract.Presenter {
         fun loadCategories()
 
         fun requestPosts(categoryId: Int): PostsRequest
+
+        fun requestAddSearchTag(categoryId: Int, searchType: String, searchWord: List<String>): PostsWithTagRequest
 
         fun requestAddBookmark(postId: Int): AddBookmarkRequest
 
@@ -54,6 +59,10 @@ interface ContractMaterials {
         fun loadPosts(postsRequest: PostsRequest)
 
         fun loadMorePosts(postsRequest: PostsRequest)
+
+        fun loadSearchTagPosts(postsWithTagRequest: PostsWithTagRequest)
+
+        fun loadMoreSearchTagPosts(postsWithTagRequest: PostsWithTagRequest)
 
         fun refreshPosts(postsRequest: PostsRequest)
 
@@ -70,8 +79,6 @@ interface ContractMaterials {
         fun deleteBookmark(postId: Int)
 
         fun openSearch()
-
-        fun addSearchTag(categoryId: Int, searchType: String, searchWord: List<String>)
 
         fun clearSearchTagBar()
 
