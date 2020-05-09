@@ -35,9 +35,7 @@ class ActivityManufactures : AppCompatActivity(),
     //MutableList 의 값을 PostsWithTagRequest 모델 타입인 List 에 맞추기 위해 String으로 변환해서 넣음
     var tagSearchWords: MutableList<String?> = mutableListOf()
     var tagString: String = ""
-    lateinit var tagSearchWordsList: List<String>
 
-//    lateinit var itemListener: PostItemListener
     /**
      * 가공 탭에서 보여지는 가공 게시물 리사이클러뷰 아이템에 달아줄 클릭리스너입니다
      * onPostClick -> 게시물을 클릭한 경우
@@ -178,6 +176,9 @@ class ActivityManufactures : AppCompatActivity(),
                         presenter.loadMorePosts(presenter.requestPosts())
                     }
                 } else if (!loadMorePosts.isEmpty() && !tagSearchWords.isEmpty()) {
+
+                    val tagSearchWordsList: List<String> = listOf(tagString)
+
                     if (loadMorePosts[loadMorePosts.size - 1] == null) {
                         presenter.loadMoreSearchTagPosts(
                             presenter.requestAddSearchTag(
@@ -256,7 +257,7 @@ class ActivityManufactures : AppCompatActivity(),
         }
 
         // 모델 형식에 맞춰서 List 타입으로 형변환
-        tagSearchWordsList = listOf(tagString)
+        val tagSearchWordsList: List<String> = listOf(tagString)
 
         presenter.loadSearchTagPosts(
             presenter.requestAddSearchTag(
