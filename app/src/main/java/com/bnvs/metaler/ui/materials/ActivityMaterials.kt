@@ -67,6 +67,10 @@ class ActivityMaterials : AppCompatActivity(),
             tagSearchAdapter.removeTag(position)
 
             tagSearchWords.removeAt(position)
+
+            //초기화
+            tagString = ""
+
             //MutableList 의 값을 List 에 넣기 위해 String(tagString) 으로 변환해서 넣음
             for (i in 0..tagSearchWords.size) {
                 if (i == 0) {
@@ -321,6 +325,9 @@ class ActivityMaterials : AppCompatActivity(),
     override fun showSearchTags() {
         var inputTag: String = tagInput.text.toString()
         tagSearchWords.add(inputTag)
+
+        //초기화
+        tagString = ""
 
         //MutableList 의 값을 List 에 넣기 위해 String(tagString) 으로 변환해서 넣음
         for (i in 0..tagSearchWords.size) {
