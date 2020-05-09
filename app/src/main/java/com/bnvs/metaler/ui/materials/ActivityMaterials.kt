@@ -363,9 +363,6 @@ class ActivityMaterials : AppCompatActivity(),
         tagInputDeleteBtn.setOnClickListener { tagInput.text.clear() }
     }
 
-    override fun deleteSearchTag() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
 
     private fun setTagSearchButtons() {
         tagInput.setOnEditorActionListener { v, actionId, event ->
