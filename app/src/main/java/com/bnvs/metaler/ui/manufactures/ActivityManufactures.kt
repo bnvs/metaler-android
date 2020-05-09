@@ -243,9 +243,7 @@ class ActivityManufactures : AppCompatActivity(),
         var inputTag: String = tagInput.text.toString()
         tagSearchWords.add(inputTag)
 
-        //MutableList 의 값을 List 에 넣기 위해 String으로 변환해서 넣음
-        tagString = ""
-
+        //MutableList 의 값을 List 에 넣기 위해 String(tagString)으로 변환해서 넣음
         for (i in 0..tagSearchWords.size) {
             if (i == 0) {
                 tagString = "$tagString" + "\"${tagSearchWords[i]}\""
