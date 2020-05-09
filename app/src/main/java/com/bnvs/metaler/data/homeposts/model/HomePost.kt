@@ -11,7 +11,6 @@ import com.bnvs.metaler.data.addeditpost.model.PostTag
 data class HomePost(
     val post_id: Int,
     val title: String,
-    val content: String,
     val nickname: String,
     val date: String,
     val tags: List<PostTag>

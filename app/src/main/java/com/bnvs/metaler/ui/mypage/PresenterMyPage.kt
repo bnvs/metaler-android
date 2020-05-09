@@ -122,7 +122,7 @@ class PresenterMyPage(
     }
 
     override fun openTerms() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        view.showTermsCheckUi()
     }
 
     override fun openJobModify() {

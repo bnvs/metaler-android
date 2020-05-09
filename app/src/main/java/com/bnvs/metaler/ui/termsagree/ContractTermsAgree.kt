@@ -8,16 +8,20 @@ import org.json.JSONObject
 
 interface ContractTermsAgree {
     interface View : BaseView<Presenter> {
-        fun showTermsWebView()
+        fun showTermsWebView(url: String)
 
         fun showEssentialAgreeNotCheckedDialog()
+
+        fun makeToast(message: String)
 
         fun showJobInputUi(addUserRequest: AddUserRequest)
     }
     interface Presenter : BasePresenter {
         fun getAddUserRequest(intent: Intent)
 
-        fun openTerms()
+        fun getTerms()
+
+        fun openTerms(index: Int)
 
         fun openJobInput(result: JSONObject)
     }

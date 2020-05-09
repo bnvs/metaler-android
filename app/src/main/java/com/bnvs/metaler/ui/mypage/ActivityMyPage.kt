@@ -12,6 +12,7 @@ import com.bnvs.metaler.data.profile.model.Profile
 import com.bnvs.metaler.ui.jobmodify.ActivityJobModify
 import com.bnvs.metaler.ui.login.ActivityLogin
 import com.bnvs.metaler.ui.myposts.ActivityMyPosts
+import com.bnvs.metaler.ui.termscheck.ActivityTermsCheck
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import kotlinx.android.synthetic.main.activity_my_page.*
@@ -74,7 +75,9 @@ class ActivityMyPage : AppCompatActivity(), ContractMyPage.View {
     }
 
     override fun showTermsCheckUi() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        Intent(this@ActivityMyPage, ActivityTermsCheck::class.java).also {
+            startActivity(it)
+        }
     }
 
     override fun showNicknameModifyDialog() {
@@ -130,9 +133,9 @@ class ActivityMyPage : AppCompatActivity(), ContractMyPage.View {
     }
 
     override fun openLoginActivity() {
-        Intent(this, ActivityLogin::class.java).apply {
-            flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            startActivity(this)
+        finishAffinity()
+        Intent(this, ActivityLogin::class.java).also {
+            startActivity(it)
         }
     }
 
@@ -152,6 +155,9 @@ class ActivityMyPage : AppCompatActivity(), ContractMyPage.View {
         myPostsBtn.setOnClickListener { presenter.openMyPosts() }
         myPostsMoreBtn.setOnClickListener { presenter.openMyPosts() }
 
+        termsBtn.setOnClickListener { presenter.openTerms() }
+        termsMoreBtn.setOnClickListener { presenter.openTerms() }
+
         logoutBtn.setOnClickListener { presenter.openLogout() }
         logoutMoreBtn.setOnClickListener { presenter.openLogout() }
 
@@ -161,11 +167,28 @@ class ActivityMyPage : AppCompatActivity(), ContractMyPage.View {
     }
 
     private fun setTapBarButtons() {
-        homeBtn.setOnClickListener { presenter.openHome(this, this) }
-        materialsBtn.setOnClickListener { presenter.openMaterials(this, this) }
-        manufactureBtn.setOnClickListener { presenter.openManufactures(this, this) }
-        bookmarkBtn.setOnClickListener { presenter.openBookmarks(this, this) }
-        myPageBtn.setOnClickListener { presenter.openMyPage(this, this) }
+        homeBtn.setOnClickListener {
+            presenter.openHome(this, this)
+            finishActivity()
+        }
+        materialsBtn.setOnClickListener {
+            presenter.openMaterials(this, this)
+            finishActivity()
+        }
+        manufactureBtn.setOnClickListener {
+            presenter.openManufactures(this, this)
+            finishActivity()
+        }
+        bookmarkBtn.setOnClickListener {
+            presenter.openBookmarks(this, this)
+            finishActivity()
+        }
+        myPageBtn.setOnClickListener { }
+    }
+
+    private fun finishActivity() {
+        finish()
+        overridePendingTransition(0, 0)
     }
 
     override fun showLogoutSuccessToast() {

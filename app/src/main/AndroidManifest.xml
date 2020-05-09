@@ -16,7 +16,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.modifycomment.ActivityModifyComment"></activity>
 
         <meta-data
             android:name="com.kakao.sdk.AppKey"
@@ -43,6 +42,8 @@
         <activity android:name=".ui.jobmodify.ActivityJobModify" />
         <activity android:name=".ui.jobinput.ActivityJobInput" />
         <activity android:name=".ui.termsagree.ActivityTermsAgree" />
+        <activity android:name=".ui.termscheck.ActivityTermsCheck"></activity>
+        <activity android:name=".ui.modifycomment.ActivityModifyComment" />
         <activity android:name=".ui.login.ActivityLogin">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

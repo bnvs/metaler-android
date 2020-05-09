@@ -390,11 +390,28 @@ class ActivityMaterials : AppCompatActivity(),
     }
 
     private fun setTapBarButtons() {
-        homeBtn.setOnClickListener { presenter.openHome(this, this) }
-        materialsBtn.setOnClickListener { presenter.openMaterials(this, this) }
-        manufactureBtn.setOnClickListener { presenter.openManufactures(this, this) }
-        bookmarkBtn.setOnClickListener { presenter.openBookmarks(this, this) }
-        myPageBtn.setOnClickListener { presenter.openMyPage(this, this) }
+        homeBtn.setOnClickListener {
+            presenter.openHome(this, this)
+            finishActivity()
+        }
+        materialsBtn.setOnClickListener { }
+        manufactureBtn.setOnClickListener {
+            presenter.openManufactures(this, this)
+            finishActivity()
+        }
+        bookmarkBtn.setOnClickListener {
+            presenter.openBookmarks(this, this)
+            finishActivity()
+        }
+        myPageBtn.setOnClickListener {
+            presenter.openMyPage(this, this)
+            finishActivity()
+        }
+    }
+
+    private fun finishActivity() {
+        finish()
+        overridePendingTransition(0, 0)
     }
 
     /**

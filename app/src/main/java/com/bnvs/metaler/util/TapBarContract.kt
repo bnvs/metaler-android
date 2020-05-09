@@ -19,31 +19,31 @@ interface TapBarContract {
     interface View {
         fun showHomeUi(context: Context) {
             Intent(context, ActivityHome::class.java).apply {
-                flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                flags = Intent.FLAG_ACTIVITY_NO_ANIMATION
             }.also { context.startActivity(it) }
         }
 
         fun showMaterialsUi(context: Context) {
             Intent(context, ActivityMaterials::class.java).apply {
-                flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                flags = Intent.FLAG_ACTIVITY_NO_ANIMATION
             }.also { context.startActivity(it) }
         }
 
         fun showManufacturesUi(context: Context) {
             Intent(context, ActivityManufactures::class.java).apply {
-                flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                flags = Intent.FLAG_ACTIVITY_NO_ANIMATION
             }.also { context.startActivity(it) }
         }
 
         fun showBookmarksUi(context: Context) {
             Intent(context, ActivityBookmarks::class.java).apply {
-                flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                flags = Intent.FLAG_ACTIVITY_NO_ANIMATION
             }.also { context.startActivity(it) }
         }
 
         fun showMyPageUi(context: Context) {
             Intent(context, ActivityMyPage::class.java).apply {
-                flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                flags = Intent.FLAG_ACTIVITY_NO_ANIMATION
             }.also { context.startActivity(it) }
         }
     }

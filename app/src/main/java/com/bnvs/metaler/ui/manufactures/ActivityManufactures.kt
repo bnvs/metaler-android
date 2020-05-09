@@ -121,7 +121,7 @@ class ActivityManufactures : AppCompatActivity(),
             presenter.resetPageNum()
             presenter.loadPosts(presenter.requestPosts())
             // The method calls setRefreshing(false) when it's finished.
-            refreshLayout.setRefreshing(false)
+            refreshLayout.isRefreshing = false
             scrollListener.setLoaded()
         }
     }
@@ -312,10 +312,27 @@ class ActivityManufactures : AppCompatActivity(),
 
 
     private fun setTapBarButtons() {
-        homeBtn.setOnClickListener { presenter.openHome(this, this) }
-        materialsBtn.setOnClickListener { presenter.openMaterials(this, this) }
-        manufactureBtn.setOnClickListener { presenter.openManufactures(this, this) }
-        bookmarkBtn.setOnClickListener { presenter.openBookmarks(this, this) }
-        myPageBtn.setOnClickListener { presenter.openMyPage(this, this) }
+        homeBtn.setOnClickListener {
+            presenter.openHome(this, this)
+            finishActivity()
+        }
+        materialsBtn.setOnClickListener {
+            presenter.openMaterials(this, this)
+            finishActivity()
+        }
+        manufactureBtn.setOnClickListener { }
+        bookmarkBtn.setOnClickListener {
+            presenter.openBookmarks(this, this)
+            finishActivity()
+        }
+        myPageBtn.setOnClickListener {
+            presenter.openMyPage(this, this)
+            finishActivity()
+        }
+    }
+
+    private fun finishActivity() {
+        finish()
+        overridePendingTransition(0, 0)
     }
 }
