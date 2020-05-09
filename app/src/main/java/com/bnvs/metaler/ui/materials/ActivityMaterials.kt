@@ -310,14 +310,6 @@ class ActivityMaterials : AppCompatActivity(),
         materialsCategoryRV.visibility = View.VISIBLE
     }
 
-    override fun showPostDetailUi() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun showSearchUi() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
     private fun initClickListeners() {
         setTitleBarButtons()
         setTapBarButtons()
