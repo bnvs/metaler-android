@@ -68,7 +68,6 @@ class ActivityMaterials : AppCompatActivity(),
             tagSearchAdapter.notifyDataSetChanged()
 
             tagSearchWords.removeAt(position)
-            Log.d(TAG, "지울 때 position ? : $position")
 
             //초기화
             tagString = ""
