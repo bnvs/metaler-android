@@ -23,7 +23,7 @@ class PresenterMyPosts(
     }
 
     override fun start() {
-        loadMyPosts(requestPosts("manufacture"))
+        openMaterialsList()
     }
 
     override fun requestPosts(categoryType: String): MyPostsRequest {
@@ -59,12 +59,12 @@ class PresenterMyPosts(
 
     override fun openMaterialsList() {
         pageNum = 0
-        loadMyPosts(requestPosts("manufacture"))
+        loadMyPosts(requestPosts("materials"))
     }
 
     override fun openManufacturesList() {
         pageNum = 0
-        loadMyPosts(requestPosts("materials"))
+        loadMyPosts(requestPosts("manufacture"))
     }
 
     override fun openPostDetail(postId: Int) {
