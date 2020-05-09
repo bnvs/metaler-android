@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bnvs.metaler.R
 import com.bnvs.metaler.data.posts.model.Post
 import com.bnvs.metaler.ui.postfirst.ActivityPostFirst
+import com.bnvs.metaler.ui.search.ActivitySearch
 import com.bnvs.metaler.util.*
 import kotlinx.android.synthetic.main.activity_manufacture.*
 import java.util.*
@@ -328,11 +329,16 @@ class ActivityManufactures : AppCompatActivity(),
     }
 
     private fun setTitleBarButtons() {
-        // 글작성, 글검색 버튼 클릭 리스너 달아주기
         writeBtn.setOnClickListener {
             val writeIntent = Intent(this, ActivityPostFirst::class.java)
             writeIntent.putExtra("CATEGORY_TYPE", "MANUFACTURES")
             startActivity(writeIntent)
+        }
+
+        searchBtn.setOnClickListener {
+            val searchIntent = Intent(this, ActivitySearch::class.java)
+            searchIntent.putExtra("CATEGORY_TYPE", "MATERIALS")
+            startActivity(searchIntent)
         }
     }
 
