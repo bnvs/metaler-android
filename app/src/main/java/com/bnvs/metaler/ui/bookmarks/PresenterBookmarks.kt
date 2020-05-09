@@ -88,12 +88,12 @@ class PresenterBookmarks(
 
     override fun openMaterialsList() {
         pageNum = 0
-        loadBookmarkPosts(requestPosts("manufacture"))
+        loadBookmarkPosts(requestPosts("materials"))
     }
 
     override fun openManufacturesList() {
         pageNum = 0
-        loadBookmarkPosts(requestPosts("materials"))
+        loadBookmarkPosts(requestPosts("manufacture"))
     }
 
     override fun openPostDetail(postId: Int) {
