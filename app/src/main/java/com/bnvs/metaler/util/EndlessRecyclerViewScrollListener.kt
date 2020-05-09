@@ -5,7 +5,7 @@ import androidx.recyclerview.widget.RecyclerView
 
 class EndlessRecyclerViewScrollListener : RecyclerView.OnScrollListener {
 
-    private var visibleThreshold = 5
+    private var visibleThreshold = 2
     private lateinit var mOnLoadMoreListener: OnLoadMoreListener
     private var isLoading: Boolean = false
     private var lastVisibleItem: Int = 0
