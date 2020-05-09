@@ -27,7 +27,7 @@ class PresenterBookmarks(
     }
 
     override fun start() {
-        loadBookmarkPosts(requestPosts("manufacture"))
+        openMaterialsList()
     }
 
     override fun loadBookmarkPosts(bookmarksRequest: BookmarksRequest) {
