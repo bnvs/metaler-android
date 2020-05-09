@@ -27,6 +27,10 @@ interface ContractManufactures {
 
         fun showRefreshPosts(posts: List<Post>)
 
+        fun hideError404()
+
+        fun showError404()
+
         fun showPostDetailUi()
 
         fun showSearchUi()
@@ -59,6 +63,8 @@ interface ContractManufactures {
         fun refreshTagSearchPosts(postsWithTagRequest: PostsWithTagRequest)
 
         fun resetPageNum()
+
+        fun getCategoryId(): Int
 
         fun openPostDetail(postId: Int)
 
