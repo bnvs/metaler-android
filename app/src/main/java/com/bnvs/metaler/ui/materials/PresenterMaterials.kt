@@ -119,6 +119,7 @@ class PresenterMaterials(
             postsWithTagRequest,
             onSuccess = { response: PostsResponse ->
                 if (response.posts.isNotEmpty()) {
+                    resetPageNum()
                     view.hideError404()
                     view.showRefreshPosts(response.posts)
                 } else {
