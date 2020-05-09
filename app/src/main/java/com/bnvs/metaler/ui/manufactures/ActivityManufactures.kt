@@ -78,8 +78,37 @@ class ActivityManufactures : AppCompatActivity(),
         TagSearchItemListener {
         override fun onTagDeleteBtnClick(view: View, position: Int) {
             tagSearchAdapter.removeTag(position)
-            if (position == 0) {
+            tagSearchAdapter.notifyDataSetChanged()
+
+            tagSearchWords.removeAt(position)
+
+            //초기화
+            tagString = ""
+
+            if (tagSearchWords.size > 0){
+                //MutableList 의 값을 List 에 넣기 위해 String(tagString) 으로 변환해서 넣음
+                for (i in 0 until tagSearchWords.size) {
+                    if (i == 0) {
+                        tagString = "$tagString" + "\"${tagSearchWords[i]}\""
+                    } else if (i != 0 && i <= tagSearchWords.size - 1) {
+                        tagString = "$tagString" + "," + "\"${tagSearchWords[i]}\""
+                    }
+                }
+                // 모델 형식에 맞춰서 List 타입으로 형변환
+                val tagSearchWordsList: List<String> = listOf(tagString)
+
+                presenter.loadSearchTagPosts(
+                    presenter.requestAddSearchTag(
+                        presenter.getCategoryId(),
+                        "tag",
+                        tagSearchWordsList
+                    )
+                )
+            }
+
+            if (tagSearchWords.size == 0) {
                 tagRV.visibility = View.GONE
+                presenter.loadPosts(presenter.requestPosts())
             }
         }
     }
