@@ -93,6 +93,31 @@
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/error404Group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="error404Icon,error404Txt"
+        android:visibility="gone"
+        />
+
+    <ImageView
+        android:id="@+id/error404Icon"
+        style="@style/error404BigIcon"
+        app:layout_constraintBottom_toTopOf="@id/error404Txt"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/categoryCard"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <TextView
+        android:id="@+id/error404Txt"
+        style="@style/error404TextView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/error404Icon" />
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/titleBarCard"
         android:layout_width="match_parent"
