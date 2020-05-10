@@ -7,6 +7,7 @@ import com.bnvs.metaler.data.bookmarks.model.AddBookmarkRequest
 import com.bnvs.metaler.data.bookmarks.model.AddBookmarkResponse
 import com.bnvs.metaler.data.bookmarks.model.DeleteBookmarkRequest
 import com.bnvs.metaler.data.bookmarks.source.repositroy.BookmarksRepository
+import com.bnvs.metaler.data.posts.model.PostsResponse
 import com.bnvs.metaler.data.posts.model.PostsWithContentRequest
 import com.bnvs.metaler.data.posts.source.repository.PostsRepository
 import com.bnvs.metaler.network.NetworkUtil
@@ -41,7 +42,25 @@ class PresenterSearch(
     }
 
     override fun loadSearchPosts(postsWithContentRequest: PostsWithContentRequest) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        resetPageNum()
+        postsRepository.getPostsWithSearchTypeContent(
+            postsWithContentRequest,
+            onSuccess = {response: PostsResponse ->
+                if (response.posts.isNotEmpty()) {
+                    view.hideError404()
+                    view.showSearchPosts(response.posts)
+                } else {
+                    view.showError404()
+                }
+            },
+            onFailure = { e ->
+                Toast.makeText(
+                    context,
+                    "서버 통신 실패 : ${NetworkUtil.getErrorMessage(e)}",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        )
     }
 
     override fun requestSearchPosts(categoryId: Int, searchWord: String): PostsWithContentRequest {
