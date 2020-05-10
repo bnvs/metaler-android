@@ -34,5 +34,7 @@ interface ContractSearch {
         fun resetPageNum()
 
         fun getCategoryId(): Int
+
+        fun openPostDetail(postId: Int)
     }
 }
