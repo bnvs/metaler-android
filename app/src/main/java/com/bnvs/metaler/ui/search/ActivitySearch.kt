@@ -8,7 +8,12 @@ import com.bnvs.metaler.ui.myposts.ContractMyPosts
 
 class ActivitySearch : AppCompatActivity(), ContractSearch.View {
 
-    private val TAG = "ActivitySearch"
+    companion object {
+        private const val TAG = "ActivitySearch"
+        private const val MATERIALS = 1
+        private const val MANUFACTURE = 10
+    }
+
 
     override lateinit var presenter: ContractSearch.Presenter
 
