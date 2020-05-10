@@ -7,6 +7,7 @@ import com.bnvs.metaler.data.posts.source.repository.PostsRepository
 import com.bnvs.metaler.ui.detail.ActivityDetail
 
 class PresenterSearch(
+    private var categoryId: Int,
     private val context: Context,
     private val view: ContractSearch.View
 ) : ContractSearch.Presenter {
@@ -18,7 +19,6 @@ class PresenterSearch(
     private lateinit var postsWithContentRequest: PostsWithContentRequest
 
     private var pageNum: Int = 0
-    private var categoryId: Int = 0
 
     private val searchType: String = "content"
 
