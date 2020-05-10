@@ -1,14 +1,12 @@
 package com.bnvs.metaler.ui.search
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bnvs.metaler.R
 import com.bnvs.metaler.data.posts.model.Post
-import com.bnvs.metaler.ui.myposts.ContractMyPosts
 import com.bnvs.metaler.util.EndlessRecyclerViewScrollListener
 import com.bnvs.metaler.util.PostAdapter
 import com.bnvs.metaler.util.PostItemListener
@@ -75,9 +73,9 @@ class ActivitySearch : AppCompatActivity(), ContractSearch.View {
         setContentView(R.layout.activity_search)
 
         val getCategoryType = intent.getStringExtra("CATEGORY_TYPE")
-        if (getCategoryType == "MATERIALS"){
+        if (getCategoryType == "MATERIALS") {
             categoryId = MATERIALS
-        }else if (getCategoryType == "MANUFACTURE"){
+        } else if (getCategoryType == "MANUFACTURE") {
             categoryId = MANUFACTURE
         }
 
@@ -87,6 +85,8 @@ class ActivitySearch : AppCompatActivity(), ContractSearch.View {
             this@ActivitySearch,
             this@ActivitySearch
         )
+
+        initClickListeners()
     }
 
     override fun inputSearchWord() {
@@ -119,6 +119,11 @@ class ActivitySearch : AppCompatActivity(), ContractSearch.View {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
+    private fun initClickListeners() {
+        setTitleBarButtons()
+        setSearchButtons()
+    }
+
     override fun setSearchButtons() {
         searchInput.setOnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
@@ -129,6 +134,12 @@ class ActivitySearch : AppCompatActivity(), ContractSearch.View {
                 false
             }
 
+        }
+    }
+
+    private fun setTitleBarButtons() {
+        backBtn.setOnClickListener {
+            finish()
         }
     }
 
