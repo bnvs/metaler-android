@@ -101,6 +101,10 @@ class ActivitySearch : AppCompatActivity(), ContractSearch.View {
         )
     }
 
+    override fun showSearchTotalNum() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     override fun showSearchPosts(posts: List<Post>) {
         postLayoutManager = LinearLayoutManager(this)
         postsRV.layoutManager = postLayoutManager
