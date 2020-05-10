@@ -15,7 +15,6 @@ import com.bnvs.metaler.data.myposts.model.MyPosts
 import com.bnvs.metaler.data.postdetails.model.PostDetails
 import com.bnvs.metaler.data.postdetails.model.RatingRequest
 import com.bnvs.metaler.data.posts.model.PostsResponse
-import com.bnvs.metaler.data.tags.model.TagsResponse
 import com.bnvs.metaler.data.user.certification.model.*
 import com.bnvs.metaler.data.user.modification.model.Job
 import com.bnvs.metaler.data.user.modification.model.Nickname
@@ -220,7 +219,7 @@ interface RetrofitInterface {
         @Query("type") type: Int,
         @Query("name") name: String,
         @Query("max") max: Int
-    ): Call<TagsResponse>
+    ): Call<List<String>>
 
 
     /*** [3. 파일] ***/
