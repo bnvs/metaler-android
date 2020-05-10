@@ -15,6 +15,8 @@ interface ContractSearch {
 
         fun showSearchPosts(posts: List<Post>)
 
+        fun showSearchTotalNum()
+
         fun showMoreSearchPosts(posts: List<Post>)
 
         fun removeLoadingView()
