@@ -97,6 +97,11 @@ class ActivitySearch : AppCompatActivity(), ContractSearch.View {
                 searchWord
             )
         )
+
+        postAdapter = PostAdapter(itemListener)
+        postAdapter.addPosts(posts)
+        postAdapter.notifyDataSetChanged()
+        postsRV.adapter = postAdapter
     }
 
     override fun showMoreSearchPosts(posts: List<Post>) {
