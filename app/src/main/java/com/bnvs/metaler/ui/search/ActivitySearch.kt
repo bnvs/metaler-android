@@ -103,6 +103,8 @@ class ActivitySearch : AppCompatActivity(), ContractSearch.View {
                 searchWord
             )
         )
+
+        searchInput.text.clear()
     }
 
     override fun showSearchTotalNum(totalNum: Int) {
@@ -188,6 +190,7 @@ class ActivitySearch : AppCompatActivity(), ContractSearch.View {
     private fun initClickListeners() {
         setTitleBarButtons()
         setSearchButtons()
+        searchInputDeleteBtn.setOnClickListener { searchInput.text.clear() }
     }
 
     override fun setSearchButtons() {
