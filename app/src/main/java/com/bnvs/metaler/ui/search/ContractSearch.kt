@@ -11,9 +11,9 @@ import com.bnvs.metaler.util.TapBarContract
 
 interface ContractSearch {
     interface View : BaseView<Presenter>, TapBarContract.View {
-        fun showPosts(posts: List<Post>)
+        fun showSearchPosts(posts: List<Post>)
 
-        fun showMorePosts(posts: List<Post>)
+        fun showMoreSearchPosts(posts: List<Post>)
 
         fun removeLoadingView()
 

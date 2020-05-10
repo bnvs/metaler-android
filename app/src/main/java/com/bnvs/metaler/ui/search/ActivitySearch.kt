@@ -84,11 +84,11 @@ class ActivitySearch : AppCompatActivity(), ContractSearch.View {
         )
     }
 
-    override fun showPosts(posts: List<Post>) {
+    override fun showSearchPosts(posts: List<Post>) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun showMorePosts(posts: List<Post>) {
+    override fun showMoreSearchPosts(posts: List<Post>) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
