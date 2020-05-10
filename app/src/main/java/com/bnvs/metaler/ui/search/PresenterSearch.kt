@@ -1,8 +1,10 @@
 package com.bnvs.metaler.ui.search
 
 import android.content.Context
+import android.content.Intent
 import com.bnvs.metaler.data.posts.model.PostsWithContentRequest
 import com.bnvs.metaler.data.posts.source.repository.PostsRepository
+import com.bnvs.metaler.ui.detail.ActivityDetail
 
 class PresenterSearch(
     private val context: Context,
@@ -12,6 +14,13 @@ class PresenterSearch(
     val TAG = "PresenterSearch.kt"
 
     private val postsRepository: PostsRepository = PostsRepository(context)
+
+    private lateinit var postsWithContentRequest: PostsWithContentRequest
+
+    private var pageNum: Int = 0
+    private var categoryId: Int = 0
+
+    private val searchType: String = "content"
 
     init {
         view.presenter = this
@@ -27,5 +36,13 @@ class PresenterSearch(
 
     override fun requestSearchPosts(categoryType: Int): PostsWithContentRequest {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun resetPageNum() {
+        pageNum = 0
+    }
+
+    override fun getCategoryId(): Int {
+        return categoryId
     }
 }

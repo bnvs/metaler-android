@@ -30,5 +30,9 @@ interface ContractSearch {
         fun loadSearchPosts(postsWithContentRequest: PostsWithContentRequest)
 
         fun requestSearchPosts(categoryType: Int): PostsWithContentRequest
+
+        fun resetPageNum()
+
+        fun getCategoryId(): Int
     }
 }
