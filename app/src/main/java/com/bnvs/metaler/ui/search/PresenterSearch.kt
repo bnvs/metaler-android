@@ -28,6 +28,7 @@ class PresenterSearch(
     private lateinit var deleteBookmarkRequest: DeleteBookmarkRequest
 
     private var pageNum: Int = 0
+    private val limit: Int = 10
 
     private val searchType: String = "content"
 
@@ -43,8 +44,17 @@ class PresenterSearch(
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun requestSearchPosts(categoryType: Int): PostsWithContentRequest {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun requestSearchPosts(categoryId: Int, searchWord: String): PostsWithContentRequest {
+        pageNum++
+        this.categoryId = categoryId
+        postsWithContentRequest = PostsWithContentRequest(
+            categoryId,
+            pageNum,
+            limit,
+            searchType,
+            searchWord
+        )
+        return postsWithContentRequest
     }
 
     override fun resetPageNum() {

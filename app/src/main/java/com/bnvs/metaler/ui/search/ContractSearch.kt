@@ -31,7 +31,7 @@ interface ContractSearch {
     interface Presenter : BasePresenter, TapBarContract.Presenter {
         fun loadSearchPosts(postsWithContentRequest: PostsWithContentRequest)
 
-        fun requestSearchPosts(categoryType: Int): PostsWithContentRequest
+        fun requestSearchPosts(categoryId: Int, searchWord: String): PostsWithContentRequest
 
         fun resetPageNum()
 
