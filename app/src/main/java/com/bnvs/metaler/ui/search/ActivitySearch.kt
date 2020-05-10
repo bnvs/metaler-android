@@ -89,7 +89,7 @@ class ActivitySearch : AppCompatActivity(), ContractSearch.View {
         )
     }
 
-    override fun showSearchPosts(posts: List<Post>) {
+    override fun inputSearchWord() {
         searchWord = searchInput.text.toString()
 
         presenter.loadSearchPosts(
@@ -98,7 +98,9 @@ class ActivitySearch : AppCompatActivity(), ContractSearch.View {
                 searchWord
             )
         )
+    }
 
+    override fun showSearchPosts(posts: List<Post>) {
         postAdapter = PostAdapter(itemListener)
         postAdapter.addPosts(posts)
         postAdapter.notifyDataSetChanged()
@@ -121,7 +123,7 @@ class ActivitySearch : AppCompatActivity(), ContractSearch.View {
         searchInput.setOnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 presenter.resetPageNum()
-
+                inputSearchWord()
                 true
             } else {
                 false

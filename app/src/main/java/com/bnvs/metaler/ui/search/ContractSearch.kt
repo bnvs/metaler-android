@@ -11,6 +11,8 @@ import com.bnvs.metaler.util.TapBarContract
 
 interface ContractSearch {
     interface View : BaseView<Presenter>, TapBarContract.View {
+        fun inputSearchWord()
+
         fun showSearchPosts(posts: List<Post>)
 
         fun showMoreSearchPosts(posts: List<Post>)
@@ -18,6 +20,8 @@ interface ContractSearch {
         fun removeLoadingView()
 
         fun setRVScrollListener()
+
+        fun setSearchButtons()
 
         fun onRefresh()
 
