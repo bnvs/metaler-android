@@ -2,18 +2,28 @@ package com.bnvs.metaler.ui.search
 
 import com.bnvs.metaler.BasePresenter
 import com.bnvs.metaler.BaseView
+import com.bnvs.metaler.data.bookmarks.model.AddBookmarkRequest
+import com.bnvs.metaler.data.bookmarks.model.DeleteBookmarkRequest
 import com.bnvs.metaler.data.posts.model.Post
+import com.bnvs.metaler.data.posts.model.PostsRequest
+import com.bnvs.metaler.data.posts.model.PostsWithContentRequest
 import com.bnvs.metaler.util.TapBarContract
 
 interface ContractSearch {
     interface View : BaseView<Presenter>, TapBarContract.View {
-        fun showPosts(posts: List<Post>)
+        fun inputSearchWord()
 
-        fun showMorePosts(posts: List<Post>)
+        fun showSearchPosts(posts: List<Post>)
+
+        fun showSearchTotalNum(totalNum: Int)
+
+        fun showMoreSearchPosts(posts: List<Post>)
 
         fun removeLoadingView()
 
         fun setRVScrollListener()
+
+        fun setSearchButtons()
 
         fun onRefresh()
 
@@ -25,6 +35,24 @@ interface ContractSearch {
     }
 
     interface Presenter : BasePresenter, TapBarContract.Presenter {
+        fun loadSearchPosts(postsWithContentRequest: PostsWithContentRequest)
 
+        fun loadMoreSearchPosts(postsWithContentRequest: PostsWithContentRequest)
+
+        fun requestSearchPosts(categoryId: Int, searchWord: String): PostsWithContentRequest
+
+        fun resetPageNum()
+
+        fun getCategoryId(): Int
+
+        fun openPostDetail(postId: Int)
+
+        fun requestAddBookmark(postId: Int): AddBookmarkRequest
+
+        fun requestDeleteBookmark(postId: Int): DeleteBookmarkRequest
+
+        fun addBookmark(postId: Int)
+
+        fun deleteBookmark(postId: Int)
     }
 }
