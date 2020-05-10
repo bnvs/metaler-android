@@ -3,6 +3,8 @@ package com.bnvs.metaler.ui.search
 import com.bnvs.metaler.BasePresenter
 import com.bnvs.metaler.BaseView
 import com.bnvs.metaler.data.posts.model.Post
+import com.bnvs.metaler.data.posts.model.PostsRequest
+import com.bnvs.metaler.data.posts.model.PostsWithContentRequest
 import com.bnvs.metaler.util.TapBarContract
 
 interface ContractSearch {
@@ -25,6 +27,8 @@ interface ContractSearch {
     }
 
     interface Presenter : BasePresenter, TapBarContract.Presenter {
+        fun loadSearchPosts(postsWithContentRequest: PostsWithContentRequest)
 
+        fun requestSearchPosts(categoryType: Int): PostsWithContentRequest
     }
 }
