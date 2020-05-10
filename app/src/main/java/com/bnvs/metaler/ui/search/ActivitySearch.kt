@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bnvs.metaler.R
 import com.bnvs.metaler.data.posts.model.Post
@@ -101,10 +102,15 @@ class ActivitySearch : AppCompatActivity(), ContractSearch.View {
     }
 
     override fun showSearchPosts(posts: List<Post>) {
+        postLayoutManager = LinearLayoutManager(this)
+        postsRV.layoutManager = postLayoutManager
+        postsRV.setHasFixedSize(true)
+
         postAdapter = PostAdapter(itemListener)
         postAdapter.addPosts(posts)
         postAdapter.notifyDataSetChanged()
         postsRV.adapter = postAdapter
+        postsRV.visibility = View.VISIBLE
     }
 
     override fun showMoreSearchPosts(posts: List<Post>) {
@@ -152,11 +158,15 @@ class ActivitySearch : AppCompatActivity(), ContractSearch.View {
     }
 
     override fun hideError404() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        postsRV.visibility = View.VISIBLE
+        error404Group.visibility = View.INVISIBLE
     }
 
     override fun showError404() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        postAdapter.resetList()
+        postAdapter.notifyDataSetChanged()
+        postsRV.visibility = View.INVISIBLE
+        error404Group.visibility = View.VISIBLE
     }
 
 }
