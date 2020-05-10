@@ -15,6 +15,7 @@ import com.bnvs.metaler.data.myposts.model.MyPosts
 import com.bnvs.metaler.data.postdetails.model.PostDetails
 import com.bnvs.metaler.data.postdetails.model.RatingRequest
 import com.bnvs.metaler.data.posts.model.PostsResponse
+import com.bnvs.metaler.data.tags.model.TagsResponse
 import com.bnvs.metaler.data.user.certification.model.*
 import com.bnvs.metaler.data.user.modification.model.Job
 import com.bnvs.metaler.data.user.modification.model.Nickname
@@ -41,6 +42,8 @@ import retrofit2.http.*
  *              2-4. 북마크
  *              2-5. 홈
  *              2-6. 내가 쓴 글
+ *              2-7. 글 가격 평가
+ *              2-8. 태그
  *          3. 파일
  * */
 
@@ -109,19 +112,6 @@ interface RetrofitInterface {
     fun getPostDetails(
         @Path("id") post_id: Int
     ): Call<PostDetails>
-
-    // 글 평가 추가
-    @POST("posts/{id}/ratings")
-    fun ratePost(
-        @Path("id") post_id: Int,
-        @Body request: RatingRequest
-    ): Call<ResponseBody>
-
-    // 글 평가 삭제
-    @DELETE("posts/{id}/ratings")
-    fun unRatePost(
-        @Path("id") post_id: Int
-    ): Call<ResponseBody>
 
     // 게시글 작성
     @POST("/posts")
@@ -208,6 +198,29 @@ interface RetrofitInterface {
         @Query("limit") limit: Int,
         @Query("type") type: String
     ): Call<MyPosts>
+
+    /*** [2-7. 글 가격 평가] ***/
+    // 가격 평가 추가
+    @POST("posts/{id}/ratings")
+    fun ratePost(
+        @Path("id") post_id: Int,
+        @Body request: RatingRequest
+    ): Call<ResponseBody>
+
+    // 가격 평가 삭제
+    @DELETE("posts/{id}/ratings")
+    fun unRatePost(
+        @Path("id") post_id: Int
+    ): Call<ResponseBody>
+
+    /*** [2-8. 태그] ***/
+    // 태그 추천(태그 자동완성)
+    @GET("/tags")
+    fun getTagRecommendation(
+        @Query("type") type: Int,
+        @Query("name") name: String,
+        @Query("max") max: Int
+    ): Call<TagsResponse>
 
 
     /*** [3. 파일] ***/
