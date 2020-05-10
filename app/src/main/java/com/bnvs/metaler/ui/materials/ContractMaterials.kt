@@ -35,10 +35,6 @@ interface ContractMaterials {
 
         fun showError404()
 
-        fun showPostDetailUi()
-
-        fun showSearchUi()
-
         fun showSearchTags()
 
         fun clearSearchTagBar()
@@ -77,11 +73,5 @@ interface ContractMaterials {
         fun addBookmark(postId: Int)
 
         fun deleteBookmark(postId: Int)
-
-        fun openSearch()
-
-        fun clearSearchTagBar()
-
-        fun deleteSearchTag()
     }
 }

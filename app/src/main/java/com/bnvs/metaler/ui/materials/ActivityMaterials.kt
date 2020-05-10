@@ -16,6 +16,7 @@ import com.bnvs.metaler.R
 import com.bnvs.metaler.data.categories.model.Category
 import com.bnvs.metaler.data.posts.model.Post
 import com.bnvs.metaler.ui.postfirst.ActivityPostFirst
+import com.bnvs.metaler.ui.search.ActivitySearch
 import com.bnvs.metaler.util.*
 import kotlinx.android.synthetic.main.activity_materials.*
 import kotlinx.android.synthetic.main.item_materials_category_rv.view.*
@@ -309,14 +310,6 @@ class ActivityMaterials : AppCompatActivity(),
         materialsCategoryRV.visibility = View.VISIBLE
     }
 
-    override fun showPostDetailUi() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun showSearchUi() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
     private fun initClickListeners() {
         setTitleBarButtons()
         setTapBarButtons()
@@ -378,11 +371,16 @@ class ActivityMaterials : AppCompatActivity(),
 
 
     private fun setTitleBarButtons() {
-        // 글작성, 글검색 버튼 클릭 리스너 달아주기
         writeBtn.setOnClickListener {
             val writeIntent = Intent(this, ActivityPostFirst::class.java)
             writeIntent.putExtra("CATEGORY_TYPE", "MATERIALS")
             startActivity(writeIntent)
+        }
+
+        searchBtn.setOnClickListener {
+            val searchIntent = Intent(this, ActivitySearch::class.java)
+            searchIntent.putExtra("CATEGORY_TYPE", "MATERIALS")
+            startActivity(searchIntent)
         }
     }
 
