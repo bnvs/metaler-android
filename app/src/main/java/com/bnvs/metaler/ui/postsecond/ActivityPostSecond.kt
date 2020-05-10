@@ -61,14 +61,6 @@ class ActivityPostSecond : AppCompatActivity(), ContractPostSecond.View {
 
     override fun setShopNameTagInputAdapter() {
         shopInputAdapter = HashTagSuggestAdapter(this, android.R.layout.simple_list_item_1)
-        val shopNameHandler = Handler(Handler.Callback { msg ->
-            if (msg.what == TRIGGER_AUTO_COMPLETE) {
-                if (!shopNameInput.text.isNullOrEmpty()) {
-                    presenter.getTagSuggestion(1, shopNameInput.text.toString())
-                }
-            }
-            false
-        })
         shopNameInput.apply {
             setAdapter(shopInputAdapter)
             setTokenizer(SpaceTokenizer())
@@ -84,11 +76,31 @@ class ActivityPostSecond : AppCompatActivity(), ContractPostSecond.View {
                 }
 
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                    shopNameHandler.removeMessages(TRIGGER_AUTO_COMPLETE)
-                    shopNameHandler.sendEmptyMessageDelayed(
-                        TRIGGER_AUTO_COMPLETE,
-                        AUTO_COMPLETE_DELAY
-                    )
+                    if (!s.isNullOrBlank()) {
+                        Log.d(
+                            "shopNameInput",
+                            "onTextChanged - start: $start, before: $before, count: $count"
+                        )
+                        Log.d(
+                            "shopNameInput",
+                            "onTextChanged 지금 첫 번째 글자는? ${shopNameInput.text.toString()[start]}"
+                        )
+                        Log.d(
+                            "shopNameInput",
+                            "onTextChanged 지금 작성중인 글자는? ${shopNameInput.text.toString().substring(
+                                start,
+                                start + count
+                            )}"
+                        )
+
+                        shopNameInput.showDropDown()
+                        presenter.getTagSuggestion(
+                            1,
+                            shopNameInput.text.toString().substring(start, start + count)
+                        )
+                    } else {
+                        shopNameInput.dismissDropDown()
+                    }
                 }
             })
         }
