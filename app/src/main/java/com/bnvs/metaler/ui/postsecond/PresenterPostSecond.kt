@@ -86,17 +86,20 @@ class PresenterPostSecond(
     override fun getTagSuggestion(type: Int, name: String) {
         Log.d("태그 테스트", name)
         Log.d("태그 테스트2", name.replace("#", ""))
-        tagsRepository.getTagRecommendations(
-            TagsRequest(type, name.replace("#", ""), 10),
-            onSuccess = { response ->
-                Log.d("태그 테스트", "onSuccess presenter")
-                Log.d("태그 앞에 # 붙이기", response.map { "#$it" }.toString())
-                view.setTagSuggestions(type, response.map { "#$it" })
-            },
-            onFailure = { e ->
+        val tag = name.replace("#", "")
+        if (tag.isNotBlank()) {
+            tagsRepository.getTagRecommendations(
+                TagsRequest(type, tag, 10),
+                onSuccess = { response ->
+                    Log.d("태그 테스트", "onSuccess presenter")
+                    Log.d("태그 앞에 # 붙이기", response.map { "#$it" }.toString())
+                    view.setTagSuggestions(type, response.map { "#$it" })
+                },
+                onFailure = { e ->
 
-            }
-        )
+                }
+            )
+        }
     }
 
     override fun finishAddEditPost(tags: JSONObject) {
