@@ -64,7 +64,7 @@ class ActivityPostSecond : AppCompatActivity(), ContractPostSecond.View {
         val shopNameHandler = Handler(Handler.Callback { msg ->
             if (msg.what == TRIGGER_AUTO_COMPLETE) {
                 if (!shopNameInput.text.isNullOrEmpty()) {
-                    // 태그 검색 추천 api 호출
+                    presenter.getTagSuggestion(1, shopNameInput.text.toString())
                 }
             }
             false
@@ -99,7 +99,7 @@ class ActivityPostSecond : AppCompatActivity(), ContractPostSecond.View {
         val workHandler = Handler(Handler.Callback { msg ->
             if (msg.what == TRIGGER_AUTO_COMPLETE) {
                 if (!workInput.text.isNullOrEmpty()) {
-                    // 태그 검색 추천 api 호출
+                    presenter.getTagSuggestion(2, workInput.text.toString())
                 }
             }
             false
@@ -131,7 +131,7 @@ class ActivityPostSecond : AppCompatActivity(), ContractPostSecond.View {
         val tagHandler = Handler(Handler.Callback { msg ->
             if (msg.what == TRIGGER_AUTO_COMPLETE) {
                 if (!tagInput.text.isNullOrEmpty()) {
-                    // 태그 검색 추천 api 호출
+                    presenter.getTagSuggestion(3, tagInput.text.toString())
                 }
             }
             false
@@ -168,6 +168,24 @@ class ActivityPostSecond : AppCompatActivity(), ContractPostSecond.View {
 
     override fun setTagInput(tags: String) {
         tagInput.setText(tags)
+    }
+
+    override fun setTagSuggestions(type: Int, tags: List<String>) {
+        Log.d("태그 setTagSuggestions", "type: $type, tags: $tags")
+        when (type) {
+            1 -> {
+                shopInputAdapter.setSuggests(tags)
+                shopInputAdapter.notifyDataSetChanged()
+            }
+            2 -> {
+                workInputAdapter.setSuggests(tags)
+                workInputAdapter.notifyDataSetChanged()
+            }
+            3 -> {
+                etcInputAdapter.setSuggests(tags)
+                etcInputAdapter.notifyDataSetChanged()
+            }
+        }
     }
 
     override fun showEmptyTagsDialog() {
