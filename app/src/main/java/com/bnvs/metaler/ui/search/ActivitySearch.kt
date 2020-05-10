@@ -1,6 +1,7 @@
 package com.bnvs.metaler.ui.search
 
 import android.os.Bundle
+import android.os.Handler
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import androidx.appcompat.app.AppCompatActivity
@@ -21,13 +22,13 @@ class ActivitySearch : AppCompatActivity(), ContractSearch.View {
         private const val MANUFACTURE = 10
     }
 
-
     override lateinit var presenter: ContractSearch.Presenter
 
     lateinit var posts: List<Post>
     lateinit var postAdapter: PostAdapter
     lateinit var scrollListener: EndlessRecyclerViewScrollListener
     lateinit var postLayoutManager: RecyclerView.LayoutManager
+    var loadMorePosts: ArrayList<Post?> = ArrayList()
 
     //검색어
     var searchWord: String = ""
@@ -88,6 +89,9 @@ class ActivitySearch : AppCompatActivity(), ContractSearch.View {
         )
 
         initClickListeners()
+
+        setRVScrollListener()
+
     }
 
     override fun inputSearchWord() {
@@ -117,16 +121,67 @@ class ActivitySearch : AppCompatActivity(), ContractSearch.View {
         postsRV.visibility = View.VISIBLE
     }
 
+    override fun setRVScrollListener() {
+        postLayoutManager = LinearLayoutManager(this)
+        scrollListener =
+            EndlessRecyclerViewScrollListener(postLayoutManager as LinearLayoutManager)
+        scrollListener.setOnLoadMoreListener(object :
+            EndlessRecyclerViewScrollListener.OnLoadMoreListener {
+            override fun onLoadMore() {
+
+                //loadMorePosts 에 null값을 추가해서 로딩뷰를 만든다.
+                postAdapter.addLoadingView()
+                loadMorePosts.add(null)
+
+                //loadMorePosts 는 다음페이지 데이터를 받아올 때만 데이터를 추가하기 때문에 조건절로 비어있는지 확인해야함
+                if (!loadMorePosts.isEmpty()) {
+                    //loadMorePosts의 마지막 값이 null값이 있으면 무한스크롤 로딩 중이기 때문에 데이터를 받아오고, 로딩뷰를 제거한다.
+                    if (loadMorePosts[loadMorePosts.size - 1] == null) {
+                        presenter.loadMoreSearchPosts(presenter.requestSearchPosts(presenter.getCategoryId(),searchWord))
+                    }
+                } else if (!loadMorePosts.isEmpty()) {
+                    if (loadMorePosts[loadMorePosts.size - 1] == null) {
+                        presenter.loadMoreSearchPosts(
+                            presenter.requestSearchPosts(
+                                presenter.getCategoryId(),
+                                searchWord
+                            )
+                        )
+                    }
+                }
+
+            }
+        })
+        postsRV.addOnScrollListener(scrollListener)
+    }
+
     override fun showMoreSearchPosts(posts: List<Post>) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        if (loadMorePosts[loadMorePosts.size - 1] == null) {
+            //Use Handler if the items are loading too fast.
+            //If you remove it, the data will load so fast that you can't even see the LoadingView
+            Handler().postDelayed({
+                //Remove the Loading View
+                postAdapter.removeLoadingView()
+
+                //loadMorePosts에 있던 값을 다 지우고 추가로 받은 데이터 넣음
+                loadMorePosts.removeAll(loadMorePosts)
+                loadMorePosts.addAll(posts)
+
+                //We adding the data to our main ArrayList
+                postAdapter.addMorePosts(loadMorePosts)
+                //Change the boolean isLoading to false
+                scrollListener.setLoaded()
+
+                //Update the recyclerView in the main thread
+                postsRV.post {
+                    postAdapter.notifyDataSetChanged()
+                }
+            }, 1000)
+        }
     }
 
     override fun removeLoadingView() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun setRVScrollListener() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        postAdapter.removeLoadingView()
     }
 
     private fun initClickListeners() {

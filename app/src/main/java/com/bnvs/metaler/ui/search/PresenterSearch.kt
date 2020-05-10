@@ -2,6 +2,7 @@ package com.bnvs.metaler.ui.search
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.widget.Toast
 import com.bnvs.metaler.data.bookmarks.model.AddBookmarkRequest
 import com.bnvs.metaler.data.bookmarks.model.AddBookmarkResponse
@@ -45,12 +46,38 @@ class PresenterSearch(
         resetPageNum()
         postsRepository.getPostsWithSearchTypeContent(
             postsWithContentRequest,
-            onSuccess = {response: PostsResponse ->
+            onSuccess = { response: PostsResponse ->
                 if (response.posts.isNotEmpty()) {
                     view.hideError404()
                     view.showSearchPosts(response.posts)
+                    Log.d(TAG,"총개수 : ${response.post_count}")
                 } else {
                     view.showError404()
+                }
+            },
+            onFailure = { e ->
+                Toast.makeText(
+                    context,
+                    "서버 통신 실패 : ${NetworkUtil.getErrorMessage(e)}",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        )
+    }
+
+    override fun loadMoreSearchPosts(postsWithContentRequest: PostsWithContentRequest) {
+        postsRepository.getPostsWithSearchTypeContent(
+            postsWithContentRequest,
+            onSuccess = { response: PostsResponse ->
+                if (response.posts.isNotEmpty()) {
+                    view.showMoreSearchPosts(response.posts)
+                } else {
+                    view.removeLoadingView()
+                    Toast.makeText(
+                        context,
+                        "마지막 아이템입니다.",
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
             },
             onFailure = { e ->
@@ -117,7 +144,8 @@ class PresenterSearch(
                     Toast.LENGTH_LONG
                 ).show()
             }
-        )    }
+        )
+    }
 
     override fun deleteBookmark(postId: Int) {
         bookmarksRepository.deleteBookmark(
@@ -137,5 +165,6 @@ class PresenterSearch(
                     Toast.LENGTH_LONG
                 ).show()
             }
-        )    }
+        )
+    }
 }
