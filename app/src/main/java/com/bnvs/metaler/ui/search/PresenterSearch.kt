@@ -50,7 +50,7 @@ class PresenterSearch(
                 if (response.posts.isNotEmpty()) {
                     view.hideError404()
                     view.showSearchPosts(response.posts)
-                    Log.d(TAG,"총개수 : ${response.post_count}")
+                    view.showSearchTotalNum(response.post_count)
                 } else {
                     view.showError404()
                 }

@@ -15,7 +15,7 @@ interface ContractSearch {
 
         fun showSearchPosts(posts: List<Post>)
 
-        fun showSearchTotalNum()
+        fun showSearchTotalNum(totalNum: Int)
 
         fun showMoreSearchPosts(posts: List<Post>)
 
