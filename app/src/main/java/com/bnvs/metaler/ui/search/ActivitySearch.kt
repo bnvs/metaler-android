@@ -3,6 +3,7 @@ package com.bnvs.metaler.ui.search
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.inputmethod.EditorInfo
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bnvs.metaler.R
@@ -114,6 +115,19 @@ class ActivitySearch : AppCompatActivity(), ContractSearch.View {
 
     override fun setRVScrollListener() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun setSearchButtons() {
+        searchInput.setOnEditorActionListener { v, actionId, event ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                presenter.resetPageNum()
+
+                true
+            } else {
+                false
+            }
+
+        }
     }
 
     override fun onRefresh() {
