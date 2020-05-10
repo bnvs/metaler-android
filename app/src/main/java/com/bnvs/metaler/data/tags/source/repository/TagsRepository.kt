@@ -1,7 +1,6 @@
 package com.bnvs.metaler.data.tags.source.repository
 
 import com.bnvs.metaler.data.tags.model.TagsRequest
-import com.bnvs.metaler.data.tags.model.TagsResponse
 import com.bnvs.metaler.data.tags.source.TagsDataSource
 import com.bnvs.metaler.data.tags.source.remote.TagsRemoteDataSource
 
@@ -11,7 +10,7 @@ class TagsRepository : TagsDataSource {
 
     override fun getTagRecommendations(
         request: TagsRequest,
-        onSuccess: (response: TagsResponse) -> Unit,
+        onSuccess: (response: List<String>) -> Unit,
         onFailure: (e: Throwable) -> Unit
     ) {
         tagsRemoteDataSource.getTagRecommendations(request, onSuccess, onFailure)

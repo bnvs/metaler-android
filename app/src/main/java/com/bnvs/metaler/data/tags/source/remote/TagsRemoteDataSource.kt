@@ -1,7 +1,6 @@
 package com.bnvs.metaler.data.tags.source.remote
 
 import com.bnvs.metaler.data.tags.model.TagsRequest
-import com.bnvs.metaler.data.tags.model.TagsResponse
 import com.bnvs.metaler.data.tags.source.TagsDataSource
 import com.bnvs.metaler.network.RetrofitClient
 import retrofit2.Call
@@ -15,15 +14,15 @@ object TagsRemoteDataSource : TagsDataSource {
 
     override fun getTagRecommendations(
         request: TagsRequest,
-        onSuccess: (response: TagsResponse) -> Unit,
+        onSuccess: (response: List<String>) -> Unit,
         onFailure: (e: Throwable) -> Unit
     ) {
         retrofitClient.getTagRecommendation(request.type, request.name, request.max)
             .enqueue(object :
-                Callback<TagsResponse> {
+                Callback<List<String>> {
                 override fun onResponse(
-                    call: Call<TagsResponse>,
-                    response: Response<TagsResponse>
+                    call: Call<List<String>>,
+                    response: Response<List<String>>
                 ) {
                     val body = response.body()
                     if (body != null && response.isSuccessful) {
@@ -33,7 +32,7 @@ object TagsRemoteDataSource : TagsDataSource {
                     }
                 }
 
-                override fun onFailure(call: Call<TagsResponse>, t: Throwable) {
+                override fun onFailure(call: Call<List<String>>, t: Throwable) {
                     onFailure(t)
                 }
             })
