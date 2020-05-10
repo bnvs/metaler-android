@@ -3,6 +3,7 @@ package com.bnvs.metaler.ui.postsecond
 import android.content.Context
 import android.util.AttributeSet
 import android.widget.MultiAutoCompleteTextView
+import android.widget.Toast
 
 /**
  * 무조건 #이 붙은 태그들 (띄어쓰기 미포함)만 들어갈 수 있도록
@@ -35,6 +36,8 @@ class HashTagAutoCompleteTextView : MultiAutoCompleteTextView {
                         this.apply {
                             setText(tag)
                             setSelection(this.text.length)
+                            Toast.makeText(context, "태그 입력시 '#'을 태그 앞에 붙여주세요", Toast.LENGTH_SHORT)
+                                .show()
                         }
                     } else {
                         val tag = "${string.substring(0, selStart - 1)}${string.substring(
@@ -44,6 +47,8 @@ class HashTagAutoCompleteTextView : MultiAutoCompleteTextView {
                         this.apply {
                             setText(tag)
                             setSelection(this.text.length)
+                            Toast.makeText(context, "태그 입력시 '#'을 태그 앞에 붙여주세요", Toast.LENGTH_SHORT)
+                                .show()
                         }
                     }
 
@@ -55,6 +60,8 @@ class HashTagAutoCompleteTextView : MultiAutoCompleteTextView {
                         this.apply {
                             setText(tag)
                             setSelection(this.text.length)
+                            Toast.makeText(context, "태그 입력시 '#'을 태그 앞에 붙여주세요", Toast.LENGTH_SHORT)
+                                .show()
                         }
                     } else {
                         val tag = "${string.substring(0, selStart - 1)}#${string.substring(
@@ -64,6 +71,8 @@ class HashTagAutoCompleteTextView : MultiAutoCompleteTextView {
                         this.apply {
                             setText(tag)
                             setSelection(this.text.length)
+                            Toast.makeText(context, "태그 입력시 '#'을 태그 앞에 붙여주세요", Toast.LENGTH_SHORT)
+                                .show()
                         }
                     }
                 }
@@ -79,6 +88,11 @@ class HashTagAutoCompleteTextView : MultiAutoCompleteTextView {
                             this.apply {
                                 setText(tag)
                                 setSelection(this.text.length)
+                                Toast.makeText(
+                                    context,
+                                    "태그 입력시 '#'을 태그 앞에 붙여주세요",
+                                    Toast.LENGTH_SHORT
+                                ).show()
                             }
                         }
                     }
@@ -92,12 +106,22 @@ class HashTagAutoCompleteTextView : MultiAutoCompleteTextView {
                             this.apply {
                                 setText(tag)
                                 setSelection(this.text.length)
+                                Toast.makeText(
+                                    context,
+                                    "태그 입력시 '#'을 태그 앞에 붙여주세요",
+                                    Toast.LENGTH_SHORT
+                                ).show()
                             }
                         } else {
                             val tag = string.substring(0, string.length - 1)
                             this.apply {
                                 setText(tag)
                                 setSelection(this.text.length)
+                                Toast.makeText(
+                                    context,
+                                    "태그 입력시 '#'을 태그 앞에 붙여주세요",
+                                    Toast.LENGTH_SHORT
+                                ).show()
                             }
                         }
 
@@ -110,6 +134,11 @@ class HashTagAutoCompleteTextView : MultiAutoCompleteTextView {
                             this.apply {
                                 setText(tag)
                                 setSelection(this.text.length)
+                                Toast.makeText(
+                                    context,
+                                    "태그 입력시 '#'을 태그 앞에 붙여주세요",
+                                    Toast.LENGTH_SHORT
+                                ).show()
                             }
                         } else {
                             val tag = "${string.substring(0, selStart - 1)}${string.substring(
@@ -119,6 +148,11 @@ class HashTagAutoCompleteTextView : MultiAutoCompleteTextView {
                             this.apply {
                                 setText(tag)
                                 setSelection(this.text.length)
+                                Toast.makeText(
+                                    context,
+                                    "태그 입력시 '#'을 태그 앞에 붙여주세요",
+                                    Toast.LENGTH_SHORT
+                                ).show()
                             }
                         }
 
@@ -136,6 +170,11 @@ class HashTagAutoCompleteTextView : MultiAutoCompleteTextView {
                             this.apply {
                                 setText(tag)
                                 setSelection(this.text.length)
+                                Toast.makeText(
+                                    context,
+                                    "태그 입력시 '#'을 태그 앞에 붙여주세요",
+                                    Toast.LENGTH_SHORT
+                                ).show()
                             }
                         }
                     }
@@ -152,6 +191,11 @@ class HashTagAutoCompleteTextView : MultiAutoCompleteTextView {
                             this.apply {
                                 setText(tag)
                                 setSelection(this.text.length)
+                                Toast.makeText(
+                                    context,
+                                    "태그 입력시 '#'을 태그 앞에 붙여주세요",
+                                    Toast.LENGTH_SHORT
+                                ).show()
                             }
                         } else if (afterSelChar != '#' && beforeSelChar != '#') {
                             val tag = "${string.substring(0, selStart)}#${string.substring(
@@ -161,6 +205,11 @@ class HashTagAutoCompleteTextView : MultiAutoCompleteTextView {
                             this.apply {
                                 setText(tag)
                                 setSelection(this.text.length)
+                                Toast.makeText(
+                                    context,
+                                    "태그 입력시 '#'을 태그 앞에 붙여주세요",
+                                    Toast.LENGTH_SHORT
+                                ).show()
                             }
                         }
                     }
@@ -174,12 +223,16 @@ class HashTagAutoCompleteTextView : MultiAutoCompleteTextView {
                         this.apply {
                             setText(tag)
                             setSelection(this.text.length)
+                            Toast.makeText(context, "태그 입력시 '#'을 태그 앞에 붙여주세요", Toast.LENGTH_SHORT)
+                                .show()
                         }
                     } else {
                         val tag = "#$string"
                         this.apply {
                             setText(tag)
                             setSelection(this.text.length)
+                            Toast.makeText(context, "태그 입력시 '#'을 태그 앞에 붙여주세요", Toast.LENGTH_SHORT)
+                                .show()
                         }
                     }
                 }
