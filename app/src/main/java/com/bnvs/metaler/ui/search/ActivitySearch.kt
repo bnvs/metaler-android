@@ -17,11 +17,22 @@ class ActivitySearch : AppCompatActivity(), ContractSearch.View {
 
     override lateinit var presenter: ContractSearch.Presenter
 
+    var categoryId: Int = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
 
+        val getCategoryType = intent.getStringExtra("CATEGORY_TYPE")
+        if (getCategoryType == "MATERIALS"){
+            categoryId = MATERIALS
+        }else if (getCategoryType == "MANUFACTURE"){
+            categoryId = MANUFACTURE
+        }
+
+
         presenter = PresenterSearch(
+            categoryId,
             this@ActivitySearch,
             this@ActivitySearch
         )
