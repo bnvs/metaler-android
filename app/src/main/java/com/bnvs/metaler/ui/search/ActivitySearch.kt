@@ -11,6 +11,7 @@ import com.bnvs.metaler.ui.myposts.ContractMyPosts
 import com.bnvs.metaler.util.EndlessRecyclerViewScrollListener
 import com.bnvs.metaler.util.PostAdapter
 import com.bnvs.metaler.util.PostItemListener
+import kotlinx.android.synthetic.main.activity_search.*
 
 class ActivitySearch : AppCompatActivity(), ContractSearch.View {
 
@@ -27,6 +28,9 @@ class ActivitySearch : AppCompatActivity(), ContractSearch.View {
     lateinit var postAdapter: PostAdapter
     lateinit var scrollListener: EndlessRecyclerViewScrollListener
     lateinit var postLayoutManager: RecyclerView.LayoutManager
+
+    //검색어
+    var searchWord: String = ""
 
     var categoryId: Int = 0
 
@@ -85,7 +89,14 @@ class ActivitySearch : AppCompatActivity(), ContractSearch.View {
     }
 
     override fun showSearchPosts(posts: List<Post>) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        searchWord = searchInput.text.toString()
+
+        presenter.loadSearchPosts(
+            presenter.requestSearchPosts(
+                presenter.getCategoryId(),
+                searchWord
+            )
+        )
     }
 
     override fun showMoreSearchPosts(posts: List<Post>) {
