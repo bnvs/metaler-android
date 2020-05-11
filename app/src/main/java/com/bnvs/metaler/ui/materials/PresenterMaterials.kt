@@ -2,7 +2,6 @@ package com.bnvs.metaler.ui.materials
 
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import android.widget.Toast
 import com.bnvs.metaler.data.bookmarks.model.AddBookmarkRequest
 import com.bnvs.metaler.data.bookmarks.model.AddBookmarkResponse
@@ -47,6 +46,7 @@ class PresenterMaterials(
     }
 
     override fun start() {
+        resetPageNum()
         loadPosts(requestPosts(1))
         loadCategories()
     }
@@ -65,12 +65,10 @@ class PresenterMaterials(
     }
 
     override fun loadPosts(postsRequest: PostsRequest) {
-        resetPageNum()
         postRepository.getPosts(
             postsRequest,
             onSuccess = { response: PostsResponse ->
-                if (response.posts.isNotEmpty()) {
-                    resetPageNum()
+                if (response.post_count > 0) {
                     view.hideError404()
                     view.showPosts(response.posts)
                 } else {
