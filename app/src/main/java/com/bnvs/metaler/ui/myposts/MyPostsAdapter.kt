@@ -142,7 +142,7 @@ class MyPostsAdapter(
 
 
                     holder.itemView.setOnClickListener {
-                        myPostsItemListener.onPostClick(position)
+                        myPostsItemListener.onPostClick(it, myPostsList[position]!!.id)
                     }
 
                     moreBtn.setOnClickListener {
