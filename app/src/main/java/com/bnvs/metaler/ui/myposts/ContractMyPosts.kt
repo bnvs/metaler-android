@@ -10,8 +10,6 @@ interface ContractMyPosts {
     interface View : BaseView<Presenter>, TapBarContract.View {
         fun showMyPostsList(myPosts: List<MyPost>)
 
-        fun showPostDetailUi(postId: Int)
-
         fun hideError404()
 
         fun showError404()

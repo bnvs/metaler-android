@@ -110,10 +110,6 @@ class ActivityMyPosts : AppCompatActivity(), ContractMyPosts.View {
         error404Group.visibility = View.VISIBLE
     }
 
-    override fun showPostDetailUi(postId: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
     override fun setCategoryButtons() {
         materialsCategoryBtn.setOnClickListener {
             activeMaterialsCategoryBtn()
