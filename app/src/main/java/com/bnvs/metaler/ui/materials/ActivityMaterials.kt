@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -317,11 +318,21 @@ class ActivityMaterials : AppCompatActivity(),
     }
 
     override fun showSearchTags() {
-        var inputTag: String = tagInput.text.toString()
-        tagSearchWords.add(inputTag)
-
-        //초기화
         tagString = ""
+        var inputTag: String = tagInput.text.toString()
+
+        //공백으로 검색 시 예외처리
+        if(inputTag.isNullOrBlank()) {
+            Toast.makeText(
+                this,
+                "검색어를 다시 입력해주세요.",
+                Toast.LENGTH_SHORT
+            ).show()
+            tagInput.text.clear()
+            return
+        }
+
+        tagSearchWords.add(inputTag)
 
         //MutableList 의 값을 List 에 넣기 위해 String(tagString) 으로 변환해서 넣음
         for (i in 0..tagSearchWords.size) {
