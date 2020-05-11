@@ -1,11 +1,13 @@
 package com.bnvs.metaler.ui.myposts
 
 import android.content.Context
+import android.content.Intent
 import android.widget.Toast
 import com.bnvs.metaler.data.myposts.model.MyPosts
 import com.bnvs.metaler.data.myposts.model.MyPostsRequest
 import com.bnvs.metaler.data.myposts.source.repository.MyPostsRepository
 import com.bnvs.metaler.network.NetworkUtil
+import com.bnvs.metaler.ui.detail.ActivityDetail
 
 class PresenterMyPosts(
     private val context: Context,
@@ -45,7 +47,7 @@ class PresenterMyPosts(
                     view.showError404()
                 } else
                     view.hideError404()
-                    view.showMyPostsList(response.posts)
+                view.showMyPostsList(response.posts)
             },
             onFailure = { e ->
                 Toast.makeText(
@@ -68,6 +70,8 @@ class PresenterMyPosts(
     }
 
     override fun openPostDetail(postId: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val detailIntent = Intent(context, ActivityDetail::class.java)
+        detailIntent.putExtra("POST_ID", postId)
+        context.startActivity(detailIntent)
     }
 }

@@ -54,7 +54,7 @@ class ActivityMyPosts : AppCompatActivity(), ContractMyPosts.View {
      * onMoreButtonClick -> 더보기 버튼을 클릭한 경우. 수정, 삭제 메뉴 다이얼로그를 실행합니다.
      * */
     private var myPostsItemListener: MyPostsItemListener = object : MyPostsItemListener {
-        override fun onPostClick(clickedPostId: Int) {
+        override fun onPostClick(view: View, clickedPostId: Int) {
             presenter.openPostDetail(clickedPostId)
         }
 
