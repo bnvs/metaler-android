@@ -27,6 +27,8 @@ interface ContractMaterials {
 
         fun setRVScrollListener()
 
+        fun setTagSearchButtons()
+
         fun onRefresh()
 
         fun showRefreshPosts(posts: List<Post>)

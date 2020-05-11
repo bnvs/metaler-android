@@ -274,7 +274,6 @@ class ActivityMaterials : AppCompatActivity(),
     }
 
     override fun showMorePosts(posts: List<Post>) {
-
         if (loadMorePosts[loadMorePosts.size - 1] == null) {
             //Use Handler if the items are loading too fast.
             //If you remove it, the data will load so fast that you can't even see the LoadingView
@@ -357,7 +356,7 @@ class ActivityMaterials : AppCompatActivity(),
     }
 
 
-    private fun setTagSearchButtons() {
+    override fun setTagSearchButtons() {
         tagInput.setOnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 presenter.resetPageNum()
