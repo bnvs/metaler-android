@@ -43,17 +43,21 @@ class PresenterManufactures(
 
 
     override fun start() {
+        resetPageNum()
         loadPosts(requestPosts())
     }
 
 
     override fun loadPosts(postsRequest: PostsRequest) {
-        resetPageNum()
         postRepository.getPosts(
             postsRequest,
             onSuccess = { response: PostsResponse ->
-                resetPageNum()
-                view.showPosts(response.posts)
+                if (response.post_count > 0) {
+                    view.hideError404()
+                    view.showPosts(response.posts)
+                } else {
+                    view.showError404()
+                }
             },
             onFailure = { e ->
                 Toast.makeText(
