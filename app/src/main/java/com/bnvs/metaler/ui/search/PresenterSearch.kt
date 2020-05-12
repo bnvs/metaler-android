@@ -122,11 +122,6 @@ class PresenterSearch(
         return addBookmarkRequest
     }
 
-    override fun requestDeleteBookmark(postId: Int): DeleteBookmarkRequest {
-        deleteBookmarkRequest = DeleteBookmarkRequest(postId)
-        return deleteBookmarkRequest
-    }
-
     override fun addBookmark(postId: Int, bookmarkId: Int, position: Int) {
         bookmarksRepository.addBookmark(
             requestAddBookmark(postId),
