@@ -149,6 +149,8 @@ class MyPostsAdapter(
                         myPostsItemListener.onMoreButtonClick(
                             moreBtn,
                             myPostsList[position]!!.id,
+                            myPostsList[position]!!.liked,
+                            myPostsList[position]!!.disliked,
                             position
                         )
                     }
