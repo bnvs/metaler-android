@@ -15,7 +15,7 @@ interface ContractBookmarks {
 
         fun removeLoadingView()
 
-        fun showBookmarkDeleteDialog(postId: Int)
+        fun showBookmarkDeleteDialog(bookmarkId: Int, position: Int)
 
     }
 
@@ -34,9 +34,7 @@ interface ContractBookmarks {
 
         fun openPostDetail(postId: Int)
 
-        fun openBookmarkDelete(postId: Int)
-
-        fun deleteBookmark(postId: Int)
+        fun deleteBookmark(bookmarkId: Int)
 
     }
 }

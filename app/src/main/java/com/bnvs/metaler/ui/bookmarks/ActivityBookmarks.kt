@@ -3,6 +3,7 @@ package com.bnvs.metaler.ui.bookmarks
 import android.os.Bundle
 import android.os.Handler
 import android.view.View
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -35,8 +36,8 @@ class ActivityBookmarks : AppCompatActivity(), ContractBookmarks.View {
             presenter.openPostDetail(clickedPostId)
         }
 
-        override fun onDeleteButtonClick(view: View, clickedPostId: Int, position: Int) {
-            presenter.deleteBookmark(clickedPostId)
+        override fun onDeleteButtonClick(view: View, bookmarkId: Int, position: Int) {
+            showBookmarkDeleteDialog(bookmarkId, position)
         }
     }
 
@@ -128,8 +129,16 @@ class ActivityBookmarks : AppCompatActivity(), ContractBookmarks.View {
         }
     }
 
-    override fun showBookmarkDeleteDialog(postId: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun showBookmarkDeleteDialog(bookmarkId: Int, position: Int) {
+        AlertDialog.Builder(this@ActivityBookmarks)
+            .setTitle("북마크를 취소하시겠습니까?")
+            .setPositiveButton("확인") { dialog, which ->
+                presenter.deleteBookmark(bookmarkId)
+                bookmarkPostAdapter.deleteBookmark(position)
+            }
+            .setNegativeButton("취소") { _, _ ->
+            }
+            .show()
     }
 
     private fun initClickListeners() {
