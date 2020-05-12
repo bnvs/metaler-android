@@ -251,13 +251,14 @@ class PresenterMaterials(
         context.startActivity(detailIntent)
     }
 
-    override fun addBookmark(postId: Int) {
+    override fun addBookmark(postId: Int, bookmarkId: Int, position: Int) {
         bookmarksRepository.addBookmark(
             requestAddBookmark(postId),
             onSuccess = { response: AddBookmarkResponse ->
+                view.postAdapterAddBookmark(position, response.bookmark_id )
                 Toast.makeText(
                     context,
-                    "${response.bookmark_id} 북마크에 추가되었습니다.",
+                    "북마크에 추가되었습니다.",
                     Toast.LENGTH_SHORT
                 ).show()
             },
@@ -271,9 +272,9 @@ class PresenterMaterials(
         )
     }
 
-    override fun deleteBookmark(postId: Int) {
+    override fun deleteBookmark(bookmarkId: Int) {
         bookmarksRepository.deleteBookmark(
-            postId,
+            bookmarkId,
             onSuccess = {
                 Toast.makeText(
                     context,
