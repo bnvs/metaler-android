@@ -3,6 +3,8 @@ package com.bnvs.metaler.ui.myposts
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -59,7 +61,21 @@ class ActivityMyPosts : AppCompatActivity(), ContractMyPosts.View {
         }
 
         override fun onMoreButtonClick(view: View, clickedPostId: Int, position: Int) {
-            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            val array = arrayOf("수정", "삭제")
+            AlertDialog.Builder(this@ActivityMyPosts)
+                .setItems(array) { _, which ->
+                    when (array[which]) {
+                        "수정" -> {
+                            makeToast("$clickedPostId 를 수정합니다 ")
+//                            presenter.openModifyComment()
+                        }
+                        "삭제" -> {
+                            makeToast("$clickedPostId 를 삭제합니다 ")
+//                            presenter.openDeleteComment()
+                        }
+                    }
+                }
+                .show()
         }
     }
 
@@ -138,4 +154,7 @@ class ActivityMyPosts : AppCompatActivity(), ContractMyPosts.View {
         materialsBar.visibility = View.INVISIBLE
     }
 
+    private fun makeToast(message: String) {
+        Toast.makeText(this@ActivityMyPosts, message, Toast.LENGTH_SHORT).show()
+    }
 }
