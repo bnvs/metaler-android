@@ -14,6 +14,8 @@ interface ContractMyPosts {
 
         fun showError404()
 
+        fun showCannotModifyRatedPostDialog()
+
         fun setCategoryButtons()
 
         fun activeMaterialsCategoryBtn()

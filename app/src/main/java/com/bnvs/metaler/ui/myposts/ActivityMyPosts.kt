@@ -126,6 +126,10 @@ class ActivityMyPosts : AppCompatActivity(), ContractMyPosts.View {
         error404Group.visibility = View.VISIBLE
     }
 
+    override fun showCannotModifyRatedPostDialog() {
+        makeAlertDialog("가격 평가가 진행된 게시물은 수정할 수 없습니다")
+    }
+
     override fun setCategoryButtons() {
         materialsCategoryBtn.setOnClickListener {
             activeMaterialsCategoryBtn()
@@ -156,5 +160,14 @@ class ActivityMyPosts : AppCompatActivity(), ContractMyPosts.View {
 
     private fun makeToast(message: String) {
         Toast.makeText(this@ActivityMyPosts, message, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun makeAlertDialog(message: String) {
+        AlertDialog.Builder(this@ActivityMyPosts)
+            .setTitle("알림")
+            .setMessage(message)
+            .setPositiveButton("확인") { _, _ ->
+            }
+            .show()
     }
 }
