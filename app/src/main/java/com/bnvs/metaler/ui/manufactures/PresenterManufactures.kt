@@ -2,6 +2,7 @@ package com.bnvs.metaler.ui.manufactures
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.widget.Toast
 import com.bnvs.metaler.data.bookmarks.model.AddBookmarkRequest
 import com.bnvs.metaler.data.bookmarks.model.AddBookmarkResponse
@@ -43,17 +44,21 @@ class PresenterManufactures(
 
 
     override fun start() {
+        resetPageNum()
         loadPosts(requestPosts())
     }
 
 
     override fun loadPosts(postsRequest: PostsRequest) {
-        resetPageNum()
         postRepository.getPosts(
             postsRequest,
             onSuccess = { response: PostsResponse ->
-                resetPageNum()
-                view.showPosts(response.posts)
+                if (response.post_count > 0) {
+                    view.hideError404()
+                    view.showPosts(response.posts)
+                } else {
+                    view.showError404()
+                }
             },
             onFailure = { e ->
                 Toast.makeText(
@@ -225,10 +230,11 @@ class PresenterManufactures(
         context.startActivity(detailIntent)
     }
 
-    override fun addBookmark(postId: Int) {
+    override fun addBookmark(postId: Int, bookmarkId: Int, position: Int) {
         bookmarksRepository.addBookmark(
             requestAddBookmark(postId),
             onSuccess = { response: AddBookmarkResponse ->
+                view.postAdapterAddBookmark(position, response.bookmark_id )
                 Toast.makeText(
                     context,
                     "북마크에 추가되었습니다.",
@@ -245,9 +251,9 @@ class PresenterManufactures(
         )
     }
 
-    override fun deleteBookmark(postId: Int) {
+    override fun deleteBookmark(bookmarkId: Int) {
         bookmarksRepository.deleteBookmark(
-            postId,
+            bookmarkId,
             onSuccess = {
                 Toast.makeText(
                     context,

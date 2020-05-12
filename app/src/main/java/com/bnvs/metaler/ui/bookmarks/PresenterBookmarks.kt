@@ -102,13 +102,9 @@ class PresenterBookmarks(
         context.startActivity(detailIntent)
     }
 
-    override fun openBookmarkDelete(postId: Int) {
-        view.showBookmarkDeleteDialog(postId)
-    }
-
-    override fun deleteBookmark(postId: Int) {
+    override fun deleteBookmark(bookmarkId: Int) {
         bookmarksRepository.deleteBookmark(
-            postId,
+            bookmarkId,
             onSuccess = {
                 Toast.makeText(
                     context,

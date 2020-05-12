@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -115,31 +116,28 @@ class ActivityMaterials : AppCompatActivity(),
         override fun onBookmarkButtonClick(
             view: View,
             clickedPostId: Int,
-            isBookmark: Int,
+            bookmarkId: Int,
             position: Int
         ) {
-
-            if (isBookmark == 0) {
-                presenter.addBookmark(clickedPostId)
+            if (bookmarkId == 0) {
+                presenter.addBookmark(clickedPostId, bookmarkId, position)
+            } else if (bookmarkId > 0) {
+                presenter.deleteBookmark(bookmarkId)
                 postAdapter.apply {
-                    setBookmark(position)
+                    deleteBookmark(position)
                     notifyDataSetChanged()
-                    Log.d(TAG, "isBookmark ? : ${isBookmark}")
-
-                }
-            } else if (isBookmark == 1) {
-                presenter.deleteBookmark(clickedPostId)
-                postAdapter.apply {
-                    setBookmark(position)
-                    notifyDataSetChanged()
-                    Log.d(TAG, "isBookmark ? : ${isBookmark}")
-
                 }
             }
         }
 
     }
 
+    override fun postAdapterAddBookmark(position: Int, bookmarkId: Int) {
+        postAdapter.apply {
+            addBookmark(position, bookmarkId)
+            notifyDataSetChanged()
+        }
+    }
 
     private val categoryAdapter = CategoryAdapter(
         categoryItemListener
@@ -274,7 +272,6 @@ class ActivityMaterials : AppCompatActivity(),
     }
 
     override fun showMorePosts(posts: List<Post>) {
-
         if (loadMorePosts[loadMorePosts.size - 1] == null) {
             //Use Handler if the items are loading too fast.
             //If you remove it, the data will load so fast that you can't even see the LoadingView
@@ -318,11 +315,21 @@ class ActivityMaterials : AppCompatActivity(),
     }
 
     override fun showSearchTags() {
-        var inputTag: String = tagInput.text.toString()
-        tagSearchWords.add(inputTag)
-
-        //초기화
         tagString = ""
+        var inputTag: String = tagInput.text.toString()
+
+        //공백으로 검색 시 예외처리
+        if(inputTag.isNullOrBlank()) {
+            Toast.makeText(
+                this,
+                "검색어를 다시 입력해주세요.",
+                Toast.LENGTH_SHORT
+            ).show()
+            tagInput.text.clear()
+            return
+        }
+
+        tagSearchWords.add(inputTag)
 
         //MutableList 의 값을 List 에 넣기 위해 String(tagString) 으로 변환해서 넣음
         for (i in 0..tagSearchWords.size) {
@@ -357,7 +364,7 @@ class ActivityMaterials : AppCompatActivity(),
     }
 
 
-    private fun setTagSearchButtons() {
+    override fun setTagSearchButtons() {
         tagInput.setOnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 presenter.resetPageNum()

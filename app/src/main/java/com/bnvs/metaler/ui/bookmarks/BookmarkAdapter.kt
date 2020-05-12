@@ -17,7 +17,6 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
-import kotlinx.android.synthetic.main.activity_bookmark.view.*
 import kotlinx.android.synthetic.main.item_bookmark_rv.view.*
 import kotlinx.android.synthetic.main.item_loading.view.*
 
@@ -46,6 +45,11 @@ class BookmarkAdapter(
     fun addMorePosts(list: ArrayList<Bookmark?>) {
         this.tempArrayList.addAll(list)
         notifyDataSetChanged()
+    }
+
+    fun deleteBookmark(position: Int) {
+        tempArrayList.removeAt(position)
+        notifyItemRemoved(position)
     }
 
     fun resetList() {
@@ -147,11 +151,9 @@ class BookmarkAdapter(
                     deleteBtn.setOnClickListener {
                         bookmarkItemListener.onDeleteButtonClick(
                             deleteBtn,
-                            tempArrayList[position]!!.post_id,
+                            tempArrayList[position]!!.bookmark_id,
                             position
                         )
-                        tempArrayList.removeAt(position)
-                        notifyItemRemoved(position)
                     }
 
                 }

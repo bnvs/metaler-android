@@ -10,17 +10,27 @@ interface ContractMyPosts {
     interface View : BaseView<Presenter>, TapBarContract.View {
         fun showMyPostsList(myPosts: List<MyPost>)
 
-        fun showPostDetailUi(postId: Int)
-
         fun hideError404()
 
         fun showError404()
+
+        fun showPostDeletedToast()
+
+        fun showCannotModifyRatedPostDialog()
+
+        fun showDeletePostDialog(clickedPostId: Int)
+
+        fun openEditPostUi(clickedPostId: Int)
 
         fun setCategoryButtons()
 
         fun activeMaterialsCategoryBtn()
 
         fun activeManufactureCategoryBtn()
+
+        fun showErrorToast(errorMessage: String)
+
+        fun finishActivity()
     }
 
     interface Presenter : BasePresenter, TapBarContract.Presenter {
@@ -31,6 +41,10 @@ interface ContractMyPosts {
         fun openManufacturesList()
 
         fun requestPosts(categoryType: String): MyPostsRequest
+
+        fun deletePost(clickedPostId: Int)
+
+        fun modifyPost(clickedPostId: Int, likedNum: Int, dislikedNum: Int)
 
         fun openPostDetail(postId: Int)
     }
