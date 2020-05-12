@@ -11,5 +11,5 @@ data class Bookmark(
     val dis_liked: Int,
     val thumbnail: String,
     val tags: List<PostTag>,
-    val is_bookmark: Int
+    val bookmark_id: Int
 )
