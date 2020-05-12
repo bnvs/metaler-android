@@ -51,8 +51,6 @@ interface ContractSearch {
 
         fun requestAddBookmark(postId: Int): AddBookmarkRequest
 
-        fun requestDeleteBookmark(postId: Int): DeleteBookmarkRequest
-
         fun addBookmark(postId: Int, bookmarkId: Int, position: Int)
 
         fun deleteBookmark(bookmarkId: Int)
