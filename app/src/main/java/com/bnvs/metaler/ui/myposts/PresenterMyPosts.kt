@@ -6,6 +6,7 @@ import android.widget.Toast
 import com.bnvs.metaler.data.myposts.model.MyPosts
 import com.bnvs.metaler.data.myposts.model.MyPostsRequest
 import com.bnvs.metaler.data.myposts.source.repository.MyPostsRepository
+import com.bnvs.metaler.data.postdetails.source.repository.PostDetailsRepository
 import com.bnvs.metaler.network.NetworkUtil
 import com.bnvs.metaler.ui.detail.ActivityDetail
 
@@ -14,6 +15,7 @@ class PresenterMyPosts(
     private val view: ContractMyPosts.View
 ) : ContractMyPosts.Presenter {
 
+    private val postDetailsRepository = PostDetailsRepository()
     private val myPostsRepository: MyPostsRepository = MyPostsRepository()
     private lateinit var myPostsRequest: MyPostsRequest
 
@@ -73,5 +75,22 @@ class PresenterMyPosts(
         val detailIntent = Intent(context, ActivityDetail::class.java)
         detailIntent.putExtra("POST_ID", postId)
         context.startActivity(detailIntent)
+    }
+
+    override fun deletePost(clickedPostId: Int) {
+        postDetailsRepository.deletePost(
+            clickedPostId,
+            onSuccess = {
+                view.showPostDeletedToast()
+            },
+            onFailure = { e ->
+                view.apply {
+                    showErrorToast(
+                        "게시글 삭제에 실패했습니다" +
+                                "\n ${NetworkUtil.getErrorMessage(e)}"
+                    )
+                }
+            }
+        )
     }
 }

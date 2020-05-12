@@ -70,8 +70,7 @@ class ActivityMyPosts : AppCompatActivity(), ContractMyPosts.View {
 //                            presenter.openModifyComment()
                         }
                         "삭제" -> {
-                            makeToast("$clickedPostId 를 삭제합니다 ")
-//                            presenter.openDeleteComment()
+                            showDeletePostDialog(clickedPostId)
                         }
                     }
                 }
@@ -126,15 +125,19 @@ class ActivityMyPosts : AppCompatActivity(), ContractMyPosts.View {
         error404Group.visibility = View.VISIBLE
     }
 
-    override fun showDeletePostDialog() {
+    override fun showDeletePostDialog(clickedPostId: Int) {
         AlertDialog.Builder(this@ActivityMyPosts)
             .setTitle("게시글을 삭제하시겠습니까?")
             .setPositiveButton("확인") { dialog, which ->
-//                presenter.deletePost()
+                presenter.deletePost(clickedPostId)
             }
             .setNegativeButton("취소") { _, _ ->
             }
             .show()
+    }
+
+    override fun showPostDeletedToast() {
+        makeToast("게시물이 삭제되었습니다")
     }
 
     override fun showCannotModifyRatedPostDialog() {
@@ -169,6 +172,10 @@ class ActivityMyPosts : AppCompatActivity(), ContractMyPosts.View {
         materialsBar.visibility = View.INVISIBLE
     }
 
+    override fun showErrorToast(errorMessage: String) {
+        makeToast(errorMessage)
+    }
+
     private fun makeToast(message: String) {
         Toast.makeText(this@ActivityMyPosts, message, Toast.LENGTH_SHORT).show()
     }
@@ -180,5 +187,9 @@ class ActivityMyPosts : AppCompatActivity(), ContractMyPosts.View {
             .setPositiveButton("확인") { _, _ ->
             }
             .show()
+    }
+
+    override fun finishActivity() {
+        finish()
     }
 }

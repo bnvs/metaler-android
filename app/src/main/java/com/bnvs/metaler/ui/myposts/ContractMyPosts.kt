@@ -14,15 +14,21 @@ interface ContractMyPosts {
 
         fun showError404()
 
+        fun showPostDeletedToast()
+
         fun showCannotModifyRatedPostDialog()
 
-        fun showDeletePostDialog()
+        fun showDeletePostDialog(clickedPostId: Int)
 
         fun setCategoryButtons()
 
         fun activeMaterialsCategoryBtn()
 
         fun activeManufactureCategoryBtn()
+
+        fun showErrorToast(errorMessage: String)
+
+        fun finishActivity()
     }
 
     interface Presenter : BasePresenter, TapBarContract.Presenter {
@@ -33,6 +39,8 @@ interface ContractMyPosts {
         fun openManufacturesList()
 
         fun requestPosts(categoryType: String): MyPostsRequest
+
+        fun deletePost(clickedPostId: Int)
 
         fun openPostDetail(postId: Int)
     }
