@@ -126,6 +126,17 @@ class ActivityMyPosts : AppCompatActivity(), ContractMyPosts.View {
         error404Group.visibility = View.VISIBLE
     }
 
+    override fun showDeletePostDialog() {
+        AlertDialog.Builder(this@ActivityMyPosts)
+            .setTitle("게시글을 삭제하시겠습니까?")
+            .setPositiveButton("확인") { dialog, which ->
+//                presenter.deletePost()
+            }
+            .setNegativeButton("취소") { _, _ ->
+            }
+            .show()
+    }
+
     override fun showCannotModifyRatedPostDialog() {
         makeAlertDialog("가격 평가가 진행된 게시물은 수정할 수 없습니다")
     }

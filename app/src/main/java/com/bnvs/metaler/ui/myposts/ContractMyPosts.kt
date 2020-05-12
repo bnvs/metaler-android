@@ -16,6 +16,8 @@ interface ContractMyPosts {
 
         fun showCannotModifyRatedPostDialog()
 
+        fun showDeletePostDialog()
+
         fun setCategoryButtons()
 
         fun activeMaterialsCategoryBtn()
