@@ -67,6 +67,7 @@ class ActivityManufactures : AppCompatActivity(),
 
     }
 
+    //북마크 추가할 때, 리사이클러뷰 어댑터에 bookmark_id 를 보냄
     override fun postAdapterAddBookmark(position: Int, bookmarkId: Int) {
         postAdapter.apply {
             addBookmark(position, bookmarkId)
