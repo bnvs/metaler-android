@@ -234,7 +234,6 @@ class PresenterManufactures(
         bookmarksRepository.addBookmark(
             requestAddBookmark(postId),
             onSuccess = { response: AddBookmarkResponse ->
-                Log.d("프레젠터 ", "response.bookmark_id ? : ${response.bookmark_id}")
                 view.postAdapterAddBookmark(position, response.bookmark_id )
                 Toast.makeText(
                     context,
