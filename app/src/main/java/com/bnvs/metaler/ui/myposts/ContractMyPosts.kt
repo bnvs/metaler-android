@@ -20,6 +20,8 @@ interface ContractMyPosts {
 
         fun showDeletePostDialog(clickedPostId: Int)
 
+        fun openEditPostUi(clickedPostId: Int)
+
         fun setCategoryButtons()
 
         fun activeMaterialsCategoryBtn()
@@ -41,6 +43,8 @@ interface ContractMyPosts {
         fun requestPosts(categoryType: String): MyPostsRequest
 
         fun deletePost(clickedPostId: Int)
+
+        fun modifyPost(clickedPostId: Int, likedNum: Int, dislikedNum: Int)
 
         fun openPostDetail(postId: Int)
     }

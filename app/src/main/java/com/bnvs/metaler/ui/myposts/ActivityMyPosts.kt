@@ -1,5 +1,6 @@
 package com.bnvs.metaler.ui.myposts
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bnvs.metaler.R
 import com.bnvs.metaler.data.myposts.model.MyPost
+import com.bnvs.metaler.ui.postfirst.ActivityPostFirst
 import com.bnvs.metaler.util.EndlessRecyclerViewScrollListener
 import kotlinx.android.synthetic.main.activity_my_posts.*
 
@@ -60,14 +62,19 @@ class ActivityMyPosts : AppCompatActivity(), ContractMyPosts.View {
             presenter.openPostDetail(clickedPostId)
         }
 
-        override fun onMoreButtonClick(view: View, clickedPostId: Int, position: Int) {
+        override fun onMoreButtonClick(
+            view: View,
+            clickedPostId: Int,
+            likedNum: Int,
+            dislikedNum: Int,
+            position: Int
+        ) {
             val array = arrayOf("수정", "삭제")
             AlertDialog.Builder(this@ActivityMyPosts)
                 .setItems(array) { _, which ->
                     when (array[which]) {
                         "수정" -> {
-                            makeToast("$clickedPostId 를 수정합니다 ")
-//                            presenter.openModifyComment()
+                            presenter.modifyPost(clickedPostId, likedNum, dislikedNum)
                         }
                         "삭제" -> {
                             showDeletePostDialog(clickedPostId)
@@ -91,9 +98,10 @@ class ActivityMyPosts : AppCompatActivity(), ContractMyPosts.View {
 
     private fun setRVScrollListener() {
         myPostLayoutManager = LinearLayoutManager(this)
-        scrollListener = EndlessRecyclerViewScrollListener(myPostLayoutManager as LinearLayoutManager)
+        scrollListener =
+            EndlessRecyclerViewScrollListener(myPostLayoutManager as LinearLayoutManager)
         scrollListener.setOnLoadMoreListener(object :
-        EndlessRecyclerViewScrollListener.OnLoadMoreListener{
+            EndlessRecyclerViewScrollListener.OnLoadMoreListener {
             override fun onLoadMore() {
                 //loadMoreMyPosts 에 null값을 추가해서 로딩뷰를 만든다.
                 myPostAdapter.addLoadingView()
@@ -110,7 +118,7 @@ class ActivityMyPosts : AppCompatActivity(), ContractMyPosts.View {
     }
 
     override fun showMyPostsList(myPosts: List<MyPost>) {
-        Log.d(TAG,"myPosts? : $myPosts")
+        Log.d(TAG, "myPosts? : $myPosts")
         myPostAdapter.addPosts(myPosts)
         myPostAdapter.notifyDataSetChanged()
         postsRV.adapter = myPostAdapter
@@ -123,6 +131,13 @@ class ActivityMyPosts : AppCompatActivity(), ContractMyPosts.View {
 
     override fun showError404() {
         error404Group.visibility = View.VISIBLE
+    }
+
+    override fun openEditPostUi(clickedPostId: Int) {
+        Intent(this, ActivityPostFirst::class.java).apply {
+            putExtra("POST_ID", clickedPostId.toString())
+            startActivity(this)
+        }
     }
 
     override fun showDeletePostDialog(clickedPostId: Int) {

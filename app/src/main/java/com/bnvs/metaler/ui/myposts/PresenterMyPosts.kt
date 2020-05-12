@@ -93,4 +93,12 @@ class PresenterMyPosts(
             }
         )
     }
+
+    override fun modifyPost(clickedPostId: Int, likedNum: Int, dislikedNum: Int) {
+        if (likedNum != 0 || dislikedNum != 0) {
+            view.showCannotModifyRatedPostDialog()
+        } else {
+            view.openEditPostUi(clickedPostId)
+        }
+    }
 }
