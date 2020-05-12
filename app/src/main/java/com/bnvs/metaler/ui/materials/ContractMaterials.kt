@@ -23,6 +23,8 @@ interface ContractMaterials {
 
         fun showMorePosts(posts: List<Post>)
 
+        fun postAdapterAddBookmark(position: Int, bookmarkId: Int)
+
         fun removeLoadingView()
 
         fun setRVScrollListener()
@@ -72,8 +74,8 @@ interface ContractMaterials {
 
         fun openPostDetail(postId: Int)
 
-        fun addBookmark(postId: Int)
+        fun addBookmark(postId: Int, bookmarkId: Int, position: Int)
 
-        fun deleteBookmark(postId: Int)
+        fun deleteBookmark(bookmarkId: Int)
     }
 }

@@ -49,25 +49,26 @@ class ActivitySearch : AppCompatActivity(), ContractSearch.View {
         override fun onBookmarkButtonClick(
             view: View,
             clickedPostId: Int,
-            isBookmark: Int,
+            bookmarkId: Int,
             position: Int
         ) {
-
-            if (isBookmark == 0) {
-                presenter.addBookmark(clickedPostId)
+            if (bookmarkId == 0) {
+                presenter.addBookmark(clickedPostId, bookmarkId, position)
+            } else if (bookmarkId > 0) {
+                presenter.deleteBookmark(bookmarkId)
                 postAdapter.apply {
-                    setBookmark(position)
-                    notifyDataSetChanged()
-                }
-            } else if (isBookmark == 1) {
-                presenter.deleteBookmark(clickedPostId)
-                postAdapter.apply {
-                    setBookmark(position)
+                    deleteBookmark(position)
                     notifyDataSetChanged()
                 }
             }
         }
+    }
 
+    override fun postAdapterAddBookmark(position: Int, bookmarkId: Int) {
+        postAdapter.apply {
+            addBookmark(position, bookmarkId)
+            notifyDataSetChanged()
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

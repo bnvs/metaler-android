@@ -51,25 +51,28 @@ class ActivityManufactures : AppCompatActivity(),
         override fun onBookmarkButtonClick(
             view: View,
             clickedPostId: Int,
-            isBookmark: Int,
+            bookmarkId: Int,
             position: Int
         ) {
-
-            if (isBookmark == 0) {
-                presenter.addBookmark(clickedPostId)
+            if (bookmarkId == 0) {
+                presenter.addBookmark(clickedPostId, bookmarkId, position)
+            } else if (bookmarkId > 0) {
+                presenter.deleteBookmark(bookmarkId)
                 postAdapter.apply {
-                    setBookmark(position)
-                    notifyDataSetChanged()
-                }
-            } else if (isBookmark == 1) {
-                presenter.deleteBookmark(clickedPostId)
-                postAdapter.apply {
-                    setBookmark(position)
+                    deleteBookmark(position)
                     notifyDataSetChanged()
                 }
             }
         }
 
+    }
+
+    //북마크 추가할 때, 리사이클러뷰 어댑터에 bookmark_id 를 보냄
+    override fun postAdapterAddBookmark(position: Int, bookmarkId: Int) {
+        postAdapter.apply {
+            addBookmark(position, bookmarkId)
+            notifyDataSetChanged()
+        }
     }
 
     /**
@@ -86,7 +89,7 @@ class ActivityManufactures : AppCompatActivity(),
             //초기화
             tagString = ""
 
-            if (tagSearchWords.size > 0){
+            if (tagSearchWords.size > 0) {
                 //MutableList 의 값을 List 에 넣기 위해 String(tagString) 으로 변환해서 넣음
                 for (i in 0 until tagSearchWords.size) {
                     if (i == 0) {

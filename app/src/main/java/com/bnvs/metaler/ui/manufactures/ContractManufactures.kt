@@ -25,6 +25,8 @@ interface ContractManufactures {
 
         fun onRefresh()
 
+        fun postAdapterAddBookmark(position: Int, bookmarkId: Int)
+
         fun showRefreshPosts(posts: List<Post>)
 
         fun hideError404()
@@ -67,9 +69,9 @@ interface ContractManufactures {
 
         fun openPostDetail(postId: Int)
 
-        fun addBookmark(postId: Int)
+        fun addBookmark(postId: Int, bookmarkId: Int, position: Int)
 
-        fun deleteBookmark(postId: Int)
+        fun deleteBookmark(bookmarkId: Int)
 
         fun openSearch()
 

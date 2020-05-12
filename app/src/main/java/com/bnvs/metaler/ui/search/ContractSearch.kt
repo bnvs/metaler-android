@@ -29,6 +29,8 @@ interface ContractSearch {
 
         fun showRefreshPosts(posts: List<Post>)
 
+        fun postAdapterAddBookmark(position: Int, bookmarkId: Int)
+
         fun hideError404()
 
         fun showError404()
@@ -51,8 +53,8 @@ interface ContractSearch {
 
         fun requestDeleteBookmark(postId: Int): DeleteBookmarkRequest
 
-        fun addBookmark(postId: Int)
+        fun addBookmark(postId: Int, bookmarkId: Int, position: Int)
 
-        fun deleteBookmark(postId: Int)
+        fun deleteBookmark(bookmarkId: Int)
     }
 }
