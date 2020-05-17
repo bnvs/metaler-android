@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -24,6 +25,10 @@ class ActivityPostSecond : AppCompatActivity(), ContractPostSecond.View {
     }
 
     override lateinit var presenter: ContractPostSecond.Presenter
+
+    private lateinit var shopInputAdapter: HashTagSuggestAdapter
+    private lateinit var workInputAdapter: HashTagSuggestAdapter
+    private lateinit var etcInputAdapter: HashTagSuggestAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,17 +60,9 @@ class ActivityPostSecond : AppCompatActivity(), ContractPostSecond.View {
     }
 
     override fun setShopNameTagInputAdapter() {
-        val adapter = HashTagSuggestAdapter(this, android.R.layout.simple_list_item_1)
-        val shopNameHandler = Handler(Handler.Callback { msg ->
-            if (msg.what == TRIGGER_AUTO_COMPLETE) {
-                if (!shopNameInput.text.isNullOrEmpty()) {
-                    // 태그 검색 추천 api 호출
-                }
-            }
-            false
-        })
+        shopInputAdapter = HashTagSuggestAdapter(this, android.R.layout.simple_list_item_1)
         shopNameInput.apply {
-            setAdapter(adapter)
+            setAdapter(shopInputAdapter)
             setTokenizer(SpaceTokenizer())
             addTextChangedListener(object : TextWatcher {
                 override fun afterTextChanged(s: Editable?) {}
@@ -79,28 +76,48 @@ class ActivityPostSecond : AppCompatActivity(), ContractPostSecond.View {
                 }
 
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                    shopNameHandler.removeMessages(TRIGGER_AUTO_COMPLETE)
-                    shopNameHandler.sendEmptyMessageDelayed(
-                        TRIGGER_AUTO_COMPLETE,
-                        AUTO_COMPLETE_DELAY
-                    )
+                    if (!s.isNullOrBlank()) {
+                        Log.d(
+                            "shopNameInput",
+                            "onTextChanged - start: $start, before: $before, count: $count"
+                        )
+                        Log.d(
+                            "shopNameInput",
+                            "onTextChanged 지금 첫 번째 글자는? ${shopNameInput.text.toString()[start]}"
+                        )
+                        Log.d(
+                            "shopNameInput",
+                            "onTextChanged 지금 작성중인 글자는? ${shopNameInput.text.toString().substring(
+                                start,
+                                start + count
+                            )}"
+                        )
+
+                        shopNameInput.showDropDown()
+                        presenter.getTagSuggestion(
+                            1,
+                            shopNameInput.text.toString().substring(start, start + count)
+                        )
+                    } else {
+                        shopNameInput.dismissDropDown()
+                    }
                 }
             })
         }
     }
 
     override fun setWorkTagInputAdapter() {
-        val adapter = HashTagSuggestAdapter(this, android.R.layout.simple_list_item_1)
+        workInputAdapter = HashTagSuggestAdapter(this, android.R.layout.simple_list_item_1)
         val workHandler = Handler(Handler.Callback { msg ->
             if (msg.what == TRIGGER_AUTO_COMPLETE) {
                 if (!workInput.text.isNullOrEmpty()) {
-                    // 태그 검색 추천 api 호출
+                    presenter.getTagSuggestion(2, workInput.text.toString())
                 }
             }
             false
         })
         workInput.apply {
-            setAdapter(adapter)
+            setAdapter(workInputAdapter)
             setTokenizer(SpaceTokenizer())
             addTextChangedListener(object : TextWatcher {
                 override fun afterTextChanged(s: Editable?) {}
@@ -122,17 +139,17 @@ class ActivityPostSecond : AppCompatActivity(), ContractPostSecond.View {
     }
 
     override fun setTagInputAdapter() {
-        val adapter = HashTagSuggestAdapter(this, android.R.layout.simple_list_item_1)
+        etcInputAdapter = HashTagSuggestAdapter(this, android.R.layout.simple_list_item_1)
         val tagHandler = Handler(Handler.Callback { msg ->
             if (msg.what == TRIGGER_AUTO_COMPLETE) {
                 if (!tagInput.text.isNullOrEmpty()) {
-                    // 태그 검색 추천 api 호출
+                    presenter.getTagSuggestion(3, tagInput.text.toString())
                 }
             }
             false
         })
         tagInput.apply {
-            setAdapter(adapter)
+            setAdapter(etcInputAdapter)
             setTokenizer(SpaceTokenizer())
             addTextChangedListener(object : TextWatcher {
                 override fun afterTextChanged(s: Editable?) {}
@@ -163,6 +180,24 @@ class ActivityPostSecond : AppCompatActivity(), ContractPostSecond.View {
 
     override fun setTagInput(tags: String) {
         tagInput.setText(tags)
+    }
+
+    override fun setTagSuggestions(type: Int, tags: List<String>) {
+        Log.d("태그 setTagSuggestions", "type: $type, tags: $tags")
+        when (type) {
+            1 -> {
+                shopInputAdapter.setSuggests(tags)
+                shopInputAdapter.notifyDataSetChanged()
+            }
+            2 -> {
+                workInputAdapter.setSuggests(tags)
+                workInputAdapter.notifyDataSetChanged()
+            }
+            3 -> {
+                etcInputAdapter.setSuggests(tags)
+                etcInputAdapter.notifyDataSetChanged()
+            }
+        }
     }
 
     override fun showEmptyTagsDialog() {

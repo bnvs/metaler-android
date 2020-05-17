@@ -5,6 +5,8 @@ import android.util.Log
 import com.bnvs.metaler.data.addeditpost.model.AddEditPostRequest
 import com.bnvs.metaler.data.addeditpost.model.PostTag
 import com.bnvs.metaler.data.addeditpost.source.repository.AddEditPostRepository
+import com.bnvs.metaler.data.tags.model.TagsRequest
+import com.bnvs.metaler.data.tags.source.repository.TagsRepository
 import com.bnvs.metaler.network.NetworkUtil
 import org.json.JSONObject
 import java.util.regex.Pattern
@@ -14,6 +16,8 @@ class PresenterPostSecond(
     private val postId: Int?,
     private val view: ContractPostSecond.View
 ) : ContractPostSecond.Presenter {
+
+    private val tagsRepository = TagsRepository()
 
     private val addEditPostRepository = AddEditPostRepository()
     private lateinit var addEditPostRequest: AddEditPostRequest
@@ -77,6 +81,25 @@ class PresenterPostSecond(
 
     override fun setTagInput() {
         view.setTagInput(tagString)
+    }
+
+    override fun getTagSuggestion(type: Int, name: String) {
+        Log.d("태그 테스트", name)
+        Log.d("태그 테스트2", name.replace("#", ""))
+        val tag = name.replace("#", "")
+        if (tag.isNotBlank()) {
+            tagsRepository.getTagRecommendations(
+                TagsRequest(type, tag, 10),
+                onSuccess = { response ->
+                    Log.d("태그 테스트", "onSuccess presenter")
+                    Log.d("태그 앞에 # 붙이기", response.map { "#$it" }.toString())
+                    view.setTagSuggestions(type, response.map { "#$it" })
+                },
+                onFailure = { e ->
+
+                }
+            )
+        }
     }
 
     override fun finishAddEditPost(tags: JSONObject) {
