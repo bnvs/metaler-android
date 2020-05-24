@@ -66,8 +66,6 @@ interface ContractMaterials {
 
         fun refreshPosts(postsRequest: PostsRequest)
 
-        fun refreshTagSearchPosts(postsWithTagRequest: PostsWithTagRequest)
-
         fun resetPageNum()
 
         fun getCategoryId(): Int

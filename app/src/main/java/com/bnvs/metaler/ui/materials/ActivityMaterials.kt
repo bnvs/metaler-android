@@ -3,6 +3,7 @@ package com.bnvs.metaler.ui.materials
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import android.os.Parcelable
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -29,19 +30,21 @@ class ActivityMaterials : AppCompatActivity(),
 
     override lateinit var presenter: ContractMaterials.Presenter
 
-    lateinit var posts: List<Post>
+    //재료 게시글 보여주는 리사이클러뷰에서 사용하는 어댑터, 스크롤리스너, 레이아웃매니저,
     lateinit var postAdapter: PostAdapter
     lateinit var scrollListener: EndlessRecyclerViewScrollListener
     lateinit var postLayoutManager: RecyclerView.LayoutManager
+    //스크롤 내리면서 추가로 받아오는 게시글 데이터를 담는 변수
     var loadMorePosts: ArrayList<Post?> = ArrayList()
 
     //MutableList 의 값을 PostsWithTagRequest 모델 타입인 List 에 맞추기 위해 String으로 변환해서 넣음
     var tagSearchWords: MutableList<String?> = mutableListOf()
     var tagString: String = ""
-//    lateinit var tagSearchWordsList: List<String>
 
     lateinit var tagSearchAdapter: TagSearchAdapter
     private val tagSearchLayoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
+
+
 
     /**
      * 재료 탭의 카테고리 리사이클러뷰 아이템에 달아줄 리스너입니다
@@ -216,6 +219,8 @@ class ActivityMaterials : AppCompatActivity(),
     }
 
     private fun setRVAdapter() {
+        //게시글 리사이클러뷰 어댑터 연결의 경우는 showPosts()함수에서 따로 연결함
+
         //카테고리 리사이클러뷰  어댑터 연결
         materialsCategoryRV.adapter = categoryAdapter
         materialsCategoryRV.setHasFixedSize(true)
@@ -225,6 +230,7 @@ class ActivityMaterials : AppCompatActivity(),
         tagRV.adapter = tagSearchAdapter
     }
 
+    //게시글 리사이클러뷰에서만 쓰는 스크롤 리스너
     override fun setRVScrollListener() {
         postLayoutManager = LinearLayoutManager(this)
         scrollListener =
@@ -238,13 +244,15 @@ class ActivityMaterials : AppCompatActivity(),
                 loadMorePosts.add(null)
 
                 //loadMorePosts 는 다음페이지 데이터를 받아올 때만 데이터를 추가하기 때문에 조건절로 비어있는지 확인해야함
-                if (!loadMorePosts.isEmpty() && tagSearchWords.isEmpty()) {
+                if (!loadMorePosts.isEmpty() && tagSearchWords.isEmpty()) {//태그 검색어가 없는 경우
                     //loadMorePosts의 마지막 값이 null값이 있으면 무한스크롤 로딩 중이기 때문에 데이터를 받아오고, 로딩뷰를 제거한다.
                     if (loadMorePosts[loadMorePosts.size - 1] == null) {
                         presenter.loadMorePosts(presenter.requestPosts(presenter.getCategoryId()))
                     }
-                } else if (!loadMorePosts.isEmpty() && !tagSearchWords.isEmpty()) {
+                } else if (!loadMorePosts.isEmpty() && !tagSearchWords.isEmpty()) {//태그 검색어가 있는 경우
 
+                    //사용자가 추가한 태그 검색어를 담는 리스트
+                    //TODO : 계속 생성하는 방식 말고 다르게 수정하기
                     val tagSearchWordsList: List<String> = listOf(tagString)
 
                     if (loadMorePosts[loadMorePosts.size - 1] == null) {
@@ -264,6 +272,7 @@ class ActivityMaterials : AppCompatActivity(),
     }
 
 
+    //처음에 재료탭 들어왔을 때 데이터 가져오는 함수
     override fun showPosts(posts: List<Post>) {
         postAdapter = PostAdapter(itemListener)
         postAdapter.addPosts(posts)
@@ -272,6 +281,7 @@ class ActivityMaterials : AppCompatActivity(),
     }
 
     override fun showMorePosts(posts: List<Post>) {
+        //TODO : loadMorePosts를 굳이 전역변수 둘 필요없이 posts 매개변수를 사용하면 될 듯
         if (loadMorePosts[loadMorePosts.size - 1] == null) {
             //Use Handler if the items are loading too fast.
             //If you remove it, the data will load so fast that you can't even see the LoadingView
@@ -297,10 +307,12 @@ class ActivityMaterials : AppCompatActivity(),
 
     }
 
+    //로딩 제거
     override fun removeLoadingView() {
         postAdapter.removeLoadingView()
     }
 
+    //재료탭 카테고리 불러옴
     override fun showCategories(categories: List<Category>) {
         categoryAdapter.setCategories(categories)
         categoryAdapter.notifyDataSetChanged()
@@ -315,6 +327,7 @@ class ActivityMaterials : AppCompatActivity(),
     }
 
     override fun showSearchTags() {
+        //TODO : 프레젠터로 옮겨야할 듯
         tagString = ""
         var inputTag: String = tagInput.text.toString()
 
@@ -334,8 +347,11 @@ class ActivityMaterials : AppCompatActivity(),
         //MutableList 의 값을 List 에 넣기 위해 String(tagString) 으로 변환해서 넣음
         for (i in 0..tagSearchWords.size) {
             if (i == 0) {
+                //서버 통신할 때 검색어 스트링에 따옴표 추가해주는 부분
                 tagString = "\"${tagSearchWords[i]}\""
             } else if (i != 0 && i <= tagSearchWords.size - 1) {
+                //쉼표 추가하려고 사용한 부분
+                //TODO : List를 toSting 으로 변환하기
                 tagString = "$tagString" + "," + "\"${tagSearchWords[i]}\""
             }
         }
@@ -343,6 +359,7 @@ class ActivityMaterials : AppCompatActivity(),
         // 모델 형식에 맞춰서 List 타입으로 형변환
         val tagSearchWordsList: List<String> = listOf(tagString)
 
+        //검색 내용에 맞게 새로운 데이터를 가져오기 위한 요청값 프레젠터에 전달
         presenter.loadSearchTagPosts(
             presenter.requestAddSearchTag(
                 presenter.getCategoryId(),
@@ -351,19 +368,22 @@ class ActivityMaterials : AppCompatActivity(),
             )
         )
 
-        //검색 내용에 맞게 새로운 데이터를 가져오기 위한 요청값 프레젠터에 전달
+
         tagSearchAdapter.addTags(inputTag)
         tagSearchAdapter.notifyDataSetChanged()
         tagRV.setHasFixedSize(true)
         tagRV.visibility = View.VISIBLE
+        //입력창에 적힌 단어 지움
         tagInput.text.clear()
     }
 
+    //태그 검색 입력창에 쓰고있던 것만 지워짐
     override fun clearSearchTagBar() {
         tagInputDeleteBtn.setOnClickListener { tagInput.text.clear() }
     }
 
 
+    //TODO : View 를 SearchView 로 변경하기
     override fun setTagSearchButtons() {
         tagInput.setOnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {

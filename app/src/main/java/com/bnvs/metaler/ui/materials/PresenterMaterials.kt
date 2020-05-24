@@ -35,7 +35,6 @@ class PresenterMaterials(
     private var pageNum: Int = 0
     private var categoryId: Int = 0
 
-    private var tags: MutableList<String>? = null
     private var searchType: String? = null
     lateinit var searchWord: List<String>
 
@@ -117,10 +116,14 @@ class PresenterMaterials(
             postsWithTagRequest,
             onSuccess = { response: PostsResponse ->
                 if (response.posts.isNotEmpty()) {
+                    //페이지 1로 초기화
                     resetPageNum()
+                    //데이터 없을 때 띄우는 아이콘을 없앰
                     view.hideError404()
+                    //기존에 있던 뷰의 데이터를 지우고 새로 받아온 태그 검색 결과 데이터를 추가하는 부분
                     view.showRefreshPosts(response.posts)
                 } else {
+                    //데이터 없을 때 아이콘을 띄움
                     view.showError404()
                 }
             },
@@ -134,6 +137,7 @@ class PresenterMaterials(
         )
     }
 
+    //태그랑 카테고리 한꺼번에 검색
     override fun loadMoreSearchTagPosts(postsWithTagRequest: PostsWithTagRequest) {
         postRepository.getPostsWithSearchTypeTag(
             postsWithTagRequest,
@@ -160,6 +164,7 @@ class PresenterMaterials(
         )
     }
 
+    //스와이프 새로고침 했을 경우
     override fun refreshPosts(postsRequest: PostsRequest) {
         resetPageNum()
         postRepository.getPosts(
@@ -177,22 +182,6 @@ class PresenterMaterials(
         )
     }
 
-    override fun refreshTagSearchPosts(postsWithTagRequest: PostsWithTagRequest) {
-        resetPageNum()
-        postRepository.getPostsWithSearchTypeTag(
-            postsWithTagRequest,
-            onSuccess = { response: PostsResponse ->
-                view.showRefreshPosts(response.posts)
-            },
-            onFailure = { e ->
-                Toast.makeText(
-                    context,
-                    "서버 통신 실패 : ${NetworkUtil.getErrorMessage(e)}",
-                    Toast.LENGTH_LONG
-                ).show()
-            }
-        )
-    }
 
 
     // getPosts api 요청 request body 반환하는 함수

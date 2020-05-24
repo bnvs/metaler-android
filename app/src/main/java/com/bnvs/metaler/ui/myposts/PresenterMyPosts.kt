@@ -61,6 +61,7 @@ class PresenterMyPosts(
         )
     }
 
+    //TODO : 카테고리 변경할 때마다 페이지번호를 리셋하는 것보단 상태를 저장하는게 나을듯
     override fun openMaterialsList() {
         pageNum = 0
         loadMyPosts(requestPosts("materials"))

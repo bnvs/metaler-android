@@ -148,6 +148,7 @@ class BookmarkAdapter(
                         bookmarkItemListener.onPostClick(it, tempArrayList[position]!!.post_id)
                     }
 
+                    //TODO : deleteBtn 뷰홀더로 이동하기
                     deleteBtn.setOnClickListener {
                         bookmarkItemListener.onDeleteButtonClick(
                             deleteBtn,

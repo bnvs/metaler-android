@@ -145,6 +145,7 @@ class MyPostsAdapter(
                         myPostsItemListener.onPostClick(it, myPostsList[position]!!.id)
                     }
 
+                    //TODO : 서버에 평가 여부 갖고오도록 요청하기
                     moreBtn.setOnClickListener {
                         myPostsItemListener.onMoreButtonClick(
                             moreBtn,
