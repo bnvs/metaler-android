@@ -168,7 +168,7 @@ class ActivityLogin : AppCompatActivity() {
         val loginRequest = LoginRequest(
             kakao_id,
             signin_token,
-            "push_token",
+            getPushToken(),
             deviceInfo.getDeviceId(),
             deviceInfo.getDeviceModel(),
             deviceInfo.getDeviceOs(),
@@ -195,6 +195,10 @@ class ActivityLogin : AppCompatActivity() {
                 handleError(e)
             }
         )
+    }
+
+    private fun getPushToken(): String {
+        return "push_token"
     }
 
     private fun openTermsAgree() {
