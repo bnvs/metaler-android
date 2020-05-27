@@ -3,9 +3,11 @@ package com.bnvs.metaler.data.user.modification.source.repository
 import com.bnvs.metaler.data.user.modification.model.Job
 import com.bnvs.metaler.data.user.modification.model.Nickname
 import com.bnvs.metaler.data.user.modification.model.Terms
+import com.bnvs.metaler.data.user.modification.source.local.UserModificationLocalDataSource
 import com.bnvs.metaler.data.user.modification.source.remote.UserModificationRemoteDataSource
 
 class UserModificationRepositoryImpl(
+    private val userModificationLocalDataSource: UserModificationLocalDataSource,
     private val userModificationRemoteDataSource: UserModificationRemoteDataSource
 ) : UserModificationRepository {
 
@@ -30,6 +32,14 @@ class UserModificationRepositoryImpl(
         onFailure: (e: Throwable) -> Unit
     ) {
         userModificationRemoteDataSource.modifyNickname(request, onSuccess, onFailure)
+    }
+
+    override fun modifyLocalNickname(
+        request: Nickname,
+        onSuccess: () -> Unit,
+        onFailure: () -> Unit
+    ) {
+        userModificationLocalDataSource.modifyNickname(request, onSuccess, onFailure)
     }
 
     override fun getTerms(

@@ -23,6 +23,12 @@ interface UserModificationRepository {
         onFailure: (e: Throwable) -> Unit
     )
 
+    fun modifyLocalNickname(
+        request: Nickname,
+        onSuccess: () -> Unit,
+        onFailure: () -> Unit
+    )
+
     fun getTerms(
         onSuccess: (Terms) -> Unit,
         onFailure: (e: Throwable) -> Unit
