@@ -5,7 +5,7 @@ import android.util.Log
 import com.bnvs.metaler.data.profile.model.Profile
 import com.bnvs.metaler.data.profile.source.repository.ProfileRepository
 import com.bnvs.metaler.data.token.source.repository.TokenRepository
-import com.bnvs.metaler.data.user.deactivation.source.UserDeactivationRepository
+import com.bnvs.metaler.data.user.deactivation.source.repository.UserDeactivationRepository
 import com.bnvs.metaler.data.user.modification.model.Nickname
 import com.bnvs.metaler.data.user.modification.source.UserModificationRepository
 import com.bnvs.metaler.network.NetworkUtil
@@ -21,7 +21,8 @@ class PresenterMyPage(
 
     private val profileRepository = ProfileRepository(context)
     private val userModificationRepository = UserModificationRepository()
-    private val userDeactivationRepository = UserDeactivationRepository()
+    private val userDeactivationRepository =
+        UserDeactivationRepository()
     private val tokenRepository = TokenRepository(context)
     private lateinit var profile: Profile
 

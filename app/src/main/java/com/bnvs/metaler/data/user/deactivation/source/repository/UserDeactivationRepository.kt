@@ -1,6 +1,6 @@
-package com.bnvs.metaler.data.user.deactivation.source
+package com.bnvs.metaler.data.user.deactivation.source.repository
 
-interface UserDeactivationDataSource {
+interface UserDeactivationRepository {
 
     fun deleteUser(
         onSuccess: () -> Unit,
@@ -11,5 +11,4 @@ interface UserDeactivationDataSource {
         onSuccess: () -> Unit,
         onFailure: (e: Throwable) -> Unit
     )
-
 }
