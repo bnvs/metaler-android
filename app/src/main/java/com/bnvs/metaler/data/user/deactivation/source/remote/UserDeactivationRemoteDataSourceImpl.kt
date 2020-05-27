@@ -1,5 +1,7 @@
 package com.bnvs.metaler.data.user.deactivation.source.remote
 
+import com.bnvs.metaler.network.ErrorHandler
+import com.bnvs.metaler.network.NO_ERROR_TO_HANDLE
 import com.bnvs.metaler.network.RetrofitClient
 import okhttp3.ResponseBody
 import retrofit2.Call
@@ -13,7 +15,8 @@ class UserDeactivationRemoteDataSourceImpl : UserDeactivationRemoteDataSource {
 
     override fun deleteUser(
         onSuccess: () -> Unit,
-        onFailure: (e: Throwable) -> Unit
+        onFailure: (e: Throwable) -> Unit,
+        handleError: (errorCode: Int) -> Unit
     ) {
         retrofitClient.deleteUser().enqueue(object : Callback<ResponseBody> {
             override fun onResponse(
@@ -23,6 +26,10 @@ class UserDeactivationRemoteDataSourceImpl : UserDeactivationRemoteDataSource {
                 if (response.isSuccessful) {
                     onSuccess()
                 } else {
+                    val e = ErrorHandler.getErrorCode(HttpException(response))
+                    if (e != NO_ERROR_TO_HANDLE) {
+                        handleError(e)
+                    }
                     onFailure(HttpException(response))
                 }
             }
@@ -35,7 +42,8 @@ class UserDeactivationRemoteDataSourceImpl : UserDeactivationRemoteDataSource {
 
     override fun logout(
         onSuccess: () -> Unit,
-        onFailure: (e: Throwable) -> Unit
+        onFailure: (e: Throwable) -> Unit,
+        handleError: (errorCode: Int) -> Unit
     ) {
         retrofitClient.logout().enqueue(object : Callback<ResponseBody> {
             override fun onResponse(
@@ -45,6 +53,10 @@ class UserDeactivationRemoteDataSourceImpl : UserDeactivationRemoteDataSource {
                 if (response.isSuccessful) {
                     onSuccess()
                 } else {
+                    val e = ErrorHandler.getErrorCode(HttpException(response))
+                    if (e != NO_ERROR_TO_HANDLE) {
+                        handleError(e)
+                    }
                     onFailure(HttpException(response))
                 }
             }

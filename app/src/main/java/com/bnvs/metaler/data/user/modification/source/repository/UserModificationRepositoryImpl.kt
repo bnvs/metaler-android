@@ -13,25 +13,28 @@ class UserModificationRepositoryImpl(
 
     override fun getUserJob(
         onSuccess: (response: Job) -> Unit,
-        onFailure: (e: Throwable) -> Unit
+        onFailure: (e: Throwable) -> Unit,
+        handleError: (errorCode: Int) -> Unit
     ) {
-        userModificationRemoteDataSource.getUserJob(onSuccess, onFailure)
+        userModificationRemoteDataSource.getUserJob(onSuccess, onFailure, handleError)
     }
 
     override fun modifyUserJob(
         request: Job,
         onSuccess: () -> Unit,
-        onFailure: (e: Throwable) -> Unit
+        onFailure: (e: Throwable) -> Unit,
+        handleError: (errorCode: Int) -> Unit
     ) {
-        userModificationRemoteDataSource.modifyUserJob(request, onSuccess, onFailure)
+        userModificationRemoteDataSource.modifyUserJob(request, onSuccess, onFailure, handleError)
     }
 
     override fun modifyNickname(
         request: Nickname,
         onSuccess: () -> Unit,
-        onFailure: (e: Throwable) -> Unit
+        onFailure: (e: Throwable) -> Unit,
+        handleError: (errorCode: Int) -> Unit
     ) {
-        userModificationRemoteDataSource.modifyNickname(request, onSuccess, onFailure)
+        userModificationRemoteDataSource.modifyNickname(request, onSuccess, onFailure, handleError)
     }
 
     override fun modifyLocalNickname(
@@ -44,8 +47,9 @@ class UserModificationRepositoryImpl(
 
     override fun getTerms(
         onSuccess: (Terms) -> Unit,
-        onFailure: (e: Throwable) -> Unit
+        onFailure: (e: Throwable) -> Unit,
+        handleError: (errorCode: Int) -> Unit
     ) {
-        userModificationRemoteDataSource.getTerms(onSuccess, onFailure)
+        userModificationRemoteDataSource.getTerms(onSuccess, onFailure, handleError)
     }
 }

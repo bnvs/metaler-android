@@ -3,6 +3,8 @@ package com.bnvs.metaler.data.user.modification.source.remote
 import com.bnvs.metaler.data.user.modification.model.Job
 import com.bnvs.metaler.data.user.modification.model.Nickname
 import com.bnvs.metaler.data.user.modification.model.Terms
+import com.bnvs.metaler.network.ErrorHandler
+import com.bnvs.metaler.network.NO_ERROR_TO_HANDLE
 import com.bnvs.metaler.network.RetrofitClient
 import okhttp3.ResponseBody
 import retrofit2.Call
@@ -16,7 +18,8 @@ class UserModificationRemoteDataSourceImpl : UserModificationRemoteDataSource {
 
     override fun getUserJob(
         onSuccess: (response: Job) -> Unit,
-        onFailure: (e: Throwable) -> Unit
+        onFailure: (e: Throwable) -> Unit,
+        handleError: (errorCode: Int) -> Unit
     ) {
         retrofitClient.getUserJob().enqueue(object : Callback<Job> {
             override fun onResponse(call: Call<Job>, response: Response<Job>) {
@@ -24,6 +27,10 @@ class UserModificationRemoteDataSourceImpl : UserModificationRemoteDataSource {
                 if (body != null && response.isSuccessful) {
                     onSuccess(body)
                 } else {
+                    val e = ErrorHandler.getErrorCode(HttpException(response))
+                    if (e != NO_ERROR_TO_HANDLE) {
+                        handleError(e)
+                    }
                     onFailure(HttpException(response))
                 }
             }
@@ -37,7 +44,8 @@ class UserModificationRemoteDataSourceImpl : UserModificationRemoteDataSource {
     override fun modifyUserJob(
         request: Job,
         onSuccess: () -> Unit,
-        onFailure: (e: Throwable) -> Unit
+        onFailure: (e: Throwable) -> Unit,
+        handleError: (errorCode: Int) -> Unit
     ) {
         retrofitClient.modifyUserJob(request).enqueue(object : Callback<ResponseBody> {
             override fun onResponse(
@@ -47,6 +55,10 @@ class UserModificationRemoteDataSourceImpl : UserModificationRemoteDataSource {
                 if (response.isSuccessful) {
                     onSuccess()
                 } else {
+                    val e = ErrorHandler.getErrorCode(HttpException(response))
+                    if (e != NO_ERROR_TO_HANDLE) {
+                        handleError(e)
+                    }
                     onFailure(HttpException(response))
                 }
             }
@@ -60,7 +72,8 @@ class UserModificationRemoteDataSourceImpl : UserModificationRemoteDataSource {
     override fun modifyNickname(
         request: Nickname,
         onSuccess: () -> Unit,
-        onFailure: (e: Throwable) -> Unit
+        onFailure: (e: Throwable) -> Unit,
+        handleError: (errorCode: Int) -> Unit
     ) {
         retrofitClient.modifyNickname(request).enqueue(object : Callback<ResponseBody> {
             override fun onResponse(
@@ -70,6 +83,10 @@ class UserModificationRemoteDataSourceImpl : UserModificationRemoteDataSource {
                 if (response.isSuccessful) {
                     onSuccess()
                 } else {
+                    val e = ErrorHandler.getErrorCode(HttpException(response))
+                    if (e != NO_ERROR_TO_HANDLE) {
+                        handleError(e)
+                    }
                     onFailure(HttpException(response))
                 }
             }
@@ -82,7 +99,8 @@ class UserModificationRemoteDataSourceImpl : UserModificationRemoteDataSource {
 
     override fun getTerms(
         onSuccess: (Terms) -> Unit,
-        onFailure: (e: Throwable) -> Unit
+        onFailure: (e: Throwable) -> Unit,
+        handleError: (errorCode: Int) -> Unit
     ) {
         retrofitClient.getTerms().enqueue(object : Callback<Terms> {
             override fun onResponse(call: Call<Terms>, response: Response<Terms>) {
@@ -90,6 +108,10 @@ class UserModificationRemoteDataSourceImpl : UserModificationRemoteDataSource {
                 if (body != null && response.isSuccessful) {
                     onSuccess(body)
                 } else {
+                    val e = ErrorHandler.getErrorCode(HttpException(response))
+                    if (e != NO_ERROR_TO_HANDLE) {
+                        handleError(e)
+                    }
                     onFailure(HttpException(response))
                 }
             }

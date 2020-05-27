@@ -8,16 +8,18 @@ class UserDeactivationRepositoryImpl(
 
     override fun deleteUser(
         onSuccess: () -> Unit,
-        onFailure: (e: Throwable) -> Unit
+        onFailure: (e: Throwable) -> Unit,
+        handleError: (errorCode: Int) -> Unit
     ) {
-        userDeactivationRemoteDataSource.deleteUser(onSuccess, onFailure)
+        userDeactivationRemoteDataSource.deleteUser(onSuccess, onFailure, handleError)
     }
 
     override fun logout(
         onSuccess: () -> Unit,
-        onFailure: (e: Throwable) -> Unit
+        onFailure: (e: Throwable) -> Unit,
+        handleError: (errorCode: Int) -> Unit
     ) {
-        userDeactivationRemoteDataSource.logout(onSuccess, onFailure)
+        userDeactivationRemoteDataSource.logout(onSuccess, onFailure, handleError)
     }
 
 }

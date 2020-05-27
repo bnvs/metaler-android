@@ -12,25 +12,33 @@ class UserCertificationRepositoryImpl(
     override fun addUser(
         request: AddUserRequest,
         onSuccess: (response: AddUserResponse) -> Unit,
-        onFailure: (e: Throwable) -> Unit
+        onFailure: (e: Throwable) -> Unit,
+        handleError: (errorCode: Int) -> Unit
     ) {
-        userCertificationRemoteDataSource.addUser(request, onSuccess, onFailure)
+        userCertificationRemoteDataSource.addUser(request, onSuccess, onFailure, handleError)
     }
 
     override fun checkMembership(
         request: CheckMembershipRequest,
         onSuccess: (response: CheckMembershipResponse) -> Unit,
-        onFailure: (e: Throwable) -> Unit
+        onFailure: (e: Throwable) -> Unit,
+        handleError: (errorCode: Int) -> Unit
     ) {
-        userCertificationRemoteDataSource.checkMembership(request, onSuccess, onFailure)
+        userCertificationRemoteDataSource.checkMembership(
+            request,
+            onSuccess,
+            onFailure,
+            handleError
+        )
     }
 
     override fun login(
         request: LoginRequest,
         onSuccess: (response: LoginResponse) -> Unit,
-        onFailure: (e: Throwable) -> Unit
+        onFailure: (e: Throwable) -> Unit,
+        handleError: (errorCode: Int) -> Unit
     ) {
-        userCertificationRemoteDataSource.login(request, onSuccess, onFailure)
+        userCertificationRemoteDataSource.login(request, onSuccess, onFailure, handleError)
     }
 
     override fun getKakaoUserInfo(
