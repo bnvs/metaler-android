@@ -15,6 +15,7 @@ import com.bnvs.metaler.databinding.ActivityTermsAgreeBinding
 import com.bnvs.metaler.network.NO_HEADER
 import com.bnvs.metaler.network.RetrofitClient
 import com.bnvs.metaler.network.TOKEN_EXPIRED
+import com.bnvs.metaler.view.jobinput.ActivityJobInput
 import com.bnvs.metaler.view.login.ActivityLogin
 import com.bnvs.metaler.viewmodel.AddUserViewModel
 
@@ -84,8 +85,10 @@ class ActivityTermsAgree : AppCompatActivity() {
     private fun observeStartJobInputActivity() {
         viewModel.openJobInputActivity.observe(
             this,
-            Observer {
-
+            Observer { startActivity ->
+                if (startActivity) {
+                    startJobInputActivity()
+                }
             }
         )
     }
@@ -105,6 +108,12 @@ class ActivityTermsAgree : AppCompatActivity() {
     private fun startLoginActivity() {
         finishAffinity()
         Intent(this, ActivityLogin::class.java).also {
+            startActivity(it)
+        }
+    }
+
+    private fun startJobInputActivity() {
+        Intent(this, ActivityJobInput::class.java).also {
             startActivity(it)
         }
     }
