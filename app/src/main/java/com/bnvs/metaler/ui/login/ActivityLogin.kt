@@ -6,7 +6,6 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.bnvs.metaler.R
-import com.bnvs.metaler.data.profile.model.Profile
 import com.bnvs.metaler.data.profile.source.local.ProfileLocalDataSourceImpl
 import com.bnvs.metaler.data.profile.source.repository.ProfileRepository
 import com.bnvs.metaler.data.profile.source.repository.ProfileRepositoryImpl
@@ -128,13 +127,6 @@ class ActivityLogin : AppCompatActivity() {
     }
 
     private fun saveProfileData(user: User) {
-        profileRepository.saveProfile(
-            Profile(
-                user.profile_nickname,
-                user.profile_image_url,
-                user.profile_email
-            )
-        )
         profileRepository.saveUserInfo(user)
     }
 
