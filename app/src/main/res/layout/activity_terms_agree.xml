@@ -1,256 +1,257 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_marginHorizontal="20dp"
-    tools:context=".ui.termsagree.ActivityTermsAgree">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/titleBarCard"
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:cardBackgroundColor="@color/colorWhite"
-        app:cardElevation="4dp"
-        app:layout_constraintDimensionRatio="1:0.11"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:visibility="invisible"/>
-    <TextView
-        android:id="@+id/termsTitleTxt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/terms_title"
-        android:textColor="@color/colorPurple"
-        android:textSize="22sp"
-        android:textStyle="bold"
-        android:layout_marginTop="20dp"
-        app:layout_constraintTop_toBottomOf="@id/titleBarCard"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        />
-    <TextView
-        android:id="@+id/termsGuideTxt"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/terms_guide"
-        android:textSize="16sp"
-        android:textColor="@color/colorPurple"
-        android:gravity="center"
-        android:layout_marginTop="10dp"
-        app:layout_constraintTop_toBottomOf="@id/termsTitleTxt"
-        app:layout_constraintStart_toStartOf="parent"
-        />
+        android:layout_height="match_parent"
+        android:layout_marginHorizontal="20dp"
+        tools:context=".view.termsagree.ActivityTermsAgree">
 
-    <CheckBox
-        android:id="@+id/allCheckBtn"
-        android:checked="true"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:button="@null"
-        android:background="@drawable/terms_checkbox"
-        android:layout_marginLeft="40dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/termsGuideTxt"
-        app:layout_constraintBottom_toTopOf="@id/allAgreeLine"
-        app:layout_constraintVertical_chainStyle="packed"
-        />
-    <TextView
-        android:id="@+id/allAgreeTxt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        android:layout_marginLeft="10dp"
-        app:layout_constraintStart_toEndOf="@id/allCheckBtn"
-        app:layout_constraintTop_toTopOf="@id/allCheckBtn"
-        app:layout_constraintBottom_toBottomOf="@id/allCheckBtn"
-        android:textColor="@color/colorGrey"
-        android:text="@string/all_agree"
-        />
-    <View
-        android:id="@+id/allAgreeLine"
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_marginTop="10dp"
-        android:background="?android:attr/listDivider"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/allCheckBtn"
-        app:layout_constraintBottom_toTopOf="@id/firstCheckBtn"
-        />
+        <androidx.cardview.widget.CardView
+            android:id="@+id/titleBarCard"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:visibility="invisible"
+            app:cardBackgroundColor="@color/colorWhite"
+            app:cardElevation="4dp"
+            app:layout_constraintDimensionRatio="1:0.11"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <CheckBox
-        android:id="@+id/firstCheckBtn"
-        android:checked="true"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:button="@null"
-        android:background="@drawable/terms_checkbox"
-        android:layout_marginTop="10dp"
-        app:layout_constraintStart_toStartOf="@id/allCheckBtn"
-        app:layout_constraintTop_toBottomOf="@id/allAgreeLine"
-        app:layout_constraintBottom_toTopOf="@id/secondCheckBtn"
-        />
-    <TextView
-        android:id="@+id/firstAgreeTxt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="16sp"
-        android:layout_marginLeft="10dp"
-        android:textColor="@color/colorGrey"
-        android:text="@string/first_agree"
-        app:layout_constraintStart_toEndOf="@id/firstCheckBtn"
-        app:layout_constraintTop_toTopOf="@id/firstCheckBtn"
-        app:layout_constraintBottom_toBottomOf="@id/firstCheckBtn"
-        />
-    <TextView
-        android:id="@+id/firstAgreeMoreBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="16sp"
-        android:layout_marginRight="20dp"
-        android:textColor="@color/colorGrey"
-        android:text="@string/terms_more"
-        android:clickable="true"
-        android:focusable="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/firstCheckBtn"
-        app:layout_constraintBottom_toBottomOf="@id/firstCheckBtn"
-        />
-
-
-    <CheckBox
-        android:id="@+id/secondCheckBtn"
-        android:checked="true"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:button="@null"
-        android:background="@drawable/terms_checkbox"
-        android:layout_marginTop="10dp"
-        app:layout_constraintStart_toStartOf="@id/allCheckBtn"
-        app:layout_constraintTop_toBottomOf="@id/firstCheckBtn"
-        app:layout_constraintBottom_toTopOf="@id/thirdCheckBtn"
-        />
-    <TextView
-        android:id="@+id/secondAgreeTxt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="16sp"
-        android:layout_marginLeft="10dp"
-        android:textColor="@color/colorGrey"
-        android:text="@string/second_agree"
-        app:layout_constraintStart_toEndOf="@id/secondCheckBtn"
-        app:layout_constraintTop_toTopOf="@id/secondCheckBtn"
-        app:layout_constraintBottom_toBottomOf="@id/secondCheckBtn"
-        />
-    <TextView
-        android:id="@+id/secondAgreeMoreBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="16sp"
-        android:layout_marginRight="20dp"
-        android:textColor="@color/colorGrey"
-        android:text="@string/terms_more"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/secondCheckBtn"
-        app:layout_constraintBottom_toBottomOf="@id/secondCheckBtn"
-        />
-
-    <CheckBox
-        android:id="@+id/thirdCheckBtn"
-        android:checked="true"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:button="@null"
-        android:background="@drawable/terms_checkbox"
-        android:layout_marginTop="10dp"
-        app:layout_constraintStart_toStartOf="@id/allCheckBtn"
-        app:layout_constraintTop_toBottomOf="@id/secondCheckBtn"
-        app:layout_constraintBottom_toTopOf="@id/fourthCheckBtn"
-        />
-    <TextView
-        android:id="@+id/thirdAgreeTxt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="16sp"
-        android:layout_marginLeft="10dp"
-        android:textColor="@color/colorGrey"
-        android:text="@string/third_agree"
-        app:layout_constraintStart_toEndOf="@id/thirdCheckBtn"
-        app:layout_constraintTop_toTopOf="@id/thirdCheckBtn"
-        app:layout_constraintBottom_toBottomOf="@id/thirdCheckBtn"
-        />
-    <TextView
-        android:id="@+id/thirdAgreeMoreBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="16sp"
-        android:layout_marginRight="20dp"
-        android:textColor="@color/colorGrey"
-        android:text="@string/terms_more"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/thirdCheckBtn"
-        app:layout_constraintBottom_toBottomOf="@id/thirdCheckBtn"
-        />
-
-    <CheckBox
-        android:id="@+id/fourthCheckBtn"
-        android:checked="true"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:button="@null"
-        android:background="@drawable/terms_checkbox"
-        android:layout_marginTop="10dp"
-        app:layout_constraintStart_toStartOf="@id/allCheckBtn"
-        app:layout_constraintTop_toBottomOf="@id/thirdCheckBtn"
-        app:layout_constraintBottom_toBottomOf="parent"
-        />
-    <TextView
-        android:id="@+id/fourthAgreeTxt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="16sp"
-        android:layout_marginLeft="10dp"
-        android:textColor="@color/colorGrey"
-        android:text="@string/fourth_agree"
-        app:layout_constraintStart_toEndOf="@id/fourthCheckBtn"
-        app:layout_constraintTop_toTopOf="@id/fourthCheckBtn"
-        app:layout_constraintBottom_toBottomOf="@id/fourthCheckBtn"
-        />
-    <TextView
-        android:id="@+id/fourthAgreeMoreBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="16sp"
-        android:layout_marginRight="20dp"
-        android:textColor="@color/colorGrey"
-        android:text="@string/terms_more"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/fourthCheckBtn"
-        app:layout_constraintBottom_toBottomOf="@id/fourthCheckBtn"
-        />
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/nextBtn"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintDimensionRatio="1:0.2"
-        android:elevation="4dp"
-        app:cardUseCompatPadding="true"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="90dp"
-        >
         <TextView
+            android:id="@+id/termsTitleTxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/next"
-            android:textSize="20sp"
-            android:textColor="@color/colorGrey"
-            android:layout_gravity="center"
-            />
-    </androidx.cardview.widget.CardView>
+            android:layout_marginTop="20dp"
+            android:text="@string/terms_title"
+            android:textColor="@color/colorPurple"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/titleBarCard" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/termsGuideTxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="@string/terms_guide"
+            android:textColor="@color/colorPurple"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/termsTitleTxt" />
+
+        <CheckBox
+            android:id="@+id/allCheckBtn"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginLeft="40dp"
+            android:background="@drawable/terms_checkbox"
+            android:button="@null"
+            android:checked="true"
+            app:layout_constraintBottom_toTopOf="@id/allAgreeLine"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/termsGuideTxt"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <TextView
+            android:id="@+id/allAgreeTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="@string/all_agree"
+            android:textColor="@color/colorGrey"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/allCheckBtn"
+            app:layout_constraintStart_toEndOf="@id/allCheckBtn"
+            app:layout_constraintTop_toTopOf="@id/allCheckBtn" />
+
+        <View
+            android:id="@+id/allAgreeLine"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginTop="10dp"
+            android:background="?android:attr/listDivider"
+            app:layout_constraintBottom_toTopOf="@id/firstCheckBtn"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/allCheckBtn" />
+
+        <CheckBox
+            android:id="@+id/firstCheckBtn"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/terms_checkbox"
+            android:button="@null"
+            android:checked="true"
+            app:layout_constraintBottom_toTopOf="@id/secondCheckBtn"
+            app:layout_constraintStart_toStartOf="@id/allCheckBtn"
+            app:layout_constraintTop_toBottomOf="@id/allAgreeLine" />
+
+        <TextView
+            android:id="@+id/firstAgreeTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="@string/first_agree"
+            android:textColor="@color/colorGrey"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@id/firstCheckBtn"
+            app:layout_constraintStart_toEndOf="@id/firstCheckBtn"
+            app:layout_constraintTop_toTopOf="@id/firstCheckBtn" />
+
+        <TextView
+            android:id="@+id/firstAgreeMoreBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:text="@string/terms_more"
+            android:textColor="@color/colorGrey"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@id/firstCheckBtn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/firstCheckBtn" />
+
+
+        <CheckBox
+            android:id="@+id/secondCheckBtn"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/terms_checkbox"
+            android:button="@null"
+            android:checked="true"
+            app:layout_constraintBottom_toTopOf="@id/thirdCheckBtn"
+            app:layout_constraintStart_toStartOf="@id/allCheckBtn"
+            app:layout_constraintTop_toBottomOf="@id/firstCheckBtn" />
+
+        <TextView
+            android:id="@+id/secondAgreeTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="@string/second_agree"
+            android:textColor="@color/colorGrey"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@id/secondCheckBtn"
+            app:layout_constraintStart_toEndOf="@id/secondCheckBtn"
+            app:layout_constraintTop_toTopOf="@id/secondCheckBtn" />
+
+        <TextView
+            android:id="@+id/secondAgreeMoreBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
+            android:text="@string/terms_more"
+            android:textColor="@color/colorGrey"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@id/secondCheckBtn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/secondCheckBtn" />
+
+        <CheckBox
+            android:id="@+id/thirdCheckBtn"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/terms_checkbox"
+            android:button="@null"
+            android:checked="true"
+            app:layout_constraintBottom_toTopOf="@id/fourthCheckBtn"
+            app:layout_constraintStart_toStartOf="@id/allCheckBtn"
+            app:layout_constraintTop_toBottomOf="@id/secondCheckBtn" />
+
+        <TextView
+            android:id="@+id/thirdAgreeTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="@string/third_agree"
+            android:textColor="@color/colorGrey"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@id/thirdCheckBtn"
+            app:layout_constraintStart_toEndOf="@id/thirdCheckBtn"
+            app:layout_constraintTop_toTopOf="@id/thirdCheckBtn" />
+
+        <TextView
+            android:id="@+id/thirdAgreeMoreBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
+            android:text="@string/terms_more"
+            android:textColor="@color/colorGrey"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@id/thirdCheckBtn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/thirdCheckBtn" />
+
+        <CheckBox
+            android:id="@+id/fourthCheckBtn"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/terms_checkbox"
+            android:button="@null"
+            android:checked="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@id/allCheckBtn"
+            app:layout_constraintTop_toBottomOf="@id/thirdCheckBtn" />
+
+        <TextView
+            android:id="@+id/fourthAgreeTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="@string/fourth_agree"
+            android:textColor="@color/colorGrey"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@id/fourthCheckBtn"
+            app:layout_constraintStart_toEndOf="@id/fourthCheckBtn"
+            app:layout_constraintTop_toTopOf="@id/fourthCheckBtn" />
+
+        <TextView
+            android:id="@+id/fourthAgreeMoreBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
+            android:text="@string/terms_more"
+            android:textColor="@color/colorGrey"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@id/fourthCheckBtn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/fourthCheckBtn" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/nextBtn"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="90dp"
+            android:elevation="4dp"
+            app:cardUseCompatPadding="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1:0.2"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/next"
+                android:textColor="@color/colorGrey"
+                android:textSize="20sp" />
+        </androidx.cardview.widget.CardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
