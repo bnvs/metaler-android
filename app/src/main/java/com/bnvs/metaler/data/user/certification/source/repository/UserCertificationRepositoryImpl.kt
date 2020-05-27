@@ -1,19 +1,18 @@
-package com.bnvs.metaler.data.user.certification.source
+package com.bnvs.metaler.data.user.certification.source.repository
 
 import com.bnvs.metaler.data.user.certification.model.*
 import com.bnvs.metaler.data.user.certification.source.remote.UserCertificationRemoteDataSource
 
-class UserCertificationRepository : UserCertificationDataSource {
-
-    private val userRemoteDataSource =
-        UserCertificationRemoteDataSource
+class UserCertificationRepositoryImpl(
+    private val userCertificationRemoteDataSource: UserCertificationRemoteDataSource
+) : UserCertificationRepository {
 
     override fun addUser(
         request: AddUserRequest,
         onSuccess: (response: AddUserResponse) -> Unit,
         onFailure: (e: Throwable) -> Unit
     ) {
-        userRemoteDataSource.addUser(request, onSuccess, onFailure)
+        userCertificationRemoteDataSource.addUser(request, onSuccess, onFailure)
     }
 
     override fun checkMembership(
@@ -21,7 +20,7 @@ class UserCertificationRepository : UserCertificationDataSource {
         onSuccess: (response: CheckMembershipResponse) -> Unit,
         onFailure: (e: Throwable) -> Unit
     ) {
-        userRemoteDataSource.checkMembership(request, onSuccess, onFailure)
+        userCertificationRemoteDataSource.checkMembership(request, onSuccess, onFailure)
     }
 
     override fun login(
@@ -29,6 +28,6 @@ class UserCertificationRepository : UserCertificationDataSource {
         onSuccess: (response: LoginResponse) -> Unit,
         onFailure: (e: Throwable) -> Unit
     ) {
-        userRemoteDataSource.login(request, onSuccess, onFailure)
+        userCertificationRemoteDataSource.login(request, onSuccess, onFailure)
     }
 }

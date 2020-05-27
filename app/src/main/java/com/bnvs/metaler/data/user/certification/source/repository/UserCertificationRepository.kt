@@ -1,8 +1,8 @@
-package com.bnvs.metaler.data.user.certification.source
+package com.bnvs.metaler.data.user.certification.source.repository
 
 import com.bnvs.metaler.data.user.certification.model.*
 
-interface UserCertificationDataSource {
+interface UserCertificationRepository {
 
     fun addUser(
         request: AddUserRequest,

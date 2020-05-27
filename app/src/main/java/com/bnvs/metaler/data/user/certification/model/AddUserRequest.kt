@@ -13,8 +13,8 @@ data class AddUserRequest(
     val profile_image_url: String,
     val profile_email: String?,
     val profile_gender: String?,
-    var job: String?,
-    var job_type: String?,
-    var job_detail: String?,
-    var push_allowed: Int
+    val job: String,
+    val job_type: String,
+    val job_detail: String,
+    val push_allowed: Int
 ) : Serializable
