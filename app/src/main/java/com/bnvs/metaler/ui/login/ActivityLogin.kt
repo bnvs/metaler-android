@@ -22,8 +22,10 @@ import com.bnvs.metaler.data.user.certification.source.local.UserCertificationLo
 import com.bnvs.metaler.data.user.certification.source.remote.UserCertificationRemoteDataSourceImpl
 import com.bnvs.metaler.data.user.certification.source.repository.UserCertificationRepository
 import com.bnvs.metaler.data.user.certification.source.repository.UserCertificationRepositoryImpl
+import com.bnvs.metaler.network.NO_HEADER
 import com.bnvs.metaler.network.NetworkUtil
 import com.bnvs.metaler.network.RetrofitClient
+import com.bnvs.metaler.network.TOKEN_EXPIRED
 import com.bnvs.metaler.ui.home.ActivityHome
 import com.bnvs.metaler.ui.termsagree.ActivityTermsAgree
 import com.bnvs.metaler.util.DeviceInfo
@@ -152,7 +154,10 @@ class ActivityLogin : AppCompatActivity() {
                 }
             },
             onFailure = { e ->
-                makeToast("회원가입 여부 확인 실패 : ${NetworkUtil.getErrorMessage(e)}")
+                makeErrorToast("회원가입 여부 확인 실패 : ", e)
+            },
+            handleError = { e ->
+                handleError(e)
             }
         )
     }
@@ -184,7 +189,10 @@ class ActivityLogin : AppCompatActivity() {
                 openHome()
             },
             onFailure = { e ->
-                makeToast("로그인 실패 : ${NetworkUtil.getErrorMessage(e)}")
+                makeErrorToast("로그인 실패 : ", e)
+            },
+            handleError = { e ->
+                handleError(e)
             }
         )
     }
@@ -199,6 +207,10 @@ class ActivityLogin : AppCompatActivity() {
         val intent = Intent(this, ActivityHome::class.java)
         startActivity(intent)
         finish()
+    }
+
+    private fun makeErrorToast(message: String, e: Throwable) {
+        makeToast(message + NetworkUtil.getErrorMessage(e))
     }
 
     private fun makeToast(message: String) {
@@ -222,6 +234,35 @@ class ActivityLogin : AppCompatActivity() {
             "MALE" -> "M"
             "FEMALE" -> "W"
             else -> null
+        }
+    }
+
+    private fun handleError(e: Int) {
+        when (e) {
+            NO_HEADER -> setAuthorizationHeader()
+            TOKEN_EXPIRED -> deleteLocalTokens()
+        }
+    }
+
+    private fun setAuthorizationHeader() {
+        tokenRepository.getAccessToken(
+            onTokenLoaded = { token ->
+                RetrofitClient.setAccessToken(token.access_token)
+            },
+            onTokenNotExist = {
+                finishAffinity()
+                Intent(this, ActivityLogin::class.java).also {
+                    startActivity(it)
+                }
+            }
+        )
+    }
+
+    private fun deleteLocalTokens() {
+        tokenRepository.deleteTokens()
+        finishAffinity()
+        Intent(this, ActivityLogin::class.java).also {
+            startActivity(it)
         }
     }
 
