@@ -91,12 +91,12 @@ class ActivityLogin : AppCompatActivity() {
                     if (result != null) {
                         getSigninToken(result)
                     } else {
-                        makeToast("카카오 로그인 응답값이 없습니다")
+                        makeToast(getString(R.string.NO_KAKAO_LOGIN_RESULT))
                     }
 
                 override fun onSessionClosed(errorResult: ErrorResult?) =
                     // 로그인 도중 세션이 비정상적인 이유로 닫혔을 때
-                    makeToast("세션이 닫혔습니다. 다시 시도해주세요 : ${errorResult.toString()}")
+                    makeToast(getString(R.string.SESSION_CLOSED) + errorResult.toString())
             })
         }
 
@@ -104,9 +104,9 @@ class ActivityLogin : AppCompatActivity() {
             // 로그인 세션이 정상적으로 열리지 않았을 때
             if (exception != null) {
                 com.kakao.util.helper.log.Logger.e(exception)
-                makeToast("로그인 도중 오류가 발생했습니다. 인터넷 연결을 확인해주세요 : $exception")
+                makeToast(getString(R.string.INTERNET_DISCONNECTED_LOGIN_ERROR) + exception)
             } else {
-                makeToast("로그인 도중 오류가 발생했습니다. 인터넷 연결을 확인해주세요")
+                makeToast(getString(R.string.INTERNET_DISCONNECTED_LOGIN_ERROR))
             }
     }
 
@@ -140,21 +140,21 @@ class ActivityLogin : AppCompatActivity() {
             CheckMembershipRequest(kakaoId),
             onSuccess = { response ->
                 when (response.message) {
-                    "you_can_join" -> {
+                    getString(R.string.SIGN_UP) -> {
                         saveKakaoLoginResult(result)
                         openTermsAgree()
                     }
-                    "you_can_login" -> {
+                    getString(R.string.LOGIN) -> {
                         saveSigninToken(response.signin_token)
                         login(kakaoId, response.signin_token)
                     }
                     else -> {
-                        makeToast("회원가입 여부 확인 도중, 알 수 없는 에러가 발생했습니다")
+                        makeToast(getString(R.string.MEMBERSHIP_CHECK_ERROR) + response.message)
                     }
                 }
             },
             onFailure = { e ->
-                makeErrorToast("회원가입 여부 확인 실패 : ", e)
+                makeErrorToast(getString(R.string.MEMBERSHIP_CHECK_ERROR), e)
             },
             handleError = { e ->
                 handleError(e)
@@ -189,7 +189,7 @@ class ActivityLogin : AppCompatActivity() {
                 openHome()
             },
             onFailure = { e ->
-                makeErrorToast("로그인 실패 : ", e)
+                makeErrorToast(getString(R.string.LOGIN_ERROR), e)
             },
             handleError = { e ->
                 handleError(e)
