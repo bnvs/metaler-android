@@ -13,7 +13,7 @@ import com.bnvs.metaler.data.token.source.repository.TokenRepository
 import com.bnvs.metaler.data.user.certification.model.AddUserRequest
 import com.bnvs.metaler.data.user.certification.model.LoginRequest
 import com.bnvs.metaler.data.user.certification.model.User
-import com.bnvs.metaler.data.user.certification.source.UserCertificationRepository
+import com.bnvs.metaler.data.user.certification.source.repository.UserCertificationRepository
 import com.bnvs.metaler.network.NetworkUtil
 import com.bnvs.metaler.network.RetrofitClient
 import com.bnvs.metaler.util.DeviceInfo
@@ -25,7 +25,8 @@ class PresenterJobInput(
 
     private val TAG = "PresenterJobInput"
 
-    private val userRepository = UserCertificationRepository()
+    private val userRepository =
+        UserCertificationRepository()
     private val tokenRepository =
         TokenRepository(context)
     private val profileRepository =

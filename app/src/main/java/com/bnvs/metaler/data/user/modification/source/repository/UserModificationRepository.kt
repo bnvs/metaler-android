@@ -1,10 +1,10 @@
-package com.bnvs.metaler.data.user.modification.source
+package com.bnvs.metaler.data.user.modification.source.repository
 
 import com.bnvs.metaler.data.user.modification.model.Job
 import com.bnvs.metaler.data.user.modification.model.Nickname
 import com.bnvs.metaler.data.user.modification.model.Terms
 
-interface UserModificationDataSource {
+interface UserModificationRepository {
 
     fun getUserJob(
         onSuccess: (response: Job) -> Unit,
@@ -23,9 +23,14 @@ interface UserModificationDataSource {
         onFailure: (e: Throwable) -> Unit
     )
 
+    fun modifyLocalNickname(
+        request: Nickname,
+        onSuccess: () -> Unit,
+        onFailure: () -> Unit
+    )
+
     fun getTerms(
         onSuccess: (Terms) -> Unit,
         onFailure: (e: Throwable) -> Unit
     )
-
 }

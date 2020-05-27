@@ -1,8 +1,8 @@
-package com.bnvs.metaler.data.user.certification.source
+package com.bnvs.metaler.data.user.certification.source.repository
 
 import com.bnvs.metaler.data.user.certification.model.*
 
-interface UserCertificationDataSource {
+interface UserCertificationRepository {
 
     fun addUser(
         request: AddUserRequest,
@@ -21,4 +21,13 @@ interface UserCertificationDataSource {
         onSuccess: (response: LoginResponse) -> Unit,
         onFailure: (e: Throwable) -> Unit
     )
+
+    fun getKakaoUserInfo(
+        onSuccess: (kakaoUserInfo: KakaoUserInfo) -> Unit,
+        onFailure: () -> Unit
+    )
+
+    fun saveKakaoUserInfo(kakaoUserInfo: KakaoUserInfo)
+
+    fun deleteKakaoUserInfo()
 }

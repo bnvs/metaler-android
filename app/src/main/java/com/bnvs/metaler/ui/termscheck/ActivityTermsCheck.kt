@@ -8,7 +8,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.bnvs.metaler.R
 import com.bnvs.metaler.data.user.modification.model.Terms
-import com.bnvs.metaler.data.user.modification.source.UserModificationRepository
+import com.bnvs.metaler.data.user.modification.source.repository.UserModificationRepository
 import com.bnvs.metaler.network.NetworkUtil
 import kotlinx.android.synthetic.main.activity_terms_check.*
 
@@ -21,7 +21,8 @@ class ActivityTermsCheck : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_terms_check)
 
-        userModificationRepository = UserModificationRepository()
+        userModificationRepository =
+            UserModificationRepository()
         getTermLinks()
     }
 

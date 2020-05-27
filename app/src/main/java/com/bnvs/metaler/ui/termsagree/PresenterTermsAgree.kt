@@ -3,7 +3,7 @@ package com.bnvs.metaler.ui.termsagree
 import android.content.Intent
 import com.bnvs.metaler.data.user.certification.model.AddUserRequest
 import com.bnvs.metaler.data.user.modification.model.Terms
-import com.bnvs.metaler.data.user.modification.source.UserModificationRepository
+import com.bnvs.metaler.data.user.modification.source.repository.UserModificationRepository
 import com.bnvs.metaler.network.NetworkUtil
 import org.json.JSONObject
 
@@ -12,7 +12,8 @@ class PresenterTermsAgree(
 ) : ContractTermsAgree.Presenter {
 
     private lateinit var addUserRequest: AddUserRequest
-    private val userModificationRepository = UserModificationRepository()
+    private val userModificationRepository =
+        UserModificationRepository()
     private lateinit var terms: Terms
 
     override fun start() {
