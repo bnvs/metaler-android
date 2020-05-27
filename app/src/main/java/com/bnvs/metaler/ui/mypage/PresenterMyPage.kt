@@ -7,7 +7,7 @@ import com.bnvs.metaler.data.profile.source.repository.ProfileRepository
 import com.bnvs.metaler.data.token.source.repository.TokenRepository
 import com.bnvs.metaler.data.user.deactivation.source.repository.UserDeactivationRepository
 import com.bnvs.metaler.data.user.modification.model.Nickname
-import com.bnvs.metaler.data.user.modification.source.UserModificationRepository
+import com.bnvs.metaler.data.user.modification.source.repository.UserModificationRepository
 import com.bnvs.metaler.network.NetworkUtil
 import com.kakao.network.ErrorResult
 import com.kakao.usermgmt.UserManagement
@@ -20,7 +20,8 @@ class PresenterMyPage(
 ) : ContractMyPage.Presenter {
 
     private val profileRepository = ProfileRepository(context)
-    private val userModificationRepository = UserModificationRepository()
+    private val userModificationRepository =
+        UserModificationRepository()
     private val userDeactivationRepository =
         UserDeactivationRepository()
     private val tokenRepository = TokenRepository(context)

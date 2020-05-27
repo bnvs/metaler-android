@@ -4,14 +4,15 @@ import android.text.TextUtils
 import android.util.Log
 import android.widget.EditText
 import com.bnvs.metaler.data.user.modification.model.Job
-import com.bnvs.metaler.data.user.modification.source.UserModificationRepository
+import com.bnvs.metaler.data.user.modification.source.repository.UserModificationRepository
 import com.bnvs.metaler.network.NetworkUtil
 
 class PresenterJobModify(
     private val view: ContractJobModify.View
 ) : ContractJobModify.Presenter {
 
-    private val userRepository = UserModificationRepository()
+    private val userRepository =
+        UserModificationRepository()
 
     private lateinit var originalJob: Job
 

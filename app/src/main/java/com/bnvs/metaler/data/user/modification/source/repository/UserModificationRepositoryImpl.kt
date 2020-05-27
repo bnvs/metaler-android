@@ -1,20 +1,19 @@
-package com.bnvs.metaler.data.user.modification.source
+package com.bnvs.metaler.data.user.modification.source.repository
 
 import com.bnvs.metaler.data.user.modification.model.Job
 import com.bnvs.metaler.data.user.modification.model.Nickname
 import com.bnvs.metaler.data.user.modification.model.Terms
 import com.bnvs.metaler.data.user.modification.source.remote.UserModificationRemoteDataSource
 
-class UserModificationRepository : UserModificationDataSource {
-
-    private val userRemoteDataSource =
-        UserModificationRemoteDataSource
+class UserModificationRepositoryImpl(
+    private val userModificationRemoteDataSource: UserModificationRemoteDataSource
+) : UserModificationRepository {
 
     override fun getUserJob(
         onSuccess: (response: Job) -> Unit,
         onFailure: (e: Throwable) -> Unit
     ) {
-        userRemoteDataSource.getUserJob(onSuccess, onFailure)
+        userModificationRemoteDataSource.getUserJob(onSuccess, onFailure)
     }
 
     override fun modifyUserJob(
@@ -22,7 +21,7 @@ class UserModificationRepository : UserModificationDataSource {
         onSuccess: () -> Unit,
         onFailure: (e: Throwable) -> Unit
     ) {
-        userRemoteDataSource.modifyUserJob(request, onSuccess, onFailure)
+        userModificationRemoteDataSource.modifyUserJob(request, onSuccess, onFailure)
     }
 
     override fun modifyNickname(
@@ -30,13 +29,13 @@ class UserModificationRepository : UserModificationDataSource {
         onSuccess: () -> Unit,
         onFailure: (e: Throwable) -> Unit
     ) {
-        userRemoteDataSource.modifyNickname(request, onSuccess, onFailure)
+        userModificationRemoteDataSource.modifyNickname(request, onSuccess, onFailure)
     }
 
     override fun getTerms(
         onSuccess: (Terms) -> Unit,
         onFailure: (e: Throwable) -> Unit
     ) {
-        userRemoteDataSource.getTerms(onSuccess, onFailure)
+        userModificationRemoteDataSource.getTerms(onSuccess, onFailure)
     }
 }
