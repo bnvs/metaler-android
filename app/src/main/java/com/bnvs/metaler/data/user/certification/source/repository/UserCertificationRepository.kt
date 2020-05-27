@@ -21,4 +21,13 @@ interface UserCertificationRepository {
         onSuccess: (response: LoginResponse) -> Unit,
         onFailure: (e: Throwable) -> Unit
     )
+
+    fun getKakaoUserInfo(
+        onSuccess: (kakaoUserInfo: KakaoUserInfo) -> Unit,
+        onFailure: () -> Unit
+    )
+
+    fun saveKakaoUserInfo(kakaoUserInfo: KakaoUserInfo)
+
+    fun deleteKakaoUserInfo()
 }

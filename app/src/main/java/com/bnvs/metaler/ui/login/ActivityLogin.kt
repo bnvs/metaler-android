@@ -14,10 +14,11 @@ import com.bnvs.metaler.data.token.model.SigninToken
 import com.bnvs.metaler.data.token.source.local.TokenLocalDataSourceImpl
 import com.bnvs.metaler.data.token.source.repository.TokenRepository
 import com.bnvs.metaler.data.token.source.repository.TokenRepositoryImpl
-import com.bnvs.metaler.data.user.certification.model.AddUserRequest
 import com.bnvs.metaler.data.user.certification.model.CheckMembershipRequest
+import com.bnvs.metaler.data.user.certification.model.KakaoUserInfo
 import com.bnvs.metaler.data.user.certification.model.LoginRequest
 import com.bnvs.metaler.data.user.certification.model.User
+import com.bnvs.metaler.data.user.certification.source.local.UserCertificationLocalDataSourceImpl
 import com.bnvs.metaler.data.user.certification.source.remote.UserCertificationRemoteDataSourceImpl
 import com.bnvs.metaler.data.user.certification.source.repository.UserCertificationRepository
 import com.bnvs.metaler.data.user.certification.source.repository.UserCertificationRepositoryImpl
@@ -52,6 +53,7 @@ class ActivityLogin : AppCompatActivity() {
             TokenLocalDataSourceImpl(this)
         )
         userRepository = UserCertificationRepositoryImpl(
+            UserCertificationLocalDataSourceImpl(this),
             UserCertificationRemoteDataSourceImpl()
         )
         profileRepository = ProfileRepositoryImpl(
@@ -137,7 +139,8 @@ class ActivityLogin : AppCompatActivity() {
             onSuccess = { response ->
                 when (response.message) {
                     "you_can_join" -> {
-                        openTermsAgree(makeAddUserRequest(result))
+                        saveKakaoLoginResult(result)
+                        openTermsAgree()
                     }
                     "you_can_login" -> {
                         saveSigninToken(response.signin_token)
@@ -186,9 +189,8 @@ class ActivityLogin : AppCompatActivity() {
         )
     }
 
-    private fun openTermsAgree(addUserRequest: AddUserRequest) {
+    private fun openTermsAgree() {
         val intent = Intent(this, ActivityTermsAgree::class.java)
-        intent.putExtra("addUserRequest", addUserRequest)
         startActivity(intent)
         finish()
     }
@@ -203,17 +205,15 @@ class ActivityLogin : AppCompatActivity() {
         Toast.makeText(this@ActivityLogin, message, Toast.LENGTH_SHORT).show()
     }
 
-    private fun makeAddUserRequest(result: MeV2Response): AddUserRequest {
-        return AddUserRequest(
-            result.id.toString(),
-            result.properties["nickname"].toString(),
-            result.properties["profile_image"].toString(),
-            result.kakaoAccount.email,
-            makeGenderText(result.kakaoAccount.gender.toString()),
-            null,
-            null,
-            null,
-            0
+    private fun saveKakaoLoginResult(result: MeV2Response) {
+        userRepository.saveKakaoUserInfo(
+            KakaoUserInfo(
+                result.id.toString(),
+                result.properties["nickname"].toString(),
+                result.properties["profile_image"].toString(),
+                result.kakaoAccount.email,
+                makeGenderText(result.kakaoAccount.gender.toString())
+            )
         )
     }
 

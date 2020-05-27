@@ -1,9 +1,11 @@
 package com.bnvs.metaler.data.user.certification.source.repository
 
 import com.bnvs.metaler.data.user.certification.model.*
+import com.bnvs.metaler.data.user.certification.source.local.UserCertificationLocalDataSource
 import com.bnvs.metaler.data.user.certification.source.remote.UserCertificationRemoteDataSource
 
 class UserCertificationRepositoryImpl(
+    private val userCertificationLocalDataSource: UserCertificationLocalDataSource,
     private val userCertificationRemoteDataSource: UserCertificationRemoteDataSource
 ) : UserCertificationRepository {
 
@@ -29,5 +31,20 @@ class UserCertificationRepositoryImpl(
         onFailure: (e: Throwable) -> Unit
     ) {
         userCertificationRemoteDataSource.login(request, onSuccess, onFailure)
+    }
+
+    override fun getKakaoUserInfo(
+        onSuccess: (kakaoUserInfo: KakaoUserInfo) -> Unit,
+        onFailure: () -> Unit
+    ) {
+        userCertificationLocalDataSource.getKakaoUserInfo(onSuccess, onFailure)
+    }
+
+    override fun saveKakaoUserInfo(kakaoUserInfo: KakaoUserInfo) {
+        userCertificationLocalDataSource.saveKakaoUserInfo(kakaoUserInfo)
+    }
+
+    override fun deleteKakaoUserInfo() {
+        userCertificationLocalDataSource.deleteKakaoUserInfo()
     }
 }
