@@ -13,6 +13,9 @@ object RetrofitClient {
     private const val BASE_URL = "http://metaler.kr/"
 
     private val headerInterceptor = HeaderInterceptor()
+    fun setAccessToken(token: String) {
+        headerInterceptor.setAccessToken(token)
+    }
 
     init {
         val okHttpClient = OkHttpClient.Builder()
