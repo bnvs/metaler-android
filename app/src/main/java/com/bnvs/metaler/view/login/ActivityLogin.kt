@@ -136,12 +136,26 @@ class ActivityLogin : AppCompatActivity() {
 
     private fun checkMembership(result: MeV2Response) {
         val kakaoId = result.id.toString()
+        val kakaoNickname = result.properties["nickname"].toString()
+        val kakaoProfileImage = result.properties["profile_image"].toString()
+        val kakaoEmail = result.kakaoAccount.email ?: null
+        val kakaoGender = result.kakaoAccount.gender?.toString()
+        Log.d(TAG, "$kakaoId, $kakaoNickname, $kakaoProfileImage, $kakaoEmail, $kakaoGender")
+
         userRepository.checkMembership(
             CheckMembershipRequest(kakaoId),
             onSuccess = { response ->
                 when (response.message) {
                     getString(R.string.SIGN_UP) -> {
-                        saveKakaoLoginResult(result)
+                        saveKakaoLoginResult(
+                            KakaoUserInfo(
+                                kakaoId,
+                                kakaoNickname,
+                                kakaoProfileImage,
+                                kakaoEmail,
+                                kakaoGender
+                            )
+                        )
                         openTermsAgree()
                     }
                     getString(R.string.LOGIN) -> {
@@ -221,16 +235,8 @@ class ActivityLogin : AppCompatActivity() {
         Toast.makeText(this@ActivityLogin, message, Toast.LENGTH_SHORT).show()
     }
 
-    private fun saveKakaoLoginResult(result: MeV2Response) {
-        userRepository.saveKakaoUserInfo(
-            KakaoUserInfo(
-                result.id.toString(),
-                result.properties["nickname"].toString(),
-                result.properties["profile_image"].toString(),
-                result.kakaoAccount.email,
-                makeGenderText(result.kakaoAccount.gender.toString())
-            )
-        )
+    private fun saveKakaoLoginResult(result: KakaoUserInfo) {
+        userRepository.saveKakaoUserInfo(result)
     }
 
     private fun makeGenderText(kakaoGender: String): String? {
