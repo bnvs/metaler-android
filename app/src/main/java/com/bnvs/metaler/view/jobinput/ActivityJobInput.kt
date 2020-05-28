@@ -2,228 +2,152 @@ package com.bnvs.metaler.view.jobinput
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import android.view.View
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.constraintlayout.widget.Group
-import androidx.core.content.ContextCompat
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.bnvs.metaler.R
+import com.bnvs.metaler.data.token.source.local.TokenLocalDataSourceImpl
+import com.bnvs.metaler.data.token.source.repository.TokenRepositoryImpl
+import com.bnvs.metaler.databinding.ActivityJobInputBinding
+import com.bnvs.metaler.network.NO_HEADER
+import com.bnvs.metaler.network.RetrofitClient
+import com.bnvs.metaler.network.TOKEN_EXPIRED
 import com.bnvs.metaler.view.home.ActivityHome
-import kotlinx.android.synthetic.main.activity_job_input.*
+import com.bnvs.metaler.view.login.ActivityLogin
+import com.bnvs.metaler.viewmodel.AddUserViewModel
 
-class ActivityJobInput : AppCompatActivity(), ContractJobInput.View {
+class ActivityJobInput : AppCompatActivity() {
 
-    val TAG = "ActivityJobInput"
+    private val TAG = "ActivityJobInput"
 
-    override lateinit var presenter: ContractJobInput.Presenter
-
-    private lateinit var firstCategoryButtons: List<TextView>
-    private lateinit var firstCategoryGroups: List<Group>
-    private lateinit var jobTypeButtons: List<TextView>
-    private lateinit var jobTypeGroups: List<Group>
+    private lateinit var binding: ActivityJobInputBinding
+    private lateinit var viewModel: AddUserViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_job_input)
 
-        firstCategoryButtons = listOf(studentBtn, expertBtn, nothingBtn)
-        firstCategoryGroups = listOf(studentGroup, expertGroup)
-        jobTypeButtons = listOf(companyBtn, shopOwnerBtn, freelancerBtn)
-        jobTypeGroups = listOf(companyGroup, shopOwnerGroup)
+        binding = DataBindingUtil.setContentView(
+            this,
+            R.layout.activity_job_input
+        )
 
-        // Create the presenter
-        presenter = PresenterJobInput(this, this)
+        viewModel = ViewModelProvider(
+            this, ViewModelProvider.AndroidViewModelFactory(application)
+        ).get(AddUserViewModel::class.java)
 
-        // Set up Buttons
-        initClickListeners()
-
-        presenter.apply {
-            getAddUserRequest(intent)
+        binding.apply {
+            vm = viewModel
+            lifecycleOwner = this@ActivityJobInput
         }
+
+        observeViewModel()
+
     }
 
-    override fun showStudent() {
-        onButtonChanged(studentBtn, firstCategoryButtons)
-        showCompleteButton()
-        onGroupChanged(studentGroup, firstCategoryGroups)
-        onGroupChanged(null, jobTypeGroups)
+    private fun observeViewModel() {
+        observeToast()
+        observeDialog()
+        observeErrorCode()
+        observeStartHomeActivity()
     }
 
-    override fun showExpert() {
-        onButtonChanged(expertBtn, firstCategoryButtons)
-        showCompleteButton()
-        onGroupChanged(expertGroup, firstCategoryGroups)
-        when {
-            presenter.getLastSelectedJobType() == "company" -> onGroupChanged(
-                companyGroup,
-                jobTypeGroups
+    private fun observeToast() {
+        viewModel.errorToastMessage.observe(
+            this,
+            Observer { message ->
+                if (message.isNotBlank()) {
+                    makeToast(message)
+                }
+            }
+        )
+    }
+
+    private fun observeDialog() {
+        viewModel.errorDialogMessage.observe(
+            this,
+            Observer { message ->
+                if (message.isNotBlank()) {
+                    makeDialog(message)
+                }
+            }
+        )
+    }
+
+    private fun observeErrorCode() {
+        viewModel.errorCode.observe(
+            this,
+            Observer { errorCode ->
+                when (errorCode) {
+                    NO_HEADER -> setAuthorizationHeader()
+                    TOKEN_EXPIRED -> startLoginActivity()
+                }
+            }
+        )
+    }
+
+    private fun observeBackToTermsAgreeActivity() {
+        viewModel.backToTermsAgreeActivity.observe(
+            this,
+            Observer { startActivity ->
+                if (startActivity) {
+                    finish()
+                }
+            }
+        )
+    }
+
+    private fun observeStartHomeActivity() {
+        viewModel.openHomeActivity.observe(
+            this,
+            Observer { startActivity ->
+                if (startActivity) {
+                    startHomeActivity()
+                }
+            }
+        )
+    }
+
+    private fun setAuthorizationHeader() {
+        TokenRepositoryImpl(TokenLocalDataSourceImpl(this))
+            .getAccessToken(
+                onTokenLoaded = { token ->
+                    RetrofitClient.setAccessToken(token.access_token)
+                },
+                onTokenNotExist = {
+                    startLoginActivity()
+                }
             )
-            presenter.getLastSelectedJobType() == "founded" -> onGroupChanged(
-                shopOwnerGroup,
-                jobTypeGroups
-            )
-            else -> onGroupChanged(null, jobTypeGroups)
-        }
     }
 
-    override fun showNothing() {
-        onButtonChanged(nothingBtn, firstCategoryButtons)
-        showCompleteButton()
-        onGroupChanged(null, firstCategoryGroups)
-        onGroupChanged(null, jobTypeGroups)
-    }
-
-    override fun showCompany() {
-        onButtonChanged(companyBtn, jobTypeButtons)
-        onGroupChanged(companyGroup, jobTypeGroups)
-    }
-
-    override fun showFounded() {
-        onButtonChanged(shopOwnerBtn, jobTypeButtons)
-        onGroupChanged(shopOwnerGroup, jobTypeGroups)
-    }
-
-    override fun showFreelancer() {
-        onButtonChanged(freelancerBtn, jobTypeButtons)
-        onGroupChanged(null, jobTypeGroups)
-    }
-
-    override fun showCompleteButton() {
-        completeBtn.visibility = View.VISIBLE
-    }
-
-    override fun showEmptyTextDialog() {
-        AlertDialog.Builder(this).apply {
-            setTitle(getString(R.string.job_input_alert))
-                .setMessage(getString(R.string.job_input_guide))
-                .show()
-        }
-    }
-
-    override fun showJoinCompleteDialog() {
-        Toast.makeText(
-            this@ActivityJobInput,
-            getString(R.string.job_input_complete),
-            Toast.LENGTH_SHORT
-        ).show()
-    }
-
-    override fun showHomeUi() {
+    private fun startLoginActivity() {
         finishAffinity()
+        Intent(this, ActivityLogin::class.java).also {
+            startActivity(it)
+        }
+    }
+
+    private fun startHomeActivity() {
         Intent(this, ActivityHome::class.java).also {
             startActivity(it)
         }
     }
 
-    // 클릭리스너 초기화
-    private fun initClickListeners() {
-        setFirstCategoryButtons()
-        setJobTypeButtons()
-        setCompleteButton()
+    private fun makeToast(message: String) {
+        Toast.makeText(this@ActivityJobInput, message, Toast.LENGTH_SHORT).show()
     }
 
-    // 대분류 버튼 클릭 리스너
-    private fun setFirstCategoryButtons() {
-        studentBtn.setOnClickListener {
-            presenter.openStudent()
-        }
-        expertBtn.setOnClickListener {
-            presenter.openExpert()
-        }
-        nothingBtn.setOnClickListener {
-            presenter.openNothing()
-        }
-    }
-
-    // 전문가 업무형태 클릭 리스너
-    private fun setJobTypeButtons() {
-        companyBtn.setOnClickListener {
-            presenter.openCompany()
-        }
-        shopOwnerBtn.setOnClickListener {
-            presenter.openFounded()
-        }
-        freelancerBtn.setOnClickListener {
-            presenter.openFreelancer()
-        }
-    }
-
-    // 소속 입력 완료 버튼 클릭 리스너
-    private fun setCompleteButton() {
-        completeBtn.setOnClickListener {
-            when (presenter.getSelectedJob()) {
-                "student" -> {
-                    presenter.completeJobInput(
-                        presenter.getString(universityNameInput),
-                        presenter.getString(majorNameInput)
-                    )
-                }
-                "expert" -> {
-                    when (presenter.getSelectedJobType()) {
-                        "company" -> {
-                            presenter.completeJobInput(
-                                "company",
-                                presenter.getString(companyNameInput)
-                            )
-                        }
-                        "founded" -> {
-                            presenter.completeJobInput(
-                                "founded",
-                                presenter.getString(shopNameInput)
-                            )
-                        }
-                        "freelancer" -> {
-                            presenter.completeJobInput(
-                                "freelancer",
-                                "empty"
-                            )
-                        }
-                        else -> Log.d(TAG, "소속 입력완료 에러")
-                    }
-                }
-                "empty" -> {
-                    presenter.completeJobInput(
-                        "empty",
-                        "empty"
-                    )
-                }
-                else -> Log.d(TAG, "소속 입력완료 에러")
+    private fun makeDialog(message: String) {
+        AlertDialog.Builder(this@ActivityJobInput)
+            .setTitle(getString(R.string.alert))
+            .setMessage(message)
+            .setPositiveButton(getString(R.string.allow)) { dialog, _ ->
+                dialog.dismiss()
             }
-        }
+            .show()
     }
 
-    // enabled = true / false 에 따라 버튼 색상이 바뀜
-    private fun setButtonEnabled(button: TextView, b: Boolean) {
-        if (b) {
-            button.setBackgroundResource(R.drawable.job_btn_purple_rounding_border)
-            button.setTextColor(ContextCompat.getColor(this, R.color.colorPurple))
-        } else {
-            button.setBackgroundResource(R.drawable.job_btn_lightgrey_rounding_border)
-            button.setTextColor(ContextCompat.getColor(this, R.color.colorLightGrey))
-        }
-    }
-
-    // 원하는 버튼만 enabled 상태로 바꿔주는 함수
-    private fun onButtonChanged(clickedButton: TextView, buttons: List<TextView>) {
-        for (button in buttons) {
-            if (button == clickedButton) {
-                setButtonEnabled(button, true)
-            } else setButtonEnabled(button, false)
-        }
-    }
-
-    // 원하는 소속입력 그룹만 보여주는 함수
-    private fun onGroupChanged(groupToShow: Group?, groups: List<Group>) {
-        for (group in groups) {
-            if (group == groupToShow) {
-                group.visibility = View.VISIBLE
-            } else {
-                group.visibility = View.GONE
-            }
-        }
-    }
 
 }
