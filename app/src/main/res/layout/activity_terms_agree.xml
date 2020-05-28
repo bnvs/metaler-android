@@ -128,7 +128,7 @@
             app:layout_constraintBottom_toBottomOf="@id/firstCheckBtn"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/firstCheckBtn"
-            app:showTermsAgreeWebView="@{vm.terms.service}" />
+            app:setTermsAgreeWebViewListener="@{vm.terms.service}" />
 
 
         <CheckBox
@@ -167,7 +167,7 @@
             app:layout_constraintBottom_toBottomOf="@id/secondCheckBtn"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/secondCheckBtn"
-            app:showTermsAgreeWebView="@{vm.terms.privacy}" />
+            app:setTermsAgreeWebViewListener="@{vm.terms.privacy}" />
 
         <CheckBox
             android:id="@+id/thirdCheckBtn"
@@ -205,7 +205,7 @@
             app:layout_constraintBottom_toBottomOf="@id/thirdCheckBtn"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/thirdCheckBtn"
-            app:showTermsAgreeWebView="@{vm.terms.additional}" />
+            app:setTermsAgreeWebViewListener="@{vm.terms.additional}" />
 
         <CheckBox
             android:id="@+id/fourthCheckBtn"
@@ -243,7 +243,7 @@
             app:layout_constraintBottom_toBottomOf="@id/fourthCheckBtn"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/fourthCheckBtn"
-            app:showTermsAgreeWebView="@{vm.terms.advertising}" />
+            app:setTermsAgreeWebViewListener="@{vm.terms.advertising}" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/nextBtn"
