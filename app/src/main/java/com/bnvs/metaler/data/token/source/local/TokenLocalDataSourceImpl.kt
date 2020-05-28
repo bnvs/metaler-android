@@ -8,7 +8,6 @@ class TokenLocalDataSourceImpl(context: Context) : TokenLocalDataSource {
 
     private val sharedPreferences =
         context.getSharedPreferences("LOCAL_TOKEN_DATA", Context.MODE_PRIVATE)
-    private val editor = sharedPreferences.edit()
 
     override fun getSigninToken(
         onTokenLoaded: (token: SigninToken) -> Unit,
@@ -22,8 +21,7 @@ class TokenLocalDataSourceImpl(context: Context) : TokenLocalDataSource {
     }
 
     override fun saveSigninToken(token: SigninToken) {
-        editor.putString("signin_token", token.signin_token)
-        editor.commit()
+        sharedPreferences.edit().putString("signin_token", token.signin_token).commit()
     }
 
     override fun getAccessToken(
@@ -38,11 +36,10 @@ class TokenLocalDataSourceImpl(context: Context) : TokenLocalDataSource {
     }
 
     override fun saveAccessToken(token: AccessToken) {
-        editor.putString("access_token", token.access_token)
-        editor.commit()
+        sharedPreferences.edit().putString("access_token", token.access_token).commit()
     }
 
     override fun deleteTokens() {
-        editor.clear().commit()
+        sharedPreferences.edit().clear().commit()
     }
 }
