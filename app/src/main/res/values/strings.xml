@@ -52,6 +52,7 @@
     <string name="job_input_guide">소속 입력을 완료해주세요</string>
     <string name="job_input_complete">Metaler 의 회원이 되신 것을 환영합니다!</string>
 
+    <string name="invalid_kakao_user_info">카카오 로그인 유저 정보에 문제가 있습니다.</string>
 
     <string name="kakao_start">카카오톡으로 로그인</string>
     <string name="kakao_start_guide">서비스를 이용하기 위해서 로그인이 필요합니다.</string>
