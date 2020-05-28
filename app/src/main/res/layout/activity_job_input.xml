@@ -1,414 +1,446 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/colorWhite"
-    tools:context=".view.jobmodify.ActivityJobModify">
+    xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
 
-    <TextView
-        android:id="@+id/jobTitleTxt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="@string/job_title"
-        android:textColor="@color/colorPurple"
-        android:textSize="22sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/titleBarCard" />
-
-    <TextView
-        android:id="@+id/jobGuideTxt"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:gravity="center"
-        android:text="@string/job_guide"
-        android:textColor="@color/colorPurple"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/jobTitleTxt" />
-
-    <TextView
-        android:id="@+id/firstCategoryTxt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="50dp"
-        android:text="@string/job_first_category"
-        android:textColor="@color/colorGrey"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/jobGuideTxt" />
-
-    <TextView
-        android:id="@+id/nothingBtn"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="20dp"
-        android:background="@drawable/job_btn_lightgrey_rounding_border"
-        android:gravity="center_horizontal"
-        android:text="@string/nothing"
-        android:textColor="@color/colorLightGrey"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="@id/firstCategoryTxt"
-        app:layout_constraintDimensionRatio="2.7:1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/firstCategoryTxt" />
-
-    <TextView
-        android:id="@+id/expertBtn"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="8dp"
-        android:background="@drawable/job_btn_lightgrey_rounding_border"
-        android:gravity="center_horizontal"
-        android:text="@string/expert"
-        android:textColor="@color/colorLightGrey"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="@id/firstCategoryTxt"
-        app:layout_constraintDimensionRatio="2.7:1"
-        app:layout_constraintEnd_toStartOf="@id/nothingBtn"
-        app:layout_constraintTop_toTopOf="@id/firstCategoryTxt" />
-
-    <TextView
-        android:id="@+id/studentBtn"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="8dp"
-        android:background="@drawable/job_btn_lightgrey_rounding_border"
-        android:gravity="center_horizontal"
-        android:text="@string/student"
-        android:textColor="@color/colorLightGrey"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="@id/firstCategoryTxt"
-        app:layout_constraintDimensionRatio="2.7:1"
-        app:layout_constraintEnd_toStartOf="@id/expertBtn"
-        app:layout_constraintTop_toTopOf="@id/firstCategoryTxt" />
-
-    <View
-        android:id="@+id/firstCategoryLine"
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_marginTop="4dp"
-        android:background="?android:attr/listDivider"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/firstCategoryTxt" />
-
-
-    <androidx.constraintlayout.widget.Group
-        android:id="@+id/studentGroup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        app:constraint_referenced_ids="universityNameTxt,universityNameInput,universityNameLine,majorNameTxt,majorNameInput,majorNameLine" />
-
-    <TextView
-        android:id="@+id/universityNameTxt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="@string/university_name"
-        android:textColor="@color/colorGrey"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@id/universityNameInput"
-        app:layout_constraintStart_toStartOf="@id/firstCategoryTxt"
-        app:layout_constraintTop_toTopOf="@id/universityNameInput" />
-
-    <EditText
-        android:id="@+id/universityNameInput"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginRight="20dp"
-        android:hint="@string/university_name_guide"
-        android:inputType="text"
-        android:textColorHint="@color/colorLightGrey"
-        android:textSize="18sp"
-        app:layout_constraintLeft_toRightOf="@id/universityNameTxt"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/firstCategoryLine" />
-
-    <View
-        android:id="@+id/universityNameLine"
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_marginTop="5dp"
-        android:background="?android:attr/listDivider"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/universityNameInput" />
-
-    <TextView
-        android:id="@+id/majorNameTxt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/major_name"
-        android:textColor="@color/colorGrey"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@id/majorNameInput"
-        app:layout_constraintStart_toStartOf="@id/firstCategoryTxt"
-        app:layout_constraintTop_toTopOf="@id/majorNameInput" />
-
-    <EditText
-        android:id="@+id/majorNameInput"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginRight="20dp"
-        android:hint="@string/major_name_guide"
-        android:inputType="text"
-        android:textColorHint="@color/colorLightGrey"
-        android:textSize="18sp"
-        app:layout_constraintLeft_toRightOf="@id/majorNameTxt"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/universityNameLine" />
-
-    <View
-        android:id="@+id/majorNameLine"
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="5dp"
-        android:background="?android:attr/listDivider"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/majorNameInput" />
-
-
-    <androidx.constraintlayout.widget.Group
-        android:id="@+id/expertGroup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        app:constraint_referenced_ids="jobTypeTxt,companyBtn,shopOwnerBtn,freelancerBtn,jobTypeLine" />
-
-    <TextView
-        android:id="@+id/jobTypeTxt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:text="@string/job_type"
-        android:textColor="@color/colorGrey"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="@id/firstCategoryTxt"
-        app:layout_constraintTop_toBottomOf="@id/firstCategoryTxt" />
-
-    <TextView
-        android:id="@+id/freelancerBtn"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="20dp"
-        android:background="@drawable/job_btn_lightgrey_rounding_border"
-        android:gravity="center_horizontal"
-        android:text="@string/freelancer"
-        android:textColor="@color/colorLightGrey"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="@id/jobTypeTxt"
-        app:layout_constraintDimensionRatio="2.7:1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/jobTypeTxt" />
-
-    <TextView
-        android:id="@+id/shopOwnerBtn"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="8dp"
-        android:background="@drawable/job_btn_lightgrey_rounding_border"
-        android:gravity="center_horizontal"
-        android:text="@string/shop_owner"
-        android:textColor="@color/colorLightGrey"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="@id/jobTypeTxt"
-        app:layout_constraintDimensionRatio="2.7:1"
-        app:layout_constraintEnd_toStartOf="@id/freelancerBtn"
-        app:layout_constraintTop_toTopOf="@id/jobTypeTxt" />
-
-    <TextView
-        android:id="@+id/companyBtn"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="8dp"
-        android:background="@drawable/job_btn_lightgrey_rounding_border"
-        android:gravity="center_horizontal"
-        android:text="@string/company"
-        android:textColor="@color/colorLightGrey"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="@id/jobTypeTxt"
-        app:layout_constraintDimensionRatio="2.7:1"
-        app:layout_constraintEnd_toStartOf="@id/shopOwnerBtn"
-        app:layout_constraintTop_toTopOf="@id/jobTypeTxt" />
-
-    <View
-        android:id="@+id/jobTypeLine"
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="5dp"
-        android:background="?android:attr/listDivider"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/jobTypeTxt" />
-
-
-    <androidx.constraintlayout.widget.Group
-        android:id="@+id/companyGroup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        app:constraint_referenced_ids="companyNameTxt,companyNameInput,companyNameLine" />
-
-    <TextView
-        android:id="@+id/companyNameTxt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/company_name"
-        android:textColor="@color/colorGrey"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@id/companyNameInput"
-        app:layout_constraintStart_toStartOf="@id/firstCategoryTxt"
-        app:layout_constraintTop_toTopOf="@id/companyNameInput" />
-
-    <EditText
-        android:id="@+id/companyNameInput"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginRight="20dp"
-        android:hint="@string/company_name_guide"
-        android:inputType="text"
-        android:textColorHint="@color/colorLightGrey"
-        android:textSize="18sp"
-        app:layout_constraintLeft_toRightOf="@id/companyNameTxt"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/jobTypeLine" />
-
-    <View
-        android:id="@+id/companyNameLine"
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="5dp"
-        android:background="?android:attr/listDivider"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/companyNameInput" />
-
-
-    <androidx.constraintlayout.widget.Group
-        android:id="@+id/shopOwnerGroup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        app:constraint_referenced_ids="shopNameTxt,shopNameInput,shopNameLine" />
-
-    <TextView
-        android:id="@+id/shopNameTxt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/shop_name"
-        android:textColor="@color/colorGrey"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@id/shopNameInput"
-        app:layout_constraintStart_toStartOf="@id/firstCategoryTxt"
-        app:layout_constraintTop_toTopOf="@id/shopNameInput" />
-
-    <EditText
-        android:id="@+id/shopNameInput"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginRight="20dp"
-        android:hint="가게 이름을 입력해주세요"
-        android:inputType="text"
-        android:textColorHint="@color/colorLightGrey"
-        android:textSize="18sp"
-        app:layout_constraintLeft_toRightOf="@id/shopNameTxt"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/jobTypeLine" />
-
-    <View
-        android:id="@+id/shopNameLine"
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="5dp"
-        android:background="?android:attr/listDivider"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/shopNameInput" />
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/completeBtn"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginBottom="90dp"
-        android:elevation="4dp"
-        android:visibility="gone"
-        app:cardUseCompatPadding="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintDimensionRatio="1:0.2"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/joinStartTxt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:text="@string/complete"
-                android:textColor="@color/colorGrey"
-                android:textSize="20sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
-
+        <variable
+            name="vm"
+            type="com.bnvs.metaler.viewmodel.AddUserViewModel" />
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/titleBarCard"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:clipToPadding="false"
-        android:paddingBottom="4dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="match_parent"
+        android:background="@color/colorWhite"
+        tools:context=".view.jobmodify.ActivityJobModify">
+
+
+        <TextView
+            android:id="@+id/jobTitleTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/job_title"
+            android:textColor="@color/colorPurple"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/titleBarCard" />
+
+        <TextView
+            android:id="@+id/jobGuideTxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="@string/job_guide"
+            android:textColor="@color/colorPurple"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/jobTitleTxt" />
+
+        <TextView
+            android:id="@+id/firstCategoryTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="50dp"
+            android:text="@string/job_first_category"
+            android:textColor="@color/colorGrey"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/jobGuideTxt" />
+
+        <TextView
+            android:id="@+id/nothingBtn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/job_btn_lightgrey_rounding_border"
+            android:gravity="center_horizontal"
+            android:onClick='@{()->vm.onJobChanged("empty")}'
+            android:text="@string/nothing"
+            android:textColor="@color/colorLightGrey"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@id/firstCategoryTxt"
+            app:layout_constraintDimensionRatio="2.7:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/firstCategoryTxt"
+            app:onJobChecked='@{vm.jobs["empty"]}' />
+
+        <TextView
+            android:id="@+id/expertBtn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="8dp"
+            android:background="@drawable/job_btn_lightgrey_rounding_border"
+            android:gravity="center_horizontal"
+            android:onClick='@{()->vm.onJobChanged("expert")}'
+            android:text="@string/expert"
+            android:textColor="@color/colorLightGrey"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@id/firstCategoryTxt"
+            app:layout_constraintDimensionRatio="2.7:1"
+            app:layout_constraintEnd_toStartOf="@id/nothingBtn"
+            app:layout_constraintTop_toTopOf="@id/firstCategoryTxt"
+            app:onJobChecked='@{vm.jobs["expert"]}' />
+
+        <TextView
+            android:id="@+id/studentBtn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="8dp"
+            android:background="@drawable/job_btn_lightgrey_rounding_border"
+            android:gravity="center_horizontal"
+            android:onClick='@{()->vm.onJobChanged("student")}'
+            android:text="@string/student"
+            android:textColor="@color/colorLightGrey"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@id/firstCategoryTxt"
+            app:layout_constraintDimensionRatio="2.7:1"
+            app:layout_constraintEnd_toStartOf="@id/expertBtn"
+            app:layout_constraintTop_toTopOf="@id/firstCategoryTxt"
+            app:onJobChecked='@{vm.jobs["student"]}' />
+
+        <View
+            android:id="@+id/firstCategoryLine"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginTop="4dp"
+            android:background="?android:attr/listDivider"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/firstCategoryTxt" />
+
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/studentGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:constraint_referenced_ids="universityNameTxt,universityNameInput,universityNameLine,majorNameTxt,majorNameInput,majorNameLine"
+            app:jobGroupVisibility='@{vm.jobs["student"]}' />
+
+        <TextView
+            android:id="@+id/universityNameTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/university_name"
+            android:textColor="@color/colorGrey"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@id/universityNameInput"
+            app:layout_constraintStart_toStartOf="@id/firstCategoryTxt"
+            app:layout_constraintTop_toTopOf="@id/universityNameInput" />
+
+        <EditText
+            android:id="@+id/universityNameInput"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="20dp"
+            android:hint="@string/university_name_guide"
+            android:inputType="text"
+            android:maxLength="20"
+            android:text="@={vm.studentJobType}"
+            android:textColorHint="@color/colorLightGrey"
+            android:textSize="18sp"
+            app:layout_constraintLeft_toRightOf="@id/universityNameTxt"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/firstCategoryLine" />
+
+        <View
+            android:id="@+id/universityNameLine"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginTop="5dp"
+            android:background="?android:attr/listDivider"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/universityNameInput" />
+
+        <TextView
+            android:id="@+id/majorNameTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/major_name"
+            android:textColor="@color/colorGrey"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@id/majorNameInput"
+            app:layout_constraintStart_toStartOf="@id/firstCategoryTxt"
+            app:layout_constraintTop_toTopOf="@id/majorNameInput" />
+
+        <EditText
+            android:id="@+id/majorNameInput"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="20dp"
+            android:hint="@string/major_name_guide"
+            android:inputType="text"
+            android:maxLength="20"
+            android:text="@={vm.studentJobDetail}"
+            android:textColorHint="@color/colorLightGrey"
+            android:textSize="18sp"
+            app:layout_constraintLeft_toRightOf="@id/majorNameTxt"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/universityNameLine" />
+
+        <View
+            android:id="@+id/majorNameLine"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="5dp"
+            android:background="?android:attr/listDivider"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/majorNameInput" />
+
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/expertGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:constraint_referenced_ids="jobTypeTxt,companyBtn,shopOwnerBtn,freelancerBtn,jobTypeLine,companyGroup,shopOwnerGroup"
+            app:jobGroupVisibility='@{vm.jobs["expert"]}' />
+
+        <TextView
+            android:id="@+id/jobTypeTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="@string/job_type"
+            android:textColor="@color/colorGrey"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="@id/firstCategoryTxt"
+            app:layout_constraintTop_toBottomOf="@id/firstCategoryTxt" />
+
+        <TextView
+            android:id="@+id/freelancerBtn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/job_btn_lightgrey_rounding_border"
+            android:gravity="center_horizontal"
+            android:onClick='@{()->vm.onJobTypeChanged("freelancer")}'
+            android:text="@string/freelancer"
+            android:textColor="@color/colorLightGrey"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@id/jobTypeTxt"
+            app:layout_constraintDimensionRatio="2.7:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/jobTypeTxt"
+            app:onJobChecked='@{vm.jobTypes["freelancer"]}' />
+
+        <TextView
+            android:id="@+id/shopOwnerBtn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="8dp"
+            android:background="@drawable/job_btn_lightgrey_rounding_border"
+            android:gravity="center_horizontal"
+            android:onClick='@{()->vm.onJobTypeChanged("founded")}'
+            android:text="@string/shop_owner"
+            android:textColor="@color/colorLightGrey"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@id/jobTypeTxt"
+            app:layout_constraintDimensionRatio="2.7:1"
+            app:layout_constraintEnd_toStartOf="@id/freelancerBtn"
+            app:layout_constraintTop_toTopOf="@id/jobTypeTxt"
+            app:onJobChecked='@{vm.jobTypes["founded"]}' />
+
+        <TextView
+            android:id="@+id/companyBtn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="8dp"
+            android:background="@drawable/job_btn_lightgrey_rounding_border"
+            android:gravity="center_horizontal"
+            android:onClick='@{()->vm.onJobTypeChanged("company")}'
+            android:text="@string/company"
+            android:textColor="@color/colorLightGrey"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@id/jobTypeTxt"
+            app:layout_constraintDimensionRatio="2.7:1"
+            app:layout_constraintEnd_toStartOf="@id/shopOwnerBtn"
+            app:layout_constraintTop_toTopOf="@id/jobTypeTxt"
+            app:onJobChecked='@{vm.jobTypes["company"]}' />
+
+        <View
+            android:id="@+id/jobTypeLine"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="5dp"
+            android:background="?android:attr/listDivider"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/jobTypeTxt" />
+
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/companyGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:constraint_referenced_ids="companyNameTxt,companyNameInput,companyNameLine"
+            app:jobGroupVisibility='@{vm.jobTypes["company"]}' />
+
+        <TextView
+            android:id="@+id/companyNameTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/company_name"
+            android:textColor="@color/colorGrey"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@id/companyNameInput"
+            app:layout_constraintStart_toStartOf="@id/firstCategoryTxt"
+            app:layout_constraintTop_toTopOf="@id/companyNameInput" />
+
+        <EditText
+            android:id="@+id/companyNameInput"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="20dp"
+            android:hint="@string/company_name_guide"
+            android:inputType="text"
+            android:maxLength="20"
+            android:text="@={vm.companyJobDetail}"
+            android:textColorHint="@color/colorLightGrey"
+            android:textSize="18sp"
+            app:layout_constraintLeft_toRightOf="@id/companyNameTxt"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/jobTypeLine" />
+
+        <View
+            android:id="@+id/companyNameLine"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="5dp"
+            android:background="?android:attr/listDivider"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/companyNameInput" />
+
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/shopOwnerGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:constraint_referenced_ids="shopNameTxt,shopNameInput,shopNameLine"
+            app:jobGroupVisibility='@{vm.jobTypes["founded"]}' />
+
+        <TextView
+            android:id="@+id/shopNameTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/shop_name"
+            android:textColor="@color/colorGrey"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@id/shopNameInput"
+            app:layout_constraintStart_toStartOf="@id/firstCategoryTxt"
+            app:layout_constraintTop_toTopOf="@id/shopNameInput" />
+
+        <EditText
+            android:id="@+id/shopNameInput"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="20dp"
+            android:hint="가게 이름을 입력해주세요"
+            android:inputType="text"
+            android:maxLength="20"
+            android:text="@={vm.foundedJobDetail}"
+            android:textColorHint="@color/colorLightGrey"
+            android:textSize="18sp"
+            app:layout_constraintLeft_toRightOf="@id/shopNameTxt"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/jobTypeLine" />
+
+        <View
+            android:id="@+id/shopNameLine"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="5dp"
+            android:background="?android:attr/listDivider"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/shopNameInput" />
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/completeBtn"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:cardBackgroundColor="@color/colorWhite"
-            app:cardElevation="4dp"
-            app:layout_constraintDimensionRatio="1:0.11"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginBottom="90dp"
+            android:elevation="4dp"
+            android:onClick="@{()->vm.completeUserInput()}"
+            app:cardUseCompatPadding="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1:0.2"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/joinStartTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="@string/complete"
+                    android:textColor="@color/colorGrey"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/titleBarCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:paddingBottom="4dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginHorizontal="10dp">
+                android:layout_height="0dp"
+                app:cardBackgroundColor="@color/colorWhite"
+                app:cardElevation="4dp"
+                app:layout_constraintDimensionRatio="1:0.11"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-                <ImageView
-                    android:id="@+id/backBtn"
-                    android:layout_width="27dp"
-                    android:layout_height="27dp"
-                    android:src="@drawable/ic_nav_back_x3"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginHorizontal="10dp">
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.cardview.widget.CardView>
+                    <ImageView
+                        android:id="@+id/backBtn"
+                        android:layout_width="27dp"
+                        android:layout_height="27dp"
+                        android:onClick="@{()->vm.backToTermsAgreeActivity()}"
+                        android:src="@drawable/ic_nav_back_x3"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
