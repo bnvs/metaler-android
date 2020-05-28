@@ -55,11 +55,9 @@ class UserModificationRepositoryImpl(
     }
 
     override fun saveTermsAgreements(
-        request: TermsAgreements,
-        onSuccess: () -> Unit,
-        onFailure: () -> Unit
+        agreements: TermsAgreements
     ) {
-        userModificationLocalDataSource.saveTermsAgreements(request, onSuccess, onFailure)
+        userModificationLocalDataSource.saveTermsAgreements(agreements)
     }
 
     override fun getTermsAgreements(

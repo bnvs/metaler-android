@@ -29,11 +29,7 @@ class UserModificationLocalDataSourceImpl(context: Context) : UserModificationLo
         }
     }
 
-    override fun saveTermsAgreements(
-        request: TermsAgreements,
-        onSuccess: () -> Unit,
-        onFailure: () -> Unit
-    ) {
+    override fun saveTermsAgreements(request: TermsAgreements) {
         sharedPreferences.edit()
             .putString("termsAgreements", GsonBuilder().create().toJson(request)).commit()
     }

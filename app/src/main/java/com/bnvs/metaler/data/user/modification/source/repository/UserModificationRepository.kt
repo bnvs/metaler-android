@@ -40,9 +40,7 @@ interface UserModificationRepository {
     )
 
     fun saveTermsAgreements(
-        request: TermsAgreements,
-        onSuccess: () -> Unit,
-        onFailure: () -> Unit
+        agreements: TermsAgreements
     )
 
     fun getTermsAgreements(
