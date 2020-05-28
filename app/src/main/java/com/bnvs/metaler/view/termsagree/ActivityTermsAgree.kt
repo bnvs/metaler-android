@@ -38,6 +38,11 @@ class ActivityTermsAgree : AppCompatActivity() {
             this, ViewModelProvider.AndroidViewModelFactory(application)
         ).get(AddUserViewModel::class.java)
 
+        binding.apply {
+            vm = viewModel
+            lifecycleOwner = this@ActivityTermsAgree
+        }
+
         observeViewModel()
     }
 
