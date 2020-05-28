@@ -33,7 +33,7 @@ class ActivityJobModify : AppCompatActivity(), ContractJobModify.View {
         jobTypeGroups = listOf(companyGroup, shopOwnerGroup)
 
         // Create the presenter
-        presenter = PresenterJobModify(this)
+        presenter = PresenterJobModify(this, this)
 
         // Set up Buttons
         initClickListeners()

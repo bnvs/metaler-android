@@ -139,8 +139,7 @@ class ActivityLogin : AppCompatActivity() {
         val kakaoNickname = result.properties["nickname"].toString()
         val kakaoProfileImage = result.properties["profile_image"].toString()
         val kakaoEmail = result.kakaoAccount.email ?: null
-        val kakaoGender = result.kakaoAccount.gender?.toString()
-        Log.d(TAG, "$kakaoId, $kakaoNickname, $kakaoProfileImage, $kakaoEmail, $kakaoGender")
+        val kakaoGender = makeGenderText(result.kakaoAccount.gender?.toString() ?: "")
 
         userRepository.checkMembership(
             CheckMembershipRequest(kakaoId),

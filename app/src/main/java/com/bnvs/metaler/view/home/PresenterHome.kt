@@ -2,7 +2,8 @@ package com.bnvs.metaler.view.home
 
 import android.content.Context
 import com.bnvs.metaler.data.homeposts.source.repository.HomePostsRepository
-import com.bnvs.metaler.data.profile.source.repository.ProfileRepository
+import com.bnvs.metaler.data.profile.source.local.ProfileLocalDataSourceImpl
+import com.bnvs.metaler.data.profile.source.repository.ProfileRepositoryImpl
 import com.bnvs.metaler.network.NetworkUtil
 
 class PresenterHome(
@@ -10,8 +11,9 @@ class PresenterHome(
     private val view: ContractHome.View
 ) : ContractHome.Presenter {
 
-    private val profileRepository =
-        ProfileRepository(context)
+    private val profileRepository = ProfileRepositoryImpl(
+        ProfileLocalDataSourceImpl(context)
+    )
     private val homePostRepository =
         HomePostsRepository(context)
 

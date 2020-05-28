@@ -1,18 +1,25 @@
 package com.bnvs.metaler.view.jobmodify
 
+import android.content.Context
 import android.text.TextUtils
 import android.util.Log
 import android.widget.EditText
 import com.bnvs.metaler.data.user.modification.model.Job
-import com.bnvs.metaler.data.user.modification.source.repository.UserModificationRepository
+import com.bnvs.metaler.data.user.modification.source.local.UserModificationLocalDataSourceImpl
+import com.bnvs.metaler.data.user.modification.source.remote.UserModificationRemoteDataSourceImpl
+import com.bnvs.metaler.data.user.modification.source.repository.UserModificationRepositoryImpl
 import com.bnvs.metaler.network.NetworkUtil
 
 class PresenterJobModify(
-    private val view: ContractJobModify.View
+    private val view: ContractJobModify.View,
+    context: Context
 ) : ContractJobModify.Presenter {
 
     private val userRepository =
-        UserModificationRepository()
+        UserModificationRepositoryImpl(
+            UserModificationLocalDataSourceImpl(context),
+            UserModificationRemoteDataSourceImpl()
+        )
 
     private lateinit var originalJob: Job
 
@@ -35,6 +42,9 @@ class PresenterJobModify(
             },
             onFailure = { e ->
                 view.showErrorMessage(NetworkUtil.getErrorMessage(e))
+            },
+            handleError = {
+
             }
         )
     }
@@ -128,7 +138,7 @@ class PresenterJobModify(
     }
 
     override fun modifyUserJob() {
-        userRepository.modifyUserJob(
+        /*userRepository.modifyUserJob(
             Job(job, job_type, job_detail),
             onSuccess = {
                 view.run {
@@ -143,7 +153,7 @@ class PresenterJobModify(
                     hideSoftInput()
                 }
             }
-        )
+        )*/
     }
 
     override fun getString(editText: EditText): String {

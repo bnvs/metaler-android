@@ -8,7 +8,10 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.bnvs.metaler.R
 import com.bnvs.metaler.data.user.modification.model.Terms
+import com.bnvs.metaler.data.user.modification.source.local.UserModificationLocalDataSourceImpl
+import com.bnvs.metaler.data.user.modification.source.remote.UserModificationRemoteDataSourceImpl
 import com.bnvs.metaler.data.user.modification.source.repository.UserModificationRepository
+import com.bnvs.metaler.data.user.modification.source.repository.UserModificationRepositoryImpl
 import com.bnvs.metaler.network.NetworkUtil
 import kotlinx.android.synthetic.main.activity_terms_check.*
 
@@ -22,7 +25,10 @@ class ActivityTermsCheck : AppCompatActivity() {
         setContentView(R.layout.activity_terms_check)
 
         userModificationRepository =
-            UserModificationRepository()
+            UserModificationRepositoryImpl(
+                UserModificationLocalDataSourceImpl(this),
+                UserModificationRemoteDataSourceImpl()
+            )
         getTermLinks()
     }
 
@@ -35,6 +41,9 @@ class ActivityTermsCheck : AppCompatActivity() {
             onFailure = { e ->
                 makeToast(NetworkUtil.getErrorMessage(e))
                 finish()
+            },
+            handleError = {
+
             }
         )
     }

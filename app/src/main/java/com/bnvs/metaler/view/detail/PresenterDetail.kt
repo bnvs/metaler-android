@@ -11,7 +11,8 @@ import com.bnvs.metaler.data.comments.source.repository.CommentsRepository
 import com.bnvs.metaler.data.postdetails.model.PostDetails
 import com.bnvs.metaler.data.postdetails.model.RatingRequest
 import com.bnvs.metaler.data.postdetails.source.repository.PostDetailsRepository
-import com.bnvs.metaler.data.profile.source.repository.ProfileRepository
+import com.bnvs.metaler.data.profile.source.local.ProfileLocalDataSourceImpl
+import com.bnvs.metaler.data.profile.source.repository.ProfileRepositoryImpl
 import com.bnvs.metaler.data.user.certification.model.User
 import com.bnvs.metaler.network.NetworkUtil
 import java.text.SimpleDateFormat
@@ -26,7 +27,9 @@ class PresenterDetail(
     private val postDetailsRepository = PostDetailsRepository()
     private val commentsRepository = CommentsRepository(context)
     private val bookmarksRepository = BookmarksRepository()
-    private val profileRepository = ProfileRepository(context)
+    private val profileRepository = ProfileRepositoryImpl(
+        ProfileLocalDataSourceImpl(context)
+    )
 
     private lateinit var postDetails: PostDetails
     private lateinit var userInfo: User
