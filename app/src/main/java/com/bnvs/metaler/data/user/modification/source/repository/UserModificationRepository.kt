@@ -3,24 +3,28 @@ package com.bnvs.metaler.data.user.modification.source.repository
 import com.bnvs.metaler.data.user.modification.model.Job
 import com.bnvs.metaler.data.user.modification.model.Nickname
 import com.bnvs.metaler.data.user.modification.model.Terms
+import com.bnvs.metaler.data.user.modification.model.TermsAgreements
 
 interface UserModificationRepository {
 
     fun getUserJob(
         onSuccess: (response: Job) -> Unit,
-        onFailure: (e: Throwable) -> Unit
+        onFailure: (e: Throwable) -> Unit,
+        handleError: (errorCode: Int) -> Unit
     )
 
     fun modifyUserJob(
         request: Job,
         onSuccess: () -> Unit,
-        onFailure: (e: Throwable) -> Unit
+        onFailure: (e: Throwable) -> Unit,
+        handleError: (errorCode: Int) -> Unit
     )
 
     fun modifyNickname(
         request: Nickname,
         onSuccess: () -> Unit,
-        onFailure: (e: Throwable) -> Unit
+        onFailure: (e: Throwable) -> Unit,
+        handleError: (errorCode: Int) -> Unit
     )
 
     fun modifyLocalNickname(
@@ -31,6 +35,16 @@ interface UserModificationRepository {
 
     fun getTerms(
         onSuccess: (Terms) -> Unit,
-        onFailure: (e: Throwable) -> Unit
+        onFailure: (e: Throwable) -> Unit,
+        handleError: (errorCode: Int) -> Unit
+    )
+
+    fun saveTermsAgreements(
+        agreements: TermsAgreements
+    )
+
+    fun getTermsAgreements(
+        onSuccess: (agreements: TermsAgreements) -> Unit,
+        onFailure: () -> Unit
     )
 }

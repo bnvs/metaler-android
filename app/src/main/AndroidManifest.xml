@@ -8,7 +8,7 @@
     <uses-permission android:name="android.permission.CAMERA" />
 
     <application
-        android:name=".ui.login.GlobalApplication"
+        android:name=".view.login.GlobalApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher_metaler"
         android:label="@string/app_name"
@@ -29,22 +29,22 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".ui.home.ActivityHome" />
-        <activity android:name=".ui.materials.ActivityMaterials" />
-        <activity android:name=".ui.manufactures.ActivityManufactures" />
-        <activity android:name=".ui.bookmarks.ActivityBookmarks" />
-        <activity android:name=".ui.mypage.ActivityMyPage" />
-        <activity android:name=".ui.search.ActivitySearch" />
-        <activity android:name=".ui.detail.ActivityDetail" />
-        <activity android:name=".ui.postsecond.ActivityPostSecond" />
-        <activity android:name=".ui.postfirst.ActivityPostFirst" />
-        <activity android:name=".ui.myposts.ActivityMyPosts" />
-        <activity android:name=".ui.jobmodify.ActivityJobModify" />
-        <activity android:name=".ui.jobinput.ActivityJobInput" />
-        <activity android:name=".ui.termsagree.ActivityTermsAgree" />
-        <activity android:name=".ui.termscheck.ActivityTermsCheck"></activity>
-        <activity android:name=".ui.modifycomment.ActivityModifyComment" />
-        <activity android:name=".ui.login.ActivityLogin">
+        <activity android:name=".view.home.ActivityHome" />
+        <activity android:name=".view.materials.ActivityMaterials" />
+        <activity android:name=".view.manufactures.ActivityManufactures" />
+        <activity android:name=".view.bookmarks.ActivityBookmarks" />
+        <activity android:name=".view.mypage.ActivityMyPage" />
+        <activity android:name=".view.search.ActivitySearch" />
+        <activity android:name=".view.detail.ActivityDetail" />
+        <activity android:name=".view.postsecond.ActivityPostSecond" />
+        <activity android:name=".view.postfirst.ActivityPostFirst" />
+        <activity android:name=".view.myposts.ActivityMyPosts" />
+        <activity android:name=".view.jobmodify.ActivityJobModify" />
+        <activity android:name=".view.jobinput.ActivityJobInput" />
+        <activity android:name=".view.termsagree.ActivityTermsAgree" />
+        <activity android:name=".view.termscheck.ActivityTermsCheck"></activity>
+        <activity android:name=".view.modifycomment.ActivityModifyComment" />
+        <activity android:name=".view.login.ActivityLogin">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

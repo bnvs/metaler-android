@@ -1,6 +1,15 @@
 <resources>
     <string name="app_name">Metaler</string>
 
+    <!-- ActivityLogin -->
+    <string name="NO_KAKAO_LOGIN_RESULT">카카오 로그인 응답값이 없습니다</string>
+    <string name="SESSION_CLOSED">세션이 닫혔습니다. 다시 시도해주세요 : </string>
+    <string name="INTERNET_DISCONNECTED_LOGIN_ERROR">로그인 도중 오류가 발생했습니다. 인터넷 연결을 확인해주세요 : </string>
+    <string name="SIGN_UP">you_can_join</string>
+    <string name="LOGIN">you_can_login</string>
+    <string name="MEMBERSHIP_CHECK_ERROR">회원가입 여부 확인 실패 : </string>
+    <string name="LOGIN_ERROR">로그인 실패 : </string>
+
     <!--  titleBarCard,tabBarCard 에서 쓰이는 문자열  -->
     <string name="home">홈</string>
     <string name="materials">재료</string>
@@ -18,7 +27,6 @@
     <string name="third_agree">[선택] 프로필 정보 추가 수집 동의</string>
     <string name="fourth_agree">[선택] 광고성 정보 수신 동의</string>
     <string name="terms_more"><u>보기</u></string>
-    <string name="terms_alert">알림</string>
     <string name="essential_terms_guide">메탈러 서비스 이용을 위해서 필수 이용약관 동의가 필요합니다.</string>
 
     <!--  activity_job_input.xml에서 쓰이는 문자열  -->
@@ -44,6 +52,7 @@
     <string name="job_input_guide">소속 입력을 완료해주세요</string>
     <string name="job_input_complete">Metaler 의 회원이 되신 것을 환영합니다!</string>
 
+    <string name="invalid_kakao_user_info">카카오 로그인 유저 정보에 문제가 있습니다.</string>
 
     <string name="kakao_start">카카오톡으로 로그인</string>
     <string name="kakao_start_guide">서비스를 이용하기 위해서 로그인이 필요합니다.</string>
@@ -114,6 +123,7 @@
     <string name="withdrawal_recheck_content">탈퇴할 계정의 이메일을 입력해주세요. 이메일이 일치하면 계정이 삭제됩니다.</string>
     <string name="withdrawal_allow">탈퇴</string>
 
+    <string name="alert">알림</string>
     <string name="allow">확인</string>
     <string name="cancel">취소</string>
 

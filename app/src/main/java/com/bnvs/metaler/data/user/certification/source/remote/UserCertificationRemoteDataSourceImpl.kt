@@ -1,6 +1,8 @@
 package com.bnvs.metaler.data.user.certification.source.remote
 
 import com.bnvs.metaler.data.user.certification.model.*
+import com.bnvs.metaler.network.ErrorHandler
+import com.bnvs.metaler.network.NO_ERROR_TO_HANDLE
 import com.bnvs.metaler.network.RetrofitClient
 import retrofit2.Call
 import retrofit2.Callback
@@ -14,7 +16,8 @@ class UserCertificationRemoteDataSourceImpl : UserCertificationRemoteDataSource 
     override fun addUser(
         request: AddUserRequest,
         onSuccess: (response: AddUserResponse) -> Unit,
-        onFailure: (e: Throwable) -> Unit
+        onFailure: (e: Throwable) -> Unit,
+        handleError: (errorCode: Int) -> Unit
     ) {
         retrofitClient.addUser(request).enqueue(object : Callback<AddUserResponse> {
             override fun onResponse(
@@ -25,6 +28,10 @@ class UserCertificationRemoteDataSourceImpl : UserCertificationRemoteDataSource 
                 if (body != null && response.isSuccessful) {
                     onSuccess(body)
                 } else {
+                    val e = ErrorHandler.getErrorCode(HttpException(response))
+                    if (e != NO_ERROR_TO_HANDLE) {
+                        handleError(e)
+                    }
                     onFailure(HttpException(response))
                 }
             }
@@ -38,7 +45,8 @@ class UserCertificationRemoteDataSourceImpl : UserCertificationRemoteDataSource 
     override fun checkMembership(
         request: CheckMembershipRequest,
         onSuccess: (response: CheckMembershipResponse) -> Unit,
-        onFailure: (e: Throwable) -> Unit
+        onFailure: (e: Throwable) -> Unit,
+        handleError: (errorCode: Int) -> Unit
     ) {
         retrofitClient.checkUserMembership(request)
             .enqueue(object : Callback<CheckMembershipResponse> {
@@ -50,6 +58,10 @@ class UserCertificationRemoteDataSourceImpl : UserCertificationRemoteDataSource 
                     if (body != null && response.isSuccessful) {
                         onSuccess(body)
                     } else {
+                        val e = ErrorHandler.getErrorCode(HttpException(response))
+                        if (e != NO_ERROR_TO_HANDLE) {
+                            handleError(e)
+                        }
                         onFailure(HttpException(response))
                     }
                 }
@@ -63,7 +75,8 @@ class UserCertificationRemoteDataSourceImpl : UserCertificationRemoteDataSource 
     override fun login(
         request: LoginRequest,
         onSuccess: (response: LoginResponse) -> Unit,
-        onFailure: (e: Throwable) -> Unit
+        onFailure: (e: Throwable) -> Unit,
+        handleError: (errorCode: Int) -> Unit
     ) {
         retrofitClient.login(request)
             .enqueue(object : Callback<LoginResponse> {
@@ -75,6 +88,10 @@ class UserCertificationRemoteDataSourceImpl : UserCertificationRemoteDataSource 
                     if (body != null && response.isSuccessful) {
                         onSuccess(body)
                     } else {
+                        val e = ErrorHandler.getErrorCode(HttpException(response))
+                        if (e != NO_ERROR_TO_HANDLE) {
+                            handleError(e)
+                        }
                         onFailure(HttpException(response))
                     }
                 }

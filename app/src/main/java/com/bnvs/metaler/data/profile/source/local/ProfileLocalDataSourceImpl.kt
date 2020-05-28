@@ -9,7 +9,6 @@ class ProfileLocalDataSourceImpl(context: Context) : ProfileLocalDataSource {
 
     private val sharedPreferences =
         context.getSharedPreferences("LOCAL_PROFILE_DATA", Context.MODE_PRIVATE)
-    private val editor = sharedPreferences.edit()
 
     override fun getProfile(
         onProfileLoaded: (profile: Profile) -> Unit,
@@ -49,7 +48,6 @@ class ProfileLocalDataSourceImpl(context: Context) : ProfileLocalDataSource {
     }
 
     override fun saveUserInfo(user: User) {
-        editor.putString("userInfo", GsonBuilder().create().toJson(user))
-        editor.commit()
+        sharedPreferences.edit().putString("userInfo", GsonBuilder().create().toJson(user)).commit()
     }
 }

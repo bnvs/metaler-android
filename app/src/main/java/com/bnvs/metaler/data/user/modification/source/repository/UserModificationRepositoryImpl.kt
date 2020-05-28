@@ -3,6 +3,7 @@ package com.bnvs.metaler.data.user.modification.source.repository
 import com.bnvs.metaler.data.user.modification.model.Job
 import com.bnvs.metaler.data.user.modification.model.Nickname
 import com.bnvs.metaler.data.user.modification.model.Terms
+import com.bnvs.metaler.data.user.modification.model.TermsAgreements
 import com.bnvs.metaler.data.user.modification.source.local.UserModificationLocalDataSource
 import com.bnvs.metaler.data.user.modification.source.remote.UserModificationRemoteDataSource
 
@@ -13,25 +14,28 @@ class UserModificationRepositoryImpl(
 
     override fun getUserJob(
         onSuccess: (response: Job) -> Unit,
-        onFailure: (e: Throwable) -> Unit
+        onFailure: (e: Throwable) -> Unit,
+        handleError: (errorCode: Int) -> Unit
     ) {
-        userModificationRemoteDataSource.getUserJob(onSuccess, onFailure)
+        userModificationRemoteDataSource.getUserJob(onSuccess, onFailure, handleError)
     }
 
     override fun modifyUserJob(
         request: Job,
         onSuccess: () -> Unit,
-        onFailure: (e: Throwable) -> Unit
+        onFailure: (e: Throwable) -> Unit,
+        handleError: (errorCode: Int) -> Unit
     ) {
-        userModificationRemoteDataSource.modifyUserJob(request, onSuccess, onFailure)
+        userModificationRemoteDataSource.modifyUserJob(request, onSuccess, onFailure, handleError)
     }
 
     override fun modifyNickname(
         request: Nickname,
         onSuccess: () -> Unit,
-        onFailure: (e: Throwable) -> Unit
+        onFailure: (e: Throwable) -> Unit,
+        handleError: (errorCode: Int) -> Unit
     ) {
-        userModificationRemoteDataSource.modifyNickname(request, onSuccess, onFailure)
+        userModificationRemoteDataSource.modifyNickname(request, onSuccess, onFailure, handleError)
     }
 
     override fun modifyLocalNickname(
@@ -44,8 +48,22 @@ class UserModificationRepositoryImpl(
 
     override fun getTerms(
         onSuccess: (Terms) -> Unit,
-        onFailure: (e: Throwable) -> Unit
+        onFailure: (e: Throwable) -> Unit,
+        handleError: (errorCode: Int) -> Unit
     ) {
-        userModificationRemoteDataSource.getTerms(onSuccess, onFailure)
+        userModificationRemoteDataSource.getTerms(onSuccess, onFailure, handleError)
+    }
+
+    override fun saveTermsAgreements(
+        agreements: TermsAgreements
+    ) {
+        userModificationLocalDataSource.saveTermsAgreements(agreements)
+    }
+
+    override fun getTermsAgreements(
+        onSuccess: (agreements: TermsAgreements) -> Unit,
+        onFailure: () -> Unit
+    ) {
+        userModificationLocalDataSource.getTermsAgreements(onSuccess, onFailure)
     }
 }

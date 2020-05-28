@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorGreyBG"
-    tools:context=".ui.detail.ActivityDetail">
+    tools:context=".view.detail.ActivityDetail">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/titleBarCard"
