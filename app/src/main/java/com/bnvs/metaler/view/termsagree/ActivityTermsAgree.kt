@@ -17,14 +17,13 @@ import com.bnvs.metaler.network.RetrofitClient
 import com.bnvs.metaler.network.TOKEN_EXPIRED
 import com.bnvs.metaler.view.jobinput.ActivityJobInput
 import com.bnvs.metaler.view.login.ActivityLogin
-import com.bnvs.metaler.viewmodel.AddUserViewModel
 
 class ActivityTermsAgree : AppCompatActivity() {
 
     private val TAG = "ActivityTermsAgree"
 
     private lateinit var binding: ActivityTermsAgreeBinding
-    private lateinit var viewModel: AddUserViewModel
+    private lateinit var viewModel: ViewModelTermsAgree
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,7 +35,7 @@ class ActivityTermsAgree : AppCompatActivity() {
 
         viewModel = ViewModelProvider(
             this, ViewModelProvider.AndroidViewModelFactory(application)
-        ).get(AddUserViewModel::class.java)
+        ).get(ViewModelTermsAgree::class.java)
 
         binding.apply {
             vm = viewModel

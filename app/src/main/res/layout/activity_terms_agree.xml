@@ -7,7 +7,7 @@
 
         <variable
             name="vm"
-            type="com.bnvs.metaler.viewmodel.AddUserViewModel" />
+            type="com.bnvs.metaler.view.termsagree.ViewModelTermsAgree" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -98,7 +98,7 @@
             android:background="@drawable/terms_checkbox"
             android:button="@null"
             android:checked="@{vm.firstChecked}"
-            android:onClick="@{()-> vm.onCheckButtonChanged()}"
+            android:onClick="@{()-> vm.onCheckButtonChanged(1)}"
             app:layout_constraintBottom_toTopOf="@id/secondCheckBtn"
             app:layout_constraintStart_toStartOf="@id/allCheckBtn"
             app:layout_constraintTop_toBottomOf="@id/allAgreeLine" />
@@ -139,7 +139,7 @@
             android:background="@drawable/terms_checkbox"
             android:button="@null"
             android:checked="@{vm.secondChecked}"
-            android:onClick="@{()-> vm.onCheckButtonChanged()}"
+            android:onClick="@{()-> vm.onCheckButtonChanged(2)}"
             app:layout_constraintBottom_toTopOf="@id/thirdCheckBtn"
             app:layout_constraintStart_toStartOf="@id/allCheckBtn"
             app:layout_constraintTop_toBottomOf="@id/firstCheckBtn" />
@@ -177,7 +177,7 @@
             android:background="@drawable/terms_checkbox"
             android:button="@null"
             android:checked="@{vm.thirdChecked}"
-            android:onClick="@{()-> vm.onCheckButtonChanged()}"
+            android:onClick="@{()-> vm.onCheckButtonChanged(3)}"
             app:layout_constraintBottom_toTopOf="@id/fourthCheckBtn"
             app:layout_constraintStart_toStartOf="@id/allCheckBtn"
             app:layout_constraintTop_toBottomOf="@id/secondCheckBtn" />
@@ -215,7 +215,7 @@
             android:background="@drawable/terms_checkbox"
             android:button="@null"
             android:checked="@{vm.fourthChecked}"
-            android:onClick="@{()-> vm.onCheckButtonChanged()}"
+            android:onClick="@{()-> vm.onCheckButtonChanged(4)}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@id/allCheckBtn"
             app:layout_constraintTop_toBottomOf="@id/thirdCheckBtn" />
@@ -251,7 +251,7 @@
             android:layout_height="0dp"
             android:layout_marginBottom="90dp"
             android:elevation="4dp"
-            android:onClick="@{() -> vm.startJobInputActivity()}"
+            android:onClick="@{() -> vm.completeTermsAgree()}"
             app:cardUseCompatPadding="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintDimensionRatio="1:0.2"

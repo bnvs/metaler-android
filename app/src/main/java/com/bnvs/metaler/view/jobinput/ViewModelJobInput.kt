@@ -1,10 +1,8 @@
-package com.bnvs.metaler.viewmodel
+package com.bnvs.metaler.view.jobinput
 
 import android.app.Application
-import android.content.res.Resources
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import com.bnvs.metaler.R
 import com.bnvs.metaler.data.profile.source.local.ProfileLocalDataSourceImpl
 import com.bnvs.metaler.data.profile.source.repository.ProfileRepository
 import com.bnvs.metaler.data.profile.source.repository.ProfileRepositoryImpl
@@ -21,7 +19,7 @@ import com.bnvs.metaler.data.user.certification.source.local.UserCertificationLo
 import com.bnvs.metaler.data.user.certification.source.remote.UserCertificationRemoteDataSourceImpl
 import com.bnvs.metaler.data.user.certification.source.repository.UserCertificationRepository
 import com.bnvs.metaler.data.user.certification.source.repository.UserCertificationRepositoryImpl
-import com.bnvs.metaler.data.user.modification.model.Terms
+import com.bnvs.metaler.data.user.modification.model.TermsAgreements
 import com.bnvs.metaler.data.user.modification.source.local.UserModificationLocalDataSourceImpl
 import com.bnvs.metaler.data.user.modification.source.remote.UserModificationRemoteDataSourceImpl
 import com.bnvs.metaler.data.user.modification.source.repository.UserModificationRepository
@@ -31,18 +29,18 @@ import com.bnvs.metaler.network.NetworkUtil
 import com.bnvs.metaler.network.RetrofitClient
 import com.bnvs.metaler.util.DeviceInfo
 
-class AddUserViewModel(application: Application) : AndroidViewModel(application) {
-
-    private val userModificationRepository: UserModificationRepository =
-        UserModificationRepositoryImpl(
-            UserModificationLocalDataSourceImpl(application.applicationContext),
-            UserModificationRemoteDataSourceImpl()
-        )
+class ViewModelJobInput(application: Application) : AndroidViewModel(application) {
 
     private val userCertificationRepository: UserCertificationRepository =
         UserCertificationRepositoryImpl(
             UserCertificationLocalDataSourceImpl(application.applicationContext),
             UserCertificationRemoteDataSourceImpl()
+        )
+
+    private val userModificationRepository: UserModificationRepository =
+        UserModificationRepositoryImpl(
+            UserModificationLocalDataSourceImpl(application.applicationContext),
+            UserModificationRemoteDataSourceImpl()
         )
 
     private val tokenRepository: TokenRepository =
@@ -55,96 +53,21 @@ class AddUserViewModel(application: Application) : AndroidViewModel(application)
     val errorDialogMessage = MutableLiveData<String>().apply { value = "" }
     val errorCode = MutableLiveData<Int>().apply { value = NO_ERROR_TO_HANDLE }
 
-    val openJobInputActivity = MutableLiveData<Boolean>().apply { value = false }
     val backToTermsAgreeActivity = MutableLiveData<Boolean>().apply { value = false }
     val openHomeActivity = MutableLiveData<Boolean>().apply { value = false }
 
-    val terms = MutableLiveData<Terms>()
     private lateinit var kakaoUserInfo: KakaoUserInfo
-
+    private lateinit var termsAgreements: TermsAgreements
     private lateinit var addUserRequest: AddUserRequest
 
     init {
-        getTerms()
-        getKakaoUserInfo()
-    }
-
-    // TermsAgree Buttons
-    val allChecked = MutableLiveData<Boolean>().apply { value = true }
-    val firstChecked = MutableLiveData<Boolean>().apply { value = true }
-    val secondChecked = MutableLiveData<Boolean>().apply { value = true }
-    val thirdChecked = MutableLiveData<Boolean>().apply { value = true }
-    val fourthChecked = MutableLiveData<Boolean>().apply { value = true }
-
-    private fun getTerms() {
-        userModificationRepository.getTerms(
-            onSuccess = { response ->
-                terms.value = response
-            },
-            onFailure = { e ->
-                errorToastMessage.apply {
-                    value = NetworkUtil.getErrorMessage(e)
-                    value = clearStringValue()
-                }
-            },
-            handleError = { e ->
-                errorCode.apply {
-                    value = e
-                    value = NO_ERROR_TO_HANDLE
-                }
-            }
-        )
-    }
-
-    fun onAllCheckButtonChanged() {
-        if (allChecked.value == true) {
-            firstChecked.value = true
-            secondChecked.value = true
-            thirdChecked.value = true
-            fourthChecked.value = true
-        } else {
-            firstChecked.value = false
-            secondChecked.value = false
-            thirdChecked.value = false
-            fourthChecked.value = false
-        }
-    }
-
-    fun onCheckButtonChanged() {
-        allChecked.value =
-            firstChecked.value == true
-                    && secondChecked.value == true
-                    && thirdChecked.value == true
-                    && fourthChecked.value == true
-    }
-
-    fun startJobInputActivity() {
-        if (firstChecked.value == true
-            && secondChecked.value == true
-        ) {
-            openJobInputActivity.apply {
-                value = true
-                value = false
-            }
-        } else {
-            errorDialogMessage.apply {
-                value = Resources.getSystem().getString(R.string.essential_terms_guide)
-                value = clearStringValue()
-            }
-        }
-    }
-
-    fun backToTermsAgreeActivity() {
-        backToTermsAgreeActivity.apply {
-            value = true
-            value = false
-        }
+        getTermsAgreements()
     }
 
     // JobInputs
     val job = MutableLiveData<String>().apply { value = "" }
-    val jobType = MutableLiveData<String>().apply { value = "" }
-    val jobDetail = MutableLiveData<String>().apply { value = "" }
+    private val jobType = MutableLiveData<String>().apply { value = "" }
+    private val jobDetail = MutableLiveData<String>().apply { value = "" }
 
     // EditText JobInputs
     val studentJobType = MutableLiveData<String>().apply { value = "" }
@@ -161,19 +84,38 @@ class AddUserViewModel(application: Application) : AndroidViewModel(application)
         value = mapOf("company" to false, "founded" to false, "freelancer" to false)
     }
 
+    private fun getTermsAgreements() {
+        userModificationRepository.getTermsAgreements(
+            onSuccess = { agreements ->
+                termsAgreements = agreements
+            },
+            onFailure = {
+                errorToastMessage.apply {
+                    value = "약관 동의 내역을 불러오는데 실패했습니다"
+                    value = clearStringValue()
+                }
+            }
+        )
+    }
+
     fun onJobChanged(jobInput: String) {
         when (jobInput) {
             "student" -> {
                 job.value = "student"
                 jobs.value = mapOf("student" to true, "expert" to false, "empty" to false)
+                jobTypes.value =
+                    mapOf("company" to false, "founded" to false, "freelancer" to false)
             }
             "expert" -> {
                 job.value = "expert"
                 jobs.value = mapOf("student" to false, "expert" to true, "empty" to false)
+                onJobTypeChanged(jobType.value ?: "")
             }
             "empty" -> {
                 job.value = "empty"
                 jobs.value = mapOf("student" to false, "expert" to false, "empty" to true)
+                jobTypes.value =
+                    mapOf("company" to false, "founded" to false, "freelancer" to false)
             }
         }
     }
@@ -195,12 +137,12 @@ class AddUserViewModel(application: Application) : AndroidViewModel(application)
         }
     }
 
-    fun completeUserInput() {
+    fun completeJobInput() {
         if (validateInput()) {
             addUser()
         } else {
             errorDialogMessage.apply {
-                value = Resources.getSystem().getString(R.string.job_input_guide)
+                value = "소속 입력을 완료해주세요"
                 value = clearStringValue()
             }
         }
@@ -211,6 +153,7 @@ class AddUserViewModel(application: Application) : AndroidViewModel(application)
         userCertificationRepository.addUser(
             addUserRequest,
             onSuccess = { response ->
+                deleteKakaoUserInfo()
                 saveSigninToken(response.signin_token)
                 login(loginRequest(response.signin_token))
             },
@@ -233,11 +176,10 @@ class AddUserViewModel(application: Application) : AndroidViewModel(application)
         userCertificationRepository.getKakaoUserInfo(
             onSuccess = { response ->
                 kakaoUserInfo = response
-
             },
             onFailure = {
                 errorToastMessage.apply {
-                    value = Resources.getSystem().getString(R.string.invalid_kakao_user_info)
+                    value = "카카오 로그인 유저 정보에 문제가 있습니다."
                     value = clearStringValue()
                 }
             }
@@ -249,14 +191,12 @@ class AddUserViewModel(application: Application) : AndroidViewModel(application)
     }
 
     private fun setAddUserRequest() {
+        getKakaoUserInfo()
+
         val job = job.value ?: return
         val jobType = jobType.value ?: return
         val jobDetail = jobDetail.value ?: return
-        val pushAllowChecked = fourthChecked.value ?: return
-        var pushAllow = 0
-        if (pushAllowChecked) {
-            pushAllow = 1
-        }
+        val pushAllowChecked = termsAgreements.advertising_agree
 
         addUserRequest = AddUserRequest(
             kakaoUserInfo.kakao_id,
@@ -267,7 +207,7 @@ class AddUserViewModel(application: Application) : AndroidViewModel(application)
             job,
             jobType,
             jobDetail,
-            pushAllow
+            if (pushAllowChecked) 0 else 1
         )
     }
 
@@ -278,10 +218,7 @@ class AddUserViewModel(application: Application) : AndroidViewModel(application)
                 RetrofitClient.setAccessToken(response.access_token)
                 saveAccessToken(response.access_token)
                 saveUserInfo(response.user)
-                openHomeActivity.apply {
-                    value = true
-                    value = false
-                }
+                startHomeActivity()
             },
             onFailure = { e ->
                 errorToastMessage.apply {
@@ -360,6 +297,20 @@ class AddUserViewModel(application: Application) : AndroidViewModel(application)
         }
     }
 
+    fun backToTermsAgreeActivity() {
+        backToTermsAgreeActivity.apply {
+            value = true
+            value = false
+        }
+    }
+
+    private fun startHomeActivity() {
+        openHomeActivity.apply {
+            value = true
+            value = false
+        }
+    }
+
     private fun removeTextSpace(original: String): String {
         return original.trim()
     }
@@ -379,5 +330,4 @@ class AddUserViewModel(application: Application) : AndroidViewModel(application)
     private fun clearStringValue(): String {
         return ""
     }
-
 }

@@ -17,14 +17,13 @@ import com.bnvs.metaler.network.RetrofitClient
 import com.bnvs.metaler.network.TOKEN_EXPIRED
 import com.bnvs.metaler.view.home.ActivityHome
 import com.bnvs.metaler.view.login.ActivityLogin
-import com.bnvs.metaler.viewmodel.AddUserViewModel
 
 class ActivityJobInput : AppCompatActivity() {
 
     private val TAG = "ActivityJobInput"
 
     private lateinit var binding: ActivityJobInputBinding
-    private lateinit var viewModel: AddUserViewModel
+    private lateinit var viewModel: ViewModelJobInput
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,7 +35,7 @@ class ActivityJobInput : AppCompatActivity() {
 
         viewModel = ViewModelProvider(
             this, ViewModelProvider.AndroidViewModelFactory(application)
-        ).get(AddUserViewModel::class.java)
+        ).get(ViewModelJobInput::class.java)
 
         binding.apply {
             vm = viewModel
@@ -52,6 +51,7 @@ class ActivityJobInput : AppCompatActivity() {
         observeDialog()
         observeErrorCode()
         observeStartHomeActivity()
+        observeBackToTermsAgreeActivity()
     }
 
     private fun observeToast() {

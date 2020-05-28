@@ -7,7 +7,7 @@
 
         <variable
             name="vm"
-            type="com.bnvs.metaler.viewmodel.AddUserViewModel" />
+            type="com.bnvs.metaler.view.jobinput.ViewModelJobInput" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -203,7 +203,7 @@
             android:id="@+id/expertGroup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:constraint_referenced_ids="jobTypeTxt,companyBtn,shopOwnerBtn,freelancerBtn,jobTypeLine,companyGroup,shopOwnerGroup"
+            app:constraint_referenced_ids="jobTypeTxt,companyBtn,shopOwnerBtn,freelancerBtn,jobTypeLine"
             app:jobGroupVisibility='@{vm.jobs["expert"]}' />
 
         <TextView
@@ -377,7 +377,7 @@
             android:layout_marginHorizontal="20dp"
             android:layout_marginBottom="90dp"
             android:elevation="4dp"
-            android:onClick="@{()->vm.completeUserInput()}"
+            android:onClick="@{()->vm.completeJobInput()}"
             app:cardUseCompatPadding="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintDimensionRatio="1:0.2"
