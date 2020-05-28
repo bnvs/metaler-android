@@ -3,6 +3,7 @@ package com.bnvs.metaler.data.user.modification.source.repository
 import com.bnvs.metaler.data.user.modification.model.Job
 import com.bnvs.metaler.data.user.modification.model.Nickname
 import com.bnvs.metaler.data.user.modification.model.Terms
+import com.bnvs.metaler.data.user.modification.model.TermsAgreements
 import com.bnvs.metaler.data.user.modification.source.local.UserModificationLocalDataSource
 import com.bnvs.metaler.data.user.modification.source.remote.UserModificationRemoteDataSource
 
@@ -51,5 +52,20 @@ class UserModificationRepositoryImpl(
         handleError: (errorCode: Int) -> Unit
     ) {
         userModificationRemoteDataSource.getTerms(onSuccess, onFailure, handleError)
+    }
+
+    override fun saveTermsAgreements(
+        request: TermsAgreements,
+        onSuccess: () -> Unit,
+        onFailure: () -> Unit
+    ) {
+        userModificationLocalDataSource.saveTermsAgreements(request, onSuccess, onFailure)
+    }
+
+    override fun getTermsAgreements(
+        onSuccess: (agreements: TermsAgreements) -> Unit,
+        onFailure: () -> Unit
+    ) {
+        userModificationLocalDataSource.getTermsAgreements(onSuccess, onFailure)
     }
 }

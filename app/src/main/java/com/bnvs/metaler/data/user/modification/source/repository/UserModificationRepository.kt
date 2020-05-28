@@ -3,6 +3,7 @@ package com.bnvs.metaler.data.user.modification.source.repository
 import com.bnvs.metaler.data.user.modification.model.Job
 import com.bnvs.metaler.data.user.modification.model.Nickname
 import com.bnvs.metaler.data.user.modification.model.Terms
+import com.bnvs.metaler.data.user.modification.model.TermsAgreements
 
 interface UserModificationRepository {
 
@@ -36,5 +37,16 @@ interface UserModificationRepository {
         onSuccess: (Terms) -> Unit,
         onFailure: (e: Throwable) -> Unit,
         handleError: (errorCode: Int) -> Unit
+    )
+
+    fun saveTermsAgreements(
+        request: TermsAgreements,
+        onSuccess: () -> Unit,
+        onFailure: () -> Unit
+    )
+
+    fun getTermsAgreements(
+        onSuccess: (agreements: TermsAgreements) -> Unit,
+        onFailure: () -> Unit
     )
 }
