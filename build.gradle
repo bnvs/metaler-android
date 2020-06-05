@@ -6,10 +6,10 @@ buildscript {
         retrofit_version = '2.9.0'
         okhttp_version = '4.7.0'
         glide_version = '4.11.0'
-        kakao_api_version = '1.28.0'
+        kakao_login_version = '1.29.0'
         firebase_analytics_version = '17.3.0'
         firebase_messaging_version = '20.1.4'
-        aac_version = '2.2.0'
+        aac_lifecycle_version = '2.2.0'
         koin_version= '2.1.5'
     }
     repositories {

@@ -69,14 +69,14 @@ dependencies {
     kapt "com.github.bumptech.glide:compiler:$glide_version"
 
     // kakao login api
-    implementation "com.kakao.sdk:usermgmt:$kakao_api_version"
+    implementation "com.kakao.sdk:usermgmt:$kakao_login_version"
 
     // Firebase SDK
     implementation "com.google.firebase:firebase-analytics:$firebase_analytics_version"
     implementation "com.google.firebase:firebase-messaging:$firebase_messaging_version"
 
     // Android Architecture Components
-    implementation "androidx.lifecycle:lifecycle-extensions:$aac_version"
+    implementation "androidx.lifecycle:lifecycle-extensions:$aac_lifecycle_version"
 
     // koin
     implementation "org.koin:koin-androidx-viewmodel:$koin_version"
