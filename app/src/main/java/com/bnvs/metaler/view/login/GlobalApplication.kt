@@ -2,6 +2,8 @@ package com.bnvs.metaler.view.login
 
 import android.app.Application
 import com.kakao.auth.*
+import org.koin.android.ext.koin.androidContext
+import org.koin.core.context.startKoin
 
 class GlobalApplication : Application() {
     private object KakaoSDKAdapter : KakaoAdapter() {
@@ -63,6 +65,11 @@ class GlobalApplication : Application() {
         super.onCreate()
         instance = this
         KakaoSDK.init(KakaoSDKAdapter)
+
+        startKoin {
+            androidContext(this@GlobalApplication)
+            modules()
+        }
     }
 
     override fun onTerminate() {
