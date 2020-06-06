@@ -1,6 +1,7 @@
 package com.bnvs.metaler.view.login
 
 import android.app.Application
+import com.bnvs.metaler.module.*
 import com.kakao.auth.*
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
@@ -55,7 +56,7 @@ class GlobalApplication : Application() {
     companion object {
         var instance: GlobalApplication? = null
 
-        fun getGlobalApplicationContext() : GlobalApplication? {
+        fun getGlobalApplicationContext(): GlobalApplication? {
             checkNotNull(this) { "this application does not inherit com.kakao.GlobalApplication" }
             return instance
         }
@@ -68,7 +69,21 @@ class GlobalApplication : Application() {
 
         startKoin {
             androidContext(this@GlobalApplication)
-            modules()
+            modules(
+                retrofitModule,
+                userModule,
+                tokenModule,
+                profileModule,
+                categoriesModule,
+                homePostsModule,
+                tagsRecommendModule,
+                postsModule,
+                postDetailsModule,
+                commentsModule,
+                addEditPostModule,
+                bookmarksModule,
+                myPostsModule
+            )
         }
     }
 
