@@ -1,0 +1,49 @@
+package com.bnvs.metaler.util.constants
+
+// User Certification
+const val LOCAL_KAKAO_USER_INFO_DATA = "LOCAL_KAKAO_USER_INFO_DATA"
+const val KAKAO_USER_INFO = "KAKAO_USER_INFO"
+
+// User Modification
+const val LOCAL_USER_DATA = "LOCAL_USER_DATA"
+const val USER_INFO = "USER_INFO"
+const val TERMS_AGREEMENTS = "TERMS_AGREEMENTS"
+
+// Token
+const val LOCAL_TOKEN_DATA = "LOCAL_TOKEN_DATA"
+const val SIGN_IN_TOKEN = "SIGN_IN_TOKEN"
+const val ACCESS_TOKEN = "ACCESS_TOKEN"
+
+// Categories
+const val LOCAL_CATEGORIES_DATA = "LOCAL_CATEGORIES_DATA"
+const val CATEGORIES_DATA = "CATEGORIES_DATA"
+
+// Home Post
+const val LOCAL_HOME_POST_DATA = "LOCAL_HOME_POST_DATA"
+const val HOME_POST_DATA = "HOME_POST_DATA"
+
+// Posts
+const val LOCAL_POSTS_DATA = "LOCAL_POSTS_DATA"
+const val POST_DATA = "POST_DATA_"
+
+// Post Details
+const val LOCAL_POST_DETAILS_DATA = "LOCAL_POST_DETAILS_DATA"
+const val POST_DETAIL_DATA = "POST_DETAIL_DATA_"
+
+// Comments
+const val LOCAL_COMMENTS_DATA = "LOCAL_COMMENTS_DATA"
+const val COMMENTS_DATA = "COMMENTS_DATA_"
+
+// AddEdit Posts
+const val LOCAL_ADD_POST_DATA = "LOCAL_ADD_POST_DATA"
+const val LOCAL_EDIT_POST_DATA = "LOCAL_EDIT_POST_DATA"
+const val ADD_POST_DATA = "ADD_POST_DATA_"
+const val EDIT_POST_DATA = "EDIT_POST_DATA_"
+
+// Bookmarks
+const val LOCAL_BOOKMARKS_DATA = "LOCAL_BOOKMARK_DATA"
+const val BOOKMARK_DATA = "BOOKMARK_DATA"
+
+// My Posts
+const val LOCAL_MY_POSTS_DATA = "LOCAL_MY_POSTS_DATA"
+const val MY_POSTS_DATA = "MY_POSTS_DATA"
