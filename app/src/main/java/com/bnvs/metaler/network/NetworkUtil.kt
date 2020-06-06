@@ -10,6 +10,11 @@ import retrofit2.Retrofit
 object NetworkUtil : KoinComponent {
 
     private val retrofit: Retrofit by inject()
+    private val headerInterceptor: HeaderInterceptor by inject()
+
+    fun setAccessToken(accessToken: String) {
+        headerInterceptor.setAccessToken(accessToken)
+    }
 
     fun getErrorMessage(e: Throwable): String {
         return (if (e is HttpException) {
