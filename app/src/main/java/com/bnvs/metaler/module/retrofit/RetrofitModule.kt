@@ -1,4 +1,4 @@
-package com.bnvs.metaler.module
+package com.bnvs.metaler.module.retrofit
 
 import com.bnvs.metaler.BuildConfig
 import com.bnvs.metaler.network.HeaderInterceptor

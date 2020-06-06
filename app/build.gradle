@@ -19,6 +19,7 @@ android {
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         manifestPlaceholders = [KAKAO_API_KEY: KAKAO_API_KEY]
+        buildConfigField("String", "BASE_URL", METALER_BASE_URL)
     }
     buildTypes {
         release {
