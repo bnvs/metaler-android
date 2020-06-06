@@ -2,16 +2,16 @@ package com.bnvs.metaler.data.user.deactivation.source.remote
 
 import com.bnvs.metaler.network.ErrorHandler
 import com.bnvs.metaler.network.NO_ERROR_TO_HANDLE
-import com.bnvs.metaler.network.RetrofitClient
+import com.bnvs.metaler.network.RetrofitInterface
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.HttpException
 import retrofit2.Response
 
-class UserDeactivationRemoteDataSourceImpl : UserDeactivationRemoteDataSource {
-
-    private val retrofitClient = RetrofitClient.client
+class UserDeactivationRemoteDataSourceImpl(
+    private val retrofitClient: RetrofitInterface
+) : UserDeactivationRemoteDataSource {
 
     override fun deleteUser(
         onSuccess: () -> Unit,
