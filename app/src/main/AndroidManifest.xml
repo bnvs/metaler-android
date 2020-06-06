@@ -8,7 +8,7 @@
     <uses-permission android:name="android.permission.CAMERA" />
 
     <application
-        android:name=".view.login.GlobalApplication"
+        android:name=".GlobalApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher_metaler"
         android:label="@string/app_name"
@@ -42,9 +42,10 @@
         <activity android:name=".view.jobmodify.ActivityJobModify" />
         <activity android:name=".view.jobinput.ActivityJobInput" />
         <activity android:name=".view.termsagree.ActivityTermsAgree" />
-        <activity android:name=".view.termscheck.ActivityTermsCheck"></activity>
+        <activity android:name=".view.termscheck.ActivityTermsCheck" />
         <activity android:name=".view.modifycomment.ActivityModifyComment" />
-        <activity android:name=".view.login.ActivityLogin">
+        <activity android:name=".view.login.ActivityLogin" />
+        <activity android:name=".view.main.ActivityMain">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
