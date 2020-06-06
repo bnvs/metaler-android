@@ -1,7 +1,10 @@
-package com.bnvs.metaler.view.login
+package com.bnvs.metaler
 
 import android.app.Application
-import com.bnvs.metaler.module.*
+import com.bnvs.metaler.module.repository.*
+import com.bnvs.metaler.module.retrofit.retrofitModule
+import com.bnvs.metaler.module.viewmodel.jobInputViewModelModule
+import com.bnvs.metaler.module.viewmodel.termsAgreeViewModelModule
 import com.kakao.auth.*
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
@@ -82,7 +85,9 @@ class GlobalApplication : Application() {
                 commentsModule,
                 addEditPostModule,
                 bookmarksModule,
-                myPostsModule
+                myPostsModule,
+                termsAgreeViewModelModule,
+                jobInputViewModelModule
             )
         }
     }
