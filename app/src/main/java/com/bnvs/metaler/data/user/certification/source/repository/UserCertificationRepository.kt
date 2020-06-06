@@ -1,6 +1,7 @@
 package com.bnvs.metaler.data.user.certification.source.repository
 
 import com.bnvs.metaler.data.user.certification.model.*
+import com.bnvs.metaler.util.DeviceInfo
 
 interface UserCertificationRepository {
 
@@ -33,4 +34,6 @@ interface UserCertificationRepository {
     fun saveKakaoUserInfo(kakaoUserInfo: KakaoUserInfo)
 
     fun deleteKakaoUserInfo()
+
+    fun getDeviceInfo(): DeviceInfo
 }

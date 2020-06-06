@@ -3,6 +3,7 @@ package com.bnvs.metaler.data.user.certification.source.repository
 import com.bnvs.metaler.data.user.certification.model.*
 import com.bnvs.metaler.data.user.certification.source.local.UserCertificationLocalDataSource
 import com.bnvs.metaler.data.user.certification.source.remote.UserCertificationRemoteDataSource
+import com.bnvs.metaler.util.DeviceInfo
 
 class UserCertificationRepositoryImpl(
     private val userCertificationLocalDataSource: UserCertificationLocalDataSource,
@@ -54,5 +55,9 @@ class UserCertificationRepositoryImpl(
 
     override fun deleteKakaoUserInfo() {
         userCertificationLocalDataSource.deleteKakaoUserInfo()
+    }
+
+    override fun getDeviceInfo(): DeviceInfo {
+        return userCertificationLocalDataSource.getDeviceInfo()
     }
 }

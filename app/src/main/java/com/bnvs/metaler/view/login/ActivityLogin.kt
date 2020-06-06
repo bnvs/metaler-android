@@ -15,9 +15,7 @@ import com.bnvs.metaler.data.user.certification.model.KakaoUserInfo
 import com.bnvs.metaler.data.user.certification.model.LoginRequest
 import com.bnvs.metaler.data.user.certification.model.User
 import com.bnvs.metaler.data.user.certification.source.repository.UserCertificationRepository
-import com.bnvs.metaler.network.HeaderInterceptor
 import com.bnvs.metaler.network.NetworkUtil
-import com.bnvs.metaler.util.DeviceInfo
 import com.bnvs.metaler.util.constants.NO_HEADER
 import com.bnvs.metaler.util.constants.TOKEN_EXPIRED
 import com.bnvs.metaler.view.home.ActivityHome
@@ -160,7 +158,7 @@ class ActivityLogin : AppCompatActivity() {
 
     // login api 요청 request body 반환하는 함수
     private fun loginRequest(kakao_id: String, signin_token: String): LoginRequest {
-        val deviceInfo = DeviceInfo(this)
+        val deviceInfo = userRepository.getDeviceInfo()
         val loginRequest = LoginRequest(
             kakao_id,
             signin_token,
@@ -179,8 +177,7 @@ class ActivityLogin : AppCompatActivity() {
         userRepository.login(
             loginRequest(kakao_id, signin_token),
             onSuccess = { response ->
-                val headerInterceptor: HeaderInterceptor by inject()
-                headerInterceptor.setAccessToken(response.access_token)
+                NetworkUtil.setAccessToken(response.access_token)
                 saveAccessToken(response.access_token)
                 saveProfileData(response.user)
                 openHome()
@@ -240,8 +237,7 @@ class ActivityLogin : AppCompatActivity() {
     private fun setAuthorizationHeader() {
         tokenRepository.getAccessToken(
             onTokenLoaded = { token ->
-                val headerInterceptor: HeaderInterceptor by inject()
-                headerInterceptor.setAccessToken(token.access_token)
+                NetworkUtil.setAccessToken(token.access_token)
             },
             onTokenNotExist = {
                 finishAffinity()
