@@ -6,27 +6,20 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.bnvs.metaler.R
-import com.bnvs.metaler.data.profile.source.local.ProfileLocalDataSourceImpl
 import com.bnvs.metaler.data.profile.source.repository.ProfileRepository
-import com.bnvs.metaler.data.profile.source.repository.ProfileRepositoryImpl
 import com.bnvs.metaler.data.token.model.AccessToken
 import com.bnvs.metaler.data.token.model.SigninToken
-import com.bnvs.metaler.data.token.source.local.TokenLocalDataSourceImpl
 import com.bnvs.metaler.data.token.source.repository.TokenRepository
-import com.bnvs.metaler.data.token.source.repository.TokenRepositoryImpl
 import com.bnvs.metaler.data.user.certification.model.CheckMembershipRequest
 import com.bnvs.metaler.data.user.certification.model.KakaoUserInfo
 import com.bnvs.metaler.data.user.certification.model.LoginRequest
 import com.bnvs.metaler.data.user.certification.model.User
-import com.bnvs.metaler.data.user.certification.source.local.UserCertificationLocalDataSourceImpl
-import com.bnvs.metaler.data.user.certification.source.remote.UserCertificationRemoteDataSourceImpl
 import com.bnvs.metaler.data.user.certification.source.repository.UserCertificationRepository
-import com.bnvs.metaler.data.user.certification.source.repository.UserCertificationRepositoryImpl
-import com.bnvs.metaler.network.NO_HEADER
+import com.bnvs.metaler.network.HeaderInterceptor
 import com.bnvs.metaler.network.NetworkUtil
-import com.bnvs.metaler.network.RetrofitClient
-import com.bnvs.metaler.network.TOKEN_EXPIRED
 import com.bnvs.metaler.util.DeviceInfo
+import com.bnvs.metaler.util.constants.NO_HEADER
+import com.bnvs.metaler.util.constants.TOKEN_EXPIRED
 import com.bnvs.metaler.view.home.ActivityHome
 import com.bnvs.metaler.view.termsagree.ActivityTermsAgree
 import com.kakao.auth.ISessionCallback
@@ -36,6 +29,7 @@ import com.kakao.usermgmt.UserManagement
 import com.kakao.usermgmt.callback.MeV2ResponseCallback
 import com.kakao.usermgmt.response.MeV2Response
 import com.kakao.util.exception.KakaoException
+import org.koin.android.ext.android.inject
 
 class ActivityLogin : AppCompatActivity() {
 
@@ -43,24 +37,13 @@ class ActivityLogin : AppCompatActivity() {
 
     private lateinit var callback: SessionCallback
 
-    private lateinit var tokenRepository: TokenRepository
-    private lateinit var userRepository: UserCertificationRepository
-    private lateinit var profileRepository: ProfileRepository
+    private val tokenRepository: TokenRepository by inject()
+    private val userRepository: UserCertificationRepository by inject()
+    private val profileRepository: ProfileRepository by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-
-        tokenRepository = TokenRepositoryImpl(
-            TokenLocalDataSourceImpl(this)
-        )
-        userRepository = UserCertificationRepositoryImpl(
-            UserCertificationLocalDataSourceImpl(this),
-            UserCertificationRemoteDataSourceImpl()
-        )
-        profileRepository = ProfileRepositoryImpl(
-            ProfileLocalDataSourceImpl(this)
-        )
 
         // SessionCallback 초기화
         callback = SessionCallback()
@@ -196,7 +179,8 @@ class ActivityLogin : AppCompatActivity() {
         userRepository.login(
             loginRequest(kakao_id, signin_token),
             onSuccess = { response ->
-                RetrofitClient.setAccessToken(response.access_token)
+                val headerInterceptor: HeaderInterceptor by inject()
+                headerInterceptor.setAccessToken(response.access_token)
                 saveAccessToken(response.access_token)
                 saveProfileData(response.user)
                 openHome()
@@ -256,7 +240,8 @@ class ActivityLogin : AppCompatActivity() {
     private fun setAuthorizationHeader() {
         tokenRepository.getAccessToken(
             onTokenLoaded = { token ->
-                RetrofitClient.setAccessToken(token.access_token)
+                val headerInterceptor: HeaderInterceptor by inject()
+                headerInterceptor.setAccessToken(token.access_token)
             },
             onTokenNotExist = {
                 finishAffinity()
