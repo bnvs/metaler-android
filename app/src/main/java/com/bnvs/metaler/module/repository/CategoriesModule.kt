@@ -1,4 +1,4 @@
-package com.bnvs.metaler.module
+package com.bnvs.metaler.module.repository
 
 import com.bnvs.metaler.data.categories.source.local.CategoriesLocalDataSource
 import com.bnvs.metaler.data.categories.source.local.CategoriesLocalDataSourceImpl

@@ -1,4 +1,4 @@
-package com.bnvs.metaler.module
+package com.bnvs.metaler.module.repository
 
 import com.bnvs.metaler.data.user.certification.source.local.UserCertificationLocalDataSource
 import com.bnvs.metaler.data.user.certification.source.local.UserCertificationLocalDataSourceImpl

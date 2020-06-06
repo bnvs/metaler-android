@@ -1,4 +1,4 @@
-package com.bnvs.metaler.module
+package com.bnvs.metaler.module.repository
 
 import com.bnvs.metaler.data.profile.source.local.ProfileLocalDataSource
 import com.bnvs.metaler.data.profile.source.local.ProfileLocalDataSourceImpl
