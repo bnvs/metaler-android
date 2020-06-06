@@ -3,18 +3,20 @@ package com.bnvs.metaler.data.user.certification.source.local
 import android.content.Context
 import android.util.Log
 import com.bnvs.metaler.data.user.certification.model.KakaoUserInfo
+import com.bnvs.metaler.util.constants.KAKAO_USER_INFO
+import com.bnvs.metaler.util.constants.LOCAL_KAKAO_USER_INFO_DATA
 import com.google.gson.GsonBuilder
 
 class UserCertificationLocalDataSourceImpl(context: Context) : UserCertificationLocalDataSource {
 
     private val sharedPreferences =
-        context.getSharedPreferences("KAKAO_USER_INFO", Context.MODE_PRIVATE)
+        context.getSharedPreferences(LOCAL_KAKAO_USER_INFO_DATA, Context.MODE_PRIVATE)
 
     override fun getKakaoUserInfo(
         onSuccess: (kakaoUserInfo: KakaoUserInfo) -> Unit,
         onFailure: () -> Unit
     ) {
-        val kakaoUserInfo = sharedPreferences.getString("kakaoUserInfo", null)
+        val kakaoUserInfo = sharedPreferences.getString(KAKAO_USER_INFO, null)
         if (kakaoUserInfo != null) {
             onSuccess(GsonBuilder().create().fromJson(kakaoUserInfo, KakaoUserInfo::class.java))
         } else {
@@ -25,7 +27,7 @@ class UserCertificationLocalDataSourceImpl(context: Context) : UserCertification
     override fun saveKakaoUserInfo(kakaoUserInfo: KakaoUserInfo) {
         Log.d("saveKakaoUserInfo", GsonBuilder().create().toJson(kakaoUserInfo))
         sharedPreferences.edit()
-            .putString("kakaoUserInfo", GsonBuilder().create().toJson(kakaoUserInfo)).commit()
+            .putString(KAKAO_USER_INFO, GsonBuilder().create().toJson(kakaoUserInfo)).commit()
     }
 
     override fun deleteKakaoUserInfo() {

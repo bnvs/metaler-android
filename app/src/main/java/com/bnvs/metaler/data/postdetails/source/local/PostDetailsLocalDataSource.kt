@@ -1,42 +1,32 @@
 package com.bnvs.metaler.data.postdetails.source.local
 
-import android.content.Context
 import com.bnvs.metaler.data.postdetails.model.PostDetails
 import com.bnvs.metaler.data.postdetails.model.RatingRequest
-import com.bnvs.metaler.data.postdetails.source.PostDetailsDataSource
 
-class PostDetailsLocalDataSource(context: Context) : PostDetailsDataSource {
+interface PostDetailsLocalDataSource {
 
-    private val sharedPreferences =
-        context.getSharedPreferences("postDetails", Context.MODE_PRIVATE)
-    private val editor = sharedPreferences.edit()
-
-    override fun getPostDetails(
+    fun getPostDetails(
         postId: Int,
         onSuccess: (response: PostDetails) -> Unit,
         onFailure: (e: Throwable) -> Unit
-    ) {
+    )
 
-    }
-
-    override fun deletePost(
+    fun deletePost(
         postId: Int,
         onSuccess: () -> Unit,
         onFailure: (e: Throwable) -> Unit
-    ) {
+    )
 
-    }
-
-    override fun ratePost(
+    fun ratePost(
         postId: Int,
         request: RatingRequest,
         onSuccess: () -> Unit,
         onFailure: (e: Throwable) -> Unit
-    ) {
+    )
 
-    }
-
-    override fun unRatePost(postId: Int, onSuccess: () -> Unit, onFailure: (e: Throwable) -> Unit) {
-
-    }
+    fun unRatePost(
+        postId: Int,
+        onSuccess: () -> Unit,
+        onFailure: (e: Throwable) -> Unit
+    )
 }

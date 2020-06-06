@@ -1,8 +1,8 @@
 package com.bnvs.metaler.data.user.deactivation.source.remote
 
 import com.bnvs.metaler.network.ErrorHandler
-import com.bnvs.metaler.network.NO_ERROR_TO_HANDLE
 import com.bnvs.metaler.network.RetrofitInterface
+import com.bnvs.metaler.util.constants.NO_ERROR_TO_HANDLE
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback

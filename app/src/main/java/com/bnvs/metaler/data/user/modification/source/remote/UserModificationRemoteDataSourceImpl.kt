@@ -4,8 +4,8 @@ import com.bnvs.metaler.data.user.modification.model.Job
 import com.bnvs.metaler.data.user.modification.model.Nickname
 import com.bnvs.metaler.data.user.modification.model.Terms
 import com.bnvs.metaler.network.ErrorHandler
-import com.bnvs.metaler.network.NO_ERROR_TO_HANDLE
 import com.bnvs.metaler.network.RetrofitInterface
+import com.bnvs.metaler.util.constants.NO_ERROR_TO_HANDLE
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
