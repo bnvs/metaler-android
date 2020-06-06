@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -69,7 +70,7 @@
             app:layout_constraintDimensionRatio="2.7:1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/firstCategoryTxt"
-            app:onJobChecked='@{vm.jobs["empty"]}' />
+            bind:onJobChecked='@{vm.jobs["empty"]}' />
 
         <TextView
             android:id="@+id/expertBtn"
@@ -86,7 +87,7 @@
             app:layout_constraintDimensionRatio="2.7:1"
             app:layout_constraintEnd_toStartOf="@id/nothingBtn"
             app:layout_constraintTop_toTopOf="@id/firstCategoryTxt"
-            app:onJobChecked='@{vm.jobs["expert"]}' />
+            bind:onJobChecked='@{vm.jobs["expert"]}' />
 
         <TextView
             android:id="@+id/studentBtn"
@@ -103,7 +104,7 @@
             app:layout_constraintDimensionRatio="2.7:1"
             app:layout_constraintEnd_toStartOf="@id/expertBtn"
             app:layout_constraintTop_toTopOf="@id/firstCategoryTxt"
-            app:onJobChecked='@{vm.jobs["student"]}' />
+            bind:onJobChecked='@{vm.jobs["student"]}' />
 
         <View
             android:id="@+id/firstCategoryLine"
@@ -120,7 +121,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:constraint_referenced_ids="universityNameTxt,universityNameInput,universityNameLine,majorNameTxt,majorNameInput,majorNameLine"
-            app:jobGroupVisibility='@{vm.jobs["student"]}' />
+            bind:jobGroupVisibility='@{vm.jobs["student"]}' />
 
         <TextView
             android:id="@+id/universityNameTxt"
@@ -204,7 +205,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:constraint_referenced_ids="jobTypeTxt,companyBtn,shopOwnerBtn,freelancerBtn,jobTypeLine"
-            app:jobGroupVisibility='@{vm.jobs["expert"]}' />
+            bind:jobGroupVisibility='@{vm.jobs["expert"]}' />
 
         <TextView
             android:id="@+id/jobTypeTxt"
@@ -232,7 +233,7 @@
             app:layout_constraintDimensionRatio="2.7:1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/jobTypeTxt"
-            app:onJobChecked='@{vm.jobTypes["freelancer"]}' />
+            bind:onJobChecked='@{vm.jobTypes["freelancer"]}' />
 
         <TextView
             android:id="@+id/shopOwnerBtn"
@@ -249,7 +250,7 @@
             app:layout_constraintDimensionRatio="2.7:1"
             app:layout_constraintEnd_toStartOf="@id/freelancerBtn"
             app:layout_constraintTop_toTopOf="@id/jobTypeTxt"
-            app:onJobChecked='@{vm.jobTypes["founded"]}' />
+            bind:onJobChecked='@{vm.jobTypes["founded"]}' />
 
         <TextView
             android:id="@+id/companyBtn"
@@ -266,7 +267,7 @@
             app:layout_constraintDimensionRatio="2.7:1"
             app:layout_constraintEnd_toStartOf="@id/shopOwnerBtn"
             app:layout_constraintTop_toTopOf="@id/jobTypeTxt"
-            app:onJobChecked='@{vm.jobTypes["company"]}' />
+            bind:onJobChecked='@{vm.jobTypes["company"]}' />
 
         <View
             android:id="@+id/jobTypeLine"
@@ -284,7 +285,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:constraint_referenced_ids="companyNameTxt,companyNameInput,companyNameLine"
-            app:jobGroupVisibility='@{vm.jobTypes["company"]}' />
+            bind:jobGroupVisibility='@{vm.jobTypes["company"]}' />
 
         <TextView
             android:id="@+id/companyNameTxt"
@@ -330,7 +331,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:constraint_referenced_ids="shopNameTxt,shopNameInput,shopNameLine"
-            app:jobGroupVisibility='@{vm.jobTypes["founded"]}' />
+            bind:jobGroupVisibility='@{vm.jobTypes["founded"]}' />
 
         <TextView
             android:id="@+id/shopNameTxt"
