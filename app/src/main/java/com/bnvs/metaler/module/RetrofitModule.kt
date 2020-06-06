@@ -10,8 +10,6 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
-private const val BASE_URL = "http://metaler.kr/"
-
 val retrofitModule = module {
     single {
         OkHttpClient.Builder()
@@ -38,7 +36,7 @@ val retrofitModule = module {
 
     single {
         Retrofit.Builder()
-            .baseUrl(BASE_URL)
+            .baseUrl(BuildConfig.BASE_URL)
             .client(get())
             .addConverterFactory(GsonConverterFactory.create())
             .build()
