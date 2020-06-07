@@ -196,16 +196,16 @@
                                     bind:homeErrorVisibility="@{vm.homeErrorVisibility}">
 
                                     <ImageView
-                                        android:id="@+id/error404Icon"
+                                        android:id="@+id/error404IconMaterials"
                                         style="@style/error404BigIcon"
                                         app:layout_constraintStart_toStartOf="parent"
                                         app:layout_constraintTop_toTopOf="parent" />
 
                                     <TextView
-                                        android:id="@+id/error404Txt"
+                                        android:id="@+id/error404TxtMaterials"
                                         style="@style/error404TextView"
                                         app:layout_constraintStart_toStartOf="parent"
-                                        app:layout_constraintTop_toBottomOf="@id/error404Icon" />
+                                        app:layout_constraintTop_toBottomOf="@id/error404IconMaterials" />
 
 
                                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -598,16 +598,16 @@
                                     bind:homeErrorVisibility="@{vm.homeErrorVisibility}">
 
                                     <ImageView
-                                        android:id="@+id/error404Icon"
+                                        android:id="@+id/error404IconManufactures"
                                         style="@style/error404BigIcon"
                                         app:layout_constraintStart_toStartOf="parent"
                                         app:layout_constraintTop_toTopOf="parent" />
 
                                     <TextView
-                                        android:id="@+id/error404Txt"
+                                        android:id="@+id/error404TxtManufactures"
                                         style="@style/error404TextView"
                                         app:layout_constraintStart_toStartOf="parent"
-                                        app:layout_constraintTop_toBottomOf="@id/error404Icon" />
+                                        app:layout_constraintTop_toBottomOf="@id/error404IconManufactures" />
 
 
                                 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -11,10 +11,11 @@ import com.bnvs.metaler.data.comments.source.repository.CommentsRepository
 import com.bnvs.metaler.data.postdetails.model.PostDetails
 import com.bnvs.metaler.data.postdetails.model.RatingRequest
 import com.bnvs.metaler.data.postdetails.source.repository.PostDetailsRepository
-import com.bnvs.metaler.data.profile.source.local.ProfileLocalDataSourceImpl
-import com.bnvs.metaler.data.profile.source.repository.ProfileRepositoryImpl
+import com.bnvs.metaler.data.profile.source.repository.ProfileRepository
 import com.bnvs.metaler.data.user.certification.model.User
 import com.bnvs.metaler.network.NetworkUtil
+import org.koin.core.KoinComponent
+import org.koin.core.inject
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -22,14 +23,12 @@ class PresenterDetail(
     private val postId: Int,
     private val view: ContractDetail.View,
     context: Context
-) : ContractDetail.Presenter {
+) : ContractDetail.Presenter, KoinComponent {
 
-    private val postDetailsRepository = PostDetailsRepository()
-    private val commentsRepository = CommentsRepository(context)
-    private val bookmarksRepository = BookmarksRepository()
-    private val profileRepository = ProfileRepositoryImpl(
-        ProfileLocalDataSourceImpl(context)
-    )
+    private val postDetailsRepository: PostDetailsRepository by inject()
+    private val commentsRepository: CommentsRepository by inject()
+    private val bookmarksRepository: BookmarksRepository by inject()
+    private val profileRepository: ProfileRepository by inject()
 
     private lateinit var postDetails: PostDetails
     private lateinit var userInfo: User

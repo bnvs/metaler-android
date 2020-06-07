@@ -18,6 +18,8 @@ import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import org.json.JSONObject
+import org.koin.core.KoinComponent
+import org.koin.core.inject
 import java.io.File
 import java.io.FileOutputStream
 
@@ -25,11 +27,11 @@ class PresenterPostFirst(
     private var categoryType: String?,
     private val postId: Int?,
     private val view: ContractPostFirst.View
-) : ContractPostFirst.Presenter {
+) : ContractPostFirst.Presenter, KoinComponent {
 
-    private val addEditPostRepository = AddEditPostRepository()
-    private val postDetailsRepository = PostDetailsRepository()
-    private val categoriesRepository = CategoriesRepository()
+    private val addEditPostRepository: AddEditPostRepository by inject()
+    private val postDetailsRepository: PostDetailsRepository by inject()
+    private val categoriesRepository: CategoriesRepository by inject()
 
     private var addEditPostRequest = AddEditPostRequest(
         null,

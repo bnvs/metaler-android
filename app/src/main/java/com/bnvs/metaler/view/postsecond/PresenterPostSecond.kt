@@ -9,17 +9,19 @@ import com.bnvs.metaler.data.tags.model.TagsRequest
 import com.bnvs.metaler.data.tags.source.repository.TagsRepository
 import com.bnvs.metaler.network.NetworkUtil
 import org.json.JSONObject
+import org.koin.core.KoinComponent
+import org.koin.core.inject
 import java.util.regex.Pattern
 
 class PresenterPostSecond(
     private val categoryType: String,
     private val postId: Int?,
     private val view: ContractPostSecond.View
-) : ContractPostSecond.Presenter {
+) : ContractPostSecond.Presenter, KoinComponent {
 
-    private val tagsRepository = TagsRepository()
+    private val tagsRepository: TagsRepository by inject()
 
-    private val addEditPostRepository = AddEditPostRepository()
+    private val addEditPostRepository: AddEditPostRepository by inject()
     private lateinit var addEditPostRequest: AddEditPostRequest
     private var shopNameTagString = ""
     private var workTagString = ""

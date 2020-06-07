@@ -12,17 +12,19 @@ import com.bnvs.metaler.data.posts.model.PostsWithContentRequest
 import com.bnvs.metaler.data.posts.source.repository.PostsRepository
 import com.bnvs.metaler.network.NetworkUtil
 import com.bnvs.metaler.view.detail.ActivityDetail
+import org.koin.core.KoinComponent
+import org.koin.core.inject
 
 class PresenterSearch(
     private var categoryId: Int,
     private val context: Context,
     private val view: ContractSearch.View
-) : ContractSearch.Presenter {
+) : ContractSearch.Presenter, KoinComponent {
 
     val TAG = "PresenterSearch.kt"
 
-    private val postsRepository: PostsRepository = PostsRepository(context)
-    private val bookmarksRepository: BookmarksRepository = BookmarksRepository()
+    private val postsRepository: PostsRepository by inject()
+    private val bookmarksRepository: BookmarksRepository by inject()
 
     private lateinit var postsWithContentRequest: PostsWithContentRequest
     private lateinit var addBookmarkRequest: AddBookmarkRequest
@@ -125,7 +127,7 @@ class PresenterSearch(
         bookmarksRepository.addBookmark(
             requestAddBookmark(postId),
             onSuccess = { response: AddBookmarkResponse ->
-                view.postAdapterAddBookmark(position, response.bookmark_id )
+                view.postAdapterAddBookmark(position, response.bookmark_id)
                 Toast.makeText(
                     context,
                     "북마크에 추가되었습니다.",

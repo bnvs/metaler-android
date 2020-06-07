@@ -3,6 +3,7 @@ package com.bnvs.metaler
 import android.app.Application
 import com.bnvs.metaler.module.repository.*
 import com.bnvs.metaler.module.retrofit.retrofitModule
+import com.bnvs.metaler.module.viewmodel.homeViewModelModule
 import com.bnvs.metaler.module.viewmodel.jobInputViewModelModule
 import com.bnvs.metaler.module.viewmodel.termsAgreeViewModelModule
 import com.kakao.auth.*
@@ -87,7 +88,8 @@ class GlobalApplication : Application() {
                 bookmarksModule,
                 myPostsModule,
                 termsAgreeViewModelModule,
-                jobInputViewModelModule
+                jobInputViewModelModule,
+                homeViewModelModule
             )
         }
     }

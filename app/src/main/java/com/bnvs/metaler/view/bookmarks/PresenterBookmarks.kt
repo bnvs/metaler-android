@@ -8,14 +8,15 @@ import com.bnvs.metaler.data.bookmarks.model.BookmarksResponse
 import com.bnvs.metaler.data.bookmarks.source.repositroy.BookmarksRepository
 import com.bnvs.metaler.network.NetworkUtil
 import com.bnvs.metaler.view.detail.ActivityDetail
+import org.koin.core.KoinComponent
+import org.koin.core.inject
 
 class PresenterBookmarks(
     private val context: Context,
     private val view: ContractBookmarks.View
-) : ContractBookmarks.Presenter {
+) : ContractBookmarks.Presenter, KoinComponent {
 
-    private val bookmarksRepository: BookmarksRepository =
-        BookmarksRepository()
+    private val bookmarksRepository: BookmarksRepository by inject()
 
     private lateinit var bookmarksRequest: BookmarksRequest
 

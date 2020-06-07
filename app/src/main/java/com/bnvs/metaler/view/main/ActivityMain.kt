@@ -32,7 +32,7 @@ import org.koin.android.ext.android.inject
 
 class ActivityMain : AppCompatActivity() {
 
-    private val TAG = "ActivityMain"
+    private val TAG = "메인 액티비티"
 
     private lateinit var callback: SessionCallback
 
@@ -42,7 +42,9 @@ class ActivityMain : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
+        setContentView(R.layout.activity_main)
+
+        Log.d(TAG, "액티비티 메인 실행됨")
 
         // SessionCallback 초기화
         callback = SessionCallback()
@@ -71,23 +73,29 @@ class ActivityMain : AppCompatActivity() {
                 override fun onSuccess(result: MeV2Response?) =
                     // 카카오 로그인 성공시 local 에서 signin_token 불러오기
                     if (result != null) {
+                        Log.d(TAG, "카카오 로그인 성공했음, signin_token 갖고오기")
                         getSigninToken(result)
                     } else {
+                        Log.d(TAG, "카카오 로그인 응답값 없음")
                         makeToast(getString(R.string.NO_KAKAO_LOGIN_RESULT))
                     }
 
-                override fun onSessionClosed(errorResult: ErrorResult?) =
+                override fun onSessionClosed(errorResult: ErrorResult?) {
                     // 로그인 도중 세션이 비정상적인 이유로 닫혔을 때
                     makeToast(getString(R.string.SESSION_CLOSED) + errorResult.toString())
+                    Log.d(TAG, "로그인 세션 비정상적으로 닫힘")
+                }
             })
         }
 
         override fun onSessionOpenFailed(exception: KakaoException?) =
             // 로그인 세션이 정상적으로 열리지 않았을 때
             if (exception != null) {
+                Log.d(TAG, "로그인 세션 열리지 않음")
                 com.kakao.util.helper.log.Logger.e(exception)
                 makeToast(getString(R.string.INTERNET_DISCONNECTED_LOGIN_ERROR) + exception)
             } else {
+                Log.d(TAG, "인터넷 연결 비정상")
                 makeToast(getString(R.string.INTERNET_DISCONNECTED_LOGIN_ERROR))
             }
     }

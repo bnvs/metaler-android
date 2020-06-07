@@ -5,21 +5,17 @@ import android.text.TextUtils
 import android.util.Log
 import android.widget.EditText
 import com.bnvs.metaler.data.user.modification.model.Job
-import com.bnvs.metaler.data.user.modification.source.local.UserModificationLocalDataSourceImpl
-import com.bnvs.metaler.data.user.modification.source.remote.UserModificationRemoteDataSourceImpl
-import com.bnvs.metaler.data.user.modification.source.repository.UserModificationRepositoryImpl
+import com.bnvs.metaler.data.user.modification.source.repository.UserModificationRepository
 import com.bnvs.metaler.network.NetworkUtil
+import org.koin.core.KoinComponent
+import org.koin.core.inject
 
 class PresenterJobModify(
     private val view: ContractJobModify.View,
     context: Context
-) : ContractJobModify.Presenter {
+) : ContractJobModify.Presenter, KoinComponent {
 
-    private val userRepository =
-        UserModificationRepositoryImpl(
-            UserModificationLocalDataSourceImpl(context),
-            UserModificationRemoteDataSourceImpl()
-        )
+    private val userRepository: UserModificationRepository by inject()
 
     private lateinit var originalJob: Job
 

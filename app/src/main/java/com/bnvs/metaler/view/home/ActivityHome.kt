@@ -37,7 +37,7 @@ class ActivityHome : AppCompatActivity() {
 
         DataBindingUtil.setContentView<ActivityHomeBinding>(
             this,
-            R.layout.activity_job_input
+            R.layout.activity_home
         ).apply {
             vm = viewModel
             lifecycleOwner = this@ActivityHome

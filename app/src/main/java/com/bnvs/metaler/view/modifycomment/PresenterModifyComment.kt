@@ -5,15 +5,17 @@ import com.bnvs.metaler.data.comments.model.AddEditCommentRequest
 import com.bnvs.metaler.data.comments.model.Comment
 import com.bnvs.metaler.data.comments.source.repository.CommentsRepository
 import com.bnvs.metaler.network.NetworkUtil
+import org.koin.core.KoinComponent
+import org.koin.core.inject
 
 class PresenterModifyComment(
     private val postId: Int,
     private val comment: Comment,
     context: Context,
     private val view: ContractModifyComment.View
-) : ContractModifyComment.Presenter {
+) : ContractModifyComment.Presenter, KoinComponent {
 
-    private val commentsRepository = CommentsRepository(context)
+    private val commentsRepository: CommentsRepository by inject()
     override val content = comment.content
 
     override fun start() {
