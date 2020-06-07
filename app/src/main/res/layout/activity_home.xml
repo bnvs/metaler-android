@@ -115,7 +115,6 @@
                         app:layout_constraintTop_toBottomOf="@id/profileImg">
 
                         <androidx.cardview.widget.CardView
-
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginHorizontal="10dp"
@@ -128,8 +127,7 @@
 
                             <androidx.constraintlayout.widget.ConstraintLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:paddingBottom="20dp">
+                                android:layout_height="match_parent">
 
                                 <ImageView
                                     android:id="@+id/materialsCardIcon"
@@ -165,15 +163,22 @@
                                     app:layout_constraintBottom_toBottomOf="@id/materialsTitleTxt"
                                     app:layout_constraintStart_toEndOf="@id/materialsTitleTxt" />
 
-                                <ImageView
+                                <androidx.constraintlayout.widget.ConstraintLayout
                                     android:id="@+id/materialsMoreBtn"
-                                    android:layout_width="13dp"
-                                    android:layout_height="13dp"
-                                    android:layout_marginRight="20dp"
-                                    android:src="@drawable/ic_home_more_arrow_x3"
-                                    app:layout_constraintBottom_toBottomOf="@id/materialsCardIcon"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:onClick="@{() -> vm.startMaterialsActivity()}"
+                                    android:padding="20dp"
+                                    app:layout_constraintBottom_toBottomOf="@id/materialsLine"
                                     app:layout_constraintEnd_toEndOf="parent"
-                                    app:layout_constraintTop_toTopOf="@id/materialsCardIcon" />
+                                    app:layout_constraintTop_toTopOf="parent">
+
+                                    <ImageView
+                                        android:layout_width="13dp"
+                                        android:layout_height="13dp"
+                                        android:src="@drawable/ic_home_more_arrow_x3" />
+
+                                </androidx.constraintlayout.widget.ConstraintLayout>
 
                                 <View
                                     android:id="@+id/materialsLine"
@@ -181,233 +186,317 @@
                                     app:layout_constraintStart_toStartOf="parent"
                                     app:layout_constraintTop_toBottomOf="@id/materialsCardIcon" />
 
-                                <TextView
-                                    android:id="@+id/materialsTitle1"
-                                    style="@style/homePostTitleTextView"
-                                    android:text="@{vm.homePosts.materials[0].title}"
+                                <androidx.constraintlayout.widget.ConstraintLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
                                     app:layout_constraintStart_toStartOf="parent"
                                     app:layout_constraintTop_toBottomOf="@id/materialsLine"
-                                    tools:text="Title타이틀제목" />
+                                    bind:homeErrorVisibility="@{vm.homeErrorVisibility}">
 
-                                <TextView
-                                    android:id="@+id/materialsTag1"
-                                    style="@style/homeTag"
-                                    app:layout_constraintLeft_toLeftOf="parent"
-                                    app:layout_constraintRight_toLeftOf="@id/materialsUserName1"
-                                    app:layout_constraintTop_toBottomOf="@id/materialsTitle1"
-                                    bind:homeTags="@{vm.homePosts.materials[0].tags}"
-                                    tools:text="#가게이름홍대금속" />
+                                    <ImageView
+                                        android:id="@+id/error404Icon"
+                                        style="@style/error404BigIcon"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintTop_toTopOf="parent" />
 
-                                <TextView
-                                    android:id="@+id/materialsUserName1"
-                                    style="@style/sideInfoTextView"
-                                    android:text="@{vm.homePosts.materials[0].nickname}"
-                                    app:layout_constraintBottom_toBottomOf="@id/materialsTag1"
-                                    app:layout_constraintEnd_toStartOf="@id/materialsUserNameLine1"
-                                    app:layout_constraintTop_toTopOf="@id/materialsTag1"
-                                    tools:text="작성자이름" />
+                                    <TextView
+                                        android:id="@+id/error404Txt"
+                                        style="@style/error404TextView"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintTop_toBottomOf="@id/error404Icon" />
 
-                                <TextView
-                                    android:id="@+id/materialsUserNameLine1"
-                                    style="@style/sideInfoVerticalDivider"
-                                    app:layout_constraintEnd_toStartOf="@id/materialsDate1"
-                                    app:layout_constraintTop_toTopOf="@id/materialsUserName1" />
 
-                                <TextView
-                                    android:id="@+id/materialsDate1"
-                                    style="@style/homeDate"
-                                    android:text="@{vm.homePosts.materials[0].date}"
-                                    app:layout_constraintEnd_toEndOf="parent"
-                                    app:layout_constraintTop_toTopOf="@id/materialsUserName1"
-                                    tools:text="2020.10.10" />
+                                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                                <androidx.constraintlayout.widget.ConstraintLayout
+                                    android:id="@+id/materialsHomePost1"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:onClick="@{() -> vm.openPostDetail(vm.homePosts.materials[0].post_id)}"
+                                    app:layout_constraintBottom_toTopOf="@id/materialsLine1"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@id/materialsLine">
+
+                                    <TextView
+                                        android:id="@+id/materialsTitle1"
+                                        style="@style/homePostTitleTextView"
+                                        android:layout_marginTop="10dp"
+                                        android:text="@{vm.homePosts.materials[0].title}"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintTop_toTopOf="parent"
+                                        tools:text="Title타이틀제목" />
+
+                                    <TextView
+                                        android:id="@+id/materialsTag1"
+                                        style="@style/homeTag"
+                                        app:layout_constraintBottom_toBottomOf="parent"
+                                        app:layout_constraintLeft_toLeftOf="parent"
+                                        app:layout_constraintRight_toLeftOf="@id/materialsUserName1"
+                                        app:layout_constraintTop_toBottomOf="@id/materialsTitle1"
+                                        bind:homeTags="@{vm.homePosts.materials[0].tags}"
+                                        tools:text="#가게이름홍대금속" />
+
+                                    <TextView
+                                        android:id="@+id/materialsUserName1"
+                                        style="@style/sideInfoTextView"
+                                        android:text="@{vm.homePosts.materials[0].nickname}"
+                                        app:layout_constraintBottom_toBottomOf="@id/materialsTag1"
+                                        app:layout_constraintEnd_toStartOf="@id/materialsUserNameLine1"
+                                        app:layout_constraintTop_toTopOf="@id/materialsTag1"
+                                        tools:text="작성자이름" />
+
+                                    <TextView
+                                        android:id="@+id/materialsUserNameLine1"
+                                        style="@style/sideInfoVerticalDivider"
+                                        app:layout_constraintEnd_toStartOf="@id/materialsDate1"
+                                        app:layout_constraintTop_toTopOf="@id/materialsUserName1" />
+
+                                    <TextView
+                                        android:id="@+id/materialsDate1"
+                                        style="@style/homeDate"
+                                        android:text="@{vm.homePosts.materials[0].date}"
+                                        app:layout_constraintEnd_toEndOf="parent"
+                                        app:layout_constraintTop_toTopOf="@id/materialsUserName1"
+                                        tools:text="2020.10.10" />
+
+                                </androidx.constraintlayout.widget.ConstraintLayout>
 
                                 <View
                                     android:id="@+id/materialsLine1"
-                                    style="@style/homeDivider"
+                                    style="@style/dividerStyle"
                                     app:layout_constraintStart_toStartOf="parent"
-                                    app:layout_constraintTop_toBottomOf="@id/materialsTag1" />
+                                    app:layout_constraintTop_toBottomOf="@id/materialsHomePost1" />
 
-
-                                <TextView
-                                    android:id="@+id/materialsTitle2"
-                                    style="@style/homePostTitleTextView"
-                                    android:text="@{vm.homePosts.materials[1].title}"
+                                <androidx.constraintlayout.widget.ConstraintLayout
+                                    android:id="@+id/materialsHomePost2"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:onClick="@{() -> vm.openPostDetail(vm.homePosts.materials[1].post_id)}"
+                                    app:layout_constraintBottom_toTopOf="@id/materialsLine2"
                                     app:layout_constraintStart_toStartOf="parent"
-                                    app:layout_constraintTop_toBottomOf="@id/materialsLine1"
-                                    tools:text="Title타이틀제목" />
+                                    app:layout_constraintTop_toBottomOf="@id/materialsLine1">
 
-                                <TextView
-                                    android:id="@+id/materialsTag2"
-                                    style="@style/homeTag"
-                                    app:layout_constraintLeft_toLeftOf="parent"
-                                    app:layout_constraintRight_toLeftOf="@id/materialsUserName2"
-                                    app:layout_constraintTop_toBottomOf="@id/materialsTitle2"
-                                    bind:homeTags="@{vm.homePosts.materials[1].tags}"
-                                    tools:text="#가게이름홍대금속" />
+                                    <TextView
+                                        android:id="@+id/materialsTitle2"
+                                        style="@style/homePostTitleTextView"
+                                        android:text="@{vm.homePosts.materials[1].title}"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintTop_toTopOf="parent"
+                                        tools:text="Title타이틀제목" />
 
-                                <TextView
-                                    android:id="@+id/materialsUserName2"
-                                    style="@style/sideInfoTextView"
-                                    android:text="@{vm.homePosts.materials[1].nickname}"
-                                    app:layout_constraintBottom_toBottomOf="@id/materialsTag2"
-                                    app:layout_constraintEnd_toStartOf="@id/materialsUserNameLine2"
-                                    app:layout_constraintTop_toTopOf="@id/materialsTag2"
-                                    tools:text="작성자이름" />
+                                    <TextView
+                                        android:id="@+id/materialsTag2"
+                                        style="@style/homeTag"
+                                        app:layout_constraintBottom_toBottomOf="parent"
+                                        app:layout_constraintLeft_toLeftOf="parent"
+                                        app:layout_constraintRight_toLeftOf="@id/materialsUserName2"
+                                        app:layout_constraintTop_toBottomOf="@id/materialsTitle2"
+                                        bind:homeTags="@{vm.homePosts.materials[1].tags}"
+                                        tools:text="#가게이름홍대금속" />
 
-                                <TextView
-                                    android:id="@+id/materialsUserNameLine2"
-                                    style="@style/sideInfoVerticalDivider"
-                                    app:layout_constraintEnd_toStartOf="@id/materialsDate2"
-                                    app:layout_constraintTop_toTopOf="@id/materialsUserName2" />
+                                    <TextView
+                                        android:id="@+id/materialsUserName2"
+                                        style="@style/sideInfoTextView"
+                                        android:text="@{vm.homePosts.materials[1].nickname}"
+                                        app:layout_constraintBottom_toBottomOf="@id/materialsTag2"
+                                        app:layout_constraintEnd_toStartOf="@id/materialsUserNameLine2"
+                                        app:layout_constraintTop_toTopOf="@id/materialsTag2"
+                                        tools:text="작성자이름" />
 
-                                <TextView
-                                    android:id="@+id/materialsDate2"
-                                    style="@style/homeDate"
-                                    android:text="@{vm.homePosts.materials[1].date}"
-                                    app:layout_constraintEnd_toEndOf="parent"
-                                    app:layout_constraintTop_toTopOf="@id/materialsUserName2"
-                                    tools:text="2020.10.10" />
+                                    <TextView
+                                        android:id="@+id/materialsUserNameLine2"
+                                        style="@style/sideInfoVerticalDivider"
+                                        app:layout_constraintEnd_toStartOf="@id/materialsDate2"
+                                        app:layout_constraintTop_toTopOf="@id/materialsUserName2" />
+
+                                    <TextView
+                                        android:id="@+id/materialsDate2"
+                                        style="@style/homeDate"
+                                        android:text="@{vm.homePosts.materials[1].date}"
+                                        app:layout_constraintEnd_toEndOf="parent"
+                                        app:layout_constraintTop_toTopOf="@id/materialsUserName2"
+                                        tools:text="2020.10.10" />
+
+
+                                </androidx.constraintlayout.widget.ConstraintLayout>
 
                                 <View
                                     android:id="@+id/materialsLine2"
-                                    style="@style/homeDivider"
+                                    style="@style/dividerStyle"
                                     app:layout_constraintStart_toStartOf="parent"
-                                    app:layout_constraintTop_toBottomOf="@id/materialsTag2" />
+                                    app:layout_constraintTop_toBottomOf="@id/materialsHomePost2" />
 
-
-                                <TextView
-                                    android:id="@+id/materialsTitle3"
-                                    style="@style/homePostTitleTextView"
-                                    android:text="@{vm.homePosts.materials[2].title}"
+                                <androidx.constraintlayout.widget.ConstraintLayout
+                                    android:id="@+id/materialsHomePost3"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:onClick="@{() -> vm.openPostDetail(vm.homePosts.materials[2].post_id)}"
+                                    app:layout_constraintBottom_toTopOf="@id/materialsLine3"
                                     app:layout_constraintStart_toStartOf="parent"
-                                    app:layout_constraintTop_toBottomOf="@id/materialsLine2"
-                                    tools:text="Title타이틀제목" />
+                                    app:layout_constraintTop_toBottomOf="@id/materialsLine2">
 
-                                <TextView
-                                    android:id="@+id/materialsTag3"
-                                    style="@style/homeTag"
-                                    app:layout_constraintLeft_toLeftOf="parent"
-                                    app:layout_constraintRight_toLeftOf="@id/materialsUserName3"
-                                    app:layout_constraintTop_toBottomOf="@id/materialsTitle3"
-                                    bind:homeTags="@{vm.homePosts.materials[2].tags}"
-                                    tools:text="#가게이름홍대금속" />
+                                    <TextView
+                                        android:id="@+id/materialsTitle3"
+                                        style="@style/homePostTitleTextView"
+                                        android:text="@{vm.homePosts.materials[2].title}"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintTop_toTopOf="parent"
+                                        tools:text="Title타이틀제목" />
 
-                                <TextView
-                                    android:id="@+id/materialsUserName3"
-                                    style="@style/sideInfoTextView"
-                                    android:text="@{vm.homePosts.materials[2].nickname}"
-                                    app:layout_constraintBottom_toBottomOf="@id/materialsTag3"
-                                    app:layout_constraintEnd_toStartOf="@id/materialsUserNameLine3"
-                                    app:layout_constraintTop_toTopOf="@id/materialsTag3"
-                                    tools:text="작성자이름" />
+                                    <TextView
+                                        android:id="@+id/materialsTag3"
+                                        style="@style/homeTag"
+                                        app:layout_constraintBottom_toBottomOf="parent"
+                                        app:layout_constraintLeft_toLeftOf="parent"
+                                        app:layout_constraintRight_toLeftOf="@id/materialsUserName3"
+                                        app:layout_constraintTop_toBottomOf="@id/materialsTitle3"
+                                        bind:homeTags="@{vm.homePosts.materials[2].tags}"
+                                        tools:text="#가게이름홍대금속" />
 
-                                <TextView
-                                    android:id="@+id/materialsUserNameLine3"
-                                    style="@style/sideInfoVerticalDivider"
-                                    app:layout_constraintEnd_toStartOf="@id/materialsDate3"
-                                    app:layout_constraintTop_toTopOf="@id/materialsUserName3" />
+                                    <TextView
+                                        android:id="@+id/materialsUserName3"
+                                        style="@style/sideInfoTextView"
+                                        android:text="@{vm.homePosts.materials[2].nickname}"
+                                        app:layout_constraintBottom_toBottomOf="@id/materialsTag3"
+                                        app:layout_constraintEnd_toStartOf="@id/materialsUserNameLine3"
+                                        app:layout_constraintTop_toTopOf="@id/materialsTag3"
+                                        tools:text="작성자이름" />
 
-                                <TextView
-                                    android:id="@+id/materialsDate3"
-                                    style="@style/homeDate"
-                                    android:text="@{vm.homePosts.materials[2].date}"
-                                    app:layout_constraintEnd_toEndOf="parent"
-                                    app:layout_constraintTop_toTopOf="@id/materialsUserName3"
-                                    tools:text="2020.10.10" />
+                                    <TextView
+                                        android:id="@+id/materialsUserNameLine3"
+                                        style="@style/sideInfoVerticalDivider"
+                                        app:layout_constraintEnd_toStartOf="@id/materialsDate3"
+                                        app:layout_constraintTop_toTopOf="@id/materialsUserName3" />
+
+                                    <TextView
+                                        android:id="@+id/materialsDate3"
+                                        style="@style/homeDate"
+                                        android:text="@{vm.homePosts.materials[2].date}"
+                                        app:layout_constraintEnd_toEndOf="parent"
+                                        app:layout_constraintTop_toTopOf="@id/materialsUserName3"
+                                        tools:text="2020.10.10" />
+
+                                </androidx.constraintlayout.widget.ConstraintLayout>
+
 
                                 <View
                                     android:id="@+id/materialsLine3"
-                                    style="@style/homeDivider"
+                                    style="@style/dividerStyle"
                                     app:layout_constraintStart_toStartOf="parent"
-                                    app:layout_constraintTop_toBottomOf="@id/materialsTag3" />
+                                    app:layout_constraintTop_toBottomOf="@id/materialsHomePost3" />
 
-
-                                <TextView
-                                    android:id="@+id/materialsTitle4"
-                                    style="@style/homePostTitleTextView"
-                                    android:text="@{vm.homePosts.materials[3].title}"
+                                <androidx.constraintlayout.widget.ConstraintLayout
+                                    android:id="@+id/materialsHomePost4"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:onClick="@{() -> vm.openPostDetail(vm.homePosts.materials[3].post_id)}"
+                                    app:layout_constraintBottom_toTopOf="@id/materialsLine4"
                                     app:layout_constraintStart_toStartOf="parent"
-                                    app:layout_constraintTop_toBottomOf="@id/materialsLine3"
-                                    tools:text="Title타이틀제목" />
+                                    app:layout_constraintTop_toBottomOf="@id/materialsLine3">
 
-                                <TextView
-                                    android:id="@+id/materialsTag4"
-                                    style="@style/homeTag"
-                                    app:layout_constraintLeft_toLeftOf="parent"
-                                    app:layout_constraintRight_toLeftOf="@id/materialsUserName4"
-                                    app:layout_constraintTop_toBottomOf="@id/materialsTitle4"
-                                    bind:homeTags="@{vm.homePosts.materials[3].tags}"
-                                    tools:text="#가게이름홍대금속" />
+                                    <TextView
+                                        android:id="@+id/materialsTitle4"
+                                        style="@style/homePostTitleTextView"
+                                        android:text="@{vm.homePosts.materials[3].title}"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintTop_toTopOf="parent"
+                                        tools:text="Title타이틀제목" />
 
-                                <TextView
-                                    android:id="@+id/materialsUserName4"
-                                    style="@style/sideInfoTextView"
-                                    android:text="@{vm.homePosts.materials[3].nickname}"
-                                    app:layout_constraintBottom_toBottomOf="@id/materialsTag4"
-                                    app:layout_constraintEnd_toStartOf="@id/materialsUserNameLine4"
-                                    app:layout_constraintTop_toTopOf="@id/materialsTag4"
-                                    tools:text="작성자이름" />
+                                    <TextView
+                                        android:id="@+id/materialsTag4"
+                                        style="@style/homeTag"
+                                        app:layout_constraintBottom_toBottomOf="parent"
+                                        app:layout_constraintLeft_toLeftOf="parent"
+                                        app:layout_constraintRight_toLeftOf="@id/materialsUserName4"
+                                        app:layout_constraintTop_toBottomOf="@id/materialsTitle4"
+                                        bind:homeTags="@{vm.homePosts.materials[3].tags}"
+                                        tools:text="#가게이름홍대금속" />
 
-                                <TextView
-                                    android:id="@+id/materialsUserNameLine4"
-                                    style="@style/sideInfoVerticalDivider"
-                                    app:layout_constraintEnd_toStartOf="@id/materialsDate4"
-                                    app:layout_constraintTop_toTopOf="@id/materialsUserName4" />
+                                    <TextView
+                                        android:id="@+id/materialsUserName4"
+                                        style="@style/sideInfoTextView"
+                                        android:text="@{vm.homePosts.materials[3].nickname}"
+                                        app:layout_constraintBottom_toBottomOf="@id/materialsTag4"
+                                        app:layout_constraintEnd_toStartOf="@id/materialsUserNameLine4"
+                                        app:layout_constraintTop_toTopOf="@id/materialsTag4"
+                                        tools:text="작성자이름" />
 
-                                <TextView
-                                    android:id="@+id/materialsDate4"
-                                    style="@style/homeDate"
-                                    android:text="@{vm.homePosts.materials[3].date}"
-                                    app:layout_constraintEnd_toEndOf="parent"
-                                    app:layout_constraintTop_toTopOf="@id/materialsUserName4"
-                                    tools:text="2020.10.10" />
+                                    <TextView
+                                        android:id="@+id/materialsUserNameLine4"
+                                        style="@style/sideInfoVerticalDivider"
+                                        app:layout_constraintEnd_toStartOf="@id/materialsDate4"
+                                        app:layout_constraintTop_toTopOf="@id/materialsUserName4" />
+
+                                    <TextView
+                                        android:id="@+id/materialsDate4"
+                                        style="@style/homeDate"
+                                        android:text="@{vm.homePosts.materials[3].date}"
+                                        app:layout_constraintEnd_toEndOf="parent"
+                                        app:layout_constraintTop_toTopOf="@id/materialsUserName4"
+                                        tools:text="2020.10.10" />
+
+                                </androidx.constraintlayout.widget.ConstraintLayout>
+
 
                                 <View
                                     android:id="@+id/materialsLine4"
-                                    style="@style/homeDivider"
+                                    style="@style/dividerStyle"
                                     app:layout_constraintStart_toStartOf="parent"
-                                    app:layout_constraintTop_toBottomOf="@id/materialsTag4" />
+                                    app:layout_constraintTop_toBottomOf="@id/materialsHomePost4" />
 
-
-                                <TextView
-                                    android:id="@+id/materialsTitle5"
-                                    style="@style/homePostTitleTextView"
-                                    android:text="@{vm.homePosts.materials[4].title}"
+                                <androidx.constraintlayout.widget.ConstraintLayout
+                                    android:id="@+id/materialsHomePost5"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:onClick="@{() -> vm.openPostDetail(vm.homePosts.materials[4].post_id)}"
                                     app:layout_constraintStart_toStartOf="parent"
-                                    app:layout_constraintTop_toBottomOf="@id/materialsLine4"
-                                    tools:text="Title타이틀제목" />
+                                    app:layout_constraintTop_toBottomOf="@id/materialsLine4">
 
-                                <TextView
-                                    android:id="@+id/materialsTag5"
-                                    style="@style/homeTag"
-                                    app:layout_constraintLeft_toLeftOf="parent"
-                                    app:layout_constraintRight_toLeftOf="@id/materialsUserName5"
-                                    app:layout_constraintTop_toBottomOf="@id/materialsTitle5"
-                                    bind:homeTags="@{vm.homePosts.materials[4].tags}"
-                                    tools:text="#가게이름홍대금속" />
+                                    <TextView
+                                        android:id="@+id/materialsTitle5"
+                                        style="@style/homePostTitleTextView"
+                                        android:text="@{vm.homePosts.materials[4].title}"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintTop_toTopOf="parent"
+                                        tools:text="Title타이틀제목" />
 
-                                <TextView
-                                    android:id="@+id/materialsUserName5"
-                                    style="@style/sideInfoTextView"
-                                    android:text="@{vm.homePosts.materials[4].nickname}"
-                                    app:layout_constraintBottom_toBottomOf="@id/materialsTag5"
-                                    app:layout_constraintEnd_toStartOf="@id/materialsUserNameLine5"
-                                    app:layout_constraintTop_toTopOf="@id/materialsTag5"
-                                    tools:text="작성자이름" />
+                                    <TextView
+                                        android:id="@+id/materialsTag5"
+                                        style="@style/homeTag"
+                                        app:layout_constraintBottom_toBottomOf="parent"
+                                        app:layout_constraintLeft_toLeftOf="parent"
+                                        app:layout_constraintRight_toLeftOf="@id/materialsUserName5"
+                                        app:layout_constraintTop_toBottomOf="@id/materialsTitle5"
+                                        bind:homeTags="@{vm.homePosts.materials[4].tags}"
+                                        tools:text="#가게이름홍대금속" />
 
-                                <TextView
-                                    android:id="@+id/materialsUserNameLine5"
-                                    style="@style/sideInfoVerticalDivider"
-                                    app:layout_constraintEnd_toStartOf="@id/materialsDate5"
-                                    app:layout_constraintTop_toTopOf="@id/materialsUserName5" />
+                                    <TextView
+                                        android:id="@+id/materialsUserName5"
+                                        style="@style/sideInfoTextView"
+                                        android:text="@{vm.homePosts.materials[4].nickname}"
+                                        app:layout_constraintBottom_toBottomOf="@id/materialsTag5"
+                                        app:layout_constraintEnd_toStartOf="@id/materialsUserNameLine5"
+                                        app:layout_constraintTop_toTopOf="@id/materialsTag5"
+                                        tools:text="작성자이름" />
 
-                                <TextView
-                                    android:id="@+id/materialsDate5"
-                                    style="@style/homeDate"
-                                    android:text="@{vm.homePosts.materials[4].date}"
-                                    app:layout_constraintEnd_toEndOf="parent"
-                                    app:layout_constraintTop_toTopOf="@id/materialsUserName5"
-                                    tools:text="2020.10.10" />
+                                    <TextView
+                                        android:id="@+id/materialsUserNameLine5"
+                                        style="@style/sideInfoVerticalDivider"
+                                        app:layout_constraintEnd_toStartOf="@id/materialsDate5"
+                                        app:layout_constraintTop_toTopOf="@id/materialsUserName5" />
+
+                                    <TextView
+                                        android:id="@+id/materialsDate5"
+                                        style="@style/homeDate"
+                                        android:text="@{vm.homePosts.materials[4].date}"
+                                        app:layout_constraintEnd_toEndOf="parent"
+                                        app:layout_constraintTop_toTopOf="@id/materialsUserName5"
+                                        tools:text="2020.10.10" />
+
+                                </androidx.constraintlayout.widget.ConstraintLayout>
+
 
                             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -439,8 +528,7 @@
 
                             <androidx.constraintlayout.widget.ConstraintLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:paddingBottom="20dp">
+                                android:layout_height="match_parent">
 
                                 <ImageView
                                     android:id="@+id/manufactureCardIcon"
@@ -476,15 +564,23 @@
                                     app:layout_constraintBottom_toBottomOf="@id/manufactureTitleTxt"
                                     app:layout_constraintStart_toEndOf="@id/manufactureTitleTxt" />
 
-                                <ImageView
+
+                                <androidx.constraintlayout.widget.ConstraintLayout
                                     android:id="@+id/manufactureMoreBtn"
-                                    android:layout_width="13dp"
-                                    android:layout_height="13dp"
-                                    android:layout_marginRight="20dp"
-                                    android:src="@drawable/ic_home_more_arrow_x3"
-                                    app:layout_constraintBottom_toBottomOf="@id/manufactureCardIcon"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:onClick="@{() -> vm.startManufacturesActivity()}"
+                                    android:padding="20dp"
+                                    app:layout_constraintBottom_toBottomOf="@id/manufactureLine"
                                     app:layout_constraintEnd_toEndOf="parent"
-                                    app:layout_constraintTop_toTopOf="@id/manufactureCardIcon" />
+                                    app:layout_constraintTop_toTopOf="parent">
+
+                                    <ImageView
+                                        android:layout_width="13dp"
+                                        android:layout_height="13dp"
+                                        android:src="@drawable/ic_home_more_arrow_x3" />
+
+                                </androidx.constraintlayout.widget.ConstraintLayout>
 
                                 <View
                                     android:id="@+id/manufactureLine"
@@ -492,233 +588,313 @@
                                     app:layout_constraintStart_toStartOf="parent"
                                     app:layout_constraintTop_toBottomOf="@id/manufactureCardIcon" />
 
-                                <TextView
-                                    android:id="@+id/manufacturesTitle1"
-                                    style="@style/homePostTitleTextView"
-                                    android:text="@{vm.homePosts.manufactures[0].title}"
+                                <androidx.constraintlayout.widget.ConstraintLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
                                     app:layout_constraintStart_toStartOf="parent"
                                     app:layout_constraintTop_toBottomOf="@id/manufactureLine"
-                                    tools:text="Title타이틀제목" />
+                                    bind:homeErrorVisibility="@{vm.homeErrorVisibility}">
 
-                                <TextView
-                                    android:id="@+id/manufacturesTag1"
-                                    style="@style/homeTag"
-                                    app:layout_constraintLeft_toLeftOf="parent"
-                                    app:layout_constraintRight_toLeftOf="@id/manufacturesUserName1"
-                                    app:layout_constraintTop_toBottomOf="@id/manufacturesTitle1"
-                                    bind:homeTags="@{vm.homePosts.manufactures[0].tags}"
-                                    tools:text="#가게이름홍대금속" />
+                                    <ImageView
+                                        android:id="@+id/error404Icon"
+                                        style="@style/error404BigIcon"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintTop_toTopOf="parent" />
 
-                                <TextView
-                                    android:id="@+id/manufacturesUserName1"
-                                    style="@style/sideInfoTextView"
-                                    android:text="@{vm.homePosts.manufactures[0].nickname}"
-                                    app:layout_constraintBottom_toBottomOf="@id/manufacturesTag1"
-                                    app:layout_constraintEnd_toStartOf="@id/manufacturesUserNameLine1"
-                                    app:layout_constraintTop_toTopOf="@id/manufacturesTag1"
-                                    tools:text="작성자이름" />
+                                    <TextView
+                                        android:id="@+id/error404Txt"
+                                        style="@style/error404TextView"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintTop_toBottomOf="@id/error404Icon" />
 
-                                <TextView
-                                    android:id="@+id/manufacturesUserNameLine1"
-                                    style="@style/sideInfoVerticalDivider"
-                                    app:layout_constraintEnd_toStartOf="@id/manufacturesDate1"
-                                    app:layout_constraintTop_toTopOf="@id/manufacturesUserName1" />
 
-                                <TextView
-                                    android:id="@+id/manufacturesDate1"
-                                    style="@style/homeDate"
-                                    android:text="@{vm.homePosts.manufactures[0].date}"
-                                    app:layout_constraintEnd_toEndOf="parent"
-                                    app:layout_constraintTop_toTopOf="@id/manufacturesUserName1"
-                                    tools:text="2020.10.10" />
+                                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                                <androidx.constraintlayout.widget.ConstraintLayout
+                                    android:id="@+id/manufactureHomePost1"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:onClick="@{() -> vm.openPostDetail(vm.homePosts.manufactures[0].post_id)}"
+                                    app:layout_constraintBottom_toTopOf="@id/manufacturesLine1"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@id/manufactureLine">
+
+                                    <TextView
+                                        android:id="@+id/manufacturesTitle1"
+                                        style="@style/homePostTitleTextView"
+                                        android:text="@{vm.homePosts.manufactures[0].title}"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintTop_toTopOf="parent"
+                                        tools:text="Title타이틀제목" />
+
+                                    <TextView
+                                        android:id="@+id/manufacturesTag1"
+                                        style="@style/homeTag"
+                                        app:layout_constraintBottom_toBottomOf="parent"
+                                        app:layout_constraintLeft_toLeftOf="parent"
+                                        app:layout_constraintRight_toLeftOf="@id/manufacturesUserName1"
+                                        app:layout_constraintTop_toBottomOf="@id/manufacturesTitle1"
+                                        bind:homeTags="@{vm.homePosts.manufactures[0].tags}"
+                                        tools:text="#가게이름홍대금속" />
+
+                                    <TextView
+                                        android:id="@+id/manufacturesUserName1"
+                                        style="@style/sideInfoTextView"
+                                        android:text="@{vm.homePosts.manufactures[0].nickname}"
+                                        app:layout_constraintBottom_toBottomOf="@id/manufacturesTag1"
+                                        app:layout_constraintEnd_toStartOf="@id/manufacturesUserNameLine1"
+                                        app:layout_constraintTop_toTopOf="@id/manufacturesTag1"
+                                        tools:text="작성자이름" />
+
+                                    <TextView
+                                        android:id="@+id/manufacturesUserNameLine1"
+                                        style="@style/sideInfoVerticalDivider"
+                                        app:layout_constraintEnd_toStartOf="@id/manufacturesDate1"
+                                        app:layout_constraintTop_toTopOf="@id/manufacturesUserName1" />
+
+                                    <TextView
+                                        android:id="@+id/manufacturesDate1"
+                                        style="@style/homeDate"
+                                        android:text="@{vm.homePosts.manufactures[0].date}"
+                                        app:layout_constraintEnd_toEndOf="parent"
+                                        app:layout_constraintTop_toTopOf="@id/manufacturesUserName1"
+                                        tools:text="2020.10.10" />
+
+                                </androidx.constraintlayout.widget.ConstraintLayout>
 
                                 <View
                                     android:id="@+id/manufacturesLine1"
-                                    style="@style/homeDivider"
+                                    style="@style/dividerStyle"
                                     app:layout_constraintStart_toStartOf="parent"
-                                    app:layout_constraintTop_toBottomOf="@id/manufacturesTag1" />
+                                    app:layout_constraintTop_toBottomOf="@id/manufactureHomePost1" />
 
-
-                                <TextView
-                                    android:id="@+id/manufacturesTitle2"
-                                    style="@style/homePostTitleTextView"
-                                    android:text="@{vm.homePosts.manufactures[1].title}"
+                                <androidx.constraintlayout.widget.ConstraintLayout
+                                    android:id="@+id/manufactureHomePost2"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:onClick="@{() -> vm.openPostDetail(vm.homePosts.manufactures[1].post_id)}"
+                                    app:layout_constraintBottom_toTopOf="@id/manufacturesLine2"
                                     app:layout_constraintStart_toStartOf="parent"
-                                    app:layout_constraintTop_toBottomOf="@id/manufacturesLine1"
-                                    tools:text="Title타이틀제목" />
+                                    app:layout_constraintTop_toBottomOf="@id/manufacturesLine1">
 
-                                <TextView
-                                    android:id="@+id/manufacturesTag2"
-                                    style="@style/homeTag"
-                                    app:layout_constraintLeft_toLeftOf="parent"
-                                    app:layout_constraintRight_toLeftOf="@id/manufacturesUserName2"
-                                    app:layout_constraintTop_toBottomOf="@id/manufacturesTitle2"
-                                    bind:homeTags="@{vm.homePosts.manufactures[1].tags}"
-                                    tools:text="#가게이름홍대금속" />
+                                    <TextView
+                                        android:id="@+id/manufacturesTitle2"
+                                        style="@style/homePostTitleTextView"
+                                        android:text="@{vm.homePosts.manufactures[1].title}"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintTop_toTopOf="parent"
+                                        tools:text="Title타이틀제목" />
 
-                                <TextView
-                                    android:id="@+id/manufacturesUserName2"
-                                    style="@style/sideInfoTextView"
-                                    android:text="@{vm.homePosts.manufactures[1].nickname}"
-                                    app:layout_constraintBottom_toBottomOf="@id/manufacturesTag2"
-                                    app:layout_constraintEnd_toStartOf="@id/manufacturesUserNameLine2"
-                                    app:layout_constraintTop_toTopOf="@id/manufacturesTag2"
-                                    tools:text="작성자이름" />
+                                    <TextView
+                                        android:id="@+id/manufacturesTag2"
+                                        style="@style/homeTag"
+                                        app:layout_constraintBottom_toBottomOf="parent"
+                                        app:layout_constraintLeft_toLeftOf="parent"
+                                        app:layout_constraintRight_toLeftOf="@id/manufacturesUserName2"
+                                        app:layout_constraintTop_toBottomOf="@id/manufacturesTitle2"
+                                        bind:homeTags="@{vm.homePosts.manufactures[1].tags}"
+                                        tools:text="#가게이름홍대금속" />
 
-                                <TextView
-                                    android:id="@+id/manufacturesUserNameLine2"
-                                    style="@style/sideInfoVerticalDivider"
-                                    app:layout_constraintEnd_toStartOf="@id/manufacturesDate2"
-                                    app:layout_constraintTop_toTopOf="@id/manufacturesUserName2" />
+                                    <TextView
+                                        android:id="@+id/manufacturesUserName2"
+                                        style="@style/sideInfoTextView"
+                                        android:text="@{vm.homePosts.manufactures[1].nickname}"
+                                        app:layout_constraintBottom_toBottomOf="@id/manufacturesTag2"
+                                        app:layout_constraintEnd_toStartOf="@id/manufacturesUserNameLine2"
+                                        app:layout_constraintTop_toTopOf="@id/manufacturesTag2"
+                                        tools:text="작성자이름" />
 
-                                <TextView
-                                    android:id="@+id/manufacturesDate2"
-                                    style="@style/homeDate"
-                                    android:text="@{vm.homePosts.manufactures[1].date}"
-                                    app:layout_constraintEnd_toEndOf="parent"
-                                    app:layout_constraintTop_toTopOf="@id/manufacturesUserName2"
-                                    tools:text="2020.10.10" />
+                                    <TextView
+                                        android:id="@+id/manufacturesUserNameLine2"
+                                        style="@style/sideInfoVerticalDivider"
+                                        app:layout_constraintEnd_toStartOf="@id/manufacturesDate2"
+                                        app:layout_constraintTop_toTopOf="@id/manufacturesUserName2" />
+
+                                    <TextView
+                                        android:id="@+id/manufacturesDate2"
+                                        style="@style/homeDate"
+                                        android:text="@{vm.homePosts.manufactures[1].date}"
+                                        app:layout_constraintEnd_toEndOf="parent"
+                                        app:layout_constraintTop_toTopOf="@id/manufacturesUserName2"
+                                        tools:text="2020.10.10" />
+
+                                </androidx.constraintlayout.widget.ConstraintLayout>
+
 
                                 <View
                                     android:id="@+id/manufacturesLine2"
-                                    style="@style/homeDivider"
+                                    style="@style/dividerStyle"
                                     app:layout_constraintStart_toStartOf="parent"
-                                    app:layout_constraintTop_toBottomOf="@id/manufacturesTag2" />
+                                    app:layout_constraintTop_toBottomOf="@id/manufactureHomePost2" />
 
-
-                                <TextView
-                                    android:id="@+id/manufacturesTitle3"
-                                    style="@style/homePostTitleTextView"
-                                    android:text="@{vm.homePosts.manufactures[2].title}"
+                                <androidx.constraintlayout.widget.ConstraintLayout
+                                    android:id="@+id/manufactureHomePost3"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:onClick="@{() -> vm.openPostDetail(vm.homePosts.manufactures[2].post_id)}"
+                                    app:layout_constraintBottom_toTopOf="@id/manufacturesLine3"
                                     app:layout_constraintStart_toStartOf="parent"
-                                    app:layout_constraintTop_toBottomOf="@id/manufacturesLine2"
-                                    tools:text="Title타이틀제목" />
+                                    app:layout_constraintTop_toBottomOf="@id/manufacturesLine2">
 
-                                <TextView
-                                    android:id="@+id/manufacturesTag3"
-                                    style="@style/homeTag"
-                                    app:layout_constraintLeft_toLeftOf="parent"
-                                    app:layout_constraintRight_toLeftOf="@id/manufacturesUserName3"
-                                    app:layout_constraintTop_toBottomOf="@id/manufacturesTitle3"
-                                    bind:homeTags="@{vm.homePosts.manufactures[2].tags}"
-                                    tools:text="#가게이름홍대금속" />
+                                    <TextView
+                                        android:id="@+id/manufacturesTitle3"
+                                        style="@style/homePostTitleTextView"
+                                        android:text="@{vm.homePosts.manufactures[2].title}"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintTop_toTopOf="parent"
+                                        tools:text="Title타이틀제목" />
 
-                                <TextView
-                                    android:id="@+id/manufacturesUserName3"
-                                    style="@style/sideInfoTextView"
-                                    android:text="@{vm.homePosts.manufactures[2].nickname}"
-                                    app:layout_constraintBottom_toBottomOf="@id/manufacturesTag3"
-                                    app:layout_constraintEnd_toStartOf="@id/manufacturesUserNameLine3"
-                                    app:layout_constraintTop_toTopOf="@id/manufacturesTag3"
-                                    tools:text="작성자이름" />
+                                    <TextView
+                                        android:id="@+id/manufacturesTag3"
+                                        style="@style/homeTag"
+                                        app:layout_constraintLeft_toLeftOf="parent"
+                                        app:layout_constraintRight_toLeftOf="@id/manufacturesUserName3"
+                                        app:layout_constraintTop_toBottomOf="@id/manufacturesTitle3"
+                                        bind:homeTags="@{vm.homePosts.manufactures[2].tags}"
+                                        tools:text="#가게이름홍대금속" />
 
-                                <TextView
-                                    android:id="@+id/manufacturesUserNameLine3"
-                                    style="@style/sideInfoVerticalDivider"
-                                    app:layout_constraintEnd_toStartOf="@id/manufacturesDate3"
-                                    app:layout_constraintTop_toTopOf="@id/manufacturesUserName3" />
+                                    <TextView
+                                        android:id="@+id/manufacturesUserName3"
+                                        style="@style/sideInfoTextView"
+                                        android:text="@{vm.homePosts.manufactures[2].nickname}"
+                                        app:layout_constraintBottom_toBottomOf="@id/manufacturesTag3"
+                                        app:layout_constraintEnd_toStartOf="@id/manufacturesUserNameLine3"
+                                        app:layout_constraintTop_toTopOf="@id/manufacturesTag3"
+                                        tools:text="작성자이름" />
 
-                                <TextView
-                                    android:id="@+id/manufacturesDate3"
-                                    style="@style/homeDate"
-                                    android:text="@{vm.homePosts.manufactures[2].date}"
-                                    app:layout_constraintEnd_toEndOf="parent"
-                                    app:layout_constraintTop_toTopOf="@id/manufacturesUserName3"
-                                    tools:text="2020.10.10" />
+                                    <TextView
+                                        android:id="@+id/manufacturesUserNameLine3"
+                                        style="@style/sideInfoVerticalDivider"
+                                        app:layout_constraintEnd_toStartOf="@id/manufacturesDate3"
+                                        app:layout_constraintTop_toTopOf="@id/manufacturesUserName3" />
+
+                                    <TextView
+                                        android:id="@+id/manufacturesDate3"
+                                        style="@style/homeDate"
+                                        android:text="@{vm.homePosts.manufactures[2].date}"
+                                        app:layout_constraintEnd_toEndOf="parent"
+                                        app:layout_constraintTop_toTopOf="@id/manufacturesUserName3"
+                                        tools:text="2020.10.10" />
+
+                                </androidx.constraintlayout.widget.ConstraintLayout>
 
                                 <View
                                     android:id="@+id/manufacturesLine3"
-                                    style="@style/homeDivider"
+                                    style="@style/dividerStyle"
                                     app:layout_constraintStart_toStartOf="parent"
-                                    app:layout_constraintTop_toBottomOf="@id/manufacturesTag3" />
+                                    app:layout_constraintTop_toBottomOf="@id/manufactureHomePost3" />
 
-
-                                <TextView
-                                    android:id="@+id/manufacturesTitle4"
-                                    style="@style/homePostTitleTextView"
-                                    android:text="@{vm.homePosts.manufactures[3].title}"
+                                <androidx.constraintlayout.widget.ConstraintLayout
+                                    android:id="@+id/manufactureHomePost4"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:onClick="@{() -> vm.openPostDetail(vm.homePosts.manufactures[3].post_id)}"
+                                    app:layout_constraintBottom_toTopOf="@id/manufacturesLine4"
                                     app:layout_constraintStart_toStartOf="parent"
-                                    app:layout_constraintTop_toBottomOf="@id/manufacturesLine3"
-                                    tools:text="Title타이틀제목" />
+                                    app:layout_constraintTop_toBottomOf="@id/manufacturesLine3">
 
-                                <TextView
-                                    android:id="@+id/manufacturesTag4"
-                                    style="@style/homeTag"
-                                    app:layout_constraintLeft_toLeftOf="parent"
-                                    app:layout_constraintRight_toLeftOf="@id/manufacturesUserName4"
-                                    app:layout_constraintTop_toBottomOf="@id/manufacturesTitle4"
-                                    bind:homeTags="@{vm.homePosts.manufactures[3].tags}"
-                                    tools:text="#가게이름홍대금속" />
+                                    <TextView
+                                        android:id="@+id/manufacturesTitle4"
+                                        style="@style/homePostTitleTextView"
+                                        android:text="@{vm.homePosts.manufactures[3].title}"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintTop_toTopOf="parent"
+                                        tools:text="Title타이틀제목" />
 
-                                <TextView
-                                    android:id="@+id/manufacturesUserName4"
-                                    style="@style/sideInfoTextView"
-                                    android:text="@{vm.homePosts.manufactures[3].nickname}"
-                                    app:layout_constraintBottom_toBottomOf="@id/manufacturesTag4"
-                                    app:layout_constraintEnd_toStartOf="@id/manufacturesUserNameLine4"
-                                    app:layout_constraintTop_toTopOf="@id/manufacturesTag4"
-                                    tools:text="작성자이름" />
+                                    <TextView
+                                        android:id="@+id/manufacturesTag4"
+                                        style="@style/homeTag"
+                                        app:layout_constraintBottom_toBottomOf="parent"
+                                        app:layout_constraintLeft_toLeftOf="parent"
+                                        app:layout_constraintRight_toLeftOf="@id/manufacturesUserName4"
+                                        app:layout_constraintTop_toBottomOf="@id/manufacturesTitle4"
+                                        bind:homeTags="@{vm.homePosts.manufactures[3].tags}"
+                                        tools:text="#가게이름홍대금속" />
 
-                                <TextView
-                                    android:id="@+id/manufacturesUserNameLine4"
-                                    style="@style/sideInfoVerticalDivider"
-                                    app:layout_constraintEnd_toStartOf="@id/manufacturesDate4"
-                                    app:layout_constraintTop_toTopOf="@id/manufacturesUserName4" />
+                                    <TextView
+                                        android:id="@+id/manufacturesUserName4"
+                                        style="@style/sideInfoTextView"
+                                        android:text="@{vm.homePosts.manufactures[3].nickname}"
+                                        app:layout_constraintBottom_toBottomOf="@id/manufacturesTag4"
+                                        app:layout_constraintEnd_toStartOf="@id/manufacturesUserNameLine4"
+                                        app:layout_constraintTop_toTopOf="@id/manufacturesTag4"
+                                        tools:text="작성자이름" />
 
-                                <TextView
-                                    android:id="@+id/manufacturesDate4"
-                                    style="@style/homeDate"
-                                    android:text="@{vm.homePosts.manufactures[3].date}"
-                                    app:layout_constraintEnd_toEndOf="parent"
-                                    app:layout_constraintTop_toTopOf="@id/manufacturesUserName4"
-                                    tools:text="2020.10.10" />
+                                    <TextView
+                                        android:id="@+id/manufacturesUserNameLine4"
+                                        style="@style/sideInfoVerticalDivider"
+                                        app:layout_constraintEnd_toStartOf="@id/manufacturesDate4"
+                                        app:layout_constraintTop_toTopOf="@id/manufacturesUserName4" />
+
+                                    <TextView
+                                        android:id="@+id/manufacturesDate4"
+                                        style="@style/homeDate"
+                                        android:text="@{vm.homePosts.manufactures[3].date}"
+                                        app:layout_constraintEnd_toEndOf="parent"
+                                        app:layout_constraintTop_toTopOf="@id/manufacturesUserName4"
+                                        tools:text="2020.10.10" />
+
+
+                                </androidx.constraintlayout.widget.ConstraintLayout>
 
                                 <View
                                     android:id="@+id/manufacturesLine4"
-                                    style="@style/homeDivider"
+                                    style="@style/dividerStyle"
                                     app:layout_constraintStart_toStartOf="parent"
-                                    app:layout_constraintTop_toBottomOf="@id/manufacturesTag4" />
+                                    app:layout_constraintTop_toBottomOf="@id/manufactureHomePost4" />
 
-
-                                <TextView
-                                    android:id="@+id/manufacturesTitle5"
-                                    style="@style/homePostTitleTextView"
-                                    android:text="@{vm.homePosts.manufactures[4].title}"
+                                <androidx.constraintlayout.widget.ConstraintLayout
+                                    android:id="@+id/manufactureHomePost5"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:onClick="@{() -> vm.openPostDetail(vm.homePosts.manufactures[4].post_id)}"
                                     app:layout_constraintStart_toStartOf="parent"
-                                    app:layout_constraintTop_toBottomOf="@id/manufacturesLine4"
-                                    tools:text="Title타이틀제목" />
+                                    app:layout_constraintTop_toBottomOf="@id/manufacturesLine4">
 
-                                <TextView
-                                    android:id="@+id/manufacturesTag5"
-                                    style="@style/homeTag"
-                                    app:layout_constraintLeft_toLeftOf="parent"
-                                    app:layout_constraintRight_toLeftOf="@id/manufacturesUserName5"
-                                    app:layout_constraintTop_toBottomOf="@id/manufacturesTitle5"
-                                    bind:homeTags="@{vm.homePosts.manufactures[4].tags}"
-                                    tools:text="#가게이름홍대금속" />
+                                    <TextView
+                                        android:id="@+id/manufacturesTitle5"
+                                        style="@style/homePostTitleTextView"
+                                        android:text="@{vm.homePosts.manufactures[4].title}"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintTop_toTopOf="parent"
+                                        tools:text="Title타이틀제목" />
 
-                                <TextView
-                                    android:id="@+id/manufacturesUserName5"
-                                    style="@style/sideInfoTextView"
-                                    android:text="@{vm.homePosts.manufactures[4].nickname}"
-                                    app:layout_constraintBottom_toBottomOf="@id/manufacturesTag5"
-                                    app:layout_constraintEnd_toStartOf="@id/manufacturesUserNameLine5"
-                                    app:layout_constraintTop_toTopOf="@id/manufacturesTag5"
-                                    tools:text="작성자이름" />
+                                    <TextView
+                                        android:id="@+id/manufacturesTag5"
+                                        style="@style/homeTag"
+                                        app:layout_constraintBottom_toBottomOf="parent"
+                                        app:layout_constraintLeft_toLeftOf="parent"
+                                        app:layout_constraintRight_toLeftOf="@id/manufacturesUserName5"
+                                        app:layout_constraintTop_toBottomOf="@id/manufacturesTitle5"
+                                        bind:homeTags="@{vm.homePosts.manufactures[4].tags}"
+                                        tools:text="#가게이름홍대금속" />
 
-                                <TextView
-                                    android:id="@+id/manufacturesUserNameLine5"
-                                    style="@style/sideInfoVerticalDivider"
-                                    app:layout_constraintEnd_toStartOf="@id/manufacturesDate5"
-                                    app:layout_constraintTop_toTopOf="@id/manufacturesUserName5" />
+                                    <TextView
+                                        android:id="@+id/manufacturesUserName5"
+                                        style="@style/sideInfoTextView"
+                                        android:text="@{vm.homePosts.manufactures[4].nickname}"
+                                        app:layout_constraintBottom_toBottomOf="@id/manufacturesTag5"
+                                        app:layout_constraintEnd_toStartOf="@id/manufacturesUserNameLine5"
+                                        app:layout_constraintTop_toTopOf="@id/manufacturesTag5"
+                                        tools:text="작성자이름" />
 
-                                <TextView
-                                    android:id="@+id/manufacturesDate5"
-                                    style="@style/homeDate"
-                                    android:text="@{vm.homePosts.manufactures[4].date}"
-                                    app:layout_constraintEnd_toEndOf="parent"
-                                    app:layout_constraintTop_toTopOf="@id/manufacturesUserName5"
-                                    tools:text="2020.10.10" />
+                                    <TextView
+                                        android:id="@+id/manufacturesUserNameLine5"
+                                        style="@style/sideInfoVerticalDivider"
+                                        app:layout_constraintEnd_toStartOf="@id/manufacturesDate5"
+                                        app:layout_constraintTop_toTopOf="@id/manufacturesUserName5" />
+
+                                    <TextView
+                                        android:id="@+id/manufacturesDate5"
+                                        style="@style/homeDate"
+                                        android:text="@{vm.homePosts.manufactures[4].date}"
+                                        app:layout_constraintEnd_toEndOf="parent"
+                                        app:layout_constraintTop_toTopOf="@id/manufacturesUserName5"
+                                        tools:text="2020.10.10" />
+
+                                </androidx.constraintlayout.widget.ConstraintLayout>
 
                             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -816,6 +992,7 @@
                         android:id="@+id/materialsBtn"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
+                        android:onClick="@{() -> vm.startMaterialsActivity()}"
                         app:layout_constraintEnd_toStartOf="@id/manufactureBtn"
                         app:layout_constraintHorizontal_weight="1"
                         app:layout_constraintStart_toEndOf="@id/homeBtn"
@@ -849,6 +1026,7 @@
                         android:id="@+id/manufactureBtn"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
+                        android:onClick="@{() -> vm.startManufacturesActivity()}"
                         app:layout_constraintEnd_toStartOf="@id/bookmarkBtn"
                         app:layout_constraintHorizontal_weight="1"
                         app:layout_constraintStart_toEndOf="@id/materialsBtn"
@@ -882,6 +1060,7 @@
                         android:id="@+id/bookmarkBtn"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
+                        android:onClick="@{() -> vm.startBookmarksActivity()}"
                         app:layout_constraintEnd_toStartOf="@id/myPageBtn"
                         app:layout_constraintHorizontal_weight="1"
                         app:layout_constraintStart_toEndOf="@id/manufactureBtn"
@@ -915,6 +1094,7 @@
                         android:id="@+id/myPageBtn"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
+                        android:onClick="@{() -> vm.startMyPageActivity()}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_weight="1"
                         app:layout_constraintStart_toEndOf="@id/bookmarkBtn"
