@@ -41,7 +41,7 @@ class ViewModelJobInput(
     private lateinit var addUserRequest: AddUserRequest
 
     init {
-        getTermsAgreements()
+        loadTermsAgreements()
     }
 
     // JobInputs
@@ -68,7 +68,7 @@ class ViewModelJobInput(
     }
     val jobTypes: LiveData<Map<String, Boolean>> = _jobTypes
 
-    private fun getTermsAgreements() {
+    private fun loadTermsAgreements() {
         userModificationRepository.getTermsAgreements(
             onSuccess = { agreements ->
                 termsAgreements = agreements
