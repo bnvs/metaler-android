@@ -11,8 +11,9 @@ class HomePostsRepositoryImpl(
 
     override fun getHomePosts(
         onSuccess: (response: HomePosts) -> Unit,
-        onFailure: (e: Throwable) -> Unit
+        onFailure: (e: Throwable) -> Unit,
+        handleError: (errorCode: Int) -> Unit
     ) {
-        homePostsRemoteDataSource.getHomePosts(onSuccess, onFailure)
+        homePostsRemoteDataSource.getHomePosts(onSuccess, onFailure, handleError)
     }
 }

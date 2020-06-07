@@ -1,7 +1,9 @@
 package com.bnvs.metaler.data.homeposts.source.remote
 
 import com.bnvs.metaler.data.homeposts.model.HomePosts
+import com.bnvs.metaler.network.ErrorHandler
 import com.bnvs.metaler.network.RetrofitInterface
+import com.bnvs.metaler.util.constants.NO_ERROR_TO_HANDLE
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.HttpException
@@ -13,7 +15,8 @@ class HomePostsRemoteDataSourceImpl(
 
     override fun getHomePosts(
         onSuccess: (response: HomePosts) -> Unit,
-        onFailure: (e: Throwable) -> Unit
+        onFailure: (e: Throwable) -> Unit,
+        handleError: (errorCode: Int) -> Unit
     ) {
         retrofitClient.getHomePosts().enqueue(object : Callback<HomePosts> {
             override fun onResponse(
@@ -24,6 +27,10 @@ class HomePostsRemoteDataSourceImpl(
                 if (body != null && response.isSuccessful) {
                     onSuccess(body)
                 } else {
+                    val e = ErrorHandler.getErrorCode(HttpException(response))
+                    if (e != NO_ERROR_TO_HANDLE) {
+                        handleError(e)
+                    }
                     onFailure(HttpException(response))
                 }
             }

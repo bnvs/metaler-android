@@ -6,7 +6,8 @@ interface HomePostsRepository {
 
     fun getHomePosts(
         onSuccess: (response: HomePosts) -> Unit,
-        onFailure: (e: Throwable) -> Unit
+        onFailure: (e: Throwable) -> Unit,
+        handleError: (errorCode: Int) -> Unit
     )
 
 }
