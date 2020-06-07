@@ -1,7 +1,14 @@
-package com.bnvs.metaler.view.login
+package com.bnvs.metaler
 
 import android.app.Application
+import com.bnvs.metaler.module.repository.*
+import com.bnvs.metaler.module.retrofit.retrofitModule
+import com.bnvs.metaler.module.viewmodel.homeViewModelModule
+import com.bnvs.metaler.module.viewmodel.jobInputViewModelModule
+import com.bnvs.metaler.module.viewmodel.termsAgreeViewModelModule
 import com.kakao.auth.*
+import org.koin.android.ext.koin.androidContext
+import org.koin.core.context.startKoin
 
 class GlobalApplication : Application() {
     private object KakaoSDKAdapter : KakaoAdapter() {
@@ -53,7 +60,7 @@ class GlobalApplication : Application() {
     companion object {
         var instance: GlobalApplication? = null
 
-        fun getGlobalApplicationContext() : GlobalApplication? {
+        fun getGlobalApplicationContext(): GlobalApplication? {
             checkNotNull(this) { "this application does not inherit com.kakao.GlobalApplication" }
             return instance
         }
@@ -63,6 +70,28 @@ class GlobalApplication : Application() {
         super.onCreate()
         instance = this
         KakaoSDK.init(KakaoSDKAdapter)
+
+        startKoin {
+            androidContext(this@GlobalApplication)
+            modules(
+                retrofitModule,
+                userModule,
+                tokenModule,
+                profileModule,
+                categoriesModule,
+                homePostsModule,
+                tagsRecommendModule,
+                postsModule,
+                postDetailsModule,
+                commentsModule,
+                addEditPostModule,
+                bookmarksModule,
+                myPostsModule,
+                termsAgreeViewModelModule,
+                jobInputViewModelModule,
+                homeViewModelModule
+            )
+        }
     }
 
     override fun onTerminate() {

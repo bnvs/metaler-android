@@ -1,57 +1,60 @@
 package com.bnvs.metaler.view.termsagree
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.bnvs.metaler.data.user.modification.model.Terms
 import com.bnvs.metaler.data.user.modification.model.TermsAgreements
-import com.bnvs.metaler.data.user.modification.source.local.UserModificationLocalDataSourceImpl
-import com.bnvs.metaler.data.user.modification.source.remote.UserModificationRemoteDataSourceImpl
 import com.bnvs.metaler.data.user.modification.source.repository.UserModificationRepository
-import com.bnvs.metaler.data.user.modification.source.repository.UserModificationRepositoryImpl
-import com.bnvs.metaler.network.NO_ERROR_TO_HANDLE
 import com.bnvs.metaler.network.NetworkUtil
+import com.bnvs.metaler.util.constants.NO_ERROR_TO_HANDLE
 
-class ViewModelTermsAgree(application: Application) : AndroidViewModel(application) {
+class ViewModelTermsAgree(
+    private val userModificationRepository: UserModificationRepository
+) : ViewModel() {
 
-    private val userModificationRepository: UserModificationRepository =
-        UserModificationRepositoryImpl(
-            UserModificationLocalDataSourceImpl(application.applicationContext),
-            UserModificationRemoteDataSourceImpl()
-        )
+    private val _errorToastMessage = MutableLiveData<String>().apply { value = "" }
+    val errorToastMessage: LiveData<String> = _errorToastMessage
+    private val _errorDialogMessage = MutableLiveData<String>().apply { value = "" }
+    val errorDialogMessage: LiveData<String> = _errorDialogMessage
+    private val _errorCode = MutableLiveData<Int>().apply { value = NO_ERROR_TO_HANDLE }
+    val errorCode: LiveData<Int> = _errorCode
 
-    val errorToastMessage = MutableLiveData<String>().apply { value = "" }
-    val errorDialogMessage = MutableLiveData<String>().apply { value = "" }
-    val errorCode = MutableLiveData<Int>().apply { value = NO_ERROR_TO_HANDLE }
+    private val _openJobInputActivity = MutableLiveData<Boolean>().apply { value = false }
+    val openJobInputActivity: LiveData<Boolean> = _openJobInputActivity
 
-    val openJobInputActivity = MutableLiveData<Boolean>().apply { value = false }
-
-    val terms = MutableLiveData<Terms>()
+    private val _terms = MutableLiveData<Terms>()
+    val terms: LiveData<Terms> = _terms
 
     init {
         getTerms()
     }
 
     // TermsAgree Buttons
-    val allChecked = MutableLiveData<Boolean>().apply { value = true }
-    val firstChecked = MutableLiveData<Boolean>().apply { value = true }
-    val secondChecked = MutableLiveData<Boolean>().apply { value = true }
-    val thirdChecked = MutableLiveData<Boolean>().apply { value = true }
-    val fourthChecked = MutableLiveData<Boolean>().apply { value = true }
+    private val _allChecked = MutableLiveData<Boolean>().apply { value = true }
+    val allChecked: LiveData<Boolean> = _allChecked
+    private val _firstChecked = MutableLiveData<Boolean>().apply { value = true }
+    val firstChecked: LiveData<Boolean> = _firstChecked
+    private val _secondChecked = MutableLiveData<Boolean>().apply { value = true }
+    val secondChecked: LiveData<Boolean> = _secondChecked
+    private val _thirdChecked = MutableLiveData<Boolean>().apply { value = true }
+    val thirdChecked: LiveData<Boolean> = _thirdChecked
+    private val _fourthChecked = MutableLiveData<Boolean>().apply { value = true }
+    val fourthChecked: LiveData<Boolean> = _fourthChecked
 
     private fun getTerms() {
         userModificationRepository.getTerms(
             onSuccess = { response ->
-                terms.value = response
+                _terms.value = response
             },
             onFailure = { e ->
-                errorToastMessage.apply {
+                _errorToastMessage.apply {
                     value = NetworkUtil.getErrorMessage(e)
                     value = clearStringValue()
                 }
             },
             handleError = { e ->
-                errorCode.apply {
+                _errorCode.apply {
                     value = e
                     value = NO_ERROR_TO_HANDLE
                 }
@@ -61,37 +64,37 @@ class ViewModelTermsAgree(application: Application) : AndroidViewModel(applicati
 
     fun onAllCheckButtonChanged() {
         if (allChecked.value == false) {
-            allChecked.value = true
-            firstChecked.value = true
-            secondChecked.value = true
-            thirdChecked.value = true
-            fourthChecked.value = true
+            _allChecked.value = true
+            _firstChecked.value = true
+            _secondChecked.value = true
+            _thirdChecked.value = true
+            _fourthChecked.value = true
         } else {
-            allChecked.value = false
-            firstChecked.value = false
-            secondChecked.value = false
-            thirdChecked.value = false
-            fourthChecked.value = false
+            _allChecked.value = false
+            _firstChecked.value = false
+            _secondChecked.value = false
+            _thirdChecked.value = false
+            _fourthChecked.value = false
         }
     }
 
     fun onCheckButtonChanged(buttonIndex: Int) {
         when (buttonIndex) {
             1 -> {
-                firstChecked.value = firstChecked.value != true
+                _firstChecked.value = firstChecked.value != true
             }
             2 -> {
-                secondChecked.value = secondChecked.value != true
+                _secondChecked.value = secondChecked.value != true
             }
             3 -> {
-                thirdChecked.value = thirdChecked.value != true
+                _thirdChecked.value = thirdChecked.value != true
             }
             4 -> {
-                fourthChecked.value = fourthChecked.value != true
+                _fourthChecked.value = fourthChecked.value != true
             }
         }
 
-        allChecked.value =
+        _allChecked.value =
             firstChecked.value == true
                     && secondChecked.value == true
                     && thirdChecked.value == true
@@ -110,7 +113,7 @@ class ViewModelTermsAgree(application: Application) : AndroidViewModel(applicati
     }
 
     private fun startJobInputActivity() {
-        openJobInputActivity.apply {
+        _openJobInputActivity.apply {
             value = true
             value = false
         }
@@ -124,7 +127,7 @@ class ViewModelTermsAgree(application: Application) : AndroidViewModel(applicati
             saveTermsAgreements()
             startJobInputActivity()
         } else {
-            errorDialogMessage.apply {
+            _errorDialogMessage.apply {
                 value = "메탈러 서비스 이용을 위해서 필수 이용약관 동의가 필요합니다."
                 value = clearStringValue()
             }

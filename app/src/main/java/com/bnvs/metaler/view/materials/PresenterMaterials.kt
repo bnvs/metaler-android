@@ -15,17 +15,19 @@ import com.bnvs.metaler.data.posts.model.PostsWithTagRequest
 import com.bnvs.metaler.data.posts.source.repository.PostsRepository
 import com.bnvs.metaler.network.NetworkUtil
 import com.bnvs.metaler.view.detail.ActivityDetail
+import org.koin.core.KoinComponent
+import org.koin.core.inject
 
 class PresenterMaterials(
     private val context: Context,
     private val view: ContractMaterials.View
-) : ContractMaterials.Presenter {
+) : ContractMaterials.Presenter, KoinComponent {
 
     val TAG = "PresenterMaterials.kt"
 
-    private val postRepository: PostsRepository = PostsRepository(context)
-    private val bookmarksRepository: BookmarksRepository = BookmarksRepository()
-    private val categoriesRepository: CategoriesRepository = CategoriesRepository()
+    private val postRepository: PostsRepository by inject()
+    private val bookmarksRepository: BookmarksRepository by inject()
+    private val categoriesRepository: CategoriesRepository by inject()
 
     private lateinit var postsRequest: PostsRequest
     private lateinit var postsWithTagRequest: PostsWithTagRequest

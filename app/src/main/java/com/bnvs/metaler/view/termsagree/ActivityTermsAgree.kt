@@ -7,37 +7,29 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.bnvs.metaler.R
 import com.bnvs.metaler.data.token.source.local.TokenLocalDataSourceImpl
 import com.bnvs.metaler.data.token.source.repository.TokenRepositoryImpl
 import com.bnvs.metaler.databinding.ActivityTermsAgreeBinding
-import com.bnvs.metaler.network.NO_HEADER
-import com.bnvs.metaler.network.RetrofitClient
-import com.bnvs.metaler.network.TOKEN_EXPIRED
+import com.bnvs.metaler.network.HeaderInterceptor
+import com.bnvs.metaler.util.constants.NO_HEADER
+import com.bnvs.metaler.util.constants.TOKEN_EXPIRED
 import com.bnvs.metaler.view.jobinput.ActivityJobInput
 import com.bnvs.metaler.view.login.ActivityLogin
+import org.koin.android.ext.android.inject
 
 class ActivityTermsAgree : AppCompatActivity() {
 
     private val TAG = "ActivityTermsAgree"
-
-    private lateinit var binding: ActivityTermsAgreeBinding
-    private lateinit var viewModel: ViewModelTermsAgree
+    private val viewModel: ViewModelTermsAgree by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = DataBindingUtil.setContentView(
+        DataBindingUtil.setContentView<ActivityTermsAgreeBinding>(
             this,
             R.layout.activity_terms_agree
-        )
-
-        viewModel = ViewModelProvider(
-            this, ViewModelProvider.AndroidViewModelFactory(application)
-        ).get(ViewModelTermsAgree::class.java)
-
-        binding.apply {
+        ).apply {
             vm = viewModel
             lifecycleOwner = this@ActivityTermsAgree
         }
@@ -101,7 +93,8 @@ class ActivityTermsAgree : AppCompatActivity() {
         TokenRepositoryImpl(TokenLocalDataSourceImpl(this))
             .getAccessToken(
                 onTokenLoaded = { token ->
-                    RetrofitClient.setAccessToken(token.access_token)
+                    val headerInterceptor: HeaderInterceptor by inject()
+                    headerInterceptor.setAccessToken(token.access_token)
                 },
                 onTokenNotExist = {
                     startLoginActivity()

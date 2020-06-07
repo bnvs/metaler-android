@@ -1,12 +1,25 @@
 package com.bnvs.metaler.network
 
+import com.bnvs.metaler.data.token.source.repository.TokenRepository
 import okhttp3.Interceptor
 import okhttp3.Response
 
-class HeaderInterceptor : Interceptor {
-    private var access_token = ""
+class HeaderInterceptor(tokenRepository: TokenRepository) : Interceptor {
+    private lateinit var access_token: String
+
+    init {
+        tokenRepository.getAccessToken(
+            onTokenLoaded = { token ->
+                this.access_token = token.access_token
+            },
+            onTokenNotExist = {
+                this.access_token = ""
+            }
+        )
+    }
+
     fun setAccessToken(token: String) {
-        access_token = token
+        this.access_token = token
     }
 
     override fun intercept(chain: Interceptor.Chain): Response {

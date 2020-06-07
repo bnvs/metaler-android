@@ -1,62 +1,44 @@
 package com.bnvs.metaler.data.comments.source.repository
 
-import android.content.Context
 import com.bnvs.metaler.data.comments.model.AddCommentResponse
 import com.bnvs.metaler.data.comments.model.AddEditCommentRequest
 import com.bnvs.metaler.data.comments.model.Comments
 import com.bnvs.metaler.data.comments.model.CommentsRequest
-import com.bnvs.metaler.data.comments.source.CommentsDataSource
-import com.bnvs.metaler.data.comments.source.local.CommentsLocalDataSource
-import com.bnvs.metaler.data.comments.source.remote.CommentsRemoteDataSource
 
-class CommentsRepository(context: Context) :
-    CommentsDataSource {
+interface CommentsRepository {
 
-    private val commentsRemoteDataSource = CommentsRemoteDataSource
-    private val commentsLocalDataSource = CommentsLocalDataSource(context)
-
-    override fun getComments(
+    fun getComments(
         postId: Int,
         request: CommentsRequest,
         onSuccess: (response: Comments) -> Unit,
         onFailure: (e: Throwable) -> Unit
-    ) {
-        commentsRemoteDataSource.getComments(postId, request, onSuccess, onFailure)
-    }
+    )
 
-    override fun addComment(
+    fun addComment(
         postId: Int,
         request: AddEditCommentRequest,
         onSuccess: (response: AddCommentResponse) -> Unit,
         onFailure: (e: Throwable) -> Unit
-    ) {
-        commentsRemoteDataSource.addComment(postId, request, onSuccess, onFailure)
-    }
+    )
 
-    override fun editComment(
+    fun editComment(
         postId: Int,
         commentId: Int,
         request: AddEditCommentRequest,
         onSuccess: () -> Unit,
         onFailure: (e: Throwable) -> Unit
-    ) {
-        commentsRemoteDataSource.editComment(postId, commentId, request, onSuccess, onFailure)
-    }
+    )
 
-    override fun deleteComment(
+    fun deleteComment(
         postId: Int,
         commentId: Int,
         onSuccess: () -> Unit,
         onFailure: (e: Throwable) -> Unit
-    ) {
-        commentsRemoteDataSource.deleteComment(postId, commentId, onSuccess, onFailure)
-    }
+    )
 
-    override fun saveIsCommentModified(isCommentModified: Boolean) {
-        commentsLocalDataSource.saveIsCommentModified(isCommentModified)
-    }
+    fun saveIsCommentModified(
+        isCommentModified: Boolean
+    )
 
-    override fun isCommentModified(): Boolean {
-        return commentsLocalDataSource.isCommentModified()
-    }
+    fun isCommentModified(): Boolean
 }

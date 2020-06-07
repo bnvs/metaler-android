@@ -1,5 +1,8 @@
 package com.bnvs.metaler.network
 
+import com.bnvs.metaler.util.constants.NO_ERROR_TO_HANDLE
+import com.bnvs.metaler.util.constants.NO_HEADER
+import com.bnvs.metaler.util.constants.TOKEN_EXPIRED
 import retrofit2.HttpException
 
 object ErrorHandler {

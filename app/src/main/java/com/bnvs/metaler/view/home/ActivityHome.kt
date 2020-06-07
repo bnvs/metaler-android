@@ -5,162 +5,174 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.WindowManager
-import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import com.bnvs.metaler.R
-import com.bnvs.metaler.data.addeditpost.model.PostTag
-import com.bnvs.metaler.data.homeposts.model.HomePost
-import com.bnvs.metaler.data.profile.model.Profile
+import com.bnvs.metaler.data.token.source.local.TokenLocalDataSourceImpl
+import com.bnvs.metaler.data.token.source.repository.TokenRepositoryImpl
+import com.bnvs.metaler.databinding.ActivityHomeBinding
+import com.bnvs.metaler.network.NetworkUtil
+import com.bnvs.metaler.util.constants.NO_HEADER
+import com.bnvs.metaler.util.constants.TOKEN_EXPIRED
+import com.bnvs.metaler.view.bookmarks.ActivityBookmarks
 import com.bnvs.metaler.view.detail.ActivityDetail
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.CircleCrop
+import com.bnvs.metaler.view.login.ActivityLogin
+import com.bnvs.metaler.view.manufactures.ActivityManufactures
+import com.bnvs.metaler.view.materials.ActivityMaterials
+import com.bnvs.metaler.view.mypage.ActivityMyPage
 import kotlinx.android.synthetic.main.activity_home.*
+import org.koin.android.ext.android.inject
 
-class ActivityHome : AppCompatActivity(), ContractHome.View {
+class ActivityHome : AppCompatActivity() {
 
     private val TAG = "ActivityHome"
 
-    override lateinit var presenter: ContractHome.Presenter
+    private val viewModel: ViewModelHome by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_home)
 
-        // Create the presenter
-        presenter = PresenterHome(
-            this@ActivityHome,
-            this@ActivityHome
-        )
-
-        // Set up Buttons
-        initClickListeners()
-
-        // 홈 탭에서 보여줄 데이터 가져오기 시작
-        // 상태 바(배터리,와이파이 아이콘 표시되는 곳) 투명하게함
-        presenter.run {
-            start()
-            setStatusBar()
+        DataBindingUtil.setContentView<ActivityHomeBinding>(
+            this,
+            R.layout.activity_home
+        ).apply {
+            vm = viewModel
+            lifecycleOwner = this@ActivityHome
         }
 
+        setTransparentStatusBar()
+        observeViewModel()
+
     }
 
-    override fun onResume() {
-        super.onResume()
-        presenter.start()
+    private fun observeViewModel() {
+        observeToast()
+        observeDialog()
+        observeErrorCode()
+        observeStartMaterialsActivity()
+        observeStartManufacturesActivity()
+        observeStartBookmarksActivity()
+        observeStartMyPageActivity()
     }
 
-    // 사용자 프로필을 보여준다
-    override fun showProfile(profile: Profile) {
-        Glide.with(this@ActivityHome)
-            .load(profile.profile_image_url)
-            .transform(CircleCrop())
-            .error(R.drawable.ic_profile_x3)
-            .into(profileImg)
-        profileNickname.text = profile.profile_nickname
-        profileEmail.text = profile.profile_email
+    private fun observeToast() {
+        viewModel.errorToastMessage.observe(
+            this,
+            Observer { message ->
+                if (message.isNotBlank()) {
+                    makeToast(message)
+                }
+            }
+        )
     }
 
-    // 재료 리사이클러뷰를 보여준다
-    override fun showMaterialsList(materials: List<HomePost>) {
+    private fun observeDialog() {
+        viewModel.errorDialogMessage.observe(
+            this,
+            Observer { message ->
+                if (message.isNotBlank()) {
+                    makeDialog(message)
+                }
+            }
+        )
+    }
 
-        val titles = listOf<TextView>(
-            materialsTitle1,
-            materialsTitle2,
-            materialsTitle3,
-            materialsTitle4,
-            materialsTitle5
+    private fun observeErrorCode() {
+        viewModel.errorCode.observe(
+            this,
+            Observer { errorCode ->
+                when (errorCode) {
+                    NO_HEADER -> setAuthorizationHeader()
+                    TOKEN_EXPIRED -> startLoginActivity()
+                }
+            }
         )
-        val tags = listOf<TextView>(
-            materialsTag1,
-            materialsTag2,
-            materialsTag3,
-            materialsTag4,
-            materialsTag5
-        )
-        val userNames = listOf<TextView>(
-            materialsUserName1,
-            materialsUserName2,
-            materialsUserName3,
-            materialsUserName4,
-            materialsUserName5
-        )
-        val dates = listOf<TextView>(
-            materialsDate1,
-            materialsDate2,
-            materialsDate3,
-            materialsDate4,
-            materialsDate5
-        )
+    }
 
-        for (i in materials.indices) {
-            val material = materials[i]
-            titles[i].text = material.title
-            tags[i].text = parseTagList(material.tags)
-            userNames[i].text = material.nickname
-            dates[i].text = material.date
+    private fun observeStartDetailActivity() {
+        viewModel.openDetailActivity.observe(
+            this,
+            Observer { startActivity ->
+                if (startActivity) {
+                    val postId = viewModel.postId.value
+                    if (postId == null) {
+                        makeToast("상세게시물을 볼 수 없습니다")
+                    } else {
+                        startDetailActivity(postId)
+                    }
+                }
+            }
+        )
+    }
+
+    private fun observeStartMaterialsActivity() {
+        viewModel.openMaterialsActivity.observe(
+            this,
+            Observer { startActivity ->
+                if (startActivity) {
+                    startMaterialsActivity()
+                }
+            }
+        )
+    }
+
+    private fun observeStartManufacturesActivity() {
+        viewModel.openManufacturesActivity.observe(
+            this,
+            Observer { startActivity ->
+                if (startActivity) {
+                    startManufacturesActivity()
+                }
+            }
+        )
+    }
+
+    private fun observeStartBookmarksActivity() {
+        viewModel.openBookmarksActivity.observe(
+            this,
+            Observer { startActivity ->
+                if (startActivity) {
+                    startBookmarksActivity()
+                }
+            }
+        )
+    }
+
+    private fun observeStartMyPageActivity() {
+        viewModel.openMyPageActivity.observe(
+            this,
+            Observer { startActivity ->
+                if (startActivity) {
+                    startMyPageActivity()
+                }
+            }
+        )
+    }
+
+    private fun setAuthorizationHeader() {
+        TokenRepositoryImpl(TokenLocalDataSourceImpl(this))
+            .getAccessToken(
+                onTokenLoaded = { token ->
+                    NetworkUtil.setAccessToken(token.access_token)
+                },
+                onTokenNotExist = {
+                    startLoginActivity()
+                }
+            )
+    }
+
+    private fun startLoginActivity() {
+        finishAffinity()
+        Intent(this, ActivityLogin::class.java).also {
+            startActivity(it)
         }
-    }
-
-    // 가공 리사이클러뷰를 보여준다
-    override fun showManufacturesList(manufactures: List<HomePost>) {
-        val titles = listOf<TextView>(
-            manufacturesTitle1,
-            manufacturesTitle2,
-            manufacturesTitle3,
-            manufacturesTitle4,
-            manufacturesTitle5
-        )
-        val tags = listOf<TextView>(
-            manufacturesTag1,
-            manufacturesTag2,
-            manufacturesTag3,
-            manufacturesTag4,
-            manufacturesTag5
-        )
-        val userNames = listOf<TextView>(
-            manufacturesUserName1,
-            manufacturesUserName2,
-            manufacturesUserName3,
-            manufacturesUserName4,
-            manufacturesUserName5
-        )
-        val dates = listOf<TextView>(
-            manufacturesDate1,
-            manufacturesDate2,
-            manufacturesDate3,
-            manufacturesDate4,
-            manufacturesDate5
-        )
-
-        for (i in manufactures.indices) {
-            val material = manufactures[i]
-            titles[i].text = material.title
-            tags[i].text = parseTagList(material.tags)
-            userNames[i].text = material.nickname
-            dates[i].text = material.date
-        }
-    }
-
-    private fun parseTagList(tags: List<PostTag>): String {
-        var tagString = ""
-        for (tag in tags) {
-            tagString += "#${tag.name} "
-        }
-        return tagString
-    }
-
-    override fun showProfileNotExistToast() {
-        makeToast("프로필 데이터를 불러오는데 실패했습니다")
-    }
-
-    override fun showLoadHomePostFailedToast(errorMessage: String) {
-        makeToast(errorMessage)
-        Log.d("error", errorMessage)
     }
 
     // 게시물 상세 내용 액티비티로 이동한다
-    override fun showPostDetailUi(postId: Int) {
+    private fun startDetailActivity(postId: Int) {
         Intent(this@ActivityHome, ActivityDetail::class.java)
             .apply { putExtra("postId", postId) }
             .also { startActivity(it) }
@@ -168,42 +180,28 @@ class ActivityHome : AppCompatActivity(), ContractHome.View {
         overridePendingTransition(0, 0)
     }
 
-    private fun initClickListeners() {
-        setMoreButtons()
-        setTapBarButtons()
+    private fun startMaterialsActivity() {
+        Intent(this, ActivityMaterials::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_NO_ANIMATION
+        }.also { startActivity(it) }
     }
 
-    private fun setMoreButtons() {
-        materialsBtn.setOnClickListener {
-            presenter.openMaterials(this, this)
-            finishActivity()
-        }
-        manufactureBtn.setOnClickListener {
-            presenter.openManufactures(this, this)
-            finishActivity()
-        }
+    private fun startManufacturesActivity() {
+        Intent(this, ActivityManufactures::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_NO_ANIMATION
+        }.also { startActivity(it) }
     }
 
-    private fun setTapBarButtons() {
-        // TODO : presenter 의 함수 파라미터에 view 를 넣지 않고,
-        //  presenter 의 멤버변수로 선언된 view 를 사용하는 방법이 없을까?
-        homeBtn.setOnClickListener { }
-        materialsBtn.setOnClickListener {
-            presenter.openMaterials(this, this)
-            finishActivity()
-        }
-        manufactureBtn.setOnClickListener {
-            presenter.openManufactures(this, this)
-            finishActivity()
-        }
-        bookmarkBtn.setOnClickListener {
-            presenter.openBookmarks(this, this)
-            finishActivity()
-        }
-        myPageBtn.setOnClickListener {
-            presenter.openMyPage(this, this)
-            finishActivity()
-        }
+    private fun startBookmarksActivity() {
+        Intent(this, ActivityBookmarks::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_NO_ANIMATION
+        }.also { startActivity(it) }
+    }
+
+    private fun startMyPageActivity() {
+        Intent(this, ActivityMyPage::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_NO_ANIMATION
+        }.also { startActivity(it) }
     }
 
     private fun finishActivity() {
@@ -212,7 +210,7 @@ class ActivityHome : AppCompatActivity(), ContractHome.View {
     }
 
     // 상태 바를 투명하게 하고, padding 을 조절한다
-    override fun setTransparentStatusBar() {
+    private fun setTransparentStatusBar() {
         window.setFlags(
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
@@ -244,7 +242,17 @@ class ActivityHome : AppCompatActivity(), ContractHome.View {
     }
 
     private fun makeToast(message: String) {
-        Toast.makeText(this@ActivityHome, message, Toast.LENGTH_LONG).show()
+        Toast.makeText(this@ActivityHome, message, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun makeDialog(message: String) {
+        AlertDialog.Builder(this@ActivityHome)
+            .setTitle(getString(R.string.alert))
+            .setMessage(message)
+            .setPositiveButton(getString(R.string.allow)) { dialog, _ ->
+                dialog.dismiss()
+            }
+            .show()
     }
 
 }

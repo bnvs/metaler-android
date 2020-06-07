@@ -2,16 +2,16 @@ package com.bnvs.metaler.data.user.certification.source.remote
 
 import com.bnvs.metaler.data.user.certification.model.*
 import com.bnvs.metaler.network.ErrorHandler
-import com.bnvs.metaler.network.NO_ERROR_TO_HANDLE
-import com.bnvs.metaler.network.RetrofitClient
+import com.bnvs.metaler.network.RetrofitInterface
+import com.bnvs.metaler.util.constants.NO_ERROR_TO_HANDLE
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.HttpException
 import retrofit2.Response
 
-class UserCertificationRemoteDataSourceImpl : UserCertificationRemoteDataSource {
-
-    private val retrofitClient = RetrofitClient.client
+class UserCertificationRemoteDataSourceImpl(
+    private val retrofitClient: RetrofitInterface
+) : UserCertificationRemoteDataSource {
 
     override fun addUser(
         request: AddUserRequest,

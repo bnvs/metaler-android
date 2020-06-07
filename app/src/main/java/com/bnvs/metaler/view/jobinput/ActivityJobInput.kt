@@ -7,37 +7,30 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.bnvs.metaler.R
 import com.bnvs.metaler.data.token.source.local.TokenLocalDataSourceImpl
 import com.bnvs.metaler.data.token.source.repository.TokenRepositoryImpl
 import com.bnvs.metaler.databinding.ActivityJobInputBinding
-import com.bnvs.metaler.network.NO_HEADER
-import com.bnvs.metaler.network.RetrofitClient
-import com.bnvs.metaler.network.TOKEN_EXPIRED
+import com.bnvs.metaler.network.NetworkUtil
+import com.bnvs.metaler.util.constants.NO_HEADER
+import com.bnvs.metaler.util.constants.TOKEN_EXPIRED
 import com.bnvs.metaler.view.home.ActivityHome
 import com.bnvs.metaler.view.login.ActivityLogin
+import org.koin.android.ext.android.inject
 
 class ActivityJobInput : AppCompatActivity() {
 
     private val TAG = "ActivityJobInput"
 
-    private lateinit var binding: ActivityJobInputBinding
-    private lateinit var viewModel: ViewModelJobInput
+    private val viewModel: ViewModelJobInput by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = DataBindingUtil.setContentView(
+        DataBindingUtil.setContentView<ActivityJobInputBinding>(
             this,
             R.layout.activity_job_input
-        )
-
-        viewModel = ViewModelProvider(
-            this, ViewModelProvider.AndroidViewModelFactory(application)
-        ).get(ViewModelJobInput::class.java)
-
-        binding.apply {
+        ).apply {
             vm = viewModel
             lifecycleOwner = this@ActivityJobInput
         }
@@ -114,7 +107,7 @@ class ActivityJobInput : AppCompatActivity() {
         TokenRepositoryImpl(TokenLocalDataSourceImpl(this))
             .getAccessToken(
                 onTokenLoaded = { token ->
-                    RetrofitClient.setAccessToken(token.access_token)
+                    NetworkUtil.setAccessToken(token.access_token)
                 },
                 onTokenNotExist = {
                     startLoginActivity()

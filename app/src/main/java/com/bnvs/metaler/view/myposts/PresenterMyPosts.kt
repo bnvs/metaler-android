@@ -9,14 +9,16 @@ import com.bnvs.metaler.data.myposts.source.repository.MyPostsRepository
 import com.bnvs.metaler.data.postdetails.source.repository.PostDetailsRepository
 import com.bnvs.metaler.network.NetworkUtil
 import com.bnvs.metaler.view.detail.ActivityDetail
+import org.koin.core.KoinComponent
+import org.koin.core.inject
 
 class PresenterMyPosts(
     private val context: Context,
     private val view: ContractMyPosts.View
-) : ContractMyPosts.Presenter {
+) : ContractMyPosts.Presenter, KoinComponent {
 
-    private val postDetailsRepository = PostDetailsRepository()
-    private val myPostsRepository: MyPostsRepository = MyPostsRepository()
+    private val postDetailsRepository: PostDetailsRepository by inject()
+    private val myPostsRepository: MyPostsRepository by inject()
     private lateinit var myPostsRequest: MyPostsRequest
 
     private var pageNum: Int = 0

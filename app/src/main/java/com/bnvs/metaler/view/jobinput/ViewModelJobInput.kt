@@ -1,71 +1,53 @@
 package com.bnvs.metaler.view.jobinput
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.bnvs.metaler.data.profile.source.local.ProfileLocalDataSourceImpl
+import androidx.lifecycle.ViewModel
 import com.bnvs.metaler.data.profile.source.repository.ProfileRepository
-import com.bnvs.metaler.data.profile.source.repository.ProfileRepositoryImpl
 import com.bnvs.metaler.data.token.model.AccessToken
 import com.bnvs.metaler.data.token.model.SigninToken
-import com.bnvs.metaler.data.token.source.local.TokenLocalDataSourceImpl
 import com.bnvs.metaler.data.token.source.repository.TokenRepository
-import com.bnvs.metaler.data.token.source.repository.TokenRepositoryImpl
 import com.bnvs.metaler.data.user.certification.model.AddUserRequest
 import com.bnvs.metaler.data.user.certification.model.KakaoUserInfo
 import com.bnvs.metaler.data.user.certification.model.LoginRequest
 import com.bnvs.metaler.data.user.certification.model.User
-import com.bnvs.metaler.data.user.certification.source.local.UserCertificationLocalDataSourceImpl
-import com.bnvs.metaler.data.user.certification.source.remote.UserCertificationRemoteDataSourceImpl
 import com.bnvs.metaler.data.user.certification.source.repository.UserCertificationRepository
-import com.bnvs.metaler.data.user.certification.source.repository.UserCertificationRepositoryImpl
 import com.bnvs.metaler.data.user.modification.model.TermsAgreements
-import com.bnvs.metaler.data.user.modification.source.local.UserModificationLocalDataSourceImpl
-import com.bnvs.metaler.data.user.modification.source.remote.UserModificationRemoteDataSourceImpl
 import com.bnvs.metaler.data.user.modification.source.repository.UserModificationRepository
-import com.bnvs.metaler.data.user.modification.source.repository.UserModificationRepositoryImpl
-import com.bnvs.metaler.network.NO_ERROR_TO_HANDLE
 import com.bnvs.metaler.network.NetworkUtil
-import com.bnvs.metaler.network.RetrofitClient
-import com.bnvs.metaler.util.DeviceInfo
+import com.bnvs.metaler.util.constants.NO_ERROR_TO_HANDLE
 
-class ViewModelJobInput(application: Application) : AndroidViewModel(application) {
+class ViewModelJobInput(
+    private val userCertificationRepository: UserCertificationRepository,
+    private val userModificationRepository: UserModificationRepository,
+    private val tokenRepository: TokenRepository,
+    private val profileRepository: ProfileRepository
+) : ViewModel() {
 
-    private val userCertificationRepository: UserCertificationRepository =
-        UserCertificationRepositoryImpl(
-            UserCertificationLocalDataSourceImpl(application.applicationContext),
-            UserCertificationRemoteDataSourceImpl()
-        )
+    private val _errorToastMessage = MutableLiveData<String>().apply { value = "" }
+    val errorToastMessage: LiveData<String> = _errorToastMessage
+    private val _errorDialogMessage = MutableLiveData<String>().apply { value = "" }
+    val errorDialogMessage: LiveData<String> = _errorDialogMessage
+    private val _errorCode = MutableLiveData<Int>().apply { value = NO_ERROR_TO_HANDLE }
+    val errorCode: LiveData<Int> = _errorCode
 
-    private val userModificationRepository: UserModificationRepository =
-        UserModificationRepositoryImpl(
-            UserModificationLocalDataSourceImpl(application.applicationContext),
-            UserModificationRemoteDataSourceImpl()
-        )
-
-    private val tokenRepository: TokenRepository =
-        TokenRepositoryImpl(TokenLocalDataSourceImpl(application.applicationContext))
-
-    private val profileRepository: ProfileRepository =
-        ProfileRepositoryImpl(ProfileLocalDataSourceImpl(application.applicationContext))
-
-    val errorToastMessage = MutableLiveData<String>().apply { value = "" }
-    val errorDialogMessage = MutableLiveData<String>().apply { value = "" }
-    val errorCode = MutableLiveData<Int>().apply { value = NO_ERROR_TO_HANDLE }
-
-    val backToTermsAgreeActivity = MutableLiveData<Boolean>().apply { value = false }
-    val openHomeActivity = MutableLiveData<Boolean>().apply { value = false }
+    private val _backToTermsAgreeActivity = MutableLiveData<Boolean>().apply { value = false }
+    val backToTermsAgreeActivity: LiveData<Boolean> = _backToTermsAgreeActivity
+    private val _openHomeActivity = MutableLiveData<Boolean>().apply { value = false }
+    val openHomeActivity: LiveData<Boolean> = _openHomeActivity
 
     private lateinit var kakaoUserInfo: KakaoUserInfo
     private lateinit var termsAgreements: TermsAgreements
     private lateinit var addUserRequest: AddUserRequest
 
     init {
-        getTermsAgreements()
+        loadTermsAgreements()
     }
 
     // JobInputs
-    val job = MutableLiveData<String>().apply { value = "" }
+    private val _job = MutableLiveData<String>().apply { value = "" }
+    val job: LiveData<String> = _job
+
     private val jobType = MutableLiveData<String>().apply { value = "" }
     private val jobDetail = MutableLiveData<String>().apply { value = "" }
 
@@ -76,21 +58,23 @@ class ViewModelJobInput(application: Application) : AndroidViewModel(application
     val foundedJobDetail = MutableLiveData<String>().apply { value = "" }
 
     // JobInput Visibilities
-    val jobs = MutableLiveData<Map<String, Boolean>>().apply {
+    private val _jobs = MutableLiveData<Map<String, Boolean>>().apply {
         value = mapOf("student" to false, "expert" to false, "empty" to false)
     }
+    val jobs: LiveData<Map<String, Boolean>> = _jobs
 
-    val jobTypes = MutableLiveData<Map<String, Boolean>>().apply {
+    private val _jobTypes = MutableLiveData<Map<String, Boolean>>().apply {
         value = mapOf("company" to false, "founded" to false, "freelancer" to false)
     }
+    val jobTypes: LiveData<Map<String, Boolean>> = _jobTypes
 
-    private fun getTermsAgreements() {
+    private fun loadTermsAgreements() {
         userModificationRepository.getTermsAgreements(
             onSuccess = { agreements ->
                 termsAgreements = agreements
             },
             onFailure = {
-                errorToastMessage.apply {
+                _errorToastMessage.apply {
                     value = "약관 동의 내역을 불러오는데 실패했습니다"
                     value = clearStringValue()
                 }
@@ -101,20 +85,20 @@ class ViewModelJobInput(application: Application) : AndroidViewModel(application
     fun onJobChanged(jobInput: String) {
         when (jobInput) {
             "student" -> {
-                job.value = "student"
-                jobs.value = mapOf("student" to true, "expert" to false, "empty" to false)
-                jobTypes.value =
+                _job.value = "student"
+                _jobs.value = mapOf("student" to true, "expert" to false, "empty" to false)
+                _jobTypes.value =
                     mapOf("company" to false, "founded" to false, "freelancer" to false)
             }
             "expert" -> {
-                job.value = "expert"
-                jobs.value = mapOf("student" to false, "expert" to true, "empty" to false)
+                _job.value = "expert"
+                _jobs.value = mapOf("student" to false, "expert" to true, "empty" to false)
                 onJobTypeChanged(jobType.value ?: "")
             }
             "empty" -> {
-                job.value = "empty"
-                jobs.value = mapOf("student" to false, "expert" to false, "empty" to true)
-                jobTypes.value =
+                _job.value = "empty"
+                _jobs.value = mapOf("student" to false, "expert" to false, "empty" to true)
+                _jobTypes.value =
                     mapOf("company" to false, "founded" to false, "freelancer" to false)
             }
         }
@@ -124,15 +108,18 @@ class ViewModelJobInput(application: Application) : AndroidViewModel(application
         when (jobTypeInput) {
             "company" -> {
                 jobType.value = "company"
-                jobTypes.value = mapOf("company" to true, "founded" to false, "freelancer" to false)
+                _jobTypes.value =
+                    mapOf("company" to true, "founded" to false, "freelancer" to false)
             }
             "founded" -> {
                 jobType.value = "founded"
-                jobTypes.value = mapOf("company" to false, "founded" to true, "freelancer" to false)
+                _jobTypes.value =
+                    mapOf("company" to false, "founded" to true, "freelancer" to false)
             }
             "freelancer" -> {
                 jobType.value = "freelancer"
-                jobTypes.value = mapOf("company" to false, "founded" to false, "freelancer" to true)
+                _jobTypes.value =
+                    mapOf("company" to false, "founded" to false, "freelancer" to true)
             }
         }
     }
@@ -141,7 +128,7 @@ class ViewModelJobInput(application: Application) : AndroidViewModel(application
         if (validateInput()) {
             addUser()
         } else {
-            errorDialogMessage.apply {
+            _errorDialogMessage.apply {
                 value = "소속 입력을 완료해주세요"
                 value = clearStringValue()
             }
@@ -158,13 +145,13 @@ class ViewModelJobInput(application: Application) : AndroidViewModel(application
                 login(loginRequest(response.signin_token))
             },
             onFailure = { e ->
-                errorToastMessage.apply {
+                _errorToastMessage.apply {
                     value = NetworkUtil.getErrorMessage(e)
                     value = clearStringValue()
                 }
             },
             handleError = { e ->
-                errorCode.apply {
+                _errorCode.apply {
                     value = e
                     value = NO_ERROR_TO_HANDLE
                 }
@@ -178,7 +165,7 @@ class ViewModelJobInput(application: Application) : AndroidViewModel(application
                 kakaoUserInfo = response
             },
             onFailure = {
-                errorToastMessage.apply {
+                _errorToastMessage.apply {
                     value = "카카오 로그인 유저 정보에 문제가 있습니다."
                     value = clearStringValue()
                 }
@@ -215,19 +202,19 @@ class ViewModelJobInput(application: Application) : AndroidViewModel(application
         userCertificationRepository.login(
             loginRequest,
             onSuccess = { response ->
-                RetrofitClient.setAccessToken(response.access_token)
+                NetworkUtil.setAccessToken(response.access_token)
                 saveAccessToken(response.access_token)
                 saveUserInfo(response.user)
                 startHomeActivity()
             },
             onFailure = { e ->
-                errorToastMessage.apply {
+                _errorToastMessage.apply {
                     value = NetworkUtil.getErrorMessage(e)
                     value = clearStringValue()
                 }
             },
             handleError = { e ->
-                errorCode.apply {
+                _errorCode.apply {
                     value = e
                     value = NO_ERROR_TO_HANDLE
                 }
@@ -236,7 +223,7 @@ class ViewModelJobInput(application: Application) : AndroidViewModel(application
     }
 
     private fun loginRequest(signinToken: String): LoginRequest {
-        val deviceInfo = DeviceInfo(getApplication())
+        val deviceInfo = userCertificationRepository.getDeviceInfo()
         return LoginRequest(
             kakaoUserInfo.kakao_id,
             signinToken,
@@ -298,14 +285,14 @@ class ViewModelJobInput(application: Application) : AndroidViewModel(application
     }
 
     fun backToTermsAgreeActivity() {
-        backToTermsAgreeActivity.apply {
+        _backToTermsAgreeActivity.apply {
             value = true
             value = false
         }
     }
 
     private fun startHomeActivity() {
-        openHomeActivity.apply {
+        _openHomeActivity.apply {
             value = true
             value = false
         }

@@ -13,17 +13,18 @@ import com.bnvs.metaler.data.posts.model.PostsWithTagRequest
 import com.bnvs.metaler.data.posts.source.repository.PostsRepository
 import com.bnvs.metaler.network.NetworkUtil
 import com.bnvs.metaler.view.detail.ActivityDetail
+import org.koin.core.KoinComponent
+import org.koin.core.inject
 
 class PresenterManufactures(
     private val context: Context,
     val view: ContractManufactures.View
-) : ContractManufactures.Presenter {
-
+) : ContractManufactures.Presenter, KoinComponent {
 
     val TAG = "PresenterManufactures.kt"
 
-    private val postRepository: PostsRepository = PostsRepository(context)
-    private val bookmarksRepository: BookmarksRepository = BookmarksRepository()
+    private val postRepository: PostsRepository by inject()
+    private val bookmarksRepository: BookmarksRepository by inject()
 
     private lateinit var postsRequest: PostsRequest
     private lateinit var postsWithTagRequest: PostsWithTagRequest
@@ -233,7 +234,7 @@ class PresenterManufactures(
         bookmarksRepository.addBookmark(
             requestAddBookmark(postId),
             onSuccess = { response: AddBookmarkResponse ->
-                view.postAdapterAddBookmark(position, response.bookmark_id )
+                view.postAdapterAddBookmark(position, response.bookmark_id)
                 Toast.makeText(
                     context,
                     "북마크에 추가되었습니다.",
