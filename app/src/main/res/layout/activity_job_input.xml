@@ -378,11 +378,11 @@
             android:layout_marginHorizontal="20dp"
             android:layout_marginBottom="90dp"
             android:elevation="4dp"
-            android:onClick="@{()->vm.completeJobInput()}"
             app:cardUseCompatPadding="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintDimensionRatio="1:0.2"
-            app:layout_constraintStart_toStartOf="parent">
+            app:layout_constraintStart_toStartOf="parent"
+            bind:onSingleClick="@{()->vm.completeJobInput()}">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
