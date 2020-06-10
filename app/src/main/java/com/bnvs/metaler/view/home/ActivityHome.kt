@@ -184,25 +184,37 @@ class ActivityHome : AppCompatActivity() {
     private fun startMaterialsActivity() {
         Intent(this, ActivityMaterials::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NO_ANIMATION
-        }.also { startActivity(it) }
+        }.also {
+            startActivity(it)
+            finishActivity()
+        }
     }
 
     private fun startManufacturesActivity() {
         Intent(this, ActivityManufactures::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NO_ANIMATION
-        }.also { startActivity(it) }
+        }.also {
+            startActivity(it)
+            finishActivity()
+        }
     }
 
     private fun startBookmarksActivity() {
         Intent(this, ActivityBookmarks::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NO_ANIMATION
-        }.also { startActivity(it) }
+        }.also {
+            startActivity(it)
+            finishActivity()
+        }
     }
 
     private fun startMyPageActivity() {
         Intent(this, ActivityMyPage::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NO_ANIMATION
-        }.also { startActivity(it) }
+        }.also {
+            startActivity(it)
+            finishActivity()
+        }
     }
 
     private fun finishActivity() {
