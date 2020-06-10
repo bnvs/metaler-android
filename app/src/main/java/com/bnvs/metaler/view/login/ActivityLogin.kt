@@ -1,7 +1,10 @@
 package com.bnvs.metaler.view.login
 
 import android.content.Intent
+import android.content.pm.PackageInfo
+import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Base64
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -27,7 +30,11 @@ import com.kakao.usermgmt.UserManagement
 import com.kakao.usermgmt.callback.MeV2ResponseCallback
 import com.kakao.usermgmt.response.MeV2Response
 import com.kakao.util.exception.KakaoException
+import com.kakao.util.helper.Utility.getPackageInfo
 import org.koin.android.ext.android.inject
+import java.security.MessageDigest
+import java.security.NoSuchAlgorithmException
+
 
 class ActivityLogin : AppCompatActivity() {
 
@@ -42,6 +49,8 @@ class ActivityLogin : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+
+        Log.d("keyHash: ", getKeyHash())
 
         // SessionCallback 초기화
         callback = SessionCallback()
@@ -254,6 +263,21 @@ class ActivityLogin : AppCompatActivity() {
         Intent(this, ActivityLogin::class.java).also {
             startActivity(it)
         }
+    }
+
+    fun getKeyHash(): String? {
+        val packageInfo: PackageInfo = getPackageInfo(this, PackageManager.GET_SIGNATURES)
+            ?: return null
+        for (signature in packageInfo.signatures) {
+            try {
+                val md: MessageDigest = MessageDigest.getInstance("SHA")
+                md.update(signature.toByteArray())
+                return Base64.encodeToString(md.digest(), Base64.NO_WRAP)
+            } catch (e: NoSuchAlgorithmException) {
+                Log.w(TAG, "Unable to get MessageDigest. signature=$signature", e)
+            }
+        }
+        return null
     }
 
 }
