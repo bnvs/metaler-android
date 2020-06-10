@@ -168,11 +168,11 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:background="?attr/selectableItemBackground"
-                                    android:onClick="@{() -> vm.startMaterialsActivity()}"
                                     android:padding="20dp"
                                     app:layout_constraintBottom_toBottomOf="@id/materialsLine"
                                     app:layout_constraintEnd_toEndOf="parent"
-                                    app:layout_constraintTop_toTopOf="parent">
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    bind:onSingleClick="@{() -> vm.startMaterialsActivity()}">
 
                                     <ImageView
                                         android:layout_width="13dp"
@@ -216,10 +216,10 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:background="?attr/selectableItemBackground"
-                                    android:onClick="@{() -> vm.openPostDetail(vm.homePosts.materials[0].post_id)}"
                                     app:layout_constraintBottom_toTopOf="@id/materialsLine1"
                                     app:layout_constraintStart_toStartOf="parent"
-                                    app:layout_constraintTop_toBottomOf="@id/materialsLine">
+                                    app:layout_constraintTop_toBottomOf="@id/materialsLine"
+                                    bind:onSingleClick="@{() -> vm.openPostDetail(vm.homePosts.materials[0].post_id)}">
 
                                     <TextView
                                         android:id="@+id/materialsTitle1"
@@ -276,10 +276,10 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:background="?attr/selectableItemBackground"
-                                    android:onClick="@{() -> vm.openPostDetail(vm.homePosts.materials[1].post_id)}"
                                     app:layout_constraintBottom_toTopOf="@id/materialsLine2"
                                     app:layout_constraintStart_toStartOf="parent"
-                                    app:layout_constraintTop_toBottomOf="@id/materialsLine1">
+                                    app:layout_constraintTop_toBottomOf="@id/materialsLine1"
+                                    bind:onSingleClick="@{() -> vm.openPostDetail(vm.homePosts.materials[1].post_id)}">
 
                                     <TextView
                                         android:id="@+id/materialsTitle2"
@@ -336,10 +336,10 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:background="?attr/selectableItemBackground"
-                                    android:onClick="@{() -> vm.openPostDetail(vm.homePosts.materials[2].post_id)}"
                                     app:layout_constraintBottom_toTopOf="@id/materialsLine3"
                                     app:layout_constraintStart_toStartOf="parent"
-                                    app:layout_constraintTop_toBottomOf="@id/materialsLine2">
+                                    app:layout_constraintTop_toBottomOf="@id/materialsLine2"
+                                    bind:onSingleClick="@{() -> vm.openPostDetail(vm.homePosts.materials[2].post_id)}">
 
                                     <TextView
                                         android:id="@+id/materialsTitle3"
@@ -396,10 +396,10 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:background="?attr/selectableItemBackground"
-                                    android:onClick="@{() -> vm.openPostDetail(vm.homePosts.materials[3].post_id)}"
                                     app:layout_constraintBottom_toTopOf="@id/materialsLine4"
                                     app:layout_constraintStart_toStartOf="parent"
-                                    app:layout_constraintTop_toBottomOf="@id/materialsLine3">
+                                    app:layout_constraintTop_toBottomOf="@id/materialsLine3"
+                                    bind:onSingleClick="@{() -> vm.openPostDetail(vm.homePosts.materials[3].post_id)}">
 
                                     <TextView
                                         android:id="@+id/materialsTitle4"
@@ -457,10 +457,10 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginBottom="15dp"
                                     android:background="?attr/selectableItemBackground"
-                                    android:onClick="@{() -> vm.openPostDetail(vm.homePosts.materials[4].post_id)}"
                                     app:layout_constraintBottom_toBottomOf="parent"
                                     app:layout_constraintStart_toStartOf="parent"
-                                    app:layout_constraintTop_toBottomOf="@id/materialsLine4">
+                                    app:layout_constraintTop_toBottomOf="@id/materialsLine4"
+                                    bind:onSingleClick="@{() -> vm.openPostDetail(vm.homePosts.materials[4].post_id)}">
 
                                     <TextView
                                         android:id="@+id/materialsTitle5"
@@ -578,11 +578,11 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:background="?attr/selectableItemBackground"
-                                    android:onClick="@{() -> vm.startManufacturesActivity()}"
                                     android:padding="20dp"
                                     app:layout_constraintBottom_toBottomOf="@id/manufactureLine"
                                     app:layout_constraintEnd_toEndOf="parent"
-                                    app:layout_constraintTop_toTopOf="parent">
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    bind:onSingleClick="@{() -> vm.startManufacturesActivity()}">
 
                                     <ImageView
                                         android:layout_width="13dp"
@@ -626,10 +626,10 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:background="?attr/selectableItemBackground"
-                                    android:onClick="@{() -> vm.openPostDetail(vm.homePosts.manufactures[0].post_id)}"
                                     app:layout_constraintBottom_toTopOf="@id/manufacturesLine1"
                                     app:layout_constraintStart_toStartOf="parent"
-                                    app:layout_constraintTop_toBottomOf="@id/manufactureLine">
+                                    app:layout_constraintTop_toBottomOf="@id/manufactureLine"
+                                    bind:onSingleClick="@{() -> vm.openPostDetail(vm.homePosts.manufactures[0].post_id)}">
 
                                     <TextView
                                         android:id="@+id/manufacturesTitle1"
@@ -685,10 +685,10 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:background="?attr/selectableItemBackground"
-                                    android:onClick="@{() -> vm.openPostDetail(vm.homePosts.manufactures[1].post_id)}"
                                     app:layout_constraintBottom_toTopOf="@id/manufacturesLine2"
                                     app:layout_constraintStart_toStartOf="parent"
-                                    app:layout_constraintTop_toBottomOf="@id/manufacturesLine1">
+                                    app:layout_constraintTop_toBottomOf="@id/manufacturesLine1"
+                                    bind:onSingleClick="@{() -> vm.openPostDetail(vm.homePosts.manufactures[1].post_id)}">
 
                                     <TextView
                                         android:id="@+id/manufacturesTitle2"
@@ -745,10 +745,10 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:background="?attr/selectableItemBackground"
-                                    android:onClick="@{() -> vm.openPostDetail(vm.homePosts.manufactures[2].post_id)}"
                                     app:layout_constraintBottom_toTopOf="@id/manufacturesLine3"
                                     app:layout_constraintStart_toStartOf="parent"
-                                    app:layout_constraintTop_toBottomOf="@id/manufacturesLine2">
+                                    app:layout_constraintTop_toBottomOf="@id/manufacturesLine2"
+                                    bind:onSingleClick="@{() -> vm.openPostDetail(vm.homePosts.manufactures[2].post_id)}">
 
                                     <TextView
                                         android:id="@+id/manufacturesTitle3"
@@ -804,10 +804,10 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:background="?attr/selectableItemBackground"
-                                    android:onClick="@{() -> vm.openPostDetail(vm.homePosts.manufactures[3].post_id)}"
                                     app:layout_constraintBottom_toTopOf="@id/manufacturesLine4"
                                     app:layout_constraintStart_toStartOf="parent"
-                                    app:layout_constraintTop_toBottomOf="@id/manufacturesLine3">
+                                    app:layout_constraintTop_toBottomOf="@id/manufacturesLine3"
+                                    bind:onSingleClick="@{() -> vm.openPostDetail(vm.homePosts.manufactures[3].post_id)}">
 
                                     <TextView
                                         android:id="@+id/manufacturesTitle4"
@@ -865,10 +865,10 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginBottom="15dp"
                                     android:background="?attr/selectableItemBackground"
-                                    android:onClick="@{() -> vm.openPostDetail(vm.homePosts.manufactures[4].post_id)}"
                                     app:layout_constraintBottom_toBottomOf="parent"
                                     app:layout_constraintStart_toStartOf="parent"
-                                    app:layout_constraintTop_toBottomOf="@id/manufacturesLine4">
+                                    app:layout_constraintTop_toBottomOf="@id/manufacturesLine4"
+                                    bind:onSingleClick="@{() -> vm.openPostDetail(vm.homePosts.manufactures[4].post_id)}">
 
                                     <TextView
                                         android:id="@+id/manufacturesTitle5"
@@ -1009,11 +1009,11 @@
                         android:id="@+id/materialsBtn"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:onClick="@{() -> vm.startMaterialsActivity()}"
                         app:layout_constraintEnd_toStartOf="@id/manufactureBtn"
                         app:layout_constraintHorizontal_weight="1"
                         app:layout_constraintStart_toEndOf="@id/homeBtn"
-                        app:layout_constraintTop_toTopOf="parent">
+                        app:layout_constraintTop_toTopOf="parent"
+                        bind:onSingleClick="@{() -> vm.startMaterialsActivity()}">
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
@@ -1043,11 +1043,11 @@
                         android:id="@+id/manufactureBtn"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:onClick="@{() -> vm.startManufacturesActivity()}"
                         app:layout_constraintEnd_toStartOf="@id/bookmarkBtn"
                         app:layout_constraintHorizontal_weight="1"
                         app:layout_constraintStart_toEndOf="@id/materialsBtn"
-                        app:layout_constraintTop_toTopOf="parent">
+                        app:layout_constraintTop_toTopOf="parent"
+                        bind:onSingleClick="@{() -> vm.startManufacturesActivity()}">
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
@@ -1077,11 +1077,11 @@
                         android:id="@+id/bookmarkBtn"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:onClick="@{() -> vm.startBookmarksActivity()}"
                         app:layout_constraintEnd_toStartOf="@id/myPageBtn"
                         app:layout_constraintHorizontal_weight="1"
                         app:layout_constraintStart_toEndOf="@id/manufactureBtn"
-                        app:layout_constraintTop_toTopOf="parent">
+                        app:layout_constraintTop_toTopOf="parent"
+                        bind:onSingleClick="@{() -> vm.startBookmarksActivity()}">
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
@@ -1111,11 +1111,11 @@
                         android:id="@+id/myPageBtn"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:onClick="@{() -> vm.startMyPageActivity()}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_weight="1"
                         app:layout_constraintStart_toEndOf="@id/bookmarkBtn"
-                        app:layout_constraintTop_toTopOf="parent">
+                        app:layout_constraintTop_toTopOf="parent"
+                        bind:onSingleClick="@{() -> vm.startMyPageActivity()}">
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
