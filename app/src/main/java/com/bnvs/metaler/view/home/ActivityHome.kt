@@ -52,6 +52,7 @@ class ActivityHome : AppCompatActivity() {
         observeToast()
         observeDialog()
         observeErrorCode()
+        observeStartDetailActivity()
         observeStartMaterialsActivity()
         observeStartManufacturesActivity()
         observeStartBookmarksActivity()
@@ -98,6 +99,7 @@ class ActivityHome : AppCompatActivity() {
             Observer { startActivity ->
                 if (startActivity) {
                     val postId = viewModel.postId.value
+                    Log.d("홈탭 게시물 상세보기", "클릭한 상세 게시물의 postId $postId")
                     if (postId == null) {
                         makeToast("상세게시물을 볼 수 없습니다")
                     } else {
@@ -174,7 +176,7 @@ class ActivityHome : AppCompatActivity() {
     // 게시물 상세 내용 액티비티로 이동한다
     private fun startDetailActivity(postId: Int) {
         Intent(this@ActivityHome, ActivityDetail::class.java)
-            .apply { putExtra("postId", postId) }
+            .apply { putExtra("POST_ID", postId) }
             .also { startActivity(it) }
 
         overridePendingTransition(0, 0)
