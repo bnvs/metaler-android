@@ -99,7 +99,6 @@ class ActivityHome : AppCompatActivity() {
             Observer { startActivity ->
                 if (startActivity) {
                     val postId = viewModel.postId.value
-                    Log.d("홈탭 게시물 상세보기", "클릭한 상세 게시물의 postId $postId")
                     if (postId == null) {
                         makeToast("상세게시물을 볼 수 없습니다")
                     } else {

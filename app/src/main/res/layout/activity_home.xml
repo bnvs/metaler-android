@@ -199,6 +199,7 @@
                                     <ImageView
                                         android:id="@+id/error404IconMaterials"
                                         style="@style/error404BigIcon"
+                                        app:layout_constraintEnd_toEndOf="parent"
                                         app:layout_constraintStart_toStartOf="parent"
                                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -210,6 +211,12 @@
 
 
                                 </androidx.constraintlayout.widget.ConstraintLayout>
+
+                                <androidx.constraintlayout.widget.Group
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    app:constraint_referenced_ids="materialsHomePost1,materialsHomePost2,materialsHomePost3,materialsHomePost4,materialsHomePost5,materialsLine1,materialsLine2,materialsLine3,materialsLine4"
+                                    bind:homePostsVisibility="@{vm.homeErrorVisibility}" />
 
                                 <androidx.constraintlayout.widget.ConstraintLayout
                                     android:id="@+id/materialsHomePost1"
@@ -609,6 +616,7 @@
                                     <ImageView
                                         android:id="@+id/error404IconManufactures"
                                         style="@style/error404BigIcon"
+                                        app:layout_constraintEnd_toEndOf="parent"
                                         app:layout_constraintStart_toStartOf="parent"
                                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -620,6 +628,12 @@
 
 
                                 </androidx.constraintlayout.widget.ConstraintLayout>
+
+                                <androidx.constraintlayout.widget.Group
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    app:constraint_referenced_ids="manufactureHomePost1,manufactureHomePost2,manufactureHomePost3,manufactureHomePost4,manufactureHomePost5,manufacturesLine1,manufacturesLine2,manufacturesLine3,manufacturesLine4"
+                                    bind:homePostsVisibility="@{vm.homeErrorVisibility}" />
 
                                 <androidx.constraintlayout.widget.ConstraintLayout
                                     android:id="@+id/manufactureHomePost1"

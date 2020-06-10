@@ -1,6 +1,5 @@
 package com.bnvs.metaler.view.home
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -122,7 +121,6 @@ class ViewModelHome(
 
     fun openPostDetail(postId: Int) {
         _postId.value = postId
-        Log.d("홈탭 게시물 상세보기", "클릭한 상세 게시물의 postId 1 $postId")
         startDetailActivity()
     }
 
