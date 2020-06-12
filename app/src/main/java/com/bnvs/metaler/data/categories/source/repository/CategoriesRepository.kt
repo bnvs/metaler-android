@@ -6,6 +6,8 @@ interface CategoriesRepository {
 
     fun getCategories(
         onSuccess: (response: List<Category>) -> Unit,
-        onFailure: (e: Throwable) -> Unit
+        onFailure: (e: Throwable) -> Unit,
+        handleError: (errorCode: Int) -> Unit
     )
+
 }

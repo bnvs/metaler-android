@@ -15,24 +15,33 @@ class PostsRepositoryImpl(
     override fun getPosts(
         request: PostsRequest,
         onSuccess: (response: PostsResponse) -> Unit,
-        onFailure: (e: Throwable) -> Unit
+        onFailure: (e: Throwable) -> Unit,
+        handleError: (errorCode: Int) -> Unit
     ) {
-        postsRemoteDataSource.getPosts(request, onSuccess, onFailure)
+        postsRemoteDataSource.getPosts(request, onSuccess, onFailure, handleError)
     }
 
     override fun getPostsWithSearchTypeContent(
         request: PostsWithContentRequest,
         onSuccess: (response: PostsResponse) -> Unit,
-        onFailure: (e: Throwable) -> Unit
+        onFailure: (e: Throwable) -> Unit,
+        handleError: (errorCode: Int) -> Unit
     ) {
-        postsRemoteDataSource.getPostsWithSearchTypeContent(request, onSuccess, onFailure)
+        postsRemoteDataSource.getPostsWithSearchTypeContent(
+            request,
+            onSuccess,
+            onFailure,
+            handleError
+        )
     }
 
     override fun getPostsWithSearchTypeTag(
         request: PostsWithTagRequest,
         onSuccess: (response: PostsResponse) -> Unit,
-        onFailure: (e: Throwable) -> Unit
+        onFailure: (e: Throwable) -> Unit,
+        handleError: (errorCode: Int) -> Unit
     ) {
-        postsRemoteDataSource.getPostsWithSearchTypeTag(request, onSuccess, onFailure)
+        postsRemoteDataSource.getPostsWithSearchTypeTag(request, onSuccess, onFailure, handleError)
     }
+
 }

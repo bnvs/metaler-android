@@ -11,8 +11,9 @@ class CategoriesRepositoryImpl(
 
     override fun getCategories(
         onSuccess: (response: List<Category>) -> Unit,
-        onFailure: (e: Throwable) -> Unit
+        onFailure: (e: Throwable) -> Unit,
+        handleError: (errorCode: Int) -> Unit
     ) {
-        categoriesRemoteDataSource.getCategories(onSuccess, onFailure)
+        categoriesRemoteDataSource.getCategories(onSuccess, onFailure, handleError)
     }
 }

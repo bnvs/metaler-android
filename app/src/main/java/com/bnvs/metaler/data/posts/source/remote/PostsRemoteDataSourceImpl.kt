@@ -4,7 +4,9 @@ import com.bnvs.metaler.data.posts.model.PostsRequest
 import com.bnvs.metaler.data.posts.model.PostsResponse
 import com.bnvs.metaler.data.posts.model.PostsWithContentRequest
 import com.bnvs.metaler.data.posts.model.PostsWithTagRequest
+import com.bnvs.metaler.network.ErrorHandler
 import com.bnvs.metaler.network.RetrofitInterface
+import com.bnvs.metaler.util.constants.NO_ERROR_TO_HANDLE
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.HttpException
@@ -17,7 +19,8 @@ class PostsRemoteDataSourceImpl(
     override fun getPosts(
         request: PostsRequest,
         onSuccess: (response: PostsResponse) -> Unit,
-        onFailure: (e: Throwable) -> Unit
+        onFailure: (e: Throwable) -> Unit,
+        handleError: (errorCode: Int) -> Unit
     ) {
         retrofitClient.getPosts(getOptions(request)).enqueue(object : Callback<PostsResponse> {
             override fun onResponse(call: Call<PostsResponse>, response: Response<PostsResponse>) {
@@ -25,6 +28,10 @@ class PostsRemoteDataSourceImpl(
                 if (body != null && response.isSuccessful) {
                     onSuccess(body)
                 } else {
+                    val e = ErrorHandler.getErrorCode(HttpException(response))
+                    if (e != NO_ERROR_TO_HANDLE) {
+                        handleError(e)
+                    }
                     onFailure(HttpException(response))
                 }
             }
@@ -39,7 +46,8 @@ class PostsRemoteDataSourceImpl(
     override fun getPostsWithSearchTypeContent(
         request: PostsWithContentRequest,
         onSuccess: (response: PostsResponse) -> Unit,
-        onFailure: (e: Throwable) -> Unit
+        onFailure: (e: Throwable) -> Unit,
+        handleError: (errorCode: Int) -> Unit
     ) {
         retrofitClient.getPosts(getContentOptions(request))
             .enqueue(object : Callback<PostsResponse> {
@@ -51,6 +59,10 @@ class PostsRemoteDataSourceImpl(
                     if (body != null && response.isSuccessful) {
                         onSuccess(body)
                     } else {
+                        val e = ErrorHandler.getErrorCode(HttpException(response))
+                        if (e != NO_ERROR_TO_HANDLE) {
+                            handleError(e)
+                        }
                         onFailure(HttpException(response))
                     }
                 }
@@ -65,7 +77,8 @@ class PostsRemoteDataSourceImpl(
     override fun getPostsWithSearchTypeTag(
         request: PostsWithTagRequest,
         onSuccess: (response: PostsResponse) -> Unit,
-        onFailure: (e: Throwable) -> Unit
+        onFailure: (e: Throwable) -> Unit,
+        handleError: (errorCode: Int) -> Unit
     ) {
         retrofitClient.getPosts(geTagOptions(request)).enqueue(object : Callback<PostsResponse> {
             override fun onResponse(call: Call<PostsResponse>, response: Response<PostsResponse>) {
@@ -73,6 +86,10 @@ class PostsRemoteDataSourceImpl(
                 if (body != null && response.isSuccessful) {
                     onSuccess(body)
                 } else {
+                    val e = ErrorHandler.getErrorCode(HttpException(response))
+                    if (e != NO_ERROR_TO_HANDLE) {
+                        handleError(e)
+                    }
                     onFailure(HttpException(response))
                 }
             }
