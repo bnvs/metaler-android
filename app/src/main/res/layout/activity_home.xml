@@ -129,63 +129,71 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent">
 
-                                <ImageView
-                                    android:id="@+id/materialsCardIcon"
-                                    android:layout_width="27dp"
-                                    android:layout_height="27dp"
-                                    android:layout_marginLeft="20dp"
-                                    android:layout_marginTop="15dp"
-                                    android:src="@drawable/ic_home_materials_x3"
-                                    app:layout_constraintStart_toStartOf="parent"
-                                    app:layout_constraintTop_toTopOf="parent" />
-
-                                <TextView
-                                    android:id="@+id/materialsTitleTxt"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginLeft="5dp"
-                                    android:text="재료"
-                                    android:textColor="@color/colorDarkGrey"
-                                    android:textSize="18sp"
-                                    android:textStyle="bold"
-                                    app:layout_constraintBottom_toBottomOf="@id/materialsCardIcon"
-                                    app:layout_constraintStart_toEndOf="@id/materialsCardIcon"
-                                    app:layout_constraintTop_toTopOf="@id/materialsCardIcon" />
-
-                                <TextView
-                                    android:id="@+id/materialsEngTitleTxt"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginLeft="5dp"
-                                    android:text="Materials"
-                                    android:textColor="@color/colorGrey"
-                                    android:textSize="12sp"
-                                    app:layout_constraintBottom_toBottomOf="@id/materialsTitleTxt"
-                                    app:layout_constraintStart_toEndOf="@id/materialsTitleTxt" />
-
                                 <androidx.constraintlayout.widget.ConstraintLayout
-                                    android:id="@+id/materialsMoreBtn"
-                                    android:layout_width="wrap_content"
+                                    android:id="@+id/materialsTitleBar"
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:background="?attr/selectableItemBackground"
-                                    android:padding="20dp"
-                                    app:layout_constraintBottom_toBottomOf="@id/materialsLine"
+                                    app:layout_constraintBottom_toTopOf="@id/materialsLine"
                                     app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
                                     app:layout_constraintTop_toTopOf="parent"
                                     bind:onSingleClick="@{() -> vm.startMaterialsActivity()}">
 
                                     <ImageView
+                                        android:id="@+id/materialsCardIcon"
+                                        android:layout_width="27dp"
+                                        android:layout_height="27dp"
+                                        android:layout_marginLeft="20dp"
+                                        android:layout_marginTop="15dp"
+                                        android:layout_marginBottom="10dp"
+                                        android:src="@drawable/ic_home_materials_x3"
+                                        app:layout_constraintBottom_toBottomOf="parent"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintTop_toTopOf="parent" />
+
+                                    <TextView
+                                        android:id="@+id/materialsTitleTxt"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginLeft="5dp"
+                                        android:text="재료"
+                                        android:textColor="@color/colorDarkGrey"
+                                        android:textSize="18sp"
+                                        android:textStyle="bold"
+                                        app:layout_constraintBottom_toBottomOf="@id/materialsCardIcon"
+                                        app:layout_constraintStart_toEndOf="@id/materialsCardIcon"
+                                        app:layout_constraintTop_toTopOf="@id/materialsCardIcon" />
+
+                                    <TextView
+                                        android:id="@+id/materialsEngTitleTxt"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginLeft="5dp"
+                                        android:text="Materials"
+                                        android:textColor="@color/colorGrey"
+                                        android:textSize="12sp"
+                                        app:layout_constraintBottom_toBottomOf="@id/materialsTitleTxt"
+                                        app:layout_constraintStart_toEndOf="@id/materialsTitleTxt" />
+
+                                    <ImageView
+                                        android:id="@+id/materialsMoreBtn"
                                         android:layout_width="13dp"
                                         android:layout_height="13dp"
-                                        android:src="@drawable/ic_home_more_arrow_x3" />
+                                        android:layout_marginEnd="20dp"
+                                        android:src="@drawable/ic_home_more_arrow_x3"
+                                        app:layout_constraintBottom_toBottomOf="parent"
+                                        app:layout_constraintEnd_toEndOf="parent"
+                                        app:layout_constraintTop_toTopOf="parent" />
+
 
                                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                                 <View
                                     android:id="@+id/materialsLine"
-                                    style="@style/homeDivider"
+                                    style="@style/dividerStyle"
                                     app:layout_constraintStart_toStartOf="parent"
-                                    app:layout_constraintTop_toBottomOf="@id/materialsCardIcon" />
+                                    app:layout_constraintTop_toBottomOf="@id/materialsTitleBar" />
 
                                 <androidx.constraintlayout.widget.ConstraintLayout
                                     android:layout_width="wrap_content"
@@ -545,64 +553,71 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent">
 
-                                <ImageView
-                                    android:id="@+id/manufactureCardIcon"
-                                    android:layout_width="27dp"
-                                    android:layout_height="27dp"
-                                    android:layout_marginLeft="20dp"
-                                    android:layout_marginTop="15dp"
-                                    android:src="@drawable/ic_home_manufacture_x3"
-                                    app:layout_constraintStart_toStartOf="parent"
-                                    app:layout_constraintTop_toTopOf="parent" />
-
-                                <TextView
-                                    android:id="@+id/manufactureTitleTxt"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginLeft="5dp"
-                                    android:text="가공"
-                                    android:textColor="@color/colorDarkGrey"
-                                    android:textSize="18sp"
-                                    android:textStyle="bold"
-                                    app:layout_constraintBottom_toBottomOf="@id/manufactureCardIcon"
-                                    app:layout_constraintStart_toEndOf="@id/manufactureCardIcon"
-                                    app:layout_constraintTop_toTopOf="@id/manufactureCardIcon" />
-
-                                <TextView
-                                    android:id="@+id/manufactureEngTitleTxt"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginLeft="5dp"
-                                    android:text="Manufacture"
-                                    android:textColor="@color/colorGrey"
-                                    android:textSize="12sp"
-                                    app:layout_constraintBottom_toBottomOf="@id/manufactureTitleTxt"
-                                    app:layout_constraintStart_toEndOf="@id/manufactureTitleTxt" />
-
-
                                 <androidx.constraintlayout.widget.ConstraintLayout
-                                    android:id="@+id/manufactureMoreBtn"
-                                    android:layout_width="wrap_content"
+                                    android:id="@+id/manufacturesTitleBar"
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:background="?attr/selectableItemBackground"
-                                    android:padding="20dp"
-                                    app:layout_constraintBottom_toBottomOf="@id/manufactureLine"
+                                    app:layout_constraintBottom_toTopOf="@id/manufactureLine"
                                     app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
                                     app:layout_constraintTop_toTopOf="parent"
                                     bind:onSingleClick="@{() -> vm.startManufacturesActivity()}">
 
                                     <ImageView
+                                        android:id="@+id/manufactureCardIcon"
+                                        android:layout_width="27dp"
+                                        android:layout_height="27dp"
+                                        android:layout_marginLeft="20dp"
+                                        android:layout_marginTop="15dp"
+                                        android:layout_marginBottom="10dp"
+                                        android:src="@drawable/ic_home_manufacture_x3"
+                                        app:layout_constraintBottom_toBottomOf="parent"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintTop_toTopOf="parent" />
+
+                                    <TextView
+                                        android:id="@+id/manufactureTitleTxt"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginLeft="5dp"
+                                        android:text="가공"
+                                        android:textColor="@color/colorDarkGrey"
+                                        android:textSize="18sp"
+                                        android:textStyle="bold"
+                                        app:layout_constraintBottom_toBottomOf="@id/manufactureCardIcon"
+                                        app:layout_constraintStart_toEndOf="@id/manufactureCardIcon"
+                                        app:layout_constraintTop_toTopOf="@id/manufactureCardIcon" />
+
+                                    <TextView
+                                        android:id="@+id/manufactureEngTitleTxt"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginLeft="5dp"
+                                        android:text="Manufacture"
+                                        android:textColor="@color/colorGrey"
+                                        android:textSize="12sp"
+                                        app:layout_constraintBottom_toBottomOf="@id/manufactureTitleTxt"
+                                        app:layout_constraintStart_toEndOf="@id/manufactureTitleTxt" />
+
+                                    <ImageView
+                                        android:id="@+id/manufactureMoreBtn"
                                         android:layout_width="13dp"
                                         android:layout_height="13dp"
-                                        android:src="@drawable/ic_home_more_arrow_x3" />
+                                        android:layout_marginEnd="20dp"
+                                        android:src="@drawable/ic_home_more_arrow_x3"
+                                        app:layout_constraintBottom_toBottomOf="parent"
+                                        app:layout_constraintEnd_toEndOf="parent"
+                                        app:layout_constraintTop_toTopOf="parent" />
+
 
                                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                                 <View
                                     android:id="@+id/manufactureLine"
-                                    style="@style/homeDivider"
+                                    style="@style/dividerStyle"
                                     app:layout_constraintStart_toStartOf="parent"
-                                    app:layout_constraintTop_toBottomOf="@id/manufactureCardIcon" />
+                                    app:layout_constraintTop_toBottomOf="@id/manufacturesTitleBar" />
 
                                 <androidx.constraintlayout.widget.ConstraintLayout
                                     android:layout_width="wrap_content"
@@ -996,7 +1011,7 @@
                         app:layout_constraintTop_toTopOf="parent">
 
                         <androidx.constraintlayout.widget.ConstraintLayout
-                            android:layout_width="@dimen/tabBarBtnWidth"
+                            android:layout_width="match_parent"
                             android:layout_height="match_parent">
 
                             <ImageView
