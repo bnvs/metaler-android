@@ -53,12 +53,12 @@ class PostAdapter(
 
 
     fun addBookmark(position: Int, bookmarkId: Int) {
-        tempArrayList[position]!!.bookmark_id = bookmarkId
+        //tempArrayList[position]!!.bookmark_id = bookmarkId
         notifyDataSetChanged()
     }
 
     fun deleteBookmark(position: Int) {
-        tempArrayList[position]!!.bookmark_id = 0
+        //tempArrayList[position]!!.bookmark_id = 0
         notifyDataSetChanged()
     }
 
@@ -147,9 +147,9 @@ class PostAdapter(
                             .into(img)
                     }
 
-                    if (tempArrayList[position]!!.bookmark_id != 0) {
-                        bookmarkBtn.setImageResource(R.drawable.ic_list_bookmark_active_x3)
-                    } else bookmarkBtn.setImageResource(R.drawable.ic_list_bookmark_inactive_x3)
+                    /* if (tempArrayList[position]!!.bookmark_id != 0) {
+                         bookmarkBtn.setImageResource(R.drawable.ic_list_bookmark_active_x3)
+                     } else bookmarkBtn.setImageResource(R.drawable.ic_list_bookmark_inactive_x3)*/
 
                     holder.itemView.setOnClickListener {
                         itemListener.onPostClick(it, tempArrayList[position]!!.post_id)

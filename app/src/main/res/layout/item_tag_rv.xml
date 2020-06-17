@@ -1,31 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:paddingRight="7dp"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <TextView
-        android:id="@+id/tagName"
+    <data>
+
+        <variable
+            name="tagName"
+            type="String" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="7dp"
-        android:background="@drawable/tag_border"
-        android:minWidth="40dp"
-        android:textColor="@color/colorPurple"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="#태그이름" />
+        android:layout_marginEnd="7dp">
 
-    <ImageView
-        android:id="@+id/tagDeleteBtn"
-        android:layout_width="10dp"
-        android:layout_height="10dp"
-        android:layout_marginRight="5dp"
-        android:src="@drawable/ic_tag_delete_x3"
-        app:layout_constraintBottom_toBottomOf="@id/tagName"
-        app:layout_constraintEnd_toEndOf="@id/tagName"
-        app:layout_constraintTop_toTopOf="@id/tagName" />
+        <TextView
+            android:id="@+id/tagNameTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="7dp"
+            android:background="@drawable/tag_border"
+            android:minWidth="40dp"
+            android:text="@{@string/string_with_hash_tag(tagName)}"
+            android:textColor="@color/colorPurple"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text=" #태그이름" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <ImageView
+            android:id="@+id/tagDeleteBtn"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:layout_marginRight="5dp"
+            android:src="@drawable/ic_tag_delete_x3"
+            app:layout_constraintBottom_toBottomOf="@id/tagNameTv"
+            app:layout_constraintEnd_toEndOf="@id/tagNameTv"
+            app:layout_constraintTop_toTopOf="@id/tagNameTv" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

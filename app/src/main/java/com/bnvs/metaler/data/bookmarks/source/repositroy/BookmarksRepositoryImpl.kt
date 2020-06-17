@@ -1,9 +1,6 @@
 package com.bnvs.metaler.data.bookmarks.source.repositroy
 
-import com.bnvs.metaler.data.bookmarks.model.AddBookmarkRequest
-import com.bnvs.metaler.data.bookmarks.model.AddBookmarkResponse
-import com.bnvs.metaler.data.bookmarks.model.BookmarksRequest
-import com.bnvs.metaler.data.bookmarks.model.BookmarksResponse
+import com.bnvs.metaler.data.bookmarks.model.*
 import com.bnvs.metaler.data.bookmarks.source.local.BookmarksLocalDataSource
 import com.bnvs.metaler.data.bookmarks.source.remote.BookmarksRemoteDataSource
 
@@ -15,24 +12,27 @@ class BookmarksRepositoryImpl(
     override fun addBookmark(
         request: AddBookmarkRequest,
         onSuccess: (response: AddBookmarkResponse) -> Unit,
-        onFailure: (e: Throwable) -> Unit
+        onFailure: (e: Throwable) -> Unit,
+        handleError: (errorCode: Int) -> Unit
     ) {
-        bookmarksRemoteDataSource.addBookmark(request, onSuccess, onFailure)
+        bookmarksRemoteDataSource.addBookmark(request, onSuccess, onFailure, handleError)
     }
 
     override fun deleteBookmark(
-        bookmarkId: Int,
+        request: DeleteBookmarkRequest,
         onSuccess: () -> Unit,
-        onFailure: (e: Throwable) -> Unit
+        onFailure: (e: Throwable) -> Unit,
+        handleError: (errorCode: Int) -> Unit
     ) {
-        bookmarksRemoteDataSource.deleteBookmark(bookmarkId, onSuccess, onFailure)
+        bookmarksRemoteDataSource.deleteBookmark(request, onSuccess, onFailure, handleError)
     }
 
     override fun getMyBookmarks(
         request: BookmarksRequest,
         onSuccess: (response: BookmarksResponse) -> Unit,
-        onFailure: (e: Throwable) -> Unit
+        onFailure: (e: Throwable) -> Unit,
+        handleError: (errorCode: Int) -> Unit
     ) {
-        bookmarksRemoteDataSource.getMyBookmarks(request, onSuccess, onFailure)
+        bookmarksRemoteDataSource.getMyBookmarks(request, onSuccess, onFailure, handleError)
     }
 }

@@ -1,10 +1,7 @@
 package com.bnvs.metaler.data.bookmarks.source.local
 
 import android.content.Context
-import com.bnvs.metaler.data.bookmarks.model.AddBookmarkRequest
-import com.bnvs.metaler.data.bookmarks.model.AddBookmarkResponse
-import com.bnvs.metaler.data.bookmarks.model.BookmarksRequest
-import com.bnvs.metaler.data.bookmarks.model.BookmarksResponse
+import com.bnvs.metaler.data.bookmarks.model.*
 import com.bnvs.metaler.util.constants.LOCAL_BOOKMARKS_DATA
 
 class BookmarksLocalDataSourceImpl(context: Context) : BookmarksLocalDataSource {
@@ -21,7 +18,7 @@ class BookmarksLocalDataSourceImpl(context: Context) : BookmarksLocalDataSource 
     }
 
     override fun deleteBookmark(
-        bookmarkId: Int,
+        request: DeleteBookmarkRequest,
         onSuccess: () -> Unit,
         onFailure: (e: Throwable) -> Unit
     ) {

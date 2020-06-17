@@ -6,6 +6,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.bnvs.metaler.R
+import com.bnvs.metaler.data.categories.source.repository.CategoriesRepository
 import com.bnvs.metaler.data.profile.source.repository.ProfileRepository
 import com.bnvs.metaler.data.token.model.AccessToken
 import com.bnvs.metaler.data.token.model.SigninToken
@@ -29,6 +30,7 @@ import com.kakao.usermgmt.response.MeV2Response
 import com.kakao.util.exception.KakaoException
 import org.koin.android.ext.android.inject
 
+
 class ActivityLogin : AppCompatActivity() {
 
     private val TAG = "ActivityLogin"
@@ -38,6 +40,7 @@ class ActivityLogin : AppCompatActivity() {
     private val tokenRepository: TokenRepository by inject()
     private val userRepository: UserCertificationRepository by inject()
     private val profileRepository: ProfileRepository by inject()
+    private val categoriesRepository: CategoriesRepository by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,9 +71,8 @@ class ActivityLogin : AppCompatActivity() {
             // 로그인 세션이 열렸을 때
             UserManagement.getInstance().me(object : MeV2ResponseCallback() {
                 override fun onSuccess(result: MeV2Response?) =
-                    // 카카오 로그인 성공시 local 에서 signin_token 불러오기
                     if (result != null) {
-                        getSigninToken(result)
+                        checkMembership(result)
                     } else {
                         makeToast(getString(R.string.NO_KAKAO_LOGIN_RESULT))
                     }
@@ -89,18 +91,6 @@ class ActivityLogin : AppCompatActivity() {
             } else {
                 makeToast(getString(R.string.INTERNET_DISCONNECTED_LOGIN_ERROR))
             }
-    }
-
-    private fun getSigninToken(result: MeV2Response) {
-        val kakaoId = result.id.toString()
-        tokenRepository.getSigninToken(
-            onTokenLoaded = { token ->
-                login(kakaoId, token.signin_token)
-            },
-            onTokenNotExist = {
-                checkMembership(result)
-            }
-        )
     }
 
     private fun saveSigninToken(token: String) {
@@ -178,12 +168,28 @@ class ActivityLogin : AppCompatActivity() {
             loginRequest(kakao_id, signin_token),
             onSuccess = { response ->
                 NetworkUtil.setAccessToken(response.access_token)
+                getCategoriesData()
                 saveAccessToken(response.access_token)
                 saveProfileData(response.user)
                 openHome()
             },
             onFailure = { e ->
                 makeErrorToast(getString(R.string.LOGIN_ERROR), e)
+            },
+            handleError = { e ->
+                handleError(e)
+            }
+        )
+    }
+
+    // 최초화면 (로그인 액티비티) 에서 카테고리 데이터 가져옴
+    private fun getCategoriesData() {
+        categoriesRepository.getCategoriesFromRemote(
+            onSuccess = { response ->
+                categoriesRepository.saveCategories(response)
+            },
+            onFailure = { e ->
+                makeErrorToast("카테고리 가져오기 실패", e)
             },
             handleError = { e ->
                 handleError(e)
@@ -255,5 +261,4 @@ class ActivityLogin : AppCompatActivity() {
             startActivity(it)
         }
     }
-
 }

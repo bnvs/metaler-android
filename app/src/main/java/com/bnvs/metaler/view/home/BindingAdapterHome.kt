@@ -37,3 +37,12 @@ fun homeErrorVisibility(view: View, visibility: Boolean) {
         view.visibility = View.GONE
     }
 }
+
+@BindingAdapter("homePostsVisibility")
+fun homePostsVisibility(view: View, isErrorVisible: Boolean) {
+    if (isErrorVisible) {
+        view.visibility = View.INVISIBLE
+    } else {
+        view.visibility = View.VISIBLE
+    }
+}

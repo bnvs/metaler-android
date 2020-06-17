@@ -3,6 +3,7 @@ package com.bnvs.metaler.view.detail
 import android.content.Context
 import android.view.View
 import com.bnvs.metaler.data.bookmarks.model.AddBookmarkRequest
+import com.bnvs.metaler.data.bookmarks.model.DeleteBookmarkRequest
 import com.bnvs.metaler.data.bookmarks.source.repositroy.BookmarksRepository
 import com.bnvs.metaler.data.comments.model.AddEditCommentRequest
 import com.bnvs.metaler.data.comments.model.Comment
@@ -218,13 +219,14 @@ class PresenterDetail(
                                 "\n ${NetworkUtil.getErrorMessage(e)}"
                     )
                 }
-            }
+            },
+            handleError = {}
         )
     }
 
     override fun deleteBookmark() {
         bookmarksRepository.deleteBookmark(
-            postDetails.bookmark_id,
+            DeleteBookmarkRequest(postDetails.bookmark_id),
             onSuccess = {
                 postDetails.bookmark_id = 0
                 view.apply {
@@ -239,7 +241,8 @@ class PresenterDetail(
                                 "\n ${NetworkUtil.getErrorMessage(e)}"
                     )
                 }
-            }
+            },
+            handleError = {}
         )
     }
 

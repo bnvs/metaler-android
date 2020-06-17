@@ -6,6 +6,23 @@ interface CategoriesRepository {
 
     fun getCategories(
         onSuccess: (response: List<Category>) -> Unit,
-        onFailure: (e: Throwable) -> Unit
+        onFailure: (e: Throwable) -> Unit,
+        handleError: (errorCode: Int) -> Unit
     )
+
+    fun getCategoriesFromRemote(
+        onSuccess: (response: List<Category>) -> Unit,
+        onFailure: (e: Throwable) -> Unit,
+        handleError: (errorCode: Int) -> Unit
+    )
+
+    fun saveCategories(categories: List<Category>)
+
+    fun getSearchViewCategoryTypeCache(
+        onSuccess: (categoryType: Int) -> Unit,
+        onFailure: () -> Unit
+    )
+
+    fun saveSearchViewCategoryTypeCache(categoryType: Int)
+
 }

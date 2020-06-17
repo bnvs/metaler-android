@@ -62,6 +62,9 @@ class PresenterSearch(
                     "서버 통신 실패 : ${NetworkUtil.getErrorMessage(e)}",
                     Toast.LENGTH_LONG
                 ).show()
+            },
+            handleError = {
+
             }
         )
     }
@@ -87,6 +90,9 @@ class PresenterSearch(
                     "서버 통신 실패 : ${NetworkUtil.getErrorMessage(e)}",
                     Toast.LENGTH_LONG
                 ).show()
+            },
+            handleError = {
+
             }
         )
     }
@@ -140,13 +146,14 @@ class PresenterSearch(
                     "서버 통신 실패 : ${NetworkUtil.getErrorMessage(e)}",
                     Toast.LENGTH_LONG
                 ).show()
-            }
+            },
+            handleError = {}
         )
     }
 
     override fun deleteBookmark(bookmarkId: Int) {
         bookmarksRepository.deleteBookmark(
-            bookmarkId,
+            DeleteBookmarkRequest(bookmarkId),
             onSuccess = {
                 Toast.makeText(
                     context,
@@ -161,7 +168,8 @@ class PresenterSearch(
                     "서버 통신 실패 : ${NetworkUtil.getErrorMessage(e)}",
                     Toast.LENGTH_LONG
                 ).show()
-            }
+            },
+            handleError = {}
         )
     }
 }

@@ -10,18 +10,21 @@ interface PostsRemoteDataSource {
     fun getPosts(
         request: PostsRequest,
         onSuccess: (response: PostsResponse) -> Unit,
-        onFailure: (e: Throwable) -> Unit
+        onFailure: (e: Throwable) -> Unit,
+        handleError: (errorCode: Int) -> Unit
     )
 
     fun getPostsWithSearchTypeContent(
         request: PostsWithContentRequest,
         onSuccess: (response: PostsResponse) -> Unit,
-        onFailure: (e: Throwable) -> Unit
+        onFailure: (e: Throwable) -> Unit,
+        handleError: (errorCode: Int) -> Unit
     )
 
     fun getPostsWithSearchTypeTag(
         request: PostsWithTagRequest,
         onSuccess: (response: PostsResponse) -> Unit,
-        onFailure: (e: Throwable) -> Unit
+        onFailure: (e: Throwable) -> Unit,
+        handleError: (errorCode: Int) -> Unit
     )
 }

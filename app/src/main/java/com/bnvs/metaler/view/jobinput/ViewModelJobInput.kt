@@ -2,7 +2,6 @@ package com.bnvs.metaler.view.jobinput
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.bnvs.metaler.data.profile.source.repository.ProfileRepository
 import com.bnvs.metaler.data.token.model.AccessToken
 import com.bnvs.metaler.data.token.model.SigninToken
@@ -15,6 +14,7 @@ import com.bnvs.metaler.data.user.certification.source.repository.UserCertificat
 import com.bnvs.metaler.data.user.modification.model.TermsAgreements
 import com.bnvs.metaler.data.user.modification.source.repository.UserModificationRepository
 import com.bnvs.metaler.network.NetworkUtil
+import com.bnvs.metaler.util.base.BaseViewModel
 import com.bnvs.metaler.util.constants.NO_ERROR_TO_HANDLE
 
 class ViewModelJobInput(
@@ -22,14 +22,7 @@ class ViewModelJobInput(
     private val userModificationRepository: UserModificationRepository,
     private val tokenRepository: TokenRepository,
     private val profileRepository: ProfileRepository
-) : ViewModel() {
-
-    private val _errorToastMessage = MutableLiveData<String>().apply { value = "" }
-    val errorToastMessage: LiveData<String> = _errorToastMessage
-    private val _errorDialogMessage = MutableLiveData<String>().apply { value = "" }
-    val errorDialogMessage: LiveData<String> = _errorDialogMessage
-    private val _errorCode = MutableLiveData<Int>().apply { value = NO_ERROR_TO_HANDLE }
-    val errorCode: LiveData<Int> = _errorCode
+) : BaseViewModel() {
 
     private val _backToTermsAgreeActivity = MutableLiveData<Boolean>().apply { value = false }
     val backToTermsAgreeActivity: LiveData<Boolean> = _backToTermsAgreeActivity
@@ -312,9 +305,5 @@ class ViewModelJobInput(
 
     private fun saveUserInfo(userInfo: User) {
         profileRepository.saveUserInfo(userInfo)
-    }
-
-    private fun clearStringValue(): String {
-        return ""
     }
 }
