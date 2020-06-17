@@ -5,6 +5,7 @@ import com.bnvs.metaler.module.repository.*
 import com.bnvs.metaler.module.retrofit.retrofitModule
 import com.bnvs.metaler.module.viewmodel.homeViewModelModule
 import com.bnvs.metaler.module.viewmodel.jobInputViewModelModule
+import com.bnvs.metaler.module.viewmodel.materialsViewModelModule
 import com.bnvs.metaler.module.viewmodel.termsAgreeViewModelModule
 import com.kakao.auth.*
 import org.koin.android.ext.koin.androidContext
@@ -89,7 +90,8 @@ class GlobalApplication : Application() {
                 myPostsModule,
                 termsAgreeViewModelModule,
                 jobInputViewModelModule,
-                homeViewModelModule
+                homeViewModelModule,
+                materialsViewModelModule
             )
         }
     }
