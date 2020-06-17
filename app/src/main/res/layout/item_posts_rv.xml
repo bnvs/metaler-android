@@ -12,7 +12,7 @@
 
         <variable
             name="listener"
-            type="com.bnvs.metaler.util.newadpaters.PostClickListener" />
+            type="com.bnvs.metaler.util.posts.listener.PostClickListener" />
 
         <variable
             name="position"
