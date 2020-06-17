@@ -25,8 +25,8 @@ object NetworkUtil : KoinComponent {
                 "[Server Error] ${e.code()} - ${e.message()}"
             }
         } else {
-            "$e"
-        }).toString()
+            e.toString()
+        })
     }
 
     private fun getErrorResponse(errorBody: ResponseBody): ErrorResponse {
