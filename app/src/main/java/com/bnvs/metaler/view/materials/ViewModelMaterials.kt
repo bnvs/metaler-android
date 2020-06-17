@@ -45,7 +45,10 @@ class ViewModelMaterials(
         categoriesRepository.getCategories(
             onSuccess = { response ->
                 _categories.value = response
-                initSelectedCategory()
+                response.first { it.type == "total" }.id.let {
+                    _selectedCategoryId.value = it
+                    setSearchViewCategoryType(it)
+                }
                 loadPosts()
             },
             onFailure = { e ->
@@ -61,21 +64,6 @@ class ViewModelMaterials(
                 }
             }
         )
-    }
-
-    private fun initSelectedCategory() {
-        categories.value?.first {
-            it.type == "total"
-        }?.id ?: 0.also {
-            _errorToastMessage.apply {
-                value = "카테고리 에러발생 - 카테고리 total 없음"
-                value = clearStringValue()
-            }
-        }.let {
-            _selectedCategoryId.value = it
-            setSearchViewCategoryType(it)
-        }
-        Log.d(TAG, "init selected category - 카테고리 아이디 : ${categoryId.value}")
     }
 
     override fun setSearchViewCategoryType(categoryId: Int) {
