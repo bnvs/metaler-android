@@ -50,7 +50,7 @@
                     android:ellipsize="end"
                     android:maxLines="1"
                     android:text="@{postItem.title}"
-                    android:textColor="@color/colorPurple"
+                    android:textColor="@color/colorDakrPurple"
                     android:textSize="16sp"
                     app:layout_constrainedWidth="true"
                     app:layout_constraintEnd_toStartOf="@id/img"

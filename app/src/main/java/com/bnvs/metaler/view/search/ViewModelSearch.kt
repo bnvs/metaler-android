@@ -1,4 +1,4 @@
-package com.bnvs.metaler.view.materials
+package com.bnvs.metaler.view.search
 
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -6,82 +6,62 @@ import androidx.lifecycle.MutableLiveData
 import com.bnvs.metaler.data.bookmarks.model.AddBookmarkRequest
 import com.bnvs.metaler.data.bookmarks.model.DeleteBookmarkRequest
 import com.bnvs.metaler.data.bookmarks.source.repositroy.BookmarksRepository
-import com.bnvs.metaler.data.categories.model.Category
 import com.bnvs.metaler.data.categories.source.repository.CategoriesRepository
 import com.bnvs.metaler.data.posts.source.repository.PostsRepository
 import com.bnvs.metaler.network.NetworkUtil
 import com.bnvs.metaler.util.base.postsrv.BasePostsRvViewModel
 import com.bnvs.metaler.util.constants.NO_ERROR_TO_HANDLE
-import com.bnvs.metaler.util.constants.POST_REQUEST_TYPE
-import com.bnvs.metaler.util.constants.POST_REQUEST_WITH_SEARCH_TYPE_TAG
+import com.bnvs.metaler.util.constants.POST_REQUEST_WITH_SEARCH_TYPE_CONTENT
+import com.bnvs.metaler.util.constants.POST_SEARCH_TYPE_CONTENT
 
-class ViewModelMaterials(
+class ViewModelSearch(
+    private val categoriesRepository: CategoriesRepository,
     private val postsRepository: PostsRepository,
-    private val bookmarksRepository: BookmarksRepository,
-    private val categoriesRepository: CategoriesRepository
+    private val bookmarksRepository: BookmarksRepository
 ) : BasePostsRvViewModel() {
 
-    private val TAG = "ViewModel Materials"
+    private val TAG = "ViewModel Manufactures"
 
-    // 카테고리 리스트 + 선택한 카테고리 아이디(category_id)
-    private val _categories = MutableLiveData<List<Category>>()
-    val categories: LiveData<List<Category>> = _categories
-    private val _selectedCategoryId = MutableLiveData<Int>()
-    val selectedCategoryId: LiveData<Int> = _selectedCategoryId
+    private val _categoryId = MutableLiveData<Int>()
+    override val categoryId: LiveData<Int> = _categoryId
 
-    // 게시글 목록 요청 request 용 데이터
-    override val categoryId = selectedCategoryId
+    private val _resultCount = MutableLiveData<Int>().apply { value = 0 }
+    val resultCount: LiveData<Int> = _resultCount
+
+    private val _finishActivity = MutableLiveData<Boolean>().apply { value = false }
+    val finishActivity: LiveData<Boolean> = _finishActivity
 
     init {
-        loadCategories()
+        getSearchViewCategoryType()
+        setPostRequestType()
     }
 
-    override fun refresh() {
-        super.refresh()
-        loadPosts()
-    }
-
-    private fun loadCategories() {
-        categoriesRepository.getCategories(
-            onSuccess = { response ->
-                _categories.value = response
-                response.first { it.type == "total" }.id.let {
-                    _selectedCategoryId.value = it
-                    setSearchViewCategoryType(it)
-                }
-                loadPosts()
+    private fun getSearchViewCategoryType() {
+        categoriesRepository.getSearchViewCategoryTypeCache(
+            onSuccess = { categoryType ->
+                setSearchViewCategoryType(categoryType)
             },
-            onFailure = { e ->
+            onFailure = {
                 _errorToastMessage.apply {
-                    value = NetworkUtil.getErrorMessage(e)
+                    value = "검색 타입을 알 수 없습니다"
                     value = clearStringValue()
-                }
-            },
-            handleError = { e ->
-                _errorCode.apply {
-                    value = e
-                    value = NO_ERROR_TO_HANDLE
                 }
             }
         )
     }
 
     override fun setSearchViewCategoryType(categoryId: Int) {
-        categoriesRepository.saveSearchViewCategoryTypeCache(categoryId)
+        _categoryId.value = categoryId
     }
 
-    fun changeSelectedCategory(categoryId: Int) {
-        if (_selectedCategoryId.value != categoryId) {
-            _selectedCategoryId.value = categoryId
-            resetPage()
-            loadPosts()
-        }
+    private fun setPostRequestType() {
+        postRequestType = POST_REQUEST_WITH_SEARCH_TYPE_CONTENT
+        searchType = POST_SEARCH_TYPE_CONTENT
     }
 
     override fun loadPosts() {
         when (postRequestType) {
-            POST_REQUEST_TYPE -> loadPostsNormal()
-            POST_REQUEST_WITH_SEARCH_TYPE_TAG -> loadPostsWithSearchTypeTag()
+            POST_REQUEST_WITH_SEARCH_TYPE_CONTENT -> loadPostsNormal()
         }
         Log.d(TAG, "게시물 목록 가져오기 - postRequestType : $postRequestType")
     }
@@ -94,11 +74,12 @@ class ViewModelMaterials(
     }
 
     override fun loadPostsNormal() {
-        postsRepository.getPosts(
-            getPostsRequest(),
+        postsRepository.getPostsWithSearchTypeContent(
+            getPostsWithContentRequest(),
             onSuccess = { response ->
                 setItemLoadingView(false)
                 _isLoading.value = false
+                _resultCount.value = response.post_count
                 if (response.posts.isNullOrEmpty()) {
                     if (posts.value.isNullOrEmpty()) {
                         _errorVisibility.value = true
@@ -126,38 +107,7 @@ class ViewModelMaterials(
         )
     }
 
-    override fun loadPostsWithSearchTypeTag() {
-        postsRepository.getPostsWithSearchTypeTag(
-            getPostsWithTagRequest(),
-            onSuccess = { response ->
-                setItemLoadingView(false)
-                _isLoading.value = false
-                if (response.posts.isNullOrEmpty()) {
-                    if (posts.value.isNullOrEmpty()) {
-                        _errorVisibility.value = true
-                    }
-                } else {
-                    _errorVisibility.value = false
-                    _hasNextPage.value = response.is_next
-                    _posts.value = posts.value?.plus(response.posts) ?: response.posts
-                }
-            },
-            onFailure = { e ->
-                setItemLoadingView(false)
-                _isLoading.value = false
-                _errorToastMessage.apply {
-                    value = NetworkUtil.getErrorMessage(e)
-                    value = clearStringValue()
-                }
-            },
-            handleError = { e ->
-                _errorCode.apply {
-                    value = e
-                    value = NO_ERROR_TO_HANDLE
-                }
-            }
-        )
-    }
+    override fun loadPostsWithSearchTypeTag() {}
 
     override fun addBookmark(postId: Int, position: Int) {
         bookmarksRepository.addBookmark(
@@ -231,4 +181,10 @@ class ViewModelMaterials(
         )
     }
 
+    fun finishActivity() {
+        _finishActivity.apply {
+            value = true
+            value = false
+        }
+    }
 }

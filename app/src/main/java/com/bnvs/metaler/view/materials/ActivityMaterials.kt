@@ -54,7 +54,7 @@ class ActivityMaterials : BasePostsRvActivity<ViewModelMaterials>() {
     }
 
     override fun setTagSearchTextView() {
-        tagInput.setOnEditorActionListener { v, actionId, event ->
+        tagInput.setOnEditorActionListener { v, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 viewModel.addSearchWord()
                 v.clearFocus()

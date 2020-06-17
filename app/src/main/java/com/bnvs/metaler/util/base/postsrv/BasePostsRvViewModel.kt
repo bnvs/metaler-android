@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.bnvs.metaler.data.posts.model.Post
 import com.bnvs.metaler.data.posts.model.PostsRequest
+import com.bnvs.metaler.data.posts.model.PostsWithContentRequest
 import com.bnvs.metaler.data.posts.model.PostsWithTagRequest
 import com.bnvs.metaler.util.base.posts.BasePostsViewModel
 import com.bnvs.metaler.util.constants.POST_REQUEST_TYPE
@@ -32,22 +33,24 @@ abstract class BasePostsRvViewModel : BasePostsViewModel() {
     private val _tagsRvVisibility = MutableLiveData<Boolean>().apply { value = false }
     val tagsRvVisibility: LiveData<Boolean> = _tagsRvVisibility
 
-    // 태그 입력 TextView 텍스트
-    val tagInput = MutableLiveData<String>()
+    // 태그/검색어 입력 TextView 텍스트
+    val editTextInput = MutableLiveData<String>()
+
+    // 검색어
+    private var contentSearchWord: String? = null
 
     // 게시글 목록 요청 request 용 데이터
     protected abstract val categoryId: LiveData<Int>
     protected var page = 0
     protected val limit = 10
-    private val searchType = POST_SEARCH_TYPE_TAG
+    protected var searchType = POST_SEARCH_TYPE_TAG
     private val _searchWord = MutableLiveData<List<String>>()
     val searchWord: LiveData<List<String>> = _searchWord
-
 
     open fun refresh() {
         _isLoading.value = true
         _hasNextPage.value = false
-        clearTagInput()
+        clearEditTextInput()
         clearSearchWord()
         setTagsRvVisibility()
         setPostRequestType()
@@ -81,7 +84,7 @@ abstract class BasePostsRvViewModel : BasePostsViewModel() {
     }
 
     fun addSearchWord() {
-        val tag = tagInput.value
+        val tag = editTextInput.value
         if (tag.isNullOrBlank()) {
             _errorToastMessage.apply {
                 value = "검색할 태그를 입력해주세요"
@@ -94,12 +97,12 @@ abstract class BasePostsRvViewModel : BasePostsViewModel() {
                         value = "동일한 내용의 태그가 존재합니다"
                         value = clearStringValue()
                     }
-                    clearTagInput()
+                    clearEditTextInput()
                 } else {
                     _searchWord.value = it?.plus(tag) ?: listOf(tag)
                     setTagsRvVisibility()
                     setPostRequestType()
-                    clearTagInput()
+                    clearEditTextInput()
                     resetPage()
                     loadPosts()
                 }
@@ -116,6 +119,22 @@ abstract class BasePostsRvViewModel : BasePostsViewModel() {
             setPostRequestType()
             resetPage()
             loadPosts()
+        }
+    }
+
+    fun searchWithContent() {
+        val input = editTextInput.value
+        if (input.isNullOrBlank()) {
+            _errorToastMessage.apply {
+                value = "검색어를 입력해주세요"
+                value = clearStringValue()
+            }
+        } else {
+            if (input != contentSearchWord) {
+                contentSearchWord = input
+                resetPage()
+                loadPosts()
+            }
         }
     }
 
@@ -136,9 +155,20 @@ abstract class BasePostsRvViewModel : BasePostsViewModel() {
         )
     }
 
+    protected fun getPostsWithContentRequest(): PostsWithContentRequest {
+        page++
+        return PostsWithContentRequest(
+            categoryId.value ?: 0,
+            page,
+            limit,
+            searchType,
+            contentSearchWord ?: ""
+        )
+    }
 
-    fun clearTagInput() {
-        tagInput.value = ""
+
+    fun clearEditTextInput() {
+        editTextInput.value = ""
     }
 
     private fun clearSearchWord() {

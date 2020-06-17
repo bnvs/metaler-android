@@ -127,15 +127,14 @@
         android:id="@+id/tabBarCard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/tab_bar_border"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
         <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            app:cardBackgroundColor="@color/colorWhite"
-            app:cardElevation="0dp"
+            style="@style/tabBarCardView"
+            android:layout_marginTop="0.5dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -156,8 +155,9 @@
                     app:layout_constraintTop_toTopOf="parent">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="88dp"
-                        android:layout_height="match_parent">
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:paddingVertical="2dp">
 
                         <ImageView
                             android:id="@+id/homeIcon"
@@ -171,12 +171,8 @@
 
                         <TextView
                             android:id="@+id/homeTxt"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            style="@style/tabBarInactiveTextView"
                             android:text="홈"
-                            android:textColor="@color/colorInactiveTapbar"
-                            android:textSize="10sp"
-                            android:textStyle="bold"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -195,7 +191,8 @@
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent"
+                        android:paddingVertical="2dp">
 
                         <ImageView
                             android:id="@+id/materialsIcon"
@@ -209,11 +206,8 @@
 
                         <TextView
                             android:id="@+id/materialsTxt"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
                             android:text="재료"
-                            android:textColor="@color/colorInactiveTapbar"
-                            android:textSize="10sp"
+                            style="@style/tabBarInactiveTextView"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -232,7 +226,8 @@
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent"
+                        android:paddingVertical="2dp">
 
                         <ImageView
                             android:id="@+id/manufactureIcon"
@@ -246,11 +241,8 @@
 
                         <TextView
                             android:id="@+id/manufactureTxt"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
                             android:text="가공"
-                            android:textColor="@color/colorInactiveTapbar"
-                            android:textSize="10sp"
+                            style="@style/tabBarInactiveTextView"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -269,7 +261,8 @@
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent"
+                        android:paddingVertical="2dp">
 
                         <ImageView
                             android:id="@+id/bookmarkIcon"
@@ -283,11 +276,8 @@
 
                         <TextView
                             android:id="@+id/bookmarkTxt"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            style="@style/tabBarActiveTextView"
                             android:text="북마크"
-                            android:textColor="@color/colorActiveTapbar"
-                            android:textSize="10sp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -306,7 +296,8 @@
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent"
+                        android:paddingVertical="2dp">
 
                         <ImageView
                             android:id="@+id/myPageIcon"
@@ -320,11 +311,8 @@
 
                         <TextView
                             android:id="@+id/myPageTxt"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
                             android:text="마이페이지"
-                            android:textColor="@color/colorInactiveTapbar"
-                            android:textSize="10sp"
+                            style="@style/tabBarInactiveTextView"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"

@@ -15,7 +15,7 @@ import com.bnvs.metaler.util.constants.POST_REQUEST_TYPE
 import com.bnvs.metaler.util.constants.POST_REQUEST_WITH_SEARCH_TYPE_TAG
 
 class ViewModelManufactures(
-    private val postRepository: PostsRepository,
+    private val postsRepository: PostsRepository,
     private val bookmarksRepository: BookmarksRepository,
     private val categoriesRepository: CategoriesRepository
 ) : BasePostsRvViewModel() {
@@ -78,7 +78,7 @@ class ViewModelManufactures(
     }
 
     override fun loadPostsNormal() {
-        postRepository.getPosts(
+        postsRepository.getPosts(
             getPostsRequest(),
             onSuccess = { response ->
                 setItemLoadingView(false)
@@ -111,7 +111,7 @@ class ViewModelManufactures(
     }
 
     override fun loadPostsWithSearchTypeTag() {
-        postRepository.getPostsWithSearchTypeTag(
+        postsRepository.getPostsWithSearchTypeTag(
             getPostsWithTagRequest(),
             onSuccess = { response ->
                 setItemLoadingView(false)
