@@ -2,23 +2,16 @@ package com.bnvs.metaler.view.termsagree
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.bnvs.metaler.data.user.modification.model.Terms
 import com.bnvs.metaler.data.user.modification.model.TermsAgreements
 import com.bnvs.metaler.data.user.modification.source.repository.UserModificationRepository
 import com.bnvs.metaler.network.NetworkUtil
+import com.bnvs.metaler.util.base.BaseViewModel
 import com.bnvs.metaler.util.constants.NO_ERROR_TO_HANDLE
 
 class ViewModelTermsAgree(
     private val userModificationRepository: UserModificationRepository
-) : ViewModel() {
-
-    private val _errorToastMessage = MutableLiveData<String>().apply { value = "" }
-    val errorToastMessage: LiveData<String> = _errorToastMessage
-    private val _errorDialogMessage = MutableLiveData<String>().apply { value = "" }
-    val errorDialogMessage: LiveData<String> = _errorDialogMessage
-    private val _errorCode = MutableLiveData<Int>().apply { value = NO_ERROR_TO_HANDLE }
-    val errorCode: LiveData<Int> = _errorCode
+) : BaseViewModel() {
 
     private val _openJobInputActivity = MutableLiveData<Boolean>().apply { value = false }
     val openJobInputActivity: LiveData<Boolean> = _openJobInputActivity
@@ -119,7 +112,6 @@ class ViewModelTermsAgree(
         }
     }
 
-
     fun completeTermsAgree() {
         if (firstChecked.value == true
             && secondChecked.value == true
@@ -133,9 +125,4 @@ class ViewModelTermsAgree(
             }
         }
     }
-
-    private fun clearStringValue(): String {
-        return ""
-    }
-
 }
