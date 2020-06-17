@@ -6,6 +6,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.bnvs.metaler.R
+import com.bnvs.metaler.data.categories.source.repository.CategoriesRepository
 import com.bnvs.metaler.data.profile.source.repository.ProfileRepository
 import com.bnvs.metaler.data.token.model.AccessToken
 import com.bnvs.metaler.data.token.model.SigninToken
@@ -39,6 +40,7 @@ class ActivityLogin : AppCompatActivity() {
     private val tokenRepository: TokenRepository by inject()
     private val userRepository: UserCertificationRepository by inject()
     private val profileRepository: ProfileRepository by inject()
+    private val categoriesRepository: CategoriesRepository by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -166,12 +168,28 @@ class ActivityLogin : AppCompatActivity() {
             loginRequest(kakao_id, signin_token),
             onSuccess = { response ->
                 NetworkUtil.setAccessToken(response.access_token)
+                getCategoriesData()
                 saveAccessToken(response.access_token)
                 saveProfileData(response.user)
                 openHome()
             },
             onFailure = { e ->
                 makeErrorToast(getString(R.string.LOGIN_ERROR), e)
+            },
+            handleError = { e ->
+                handleError(e)
+            }
+        )
+    }
+
+    // 최초화면 (로그인 액티비티) 에서 카테고리 데이터 가져옴
+    private fun getCategoriesData() {
+        categoriesRepository.getCategories(
+            onSuccess = { response ->
+                categoriesRepository.saveCategories(response)
+            },
+            onFailure = { e ->
+                makeErrorToast("카테고리 가져오기 실패", e)
             },
             handleError = { e ->
                 handleError(e)
