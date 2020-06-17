@@ -1,20 +1,17 @@
 package com.bnvs.metaler.view.home
 
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.WindowManager
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
 import com.bnvs.metaler.R
 import com.bnvs.metaler.databinding.ActivityHomeBinding
-import com.bnvs.metaler.util.BaseActivity
-import com.bnvs.metaler.view.detail.ActivityDetail
+import com.bnvs.metaler.util.base.posts.BasePostsActivity
 import kotlinx.android.synthetic.main.activity_home.*
 import org.koin.android.ext.android.inject
 
-class ActivityHome : BaseActivity<ViewModelHome>() {
+class ActivityHome : BasePostsActivity<ViewModelHome>() {
 
     private val TAG = "ActivityHome"
 
@@ -34,35 +31,6 @@ class ActivityHome : BaseActivity<ViewModelHome>() {
         setTransparentStatusBar()
         observeViewModel()
 
-    }
-
-    override fun observeViewModel() {
-        super.observeViewModel()
-        observeStartDetailActivity()
-    }
-
-    private fun observeStartDetailActivity() {
-        viewModel.openDetailActivity.observe(
-            this,
-            Observer { startActivity ->
-                if (startActivity) {
-                    val postId = viewModel.postId.value
-                    if (postId == null) {
-                        makeToast("상세게시물을 볼 수 없습니다")
-                    } else {
-                        startDetailActivity(postId)
-                    }
-                }
-            }
-        )
-    }
-
-    private fun startDetailActivity(postId: Int) {
-        Intent(this@ActivityHome, ActivityDetail::class.java)
-            .apply { putExtra("POST_ID", postId) }
-            .also { startActivity(it) }
-
-        overridePendingTransition(0, 0)
     }
 
     // 상태 바를 투명하게 하고, padding 을 조절한다
