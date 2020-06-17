@@ -89,7 +89,8 @@ class GlobalApplication : Application() {
                 jobInputViewModelModule,
                 homeViewModelModule,
                 materialsViewModelModule,
-                manufacturesViewModelModule
+                manufacturesViewModelModule,
+                searchViewModelModule
             )
         }
     }
