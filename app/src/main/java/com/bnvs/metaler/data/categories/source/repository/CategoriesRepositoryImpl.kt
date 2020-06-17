@@ -16,4 +16,26 @@ class CategoriesRepositoryImpl(
     ) {
         categoriesRemoteDataSource.getCategories(onSuccess, onFailure, handleError)
     }
+
+    override fun getCategoriesFromLocal(
+        onSuccess: (response: List<Category>) -> Unit,
+        onFailure: () -> Unit
+    ) {
+        categoriesLocalDataSource.getCategories(onSuccess, onFailure)
+    }
+
+    override fun saveCategories(categories: List<Category>) {
+        categoriesLocalDataSource.saveCategories(categories)
+    }
+
+    override fun getSearchViewCategoryTypeCache(
+        onSuccess: (categoryType: String) -> Unit,
+        onFailure: () -> Unit
+    ) {
+        categoriesLocalDataSource.getSearchViewCategoryTypeCache(onSuccess, onFailure)
+    }
+
+    override fun saveSearchViewCategoryTypeCache(categoryType: String) {
+        categoriesLocalDataSource.saveSearchViewCategoryTypeCache(categoryType)
+    }
 }

@@ -10,4 +10,18 @@ interface CategoriesRepository {
         handleError: (errorCode: Int) -> Unit
     )
 
+    fun getCategoriesFromLocal(
+        onSuccess: (response: List<Category>) -> Unit,
+        onFailure: () -> Unit
+    )
+
+    fun saveCategories(categories: List<Category>)
+
+    fun getSearchViewCategoryTypeCache(
+        onSuccess: (categoryType: String) -> Unit,
+        onFailure: () -> Unit
+    )
+
+    fun saveSearchViewCategoryTypeCache(categoryType: String)
+
 }
