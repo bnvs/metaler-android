@@ -52,6 +52,7 @@
                     android:text="@{postItem.title}"
                     android:textColor="@color/colorPurple"
                     android:textSize="16sp"
+                    android:textStyle="bold"
                     app:layout_constrainedWidth="true"
                     app:layout_constraintEnd_toStartOf="@id/img"
                     app:layout_constraintHorizontal_chainStyle="spread_inside"
