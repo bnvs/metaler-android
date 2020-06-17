@@ -61,6 +61,9 @@ class PresenterMaterials(
                     "서버 통신 실패 : ${NetworkUtil.getErrorMessage(e)}",
                     Toast.LENGTH_LONG
                 ).show()
+            },
+            handleError = {
+
             }
         )
     }
@@ -82,6 +85,9 @@ class PresenterMaterials(
                     "서버 통신 실패 : ${NetworkUtil.getErrorMessage(e)}",
                     Toast.LENGTH_LONG
                 ).show()
+            },
+            handleError = {
+
             }
         )
     }
@@ -108,6 +114,8 @@ class PresenterMaterials(
                     "서버 통신 실패 : ${NetworkUtil.getErrorMessage(e)}",
                     Toast.LENGTH_LONG
                 ).show()
+            }, handleError = {
+
             }
         )
     }
@@ -135,6 +143,9 @@ class PresenterMaterials(
                     "서버 통신 실패 : ${NetworkUtil.getErrorMessage(e)}",
                     Toast.LENGTH_LONG
                 ).show()
+            },
+            handleError = {
+
             }
         )
     }
@@ -162,6 +173,9 @@ class PresenterMaterials(
                     "서버 통신 실패 : ${NetworkUtil.getErrorMessage(e)}",
                     Toast.LENGTH_LONG
                 ).show()
+            },
+            handleError = {
+
             }
         )
     }
@@ -180,10 +194,12 @@ class PresenterMaterials(
                     "서버 통신 실패 : ${NetworkUtil.getErrorMessage(e)}",
                     Toast.LENGTH_LONG
                 ).show()
+            },
+            handleError = {
+
             }
         )
     }
-
 
 
     // getPosts api 요청 request body 반환하는 함수
@@ -246,7 +262,7 @@ class PresenterMaterials(
         bookmarksRepository.addBookmark(
             requestAddBookmark(postId),
             onSuccess = { response: AddBookmarkResponse ->
-                view.postAdapterAddBookmark(position, response.bookmark_id )
+                view.postAdapterAddBookmark(position, response.bookmark_id)
                 Toast.makeText(
                     context,
                     "북마크에 추가되었습니다.",
@@ -259,13 +275,14 @@ class PresenterMaterials(
                     "서버 통신 실패 : ${NetworkUtil.getErrorMessage(e)}",
                     Toast.LENGTH_LONG
                 ).show()
-            }
+            },
+            handleError = {}
         )
     }
 
     override fun deleteBookmark(bookmarkId: Int) {
         bookmarksRepository.deleteBookmark(
-            bookmarkId,
+            DeleteBookmarkRequest(bookmarkId),
             onSuccess = {
                 Toast.makeText(
                     context,
@@ -280,7 +297,8 @@ class PresenterMaterials(
                     "서버 통신 실패 : ${NetworkUtil.getErrorMessage(e)}",
                     Toast.LENGTH_LONG
                 ).show()
-            }
+            },
+            handleError = {}
         )
     }
 
