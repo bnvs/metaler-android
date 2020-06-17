@@ -25,7 +25,7 @@ fun setTermsAgreeWebViewListener(view: TextView, url: String?) {
             AlertDialog.Builder(view.context)
                 .setTitle(view.context.getString(R.string.app_name))
                 .setView(webView)
-                .setPositiveButton(view.context.getString(R.string.allow)) { dialog, _ ->
+                .setPositiveButton(view.context.getString(R.string.close)) { dialog, _ ->
                     dialog.dismiss()
                 }
                 .show()
