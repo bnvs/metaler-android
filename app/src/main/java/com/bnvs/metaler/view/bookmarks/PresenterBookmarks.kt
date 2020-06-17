@@ -5,6 +5,7 @@ import android.content.Intent
 import android.widget.Toast
 import com.bnvs.metaler.data.bookmarks.model.BookmarksRequest
 import com.bnvs.metaler.data.bookmarks.model.BookmarksResponse
+import com.bnvs.metaler.data.bookmarks.model.DeleteBookmarkRequest
 import com.bnvs.metaler.data.bookmarks.source.repositroy.BookmarksRepository
 import com.bnvs.metaler.network.NetworkUtil
 import com.bnvs.metaler.view.detail.ActivityDetail
@@ -43,7 +44,8 @@ class PresenterBookmarks(
                     "서버 통신 실패 : ${NetworkUtil.getErrorMessage(e)}",
                     Toast.LENGTH_LONG
                 ).show()
-            }
+            },
+            handleError = {}
         )
     }
 
@@ -68,7 +70,8 @@ class PresenterBookmarks(
                     "서버 통신 실패 : ${NetworkUtil.getErrorMessage(e)}",
                     Toast.LENGTH_LONG
                 ).show()
-            }
+            },
+            handleError = {}
         )
     }
 
@@ -105,7 +108,7 @@ class PresenterBookmarks(
 
     override fun deleteBookmark(bookmarkId: Int) {
         bookmarksRepository.deleteBookmark(
-            bookmarkId,
+            DeleteBookmarkRequest(bookmarkId),
             onSuccess = {
                 Toast.makeText(
                     context,
@@ -120,7 +123,8 @@ class PresenterBookmarks(
                     "서버 통신 실패 : ${NetworkUtil.getErrorMessage(e)}",
                     Toast.LENGTH_LONG
                 ).show()
-            }
+            },
+            handleError = {}
         )
     }
 

@@ -66,6 +66,9 @@ class PresenterPostFirst(
             },
             onFailure = { e ->
                 view.showGetCategoriesFailedToast(NetworkUtil.getErrorMessage(e))
+            },
+            handleError = {
+
             }
         )
     }
