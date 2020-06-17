@@ -1,9 +1,6 @@
 package com.bnvs.metaler.data.bookmarks.source.local
 
-import com.bnvs.metaler.data.bookmarks.model.AddBookmarkRequest
-import com.bnvs.metaler.data.bookmarks.model.AddBookmarkResponse
-import com.bnvs.metaler.data.bookmarks.model.BookmarksRequest
-import com.bnvs.metaler.data.bookmarks.model.BookmarksResponse
+import com.bnvs.metaler.data.bookmarks.model.*
 
 interface BookmarksLocalDataSource {
     fun addBookmark(
@@ -13,7 +10,7 @@ interface BookmarksLocalDataSource {
     )
 
     fun deleteBookmark(
-        bookmarkId: Int,
+        request: DeleteBookmarkRequest,
         onSuccess: () -> Unit,
         onFailure: (e: Throwable) -> Unit
     )

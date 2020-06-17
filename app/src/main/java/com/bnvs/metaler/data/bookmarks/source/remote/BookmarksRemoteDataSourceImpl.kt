@@ -1,10 +1,9 @@
 package com.bnvs.metaler.data.bookmarks.source.remote
 
-import com.bnvs.metaler.data.bookmarks.model.AddBookmarkRequest
-import com.bnvs.metaler.data.bookmarks.model.AddBookmarkResponse
-import com.bnvs.metaler.data.bookmarks.model.BookmarksRequest
-import com.bnvs.metaler.data.bookmarks.model.BookmarksResponse
+import com.bnvs.metaler.data.bookmarks.model.*
+import com.bnvs.metaler.network.ErrorHandler
 import com.bnvs.metaler.network.RetrofitInterface
+import com.bnvs.metaler.util.constants.NO_ERROR_TO_HANDLE
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
@@ -18,7 +17,8 @@ class BookmarksRemoteDataSourceImpl(
     override fun addBookmark(
         request: AddBookmarkRequest,
         onSuccess: (response: AddBookmarkResponse) -> Unit,
-        onFailure: (e: Throwable) -> Unit
+        onFailure: (e: Throwable) -> Unit,
+        handleError: (errorCode: Int) -> Unit
     ) {
         retrofitClient.addBookmark(request).enqueue(object : Callback<AddBookmarkResponse> {
             override fun onResponse(
@@ -29,6 +29,10 @@ class BookmarksRemoteDataSourceImpl(
                 if (body != null && response.isSuccessful) {
                     onSuccess(body)
                 } else {
+                    val e = ErrorHandler.getErrorCode(HttpException(response))
+                    if (e != NO_ERROR_TO_HANDLE) {
+                        handleError(e)
+                    }
                     onFailure(HttpException(response))
                 }
             }
@@ -40,11 +44,12 @@ class BookmarksRemoteDataSourceImpl(
     }
 
     override fun deleteBookmark(
-        bookmarkId: Int,
+        request: DeleteBookmarkRequest,
         onSuccess: () -> Unit,
-        onFailure: (e: Throwable) -> Unit
+        onFailure: (e: Throwable) -> Unit,
+        handleError: (errorCode: Int) -> Unit
     ) {
-        retrofitClient.deleteBookmark(bookmarkId)
+        retrofitClient.deleteBookmark(request.bookmark_id)
             .enqueue(object : Callback<ResponseBody> {
                 override fun onResponse(
                     call: Call<ResponseBody>,
@@ -53,6 +58,10 @@ class BookmarksRemoteDataSourceImpl(
                     if (response.isSuccessful) {
                         onSuccess()
                     } else {
+                        val e = ErrorHandler.getErrorCode(HttpException(response))
+                        if (e != NO_ERROR_TO_HANDLE) {
+                            handleError(e)
+                        }
                         onFailure(HttpException(response))
                     }
                 }
@@ -66,7 +75,8 @@ class BookmarksRemoteDataSourceImpl(
     override fun getMyBookmarks(
         request: BookmarksRequest,
         onSuccess: (response: BookmarksResponse) -> Unit,
-        onFailure: (e: Throwable) -> Unit
+        onFailure: (e: Throwable) -> Unit,
+        handleError: (errorCode: Int) -> Unit
     ) {
         retrofitClient.getMyBookmarks(request.page, request.limit, request.category_type)
             .enqueue(object : Callback<BookmarksResponse> {
@@ -78,6 +88,10 @@ class BookmarksRemoteDataSourceImpl(
                     if (body != null && response.isSuccessful) {
                         onSuccess(body)
                     } else {
+                        val e = ErrorHandler.getErrorCode(HttpException(response))
+                        if (e != NO_ERROR_TO_HANDLE) {
+                            handleError(e)
+                        }
                         onFailure(HttpException(response))
                     }
                 }
