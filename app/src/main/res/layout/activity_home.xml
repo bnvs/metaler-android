@@ -470,8 +470,8 @@
                                     android:id="@+id/materialsHomePost5"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginBottom="15dp"
                                     android:background="?attr/selectableItemBackground"
+                                    android:paddingBottom="5dp"
                                     app:layout_constraintBottom_toBottomOf="parent"
                                     app:layout_constraintStart_toStartOf="parent"
                                     app:layout_constraintTop_toBottomOf="@id/materialsLine4"
@@ -538,14 +538,15 @@
                         app:layout_constraintTop_toBottomOf="@id/materialsCard">
 
                         <androidx.cardview.widget.CardView
-
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginHorizontal="10dp"
+                            android:layout_marginBottom="70dp"
                             app:cardBackgroundColor="@color/colorWhite"
                             app:cardCornerRadius="10dp"
                             app:cardElevation="5dp"
                             app:cardUseCompatPadding="true"
+                            app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent">
 
@@ -892,8 +893,8 @@
                                     android:id="@+id/manufactureHomePost5"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginBottom="15dp"
                                     android:background="?attr/selectableItemBackground"
+                                    android:paddingBottom="5dp"
                                     app:layout_constraintBottom_toBottomOf="parent"
                                     app:layout_constraintStart_toStartOf="parent"
                                     app:layout_constraintTop_toBottomOf="@id/manufacturesLine4"
@@ -985,12 +986,14 @@
             android:id="@+id/tabBarCard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/tab_bar_border"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
 
             <androidx.cardview.widget.CardView
                 style="@style/tabBarCardView"
+                android:layout_marginTop="0.5dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -1012,7 +1015,8 @@
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent">
+                            android:layout_height="match_parent"
+                            android:paddingVertical="2dp">
 
                             <ImageView
                                 android:id="@+id/homeIcon"
@@ -1046,7 +1050,8 @@
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent">
+                            android:layout_height="match_parent"
+                            android:paddingVertical="2dp">
 
                             <ImageView
                                 android:id="@+id/materialsIcon"
@@ -1080,7 +1085,8 @@
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent">
+                            android:layout_height="match_parent"
+                            android:paddingVertical="2dp">
 
                             <ImageView
                                 android:id="@+id/manufactureIcon"
@@ -1114,7 +1120,8 @@
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent">
+                            android:layout_height="match_parent"
+                            android:paddingVertical="2dp">
 
                             <ImageView
                                 android:id="@+id/bookmarkIcon"
@@ -1148,7 +1155,8 @@
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent">
+                            android:layout_height="match_parent"
+                            android:paddingVertical="2dp">
 
                             <ImageView
                                 android:id="@+id/myPageIcon"

@@ -219,16 +219,15 @@
             android:id="@+id/tabBarCard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/tab_bar_border"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintVertical_bias="1.0">
 
             <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                app:cardBackgroundColor="@color/colorWhite"
-                app:cardElevation="0dp"
+                style="@style/tabBarCardView"
+                android:layout_marginTop="0.5dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -251,7 +250,8 @@
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent">
+                            android:layout_height="match_parent"
+                            android:paddingVertical="2dp">
 
                             <ImageView
                                 android:id="@+id/homeIcon"
@@ -284,7 +284,8 @@
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent">
+                            android:layout_height="match_parent"
+                            android:paddingVertical="2dp">
 
                             <ImageView
                                 android:id="@+id/materialsIcon"
@@ -318,7 +319,8 @@
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent">
+                            android:layout_height="match_parent"
+                            android:paddingVertical="2dp">
 
                             <ImageView
                                 android:id="@+id/manufactureIcon"
@@ -355,7 +357,8 @@
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent">
+                            android:layout_height="match_parent"
+                            android:paddingVertical="2dp">
 
                             <ImageView
                                 android:id="@+id/bookmarkIcon"
@@ -389,7 +392,8 @@
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent">
+                            android:layout_height="match_parent"
+                            android:paddingVertical="2dp">
 
                             <ImageView
                                 android:id="@+id/myPageIcon"
