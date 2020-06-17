@@ -184,7 +184,7 @@ class ActivityLogin : AppCompatActivity() {
 
     // 최초화면 (로그인 액티비티) 에서 카테고리 데이터 가져옴
     private fun getCategoriesData() {
-        categoriesRepository.getCategories(
+        categoriesRepository.getCategoriesFromRemote(
             onSuccess = { response ->
                 categoriesRepository.saveCategories(response)
             },
