@@ -1,4 +1,4 @@
-package com.bnvs.metaler.util.newadpaters
+package com.bnvs.metaler.util.posts
 
 import android.graphics.BlendMode
 import android.graphics.BlendModeColorFilter

@@ -1,4 +1,4 @@
-package com.bnvs.metaler.util.newadpaters
+package com.bnvs.metaler.util.posts
 
 interface PostClickListener {
     fun onPostClick(postId: Int)

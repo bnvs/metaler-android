@@ -1,4 +1,4 @@
-package com.bnvs.metaler.util.newadpaters
+package com.bnvs.metaler.util.posts
 
 import androidx.recyclerview.widget.RecyclerView
 import com.bnvs.metaler.data.posts.model.Post
