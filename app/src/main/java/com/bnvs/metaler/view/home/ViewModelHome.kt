@@ -2,36 +2,18 @@ package com.bnvs.metaler.view.home
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.bnvs.metaler.data.homeposts.model.HomePosts
 import com.bnvs.metaler.data.homeposts.source.repository.HomePostsRepository
 import com.bnvs.metaler.data.profile.model.Profile
 import com.bnvs.metaler.data.profile.source.repository.ProfileRepository
 import com.bnvs.metaler.network.NetworkUtil
+import com.bnvs.metaler.util.BaseViewModel
 import com.bnvs.metaler.util.constants.NO_ERROR_TO_HANDLE
 
 class ViewModelHome(
     private val profileRepository: ProfileRepository,
     private val homePostsRepository: HomePostsRepository
-) : ViewModel() {
-
-    // errorMessage Handling
-    private val _errorToastMessage = MutableLiveData<String>().apply { value = "" }
-    val errorToastMessage: LiveData<String> = _errorToastMessage
-    private val _errorDialogMessage = MutableLiveData<String>().apply { value = "" }
-    val errorDialogMessage: LiveData<String> = _errorDialogMessage
-    private val _errorCode = MutableLiveData<Int>().apply { value = NO_ERROR_TO_HANDLE }
-    val errorCode: LiveData<Int> = _errorCode
-
-    // tapBarButtons
-    private val _openMaterialsActivity = MutableLiveData<Boolean>().apply { value = false }
-    val openMaterialsActivity: LiveData<Boolean> = _openMaterialsActivity
-    private val _openManufacturesActivity = MutableLiveData<Boolean>().apply { value = false }
-    val openManufacturesActivity: LiveData<Boolean> = _openManufacturesActivity
-    private val _openBookmarksActivity = MutableLiveData<Boolean>().apply { value = false }
-    val openBookmarksActivity: LiveData<Boolean> = _openBookmarksActivity
-    private val _openMyPageActivity = MutableLiveData<Boolean>().apply { value = false }
-    val openMyPageActivity: LiveData<Boolean> = _openMyPageActivity
+) : BaseViewModel() {
 
     private val _openDetailActivity = MutableLiveData<Boolean>().apply { value = false }
     val openDetailActivity: LiveData<Boolean> = _openDetailActivity
@@ -69,7 +51,7 @@ class ViewModelHome(
     private fun loadHomePosts() {
         homePostsRepository.getHomePosts(
             onSuccess = { response ->
-                if (response.materials.isEmpty() || response.manufactures.isEmpty()) {
+                if (response.materials.isNullOrEmpty() || response.manufactures.isNullOrEmpty()) {
                     _homeErrorVisibility.value = true
                 } else {
                     _homePosts.value = response
@@ -91,34 +73,6 @@ class ViewModelHome(
         )
     }
 
-    fun startMaterialsActivity() {
-        _openMaterialsActivity.apply {
-            value = true
-            value = false
-        }
-    }
-
-    fun startManufacturesActivity() {
-        _openManufacturesActivity.apply {
-            value = true
-            value = false
-        }
-    }
-
-    fun startBookmarksActivity() {
-        _openBookmarksActivity.apply {
-            value = true
-            value = false
-        }
-    }
-
-    fun startMyPageActivity() {
-        _openMyPageActivity.apply {
-            value = true
-            value = false
-        }
-    }
-
     fun openPostDetail(postId: Int) {
         _postId.value = postId
         startDetailActivity()
@@ -129,10 +83,6 @@ class ViewModelHome(
             value = true
             value = false
         }
-    }
-
-    private fun clearStringValue(): String {
-        return ""
     }
 
 }
