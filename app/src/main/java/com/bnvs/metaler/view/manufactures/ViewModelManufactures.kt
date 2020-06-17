@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import com.bnvs.metaler.data.bookmarks.model.AddBookmarkRequest
 import com.bnvs.metaler.data.bookmarks.model.DeleteBookmarkRequest
 import com.bnvs.metaler.data.bookmarks.source.repositroy.BookmarksRepository
+import com.bnvs.metaler.data.categories.source.repository.CategoriesRepository
 import com.bnvs.metaler.data.posts.source.repository.PostsRepository
 import com.bnvs.metaler.network.NetworkUtil
 import com.bnvs.metaler.util.base.postsrv.BasePostsRvViewModel
@@ -15,27 +16,44 @@ import com.bnvs.metaler.util.constants.POST_REQUEST_WITH_SEARCH_TYPE_TAG
 
 class ViewModelManufactures(
     private val postRepository: PostsRepository,
-    private val bookmarksRepository: BookmarksRepository
+    private val bookmarksRepository: BookmarksRepository,
+    private val categoriesRepository: CategoriesRepository
 ) : BasePostsRvViewModel() {
 
     private val TAG = "ViewModel Manufactures"
 
     // 가공탭 기본 카테고리 아이디 : 10
-    private val _categoryId = MutableLiveData<Int>().apply { value = 10 }
+    private val _categoryId = MutableLiveData<Int>().apply { value = 0 }
     override val categoryId: LiveData<Int> = _categoryId
 
     init {
         setManufacturesCategoryId()
-        loadPosts()
-    }
-
-    private fun setManufacturesCategoryId() {
-
     }
 
     override fun refresh() {
         super.refresh()
         loadPosts()
+    }
+
+    private fun setManufacturesCategoryId() {
+        categoriesRepository.getCategories(
+            onSuccess = { response ->
+                _categoryId.value = response.first { it.type == "manufacture" }.id
+                loadPosts()
+            },
+            onFailure = { e ->
+                _errorToastMessage.apply {
+                    value = NetworkUtil.getErrorMessage(e)
+                    value = clearStringValue()
+                }
+            },
+            handleError = { e ->
+                _errorCode.apply {
+                    value = e
+                    value = NO_ERROR_TO_HANDLE
+                }
+            }
+        )
     }
 
     override fun loadPosts() {
