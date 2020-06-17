@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:bind="http://schemas.android.com/apk/res-auto"
@@ -44,15 +45,17 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-                    <EditText
+                    <AutoCompleteTextView
                         android:id="@+id/tagInput"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="7dp"
                         android:background="@null"
                         android:hint="#태그검색"
+                        android:completionThreshold="2"
                         android:imeOptions="actionSearch"
                         android:inputType="text"
+                        android:text="@={vm.tagInput}"
                         android:textColor="@color/colorGrey"
                         android:textSize="18sp"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -68,7 +71,8 @@
                         android:src="@drawable/ic_tag_input_delete_x3"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        bind:onSingleClick="@{()->vm.clearTagInput()}" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
 
@@ -84,6 +88,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tagSearchBox"
                 app:layout_goneMarginTop="7dp"
+                bind:setTagItems="@{vm.searchWord}"
                 bind:tagsRvVisibility="@{vm.tagsRvVisibility}"
                 tools:listitem="@layout/item_tag_rv" />
 
@@ -98,6 +103,8 @@
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tagRV"
+                bind:selectedCategoryItem="@{vm.selectedCategoryId}"
+                bind:setCategoryItems="@{vm.categories}"
                 tools:listitem="@layout/item_materials_category_rv" />
 
 
@@ -117,6 +124,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                bind:setPostItems="@{vm.posts}"
                 tools:listitem="@layout/item_posts_rv" />
 
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
@@ -125,8 +133,8 @@
             android:id="@+id/error404Group"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="gone"
-            app:constraint_referenced_ids="error404Icon,error404Txt" />
+            app:constraint_referenced_ids="error404Icon,error404Txt"
+            bind:postErrorVisibility="@{vm.errorVisibility}" />
 
         <ImageView
             android:id="@+id/error404Icon"
@@ -140,7 +148,7 @@
         <TextView
             android:id="@+id/error404Txt"
             style="@style/error404TextView"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/tabBarCard"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/error404Icon" />
