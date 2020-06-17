@@ -77,9 +77,8 @@ class ActivityLogin : AppCompatActivity() {
             // 로그인 세션이 열렸을 때
             UserManagement.getInstance().me(object : MeV2ResponseCallback() {
                 override fun onSuccess(result: MeV2Response?) =
-                    // 카카오 로그인 성공시 local 에서 signin_token 불러오기
                     if (result != null) {
-                        getSigninToken(result)
+                        checkMembership(result)
                     } else {
                         makeToast(getString(R.string.NO_KAKAO_LOGIN_RESULT))
                     }
@@ -98,18 +97,6 @@ class ActivityLogin : AppCompatActivity() {
             } else {
                 makeToast(getString(R.string.INTERNET_DISCONNECTED_LOGIN_ERROR))
             }
-    }
-
-    private fun getSigninToken(result: MeV2Response) {
-        val kakaoId = result.id.toString()
-        tokenRepository.getSigninToken(
-            onTokenLoaded = { token ->
-                login(kakaoId, token.signin_token)
-            },
-            onTokenNotExist = {
-                checkMembership(result)
-            }
-        )
     }
 
     private fun saveSigninToken(token: String) {
