@@ -3,10 +3,7 @@ package com.bnvs.metaler
 import android.app.Application
 import com.bnvs.metaler.module.repository.*
 import com.bnvs.metaler.module.retrofit.retrofitModule
-import com.bnvs.metaler.module.viewmodel.homeViewModelModule
-import com.bnvs.metaler.module.viewmodel.jobInputViewModelModule
-import com.bnvs.metaler.module.viewmodel.materialsViewModelModule
-import com.bnvs.metaler.module.viewmodel.termsAgreeViewModelModule
+import com.bnvs.metaler.module.viewmodel.*
 import com.kakao.auth.*
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
@@ -91,7 +88,8 @@ class GlobalApplication : Application() {
                 termsAgreeViewModelModule,
                 jobInputViewModelModule,
                 homeViewModelModule,
-                materialsViewModelModule
+                materialsViewModelModule,
+                manufacturesViewModelModule
             )
         }
     }
