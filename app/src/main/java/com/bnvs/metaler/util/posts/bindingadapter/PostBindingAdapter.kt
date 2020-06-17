@@ -1,4 +1,4 @@
-package com.bnvs.metaler.util.posts
+package com.bnvs.metaler.util.posts.bindingadapter
 
 import android.view.View
 import android.widget.CheckBox
@@ -9,6 +9,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bnvs.metaler.R
 import com.bnvs.metaler.data.addeditpost.model.PostTag
 import com.bnvs.metaler.data.posts.model.Post
+import com.bnvs.metaler.util.posts.adapter.PostsAdapter
+import com.bnvs.metaler.util.posts.listener.PostClickListener
 import com.bnvs.metaler.util.setOnSingleClickListener
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy

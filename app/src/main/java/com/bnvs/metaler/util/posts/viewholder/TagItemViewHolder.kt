@@ -1,8 +1,9 @@
-package com.bnvs.metaler.util.posts
+package com.bnvs.metaler.util.posts.viewholder
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.bnvs.metaler.databinding.ItemTagRvBinding
+import com.bnvs.metaler.util.posts.listener.TagClickListener
 import com.bnvs.metaler.util.setOnSingleClickListener
 
 class TagItemViewHolder(

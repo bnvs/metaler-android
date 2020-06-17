@@ -1,8 +1,9 @@
-package com.bnvs.metaler.view.materials.category
+package com.bnvs.metaler.util.posts.viewholder
 
 import androidx.recyclerview.widget.RecyclerView
 import com.bnvs.metaler.data.categories.model.Category
 import com.bnvs.metaler.databinding.ItemMaterialsCategoryRvBinding
+import com.bnvs.metaler.util.posts.listener.CategoryClickListener
 
 class CategoryItemViewHolder(
     private val binding: ItemMaterialsCategoryRvBinding,

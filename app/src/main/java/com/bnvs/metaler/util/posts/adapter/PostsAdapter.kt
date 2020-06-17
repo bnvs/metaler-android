@@ -1,4 +1,4 @@
-package com.bnvs.metaler.util.posts
+package com.bnvs.metaler.util.posts.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,6 +7,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bnvs.metaler.R
 import com.bnvs.metaler.data.posts.model.Post
 import com.bnvs.metaler.databinding.ItemPostsRvBinding
+import com.bnvs.metaler.util.posts.listener.PostClickListener
+import com.bnvs.metaler.util.posts.viewholder.PostItemViewHolder
+import com.bnvs.metaler.util.posts.viewholder.PostLoadingViewHolder
 
 class PostsAdapter(private val listener: PostClickListener) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -34,13 +37,18 @@ class PostsAdapter(private val listener: PostClickListener) :
                     parent,
                     false
                 )
-                PostItemViewHolder(binding, listener)
+                PostItemViewHolder(
+                    binding,
+                    listener
+                )
             }
             else -> {
                 val inflatedView = LayoutInflater
                     .from(parent.context)
                     .inflate(R.layout.item_loading, parent, false)
-                PostLoadingViewHolder(inflatedView)
+                PostLoadingViewHolder(
+                    inflatedView
+                )
             }
         }
     }

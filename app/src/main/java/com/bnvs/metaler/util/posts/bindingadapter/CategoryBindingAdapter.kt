@@ -1,4 +1,4 @@
-package com.bnvs.metaler.view.materials.category
+package com.bnvs.metaler.util.posts.bindingadapter
 
 import android.view.View
 import android.widget.TextView
@@ -7,6 +7,7 @@ import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bnvs.metaler.R
 import com.bnvs.metaler.data.categories.model.Category
+import com.bnvs.metaler.util.posts.adapter.CategoriesAdapter
 
 @BindingAdapter("categoryTextColorChecked")
 fun categoryTextColorChecked(view: TextView, isChecked: Boolean) {

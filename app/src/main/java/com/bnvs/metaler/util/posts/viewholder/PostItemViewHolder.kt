@@ -1,8 +1,9 @@
-package com.bnvs.metaler.util.posts
+package com.bnvs.metaler.util.posts.viewholder
 
 import androidx.recyclerview.widget.RecyclerView
 import com.bnvs.metaler.data.posts.model.Post
 import com.bnvs.metaler.databinding.ItemPostsRvBinding
+import com.bnvs.metaler.util.posts.listener.PostClickListener
 
 class PostItemViewHolder(
     private val binding: ItemPostsRvBinding,

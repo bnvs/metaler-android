@@ -1,4 +1,4 @@
-package com.bnvs.metaler.util.posts
+package com.bnvs.metaler.util.posts.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,6 +6,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bnvs.metaler.R
 import com.bnvs.metaler.databinding.ItemTagRvBinding
+import com.bnvs.metaler.util.posts.listener.TagClickListener
+import com.bnvs.metaler.util.posts.viewholder.TagItemViewHolder
 
 class TagsAdapter(private val listener: TagClickListener) :
     RecyclerView.Adapter<TagItemViewHolder>() {
@@ -26,7 +28,10 @@ class TagsAdapter(private val listener: TagClickListener) :
             parent,
             false
         )
-        return TagItemViewHolder(binding, listener)
+        return TagItemViewHolder(
+            binding,
+            listener
+        )
     }
 
     override fun getItemCount(): Int {
