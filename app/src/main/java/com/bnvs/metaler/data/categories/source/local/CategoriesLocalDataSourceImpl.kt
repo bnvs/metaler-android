@@ -34,18 +34,18 @@ class CategoriesLocalDataSourceImpl(context: Context) : CategoriesLocalDataSourc
     }
 
     override fun getSearchViewCategoryTypeCache(
-        onSuccess: (categoryType: String) -> Unit,
+        onSuccess: (categoryType: Int) -> Unit,
         onFailure: () -> Unit
     ) {
-        val categoryType = shared.getString(SEARCH_VIEW_CATEGORY_TYPE, null)
-        if (categoryType != null) {
+        val categoryType: Int = shared.getInt(SEARCH_VIEW_CATEGORY_TYPE, -1)
+        if (categoryType != -1) {
             onSuccess(categoryType)
         } else {
             onFailure()
         }
     }
 
-    override fun saveSearchViewCategoryTypeCache(categoryType: String) {
-        shared.edit().putString(SEARCH_VIEW_CATEGORY_TYPE, categoryType).commit()
+    override fun saveSearchViewCategoryTypeCache(categoryType: Int) {
+        shared.edit().putInt(SEARCH_VIEW_CATEGORY_TYPE, categoryType).commit()
     }
 }

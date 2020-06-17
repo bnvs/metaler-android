@@ -32,13 +32,13 @@ class CategoriesRepositoryImpl(
     }
 
     override fun getSearchViewCategoryTypeCache(
-        onSuccess: (categoryType: String) -> Unit,
+        onSuccess: (categoryType: Int) -> Unit,
         onFailure: () -> Unit
     ) {
         categoriesLocalDataSource.getSearchViewCategoryTypeCache(onSuccess, onFailure)
     }
 
-    override fun saveSearchViewCategoryTypeCache(categoryType: String) {
+    override fun saveSearchViewCategoryTypeCache(categoryType: Int) {
         categoriesLocalDataSource.saveSearchViewCategoryTypeCache(categoryType)
     }
 }

@@ -64,15 +64,22 @@ class ViewModelMaterials(
     }
 
     private fun initSelectedCategory() {
-        _selectedCategoryId.value = categories.value?.first {
+        categories.value?.first {
             it.type == "total"
         }?.id ?: 0.also {
             _errorToastMessage.apply {
                 value = "카테고리 에러발생 - 카테고리 total 없음"
                 value = clearStringValue()
             }
+        }.let {
+            _selectedCategoryId.value = it
+            setSearchViewCategoryType(it)
         }
         Log.d(TAG, "init selected category - 카테고리 아이디 : ${categoryId.value}")
+    }
+
+    override fun setSearchViewCategoryType(categoryId: Int) {
+        categoriesRepository.saveSearchViewCategoryTypeCache(categoryId)
     }
 
     fun changeSelectedCategory(categoryId: Int) {

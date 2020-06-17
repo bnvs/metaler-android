@@ -22,8 +22,7 @@ class ViewModelManufactures(
 
     private val TAG = "ViewModel Manufactures"
 
-    // 가공탭 기본 카테고리 아이디 : 10
-    private val _categoryId = MutableLiveData<Int>().apply { value = 0 }
+    private val _categoryId = MutableLiveData<Int>()
     override val categoryId: LiveData<Int> = _categoryId
 
     init {
@@ -38,7 +37,10 @@ class ViewModelManufactures(
     private fun setManufacturesCategoryId() {
         categoriesRepository.getCategories(
             onSuccess = { response ->
-                _categoryId.value = response.first { it.type == "manufacture" }.id
+                response.first { it.type == "manufacture" }.id.let {
+                    _categoryId.value = it
+                    setSearchViewCategoryType(it)
+                }
                 loadPosts()
             },
             onFailure = { e ->
@@ -54,6 +56,10 @@ class ViewModelManufactures(
                 }
             }
         )
+    }
+
+    override fun setSearchViewCategoryType(categoryId: Int) {
+        categoriesRepository.saveSearchViewCategoryTypeCache(categoryId)
     }
 
     override fun loadPosts() {
