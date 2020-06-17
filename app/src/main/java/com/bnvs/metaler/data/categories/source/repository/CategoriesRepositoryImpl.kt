@@ -14,14 +14,17 @@ class CategoriesRepositoryImpl(
         onFailure: (e: Throwable) -> Unit,
         handleError: (errorCode: Int) -> Unit
     ) {
-        categoriesRemoteDataSource.getCategories(onSuccess, onFailure, handleError)
+        categoriesLocalDataSource.getCategories(onSuccess, onFailure = {
+            categoriesRemoteDataSource.getCategories(onSuccess, onFailure, handleError)
+        })
     }
 
-    override fun getCategoriesFromLocal(
+    override fun getCategoriesFromRemote(
         onSuccess: (response: List<Category>) -> Unit,
-        onFailure: () -> Unit
+        onFailure: (e: Throwable) -> Unit,
+        handleError: (errorCode: Int) -> Unit
     ) {
-        categoriesLocalDataSource.getCategories(onSuccess, onFailure)
+        categoriesRemoteDataSource.getCategories(onSuccess, onFailure, handleError)
     }
 
     override fun saveCategories(categories: List<Category>) {

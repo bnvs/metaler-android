@@ -10,9 +10,10 @@ interface CategoriesRepository {
         handleError: (errorCode: Int) -> Unit
     )
 
-    fun getCategoriesFromLocal(
+    fun getCategoriesFromRemote(
         onSuccess: (response: List<Category>) -> Unit,
-        onFailure: () -> Unit
+        onFailure: (e: Throwable) -> Unit,
+        handleError: (errorCode: Int) -> Unit
     )
 
     fun saveCategories(categories: List<Category>)
