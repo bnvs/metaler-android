@@ -3,6 +3,7 @@ package com.bnvs.metaler.view.login
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.bnvs.metaler.R
@@ -28,12 +29,13 @@ import com.kakao.usermgmt.UserManagement
 import com.kakao.usermgmt.callback.MeV2ResponseCallback
 import com.kakao.usermgmt.response.MeV2Response
 import com.kakao.util.exception.KakaoException
+import kotlinx.android.synthetic.main.activity_login.*
 import org.koin.android.ext.android.inject
 
 
 class ActivityLogin : AppCompatActivity() {
 
-    private val TAG = "ActivityLogin"
+    private val TAG = "로그인 액티비티"
 
     private lateinit var callback: SessionCallback
 
@@ -46,15 +48,23 @@ class ActivityLogin : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
+        setSplashView(true)
+
         // SessionCallback 초기화
         callback = SessionCallback()
         // 현재 세션에 callback 붙이기
         Session.getCurrentSession().addCallback(callback)
         // 현재 앱에 유효한 카카오 로그인 토큰이 있다면 바로 로그인(자동 로그인과 유사)
         Session.getCurrentSession().checkAndImplicitOpen()
+
+        // 세션이 닫혀있는 경우(사용자가 카카오 로그인을 시도해야하는 경우)
+        if (Session.getCurrentSession().isClosed) {
+            setSplashView(false)
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        setSplashView(true)
         if (Session.getCurrentSession().handleActivityResult(requestCode, resultCode, data)) {
             return
         }
@@ -70,27 +80,31 @@ class ActivityLogin : AppCompatActivity() {
         override fun onSessionOpened() {
             // 로그인 세션이 열렸을 때
             UserManagement.getInstance().me(object : MeV2ResponseCallback() {
-                override fun onSuccess(result: MeV2Response?) =
+                override fun onSuccess(result: MeV2Response?) {
                     if (result != null) {
                         checkMembership(result)
                     } else {
                         makeToast(getString(R.string.NO_KAKAO_LOGIN_RESULT))
                     }
+                }
 
-                override fun onSessionClosed(errorResult: ErrorResult?) =
+                override fun onSessionClosed(errorResult: ErrorResult?) {
                     // 로그인 도중 세션이 비정상적인 이유로 닫혔을 때
                     makeToast(getString(R.string.SESSION_CLOSED) + errorResult.toString())
+                }
             })
         }
 
-        override fun onSessionOpenFailed(exception: KakaoException?) =
+        override fun onSessionOpenFailed(exception: KakaoException?) {
             // 로그인 세션이 정상적으로 열리지 않았을 때
+            setSplashView(false)
             if (exception != null) {
                 com.kakao.util.helper.log.Logger.e(exception)
                 makeToast(getString(R.string.INTERNET_DISCONNECTED_LOGIN_ERROR) + exception)
             } else {
                 makeToast(getString(R.string.INTERNET_DISCONNECTED_LOGIN_ERROR))
             }
+        }
     }
 
     private fun saveSigninToken(token: String) {
@@ -259,6 +273,16 @@ class ActivityLogin : AppCompatActivity() {
         finishAffinity()
         Intent(this, ActivityLogin::class.java).also {
             startActivity(it)
+        }
+    }
+
+    private fun setSplashView(b: Boolean) {
+        if (b) {
+            splash.visibility = View.VISIBLE
+            login.visibility = View.GONE
+        } else {
+            splash.visibility = View.GONE
+            login.visibility = View.VISIBLE
         }
     }
 }

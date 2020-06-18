@@ -14,7 +14,7 @@ fun categoryTextColorChecked(view: TextView, isChecked: Boolean) {
     if (isChecked) {
         view.setTextColor(ContextCompat.getColor(view.context, R.color.colorPurple))
     } else {
-        view.setTextColor(ContextCompat.getColor(view.context, R.color.colorLightGrey))
+        view.setTextColor(ContextCompat.getColor(view.context, R.color.colorMiddleGrey))
     }
 }
 

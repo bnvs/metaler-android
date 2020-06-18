@@ -75,6 +75,8 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="7dp"
+        android:clipToPadding="false"
+        android:paddingBottom="50dp"
         android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@id/tabBarCard"
         app:layout_constraintStart_toStartOf="parent"
@@ -206,8 +208,8 @@
 
                         <TextView
                             android:id="@+id/materialsTxt"
-                            android:text="재료"
                             style="@style/tabBarInactiveTextView"
+                            android:text="재료"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -241,8 +243,8 @@
 
                         <TextView
                             android:id="@+id/manufactureTxt"
-                            android:text="가공"
                             style="@style/tabBarInactiveTextView"
+                            android:text="가공"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -311,8 +313,8 @@
 
                         <TextView
                             android:id="@+id/myPageTxt"
-                            android:text="마이페이지"
                             style="@style/tabBarInactiveTextView"
+                            android:text="마이페이지"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
