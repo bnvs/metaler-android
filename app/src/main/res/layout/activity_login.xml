@@ -3,83 +3,132 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_marginHorizontal="20dp"
-    >
+    android:layout_height="match_parent">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/topGuide"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="183dp" />
-
-    <ImageView
-        android:id="@+id/metalerLogo"
-        android:layout_width="130dp"
-        android:layout_height="130dp"
-        android:src="@drawable/logo_metaler_purple_x3"
-        app:layout_constraintTop_toBottomOf="@id/topGuide"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <androidx.constraintlayout.widget.Group
-        android:id="@+id/kakaoStartGroup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:constraint_referenced_ids="kakaoStartGuideTxt,kakaoLeftLine,kakaoRightLine,kakaoStartBtn"
-        />
-    <TextView
-        android:id="@+id/kakaoStartGuideTxt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/kakao_start_guide"
-        android:textColor="@color/colorLightGrey"
-        android:textSize="12sp"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/kakaoStartBtn"
-        />
-    <View
-        android:id="@+id/kakaoLeftLine"
-        android:layout_width="0dp"
-        android:layout_height="0.5dp"
-        android:layout_marginRight="10dp"
-        android:background="?android:attr/listDivider"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/kakaoStartGuideTxt"
-        app:layout_constraintTop_toTopOf="@id/kakaoStartGuideTxt"
-        app:layout_constraintBottom_toBottomOf="@id/kakaoStartGuideTxt"
-        />
-    <View
-        android:id="@+id/kakaoRightLine"
-        android:layout_width="0dp"
-        android:layout_height="0.5dp"
-        android:layout_marginLeft="10dp"
-        android:background="?android:attr/listDivider"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toRightOf="@id/kakaoStartGuideTxt"
-        app:layout_constraintTop_toTopOf="@id/kakaoStartGuideTxt"
-        app:layout_constraintBottom_toBottomOf="@id/kakaoStartGuideTxt"
-        />
-
-    <com.kakao.usermgmt.LoginButton
-        android:id="@+id/kakaoStartBtn"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/splash"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/bottomGuide"/>
+        android:layout_height="match_parent"
+        android:background="@drawable/gradient_bg"
+        tools:context=".view.main.ActivityMain">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/bottomGuide"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_end="146dp" />
- 
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/upperGuide"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.23" />
+
+        <ImageView
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:src="@drawable/logo_metaler_white_x3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/upperGuide" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/bottomGuide"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.85" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="METALER"
+            android:textColor="@color/colorWhite"
+            android:textSize="25dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/bottomGuide" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/login"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginHorizontal="20dp"
+        android:visibility="gone">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/topGuide"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="183dp" />
+
+        <ImageView
+            android:id="@+id/metalerLogo"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:src="@drawable/logo_metaler_purple_x3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/topGuide" />
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/kakaoStartGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:constraint_referenced_ids="kakaoStartGuideTxt,kakaoLeftLine,kakaoRightLine,kakaoStartBtn" />
+
+        <TextView
+            android:id="@+id/kakaoStartGuideTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:text="@string/kakao_start_guide"
+            android:textColor="@color/colorMiddleGrey"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toTopOf="@id/kakaoStartBtn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <View
+            android:id="@+id/kakaoLeftLine"
+            android:layout_width="0dp"
+            android:layout_height="0.5dp"
+            android:layout_marginRight="10dp"
+            android:background="?android:attr/listDivider"
+            app:layout_constraintBottom_toBottomOf="@id/kakaoStartGuideTxt"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/kakaoStartGuideTxt"
+            app:layout_constraintTop_toTopOf="@id/kakaoStartGuideTxt" />
+
+        <View
+            android:id="@+id/kakaoRightLine"
+            android:layout_width="0dp"
+            android:layout_height="0.5dp"
+            android:layout_marginLeft="10dp"
+            android:background="?android:attr/listDivider"
+            app:layout_constraintBottom_toBottomOf="@id/kakaoStartGuideTxt"
+            app:layout_constraintLeft_toRightOf="@id/kakaoStartGuideTxt"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/kakaoStartGuideTxt" />
+
+        <com.kakao.usermgmt.LoginButton
+            android:id="@+id/kakaoStartBtn"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            app:layout_constraintBottom_toTopOf="@id/bottomGuide"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/bottomGuide"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_end="146dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
