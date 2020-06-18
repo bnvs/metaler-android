@@ -44,7 +44,6 @@
         <activity android:name=".view.termsagree.ActivityTermsAgree" />
         <activity android:name=".view.termscheck.ActivityTermsCheck" />
         <activity android:name=".view.modifycomment.ActivityModifyComment" />
-        <activity android:name=".view.main.ActivityMain" />
         <activity android:name=".view.login.ActivityLogin">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
