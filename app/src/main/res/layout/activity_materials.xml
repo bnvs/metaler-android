@@ -123,6 +123,8 @@
                 android:id="@+id/postsRV"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:clipToPadding="false"
+                android:paddingBottom="50dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 bind:setPostItems="@{vm.posts}"
                 tools:listitem="@layout/item_posts_rv" />
