@@ -33,7 +33,7 @@ class CategoriesLocalDataSourceImpl(context: Context) : CategoriesLocalDataSourc
             .commit()
     }
 
-    override fun getSearchViewCategoryTypeCache(
+    override fun getCategoryTypeCache(
         onSuccess: (categoryType: Int) -> Unit,
         onFailure: () -> Unit
     ) {
@@ -45,7 +45,7 @@ class CategoriesLocalDataSourceImpl(context: Context) : CategoriesLocalDataSourc
         }
     }
 
-    override fun saveSearchViewCategoryTypeCache(categoryType: Int) {
+    override fun saveCategoryTypeCache(categoryType: Int) {
         shared.edit().putInt(SEARCH_VIEW_CATEGORY_TYPE, categoryType).commit()
     }
 }
