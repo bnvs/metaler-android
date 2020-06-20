@@ -82,10 +82,7 @@ class ActivityManufactures : BasePostsRvActivity<ViewModelManufactures>() {
 
     override fun startPostFirstActivity() {
         Intent(this, ActivityPostFirst::class.java)
-            .apply {
-                putExtra("CATEGORY_TYPE", "MANUFACTURES")
-                putExtra("TYPE", "ADD_POST")
-            }.also { startActivity(it) }
+            .also { startActivity(it) }
 
         overridePendingTransition(0, 0)
     }
