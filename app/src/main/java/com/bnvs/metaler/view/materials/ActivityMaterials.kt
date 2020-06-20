@@ -102,7 +102,6 @@ class ActivityMaterials : BasePostsRvActivity<ViewModelMaterials>() {
 
     override fun startSearchActivity() {
         Intent(this, ActivitySearch::class.java)
-            .apply { putExtra("CATEGORY_TYPE", "MATERIALS") }
             .also { startActivity(it) }
 
         overridePendingTransition(0, 0)

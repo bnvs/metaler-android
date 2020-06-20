@@ -89,7 +89,6 @@ class ActivityManufactures : BasePostsRvActivity<ViewModelManufactures>() {
 
     override fun startSearchActivity() {
         Intent(this, ActivitySearch::class.java)
-            .apply { putExtra("CATEGORY_TYPE", "MANUFACTURES") }
             .also { startActivity(it) }
 
         overridePendingTransition(0, 0)
