@@ -56,7 +56,7 @@ abstract class BasePostsRvViewModel : BasePostsViewModel() {
         setPostRequestType()
     }
 
-    protected abstract fun setSearchViewCategoryType(categoryId: Int)
+    protected abstract fun setCategoryTypeCache(categoryId: Int)
 
     protected abstract fun loadPosts()
     abstract fun loadMorePosts()

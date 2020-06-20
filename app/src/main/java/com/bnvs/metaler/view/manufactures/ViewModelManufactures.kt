@@ -39,7 +39,7 @@ class ViewModelManufactures(
             onSuccess = { response ->
                 response.first { it.type == "manufacture" }.id.let {
                     _categoryId.value = it
-                    setSearchViewCategoryType(it)
+                    setCategoryTypeCache(it)
                 }
                 loadPosts()
             },
@@ -58,8 +58,8 @@ class ViewModelManufactures(
         )
     }
 
-    override fun setSearchViewCategoryType(categoryId: Int) {
-        categoriesRepository.saveSearchViewCategoryTypeCache(categoryId)
+    override fun setCategoryTypeCache(categoryId: Int) {
+        categoriesRepository.saveCategoryTypeCache(categoryId)
     }
 
     override fun loadPosts() {

@@ -47,7 +47,7 @@ class ViewModelMaterials(
                 _categories.value = response
                 response.first { it.type == "total" }.id.let {
                     _selectedCategoryId.value = it
-                    setSearchViewCategoryType(it)
+                    setCategoryTypeCache(it)
                 }
                 loadPosts()
             },
@@ -66,8 +66,8 @@ class ViewModelMaterials(
         )
     }
 
-    override fun setSearchViewCategoryType(categoryId: Int) {
-        categoriesRepository.saveSearchViewCategoryTypeCache(categoryId)
+    override fun setCategoryTypeCache(categoryId: Int) {
+        categoriesRepository.saveCategoryTypeCache(categoryId)
     }
 
     fun changeSelectedCategory(categoryId: Int) {

@@ -37,9 +37,9 @@ class ViewModelSearch(
     }
 
     private fun getSearchViewCategoryType() {
-        categoriesRepository.getSearchViewCategoryTypeCache(
+        categoriesRepository.getCategoryTypeCache(
             onSuccess = { categoryType ->
-                setSearchViewCategoryType(categoryType)
+                setCategoryTypeCache(categoryType)
             },
             onFailure = {
                 _errorToastMessage.apply {
@@ -50,7 +50,7 @@ class ViewModelSearch(
         )
     }
 
-    override fun setSearchViewCategoryType(categoryId: Int) {
+    override fun setCategoryTypeCache(categoryId: Int) {
         _categoryId.value = categoryId
     }
 
