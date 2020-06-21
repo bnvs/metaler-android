@@ -11,7 +11,6 @@ import com.bnvs.metaler.data.categories.source.repository.CategoriesRepository
 import com.bnvs.metaler.data.posts.source.repository.PostsRepository
 import com.bnvs.metaler.network.NetworkUtil
 import com.bnvs.metaler.util.base.postsrv.BasePostsRvViewModel
-import com.bnvs.metaler.util.constants.NO_ERROR_TO_HANDLE
 import com.bnvs.metaler.util.constants.POST_REQUEST_TYPE
 import com.bnvs.metaler.util.constants.POST_REQUEST_WITH_SEARCH_TYPE_TAG
 
@@ -52,17 +51,9 @@ class ViewModelMaterials(
                 loadPosts()
             },
             onFailure = { e ->
-                _errorToastMessage.apply {
-                    value = NetworkUtil.getErrorMessage(e)
-                    value = clearStringValue()
-                }
+                _errorToastMessage.setMessage(NetworkUtil.getErrorMessage(e))
             },
-            handleError = { e ->
-                _errorCode.apply {
-                    value = e
-                    value = NO_ERROR_TO_HANDLE
-                }
-            }
+            handleError = { e -> _errorCode.setErrorCode(e) }
         )
     }
 
@@ -112,17 +103,9 @@ class ViewModelMaterials(
             onFailure = { e ->
                 setItemLoadingView(false)
                 _isLoading.value = false
-                _errorToastMessage.apply {
-                    value = NetworkUtil.getErrorMessage(e)
-                    value = clearStringValue()
-                }
+                _errorToastMessage.setMessage(NetworkUtil.getErrorMessage(e))
             },
-            handleError = { e ->
-                _errorCode.apply {
-                    value = e
-                    value = NO_ERROR_TO_HANDLE
-                }
-            }
+            handleError = { e -> _errorCode.setErrorCode(e) }
         )
     }
 
@@ -145,17 +128,9 @@ class ViewModelMaterials(
             onFailure = { e ->
                 setItemLoadingView(false)
                 _isLoading.value = false
-                _errorToastMessage.apply {
-                    value = NetworkUtil.getErrorMessage(e)
-                    value = clearStringValue()
-                }
+                _errorToastMessage.setMessage(NetworkUtil.getErrorMessage(e))
             },
-            handleError = { e ->
-                _errorCode.apply {
-                    value = e
-                    value = NO_ERROR_TO_HANDLE
-                }
-            }
+            handleError = { e -> _errorCode.setErrorCode(e) }
         )
     }
 
@@ -174,24 +149,13 @@ class ViewModelMaterials(
                     }
                 }.let {
                     _posts.value = it
-                    _errorToastMessage.apply {
-                        value = "북마크되었습니다"
-                        value = clearStringValue()
-                    }
+                    _errorToastMessage.setMessage("북마크되었습니다")
                 }
             },
             onFailure = { e ->
-                _errorToastMessage.apply {
-                    value = NetworkUtil.getErrorMessage(e)
-                    value = clearStringValue()
-                }
+                _errorToastMessage.setMessage(NetworkUtil.getErrorMessage(e))
             },
-            handleError = { e ->
-                _errorCode.apply {
-                    value = e
-                    value = NO_ERROR_TO_HANDLE
-                }
-            }
+            handleError = { e -> _errorCode.setErrorCode(e) }
         )
     }
 
@@ -210,24 +174,13 @@ class ViewModelMaterials(
                     }
                 }.let {
                     _posts.value = it
-                    _errorToastMessage.apply {
-                        value = "북마크에서 삭제되었습니다"
-                        value = clearStringValue()
-                    }
+                    _errorToastMessage.setMessage("북마크에서 삭제되었습니다")
                 }
             },
             onFailure = { e ->
-                _errorToastMessage.apply {
-                    value = NetworkUtil.getErrorMessage(e)
-                    value = clearStringValue()
-                }
+                _errorToastMessage.setMessage(NetworkUtil.getErrorMessage(e))
             },
-            handleError = { e ->
-                _errorCode.apply {
-                    value = e
-                    value = NO_ERROR_TO_HANDLE
-                }
-            }
+            handleError = { e -> _errorCode.setErrorCode(e) }
         )
     }
 
