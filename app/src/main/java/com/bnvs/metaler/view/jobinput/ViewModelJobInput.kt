@@ -15,7 +15,6 @@ import com.bnvs.metaler.data.user.modification.model.TermsAgreements
 import com.bnvs.metaler.data.user.modification.source.repository.UserModificationRepository
 import com.bnvs.metaler.network.NetworkUtil
 import com.bnvs.metaler.util.base.BaseViewModel
-import com.bnvs.metaler.util.constants.NO_ERROR_TO_HANDLE
 
 class ViewModelJobInput(
     private val userCertificationRepository: UserCertificationRepository,
@@ -67,10 +66,7 @@ class ViewModelJobInput(
                 termsAgreements = agreements
             },
             onFailure = {
-                _errorToastMessage.apply {
-                    value = "약관 동의 내역을 불러오는데 실패했습니다"
-                    value = clearStringValue()
-                }
+                _errorToastMessage.setMessage("약관 동의 내역을 불러오는데 실패했습니다")
             }
         )
     }
@@ -121,10 +117,7 @@ class ViewModelJobInput(
         if (validateInput()) {
             addUser()
         } else {
-            _errorDialogMessage.apply {
-                value = "소속 입력을 완료해주세요"
-                value = clearStringValue()
-            }
+            _errorDialogMessage.setMessage("소속 입력을 완료해주세요")
         }
     }
 
@@ -138,17 +131,9 @@ class ViewModelJobInput(
                 login(loginRequest(response.signin_token))
             },
             onFailure = { e ->
-                _errorToastMessage.apply {
-                    value = NetworkUtil.getErrorMessage(e)
-                    value = clearStringValue()
-                }
+                _errorToastMessage.setMessage(NetworkUtil.getErrorMessage(e))
             },
-            handleError = { e ->
-                _errorCode.apply {
-                    value = e
-                    value = NO_ERROR_TO_HANDLE
-                }
-            }
+            handleError = { e -> _errorCode.setErrorCode(e) }
         )
     }
 
@@ -158,10 +143,7 @@ class ViewModelJobInput(
                 kakaoUserInfo = response
             },
             onFailure = {
-                _errorToastMessage.apply {
-                    value = "카카오 로그인 유저 정보에 문제가 있습니다."
-                    value = clearStringValue()
-                }
+                _errorToastMessage.setMessage("카카오 로그인 유저 정보에 문제가 있습니다.")
             }
         )
     }
@@ -201,17 +183,9 @@ class ViewModelJobInput(
                 startHomeActivity()
             },
             onFailure = { e ->
-                _errorToastMessage.apply {
-                    value = NetworkUtil.getErrorMessage(e)
-                    value = clearStringValue()
-                }
+                _errorToastMessage.setMessage(NetworkUtil.getErrorMessage(e))
             },
-            handleError = { e ->
-                _errorCode.apply {
-                    value = e
-                    value = NO_ERROR_TO_HANDLE
-                }
-            }
+            handleError = { e -> _errorCode.setErrorCode(e) }
         )
     }
 
