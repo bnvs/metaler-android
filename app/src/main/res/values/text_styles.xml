@@ -153,6 +153,6 @@
     <style name="postDivider" parent="dividerStyle">
         <item name="android:layout_marginHorizontal">@dimen/wideMargin</item>
         <item name="android:layout_marginTop">6dp</item>
-        <item name="android:paddingVertical">6dp</item>
+        <item name="android:paddingBottom">6dp</item>
     </style>
 </resources>
