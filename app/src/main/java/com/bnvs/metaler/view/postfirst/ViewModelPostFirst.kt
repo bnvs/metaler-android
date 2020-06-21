@@ -69,16 +69,9 @@ class ViewModelPostFirst(
     val openPostSecondActivity: LiveData<Boolean> = _openPostSecondActivity
 
     // input focus  관련 데이터
-    private val _focusOnCategoryInput = MutableLiveData<Boolean>().apply { value = false }
-    val focusOnCategoryInput: LiveData<Boolean> = _focusOnCategoryInput
-    private val _focusOnTitleInput = MutableLiveData<Boolean>().apply { value = false }
-    val focusOnTitleInput: LiveData<Boolean> = _focusOnTitleInput
-    private val _focusOnPriceInput = MutableLiveData<Boolean>().apply { value = false }
-    val focusOnPriceInput: LiveData<Boolean> = _focusOnPriceInput
-    private val _focusOnPriceTypeInput = MutableLiveData<Boolean>().apply { value = false }
-    val focusOnPriceTypeInput: LiveData<Boolean> = _focusOnPriceTypeInput
-    private val _focusOnContentInput = MutableLiveData<Boolean>().apply { value = false }
-    val focusOnContentInput: LiveData<Boolean> = _focusOnContentInput
+    private val _focusToView = MutableLiveData<String>()
+    val focusToView: LiveData<String> = _focusToView
+
 
     init {
         loadCategories()
@@ -180,12 +173,67 @@ class ViewModelPostFirst(
         _openImageSelectionDialog.enable()
     }
 
-    fun openPostSecondActivity() {
-        _openPostSecondActivity.enable()
+    fun completePostFirst() {
+        if (!checkCategoryInput()) {
+            _focusToView.setMessage("CATEGORY")
+            _openCategorySelectionDialog.enable()
+            _errorDialogMessage.setMessage("카테고리를 입력해 주세요")
+            return
+        }
+        if (!checkTitleInput()) {
+            _focusToView.setMessage("TITLE")
+            _errorDialogMessage.setMessage("제목을 입력해 주세요")
+            return
+        }
+        if (!checkPriceInput()) {
+            _focusToView.setMessage("PRICE")
+            _openPriceInputDialog.enable()
+            _errorDialogMessage.setMessage("가격을 입력해 주세요")
+            return
+        }
+        if (!checkPriceTypeInput()) {
+            _focusToView.setMessage("PRICE_TYPE")
+            _errorDialogMessage.setMessage("지불 방식을 선택해 주세요")
+            return
+        }
+        if (!checkContentInput()) {
+            _focusToView.setMessage("CONTENT")
+            _errorDialogMessage.setMessage("내용을 입력해 주세요")
+            return
+        }
     }
 
-    fun completePostFirst() {
+    private fun checkCategoryInput(): Boolean {
+        return when (categoryType.value) {
+            "materials" -> {
+                val totalCategoryId = categories.first { it.type == "total" }.id
+                categoryId.value != totalCategoryId
+            }
+            "manufacture" -> {
+                true
+            }
+            else -> false
+        }
+    }
 
+    private fun checkTitleInput(): Boolean {
+        return !title.value.isNullOrBlank()
+    }
+
+    private fun checkPriceInput(): Boolean {
+        return price.value != null
+    }
+
+    private fun checkPriceTypeInput(): Boolean {
+        return priceType.value == "card" || priceType.value == "cash"
+    }
+
+    private fun checkContentInput(): Boolean {
+        return !content.value.isNullOrBlank()
+    }
+
+    private fun openPostSecondActivity() {
+        _openPostSecondActivity.enable()
     }
 
 }

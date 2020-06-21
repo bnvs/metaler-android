@@ -3,19 +3,19 @@ package com.bnvs.metaler.view.postfirst
 import android.Manifest
 import android.app.Activity
 import android.app.Dialog
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
-import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.bnvs.metaler.R
-import com.bnvs.metaler.data.addeditpost.model.AddEditPostRequest
 import com.bnvs.metaler.data.categories.model.Category
 import com.bnvs.metaler.databinding.ActivityPostFirstBinding
 import com.bnvs.metaler.util.base.BaseActivity
@@ -62,6 +62,7 @@ class ActivityPostFirst : BaseActivity<ViewModelPostFirst>() {
         observeOpenPriceInputDialog()
         observeOpenImageSelectionDialog()
         observeOpenPostSecondActivity()
+        observeFocusToView()
         observeFinishThisActivity()
     }
 
@@ -75,29 +76,12 @@ class ActivityPostFirst : BaseActivity<ViewModelPostFirst>() {
         }
     }
 
-
-    private fun openAlbum() {
-        Intent(Intent.ACTION_GET_CONTENT).apply {
-            putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
-            type = "image/*"
-        }.also { intent ->
-            startActivityForResult(intent, REQUEST_ALBUM_IMAGE)
-        }
-    }
-
-    private fun openCamera() {
-        Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { intent ->
-            intent.resolveActivity(packageManager)
-            startActivityForResult(intent, REQUEST_CAMERA_IMAGE)
-        }
-    }
-
     private fun observeFinishThisActivity() {
         viewModel.finishThisActivity.observe(
             this,
             Observer { finish ->
                 if (finish) {
-
+                    finish()
                 }
             }
         )
@@ -108,10 +92,76 @@ class ActivityPostFirst : BaseActivity<ViewModelPostFirst>() {
             this,
             Observer { startActivity ->
                 if (startActivity) {
-
+                    startPostSecondActivity()
                 }
             }
         )
+    }
+
+    private fun observeFocusToView() {
+        viewModel.focusToView.observe(
+            this,
+            Observer { focusedView ->
+                when (focusedView) {
+                    "CATEGORY" -> {
+                        nestedScrollView.post {
+                            nestedScrollView.scrollTo(0, categoryTxt.top)
+                            categoryTxt.let {
+                                it.requestFocus()
+                                (getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager)
+                                    .hideSoftInputFromWindow(it.windowToken, 0)
+                            }
+                        }
+                    }
+                    "TITLE" -> {
+                        nestedScrollView.post {
+                            nestedScrollView.scrollTo(0, categoryLine.bottom)
+                            titleInput.let {
+                                it.requestFocus()
+                                (getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager)
+                                    .showSoftInput(it, 0)
+                            }
+                        }
+                    }
+                    "PRICE" -> {
+                        nestedScrollView.post {
+                            nestedScrollView.scrollTo(0, titleLine.bottom)
+                            priceTxt.let {
+                                it.requestFocus()
+                                (getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager)
+                                    .hideSoftInputFromWindow(it.windowToken, 0)
+                            }
+                        }
+                    }
+                    "PRICE_TYPE" -> {
+                        nestedScrollView.post {
+                            nestedScrollView.scrollTo(0, priceLine.bottom)
+                            priceTypeTxt.let {
+                                it.requestFocus()
+                                (getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager)
+                                    .hideSoftInputFromWindow(it.windowToken, 0)
+                            }
+                        }
+                    }
+                    "CONTENT" -> {
+                        nestedScrollView.post {
+                            nestedScrollView.scrollTo(0, contentTxt.top)
+                            contentGuideTxt.let {
+                                it.requestFocus()
+                                (getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager)
+                                    .showSoftInput(it, 0)
+                            }
+                        }
+                    }
+                }
+            }
+        )
+    }
+
+    private fun startPostSecondActivity() {
+        Intent(this, ActivityPostSecond::class.java).also {
+            startActivity(it)
+        }
     }
 
     private fun observeOpenCategorySelectionDialog() {
@@ -186,6 +236,23 @@ class ActivityPostFirst : BaseActivity<ViewModelPostFirst>() {
         )
     }
 
+    private fun openAlbum() {
+        Intent(Intent.ACTION_GET_CONTENT).apply {
+            putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
+            type = "image/*"
+        }.also { intent ->
+            startActivityForResult(intent, REQUEST_ALBUM_IMAGE)
+        }
+    }
+
+    private fun openCamera() {
+        Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { intent ->
+            intent.resolveActivity(packageManager)
+            startActivityForResult(intent, REQUEST_CAMERA_IMAGE)
+        }
+    }
+
+
     private fun showWhereToGetImageFromDialog() {
         val array = arrayOf("사진", "카메라")
         AlertDialog.Builder(this@ActivityPostFirst)
@@ -211,15 +278,6 @@ class ActivityPostFirst : BaseActivity<ViewModelPostFirst>() {
             .show()
     }
 
-    private fun showTransparentLoadingLayer(b: Boolean) {
-        if (b) {
-            transparentLoadingLayer.bringToFront()
-            transparentLoadingLayer.visibility = View.VISIBLE
-        } else {
-            transparentLoadingLayer.visibility = View.GONE
-        }
-    }
-
     private fun showGetCategoriesFailedToast(errorMessage: String) {
         makeToast("카테고리 목록을 조회하는데 실패했습니다 : $errorMessage")
     }
@@ -241,41 +299,6 @@ class ActivityPostFirst : BaseActivity<ViewModelPostFirst>() {
             .setNegativeButton("취소") { _, _ ->
             }
             .show()
-    }
-
-    private fun showEmptyCategoryDialog() {
-        // makeAlertDialog("카테고리를 입력해 주세요")
-    }
-
-    private fun showEmptyTitleDialog() {
-        // makeAlertDialog("제목을 입력해 주세요")
-    }
-
-    private fun showEmptyPriceDialog() {
-        //  makeAlertDialog("가격을 입력해 주세요")
-    }
-
-    private fun showEmptyPriceTypeDialog() {
-        // makeAlertDialog("지불 방식을 선택해 주세요")
-    }
-
-    private fun showEmptyContentsDialog() {
-        //makeAlertDialog("내용을 입력해 주세요")
-    }
-
-    private fun showPostSecondUi(
-        categoryType: String,
-        postId: Int?,
-        addEditPostRequest: AddEditPostRequest
-    ) {
-        Intent(this, ActivityPostSecond::class.java).apply {
-            putExtra("addEditPostRequest", addEditPostRequest)
-            putExtra("CATEGORY_TYPE", categoryType)
-            if (postId != null) {
-                putExtra("POST_ID", postId.toString())
-            }
-            startActivity(this)
-        }
     }
 
     private fun checkRunTimePermission() {
