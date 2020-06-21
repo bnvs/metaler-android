@@ -9,6 +9,7 @@
         <variable
             name="vm"
             type="com.bnvs.metaler.view.postfirst.ViewModelPostFirst" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -58,7 +59,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:background="@drawable/bottom_round_bg"
-                    android:paddingBottom="@dimen/wideMargin"
+                    android:paddingBottom="12dp"
                     android:translationY="-4dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
@@ -67,22 +68,25 @@
                         android:id="@+id/materialsCategory"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:visibility="gone"
-                        app:constraint_referenced_ids="categoryTxt,categoryMoreBtn,categoryLine" />
+                        app:constraint_referenced_ids="categoryTxt,categoryMoreBtn,categoryLine"
+                        bind:categoryInputVisibility="@{vm.categoryType}" />
 
                     <TextView
                         android:id="@+id/categoryTxt"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/wideMargin"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginHorizontal="@dimen/wideMargin"
+                        android:layout_marginTop="6dp"
+                        android:background="?attr/selectableItemBackground"
                         android:paddingVertical="8dp"
-                        android:text="@string/category"
+                        android:text="@{vm.selectedMaterialsCategoryName}"
                         android:textColor="@color/colorDarkGrey"
                         android:textSize="14sp"
-                        app:layout_constraintEnd_toStartOf="@id/categoryMoreBtn"
+                        app:layout_constraintBottom_toBottomOf="@id/categoryLine"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        bind:onSingleClick="@{()->vm.openCategorySelectionDialog()}" />
 
                     <ImageView
                         android:id="@+id/categoryMoreBtn"
@@ -90,9 +94,9 @@
                         android:layout_height="13dp"
                         android:layout_marginRight="30dp"
                         android:src="@drawable/ic_post_arrow_drop_down_x3"
-                        app:layout_constraintBottom_toBottomOf="@id/categoryLine"
+                        app:layout_constraintBottom_toBottomOf="@id/categoryTxt"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="@id/categoryTxt" />
 
                     <View
                         android:id="@+id/categoryLine"
@@ -111,7 +115,7 @@
                         style="@style/titleEditText"
                         android:hint="@string/title_guide"
                         android:paddingVertical="6dp"
-                        android:text="@{vm.title}"
+                        android:text="@={vm.title}"
                         app:layout_constraintBottom_toBottomOf="@id/titleLine"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -125,12 +129,19 @@
 
                     <TextView
                         android:id="@+id/priceTxt"
-                        style="@style/postMenuTextView"
-                        android:layout_marginLeft="@dimen/wideMargin"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/wideMargin"
+                        android:background="?attr/selectableItemBackground"
+                        android:paddingVertical="8dp"
                         android:text="@string/price"
-                        app:layout_constraintBottom_toBottomOf="@id/priceInput"
+                        android:textColor="@color/colorDarkGrey"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="@id/priceLine"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="@id/priceInput" />
+                        app:layout_constraintTop_toTopOf="@id/titleLine"
+                        bind:onSingleClick="@{()->vm.openPriceInputDialog()}" />
 
                     <TextView
                         android:id="@+id/priceInput"
@@ -140,11 +151,11 @@
                         android:gravity="end"
                         android:hint="@string/post_price_guide"
                         android:paddingVertical="6dp"
-                        android:text="@{vm.price}"
                         android:textSize="16sp"
-                        app:layout_constraintBottom_toBottomOf="@id/priceLine"
+                        app:layout_constraintBottom_toBottomOf="@id/priceTxt"
                         app:layout_constraintEnd_toStartOf="@id/wonTxt"
-                        app:layout_constraintTop_toTopOf="@id/titleLine" />
+                        app:layout_constraintTop_toTopOf="@id/priceTxt"
+                        bind:price="@{vm.price}" />
 
                     <TextView
                         android:id="@+id/wonTxt"
@@ -163,12 +174,16 @@
 
                     <TextView
                         android:id="@+id/priceTypeTxt"
-                        style="@style/postMenuTextView"
-                        android:layout_marginLeft="@dimen/wideMargin"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/wideMargin"
+                        android:layout_marginTop="6dp"
+                        android:paddingVertical="8dp"
                         android:text="@string/price_type"
-                        app:layout_constraintBottom_toBottomOf="@id/cardBtn"
+                        android:textColor="@color/colorDarkGrey"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="@id/cardBtn" />
+                        app:layout_constraintTop_toBottomOf="@id/priceLine" />
 
                     <TextView
                         android:id="@+id/cardBtn"
@@ -176,17 +191,19 @@
                         android:layout_marginRight="15dp"
                         android:text="@string/card_type"
                         app:layout_constraintEnd_toStartOf="@id/cashBtn"
-                        app:layout_constraintTop_toBottomOf="@id/priceLine"
-                        app:layout_constraintTop_toTopOf="@id/cashBtn" />
+                        app:layout_constraintTop_toTopOf="@id/cashBtn"
+                        bind:onPriceTypeChecked='@{vm.priceTypeChecked["card"]}'
+                        bind:onSingleClick='@{()->vm.setPriceType("card")}' />
 
                     <TextView
                         android:id="@+id/cashBtn"
                         style="@style/roundingBorderInactiveTextView"
-                        android:layout_marginTop="6dp"
-                        android:layout_marginRight="@dimen/wideMargin"
                         android:text="@string/cash_type"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/priceLine" />
+                        app:layout_constraintBottom_toBottomOf="@id/priceTypeTxt"
+                        app:layout_constraintEnd_toEndOf="@id/priceTypeTxt"
+                        app:layout_constraintTop_toTopOf="@id/priceTypeTxt"
+                        bind:onPriceTypeChecked='@{vm.priceTypeChecked["cash"]}'
+                        bind:onSingleClick='@{()->vm.setPriceType("cash")}' />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.cardview.widget.CardView
@@ -203,21 +220,21 @@
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="@dimen/wideMargin">
 
+                        <androidx.constraintlayout.widget.Group
+                            android:id="@+id/addImgGroup"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:constraint_referenced_ids="addImgTxt, thumbnailRV"
+                            bind:thumbnailListVisibility="@{vm.attachIds.size()}" />
+
                         <TextView
                             android:id="@+id/addImgTxt"
                             style="@style/postMenuTextView"
-                            android:layout_marginTop="6dp"
+                            android:layout_marginTop="8dp"
                             android:text="@string/add_img"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
-                        <TextView
-                            android:id="@+id/addImgGuideTxt"
-                            style="@style/lightGuideTextView"
-                            android:layout_marginTop="6dp"
-                            android:text="@string/add_img_guide"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/addImgTxt" />
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/thumbnailRV"
@@ -225,7 +242,6 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="6dp"
                             android:orientation="horizontal"
-                            android:visibility="gone"
                             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                             app:layout_constraintTop_toBottomOf="@id/addImgTxt"
                             tools:listitem="@layout/item_thumbnail_rv" />
@@ -235,14 +251,14 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             app:barrierDirection="bottom"
-                            app:constraint_referenced_ids="addImgGuideTxt,thumbnailRV"
+                            app:constraint_referenced_ids="addImgTxt,thumbnailRV"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/addImgTxt" />
+                            app:layout_constraintTop_toBottomOf="parent" />
 
                         <TextView
                             android:id="@+id/contentTxt"
                             style="@style/postMenuTextView"
-                            android:layout_marginTop="6dp"
+                            android:layout_marginTop="8dp"
                             android:text="@string/content"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/barrier" />
@@ -293,14 +309,14 @@
                     android:layout_height="match_parent"
                     android:layout_marginHorizontal="10dp">
 
-
                     <ImageView
                         android:id="@+id/backBtn"
                         style="@style/titleBarIconBtn"
                         android:src="@drawable/ic_nav_back_x3"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        bind:onSingleClick="@{()->vm.finishPostFirstActivity()}" />
 
                     <TextView
                         android:id="@+id/nextBtn"
@@ -308,7 +324,8 @@
                         android:text="@string/next"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        bind:onSingleClick="@{()->vm.completePostFirst()}" />
 
                     <ImageView
                         android:id="@+id/cameraBtn"
@@ -317,7 +334,8 @@
                         android:src="@drawable/ic_nav_camera_x3"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@id/nextBtn"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        bind:onSingleClick="@{()->vm.openImageSelectionDialog()}" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
         </androidx.constraintlayout.widget.ConstraintLayout>
