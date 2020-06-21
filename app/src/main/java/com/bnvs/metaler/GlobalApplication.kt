@@ -90,7 +90,8 @@ class GlobalApplication : Application() {
                 homeViewModelModule,
                 materialsViewModelModule,
                 manufacturesViewModelModule,
-                searchViewModelModule
+                searchViewModelModule,
+                postFirstViewModelModule
             )
         }
     }
