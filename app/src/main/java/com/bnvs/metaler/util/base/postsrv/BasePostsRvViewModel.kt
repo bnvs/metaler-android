@@ -86,17 +86,11 @@ abstract class BasePostsRvViewModel : BasePostsViewModel() {
     fun addSearchWord() {
         val tag = editTextInput.value
         if (tag.isNullOrBlank()) {
-            _errorToastMessage.apply {
-                value = "검색할 태그를 입력해주세요"
-                value = clearStringValue()
-            }
+            _errorToastMessage.setMessage("검색할 태그를 입력해주세요")
         } else {
             searchWord.value.let {
                 if (it?.contains(tag) == true) {
-                    _errorToastMessage.apply {
-                        value = "동일한 내용의 태그가 존재합니다"
-                        value = clearStringValue()
-                    }
+                    _errorToastMessage.setMessage("동일한 내용의 태그가 존재합니다")
                     clearEditTextInput()
                 } else {
                     _searchWord.value = it?.plus(tag) ?: listOf(tag)
@@ -125,10 +119,7 @@ abstract class BasePostsRvViewModel : BasePostsViewModel() {
     fun searchWithContent() {
         val input = editTextInput.value
         if (input.isNullOrBlank()) {
-            _errorToastMessage.apply {
-                value = "검색어를 입력해주세요"
-                value = clearStringValue()
-            }
+            _errorToastMessage.setMessage("검색어를 입력해주세요")
         } else {
             if (input != contentSearchWord) {
                 contentSearchWord = input
@@ -196,16 +187,10 @@ abstract class BasePostsRvViewModel : BasePostsViewModel() {
     }
 
     fun startPostFirstActivity() {
-        _openPostFirstActivity.apply {
-            value = true
-            value = false
-        }
+        _openPostFirstActivity.enable()
     }
 
     fun startSearchActivity() {
-        _openSearchActivity.apply {
-            value = true
-            value = false
-        }
+        _openSearchActivity.enable()
     }
 }

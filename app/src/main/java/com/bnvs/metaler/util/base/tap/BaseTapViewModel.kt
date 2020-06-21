@@ -18,37 +18,22 @@ abstract class BaseTapViewModel : BaseViewModel() {
     val openMyPageActivity: LiveData<Boolean> = _openMyPageActivity
 
     fun startHomeActivity() {
-        _openHomeActivity.apply {
-            value = true
-            value = false
-        }
+        _openHomeActivity.enable()
     }
 
     fun startMaterialsActivity() {
-        _openMaterialsActivity.apply {
-            value = true
-            value = false
-        }
+        _openMaterialsActivity.enable()
     }
 
     fun startManufacturesActivity() {
-        _openManufacturesActivity.apply {
-            value = true
-            value = false
-        }
+        _openManufacturesActivity.enable()
     }
 
     fun startBookmarksActivity() {
-        _openBookmarksActivity.apply {
-            value = true
-            value = false
-        }
+        _openBookmarksActivity.enable()
     }
 
     fun startMyPageActivity() {
-        _openMyPageActivity.apply {
-            value = true
-            value = false
-        }
+        _openMyPageActivity.enable()
     }
 }

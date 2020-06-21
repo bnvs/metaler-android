@@ -21,10 +21,7 @@ abstract class BasePostsViewModel : BaseTapViewModel() {
     }
 
     private fun startDetailActivity() {
-        _openDetailActivity.apply {
-            value = true
-            value = false
-        }
+        _openDetailActivity.enable()
     }
 
 }
