@@ -11,19 +11,11 @@ class ThumbnailAdapter(private val itemClick: (adapterPosition: Int) -> Unit) :
 
     private val images = mutableListOf<AttachImage>()
 
-    fun setImages(images: List<AttachImage>) {
-        this.images.addAll(images)
-        notifyDataSetChanged()
-    }
-
-    fun addImage(image: AttachImage) {
-        this.images.add(image)
-        notifyDataSetChanged()
-    }
-
-    fun deleteImage(imageIndex: Int) {
-        this.images.removeAt(imageIndex)
-        notifyDataSetChanged()
+    fun replaceAll(list: List<AttachImage>) {
+        list.let {
+            images.clear()
+            images.addAll(it)
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ThumbnailViewHolder {
