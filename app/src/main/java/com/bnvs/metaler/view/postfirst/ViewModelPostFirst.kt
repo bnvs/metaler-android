@@ -1,24 +1,42 @@
 package com.bnvs.metaler.view.postfirst
 
+import android.app.Application
+import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.net.Uri
+import android.provider.OpenableColumns
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.bnvs.metaler.data.addeditpost.model.AddEditPostLocalCache
+import com.bnvs.metaler.data.addeditpost.model.PostTag
 import com.bnvs.metaler.data.addeditpost.source.repository.AddEditPostRepository
 import com.bnvs.metaler.data.categories.model.Category
 import com.bnvs.metaler.data.categories.source.repository.CategoriesRepository
+import com.bnvs.metaler.data.postdetails.model.AttachImage
 import com.bnvs.metaler.data.postdetails.source.repository.PostDetailsRepository
 import com.bnvs.metaler.network.NetworkUtil
-import com.bnvs.metaler.util.base.BaseViewModel
+import com.bnvs.metaler.util.base.BaseAddEditViewModel
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import java.io.File
+import java.io.FileOutputStream
 
 class ViewModelPostFirst(
+    application: Application,
     private val categoriesRepository: CategoriesRepository,
     private val addEditPostRepository: AddEditPostRepository,
     private val postDetailsRepository: PostDetailsRepository
-) : BaseViewModel() {
+) : BaseAddEditViewModel(application) {
 
     companion object {
         private const val MODE_ADD_POST = 0
         private const val MODE_EDIT_POST = 1
     }
+
+    private val context = application.applicationContext
 
     private var postId: Int? = null
     private var mode = MODE_ADD_POST
@@ -40,11 +58,12 @@ class ViewModelPostFirst(
     val title = MutableLiveData<String>()
     private val _price = MutableLiveData<Int>()
     val price: LiveData<Int> = _price
-    val content = MutableLiveData<String>()
     private val _priceType = MutableLiveData<String>()
     val priceType: LiveData<String> = _priceType
-    private val _attachIds = MutableLiveData<List<Int>>().apply { value = listOf() }
-    val attachIds: LiveData<List<Int>> = _attachIds
+    val content = MutableLiveData<String>()
+    private val _attachIds = MutableLiveData<List<AttachImage>>().apply { value = listOf() }
+    val attachIds: LiveData<List<AttachImage>> = _attachIds
+    private val tags = MutableLiveData<List<PostTag>>().apply { value = listOf() }
 
     // 지불방식 관련 데이터
     private val _priceTypeChecked = MutableLiveData<Map<String, Boolean>>().apply {
@@ -103,7 +122,7 @@ class ViewModelPostFirst(
         } else {
             postId = id
             mode = MODE_EDIT_POST
-            // loadPost from postId
+            loadPostFromPostId()
         }
     }
 
@@ -111,9 +130,7 @@ class ViewModelPostFirst(
         categoriesRepository.getCategoryTypeCache(
             onSuccess = { categoryType ->
                 _categoryId.value = categoryType
-                categories.filter { it.type == "manufacture" }.map { it.id }.let {
-                    setCategoryType(it)
-                }
+                setCategoryType()
             },
             onFailure = {
                 _errorToastMessage.setMessage("글쓰기 타입을 알 수 없습니다")
@@ -121,7 +138,35 @@ class ViewModelPostFirst(
         )
     }
 
-    private fun setCategoryType(manufactureCategories: List<Int>) {
+    private fun loadPostFromPostId() {
+        postDetailsRepository.getPostDetails(
+            postId = postId!!,
+            onSuccess = { response ->
+                response.let {
+                    _categoryId.value = it.category_id
+                    setCategoryType()
+                    if (categoryType.value == "materials") {
+                        _selectedMaterialsCategoryName.value =
+                            materialCategories.value?.first { materialCategory ->
+                                materialCategory.id == it.category_id
+                            }?.name
+                    }
+                    title.value = it.title
+                    _price.value = it.price
+                    setPriceType(it.price_type)
+                    content.value = it.content
+                    _attachIds.value = it.attachs
+                }
+            },
+            onFailure = { e ->
+                _errorToastMessage.setMessage(NetworkUtil.getErrorMessage(e))
+            },
+            handleError = { e -> _errorCode.setErrorCode(e) }
+        )
+    }
+
+    private fun setCategoryType() {
+        val manufactureCategories = categories.filter { it.type == "manufacture" }.map { it.id }
         if (manufactureCategories.contains(categoryId.value)) {
             _categoryType.value = "manufacture"
         } else {
@@ -173,6 +218,142 @@ class ViewModelPostFirst(
         _openImageSelectionDialog.enable()
     }
 
+    private fun setLoadingView(b: Boolean) {
+        _isLoading.value = b
+    }
+
+    fun deleteImage(imageIndex: Int) {
+        _attachIds.value =
+            attachIds.value?.filterIndexed { index, _ -> index != imageIndex }
+    }
+
+    private fun addImage(image: AttachImage) {
+        _attachIds.value = attachIds.value?.plus(image) ?: listOf(image)
+    }
+
+    fun getImageFromAlbum(data: Intent) {
+        setLoadingView(true)
+        Log.d("getImageFromAlbum", "이미지 앨범에서 가져옴")
+        val clipData = data.clipData
+        if (clipData != null) {
+            Log.d("clipData", "이미지 여러장 가져오는데 성공함")
+            for (i in 0..clipData.itemCount) {
+                val imageUri = clipData.getItemAt(i).uri
+                getTempFileName(imageUri)
+                uploadImage(getFileFromUri(imageUri))
+            }
+        } else {
+            data.data?.let { imageUri ->
+                getTempFileName(imageUri)
+                uploadImage(getFileFromUri(imageUri))
+            }
+        }
+    }
+
+    private var tempFileName = ""
+
+    private fun getTempFileName(uri: Uri) {
+        context.contentResolver.query(uri, null, null, null, null)
+            ?.use { cursor ->
+                val nameIndex = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME)
+                cursor.moveToFirst()
+                tempFileName = "${cursor.getString(nameIndex).split(".")[0]}.jpg"
+            }
+    }
+
+    private fun setTempFileName() {
+        tempFileName = "${System.currentTimeMillis()}.jpg"
+    }
+
+    fun getImageFromCamera(data: Intent) {
+        setLoadingView(true)
+        deleteCache(context.cacheDir)
+        setTempFileName()
+        val bitmap: Bitmap = data.extras!!.get("data") as Bitmap
+        val path = saveBitmapToCache(bitmap)
+        uploadImage(File(path))
+    }
+
+    private fun getFileFromUri(imageUri: Uri?): File {
+        deleteCache(context.cacheDir)
+        return if (imageUri != null) {
+            val inputStream = context.contentResolver.openInputStream(imageUri)
+            val bitmap = BitmapFactory.decodeStream(inputStream)
+            inputStream!!.close()
+            val path = saveBitmapToCache(bitmap)
+            File(path)
+        } else {
+            File("")
+        }
+    }
+
+    private fun saveBitmapToCache(bitmap: Bitmap): String {
+        val cacheFile = File(context.cacheDir, tempFileName)
+        cacheFile.createNewFile()
+        val outputStream = FileOutputStream(cacheFile)
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
+        outputStream.close()
+        return cacheFile.absolutePath
+    }
+
+    private fun resize(file: File): File {
+        Log.d("resize", "리사이징함")
+        val options = BitmapFactory.Options().apply {
+            inSampleSize = 2
+        }
+        val bitmap = BitmapFactory.decodeFile(file.absolutePath, options)
+        Bitmap.createScaledBitmap(
+            bitmap,
+            bitmap.width / 10,
+            bitmap.height / 10,
+            false
+        )
+        deleteCache(context.cacheDir)
+        return File(saveBitmapToCache(bitmap))
+    }
+
+    private fun deleteCache(cacheDir: File): Boolean {
+        Log.d("deleteCache", "캐시 지움")
+        if (cacheDir.isDirectory) {
+            val files = cacheDir.list()
+            for (file in files) {
+                val deleteSuccess = deleteCache(File(cacheDir, file))
+                if (!deleteSuccess) {
+                    return false
+                }
+            }
+        }
+        return cacheDir.delete()
+    }
+
+    private fun uploadImage(file: File) {
+        while (true) {
+            if (file.length() > 3145728) {
+                Log.d("uploadImage", "파일 크기 ${file.length()}Bytes")
+                resize(file)
+            } else {
+                Log.d("uploadImage", "파일 크기 ${file.length()}Bytes")
+                break
+            }
+        }
+
+        val requestBody = file.asRequestBody("image/*".toMediaTypeOrNull())
+        val part = MultipartBody.Part.createFormData("upload", file.name, requestBody)
+        addEditPostRepository.uploadFile(
+            part,
+            onSuccess = { response ->
+                Log.d("uploadImage", "서버에 이미지 업로드 성공")
+                setLoadingView(false)
+                addImage(AttachImage(response.attach_id, response.url))
+            },
+            onFailure = { e ->
+                Log.d("uploadImage", "파일 크기 ${file.length()}Bytes")
+                setLoadingView(false)
+                _errorToastMessage.setMessage(NetworkUtil.getErrorMessage(e))
+            }
+        )
+    }
+
     fun completePostFirst() {
         if (!checkCategoryInput()) {
             _focusToView.setMessage("CATEGORY")
@@ -201,6 +382,8 @@ class ViewModelPostFirst(
             _errorDialogMessage.setMessage("내용을 입력해 주세요")
             return
         }
+        savePostFirstCacheData()
+        openPostSecondActivity()
     }
 
     private fun checkCategoryInput(): Boolean {
@@ -236,4 +419,32 @@ class ViewModelPostFirst(
         _openPostSecondActivity.enable()
     }
 
+    private fun savePostFirstCacheData() {
+        AddEditPostLocalCache(
+            postId,
+            mode,
+            categoryType.value ?: "null",
+            categoryId.value ?: -1,
+            title.value ?: "null",
+            price.value ?: -1,
+            priceType.value ?: "null",
+            content.value ?: "null",
+            attachIds.value ?: listOf(),
+            tags.value ?: listOf()
+        ).let {
+            Log.d("게시글 작성 1단계 캐시", it.toString())
+            when (mode) {
+                MODE_ADD_POST -> {
+                    addEditPostRepository.saveAddPostCache(it)
+                }
+                MODE_EDIT_POST -> {
+                    addEditPostRepository.saveEditPostCache(postId!!, it)
+                }
+                else -> {
+                    _errorToastMessage.setMessage("게시글 작성에 문제가 생겼습니다")
+                    return
+                }
+            }
+        }
+    }
 }
