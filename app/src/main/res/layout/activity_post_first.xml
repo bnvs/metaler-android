@@ -245,6 +245,7 @@
                             android:orientation="horizontal"
                             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                             app:layout_constraintTop_toBottomOf="@id/addImgTxt"
+                            bind:setThumbnailItems="@{vm.attachIds}"
                             tools:listitem="@layout/item_thumbnail_rv" />
 
                         <androidx.constraintlayout.widget.Barrier
@@ -271,6 +272,7 @@
                             android:background="@android:color/transparent"
                             android:hint="@string/content_guide"
                             android:paddingBottom="500dp"
+                            android:text="@={vm.content}"
                             android:textColorHint="@color/colorLightGrey"
                             android:textSize="16sp"
                             app:layout_constraintStart_toStartOf="parent"
