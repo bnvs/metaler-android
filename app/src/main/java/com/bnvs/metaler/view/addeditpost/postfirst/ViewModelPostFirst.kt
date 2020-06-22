@@ -429,10 +429,10 @@ class ViewModelPostFirst(
             mode,
             categoryType.value ?: "null",
             categoryId.value ?: -1,
-            title.value ?: "null",
+            title.value?.trim() ?: "null",
             price.value ?: -1,
             priceType.value ?: "null",
-            content.value ?: "null",
+            content.value?.trim() ?: "null",
             attachIds.value ?: listOf(),
             tags.value ?: listOf()
         ).let {
