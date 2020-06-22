@@ -1,5 +1,6 @@
 package com.bnvs.metaler.view.postfirst
 
+import android.graphics.drawable.Drawable
 import android.view.View
 import android.widget.TextView
 import androidx.constraintlayout.widget.Group
@@ -8,6 +9,12 @@ import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bnvs.metaler.R
 import com.bnvs.metaler.data.postdetails.model.AttachImage
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.Target
+import kotlinx.android.synthetic.main.item_thumbnail_rv.view.*
 import java.text.NumberFormat
 
 @BindingAdapter("postLoadingViewVisibility")
@@ -63,4 +70,36 @@ fun setThumbnailItems(view: RecyclerView, items: List<AttachImage>?) {
         items?.let { replaceAll(it) }
         notifyDataSetChanged()
     }
+}
+
+@BindingAdapter("attachImage")
+fun attachImage(view: View, imageUrl: String) {
+    Glide.with(view.context)
+        .load(imageUrl)
+        .listener(object : RequestListener<Drawable> {
+            override fun onLoadFailed(
+                e: GlideException?,
+                model: Any?,
+                target: Target<Drawable>?,
+                isFirstResource: Boolean
+            ): Boolean {
+                view.thumbnailLoading.visibility = View.GONE
+                return false
+            }
+
+            override fun onResourceReady(
+                resource: Drawable?,
+                model: Any?,
+                target: Target<Drawable>?,
+                dataSource: DataSource?,
+                isFirstResource: Boolean
+            ): Boolean {
+                view.thumbnailLoading.visibility = View.GONE
+                return false
+            }
+        })
+        .centerCrop()
+        .override(300, 300)
+        .error(R.drawable.ic_broken_image_black_24dp)
+        .into(view.thumbnailImg)
 }
