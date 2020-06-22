@@ -18,13 +18,13 @@ import androidx.lifecycle.Observer
 import com.bnvs.metaler.R
 import com.bnvs.metaler.data.categories.model.Category
 import com.bnvs.metaler.databinding.ActivityPostFirstBinding
-import com.bnvs.metaler.util.base.BaseActivity
+import com.bnvs.metaler.util.base.BaseAddEditActivity
 import com.bnvs.metaler.view.postsecond.ActivityPostSecond
 import kotlinx.android.synthetic.main.activity_post_first.*
 import org.koin.android.ext.android.inject
 
 
-class ActivityPostFirst : BaseActivity<ViewModelPostFirst>() {
+class ActivityPostFirst : BaseAddEditActivity<ViewModelPostFirst>() {
 
     companion object {
         private const val TAG = "ActivityPostFirst"
@@ -51,7 +51,7 @@ class ActivityPostFirst : BaseActivity<ViewModelPostFirst>() {
             lifecycleOwner = this@ActivityPostFirst
             thumbnailRV.adapter = thumbnailAdapter
         }
-
+        checkRunTimePermission()
         observeViewModel()
         getPostId()
     }
@@ -230,30 +230,13 @@ class ActivityPostFirst : BaseActivity<ViewModelPostFirst>() {
             this,
             Observer { openDialog ->
                 if (openDialog) {
-
+                    showImageSelectionDialog()
                 }
             }
         )
     }
 
-    private fun openAlbum() {
-        Intent(Intent.ACTION_GET_CONTENT).apply {
-            putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
-            type = "image/*"
-        }.also { intent ->
-            startActivityForResult(intent, REQUEST_ALBUM_IMAGE)
-        }
-    }
-
-    private fun openCamera() {
-        Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { intent ->
-            intent.resolveActivity(packageManager)
-            startActivityForResult(intent, REQUEST_CAMERA_IMAGE)
-        }
-    }
-
-
-    private fun showWhereToGetImageFromDialog() {
+    private fun showImageSelectionDialog() {
         val array = arrayOf("사진", "카메라")
         AlertDialog.Builder(this@ActivityPostFirst)
             .setTitle("사진 선택")
@@ -278,23 +261,27 @@ class ActivityPostFirst : BaseActivity<ViewModelPostFirst>() {
             .show()
     }
 
-    private fun showGetCategoriesFailedToast(errorMessage: String) {
-        makeToast("카테고리 목록을 조회하는데 실패했습니다 : $errorMessage")
+    private fun openAlbum() {
+        Intent(Intent.ACTION_GET_CONTENT).apply {
+            putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
+            type = "image/*"
+        }.also { intent ->
+            startActivityForResult(intent, REQUEST_ALBUM_IMAGE)
+        }
     }
 
-    private fun showPostDetailLoadFailedToast(errorMessage: String) {
-        makeToast("게시물 내용을 불러오는데 실패했습니다 : $errorMessage")
-    }
-
-    private fun showUploadImageFailedToast(errorMessage: String) {
-        makeToast("사진 업로드에 실패했습니다 : $errorMessage")
+    private fun openCamera() {
+        Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { intent ->
+            intent.resolveActivity(packageManager)
+            startActivityForResult(intent, REQUEST_CAMERA_IMAGE)
+        }
     }
 
     private fun showImageDeleteDialog(adapterPosition: Int) {
         AlertDialog.Builder(this@ActivityPostFirst)
             .setMessage("이미지를 삭제하시겠습니까?")
             .setPositiveButton("삭제") { _, _ ->
-                // presenter.deleteImage(adapterPosition)
+                viewModel.deleteImage(adapterPosition)
             }
             .setNegativeButton("취소") { _, _ ->
             }
@@ -335,11 +322,11 @@ class ActivityPostFirst : BaseActivity<ViewModelPostFirst>() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQUEST_ALBUM_IMAGE && resultCode == Activity.RESULT_OK) {
             if (data != null) {
-                // presenter.getImageFromAlbum(this, data)
+                viewModel.getImageFromAlbum(data)
             }
         } else if (requestCode == REQUEST_CAMERA_IMAGE && resultCode == Activity.RESULT_OK) {
             if (data != null) {
-                // presenter.getImageFromCamera(this, data)
+                viewModel.getImageFromCamera(data)
             }
         } else {
             makeToast("취소되었습니다")
