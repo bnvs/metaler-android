@@ -5,9 +5,9 @@ import androidx.lifecycle.Observer
 import com.bnvs.metaler.util.base.BaseActivity
 import com.bnvs.metaler.view.bookmarks.ActivityBookmarks
 import com.bnvs.metaler.view.home.ActivityHome
-import com.bnvs.metaler.view.manufactures.ActivityManufactures
-import com.bnvs.metaler.view.materials.ActivityMaterials
 import com.bnvs.metaler.view.mypage.ActivityMyPage
+import com.bnvs.metaler.view.posts.manufactures.ActivityManufactures
+import com.bnvs.metaler.view.posts.materials.ActivityMaterials
 
 abstract class BaseTapActivity<VM : BaseTapViewModel> : BaseActivity<VM>() {
 
