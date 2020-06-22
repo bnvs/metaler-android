@@ -9,14 +9,14 @@
 
         <variable
             name="vm"
-            type="com.bnvs.metaler.view.materials.ViewModelMaterials" />
+            type="com.bnvs.metaler.view.posts.materials.ViewModelMaterials" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorGreyBG"
-        tools:context=".view.materials.ActivityMaterials">
+        tools:context=".view.posts.materials.ActivityMaterials">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout

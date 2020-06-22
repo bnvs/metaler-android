@@ -1,5 +1,6 @@
 package com.bnvs.metaler.data.addeditpost.source.repository
 
+import com.bnvs.metaler.data.addeditpost.model.AddEditPostLocalCache
 import com.bnvs.metaler.data.addeditpost.model.AddEditPostRequest
 import com.bnvs.metaler.data.addeditpost.model.AddPostResponse
 import com.bnvs.metaler.data.addeditpost.model.UploadFileResponse
@@ -24,4 +25,19 @@ interface AddEditPostRepository {
         onSuccess: (response: UploadFileResponse) -> Unit,
         onFailure: (e: Throwable) -> Unit
     )
+
+    fun getAddPostCache(
+        onSuccess: (response: AddEditPostLocalCache) -> Unit,
+        onFailure: () -> Unit
+    )
+
+    fun saveAddPostCache(addPostLocalCache: AddEditPostLocalCache)
+
+    fun getEditPostCache(
+        postId: Int,
+        onSuccess: (response: AddEditPostLocalCache) -> Unit,
+        onFailure: () -> Unit
+    )
+
+    fun saveEditPostCache(postId: Int, addEditPostLocalCache: AddEditPostLocalCache)
 }

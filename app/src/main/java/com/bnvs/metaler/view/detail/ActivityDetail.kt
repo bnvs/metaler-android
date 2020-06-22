@@ -20,11 +20,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bnvs.metaler.R
 import com.bnvs.metaler.data.comments.model.Comment
 import com.bnvs.metaler.data.postdetails.model.PostDetails
+import com.bnvs.metaler.view.addeditpost.postfirst.ActivityPostFirst
 import com.bnvs.metaler.view.detail.adapter.PostDetailAdapter
 import com.bnvs.metaler.view.detail.listener.CommentMenuListener
 import com.bnvs.metaler.view.detail.listener.PostRatingListener
 import com.bnvs.metaler.view.modifycomment.ActivityModifyComment
-import com.bnvs.metaler.view.postfirst.ActivityPostFirst
 import kotlinx.android.synthetic.main.activity_detail.*
 
 

@@ -5,10 +5,10 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import androidx.lifecycle.Observer
 import com.bnvs.metaler.util.base.posts.BasePostsActivity
-import com.bnvs.metaler.util.posts.adapter.PostsAdapter
-import com.bnvs.metaler.util.posts.adapter.TagsAdapter
-import com.bnvs.metaler.util.posts.listener.PostClickListener
-import com.bnvs.metaler.util.posts.listener.TagClickListener
+import com.bnvs.metaler.view.posts.recyclerview.adapter.PostsAdapter
+import com.bnvs.metaler.view.posts.recyclerview.adapter.TagsAdapter
+import com.bnvs.metaler.view.posts.recyclerview.listener.PostClickListener
+import com.bnvs.metaler.view.posts.recyclerview.listener.TagClickListener
 
 abstract class BasePostsRvActivity<VM : BasePostsRvViewModel> : BasePostsActivity<VM>() {
 

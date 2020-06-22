@@ -8,7 +8,6 @@ import com.bnvs.metaler.data.profile.model.Profile
 import com.bnvs.metaler.data.profile.source.repository.ProfileRepository
 import com.bnvs.metaler.network.NetworkUtil
 import com.bnvs.metaler.util.base.posts.BasePostsViewModel
-import com.bnvs.metaler.util.constants.NO_ERROR_TO_HANDLE
 
 class ViewModelHome(
     private val profileRepository: ProfileRepository,
@@ -32,10 +31,7 @@ class ViewModelHome(
                 _profile.value = profile
             },
             onProfileNotExist = {
-                _errorToastMessage.apply {
-                    value = "프로필 데이터를 불러오는데 실패했습니다"
-                    value = clearStringValue()
-                }
+                _errorToastMessage.setMessage("프로필 데이터를 불러오는데 실패했습니다")
             }
         )
     }
@@ -51,17 +47,9 @@ class ViewModelHome(
             },
             onFailure = { e ->
                 _errorVisibility.value = true
-                _errorToastMessage.apply {
-                    value = NetworkUtil.getErrorMessage(e)
-                    value = clearStringValue()
-                }
+                _errorToastMessage.setMessage(NetworkUtil.getErrorMessage(e))
             },
-            handleError = { e ->
-                _errorCode.apply {
-                    value = e
-                    value = NO_ERROR_TO_HANDLE
-                }
-            }
+            handleError = { e -> _errorCode.setErrorCode(e) }
         )
     }
 

@@ -2,7 +2,9 @@ package com.bnvs.metaler.data.postdetails.source.remote
 
 import com.bnvs.metaler.data.postdetails.model.PostDetails
 import com.bnvs.metaler.data.postdetails.model.RatingRequest
+import com.bnvs.metaler.network.ErrorHandler
 import com.bnvs.metaler.network.RetrofitInterface
+import com.bnvs.metaler.util.constants.NO_ERROR_TO_HANDLE
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
@@ -16,7 +18,8 @@ class PostDetailsRemoteDataSourceImpl(
     override fun getPostDetails(
         postId: Int,
         onSuccess: (response: PostDetails) -> Unit,
-        onFailure: (e: Throwable) -> Unit
+        onFailure: (e: Throwable) -> Unit,
+        handleError: (errorCode: Int) -> Unit
     ) {
         retrofitClient.getPostDetails(postId).enqueue(object : Callback<PostDetails> {
             override fun onResponse(call: Call<PostDetails>, response: Response<PostDetails>) {
@@ -24,6 +27,10 @@ class PostDetailsRemoteDataSourceImpl(
                 if (body != null && response.isSuccessful) {
                     onSuccess(body)
                 } else {
+                    val e = ErrorHandler.getErrorCode(HttpException(response))
+                    if (e != NO_ERROR_TO_HANDLE) {
+                        handleError(e)
+                    }
                     onFailure(HttpException(response))
                 }
             }
@@ -37,13 +44,18 @@ class PostDetailsRemoteDataSourceImpl(
     override fun deletePost(
         postId: Int,
         onSuccess: () -> Unit,
-        onFailure: (e: Throwable) -> Unit
+        onFailure: (e: Throwable) -> Unit,
+        handleError: (errorCode: Int) -> Unit
     ) {
         retrofitClient.deletePost(postId).enqueue(object : Callback<ResponseBody> {
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                 if (response.isSuccessful) {
                     onSuccess()
                 } else {
+                    val e = ErrorHandler.getErrorCode(HttpException(response))
+                    if (e != NO_ERROR_TO_HANDLE) {
+                        handleError(e)
+                    }
                     onFailure(HttpException(response))
                 }
             }
@@ -58,13 +70,18 @@ class PostDetailsRemoteDataSourceImpl(
         postId: Int,
         request: RatingRequest,
         onSuccess: () -> Unit,
-        onFailure: (e: Throwable) -> Unit
+        onFailure: (e: Throwable) -> Unit,
+        handleError: (errorCode: Int) -> Unit
     ) {
         retrofitClient.ratePost(postId, request).enqueue(object : Callback<ResponseBody> {
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                 if (response.isSuccessful) {
                     onSuccess()
                 } else {
+                    val e = ErrorHandler.getErrorCode(HttpException(response))
+                    if (e != NO_ERROR_TO_HANDLE) {
+                        handleError(e)
+                    }
                     onFailure(HttpException(response))
                 }
             }
@@ -75,12 +92,21 @@ class PostDetailsRemoteDataSourceImpl(
         })
     }
 
-    override fun unRatePost(postId: Int, onSuccess: () -> Unit, onFailure: (e: Throwable) -> Unit) {
+    override fun unRatePost(
+        postId: Int,
+        onSuccess: () -> Unit,
+        onFailure: (e: Throwable) -> Unit,
+        handleError: (errorCode: Int) -> Unit
+    ) {
         retrofitClient.unRatePost(postId).enqueue(object : Callback<ResponseBody> {
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                 if (response.isSuccessful) {
                     onSuccess()
                 } else {
+                    val e = ErrorHandler.getErrorCode(HttpException(response))
+                    if (e != NO_ERROR_TO_HANDLE) {
+                        handleError(e)
+                    }
                     onFailure(HttpException(response))
                 }
             }

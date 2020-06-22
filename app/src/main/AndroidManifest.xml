@@ -31,10 +31,10 @@
 
         <activity android:name=".view.home.ActivityHome" />
         <activity
-            android:name=".view.materials.ActivityMaterials"
+            android:name=".view.posts.materials.ActivityMaterials"
             android:windowSoftInputMode="adjustNothing" />
         <activity
-            android:name=".view.manufactures.ActivityManufactures"
+            android:name=".view.posts.manufactures.ActivityManufactures"
             android:windowSoftInputMode="adjustNothing" />
         <activity android:name=".view.bookmarks.ActivityBookmarks" />
         <activity android:name=".view.mypage.ActivityMyPage" />
@@ -42,8 +42,8 @@
             android:name=".view.search.ActivitySearch"
             android:windowSoftInputMode="adjustNothing" />
         <activity android:name=".view.detail.ActivityDetail" />
-        <activity android:name=".view.postsecond.ActivityPostSecond" />
-        <activity android:name=".view.postfirst.ActivityPostFirst" />
+        <activity android:name=".view.addeditpost.postsecond.ActivityPostSecond" />
+        <activity android:name=".view.addeditpost.postfirst.ActivityPostFirst" />
         <activity android:name=".view.myposts.ActivityMyPosts" />
         <activity android:name=".view.jobmodify.ActivityJobModify" />
         <activity android:name=".view.jobinput.ActivityJobInput" />

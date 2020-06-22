@@ -10,7 +10,6 @@ import com.bnvs.metaler.data.categories.source.repository.CategoriesRepository
 import com.bnvs.metaler.data.posts.source.repository.PostsRepository
 import com.bnvs.metaler.network.NetworkUtil
 import com.bnvs.metaler.util.base.postsrv.BasePostsRvViewModel
-import com.bnvs.metaler.util.constants.NO_ERROR_TO_HANDLE
 import com.bnvs.metaler.util.constants.POST_REQUEST_WITH_SEARCH_TYPE_CONTENT
 import com.bnvs.metaler.util.constants.POST_SEARCH_TYPE_CONTENT
 
@@ -37,20 +36,17 @@ class ViewModelSearch(
     }
 
     private fun getSearchViewCategoryType() {
-        categoriesRepository.getSearchViewCategoryTypeCache(
+        categoriesRepository.getCategoryTypeCache(
             onSuccess = { categoryType ->
-                setSearchViewCategoryType(categoryType)
+                setCategoryTypeCache(categoryType)
             },
             onFailure = {
-                _errorToastMessage.apply {
-                    value = "검색 타입을 알 수 없습니다"
-                    value = clearStringValue()
-                }
+                _errorToastMessage.setMessage("검색 타입을 알 수 없습니다")
             }
         )
     }
 
-    override fun setSearchViewCategoryType(categoryId: Int) {
+    override fun setCategoryTypeCache(categoryId: Int) {
         _categoryId.value = categoryId
     }
 
@@ -93,17 +89,9 @@ class ViewModelSearch(
             onFailure = { e ->
                 setItemLoadingView(false)
                 _isLoading.value = false
-                _errorToastMessage.apply {
-                    value = NetworkUtil.getErrorMessage(e)
-                    value = clearStringValue()
-                }
+                _errorToastMessage.setMessage(NetworkUtil.getErrorMessage(e))
             },
-            handleError = { e ->
-                _errorCode.apply {
-                    value = e
-                    value = NO_ERROR_TO_HANDLE
-                }
-            }
+            handleError = { e -> _errorCode.setErrorCode(e) }
         )
     }
 
@@ -124,24 +112,13 @@ class ViewModelSearch(
                     }
                 }.let {
                     _posts.value = it
-                    _errorToastMessage.apply {
-                        value = "북마크되었습니다"
-                        value = clearStringValue()
-                    }
+                    _errorToastMessage.setMessage("북마크되었습니다")
                 }
             },
             onFailure = { e ->
-                _errorToastMessage.apply {
-                    value = NetworkUtil.getErrorMessage(e)
-                    value = clearStringValue()
-                }
+                _errorToastMessage.setMessage(NetworkUtil.getErrorMessage(e))
             },
-            handleError = { e ->
-                _errorCode.apply {
-                    value = e
-                    value = NO_ERROR_TO_HANDLE
-                }
-            }
+            handleError = { e -> _errorCode.setErrorCode(e) }
         )
     }
 
@@ -167,24 +144,13 @@ class ViewModelSearch(
                 }
             },
             onFailure = { e ->
-                _errorToastMessage.apply {
-                    value = NetworkUtil.getErrorMessage(e)
-                    value = clearStringValue()
-                }
+                _errorToastMessage.setMessage(NetworkUtil.getErrorMessage(e))
             },
-            handleError = { e ->
-                _errorCode.apply {
-                    value = e
-                    value = NO_ERROR_TO_HANDLE
-                }
-            }
+            handleError = { e -> _errorCode.setErrorCode(e) }
         )
     }
 
     fun finishActivity() {
-        _finishActivity.apply {
-            value = true
-            value = false
-        }
+        _finishActivity.enable()
     }
 }

@@ -12,7 +12,7 @@
 
         <variable
             name="listener"
-            type="com.bnvs.metaler.util.posts.listener.CategoryClickListener" />
+            type="com.bnvs.metaler.view.posts.recyclerview.listener.CategoryClickListener" />
 
         <variable
             name="isChecked"

@@ -11,10 +11,10 @@ interface CategoriesLocalDataSource {
 
     fun saveCategories(categories: List<Category>)
 
-    fun getSearchViewCategoryTypeCache(
+    fun getCategoryTypeCache(
         onSuccess: (categoryType: Int) -> Unit,
         onFailure: () -> Unit
     )
 
-    fun saveSearchViewCategoryTypeCache(categoryType: Int)
+    fun saveCategoryTypeCache(categoryType: Int)
 }

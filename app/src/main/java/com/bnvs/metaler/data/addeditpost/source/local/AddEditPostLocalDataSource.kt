@@ -1,27 +1,21 @@
 package com.bnvs.metaler.data.addeditpost.source.local
 
-import com.bnvs.metaler.data.addeditpost.model.AddEditPostRequest
-import com.bnvs.metaler.data.addeditpost.model.AddPostResponse
-import com.bnvs.metaler.data.addeditpost.model.UploadFileResponse
-import okhttp3.MultipartBody
+import com.bnvs.metaler.data.addeditpost.model.AddEditPostLocalCache
 
 interface AddEditPostLocalDataSource {
-    fun addPost(
-        request: AddEditPostRequest,
-        onSuccess: (response: AddPostResponse) -> Unit,
-        onFailure: (e: Throwable) -> Unit
+
+    fun getAddPostCache(
+        onSuccess: (response: AddEditPostLocalCache) -> Unit,
+        onFailure: () -> Unit
     )
 
-    fun editPost(
+    fun saveAddPostCache(addEditPostLocalCache: AddEditPostLocalCache)
+
+    fun getEditPostCache(
         postId: Int,
-        request: AddEditPostRequest,
-        onSuccess: () -> Unit,
-        onFailure: (e: Throwable) -> Unit
+        onSuccess: (response: AddEditPostLocalCache) -> Unit,
+        onFailure: () -> Unit
     )
 
-    fun uploadFile(
-        file: MultipartBody.Part,
-        onSuccess: (response: UploadFileResponse) -> Unit,
-        onFailure: (e: Throwable) -> Unit
-    )
+    fun saveEditPostCache(postId: Int, addEditPostLocalCache: AddEditPostLocalCache)
 }

@@ -87,7 +87,8 @@ class PresenterDetail(
                     )
                     finishActivity()
                 }
-            }
+            },
+            handleError = {}
         )
     }
 
@@ -273,7 +274,8 @@ class PresenterDetail(
                                 "\n ${NetworkUtil.getErrorMessage(e)}"
                     )
                 }
-            }
+            },
+            handleError = {}
         )
     }
 
@@ -329,7 +331,8 @@ class PresenterDetail(
                                 "\n ${NetworkUtil.getErrorMessage(e)}"
                     )
                 }
-            }
+            },
+            handleError = {}
         )
     }
 
@@ -356,7 +359,8 @@ class PresenterDetail(
                                 "\n ${NetworkUtil.getErrorMessage(e)}"
                     )
                 }
-            }
+            },
+            handleError = {}
         )
     }
 

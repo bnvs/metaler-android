@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bnvs.metaler.R
 import com.bnvs.metaler.data.myposts.model.MyPost
 import com.bnvs.metaler.util.EndlessRecyclerViewScrollListener
-import com.bnvs.metaler.view.postfirst.ActivityPostFirst
+import com.bnvs.metaler.view.addeditpost.postfirst.ActivityPostFirst
 import kotlinx.android.synthetic.main.activity_my_posts.*
 
 class ActivityMyPosts : AppCompatActivity(), ContractMyPosts.View {

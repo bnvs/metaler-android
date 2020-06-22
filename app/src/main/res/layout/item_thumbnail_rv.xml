@@ -1,27 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginEnd="6dp">
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
 
-    <ImageView
-        android:id="@+id/thumbnailImg"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:adjustViewBounds="true"
-        android:background="@color/colorInactiveTapbar"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <data>
 
-    <ProgressBar
-        android:id="@+id/thumbnailLoading"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="@id/thumbnailImg"
-        app:layout_constraintEnd_toEndOf="@id/thumbnailImg"
-        app:layout_constraintStart_toStartOf="@id/thumbnailImg"
-        app:layout_constraintTop_toTopOf="@id/thumbnailImg" />
+        <variable
+            name="thumbnailItem"
+            type="com.bnvs.metaler.data.postdetails.model.AttachImage" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="6dp"
+        bind:attachImage="@{thumbnailItem.url}">
+
+        <ImageView
+            android:id="@+id/thumbnailImg"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:adjustViewBounds="true"
+            android:background="@color/colorInactiveTapbar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ProgressBar
+            android:id="@+id/thumbnailLoading"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="@id/thumbnailImg"
+            app:layout_constraintEnd_toEndOf="@id/thumbnailImg"
+            app:layout_constraintStart_toStartOf="@id/thumbnailImg"
+            app:layout_constraintTop_toTopOf="@id/thumbnailImg" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

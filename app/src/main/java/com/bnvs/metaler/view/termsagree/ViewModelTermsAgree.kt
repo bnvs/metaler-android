@@ -7,7 +7,6 @@ import com.bnvs.metaler.data.user.modification.model.TermsAgreements
 import com.bnvs.metaler.data.user.modification.source.repository.UserModificationRepository
 import com.bnvs.metaler.network.NetworkUtil
 import com.bnvs.metaler.util.base.BaseViewModel
-import com.bnvs.metaler.util.constants.NO_ERROR_TO_HANDLE
 
 class ViewModelTermsAgree(
     private val userModificationRepository: UserModificationRepository
@@ -41,17 +40,9 @@ class ViewModelTermsAgree(
                 _terms.value = response
             },
             onFailure = { e ->
-                _errorToastMessage.apply {
-                    value = NetworkUtil.getErrorMessage(e)
-                    value = clearStringValue()
-                }
+                _errorToastMessage.setMessage(NetworkUtil.getErrorMessage(e))
             },
-            handleError = { e ->
-                _errorCode.apply {
-                    value = e
-                    value = NO_ERROR_TO_HANDLE
-                }
-            }
+            handleError = { e -> _errorCode.setErrorCode(e) }
         )
     }
 

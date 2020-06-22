@@ -15,6 +15,27 @@ abstract class BaseViewModel : ViewModel() {
     protected val _errorCode = MutableLiveData<Int>().apply { value = NO_ERROR_TO_HANDLE }
     val errorCode: LiveData<Int> = _errorCode
 
+    protected fun MutableLiveData<Boolean>.enable() {
+        this.apply {
+            value = true
+            value = false
+        }
+    }
+
+    protected fun MutableLiveData<String>.setMessage(message: String) {
+        this.apply {
+            value = message
+            value = clearStringValue()
+        }
+    }
+
+    protected fun MutableLiveData<Int>.setErrorCode(errorCode: Int) {
+        this.apply {
+            value = errorCode
+            value = NO_ERROR_TO_HANDLE
+        }
+    }
+
     protected fun clearStringValue(): String {
         return ""
     }
