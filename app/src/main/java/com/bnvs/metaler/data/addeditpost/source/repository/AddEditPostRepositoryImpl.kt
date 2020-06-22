@@ -1,5 +1,6 @@
 package com.bnvs.metaler.data.addeditpost.source.repository
 
+import com.bnvs.metaler.data.addeditpost.model.AddEditPostLocalCache
 import com.bnvs.metaler.data.addeditpost.model.AddEditPostRequest
 import com.bnvs.metaler.data.addeditpost.model.AddPostResponse
 import com.bnvs.metaler.data.addeditpost.model.UploadFileResponse
@@ -35,5 +36,28 @@ class AddEditPostRepositoryImpl(
         onFailure: (e: Throwable) -> Unit
     ) {
         addEditPostRemoteDataSource.uploadFile(file, onSuccess, onFailure)
+    }
+
+    override fun getAddPostCache(
+        onSuccess: (response: AddEditPostLocalCache) -> Unit,
+        onFailure: () -> Unit
+    ) {
+        addEditPostLocalDataSource.getAddPostCache(onSuccess, onFailure)
+    }
+
+    override fun saveAddPostCache(addPostLocalCache: AddEditPostLocalCache) {
+        addEditPostLocalDataSource.saveAddPostCache(addPostLocalCache)
+    }
+
+    override fun getEditPostCache(
+        postId: Int,
+        onSuccess: (response: AddEditPostLocalCache) -> Unit,
+        onFailure: () -> Unit
+    ) {
+        addEditPostLocalDataSource.getEditPostCache(postId, onSuccess, onFailure)
+    }
+
+    override fun saveEditPostCache(postId: Int, editPostLocalCache: AddEditPostLocalCache) {
+        addEditPostLocalDataSource.saveEditPostCache(postId, editPostLocalCache)
     }
 }
