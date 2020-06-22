@@ -2,9 +2,11 @@ package com.bnvs.metaler.view.postfirst
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bnvs.metaler.R
 import com.bnvs.metaler.data.postdetails.model.AttachImage
+import com.bnvs.metaler.databinding.ItemThumbnailRvBinding
 
 class ThumbnailAdapter(private val itemClick: (adapterPosition: Int) -> Unit) :
     RecyclerView.Adapter<ThumbnailViewHolder>() {
@@ -19,10 +21,13 @@ class ThumbnailAdapter(private val itemClick: (adapterPosition: Int) -> Unit) :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ThumbnailViewHolder {
-        val inflatedView = LayoutInflater
-            .from(parent.context)
-            .inflate(R.layout.item_thumbnail_rv, parent, false)
-        return ThumbnailViewHolder(inflatedView, itemClick)
+        val binding = DataBindingUtil.inflate<ItemThumbnailRvBinding>(
+            LayoutInflater.from(parent.context),
+            R.layout.item_thumbnail_rv,
+            parent,
+            false
+        )
+        return ThumbnailViewHolder(binding, itemClick)
     }
 
     override fun getItemCount(): Int {
@@ -30,6 +35,6 @@ class ThumbnailAdapter(private val itemClick: (adapterPosition: Int) -> Unit) :
     }
 
     override fun onBindViewHolder(holder: ThumbnailViewHolder, position: Int) {
-        holder.bind(images[position].url)
+        holder.bind(images[position])
     }
 }
