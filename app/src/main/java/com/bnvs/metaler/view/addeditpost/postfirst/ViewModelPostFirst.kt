@@ -210,12 +210,14 @@ class ViewModelPostFirst(
 
     fun openImageSelectionDialog() {
         attachIds.value?.let {
-            if (it.size > 5) {
+            Log.d("사진 개수", "${it.size}")
+            if (it.size > 4) {
                 _errorDialogMessage.setMessage("사진은 5장까지 첨부 가능합니다")
                 return
+            } else {
+                _openImageSelectionDialog.enable()
             }
         }
-        _openImageSelectionDialog.enable()
     }
 
     private fun setLoadingView(b: Boolean) {
