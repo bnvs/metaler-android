@@ -212,7 +212,7 @@ class ViewModelPostFirst(
         attachIds.value?.let {
             Log.d("사진 개수", "${it.size}")
             if (it.size > 4) {
-                _errorDialogMessage.setMessage("사진은 5장까지 첨부 가능합니다")
+                _errorDialogMessage.setMessage("사진은 최대 5장까지 첨부 가능합니다")
                 return
             } else {
                 _openImageSelectionDialog.enable()
