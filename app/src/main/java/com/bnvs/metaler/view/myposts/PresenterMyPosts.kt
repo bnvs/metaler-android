@@ -93,7 +93,8 @@ class PresenterMyPosts(
                                 "\n ${NetworkUtil.getErrorMessage(e)}"
                     )
                 }
-            }
+            },
+            handleError = {}
         )
     }
 
