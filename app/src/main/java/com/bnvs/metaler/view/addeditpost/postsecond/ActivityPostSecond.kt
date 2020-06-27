@@ -44,10 +44,7 @@ class ActivityPostSecond : BaseActivity<ViewModelPostSecond>() {
                 it.adapter = TagInputAdapter(
                     getString(R.string.shop_name_guide),
                     tagClick = { position -> openTagSelectionDialog("store", position) },
-                    addTagClick = {
-                        Log.d("태그 가이드 아이템", "addTagClick 호출됨, openAddTagDialog 호출")
-                        openAddTagDialog("store")
-                    }
+                    addTagClick = { openAddTagDialog("store") }
                 )
             }
             workRv.let {
@@ -102,7 +99,6 @@ class ActivityPostSecond : BaseActivity<ViewModelPostSecond>() {
     }
 
     private fun openAddTagDialog(type: String) {
-        Log.d("태그 가이드 아이템", "addTagClick => openAddTagDialog() 호출됨")
         AlertDialog.Builder(this@ActivityPostSecond)
             .setTitle("태그 추가")
             .setView(R.layout.dialog_tag_input)
