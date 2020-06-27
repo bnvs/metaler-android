@@ -186,15 +186,25 @@ class ViewModelPostFirst(
     }
 
     fun setPriceType(priceType: String) {
+        Log.d("지불방식 세팅함", "$priceType")
         when (priceType) {
+            "카드" -> {
+                _priceType.value = "card"
+                _priceTypeChecked.value = mapOf("card" to true, "cash" to false)
+            }
+            "현금" -> {
+                _priceType.value = "cash"
+                _priceTypeChecked.value = mapOf("card" to false, "cash" to true)
+            }
             "card" -> {
-                _priceType.value = priceType
+                _priceType.value = "card"
                 _priceTypeChecked.value = mapOf("card" to true, "cash" to false)
             }
             "cash" -> {
-                _priceType.value = priceType
+                _priceType.value = "cash"
                 _priceTypeChecked.value = mapOf("card" to false, "cash" to true)
             }
+
         }
     }
 
