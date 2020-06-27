@@ -51,9 +51,6 @@ class ViewModelPostSecond(
         MutableLiveData<Map<String, Any>>().apply { value = mapOf() }
     val openDeleteTagDialog: LiveData<Map<String, Any>> = _openDeleteTagDialog
 
-    // input focus  관련 데이터
-    private val _focusToView = MutableLiveData<String>()
-    val focusToView: LiveData<String> = _focusToView
 
     fun setPostId(postId: Int?) {
         if (postId == null) {
@@ -243,12 +240,10 @@ class ViewModelPostSecond(
 
     fun completeAddEditPostActivity() {
         if (!checkStoreTagInput()) {
-            _focusToView.setMessage("STORE_TAG")
             _errorDialogMessage.setMessage("가게 이름 태그를 입력해 주세요")
             return
         }
         if (categoryType.value == "manufacture" && !checkWorkTagInput()) {
-            _focusToView.setMessage("WORK_TAG")
             _errorDialogMessage.setMessage("작업 종류 태그를 입력해 주세요")
             return
         }
