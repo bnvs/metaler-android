@@ -3,9 +3,11 @@ package com.bnvs.metaler.view.addeditpost.postsecond
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.bnvs.metaler.data.addeditpost.model.AddEditPostLocalCache
+import com.bnvs.metaler.data.addeditpost.model.AddEditPostRequest
 import com.bnvs.metaler.data.addeditpost.model.PostTag
 import com.bnvs.metaler.data.addeditpost.source.repository.AddEditPostRepository
 import com.bnvs.metaler.data.tags.source.repository.TagsRepository
+import com.bnvs.metaler.network.NetworkUtil
 import com.bnvs.metaler.util.base.BaseViewModel
 import com.bnvs.metaler.util.constants.MODE_ADD_POST
 import com.bnvs.metaler.util.constants.MODE_EDIT_POST
@@ -199,15 +201,72 @@ class ViewModelPostSecond(
     }
 
     fun backToPostSecondActivity() {
-        // addEditPostCache 저장 로직 추가
+        savePostSecondCacheData()
         _backToPostFirstActivity.enable()
     }
 
     fun completeAddEditPostActivity() {
-        // tags 유효성 검사 로직 추가 -> 실패 시 다이얼로그 띄우기(필수 태그를 입력해주세요)
-        // addEditPostCache 저장 로직 추가
-        // addEditPost 서버에 요청 시작
+        if (!checkStoreTagInput()) {
+            _focusToView.setMessage("STORE_TAG")
+            _errorDialogMessage.setMessage("가게 이름 태그를 입력해 주세요")
+            return
+        }
+        if (categoryType.value == "manufacture" && !checkWorkTagInput()) {
+            _focusToView.setMessage("WORK_TAG")
+            _errorDialogMessage.setMessage("작업 종류 태그를 입력해 주세요")
+            return
+        }
+        savePostSecondCacheData()
+        submitAddEditPostRequest()
+    }
 
+    private fun checkStoreTagInput(): Boolean {
+        return !storeTags.value.isNullOrEmpty()
+    }
+
+    private fun checkWorkTagInput(): Boolean {
+        return !workTags.value.isNullOrEmpty()
+    }
+
+    private fun submitAddEditPostRequest() {
+        AddEditPostRequest(
+            addEditPostCache.value?.category_id ?: return,
+            addEditPostCache.value?.title ?: return,
+            addEditPostCache.value?.content ?: return,
+            addEditPostCache.value?.price ?: return,
+            addEditPostCache.value?.price_type ?: return,
+            addEditPostCache.value?.attach_ids?.map { it.id } ?: listOf(),
+            getIntegratedTagList()
+        ).let {
+            when (mode) {
+                MODE_ADD_POST -> {
+                    addEditPostRepository.addPost(
+                        it,
+                        onSuccess = { finishAddEditPostActivity },
+                        onFailure = { e ->
+                            _errorToastMessage.setMessage(NetworkUtil.getErrorMessage(e))
+                            finishAddEditPostActivity
+                        },
+                        handleError = { e -> _errorCode.setErrorCode(e) }
+                    )
+                }
+                MODE_EDIT_POST -> {
+                    addEditPostRepository.editPost(
+                        postId!!, it,
+                        onSuccess = { finishAddEditPostActivity },
+                        onFailure = { e ->
+                            _errorToastMessage.setMessage(NetworkUtil.getErrorMessage(e))
+                            finishAddEditPostActivity
+                        },
+                        handleError = { e -> _errorCode.setErrorCode(e) }
+                    )
+                }
+                else -> {
+                    _errorToastMessage.setMessage("게시글 작성에 문제가 생겼습니다")
+                    return
+                }
+            }
+        }
     }
 
     private fun finishAddEditPostActivity() {
