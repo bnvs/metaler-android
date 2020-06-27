@@ -73,11 +73,10 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/deleteBtn"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:background="?attr/selectableItemBackground"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/img"
                     app:layout_constraintTop_toTopOf="parent"
                     bind:bookmarkId="@{postItem.bookmark_id}"
                     bind:listener="@{listener}"
@@ -87,6 +86,7 @@
                         android:layout_width="15dp"
                         android:layout_height="15dp"
                         android:src="@drawable/ic_list_bookmark_delete_x3"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
