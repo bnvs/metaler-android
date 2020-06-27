@@ -18,6 +18,8 @@ import com.bnvs.metaler.data.postdetails.model.AttachImage
 import com.bnvs.metaler.data.postdetails.source.repository.PostDetailsRepository
 import com.bnvs.metaler.network.NetworkUtil
 import com.bnvs.metaler.util.base.BaseAddEditViewModel
+import com.bnvs.metaler.util.constants.MODE_ADD_POST
+import com.bnvs.metaler.util.constants.MODE_EDIT_POST
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
@@ -30,11 +32,6 @@ class ViewModelPostFirst(
     private val addEditPostRepository: AddEditPostRepository,
     private val postDetailsRepository: PostDetailsRepository
 ) : BaseAddEditViewModel(application) {
-
-    companion object {
-        private const val MODE_ADD_POST = 0
-        private const val MODE_EDIT_POST = 1
-    }
 
     private val context = application.applicationContext
 
@@ -126,6 +123,10 @@ class ViewModelPostFirst(
         }
     }
 
+    fun getPostId(): Int? {
+        return postId
+    }
+
     private fun getCategoryTypeCache() {
         categoriesRepository.getCategoryTypeCache(
             onSuccess = { categoryType ->
@@ -156,6 +157,7 @@ class ViewModelPostFirst(
                     setPriceType(it.price_type)
                     content.value = it.content
                     _attachIds.value = it.attachs
+                    tags.value = it.tags
                 }
             },
             onFailure = { e ->
