@@ -135,8 +135,6 @@ class ActivityPostSecond : BaseActivity<ViewModelPostSecond>() {
                     val tagInput: String? = it.text.toString()
                     if (!tagInput.isNullOrBlank()) {
                         viewModel.editTag(type, tagInput, position)
-                    } else {
-                        viewModel.deleteTag(type, position)
                     }
                 }
             }
