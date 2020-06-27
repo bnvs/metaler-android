@@ -53,6 +53,7 @@
                         android:hint="@string/search_guide"
                         android:imeOptions="actionSearch"
                         android:inputType="text"
+                        android:maxLength="100"
                         android:text="@={vm.editTextInput}"
                         android:textColor="@color/colorGrey"
                         android:textSize="18sp"
