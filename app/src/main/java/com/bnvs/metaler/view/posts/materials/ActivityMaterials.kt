@@ -2,6 +2,8 @@ package com.bnvs.metaler.view.posts.materials
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.inputmethod.EditorInfo
 import androidx.databinding.DataBindingUtil
@@ -43,6 +45,32 @@ class ActivityMaterials : BasePostsRvActivity<ViewModelMaterials>() {
             materialsCategoryRV.adapter = categoriesAdapter
             tagRV.adapter = tagsAdapter
             postsRV.adapter = postsAdapter
+            tagInput.let {
+                it.setAdapter(getHashTagSuggestAdapter())
+                it.addTextChangedListener(object : TextWatcher {
+                    override fun afterTextChanged(s: Editable?) {
+                    }
+
+                    override fun beforeTextChanged(
+                        s: CharSequence?,
+                        start: Int,
+                        count: Int,
+                        after: Int
+                    ) {
+                    }
+
+                    override fun onTextChanged(
+                        s: CharSequence?,
+                        start: Int,
+                        before: Int,
+                        count: Int
+                    ) {
+                        if (!it.text.isNullOrBlank()) {
+                            viewModel.getTagSuggestions(it.text.toString())
+                        }
+                    }
+                })
+            }
         }
 
         observeViewModel()

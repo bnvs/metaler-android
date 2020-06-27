@@ -2,6 +2,8 @@ package com.bnvs.metaler.view.posts.manufactures
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.inputmethod.EditorInfo
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -30,6 +32,31 @@ class ActivityManufactures : BasePostsRvActivity<ViewModelManufactures>() {
             lifecycleOwner = this@ActivityManufactures
             tagRV.adapter = tagsAdapter
             postsRV.adapter = postsAdapter
+            tagInput.let {
+                it.setAdapter(getHashTagSuggestAdapter())
+                it.addTextChangedListener(object : TextWatcher {
+                    override fun afterTextChanged(s: Editable?) {}
+
+                    override fun beforeTextChanged(
+                        s: CharSequence?,
+                        start: Int,
+                        count: Int,
+                        after: Int
+                    ) {
+                    }
+
+                    override fun onTextChanged(
+                        s: CharSequence?,
+                        start: Int,
+                        before: Int,
+                        count: Int
+                    ) {
+                        if (!it.text.isNullOrBlank()) {
+                            viewModel.getTagSuggestions(it.text.toString())
+                        }
+                    }
+                })
+            }
         }
 
         observeViewModel()

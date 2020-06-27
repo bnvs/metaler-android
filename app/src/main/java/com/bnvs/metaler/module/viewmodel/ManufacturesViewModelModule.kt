@@ -6,6 +6,6 @@ import org.koin.dsl.module
 
 val manufacturesViewModelModule = module {
     viewModel {
-        ViewModelManufactures(get(), get(), get())
+        ViewModelManufactures(get(), get(), get(), get())
     }
 }

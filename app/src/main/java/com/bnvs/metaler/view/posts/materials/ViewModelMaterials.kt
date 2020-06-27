@@ -9,6 +9,8 @@ import com.bnvs.metaler.data.bookmarks.source.repositroy.BookmarksRepository
 import com.bnvs.metaler.data.categories.model.Category
 import com.bnvs.metaler.data.categories.source.repository.CategoriesRepository
 import com.bnvs.metaler.data.posts.source.repository.PostsRepository
+import com.bnvs.metaler.data.tags.model.TagsRequest
+import com.bnvs.metaler.data.tags.source.repository.TagsRepository
 import com.bnvs.metaler.network.NetworkUtil
 import com.bnvs.metaler.util.base.postsrv.BasePostsRvViewModel
 import com.bnvs.metaler.util.constants.POST_REQUEST_TYPE
@@ -17,7 +19,8 @@ import com.bnvs.metaler.util.constants.POST_REQUEST_WITH_SEARCH_TYPE_TAG
 class ViewModelMaterials(
     private val postsRepository: PostsRepository,
     private val bookmarksRepository: BookmarksRepository,
-    private val categoriesRepository: CategoriesRepository
+    private val categoriesRepository: CategoriesRepository,
+    private val tagsRepository: TagsRepository
 ) : BasePostsRvViewModel() {
 
     private val TAG = "ViewModel Materials"
@@ -189,4 +192,16 @@ class ViewModelMaterials(
         )
     }
 
+    override fun getTagSuggestions(input: String) {
+        val type = 1 //TODO: 태그 전체 검색시에는 타입 어떻게 설정해야하는지?
+        tagsRepository.getTagRecommendations(
+            TagsRequest(type, input, 10),
+            onSuccess = { response ->
+                _tagSuggestions.value = response
+            },
+            onFailure = { e ->
+                _errorToastMessage.setMessage(NetworkUtil.getErrorMessage(e))
+            }
+        )
+    }
 }
