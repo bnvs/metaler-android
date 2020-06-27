@@ -16,26 +16,29 @@ class AddEditPostRepositoryImpl(
     override fun addPost(
         request: AddEditPostRequest,
         onSuccess: (response: AddPostResponse) -> Unit,
-        onFailure: (e: Throwable) -> Unit
+        onFailure: (e: Throwable) -> Unit,
+        handleError: (errorCode: Int) -> Unit
     ) {
-        addEditPostRemoteDataSource.addPost(request, onSuccess, onFailure)
+        addEditPostRemoteDataSource.addPost(request, onSuccess, onFailure, handleError)
     }
 
     override fun editPost(
         postId: Int,
         request: AddEditPostRequest,
         onSuccess: () -> Unit,
-        onFailure: (e: Throwable) -> Unit
+        onFailure: (e: Throwable) -> Unit,
+        handleError: (errorCode: Int) -> Unit
     ) {
-        addEditPostRemoteDataSource.editPost(postId, request, onSuccess, onFailure)
+        addEditPostRemoteDataSource.editPost(postId, request, onSuccess, onFailure, handleError)
     }
 
     override fun uploadFile(
         file: MultipartBody.Part,
         onSuccess: (response: UploadFileResponse) -> Unit,
-        onFailure: (e: Throwable) -> Unit
+        onFailure: (e: Throwable) -> Unit,
+        handleError: (errorCode: Int) -> Unit
     ) {
-        addEditPostRemoteDataSource.uploadFile(file, onSuccess, onFailure)
+        addEditPostRemoteDataSource.uploadFile(file, onSuccess, onFailure, handleError)
     }
 
     override fun getAddPostCache(
