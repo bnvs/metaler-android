@@ -165,7 +165,11 @@ class ViewModelPostSecond(
                     if (it?.contains(tag) == true) {
                         _errorToastMessage.setMessage("동일한 내용의 태그가 존재합니다")
                     } else {
-                        _storeTags.value = storeTags.value?.plus(tag) ?: listOf(tag)
+                        if (it?.size ?: 0 > 9) {
+                            _errorToastMessage.setMessage("가게 이름 태그는 최대 10개까지 입력 가능합니다")
+                        } else {
+                            _storeTags.value = storeTags.value?.plus(tag) ?: listOf(tag)
+                        }
                     }
                 }
             }
@@ -174,7 +178,11 @@ class ViewModelPostSecond(
                     if (it?.contains(tag) == true) {
                         _errorToastMessage.setMessage("동일한 내용의 태그가 존재합니다")
                     } else {
-                        _workTags.value = workTags.value?.plus(tag) ?: listOf(tag)
+                        if (it?.size ?: 0 > 9) {
+                            _errorToastMessage.setMessage("작업 종류 태그는 최대 10개까지 입력 가능합니다")
+                        } else {
+                            _workTags.value = workTags.value?.plus(tag) ?: listOf(tag)
+                        }
                     }
                 }
             }
@@ -183,7 +191,11 @@ class ViewModelPostSecond(
                     if (it?.contains(tag) == true) {
                         _errorToastMessage.setMessage("동일한 내용의 태그가 존재합니다")
                     } else {
-                        _etcTags.value = etcTags.value?.plus(tag) ?: listOf(tag)
+                        if (it?.size ?: 0 > 19) {
+                            _errorToastMessage.setMessage("기타 태그는 최대 20개까지 입력 가능합니다")
+                        } else {
+                            _etcTags.value = etcTags.value?.plus(tag) ?: listOf(tag)
+                        }
                     }
                 }
             }
