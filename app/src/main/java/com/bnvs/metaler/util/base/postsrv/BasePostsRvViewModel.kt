@@ -36,6 +36,10 @@ abstract class BasePostsRvViewModel : BasePostsViewModel() {
     // 태그/검색어 입력 TextView 텍스트
     val editTextInput = MutableLiveData<String>()
 
+    // 태그 추천 리스트
+    protected val _tagSuggestions = MutableLiveData<List<String>>()
+    val tagSuggestions: LiveData<List<String>> = _tagSuggestions
+
     // 검색어
     private var contentSearchWord: String? = null
 
@@ -89,6 +93,8 @@ abstract class BasePostsRvViewModel : BasePostsViewModel() {
             }
         }
     }
+
+    abstract fun getTagSuggestions(input: String)
 
     private fun String.removeEmptySpace(): String {
         return this.replace("\\s".toRegex(), "")
