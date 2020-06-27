@@ -35,7 +35,7 @@ class ViewModelPostSecond(
     // 뒤로가기
     private val _backToPostFirstActivity = MutableLiveData<Boolean>().apply { value = false }
     val backToPostFirstActivity: LiveData<Boolean> = _backToPostFirstActivity
-    private val _finishAddEditPostActivity = MutableLiveData<String>()
+    private val _finishAddEditPostActivity = MutableLiveData<String>().apply { value = "" }
     val finishAddEditPostActivity: LiveData<String> = _finishAddEditPostActivity
 
     // input focus  관련 데이터
@@ -242,7 +242,7 @@ class ViewModelPostSecond(
                 MODE_ADD_POST -> {
                     addEditPostRepository.addPost(
                         it,
-                        onSuccess = { finishAddEditPostActivity },
+                        onSuccess = { finishAddEditPostActivity() },
                         onFailure = { e ->
                             _errorToastMessage.setMessage(NetworkUtil.getErrorMessage(e))
                             finishAddEditPostActivity
@@ -253,7 +253,7 @@ class ViewModelPostSecond(
                 MODE_EDIT_POST -> {
                     addEditPostRepository.editPost(
                         postId!!, it,
-                        onSuccess = { finishAddEditPostActivity },
+                        onSuccess = { finishAddEditPostActivity() },
                         onFailure = { e ->
                             _errorToastMessage.setMessage(NetworkUtil.getErrorMessage(e))
                             finishAddEditPostActivity

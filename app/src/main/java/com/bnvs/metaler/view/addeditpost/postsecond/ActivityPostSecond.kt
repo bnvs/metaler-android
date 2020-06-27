@@ -7,6 +7,7 @@ import android.util.Log
 import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import com.bnvs.metaler.R
 import com.bnvs.metaler.databinding.ActivityPostSecondBinding
 import com.bnvs.metaler.util.base.BaseActivity
@@ -16,7 +17,6 @@ import com.bnvs.metaler.view.posts.materials.ActivityMaterials
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexWrap
 import com.google.android.flexbox.FlexboxLayoutManager
-import kotlinx.android.synthetic.main.activity_post_second.*
 import org.koin.android.ext.android.inject
 
 class ActivityPostSecond : BaseActivity<ViewModelPostSecond>() {
@@ -68,6 +68,12 @@ class ActivityPostSecond : BaseActivity<ViewModelPostSecond>() {
         getPostId()
     }
 
+    override fun observeViewModel() {
+        super.observeViewModel()
+        observeBackToPostFirstActivity()
+
+    }
+
     private fun getPostId() {
         val postId = intent.getIntExtra("POST_ID", -1)
         Log.d(TAG, "intent 로 들어온 postId : $postId")
@@ -76,6 +82,28 @@ class ActivityPostSecond : BaseActivity<ViewModelPostSecond>() {
         } else {
             viewModel.setPostId(postId)
         }
+    }
+
+    private fun observeBackToPostFirstActivity() {
+        viewModel.backToPostFirstActivity.observe(
+            this,
+            Observer { backToPostFirst ->
+                if (backToPostFirst) {
+                    finish()
+                }
+            }
+        )
+    }
+
+    private fun observeFinishAddEditPostActivity() {
+        viewModel.finishAddEditPostActivity.observe(
+            this,
+            Observer { categoryType ->
+                if (categoryType.isNotBlank()) {
+                    finishAddEditUi(categoryType)
+                }
+            }
+        )
     }
 
     private fun getFlexBoxLayoutManager(): FlexboxLayoutManager {
@@ -212,60 +240,21 @@ class ActivityPostSecond : BaseActivity<ViewModelPostSecond>() {
         }
     }
 
-    fun showEmptyTagsDialog() {
-        AlertDialog.Builder(this@ActivityPostSecond)
-            .setTitle("알림")
-            .setMessage("필수 태그를 입력해 주세요")
-            .setPositiveButton("확인") { _, _ ->
-            }
-            .show()
-    }
-
-    fun showInvalidateTagDialog() {
-        AlertDialog.Builder(this@ActivityPostSecond)
-            .setTitle("알림")
-            .setMessage("'#태그' 형식의 띄어쓰기 없는 태그만 입력 가능합니다")
-            .setPositiveButton("확인") { _, _ ->
-            }
-            .show()
-    }
-
-    fun finishAddEditUi(categoryType: String) {
+    private fun finishAddEditUi(categoryType: String) {
         when (categoryType) {
-            "MATERIALS" -> {
+            "materials" -> {
                 Intent(this, ActivityMaterials::class.java).apply {
                     flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
                     startActivity(this)
                 }
             }
-            "MANUFACTURES" -> {
+            "manufacture" -> {
                 Intent(this, ActivityManufactures::class.java).apply {
                     flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
                     startActivity(this)
                 }
             }
         }
-    }
-
-    fun showAddPostFailureToast(errorMessage: String) {
-        makeToast(errorMessage)
-    }
-
-    fun showEditPostFailureToast(errorMessage: String) {
-        makeToast(errorMessage)
-    }
-
-    private fun initClickListener() {
-        backBtn.setOnClickListener { finish() }
-        completeBtn.setOnClickListener {
-            /* val tags = JSONObject().apply {
-                 put("store", shopNameInput.text.toString())
-                 put("work", workInput.text.toString())
-                 put("etc", tagInput.text.toString())
-             }
-             presenter.finishAddEditPost(tags)*/
-        }
-
     }
 
 }
