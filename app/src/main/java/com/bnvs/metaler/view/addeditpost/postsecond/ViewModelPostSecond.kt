@@ -1,5 +1,6 @@
 package com.bnvs.metaler.view.addeditpost.postsecond
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.bnvs.metaler.data.addeditpost.model.AddEditPostLocalCache
@@ -152,16 +153,39 @@ class ViewModelPostSecond(
         }
     }
 
-    fun addTag(type: String, tag: String) {
+    private fun String.removeEmptySpace(): String {
+        return this.replace("\\s".toRegex(), "")
+    }
+
+    fun addTag(type: String, tagInput: String) {
+        val tag = tagInput.removeEmptySpace()
         when (type) {
             "store" -> {
-                _storeTags.value = storeTags.value?.plus(tag) ?: listOf(tag)
+                _storeTags.value.let {
+                    if (it?.contains(tag) == true) {
+                        _errorToastMessage.setMessage("동일한 내용의 태그가 존재합니다")
+                    } else {
+                        _storeTags.value = storeTags.value?.plus(tag) ?: listOf(tag)
+                    }
+                }
             }
             "work" -> {
-                _workTags.value = workTags.value?.plus(tag) ?: listOf(tag)
+                _workTags.value.let {
+                    if (it?.contains(tag) == true) {
+                        _errorToastMessage.setMessage("동일한 내용의 태그가 존재합니다")
+                    } else {
+                        _workTags.value = workTags.value?.plus(tag) ?: listOf(tag)
+                    }
+                }
             }
             "etc" -> {
-                _etcTags.value = etcTags.value?.plus(tag) ?: listOf(tag)
+                _etcTags.value.let {
+                    if (it?.contains(tag) == true) {
+                        _errorToastMessage.setMessage("동일한 내용의 태그가 존재합니다")
+                    } else {
+                        _etcTags.value = etcTags.value?.plus(tag) ?: listOf(tag)
+                    }
+                }
             }
         }
     }
@@ -238,6 +262,7 @@ class ViewModelPostSecond(
             addEditPostCache.value?.attach_ids?.map { it.id } ?: listOf(),
             getIntegratedTagList()
         ).let {
+            Log.d("게시글 작성 완료", it.toString())
             when (mode) {
                 MODE_ADD_POST -> {
                     addEditPostRepository.addPost(
