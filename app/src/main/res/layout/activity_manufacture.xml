@@ -45,24 +45,36 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
+                    <TextView
+                        android:id="@+id/tagString"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="#"
+                        android:textColor="@color/colorGrey"
+                        android:textSize="19sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
                     <AutoCompleteTextView
                         android:id="@+id/tagInput"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="7dp"
                         android:background="@null"
                         android:completionThreshold="1"
-                        android:dropDownHeight="150dp"
-                        android:hint="#태그검색"
+                        android:dropDownHeight="217dp"
+                        android:hint="태그검색"
                         android:imeOptions="actionSearch"
                         android:inputType="text"
                         android:maxLength="20"
+                        android:paddingStart="1dp"
                         android:text="@={vm.editTextInput}"
                         android:textColor="@color/colorGrey"
                         android:textSize="18sp"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toLeftOf="@id/tagInputDeleteBtn"
+                        app:layout_constraintEnd_toStartOf="@id/tagInputDeleteBtn"
+                        app:layout_constraintStart_toEndOf="@id/tagString"
                         app:layout_constraintTop_toTopOf="parent"
                         bind:setTagSuggestionItems="@{vm.tagSuggestions}" />
 
