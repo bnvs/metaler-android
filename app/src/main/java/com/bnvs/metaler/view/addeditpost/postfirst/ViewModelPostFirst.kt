@@ -356,7 +356,8 @@ class ViewModelPostFirst(
                 Log.d("uploadImage", "파일 크기 ${file.length()}Bytes")
                 setLoadingView(false)
                 _errorToastMessage.setMessage(NetworkUtil.getErrorMessage(e))
-            }
+            },
+            handleError = { e -> _errorCode.setErrorCode(e) }
         )
     }
 
