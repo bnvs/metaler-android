@@ -7,14 +7,12 @@ import com.bnvs.metaler.data.addeditpost.model.AddEditPostLocalCache
 import com.bnvs.metaler.data.addeditpost.model.AddEditPostRequest
 import com.bnvs.metaler.data.addeditpost.model.PostTag
 import com.bnvs.metaler.data.addeditpost.source.repository.AddEditPostRepository
-import com.bnvs.metaler.data.tags.source.repository.TagsRepository
 import com.bnvs.metaler.network.NetworkUtil
 import com.bnvs.metaler.util.base.BaseViewModel
 import com.bnvs.metaler.util.constants.MODE_ADD_POST
 import com.bnvs.metaler.util.constants.MODE_EDIT_POST
 
 class ViewModelPostSecond(
-    private val tagsRepository: TagsRepository,
     private val addEditPostRepository: AddEditPostRepository
 ) : BaseViewModel() {
 
