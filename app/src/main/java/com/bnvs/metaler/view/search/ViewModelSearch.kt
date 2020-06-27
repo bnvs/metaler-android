@@ -7,6 +7,7 @@ import com.bnvs.metaler.data.bookmarks.model.AddBookmarkRequest
 import com.bnvs.metaler.data.bookmarks.model.DeleteBookmarkRequest
 import com.bnvs.metaler.data.bookmarks.source.repositroy.BookmarksRepository
 import com.bnvs.metaler.data.categories.source.repository.CategoriesRepository
+import com.bnvs.metaler.data.posts.model.Post
 import com.bnvs.metaler.data.posts.source.repository.PostsRepository
 import com.bnvs.metaler.network.NetworkUtil
 import com.bnvs.metaler.util.base.postsrvadvanced.BasePostsRvAdvancedViewModel
@@ -17,7 +18,7 @@ class ViewModelSearch(
     private val categoriesRepository: CategoriesRepository,
     private val postsRepository: PostsRepository,
     private val bookmarksRepository: BookmarksRepository
-) : BasePostsRvAdvancedViewModel() {
+) : BasePostsRvAdvancedViewModel<Post>() {
 
     private val TAG = "ViewModel Manufactures"
 

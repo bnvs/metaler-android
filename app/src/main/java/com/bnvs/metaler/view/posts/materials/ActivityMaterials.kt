@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bnvs.metaler.R
+import com.bnvs.metaler.data.posts.model.Post
 import com.bnvs.metaler.databinding.ActivityMaterialsBinding
 import com.bnvs.metaler.util.base.postsrvadvanced.BasePostsRvAdvancedActivity
 import com.bnvs.metaler.view.addeditpost.postfirst.ActivityPostFirst
@@ -20,7 +21,7 @@ import com.bnvs.metaler.view.search.ActivitySearch
 import kotlinx.android.synthetic.main.activity_materials.*
 import org.koin.android.ext.android.inject
 
-class ActivityMaterials : BasePostsRvAdvancedActivity<ViewModelMaterials>() {
+class ActivityMaterials : BasePostsRvAdvancedActivity<ViewModelMaterials, Post>() {
 
     override val viewModel: ViewModelMaterials by inject()
 

@@ -8,6 +8,7 @@ import com.bnvs.metaler.data.bookmarks.model.DeleteBookmarkRequest
 import com.bnvs.metaler.data.bookmarks.source.repositroy.BookmarksRepository
 import com.bnvs.metaler.data.categories.model.Category
 import com.bnvs.metaler.data.categories.source.repository.CategoriesRepository
+import com.bnvs.metaler.data.posts.model.Post
 import com.bnvs.metaler.data.posts.source.repository.PostsRepository
 import com.bnvs.metaler.data.tags.model.TagsRequest
 import com.bnvs.metaler.data.tags.source.repository.TagsRepository
@@ -21,7 +22,7 @@ class ViewModelMaterials(
     private val bookmarksRepository: BookmarksRepository,
     private val categoriesRepository: CategoriesRepository,
     private val tagsRepository: TagsRepository
-) : BasePostsRvAdvancedViewModel() {
+) : BasePostsRvAdvancedViewModel<Post>() {
 
     private val TAG = "ViewModel Materials"
 
