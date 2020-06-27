@@ -51,7 +51,9 @@ class ViewModelMaterials(
     private fun loadCategories() {
         categoriesRepository.getCategories(
             onSuccess = { response ->
-                _categories.value = response
+                response
+                    .filter { it.type == "total" || it.type == "materials" }
+                    .let { _categories.value = it }
                 response.first { it.type == "total" }.id.let {
                     _selectedCategoryId.value = it
                     setCategoryTypeCache(it)
