@@ -50,10 +50,17 @@ abstract class BasePostsRvViewModel : BasePostsViewModel() {
     open fun refresh() {
         _isLoading.value = true
         _hasNextPage.value = false
+        resetPage()
         clearEditTextInput()
         clearSearchWord()
         setTagsRvVisibility()
         setPostRequestType()
+    }
+
+    open fun refreshForOnResume() {
+        _isLoading.value = true
+        _hasNextPage.value = false
+        resetPage()
     }
 
     protected abstract fun setCategoryTypeCache(categoryId: Int)

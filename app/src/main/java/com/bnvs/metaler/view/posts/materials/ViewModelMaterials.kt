@@ -40,6 +40,11 @@ class ViewModelMaterials(
         loadPosts()
     }
 
+    override fun refreshForOnResume() {
+        super.refreshForOnResume()
+        loadPosts()
+    }
+
     private fun loadCategories() {
         categoriesRepository.getCategories(
             onSuccess = { response ->

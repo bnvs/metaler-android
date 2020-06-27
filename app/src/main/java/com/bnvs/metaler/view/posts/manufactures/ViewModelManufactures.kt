@@ -33,6 +33,11 @@ class ViewModelManufactures(
         loadPosts()
     }
 
+    override fun refreshForOnResume() {
+        super.refreshForOnResume()
+        loadPosts()
+    }
+
     private fun setManufacturesCategoryId() {
         categoriesRepository.getCategories(
             onSuccess = { response ->

@@ -34,6 +34,11 @@ abstract class BasePostsRvActivity<VM : BasePostsRvViewModel> : BasePostsActivit
             }
         })
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.refreshForOnResume()
+    }
+
     override fun observeViewModel() {
         super.observeViewModel()
         observeStartPostFirstActivity()
