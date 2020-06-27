@@ -29,28 +29,57 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".view.home.ActivityHome" />
+        <activity
+            android:name=".view.home.ActivityHome"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".view.posts.materials.ActivityMaterials"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustNothing" />
         <activity
             android:name=".view.posts.manufactures.ActivityManufactures"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustNothing" />
-        <activity android:name=".view.bookmarks.ActivityBookmarks" />
-        <activity android:name=".view.mypage.ActivityMyPage" />
+        <activity
+            android:name=".view.bookmarks.ActivityBookmarks"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.mypage.ActivityMyPage"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".view.search.ActivitySearch"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustNothing" />
-        <activity android:name=".view.detail.ActivityDetail" />
-        <activity android:name=".view.addeditpost.postsecond.ActivityPostSecond" />
-        <activity android:name=".view.addeditpost.postfirst.ActivityPostFirst" />
-        <activity android:name=".view.myposts.ActivityMyPosts" />
-        <activity android:name=".view.jobmodify.ActivityJobModify" />
-        <activity android:name=".view.jobinput.ActivityJobInput" />
-        <activity android:name=".view.termsagree.ActivityTermsAgree" />
-        <activity android:name=".view.termscheck.ActivityTermsCheck" />
-        <activity android:name=".view.modifycomment.ActivityModifyComment" />
-        <activity android:name=".view.login.ActivityLogin">
+        <activity
+            android:name=".view.detail.ActivityDetail"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.addeditpost.postsecond.ActivityPostSecond"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.addeditpost.postfirst.ActivityPostFirst"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.myposts.ActivityMyPosts"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.jobmodify.ActivityJobModify"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.jobinput.ActivityJobInput"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.termsagree.ActivityTermsAgree"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.termscheck.ActivityTermsCheck"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.modifycomment.ActivityModifyComment"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.login.ActivityLogin"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
