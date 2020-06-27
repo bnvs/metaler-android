@@ -11,7 +11,6 @@ import com.bnvs.metaler.databinding.ActivityPostSecondBinding
 import com.bnvs.metaler.util.base.BaseActivity
 import com.bnvs.metaler.view.addeditpost.postsecond.tags.TagInputAdapter
 import com.bnvs.metaler.view.addeditpost.postsecond.tagsuggest.DialogTagInput
-import com.bnvs.metaler.view.addeditpost.postsecond.tagsuggest.ViewModelTagSuggest
 import com.bnvs.metaler.view.posts.manufactures.ActivityManufactures
 import com.bnvs.metaler.view.posts.materials.ActivityMaterials
 import com.google.android.flexbox.FlexDirection
@@ -23,12 +22,9 @@ class ActivityPostSecond : BaseActivity<ViewModelPostSecond>() {
 
     companion object {
         private const val TAG = "ActivityPostSecond"
-        private const val TRIGGER_AUTO_COMPLETE = 200
-        private const val AUTO_COMPLETE_DELAY = 300L
     }
 
     override val viewModel: ViewModelPostSecond by inject()
-    private val viewModelTagSuggest: ViewModelTagSuggest by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -184,7 +180,6 @@ class ActivityPostSecond : BaseActivity<ViewModelPostSecond>() {
 
     private fun openAddTagDialog(type: String) {
         DialogTagInput(
-            viewModelTagSuggest,
             type,
             null,
             addTag = { tag ->
@@ -194,7 +189,6 @@ class ActivityPostSecond : BaseActivity<ViewModelPostSecond>() {
 
     private fun openEditTagDialog(type: String, position: Int) {
         DialogTagInput(
-            viewModelTagSuggest,
             type,
             viewModel.getTagString(type, position),
             addTag = { tag ->

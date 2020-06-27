@@ -11,13 +11,20 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import com.bnvs.metaler.R
 import com.bnvs.metaler.databinding.DialogTagInputBinding
+import org.koin.android.ext.android.inject
 
 class DialogTagInput(
-    private val viewModel: ViewModelTagSuggest,
     private val type: String,
     private val setTag: String?,
     private val addTag: (tagInput: String) -> Unit
 ) : DialogFragment() {
+
+    companion object {
+        private const val TRIGGER_AUTO_COMPLETE = 200
+        private const val AUTO_COMPLETE_DELAY = 300L
+    }
+
+    private val viewModel: ViewModelTagSuggest by inject()
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return activity?.let { it ->
