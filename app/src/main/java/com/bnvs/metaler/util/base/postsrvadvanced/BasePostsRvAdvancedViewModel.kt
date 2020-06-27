@@ -10,7 +10,10 @@ import com.bnvs.metaler.util.constants.POST_REQUEST_TYPE
 import com.bnvs.metaler.util.constants.POST_REQUEST_WITH_SEARCH_TYPE_TAG
 import com.bnvs.metaler.util.constants.POST_SEARCH_TYPE_TAG
 
-abstract class BasePostsRvAdvancedViewModel : BasePostsRvViewModel() {
+abstract class BasePostsRvAdvancedViewModel<ITEM> : BasePostsRvViewModel<ITEM>() {
+
+    protected val _isLoading = MutableLiveData<Boolean>().apply { value = false }
+    val isLoading: LiveData<Boolean> = _isLoading
 
     // 글 작성 1단계 , 글 검색 페이지
     private val _openPostFirstActivity = MutableLiveData<Boolean>().apply { value = false }

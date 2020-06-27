@@ -2,17 +2,13 @@ package com.bnvs.metaler.util.base.postsrv
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.bnvs.metaler.data.posts.model.Post
 import com.bnvs.metaler.util.base.posts.BasePostsViewModel
 
-abstract class BasePostsRvViewModel : BasePostsViewModel() {
-
-    protected val _isLoading = MutableLiveData<Boolean>().apply { value = false }
-    val isLoading: LiveData<Boolean> = _isLoading
+abstract class BasePostsRvViewModel<ITEM> : BasePostsViewModel() {
 
     // 게시물 리스트
-    protected val _posts = MutableLiveData<List<Post?>>()
-    val posts: LiveData<List<Post?>> = _posts
+    protected val _posts = MutableLiveData<List<ITEM?>>()
+    val posts: LiveData<List<ITEM?>> = _posts
     protected val _hasNextPage = MutableLiveData<Boolean>().apply { false }
     val hasNextPage: LiveData<Boolean> = _hasNextPage
 
@@ -33,7 +29,7 @@ abstract class BasePostsRvViewModel : BasePostsViewModel() {
 
     protected fun setItemLoadingView(b: Boolean) {
         val list = posts.value
-        val nullPost: Post? = null
+        val nullPost: ITEM? = null
         if (!list.isNullOrEmpty()) {
             if (b) {
                 _posts.value = list.plus(nullPost)

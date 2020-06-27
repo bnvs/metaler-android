@@ -12,8 +12,8 @@ import com.bnvs.metaler.view.posts.recyclerview.adapter.TagsAdapter
 import com.bnvs.metaler.view.posts.recyclerview.listener.PostClickListener
 import com.bnvs.metaler.view.posts.recyclerview.listener.TagClickListener
 
-abstract class BasePostsRvAdvancedActivity<VM : BasePostsRvAdvancedViewModel>
-    : BasePostsRvActivity<VM>() {
+abstract class BasePostsRvAdvancedActivity<VM : BasePostsRvAdvancedViewModel<ITEM>, ITEM>
+    : BasePostsRvActivity<VM, ITEM>() {
 
     protected val postsAdapter =
         PostsAdapter(object :
