@@ -28,7 +28,7 @@
             app:layout_constraintTop_toTopOf="@id/upperGuide" />
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/bottomGuide"
+            android:id="@+id/bottomGuide1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -42,7 +42,7 @@
             android:textSize="25dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/bottomGuide" />
+            app:layout_constraintTop_toTopOf="@id/bottomGuide1" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -117,12 +117,12 @@
             android:layout_height="0dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            app:layout_constraintBottom_toTopOf="@id/bottomGuide"
+            app:layout_constraintBottom_toTopOf="@id/bottomGuide2"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent" />
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/bottomGuide"
+            android:id="@+id/bottomGuide2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"

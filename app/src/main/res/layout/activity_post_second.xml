@@ -43,7 +43,7 @@
                         android:id="@+id/shopNameTxt"
                         style="@style/postMenuTextView"
                         android:layout_marginLeft="@dimen/wideMargin"
-                        android:layout_marginTop="5dp"
+                        android:layout_marginTop="10dp"
                         android:text="@string/shop_name"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -71,7 +71,7 @@
                         android:id="@+id/shopNameLine"
                         style="@style/postDivider"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/shopNameInput" />
+                        app:layout_constraintTop_toBottomOf="@id/shopNameRv" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
 
