@@ -15,6 +15,7 @@ import com.bnvs.metaler.databinding.DialogTagInputBinding
 class DialogTagInput(
     private val viewModel: ViewModelTagSuggest,
     private val type: String,
+    private val setTag: String?,
     private val addTag: (tagInput: String) -> Unit
 ) : DialogFragment() {
 
@@ -28,6 +29,9 @@ class DialogTagInput(
                 lifecycleOwner = it
                 vm = viewModel
                 tagInputEditTxt.let {
+                    if (!setTag.isNullOrBlank()) {
+                        it.setText(setTag)
+                    }
                     it.setAdapter(getHashTagSuggestAdapter())
                     it.addTextChangedListener(object : TextWatcher {
                         override fun afterTextChanged(s: Editable?) {}
@@ -57,7 +61,7 @@ class DialogTagInput(
                 }
             }
             builder
-                .setTitle("태그 추가")
+                .setTitle(getDialogTitle())
                 .setView(binding.root)
                 .setPositiveButton("확인") { dialog, _ ->
                     (dialog as Dialog).findViewById<EditText>(R.id.tagInputEditTxt)
@@ -80,5 +84,13 @@ class DialogTagInput(
             context ?: throw IllegalStateException("context cannot be null"),
             android.R.layout.simple_list_item_1
         )
+    }
+
+    private fun getDialogTitle(): String {
+        return if (setTag.isNullOrBlank()) {
+            "태그 추가"
+        } else {
+            "태그 수정"
+        }
     }
 }

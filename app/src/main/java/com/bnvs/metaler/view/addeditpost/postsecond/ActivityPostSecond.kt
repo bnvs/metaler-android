@@ -1,10 +1,8 @@
 package com.bnvs.metaler.view.addeditpost.postsecond
 
-import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -188,33 +186,20 @@ class ActivityPostSecond : BaseActivity<ViewModelPostSecond>() {
         DialogTagInput(
             viewModelTagSuggest,
             type,
+            null,
             addTag = { tag ->
                 viewModel.addTag(type, tag)
-            }).show(supportFragmentManager, "tagInput")
+            }).show(supportFragmentManager, "ADD_TAG_DIALOG")
     }
 
     private fun openEditTagDialog(type: String, position: Int) {
-        val content = layoutInflater.inflate(R.layout.dialog_tag_input, null).apply {
-            viewModel.getTagString(type, position).let {
-                if (it.isNotBlank()) {
-                    this.findViewById<EditText>(R.id.tagInputEditTxt).setText(it)
-                }
-            }
-        }
-        AlertDialog.Builder(this@ActivityPostSecond)
-            .setTitle("태그 수정")
-            .setView(content)
-            .setPositiveButton("확인") { dialog, _ ->
-                (dialog as Dialog).findViewById<EditText>(R.id.tagInputEditTxt).let {
-                    val tagInput: String? = it.text.toString()
-                    if (!tagInput.isNullOrBlank()) {
-                        viewModel.editTag(type, tagInput, position)
-                    }
-                }
-            }
-            .setNegativeButton("취소") { _, _ ->
-            }
-            .show()
+        DialogTagInput(
+            viewModelTagSuggest,
+            type,
+            viewModel.getTagString(type, position),
+            addTag = { tag ->
+                viewModel.editTag(type, tag, position)
+            }).show(supportFragmentManager, "EDIT_TAG_DIALOG")
     }
 
     private fun openDeleteTagDialog(type: String, position: Int) {
