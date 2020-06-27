@@ -71,7 +71,7 @@ class ActivityPostSecond : BaseActivity<ViewModelPostSecond>() {
     override fun observeViewModel() {
         super.observeViewModel()
         observeBackToPostFirstActivity()
-
+        observeFinishAddEditPostActivity()
     }
 
     private fun getPostId() {
@@ -245,14 +245,12 @@ class ActivityPostSecond : BaseActivity<ViewModelPostSecond>() {
             "materials" -> {
                 Intent(this, ActivityMaterials::class.java).apply {
                     flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-                    startActivity(this)
-                }
+                }.also { startActivity(it) }
             }
             "manufacture" -> {
                 Intent(this, ActivityManufactures::class.java).apply {
                     flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-                    startActivity(this)
-                }
+                }.also { startActivity(it) }
             }
         }
     }
