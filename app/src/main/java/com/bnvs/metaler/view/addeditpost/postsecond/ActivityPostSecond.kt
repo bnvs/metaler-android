@@ -43,24 +43,24 @@ class ActivityPostSecond : BaseActivity<ViewModelPostSecond>() {
                 it.layoutManager = getFlexBoxLayoutManager()
                 it.adapter = TagInputAdapter(
                     getString(R.string.shop_name_guide),
-                    tagClick = { position -> openTagSelectionDialog("store", position) },
-                    addTagClick = { openAddTagDialog("store") }
+                    tagClick = { position -> viewModel.openTagSelectionDialog("store", position) },
+                    addTagClick = { viewModel.openAddTagDialog("store") }
                 )
             }
             workRv.let {
                 it.layoutManager = getFlexBoxLayoutManager()
                 it.adapter = TagInputAdapter(
                     getString(R.string.work_guide),
-                    tagClick = { position -> openTagSelectionDialog("work", position) },
-                    addTagClick = { openAddTagDialog("work") }
+                    tagClick = { position -> viewModel.openTagSelectionDialog("work", position) },
+                    addTagClick = { viewModel.openAddTagDialog("work") }
                 )
             }
             etcRv.let {
                 it.layoutManager = getFlexBoxLayoutManager()
                 it.adapter = TagInputAdapter(
                     getString(R.string.tag_input_guide),
-                    tagClick = { position -> openTagSelectionDialog("etc", position) },
-                    addTagClick = { openAddTagDialog("etc") }
+                    tagClick = { position -> viewModel.openTagSelectionDialog("etc", position) },
+                    addTagClick = { viewModel.openAddTagDialog("etc") }
                 )
             }
         }
@@ -72,6 +72,10 @@ class ActivityPostSecond : BaseActivity<ViewModelPostSecond>() {
         super.observeViewModel()
         observeBackToPostFirstActivity()
         observeFinishAddEditPostActivity()
+        observeOpenTagSelectionDialog()
+        observeOpenAddTagDialog()
+        observeOpenEditTagDialog()
+        observeOpenDeleteTagDialog()
     }
 
     private fun getPostId() {
@@ -81,6 +85,13 @@ class ActivityPostSecond : BaseActivity<ViewModelPostSecond>() {
             viewModel.setPostId(null)
         } else {
             viewModel.setPostId(postId)
+        }
+    }
+
+    private fun getFlexBoxLayoutManager(): FlexboxLayoutManager {
+        return FlexboxLayoutManager(this).apply {
+            flexWrap = FlexWrap.WRAP
+            flexDirection = FlexDirection.ROW
         }
     }
 
@@ -106,11 +117,57 @@ class ActivityPostSecond : BaseActivity<ViewModelPostSecond>() {
         )
     }
 
-    private fun getFlexBoxLayoutManager(): FlexboxLayoutManager {
-        return FlexboxLayoutManager(this).apply {
-            flexWrap = FlexWrap.WRAP
-            flexDirection = FlexDirection.ROW
-        }
+    private fun observeOpenTagSelectionDialog() {
+        viewModel.openTagSelectionDialog.observe(
+            this,
+            Observer { openDialog ->
+                if (openDialog.isNotEmpty()) {
+                    openTagSelectionDialog(
+                        openDialog["type"] as String,
+                        openDialog["position"] as Int
+                    )
+                }
+            }
+        )
+    }
+
+    private fun observeOpenAddTagDialog() {
+        viewModel.openAddTagDialog.observe(
+            this,
+            Observer { openDialog ->
+                if (openDialog.isNotEmpty()) {
+                    openAddTagDialog(openDialog["type"] as String)
+                }
+            }
+        )
+    }
+
+    private fun observeOpenEditTagDialog() {
+        viewModel.openEditTagDialog.observe(
+            this,
+            Observer { openDialog ->
+                if (openDialog.isNotEmpty()) {
+                    openEditTagDialog(
+                        openDialog["type"] as String,
+                        openDialog["position"] as Int
+                    )
+                }
+            }
+        )
+    }
+
+    private fun observeOpenDeleteTagDialog() {
+        viewModel.openDeleteTagDialog.observe(
+            this,
+            Observer { openDialog ->
+                if (openDialog.isNotEmpty()) {
+                    openDeleteTagDialog(
+                        openDialog["type"] as String,
+                        openDialog["position"] as Int
+                    )
+                }
+            }
+        )
     }
 
     private fun openTagSelectionDialog(type: String, position: Int) {
@@ -119,8 +176,8 @@ class ActivityPostSecond : BaseActivity<ViewModelPostSecond>() {
             .setTitle("#${viewModel.getTagString(type, position)}")
             .setItems(array) { _, which ->
                 when (array[which]) {
-                    "태그 수정" -> openEditTagDialog(type, position)
-                    "태그 삭제" -> openDeleteTagDialog(type, position)
+                    "태그 수정" -> viewModel.openEditTagDialog(type, position)
+                    "태그 삭제" -> viewModel.openDeleteTagDialog(type, position)
                 }
             }
             .show()

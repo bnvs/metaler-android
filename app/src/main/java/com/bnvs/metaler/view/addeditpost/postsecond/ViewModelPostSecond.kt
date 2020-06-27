@@ -39,6 +39,20 @@ class ViewModelPostSecond(
     private val _finishAddEditPostActivity = MutableLiveData<String>().apply { value = "" }
     val finishAddEditPostActivity: LiveData<String> = _finishAddEditPostActivity
 
+    // 다이얼로그 띄우기 관련 데이터
+    private val _openTagSelectionDialog =
+        MutableLiveData<Map<String, Any>>().apply { value = mapOf() }
+    val openTagSelectionDialog: LiveData<Map<String, Any>> = _openTagSelectionDialog
+    private val _openAddTagDialog =
+        MutableLiveData<Map<String, Any>>().apply { value = mapOf() }
+    val openAddTagDialog: LiveData<Map<String, Any>> = _openAddTagDialog
+    private val _openEditTagDialog =
+        MutableLiveData<Map<String, Any>>().apply { value = mapOf() }
+    val openEditTagDialog: LiveData<Map<String, Any>> = _openEditTagDialog
+    private val _openDeleteTagDialog =
+        MutableLiveData<Map<String, Any>>().apply { value = mapOf() }
+    val openDeleteTagDialog: LiveData<Map<String, Any>> = _openDeleteTagDialog
+
     // input focus  관련 데이터
     private val _focusToView = MutableLiveData<String>()
     val focusToView: LiveData<String> = _focusToView
@@ -165,11 +179,7 @@ class ViewModelPostSecond(
                     if (it?.contains(tag) == true) {
                         _errorToastMessage.setMessage("동일한 내용의 태그가 존재합니다")
                     } else {
-                        if (it?.size ?: 0 > 9) {
-                            _errorToastMessage.setMessage("가게 이름 태그는 최대 10개까지 입력 가능합니다")
-                        } else {
-                            _storeTags.value = storeTags.value?.plus(tag) ?: listOf(tag)
-                        }
+                        _storeTags.value = storeTags.value?.plus(tag) ?: listOf(tag)
                     }
                 }
             }
@@ -178,11 +188,7 @@ class ViewModelPostSecond(
                     if (it?.contains(tag) == true) {
                         _errorToastMessage.setMessage("동일한 내용의 태그가 존재합니다")
                     } else {
-                        if (it?.size ?: 0 > 9) {
-                            _errorToastMessage.setMessage("작업 종류 태그는 최대 10개까지 입력 가능합니다")
-                        } else {
-                            _workTags.value = workTags.value?.plus(tag) ?: listOf(tag)
-                        }
+                        _workTags.value = workTags.value?.plus(tag) ?: listOf(tag)
                     }
                 }
             }
@@ -191,11 +197,7 @@ class ViewModelPostSecond(
                     if (it?.contains(tag) == true) {
                         _errorToastMessage.setMessage("동일한 내용의 태그가 존재합니다")
                     } else {
-                        if (it?.size ?: 0 > 19) {
-                            _errorToastMessage.setMessage("기타 태그는 최대 20개까지 입력 가능합니다")
-                        } else {
-                            _etcTags.value = etcTags.value?.plus(tag) ?: listOf(tag)
-                        }
+                        _etcTags.value = etcTags.value?.plus(tag) ?: listOf(tag)
                     }
                 }
             }
@@ -308,5 +310,43 @@ class ViewModelPostSecond(
 
     private fun finishAddEditPostActivity() {
         _finishAddEditPostActivity.setMessage(categoryType.value ?: "")
+    }
+
+    fun openTagSelectionDialog(type: String, position: Int) {
+        _openTagSelectionDialog.value = mapOf("type" to type, "position" to position)
+    }
+
+    fun openAddTagDialog(type: String) {
+        when (type) {
+            "store" -> {
+                if (_storeTags.value?.size ?: 0 > 9) {
+                    _errorToastMessage.setMessage("가게 이름 태그는 최대 10개까지 입력 가능합니다")
+                } else {
+                    _openAddTagDialog.value = mapOf("type" to type)
+                }
+            }
+            "work" -> {
+                if (_workTags.value?.size ?: 0 > 9) {
+                    _errorToastMessage.setMessage("작업 종류 태그는 최대 10개까지 입력 가능합니다")
+                } else {
+                    _openAddTagDialog.value = mapOf("type" to type)
+                }
+            }
+            "etc" -> {
+                if (_etcTags.value?.size ?: 0 > 19) {
+                    _errorToastMessage.setMessage("기타 태그는 최대 20개까지 입력 가능합니다")
+                } else {
+                    _openAddTagDialog.value = mapOf("type" to type)
+                }
+            }
+        }
+    }
+
+    fun openEditTagDialog(type: String, position: Int) {
+        _openEditTagDialog.value = mapOf("type" to type, "position" to position)
+    }
+
+    fun openDeleteTagDialog(type: String, position: Int) {
+        _openDeleteTagDialog.value = mapOf("type" to type, "position" to position)
     }
 }
