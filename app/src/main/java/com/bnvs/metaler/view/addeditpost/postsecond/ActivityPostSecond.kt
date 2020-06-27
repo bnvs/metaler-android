@@ -28,8 +28,7 @@ class ActivityPostSecond : BaseActivity<ViewModelPostSecond>() {
     }
 
     override val viewModel: ViewModelPostSecond by inject()
-
-    private lateinit var shopInputAdapter: HashTagSuggestAdapter
+    private val viewModelTagSuggest: ViewModelTagSuggest by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -184,20 +183,9 @@ class ActivityPostSecond : BaseActivity<ViewModelPostSecond>() {
     }
 
     private fun openAddTagDialog(type: String) {
-        AlertDialog.Builder(this@ActivityPostSecond)
-            .setTitle("태그 추가")
-            .setView(R.layout.dialog_tag_input)
-            .setPositiveButton("확인") { dialog, which ->
-                (dialog as Dialog).findViewById<EditText>(R.id.tagInputEditTxt).let {
-                    val tagInput: String? = it.text.toString()
-                    if (!tagInput.isNullOrBlank()) {
-                        viewModel.addTag(type, tagInput)
-                    }
-                }
-            }
-            .setNegativeButton("취소") { _, _ ->
-            }
-            .show()
+        DialogTagInput(viewModelTagSuggest, type, addTag = { tag ->
+            viewModel.addTag(type, tag)
+        }).show(supportFragmentManager, "tagInput")
     }
 
     private fun openEditTagDialog(type: String, position: Int) {
@@ -234,67 +222,6 @@ class ActivityPostSecond : BaseActivity<ViewModelPostSecond>() {
             .setNegativeButton("취소") { _, _ ->
             }
             .show()
-    }
-
-    /*override fun setShopNameTagInputAdapter() {
-        shopInputAdapter =
-            HashTagSuggestAdapter(
-                this,
-                android.R.layout.simple_list_item_1
-            )
-        shopNameInput.apply {
-            setAdapter(shopInputAdapter)
-            setTokenizer(SpaceTokenizer())
-            addTextChangedListener(object : TextWatcher {
-                override fun afterTextChanged(s: Editable?) {}
-
-                override fun beforeTextChanged(
-                    s: CharSequence?,
-                    start: Int,
-                    count: Int,
-                    after: Int
-                ) {
-                }
-
-                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                    if (!s.isNullOrBlank()) {
-                        Log.d(
-                            "shopNameInput",
-                            "onTextChanged - start: $start, before: $before, count: $count"
-                        )
-                        Log.d(
-                            "shopNameInput",
-                            "onTextChanged 지금 첫 번째 글자는? ${shopNameInput.text.toString()[start]}"
-                        )
-                        Log.d(
-                            "shopNameInput",
-                            "onTextChanged 지금 작성중인 글자는? ${shopNameInput.text.toString().substring(
-                                start,
-                                start + count
-                            )}"
-                        )
-
-                        shopNameInput.showDropDown()
-                        presenter.getTagSuggestion(
-                            1,
-                            shopNameInput.text.toString().substring(start, start + count)
-                        )
-                    } else {
-                        shopNameInput.dismissDropDown()
-                    }
-                }
-            })
-        }
-    }*/
-
-    fun setTagSuggestions(type: Int, tags: List<String>) {
-        Log.d("태그 setTagSuggestions", "type: $type, tags: $tags")
-        when (type) {
-            1 -> {
-                shopInputAdapter.setSuggests(tags)
-                shopInputAdapter.notifyDataSetChanged()
-            }
-        }
     }
 
     private fun finishAddEditUi(categoryType: String) {
