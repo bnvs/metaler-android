@@ -37,6 +37,7 @@
             android:layout_marginLeft="5dp"
             android:layout_marginRight="25dp"
             android:completionThreshold="1"
+            android:dropDownHeight="150dp"
             android:hint="태그를 입력해주세요"
             android:inputType="text"
             android:maxLength="20"
