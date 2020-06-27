@@ -59,7 +59,7 @@ class ViewModelPostSecond(
                         response.let {
                             addEditPostCache.value = it
                             _categoryType.value = it.category_type
-                            setTagsWithCache()
+                            setTagsFromCache()
                         }
                     },
                     onFailure = { _errorToastMessage.setMessage("게시물 작성 1단계 내용을 불러오는 데 실패했습니다") }
@@ -72,7 +72,7 @@ class ViewModelPostSecond(
                         response.let {
                             addEditPostCache.value = it
                             _categoryType.value = it.category_type
-                            setTagsWithCache()
+                            setTagsFromCache()
                         }
                     },
                     onFailure = { _errorToastMessage.setMessage("게시물 수정 1단계 내용을 불러오는 데 실패했습니다") }
@@ -81,7 +81,7 @@ class ViewModelPostSecond(
         }
     }
 
-    private fun setTagsWithCache() {
+    private fun setTagsFromCache() {
         when (categoryType.value) {
             "materials" -> {
                 addEditPostCache.value?.tags?.let { postTags ->
