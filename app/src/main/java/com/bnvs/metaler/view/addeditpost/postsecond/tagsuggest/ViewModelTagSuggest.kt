@@ -1,4 +1,4 @@
-package com.bnvs.metaler.view.addeditpost.postsecond
+package com.bnvs.metaler.view.addeditpost.postsecond.tagsuggest
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

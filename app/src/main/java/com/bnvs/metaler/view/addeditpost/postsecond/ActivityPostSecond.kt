@@ -12,6 +12,8 @@ import com.bnvs.metaler.R
 import com.bnvs.metaler.databinding.ActivityPostSecondBinding
 import com.bnvs.metaler.util.base.BaseActivity
 import com.bnvs.metaler.view.addeditpost.postsecond.tags.TagInputAdapter
+import com.bnvs.metaler.view.addeditpost.postsecond.tagsuggest.DialogTagInput
+import com.bnvs.metaler.view.addeditpost.postsecond.tagsuggest.ViewModelTagSuggest
 import com.bnvs.metaler.view.posts.manufactures.ActivityManufactures
 import com.bnvs.metaler.view.posts.materials.ActivityMaterials
 import com.google.android.flexbox.FlexDirection
@@ -183,9 +185,12 @@ class ActivityPostSecond : BaseActivity<ViewModelPostSecond>() {
     }
 
     private fun openAddTagDialog(type: String) {
-        DialogTagInput(viewModelTagSuggest, type, addTag = { tag ->
-            viewModel.addTag(type, tag)
-        }).show(supportFragmentManager, "tagInput")
+        DialogTagInput(
+            viewModelTagSuggest,
+            type,
+            addTag = { tag ->
+                viewModel.addTag(type, tag)
+            }).show(supportFragmentManager, "tagInput")
     }
 
     private fun openEditTagDialog(type: String, position: Int) {

@@ -5,6 +5,7 @@ import android.widget.AutoCompleteTextView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bnvs.metaler.view.addeditpost.postsecond.tags.TagInputAdapter
+import com.bnvs.metaler.view.addeditpost.postsecond.tagsuggest.HashTagSuggestAdapter
 
 @BindingAdapter("workTagInputVisibility")
 fun workTagInputVisibility(view: View, categoryType: String) {
