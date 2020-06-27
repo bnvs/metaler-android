@@ -22,7 +22,7 @@ class DialogTagInput(
 
     companion object {
         private const val TRIGGER_AUTO_COMPLETE = 200
-        private const val AUTO_COMPLETE_DELAY = 300L
+        private const val AUTO_COMPLETE_DELAY = 50L
     }
 
     private val viewModel: ViewModelTagSuggest by inject()
