@@ -1,201 +1,70 @@
 package com.bnvs.metaler.view.bookmarks
 
 import android.os.Bundle
-import android.os.Handler
-import android.view.View
-import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bnvs.metaler.R
 import com.bnvs.metaler.data.bookmarks.model.Bookmark
-import com.bnvs.metaler.util.EndlessRecyclerViewScrollListener
+import com.bnvs.metaler.databinding.ActivityBookmarkBinding
+import com.bnvs.metaler.util.base.postsrv.BasePostsRvActivity
+import com.bnvs.metaler.view.bookmarks.recyclerview.BookmarkClickListener
+import com.bnvs.metaler.view.bookmarks.recyclerview.BookmarksAdapter
 import kotlinx.android.synthetic.main.activity_bookmark.*
+import org.koin.android.ext.android.inject
 
-class ActivityBookmarks : AppCompatActivity(), ContractBookmarks.View {
+class ActivityBookmarks : BasePostsRvActivity<ViewModelBookmarks, Bookmark>() {
 
     private val TAG = "ActivityBookmarks"
 
-    override lateinit var presenter: ContractBookmarks.Presenter
+    override val viewModel: ViewModelBookmarks by inject()
 
-    lateinit var bookmarks: List<Bookmark>
-    lateinit var bookmarkPostAdapter: BookmarkAdapter
-    lateinit var scrollListener: EndlessRecyclerViewScrollListener
-    lateinit var bookmarkPostLayoutManager: RecyclerView.LayoutManager
-    var loadMorebookmarks: ArrayList<Bookmark?> = ArrayList()
-
-    /**
-     * 북마크 재료/가공 카테고리 눌렀을 때 보여지는 재료/가공 게시물 리사이클러뷰 아이템에 달아줄 클릭리스너입니다
-     * 아이템 클릭 시, 클릭한 게시물의 post_id 를 presenter 에 전달합니다.
-     * onPostClick -> 게시물을 클릭한 경우
-     * onDeleteButtonClick -> 북마크 제거 버튼을 클릭한 경우
-     * */
-    private var bookmarkItemListener: BookmarkPostItemListener = object : BookmarkPostItemListener {
-        override fun onPostClick(view: View, clickedPostId: Int) {
-            presenter.openPostDetail(clickedPostId)
+    private val bookmarksAdapter = BookmarksAdapter(object : BookmarkClickListener {
+        override fun onPostClick(postId: Int) {
+            viewModel.openPostDetail(postId)
         }
 
-        override fun onDeleteButtonClick(view: View, bookmarkId: Int, position: Int) {
-            showBookmarkDeleteDialog(bookmarkId, position)
+        override fun deleteBookmarkButtonClick(bookmarkId: Int, position: Int) {
+            viewModel.deleteBookmark(bookmarkId, position)
         }
-    }
+    })
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_bookmark)
 
-        // Create the presenter
-        presenter = PresenterBookmarks(
-            this@ActivityBookmarks,
-            this@ActivityBookmarks
-        )
+        DataBindingUtil.setContentView<ActivityBookmarkBinding>(
+            this,
+            R.layout.activity_bookmark
+        ).apply {
+            vm = viewModel
+            lifecycleOwner = this@ActivityBookmarks
+            bookmarkRV.adapter = BookmarksAdapter(object : BookmarkClickListener {
+                override fun onPostClick(postId: Int) {
+                    viewModel.openPostDetail(postId)
+                }
 
-        // Set up Buttons
-        initClickListeners()
-
-        activeMaterialsCategoryBtn()
-
-        presenter.run {
-            start()
+                override fun deleteBookmarkButtonClick(bookmarkId: Int, position: Int) {
+                    viewModel.deleteBookmark(bookmarkId, position)
+                }
+            })
         }
-
-        setRVLayoutManager()
-
-        setRVScrollListener()
-
+        observeViewModel()
+        setListeners()
     }
 
-    private fun setRVLayoutManager() {
-        bookmarkPostLayoutManager = LinearLayoutManager(this)
-        bookmarkRV.layoutManager = bookmarkPostLayoutManager
-        bookmarkRV.setHasFixedSize(true)
-    }
-
-    private fun setRVScrollListener() {
-        bookmarkPostLayoutManager = LinearLayoutManager(this)
-        scrollListener =
-            EndlessRecyclerViewScrollListener(bookmarkPostLayoutManager as LinearLayoutManager)
-        scrollListener.setOnLoadMoreListener(object :
-            EndlessRecyclerViewScrollListener.OnLoadMoreListener {
-            override fun onLoadMore() {
-
-                //loadMorePosts 에 null값을 추가해서 로딩뷰를 만든다.
-                bookmarkPostAdapter.addLoadingView()
-                loadMorebookmarks.add(null)
-
-                //loadMorebookmarks 는 다음페이지 데이터를 받아올 때만 데이터를 추가하기 때문에 조건절로 비어있는지 확인해야함
-                if (!loadMorebookmarks.isEmpty()) {
-                    //loadMorebookmarks 마지막 값이 null값이 있으면 무한스크롤 로딩 중이기 때문에 데이터를 받아오고, 로딩뷰를 제거한다.
-                    if (loadMorebookmarks[loadMorebookmarks.size - 1] == null) {
-                        presenter.loadMoreBookmarkPosts(presenter.requestPosts(presenter.getCategoryType()))
+    override fun setRecyclerViewScrollListener() {
+        bookmarkRV.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                val layoutManager = bookmarkRV.layoutManager
+                if (viewModel.hasNextPage.value == true) {
+                    val lastVisibleItem = (layoutManager as LinearLayoutManager)
+                        .findLastCompletelyVisibleItemPosition()
+                    if (layoutManager.itemCount <= lastVisibleItem + 5) {
+                        viewModel.loadMorePosts()
                     }
                 }
-
             }
         })
-        bookmarkRV.addOnScrollListener(scrollListener)
     }
-
-    override fun removeLoadingView() {
-        bookmarkPostAdapter.removeLoadingView()
-    }
-
-    override fun showBookmarkPostsList(bookmarks: List<Bookmark>) {
-        bookmarkPostAdapter = BookmarkAdapter(bookmarkItemListener)
-        bookmarkPostAdapter.addPosts(bookmarks)
-        bookmarkPostAdapter.notifyDataSetChanged()
-        bookmarkRV.adapter = bookmarkPostAdapter
-        bookmarkRV.visibility = View.VISIBLE
-    }
-
-    override fun showMoreBookmarkPostsList(bookmarks: List<Bookmark>) {
-
-        if (loadMorebookmarks[loadMorebookmarks.size - 1] == null) {
-            Handler().postDelayed({
-                bookmarkPostAdapter.removeLoadingView()
-
-                loadMorebookmarks.removeAll(loadMorebookmarks)
-                loadMorebookmarks.addAll(bookmarks)
-
-                bookmarkPostAdapter.addMorePosts(loadMorebookmarks)
-                scrollListener.setLoaded()
-
-                bookmarkRV.post {
-                    bookmarkPostAdapter.notifyDataSetChanged()
-                }
-
-            }, 1000)
-        }
-    }
-
-    override fun showBookmarkDeleteDialog(bookmarkId: Int, position: Int) {
-        AlertDialog.Builder(this@ActivityBookmarks)
-            .setTitle("북마크를 취소하시겠습니까?")
-            .setPositiveButton("확인") { dialog, which ->
-                presenter.deleteBookmark(bookmarkId)
-                bookmarkPostAdapter.deleteBookmark(position)
-            }
-            .setNegativeButton("취소") { _, _ ->
-            }
-            .show()
-    }
-
-    private fun initClickListeners() {
-        setCategoryButtons()
-        setTapBarButtons()
-    }
-
-    private fun activeMaterialsCategoryBtn() {
-        materialsCategoryBtn.setTextColor(ContextCompat.getColor(this, R.color.colorPurple))
-        materialsBar.visibility = View.VISIBLE
-        manufactureCategoryBtn.setTextColor(ContextCompat.getColor(this, R.color.colorLightGrey))
-        manufactureBar.visibility = View.INVISIBLE
-    }
-
-    private fun activeManufactureCategoryBtn() {
-        manufactureCategoryBtn.setTextColor(ContextCompat.getColor(this, R.color.colorPurple))
-        manufactureBar.visibility = View.VISIBLE
-        materialsCategoryBtn.setTextColor(ContextCompat.getColor(this, R.color.colorLightGrey))
-        materialsBar.visibility = View.INVISIBLE
-    }
-
-    private fun setCategoryButtons() {
-        materialsCategoryBtn.setOnClickListener {
-            activeMaterialsCategoryBtn()
-            bookmarkPostAdapter.resetList()
-            presenter.openMaterialsList()
-        }
-        manufactureCategoryBtn.setOnClickListener {
-            activeManufactureCategoryBtn()
-            bookmarkPostAdapter.resetList()
-            presenter.openManufacturesList()
-        }
-    }
-
-    private fun setTapBarButtons() {
-        homeBtn.setOnClickListener {
-            presenter.openHome(this, this)
-            finishActivity()
-        }
-        materialsBtn.setOnClickListener {
-            presenter.openMaterials(this, this)
-            finishActivity()
-        }
-        manufactureBtn.setOnClickListener {
-            presenter.openManufactures(this, this)
-            finishActivity()
-        }
-        bookmarkBtn.setOnClickListener { }
-        myPageBtn.setOnClickListener {
-            presenter.openMyPage(this, this)
-            finishActivity()
-        }
-    }
-
-    private fun finishActivity() {
-        finish()
-        overridePendingTransition(0, 0)
-    }
-
 }
