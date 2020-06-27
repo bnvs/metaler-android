@@ -9,3 +9,7 @@ const val POST_REQUEST_WITH_SEARCH_TYPE_TAG = 2
 const val POST_SEARCH_TYPE_CONTENT = "content"
 
 const val POST_SEARCH_TYPE_TAG = "tag"
+
+const val MODE_ADD_POST = 0
+
+const val MODE_EDIT_POST = 1

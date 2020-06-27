@@ -81,4 +81,7 @@ dependencies {
 
     // koin
     implementation "org.koin:koin-androidx-viewmodel:$koin_version"
+
+    // FlexBox
+    implementation 'com.google.android:flexbox:2.0.1'
 }
