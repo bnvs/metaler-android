@@ -30,7 +30,7 @@ fun postLoadingViewVisibility(view: View, visibility: Boolean) {
 }
 
 @BindingAdapter("categoryInputVisibility")
-fun categoryInputVisibility(view: View, categoryType: String) {
+fun categoryInputVisibility(view: View, categoryType: String?) {
     when (categoryType) {
         "materials" -> view.visibility = View.VISIBLE
         "manufacture" -> view.visibility = View.GONE

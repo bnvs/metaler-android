@@ -18,6 +18,8 @@ import com.bnvs.metaler.data.postdetails.model.AttachImage
 import com.bnvs.metaler.data.postdetails.source.repository.PostDetailsRepository
 import com.bnvs.metaler.network.NetworkUtil
 import com.bnvs.metaler.util.base.BaseAddEditViewModel
+import com.bnvs.metaler.util.constants.MODE_ADD_POST
+import com.bnvs.metaler.util.constants.MODE_EDIT_POST
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
@@ -30,11 +32,6 @@ class ViewModelPostFirst(
     private val addEditPostRepository: AddEditPostRepository,
     private val postDetailsRepository: PostDetailsRepository
 ) : BaseAddEditViewModel(application) {
-
-    companion object {
-        private const val MODE_ADD_POST = 0
-        private const val MODE_EDIT_POST = 1
-    }
 
     private val context = application.applicationContext
 
@@ -126,6 +123,10 @@ class ViewModelPostFirst(
         }
     }
 
+    fun getPostId(): Int? {
+        return postId
+    }
+
     private fun getCategoryTypeCache() {
         categoriesRepository.getCategoryTypeCache(
             onSuccess = { categoryType ->
@@ -156,6 +157,7 @@ class ViewModelPostFirst(
                     setPriceType(it.price_type)
                     content.value = it.content
                     _attachIds.value = it.attachs
+                    tags.value = it.tags
                 }
             },
             onFailure = { e ->
@@ -184,15 +186,25 @@ class ViewModelPostFirst(
     }
 
     fun setPriceType(priceType: String) {
+        Log.d("지불방식 세팅함", "$priceType")
         when (priceType) {
+            "카드" -> {
+                _priceType.value = "card"
+                _priceTypeChecked.value = mapOf("card" to true, "cash" to false)
+            }
+            "현금" -> {
+                _priceType.value = "cash"
+                _priceTypeChecked.value = mapOf("card" to false, "cash" to true)
+            }
             "card" -> {
-                _priceType.value = priceType
+                _priceType.value = "card"
                 _priceTypeChecked.value = mapOf("card" to true, "cash" to false)
             }
             "cash" -> {
-                _priceType.value = priceType
+                _priceType.value = "cash"
                 _priceTypeChecked.value = mapOf("card" to false, "cash" to true)
             }
+
         }
     }
 
@@ -212,7 +224,7 @@ class ViewModelPostFirst(
         attachIds.value?.let {
             Log.d("사진 개수", "${it.size}")
             if (it.size > 4) {
-                _errorDialogMessage.setMessage("사진은 5장까지 첨부 가능합니다")
+                _errorDialogMessage.setMessage("사진은 최대 5장까지 첨부 가능합니다")
                 return
             } else {
                 _openImageSelectionDialog.enable()
@@ -354,7 +366,8 @@ class ViewModelPostFirst(
                 Log.d("uploadImage", "파일 크기 ${file.length()}Bytes")
                 setLoadingView(false)
                 _errorToastMessage.setMessage(NetworkUtil.getErrorMessage(e))
-            }
+            },
+            handleError = { e -> _errorCode.setErrorCode(e) }
         )
     }
 

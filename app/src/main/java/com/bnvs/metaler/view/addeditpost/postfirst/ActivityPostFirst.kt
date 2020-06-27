@@ -161,9 +161,9 @@ class ActivityPostFirst : BaseAddEditActivity<ViewModelPostFirst>() {
     }
 
     private fun startPostSecondActivity() {
-        Intent(this, ActivityPostSecond::class.java).also {
-            startActivity(it)
-        }
+        Intent(this, ActivityPostSecond::class.java)
+            .apply { putExtra("POST_ID", viewModel.getPostId()) }
+            .also { startActivity(it) }
     }
 
     private fun observeOpenCategorySelectionDialog() {

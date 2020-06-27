@@ -213,7 +213,7 @@ class ActivityDetail : AppCompatActivity(), ContractDetail.View {
 
     override fun openEditPostUi(postId: Int) {
         Intent(this, ActivityPostFirst::class.java).apply {
-            putExtra("POST_ID", postId.toString())
+            putExtra("POST_ID", postId)
             startActivity(this)
         }
     }

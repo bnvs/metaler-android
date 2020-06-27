@@ -36,6 +36,10 @@ abstract class BasePostsRvViewModel : BasePostsViewModel() {
     // 태그/검색어 입력 TextView 텍스트
     val editTextInput = MutableLiveData<String>()
 
+    // 태그 추천 리스트
+    protected val _tagSuggestions = MutableLiveData<List<String>>()
+    val tagSuggestions: LiveData<List<String>> = _tagSuggestions
+
     // 검색어
     private var contentSearchWord: String? = null
 
@@ -50,10 +54,17 @@ abstract class BasePostsRvViewModel : BasePostsViewModel() {
     open fun refresh() {
         _isLoading.value = true
         _hasNextPage.value = false
+        resetPage()
         clearEditTextInput()
         clearSearchWord()
         setTagsRvVisibility()
         setPostRequestType()
+    }
+
+    open fun refreshForOnResume() {
+        _isLoading.value = true
+        _hasNextPage.value = false
+        resetPage()
     }
 
     protected abstract fun setCategoryTypeCache(categoryId: Int)
@@ -83,8 +94,14 @@ abstract class BasePostsRvViewModel : BasePostsViewModel() {
         }
     }
 
+    abstract fun getTagSuggestions(input: String)
+
+    private fun String.removeEmptySpace(): String {
+        return this.replace("\\s".toRegex(), "")
+    }
+
     fun addSearchWord() {
-        val tag = editTextInput.value
+        val tag = (editTextInput.value)?.removeEmptySpace()
         if (tag.isNullOrBlank()) {
             _errorToastMessage.setMessage("검색할 태그를 입력해주세요")
         } else {

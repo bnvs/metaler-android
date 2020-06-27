@@ -3,7 +3,9 @@ package com.bnvs.metaler.data.addeditpost.source.remote
 import com.bnvs.metaler.data.addeditpost.model.AddEditPostRequest
 import com.bnvs.metaler.data.addeditpost.model.AddPostResponse
 import com.bnvs.metaler.data.addeditpost.model.UploadFileResponse
+import com.bnvs.metaler.network.ErrorHandler
 import com.bnvs.metaler.network.RetrofitInterface
+import com.bnvs.metaler.util.constants.NO_ERROR_TO_HANDLE
 import okhttp3.MultipartBody
 import okhttp3.ResponseBody
 import retrofit2.Call
@@ -18,7 +20,8 @@ class AddEditPostRemoteDataSourceImpl(
     override fun addPost(
         request: AddEditPostRequest,
         onSuccess: (response: AddPostResponse) -> Unit,
-        onFailure: (e: Throwable) -> Unit
+        onFailure: (e: Throwable) -> Unit,
+        handleError: (errorCode: Int) -> Unit
     ) {
         retrofitClient.addPost(request).enqueue(object : Callback<AddPostResponse> {
             override fun onResponse(
@@ -29,6 +32,10 @@ class AddEditPostRemoteDataSourceImpl(
                 if (body != null && response.isSuccessful) {
                     onSuccess(body)
                 } else {
+                    val e = ErrorHandler.getErrorCode(HttpException(response))
+                    if (e != NO_ERROR_TO_HANDLE) {
+                        handleError(e)
+                    }
                     onFailure(HttpException(response))
                 }
             }
@@ -43,13 +50,18 @@ class AddEditPostRemoteDataSourceImpl(
         postId: Int,
         request: AddEditPostRequest,
         onSuccess: () -> Unit,
-        onFailure: (e: Throwable) -> Unit
+        onFailure: (e: Throwable) -> Unit,
+        handleError: (errorCode: Int) -> Unit
     ) {
         retrofitClient.modifyPost(postId, request).enqueue(object : Callback<ResponseBody> {
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                 if (response.isSuccessful) {
                     onSuccess()
                 } else {
+                    val e = ErrorHandler.getErrorCode(HttpException(response))
+                    if (e != NO_ERROR_TO_HANDLE) {
+                        handleError(e)
+                    }
                     onFailure(HttpException(response))
                 }
             }
@@ -63,7 +75,8 @@ class AddEditPostRemoteDataSourceImpl(
     override fun uploadFile(
         file: MultipartBody.Part,
         onSuccess: (response: UploadFileResponse) -> Unit,
-        onFailure: (e: Throwable) -> Unit
+        onFailure: (e: Throwable) -> Unit,
+        handleError: (errorCode: Int) -> Unit
     ) {
         retrofitClient.uploadFile(file).enqueue(object : Callback<UploadFileResponse> {
             override fun onResponse(
@@ -74,6 +87,10 @@ class AddEditPostRemoteDataSourceImpl(
                 if (body != null && response.isSuccessful) {
                     onSuccess(body)
                 } else {
+                    val e = ErrorHandler.getErrorCode(HttpException(response))
+                    if (e != NO_ERROR_TO_HANDLE) {
+                        handleError(e)
+                    }
                     onFailure(HttpException(response))
                 }
             }

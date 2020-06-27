@@ -6,6 +6,6 @@ import org.koin.dsl.module
 
 val materialsViewModelModule = module {
     viewModel {
-        ViewModelMaterials(get(), get(), get())
+        ViewModelMaterials(get(), get(), get(), get())
     }
 }

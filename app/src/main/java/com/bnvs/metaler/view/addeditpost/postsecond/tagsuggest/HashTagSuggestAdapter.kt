@@ -1,4 +1,4 @@
-package com.bnvs.metaler.view.addeditpost.postsecond
+package com.bnvs.metaler.view.addeditpost.postsecond.tagsuggest
 
 import android.content.Context
 import android.widget.ArrayAdapter

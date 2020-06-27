@@ -153,4 +153,6 @@ class ViewModelSearch(
     fun finishActivity() {
         _finishActivity.enable()
     }
+
+    override fun getTagSuggestions(input: String) {}
 }

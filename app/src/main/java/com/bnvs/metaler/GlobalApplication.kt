@@ -91,7 +91,8 @@ class GlobalApplication : Application() {
                 materialsViewModelModule,
                 manufacturesViewModelModule,
                 searchViewModelModule,
-                postFirstViewModelModule
+                postFirstViewModelModule,
+                postSecondViewModelModule
             )
         }
     }
