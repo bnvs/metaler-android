@@ -91,7 +91,7 @@ class ActivityPostSecond : BaseActivity<ViewModelPostSecond>() {
     private fun openTagSelectionDialog(type: String, position: Int) {
         val array = arrayOf("태그 수정", "태그 삭제")
         AlertDialog.Builder(this@ActivityPostSecond)
-            .setTitle("태그 선택")
+            .setTitle("#${viewModel.getTagString(type, position)}")
             .setItems(array) { _, which ->
                 when (array[which]) {
                     "태그 수정" -> openEditTagDialog(type, position)
