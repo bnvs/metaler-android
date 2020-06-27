@@ -3,6 +3,7 @@ package com.bnvs.metaler.view.addeditpost.postsecond.tagsuggest
 import android.app.AlertDialog
 import android.app.Dialog
 import android.os.Bundle
+import android.os.Handler
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
@@ -36,6 +37,14 @@ class DialogTagInput(
                 lifecycleOwner = it
                 vm = viewModel
                 tagInputEditTxt.let {
+                    val tagSuggestHandler = Handler(Handler.Callback { msg ->
+                        if (msg.what == TRIGGER_AUTO_COMPLETE) {
+                            if (!it.text.isNullOrBlank()) {
+                                viewModel.getTagSuggestions(type, it.text.toString())
+                            }
+                        }
+                        false
+                    })
                     if (!setTag.isNullOrBlank()) {
                         it.setText(setTag)
                     }
@@ -57,11 +66,9 @@ class DialogTagInput(
                             before: Int,
                             count: Int
                         ) {
-                            if (!s.isNullOrBlank()) {
-                                it.showDropDown()
-                                viewModel.getTagSuggestions(type, it.text.toString())
-                            } else {
-                                it.dismissDropDown()
+                            tagSuggestHandler.run {
+                                removeMessages(TRIGGER_AUTO_COMPLETE)
+                                sendEmptyMessageDelayed(TRIGGER_AUTO_COMPLETE, AUTO_COMPLETE_DELAY)
                             }
                         }
                     })
