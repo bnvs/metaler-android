@@ -2,12 +2,13 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:paddingHorizontal="5dp"
-    android:paddingVertical="5dp">
+    android:paddingHorizontal="3dp"
+    android:paddingTop="7dp"
+    android:paddingBottom="2dp">
 
     <ImageView
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+        android:layout_width="17dp"
+        android:layout_height="17dp"
         android:src="@drawable/ic_tag_add_x3" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
