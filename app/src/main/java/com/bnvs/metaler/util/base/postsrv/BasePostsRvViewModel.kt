@@ -90,8 +90,12 @@ abstract class BasePostsRvViewModel : BasePostsViewModel() {
         }
     }
 
+    private fun String.removeEmptySpace(): String {
+        return this.replace("\\s".toRegex(), "")
+    }
+
     fun addSearchWord() {
-        val tag = editTextInput.value
+        val tag = (editTextInput.value)?.removeEmptySpace()
         if (tag.isNullOrBlank()) {
             _errorToastMessage.setMessage("검색할 태그를 입력해주세요")
         } else {
