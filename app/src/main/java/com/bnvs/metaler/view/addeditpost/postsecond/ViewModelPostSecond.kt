@@ -3,6 +3,7 @@ package com.bnvs.metaler.view.addeditpost.postsecond
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.bnvs.metaler.data.addeditpost.model.AddEditPostLocalCache
+import com.bnvs.metaler.data.addeditpost.model.PostTag
 import com.bnvs.metaler.data.addeditpost.source.repository.AddEditPostRepository
 import com.bnvs.metaler.data.tags.source.repository.TagsRepository
 import com.bnvs.metaler.util.base.BaseViewModel
@@ -32,8 +33,8 @@ class ViewModelPostSecond(
     // 뒤로가기
     private val _backToPostFirstActivity = MutableLiveData<Boolean>().apply { value = false }
     val backToPostFirstActivity: LiveData<Boolean> = _backToPostFirstActivity
-    private val _completeAddEditPostActivity = MutableLiveData<Boolean>().apply { value = false }
-    val completeAddEditPostActivity: LiveData<Boolean> = _completeAddEditPostActivity
+    private val _finishAddEditPostActivity = MutableLiveData<String>()
+    val finishAddEditPostActivity: LiveData<String> = _finishAddEditPostActivity
 
     // input focus  관련 데이터
     private val _focusToView = MutableLiveData<String>()
@@ -77,6 +78,41 @@ class ViewModelPostSecond(
                     },
                     onFailure = { _errorToastMessage.setMessage("게시물 수정 1단계 내용을 불러오는 데 실패했습니다") }
                 )
+            }
+        }
+    }
+
+    private fun savePostSecondCacheData() {
+        addEditPostCache.value?.copy(
+            tags = getIntegratedTagList()
+        )?.let {
+            when (mode) {
+                MODE_ADD_POST -> {
+                    addEditPostRepository.saveAddPostCache(it)
+                }
+                MODE_EDIT_POST -> {
+                    addEditPostRepository.saveEditPostCache(postId!!, it)
+                }
+                else -> {
+                    _errorToastMessage.setMessage("게시글 작성에 문제가 생겼습니다")
+                    return
+                }
+            }
+        } ?: _errorToastMessage.setMessage("게시글 작성 데이터에 문제가 있습니다")
+    }
+
+    private fun getIntegratedTagList(): List<PostTag> {
+        return mutableListOf<PostTag>().apply {
+            for (storeTag in storeTags.value ?: listOf()) {
+                this.add(PostTag("store", storeTag))
+            }
+            if (categoryType.value == "manufacture") {
+                for (workTag in workTags.value ?: listOf()) {
+                    this.add(PostTag("work", workTag))
+                }
+            }
+            for (etcTag in etcTags.value ?: listOf()) {
+                this.add(PostTag("etc", etcTag))
             }
         }
     }
@@ -160,5 +196,21 @@ class ViewModelPostSecond(
                 _etcTags.value = etcTags.value?.filterIndexed { index, _ -> index != position }
             }
         }
+    }
+
+    fun backToPostSecondActivity() {
+        // addEditPostCache 저장 로직 추가
+        _backToPostFirstActivity.enable()
+    }
+
+    fun completeAddEditPostActivity() {
+        // tags 유효성 검사 로직 추가 -> 실패 시 다이얼로그 띄우기(필수 태그를 입력해주세요)
+        // addEditPostCache 저장 로직 추가
+        // addEditPost 서버에 요청 시작
+
+    }
+
+    private fun finishAddEditPostActivity() {
+        _finishAddEditPostActivity.setMessage(categoryType.value ?: "")
     }
 }
