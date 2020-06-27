@@ -8,11 +8,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bnvs.metaler.R
 import com.bnvs.metaler.databinding.ActivitySearchBinding
-import com.bnvs.metaler.util.base.postsrv.BasePostsRvActivity
+import com.bnvs.metaler.util.base.postsrvadvanced.BasePostsRvAdvancedActivity
 import kotlinx.android.synthetic.main.activity_search.*
 import org.koin.android.ext.android.inject
 
-class ActivitySearch : BasePostsRvActivity<ViewModelSearch>() {
+class ActivitySearch : BasePostsRvAdvancedActivity<ViewModelSearch>() {
 
     override val viewModel: ViewModelSearch by inject()
 

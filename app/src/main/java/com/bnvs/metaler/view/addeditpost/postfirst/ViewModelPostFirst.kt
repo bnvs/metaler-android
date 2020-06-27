@@ -17,7 +17,7 @@ import com.bnvs.metaler.data.categories.source.repository.CategoriesRepository
 import com.bnvs.metaler.data.postdetails.model.AttachImage
 import com.bnvs.metaler.data.postdetails.source.repository.PostDetailsRepository
 import com.bnvs.metaler.network.NetworkUtil
-import com.bnvs.metaler.util.base.BaseAddEditViewModel
+import com.bnvs.metaler.util.base.addedit.BaseAddEditViewModel
 import com.bnvs.metaler.util.constants.MODE_ADD_POST
 import com.bnvs.metaler.util.constants.MODE_EDIT_POST
 import okhttp3.MediaType.Companion.toMediaTypeOrNull

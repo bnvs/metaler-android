@@ -1,4 +1,4 @@
-package com.bnvs.metaler.util.base
+package com.bnvs.metaler.util.base.addedit
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel

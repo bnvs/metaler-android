@@ -18,7 +18,7 @@ import androidx.lifecycle.Observer
 import com.bnvs.metaler.R
 import com.bnvs.metaler.data.categories.model.Category
 import com.bnvs.metaler.databinding.ActivityPostFirstBinding
-import com.bnvs.metaler.util.base.BaseAddEditActivity
+import com.bnvs.metaler.util.base.addedit.BaseAddEditActivity
 import com.bnvs.metaler.view.addeditpost.postfirst.thumbnails.ThumbnailAdapter
 import com.bnvs.metaler.view.addeditpost.postsecond.ActivityPostSecond
 import kotlinx.android.synthetic.main.activity_post_first.*

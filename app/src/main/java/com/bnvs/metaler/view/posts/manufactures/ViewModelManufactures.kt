@@ -11,7 +11,7 @@ import com.bnvs.metaler.data.posts.source.repository.PostsRepository
 import com.bnvs.metaler.data.tags.model.TagsRequest
 import com.bnvs.metaler.data.tags.source.repository.TagsRepository
 import com.bnvs.metaler.network.NetworkUtil
-import com.bnvs.metaler.util.base.postsrv.BasePostsRvViewModel
+import com.bnvs.metaler.util.base.postsrvadvanced.BasePostsRvAdvancedViewModel
 import com.bnvs.metaler.util.constants.POST_REQUEST_TYPE
 import com.bnvs.metaler.util.constants.POST_REQUEST_WITH_SEARCH_TYPE_TAG
 
@@ -20,7 +20,7 @@ class ViewModelManufactures(
     private val bookmarksRepository: BookmarksRepository,
     private val categoriesRepository: CategoriesRepository,
     private val tagsRepository: TagsRepository
-) : BasePostsRvViewModel() {
+) : BasePostsRvAdvancedViewModel() {
 
     private val TAG = "ViewModel Manufactures"
 
