@@ -16,7 +16,6 @@ import com.bnvs.metaler.view.posts.materials.ActivityMaterials
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexWrap
 import com.google.android.flexbox.FlexboxLayoutManager
-import com.google.android.flexbox.JustifyContent
 import kotlinx.android.synthetic.main.activity_post_second.*
 import org.koin.android.ext.android.inject
 
@@ -86,7 +85,6 @@ class ActivityPostSecond : BaseActivity<ViewModelPostSecond>() {
         return FlexboxLayoutManager(this).apply {
             flexWrap = FlexWrap.WRAP
             flexDirection = FlexDirection.ROW
-            justifyContent = JustifyContent.CENTER
         }
     }
 
