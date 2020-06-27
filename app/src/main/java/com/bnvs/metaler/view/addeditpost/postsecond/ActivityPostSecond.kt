@@ -1,23 +1,26 @@
 package com.bnvs.metaler.view.addeditpost.postsecond
 
+import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
-import android.text.Editable
-import android.text.TextWatcher
 import android.util.Log
-import android.view.View
-import android.widget.Toast
+import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import com.bnvs.metaler.R
+import com.bnvs.metaler.databinding.ActivityPostSecondBinding
+import com.bnvs.metaler.util.base.BaseActivity
+import com.bnvs.metaler.view.addeditpost.postsecond.tags.TagInputAdapter
 import com.bnvs.metaler.view.posts.manufactures.ActivityManufactures
 import com.bnvs.metaler.view.posts.materials.ActivityMaterials
+import com.google.android.flexbox.FlexDirection
+import com.google.android.flexbox.FlexWrap
+import com.google.android.flexbox.FlexboxLayoutManager
+import com.google.android.flexbox.JustifyContent
 import kotlinx.android.synthetic.main.activity_post_second.*
-import org.json.JSONObject
+import org.koin.android.ext.android.inject
 
-class ActivityPostSecond : AppCompatActivity(),
-    ContractPostSecond.View {
+class ActivityPostSecond : BaseActivity<ViewModelPostSecond>() {
 
     companion object {
         private const val TAG = "ActivityPostSecond"
@@ -25,47 +28,138 @@ class ActivityPostSecond : AppCompatActivity(),
         private const val AUTO_COMPLETE_DELAY = 300L
     }
 
-    override lateinit var presenter: ContractPostSecond.Presenter
+    override val viewModel: ViewModelPostSecond by inject()
 
     private lateinit var shopInputAdapter: HashTagSuggestAdapter
-    private lateinit var workInputAdapter: HashTagSuggestAdapter
-    private lateinit var etcInputAdapter: HashTagSuggestAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_post_second)
-
-        val categoryType = intent.getStringExtra("CATEGORY_TYPE")
-        val postIdString = intent.getStringExtra("POST_ID")
-        var postId: Int? = null
-        if (postIdString != null) {
-            postId = postIdString.toInt()
+        DataBindingUtil.setContentView<ActivityPostSecondBinding>(
+            this,
+            R.layout.activity_post_second
+        ).apply {
+            vm = viewModel
+            lifecycleOwner = this@ActivityPostSecond
+            shopNameRv.let {
+                it.layoutManager = getFlexBoxLayoutManager()
+                it.adapter = TagInputAdapter(
+                    getString(R.string.shop_name_guide),
+                    tagClick = { position -> openTagSelectionDialog("store", position) },
+                    addTagClick = {
+                        Log.d("태그 가이드 아이템", "addTagClick 호출됨, openAddTagDialog 호출")
+                        openAddTagDialog("store")
+                    }
+                )
+            }
+            workRv.let {
+                it.layoutManager = getFlexBoxLayoutManager()
+                it.adapter = TagInputAdapter(
+                    getString(R.string.work_guide),
+                    tagClick = { position -> openTagSelectionDialog("work", position) },
+                    addTagClick = { openAddTagDialog("work") }
+                )
+            }
+            etcRv.let {
+                it.layoutManager = getFlexBoxLayoutManager()
+                it.adapter = TagInputAdapter(
+                    getString(R.string.tag_input_guide),
+                    tagClick = { position -> openTagSelectionDialog("etc", position) },
+                    addTagClick = { openAddTagDialog("etc") }
+                )
+            }
         }
-
-        presenter =
-            PresenterPostSecond(
-                categoryType!!,
-                postId,
-                this
-            )
-
-        initClickListener()
-        presenter.run {
-            getAddEditPostRequest(intent)
-            start()
-        }
-
+        observeViewModel()
+        getPostId()
     }
 
-    override fun showManufactureWorkTagInput(b: Boolean) {
-        if (b) {
-            work.visibility = View.VISIBLE
+    private fun getPostId() {
+        val postId = intent.getIntExtra("POST_ID", -1)
+        Log.d(TAG, "intent 로 들어온 postId : $postId")
+        if (postId == -1) {
+            viewModel.setPostId(null)
         } else {
-            work.visibility = View.GONE
+            viewModel.setPostId(postId)
         }
     }
 
-    override fun setShopNameTagInputAdapter() {
+    private fun getFlexBoxLayoutManager(): FlexboxLayoutManager {
+        return FlexboxLayoutManager(this).apply {
+            flexWrap = FlexWrap.WRAP
+            flexDirection = FlexDirection.ROW
+            justifyContent = JustifyContent.CENTER
+        }
+    }
+
+    private fun openTagSelectionDialog(type: String, position: Int) {
+        val array = arrayOf("태그 수정", "태그 삭제")
+        AlertDialog.Builder(this@ActivityPostSecond)
+            .setTitle("태그 선택")
+            .setItems(array) { _, which ->
+                when (array[which]) {
+                    "태그 수정" -> openEditTagDialog(type, position)
+                    "태그 삭제" -> openDeleteTagDialog(type, position)
+                }
+            }
+            .show()
+    }
+
+    private fun openAddTagDialog(type: String) {
+        Log.d("태그 가이드 아이템", "addTagClick => openAddTagDialog() 호출됨")
+        AlertDialog.Builder(this@ActivityPostSecond)
+            .setTitle("태그 추가")
+            .setView(R.layout.dialog_tag_input)
+            .setPositiveButton("확인") { dialog, which ->
+                (dialog as Dialog).findViewById<EditText>(R.id.tagInputEditTxt).let {
+                    val tagInput: String? = it.text.toString()
+                    if (!tagInput.isNullOrBlank()) {
+                        viewModel.addTag(type, tagInput)
+                    }
+                }
+            }
+            .setNegativeButton("취소") { _, _ ->
+            }
+            .show()
+    }
+
+    private fun openEditTagDialog(type: String, position: Int) {
+        val content = layoutInflater.inflate(R.layout.dialog_tag_input, null).apply {
+            viewModel.getTagString(type, position).let {
+                if (it.isNotBlank()) {
+                    this.findViewById<EditText>(R.id.tagInputEditTxt).setText(it)
+                }
+            }
+        }
+        AlertDialog.Builder(this@ActivityPostSecond)
+            .setTitle("태그 수정")
+            .setView(content)
+            .setPositiveButton("확인") { dialog, _ ->
+                (dialog as Dialog).findViewById<EditText>(R.id.tagInputEditTxt).let {
+                    val tagInput: String? = it.text.toString()
+                    if (!tagInput.isNullOrBlank()) {
+                        viewModel.editTag(type, tagInput, position)
+                    } else {
+                        viewModel.deleteTag(type, position)
+                    }
+                }
+            }
+            .setNegativeButton("취소") { _, _ ->
+            }
+            .show()
+    }
+
+    private fun openDeleteTagDialog(type: String, position: Int) {
+        AlertDialog.Builder(this@ActivityPostSecond)
+            .setTitle("태그 삭제")
+            .setMessage("\"#${viewModel.getTagString(type, position)}\" 태그를 삭제하시겠습니까?")
+            .setPositiveButton("확인") { _, _ ->
+                viewModel.deleteTag(type, position)
+            }
+            .setNegativeButton("취소") { _, _ ->
+            }
+            .show()
+    }
+
+    /*override fun setShopNameTagInputAdapter() {
         shopInputAdapter =
             HashTagSuggestAdapter(
                 this,
@@ -114,117 +208,19 @@ class ActivityPostSecond : AppCompatActivity(),
                 }
             })
         }
-    }
+    }*/
 
-    override fun setWorkTagInputAdapter() {
-        workInputAdapter =
-            HashTagSuggestAdapter(
-                this,
-                android.R.layout.simple_list_item_1
-            )
-        val workHandler = Handler(Handler.Callback { msg ->
-            if (msg.what == TRIGGER_AUTO_COMPLETE) {
-                if (!workInput.text.isNullOrEmpty()) {
-                    presenter.getTagSuggestion(2, workInput.text.toString())
-                }
-            }
-            false
-        })
-        workInput.apply {
-            setAdapter(workInputAdapter)
-            setTokenizer(SpaceTokenizer())
-            addTextChangedListener(object : TextWatcher {
-                override fun afterTextChanged(s: Editable?) {}
-
-                override fun beforeTextChanged(
-                    s: CharSequence?,
-                    start: Int,
-                    count: Int,
-                    after: Int
-                ) {
-                }
-
-                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                    workHandler.removeMessages(TRIGGER_AUTO_COMPLETE)
-                    workHandler.sendEmptyMessageDelayed(
-                        TRIGGER_AUTO_COMPLETE,
-                        AUTO_COMPLETE_DELAY
-                    )
-                }
-            })
-        }
-    }
-
-    override fun setTagInputAdapter() {
-        etcInputAdapter =
-            HashTagSuggestAdapter(
-                this,
-                android.R.layout.simple_list_item_1
-            )
-        val tagHandler = Handler(Handler.Callback { msg ->
-            if (msg.what == TRIGGER_AUTO_COMPLETE) {
-                if (!tagInput.text.isNullOrEmpty()) {
-                    presenter.getTagSuggestion(3, tagInput.text.toString())
-                }
-            }
-            false
-        })
-        tagInput.apply {
-            setAdapter(etcInputAdapter)
-            setTokenizer(SpaceTokenizer())
-            addTextChangedListener(object : TextWatcher {
-                override fun afterTextChanged(s: Editable?) {}
-
-                override fun beforeTextChanged(
-                    s: CharSequence?,
-                    start: Int,
-                    count: Int,
-                    after: Int
-                ) {
-                }
-
-                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                    tagHandler.removeMessages(TRIGGER_AUTO_COMPLETE)
-                    tagHandler.sendEmptyMessageDelayed(
-                        TRIGGER_AUTO_COMPLETE,
-                        AUTO_COMPLETE_DELAY
-                    )
-                }
-            })
-        }
-    }
-
-    override fun setShopNameInput(tags: String) {
-        shopNameInput.setText(tags)
-    }
-
-    override fun setWorkInput(tags: String) {
-        workInput.setText(tags)
-    }
-
-    override fun setTagInput(tags: String) {
-        tagInput.setText(tags)
-    }
-
-    override fun setTagSuggestions(type: Int, tags: List<String>) {
+    fun setTagSuggestions(type: Int, tags: List<String>) {
         Log.d("태그 setTagSuggestions", "type: $type, tags: $tags")
         when (type) {
             1 -> {
                 shopInputAdapter.setSuggests(tags)
                 shopInputAdapter.notifyDataSetChanged()
             }
-            2 -> {
-                workInputAdapter.setSuggests(tags)
-                workInputAdapter.notifyDataSetChanged()
-            }
-            3 -> {
-                etcInputAdapter.setSuggests(tags)
-                etcInputAdapter.notifyDataSetChanged()
-            }
         }
     }
 
-    override fun showEmptyTagsDialog() {
+    fun showEmptyTagsDialog() {
         AlertDialog.Builder(this@ActivityPostSecond)
             .setTitle("알림")
             .setMessage("필수 태그를 입력해 주세요")
@@ -233,7 +229,7 @@ class ActivityPostSecond : AppCompatActivity(),
             .show()
     }
 
-    override fun showInvalidateTagDialog() {
+    fun showInvalidateTagDialog() {
         AlertDialog.Builder(this@ActivityPostSecond)
             .setTitle("알림")
             .setMessage("'#태그' 형식의 띄어쓰기 없는 태그만 입력 가능합니다")
@@ -242,7 +238,7 @@ class ActivityPostSecond : AppCompatActivity(),
             .show()
     }
 
-    override fun finishAddEditUi(categoryType: String) {
+    fun finishAddEditUi(categoryType: String) {
         when (categoryType) {
             "MATERIALS" -> {
                 Intent(this, ActivityMaterials::class.java).apply {
@@ -259,29 +255,25 @@ class ActivityPostSecond : AppCompatActivity(),
         }
     }
 
-    override fun showAddPostFailureToast(errorMessage: String) {
+    fun showAddPostFailureToast(errorMessage: String) {
         makeToast(errorMessage)
     }
 
-    override fun showEditPostFailureToast(errorMessage: String) {
+    fun showEditPostFailureToast(errorMessage: String) {
         makeToast(errorMessage)
     }
 
     private fun initClickListener() {
         backBtn.setOnClickListener { finish() }
         completeBtn.setOnClickListener {
-            val tags = JSONObject().apply {
-                put("store", shopNameInput.text.toString())
-                put("work", workInput.text.toString())
-                put("etc", tagInput.text.toString())
-            }
-            presenter.finishAddEditPost(tags)
+            /* val tags = JSONObject().apply {
+                 put("store", shopNameInput.text.toString())
+                 put("work", workInput.text.toString())
+                 put("etc", tagInput.text.toString())
+             }
+             presenter.finishAddEditPost(tags)*/
         }
 
-    }
-
-    private fun makeToast(message: String) {
-        Toast.makeText(this@ActivityPostSecond, message, Toast.LENGTH_LONG).show()
     }
 
 }
