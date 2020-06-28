@@ -38,15 +38,7 @@ class ActivityBookmarks : BasePostsRvActivity<ViewModelBookmarks, Bookmark>() {
         ).apply {
             vm = viewModel
             lifecycleOwner = this@ActivityBookmarks
-            bookmarkRV.adapter = BookmarksAdapter(object : BookmarkClickListener {
-                override fun onPostClick(postId: Int) {
-                    viewModel.openPostDetail(postId)
-                }
-
-                override fun deleteBookmarkButtonClick(bookmarkId: Int, position: Int) {
-                    viewModel.deleteBookmark(bookmarkId, position)
-                }
-            })
+            bookmarkRV.adapter = bookmarksAdapter
         }
         observeViewModel()
         setListeners()
