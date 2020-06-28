@@ -8,11 +8,12 @@ import com.bnvs.metaler.data.bookmarks.model.DeleteBookmarkRequest
 import com.bnvs.metaler.data.bookmarks.source.repositroy.BookmarksRepository
 import com.bnvs.metaler.data.categories.model.Category
 import com.bnvs.metaler.data.categories.source.repository.CategoriesRepository
+import com.bnvs.metaler.data.posts.model.Post
 import com.bnvs.metaler.data.posts.source.repository.PostsRepository
 import com.bnvs.metaler.data.tags.model.TagsRequest
 import com.bnvs.metaler.data.tags.source.repository.TagsRepository
 import com.bnvs.metaler.network.NetworkUtil
-import com.bnvs.metaler.util.base.postsrv.BasePostsRvViewModel
+import com.bnvs.metaler.util.base.postsrvadvanced.BasePostsRvAdvancedViewModel
 import com.bnvs.metaler.util.constants.POST_REQUEST_TYPE
 import com.bnvs.metaler.util.constants.POST_REQUEST_WITH_SEARCH_TYPE_TAG
 
@@ -21,7 +22,7 @@ class ViewModelMaterials(
     private val bookmarksRepository: BookmarksRepository,
     private val categoriesRepository: CategoriesRepository,
     private val tagsRepository: TagsRepository
-) : BasePostsRvViewModel() {
+) : BasePostsRvAdvancedViewModel<Post>() {
 
     private val TAG = "ViewModel Materials"
 
@@ -51,7 +52,9 @@ class ViewModelMaterials(
     private fun loadCategories() {
         categoriesRepository.getCategories(
             onSuccess = { response ->
-                _categories.value = response
+                response
+                    .filter { it.type == "total" || it.type == "materials" }
+                    .let { _categories.value = it }
                 response.first { it.type == "total" }.id.let {
                     _selectedCategoryId.value = it
                     setCategoryTypeCache(it)

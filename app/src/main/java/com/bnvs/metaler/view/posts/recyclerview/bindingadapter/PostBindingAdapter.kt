@@ -28,7 +28,7 @@ fun postImage(view: ImageView, imageUrl: String?) {
             .load(imageUrl)
             .error(R.drawable.rounding_img_view)
             .override(500, 500)
-            .transform(CenterCrop(), RoundedCorners(24))
+            .transform(CenterCrop(), RoundedCorners(100))
             .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
             .into(view)
     }

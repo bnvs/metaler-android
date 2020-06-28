@@ -92,7 +92,8 @@ class GlobalApplication : Application() {
                 manufacturesViewModelModule,
                 searchViewModelModule,
                 postFirstViewModelModule,
-                postSecondViewModelModule
+                postSecondViewModelModule,
+                bookmarksViewModelModule
             )
         }
     }

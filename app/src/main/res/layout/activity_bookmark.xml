@@ -1,331 +1,370 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".view.bookmarks.ActivityBookmarks">
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/categoryCard"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:background="@color/colorWhite"
-        android:translationY="-4dp"
-        app:layout_constraintDimensionRatio="1:0.11"
-        app:layout_constraintTop_toBottomOf="@id/titleBarCard">
-
-        <TextView
-            android:id="@+id/materialsCategoryBtn"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:gravity="center_horizontal"
-            android:paddingBottom="5dp"
-            android:text="@string/materials"
-            android:textColor="@color/colorLightGrey"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toTopOf="@id/materialsBar"
-            app:layout_constraintEnd_toStartOf="@id/manufactureCategoryBtn"
-            app:layout_constraintHorizontal_weight="1"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <View
-            android:id="@+id/materialsBar"
-            android:layout_width="0dp"
-            android:layout_height="2dp"
-            android:layout_centerInParent="true"
-            android:layout_marginTop="10dp"
-            android:background="@color/colorPurple"
-            android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="@id/materialsCategoryBtn"
-            app:layout_constraintRight_toRightOf="@id/materialsCategoryBtn" />
-
-        <TextView
-            android:id="@+id/manufactureCategoryBtn"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:gravity="center_horizontal"
-            android:paddingBottom="5dp"
-            android:text="@string/manufactures"
-            android:textColor="@color/colorLightGrey"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toTopOf="@id/materialsBar"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_weight="1"
-            app:layout_constraintStart_toEndOf="@id/materialsCategoryBtn" />
-
-        <View
-            android:id="@+id/manufactureBar"
-            android:layout_width="0dp"
-            android:layout_height="2dp"
-            android:layout_centerInParent="true"
-            android:background="@color/colorPurple"
-            android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="@id/manufactureCategoryBtn"
-            app:layout_constraintRight_toRightOf="@id/manufactureCategoryBtn" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/bookmarkRV"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="7dp"
-        android:clipToPadding="false"
-        android:paddingBottom="50dp"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@id/tabBarCard"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/categoryCard" />
+        <variable
+            name="vm"
+            type="com.bnvs.metaler.view.bookmarks.ViewModelBookmarks" />
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/titleBarCard"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:clipToPadding="false"
-        android:paddingBottom="4dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="match_parent"
+        android:background="@color/colorGreyBG"
+        tools:context=".view.bookmarks.ActivityBookmarks">
 
-        <androidx.cardview.widget.CardView
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/categoryCard"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:cardBackgroundColor="@color/colorWhite"
-            app:cardElevation="4dp"
+            android:background="@color/colorWhite"
+            android:translationY="-4dp"
             app:layout_constraintDimensionRatio="1:0.11"
+            app:layout_constraintTop_toBottomOf="@id/titleBarCard"
+            bind:selectedBookmarkCategoryType="@{vm.categoryType}">
+
+            <TextView
+                android:id="@+id/materialsCategoryBtn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:gravity="center_horizontal"
+                android:paddingBottom="5dp"
+                android:text="@string/materials"
+                android:textColor="@color/colorLightGrey"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toTopOf="@id/materialsBar"
+                app:layout_constraintEnd_toStartOf="@id/manufactureCategoryBtn"
+                app:layout_constraintHorizontal_weight="1"
+                app:layout_constraintStart_toStartOf="parent"
+                bind:onSingleClick='@{()->vm.changeCategoryType("materials")}' />
+
+            <View
+                android:id="@+id/materialsBar"
+                android:layout_width="0dp"
+                android:layout_height="2dp"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="10dp"
+                android:background="@color/colorPurple"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="@id/materialsCategoryBtn"
+                app:layout_constraintRight_toRightOf="@id/materialsCategoryBtn" />
+
+            <TextView
+                android:id="@+id/manufactureCategoryBtn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:gravity="center_horizontal"
+                android:paddingBottom="5dp"
+                android:text="@string/manufactures"
+                android:textColor="@color/colorLightGrey"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toTopOf="@id/materialsBar"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_weight="1"
+                app:layout_constraintStart_toEndOf="@id/materialsCategoryBtn"
+                bind:onSingleClick='@{()->vm.changeCategoryType("manufacture")}' />
+
+            <View
+                android:id="@+id/manufactureBar"
+                android:layout_width="0dp"
+                android:layout_height="2dp"
+                android:layout_centerInParent="true"
+                android:background="@color/colorPurple"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="@id/manufactureCategoryBtn"
+                app:layout_constraintRight_toRightOf="@id/manufactureCategoryBtn" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/bookmarkRV"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="7dp"
+            android:clipToPadding="false"
+            android:paddingBottom="50dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toTopOf="@id/tabBarCard"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/categoryCard"
+            bind:setBookmarkItems="@{vm.posts}"
+            tools:listitem="@layout/item_bookmark_rv" />
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/error404Group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:constraint_referenced_ids="error404Icon,error404Txt"
+            bind:postErrorVisibility="@{vm.errorVisibility}" />
+
+        <ImageView
+            android:id="@+id/error404Icon"
+            style="@style/error404BigIcon"
+            app:layout_constraintBottom_toTopOf="@id/error404Txt"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/categoryCard"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <TextView
+            android:id="@+id/error404Txt"
+            style="@style/error404TextViewBookmarks"
+            app:layout_constraintBottom_toTopOf="@id/tabBarCard"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/error404Icon" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/titleBarCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:paddingBottom="4dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginHorizontal="10dp">
+                android:layout_height="0dp"
+                app:cardBackgroundColor="@color/colorWhite"
+                app:cardElevation="4dp"
+                app:layout_constraintDimensionRatio="1:0.11"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-                <TextView
-                    android:id="@+id/currentTitleText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/bookmark"
-                    android:textColor="@color/colorPurple"
-                    android:textSize="18sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginHorizontal="10dp">
+
+                    <TextView
+                        android:id="@+id/currentTitleText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/bookmark"
+                        android:textColor="@color/colorPurple"
+                        android:textSize="18sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.cardview.widget.CardView>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/tabBarCard"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/tab_bar_border"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <androidx.cardview.widget.CardView
-            style="@style/tabBarCardView"
-            android:layout_marginTop="0.5dp"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/tabBarCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/tab_bar_border"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintStart_toStartOf="parent">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginHorizontal="10dp">
+            <androidx.cardview.widget.CardView
+                style="@style/tabBarCardView"
+                android:layout_marginTop="0.5dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/homeBtn"
-                    android:layout_width="0dp"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    app:layout_constraintEnd_toStartOf="@id/materialsBtn"
-                    app:layout_constraintHorizontal_weight="1"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    android:layout_marginHorizontal="10dp">
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/homeBtn"
+                        android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:paddingVertical="2dp">
+                        app:layout_constraintEnd_toStartOf="@id/materialsBtn"
+                        app:layout_constraintHorizontal_weight="1"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        bind:onSingleClick="@{()->vm.startHomeActivity()}">
 
-                        <ImageView
-                            android:id="@+id/homeIcon"
-                            android:layout_width="27dp"
-                            android:layout_height="27dp"
-                            android:src="@drawable/ic_tapbar_home_inactive_x3"
-                            app:layout_constraintBottom_toTopOf="@id/homeTxt"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:paddingVertical="2dp">
 
-                        <TextView
-                            android:id="@+id/homeTxt"
-                            style="@style/tabBarInactiveTextView"
-                            android:text="홈"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/homeIcon" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-                </androidx.cardview.widget.CardView>
+                            <ImageView
+                                android:id="@+id/homeIcon"
+                                style="@style/tabBarIconSize"
+                                android:src="@drawable/ic_tapbar_home_inactive_x3"
+                                app:layout_constraintBottom_toTopOf="@id/homeTxt"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
 
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/materialsBtn"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    app:layout_constraintEnd_toStartOf="@id/manufactureBtn"
-                    app:layout_constraintHorizontal_weight="1"
-                    app:layout_constraintStart_toEndOf="@id/homeBtn"
-                    app:layout_constraintTop_toTopOf="parent">
+                            <TextView
+                                android:id="@+id/homeTxt"
+                                style="@style/tabBarInactiveTextView"
+                                android:text="홈"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/homeIcon" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </androidx.cardview.widget.CardView>
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/materialsBtn"
+                        android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:paddingVertical="2dp">
+                        app:layout_constraintEnd_toStartOf="@id/manufactureBtn"
+                        app:layout_constraintHorizontal_weight="1"
+                        app:layout_constraintStart_toEndOf="@id/homeBtn"
+                        app:layout_constraintTop_toTopOf="parent"
+                        bind:onSingleClick="@{()->vm.startMaterialsActivity()}">
 
-                        <ImageView
-                            android:id="@+id/materialsIcon"
-                            android:layout_width="27dp"
-                            android:layout_height="27dp"
-                            android:src="@drawable/ic_tapbar_materials_inactive_x3"
-                            app:layout_constraintBottom_toTopOf="@id/materialsTxt"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:paddingVertical="2dp">
 
-                        <TextView
-                            android:id="@+id/materialsTxt"
-                            style="@style/tabBarInactiveTextView"
-                            android:text="재료"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/materialsIcon" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-                </androidx.cardview.widget.CardView>
+                            <ImageView
+                                android:id="@+id/materialsIcon"
+                                style="@style/tabBarIconSize"
+                                android:src="@drawable/ic_tapbar_materials_inactive_x3"
+                                app:layout_constraintBottom_toTopOf="@id/materialsTxt"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
 
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/manufactureBtn"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    app:layout_constraintEnd_toStartOf="@id/bookmarkBtn"
-                    app:layout_constraintHorizontal_weight="1"
-                    app:layout_constraintStart_toEndOf="@id/materialsBtn"
-                    app:layout_constraintTop_toTopOf="parent">
+                            <TextView
+                                android:id="@+id/materialsTxt"
+                                style="@style/tabBarInactiveTextView"
+                                android:text="재료"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/materialsIcon" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </androidx.cardview.widget.CardView>
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/manufactureBtn"
+                        android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:paddingVertical="2dp">
+                        app:layout_constraintEnd_toStartOf="@id/bookmarkBtn"
+                        app:layout_constraintHorizontal_weight="1"
+                        app:layout_constraintStart_toEndOf="@id/materialsBtn"
+                        app:layout_constraintTop_toTopOf="parent"
+                        bind:onSingleClick="@{()->vm.startManufacturesActivity()}">
 
-                        <ImageView
-                            android:id="@+id/manufactureIcon"
-                            android:layout_width="27dp"
-                            android:layout_height="27dp"
-                            android:src="@drawable/ic_tapbar_manufacture_inactive_x3"
-                            app:layout_constraintBottom_toTopOf="@id/manufactureTxt"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:paddingVertical="2dp">
 
-                        <TextView
-                            android:id="@+id/manufactureTxt"
-                            style="@style/tabBarInactiveTextView"
-                            android:text="가공"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/manufactureIcon" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-                </androidx.cardview.widget.CardView>
+                            <ImageView
+                                android:id="@+id/manufactureIcon"
+                                style="@style/tabBarIconSize"
+                                android:src="@drawable/ic_tapbar_manufacture_inactive_x3"
+                                app:layout_constraintBottom_toTopOf="@id/manufactureTxt"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
 
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/bookmarkBtn"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    app:layout_constraintEnd_toStartOf="@id/myPageBtn"
-                    app:layout_constraintHorizontal_weight="1"
-                    app:layout_constraintStart_toEndOf="@id/manufactureBtn"
-                    app:layout_constraintTop_toTopOf="parent">
+                            <TextView
+                                android:id="@+id/manufactureTxt"
+                                style="@style/tabBarInactiveTextView"
+                                android:text="가공"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/manufactureIcon" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </androidx.cardview.widget.CardView>
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/bookmarkBtn"
+                        android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:paddingVertical="2dp">
+                        app:layout_constraintEnd_toStartOf="@id/myPageBtn"
+                        app:layout_constraintHorizontal_weight="1"
+                        app:layout_constraintStart_toEndOf="@id/manufactureBtn"
+                        app:layout_constraintTop_toTopOf="parent">
 
-                        <ImageView
-                            android:id="@+id/bookmarkIcon"
-                            android:layout_width="27dp"
-                            android:layout_height="27dp"
-                            android:src="@drawable/ic_tapbar_bookmark_active_x3"
-                            app:layout_constraintBottom_toTopOf="@id/bookmarkTxt"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:paddingVertical="2dp">
 
-                        <TextView
-                            android:id="@+id/bookmarkTxt"
-                            style="@style/tabBarActiveTextView"
-                            android:text="북마크"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/bookmarkIcon" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-                </androidx.cardview.widget.CardView>
+                            <ImageView
+                                android:id="@+id/bookmarkIcon"
+                                style="@style/tabBarIconSize"
+                                android:src="@drawable/ic_tapbar_bookmark_active_x3"
+                                app:layout_constraintBottom_toTopOf="@id/bookmarkTxt"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
 
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/myPageBtn"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_weight="1"
-                    app:layout_constraintStart_toEndOf="@id/bookmarkBtn"
-                    app:layout_constraintTop_toTopOf="parent">
+                            <TextView
+                                android:id="@+id/bookmarkTxt"
+                                style="@style/tabBarActiveTextView"
+                                android:text="북마크"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/bookmarkIcon" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </androidx.cardview.widget.CardView>
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/myPageBtn"
+                        android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:paddingVertical="2dp">
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_weight="1"
+                        app:layout_constraintStart_toEndOf="@id/bookmarkBtn"
+                        app:layout_constraintTop_toTopOf="parent"
+                        bind:onSingleClick="@{()->vm.startMyPageActivity()}">
 
-                        <ImageView
-                            android:id="@+id/myPageIcon"
-                            android:layout_width="27dp"
-                            android:layout_height="27dp"
-                            android:src="@drawable/ic_tapbar_mypage_inactive_x3"
-                            app:layout_constraintBottom_toTopOf="@+id/myPageTxt"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:paddingVertical="2dp">
 
-                        <TextView
-                            android:id="@+id/myPageTxt"
-                            style="@style/tabBarInactiveTextView"
-                            android:text="마이페이지"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/myPageIcon" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-                </androidx.cardview.widget.CardView>
+                            <ImageView
+                                android:id="@+id/myPageIcon"
+                                style="@style/tabBarIconSize"
+                                android:src="@drawable/ic_tapbar_mypage_inactive_x3"
+                                app:layout_constraintBottom_toTopOf="@+id/myPageTxt"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                            <TextView
+                                android:id="@+id/myPageTxt"
+                                style="@style/tabBarInactiveTextView"
+                                android:text="마이페이지"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/myPageIcon" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </androidx.cardview.widget.CardView>
 
-        </androidx.cardview.widget.CardView>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

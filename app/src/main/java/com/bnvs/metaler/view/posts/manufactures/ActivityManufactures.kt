@@ -10,14 +10,15 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bnvs.metaler.R
+import com.bnvs.metaler.data.posts.model.Post
 import com.bnvs.metaler.databinding.ActivityManufactureBinding
-import com.bnvs.metaler.util.base.postsrv.BasePostsRvActivity
+import com.bnvs.metaler.util.base.postsrvadvanced.BasePostsRvAdvancedActivity
 import com.bnvs.metaler.view.addeditpost.postfirst.ActivityPostFirst
 import com.bnvs.metaler.view.search.ActivitySearch
 import kotlinx.android.synthetic.main.activity_manufacture.*
 import org.koin.android.ext.android.inject
 
-class ActivityManufactures : BasePostsRvActivity<ViewModelManufactures>() {
+class ActivityManufactures : BasePostsRvAdvancedActivity<ViewModelManufactures, Post>() {
 
     override val viewModel: ViewModelManufactures by inject()
 
