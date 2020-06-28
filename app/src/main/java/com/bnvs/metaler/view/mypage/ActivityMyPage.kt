@@ -174,11 +174,6 @@ class ActivityMyPage : BaseTapActivity<ViewModelMyPage>() {
     private fun openWithdrawalDialog() {
         AlertDialog.Builder(this@ActivityMyPage)
             .setTitle("회원 탈퇴")
-            .setMessage(
-                "계정을 삭제하시겠습니까?\n" +
-                        "계정 삭제시 지금까지 작성하신 게시물은 자동으로 삭제되지 않습니다.\n" +
-                        "상기 내용에 동의하시는 경우, \"동의합니다\"를 입력 후 탈퇴를 누르면 계정이 삭제됩니다"
-            )
             .setView(R.layout.dialog_withdrawal_confirm_input)
             .setPositiveButton("탈퇴") { dialog, which ->
                 val f = dialog as Dialog

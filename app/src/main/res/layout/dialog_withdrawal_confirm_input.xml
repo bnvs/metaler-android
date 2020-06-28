@@ -1,19 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:paddingLeft="10dp"
     android:paddingRight="10dp">
 
+    <TextView
+        android:id="@+id/withdrawalGuideTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="@string/withdrawal_content"
+        android:textColor="@color/colorBlack"
+        android:textSize="23sp"
+        app:layout_constraintBottom_toTopOf="@id/withdrawalGuideContentsTextView1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/withdrawalGuideContentsTextView1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="25dp"
+        android:gravity="center"
+        android:text="@string/withdrawal_content_guide"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@id/withdrawalConfirmInputEditTxt"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/withdrawalGuideTextView" />
+
+
     <EditText
         android:id="@+id/withdrawalConfirmInputEditTxt"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="25dp"
-        android:layout_marginRight="25dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="25dp"
+        android:hint="동의합니다"
         android:inputType="text"
         android:maxLength="5"
-        android:textSize="20sp" />
+        android:textColorHint="@color/colorLightGrey"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/withdrawalGuideContentsTextView1" />
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
