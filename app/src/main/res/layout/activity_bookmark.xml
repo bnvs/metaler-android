@@ -25,7 +25,8 @@
             android:background="@color/colorWhite"
             android:translationY="-4dp"
             app:layout_constraintDimensionRatio="1:0.11"
-            app:layout_constraintTop_toBottomOf="@id/titleBarCard">
+            app:layout_constraintTop_toBottomOf="@id/titleBarCard"
+            bind:selectedBookmarkCategoryType="@{vm.categoryType}">
 
             <TextView
                 android:id="@+id/materialsCategoryBtn"
@@ -40,7 +41,8 @@
                 app:layout_constraintBottom_toTopOf="@id/materialsBar"
                 app:layout_constraintEnd_toStartOf="@id/manufactureCategoryBtn"
                 app:layout_constraintHorizontal_weight="1"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                bind:onSingleClick='@{()->vm.changeCategoryType("materials")}' />
 
             <View
                 android:id="@+id/materialsBar"
@@ -67,7 +69,8 @@
                 app:layout_constraintBottom_toTopOf="@id/materialsBar"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_weight="1"
-                app:layout_constraintStart_toEndOf="@id/materialsCategoryBtn" />
+                app:layout_constraintStart_toEndOf="@id/materialsCategoryBtn"
+                bind:onSingleClick='@{()->vm.changeCategoryType("manufacture")}' />
 
             <View
                 android:id="@+id/manufactureBar"
