@@ -1,5 +1,6 @@
 package com.bnvs.metaler.view.myposts
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.bnvs.metaler.data.myposts.model.MyPost
 import com.bnvs.metaler.data.myposts.model.MyPostsRequest
@@ -14,7 +15,20 @@ class ViewModelMyPosts(
 ) : BasePostsRvViewModel<MyPost>() {
 
     private val _categoryType = MutableLiveData<String>().apply { value = "materials" }
-    val categoryType: MutableLiveData<String> = _categoryType
+    val categoryType: LiveData<String> = _categoryType
+
+    private val _openMyPostMenuDialog =
+        MutableLiveData<Map<String, Int>>().apply { value = mapOf() }
+    val openMyPostMenuDialog: LiveData<Map<String, Int>> = _openMyPostMenuDialog
+    private val _openPostFirstActivity =
+        MutableLiveData<Map<String, Int>>().apply { value = mapOf() }
+    val openPostFirstActivity: LiveData<Map<String, Int>> = _openPostFirstActivity
+    private val _openPostDeleteDialog =
+        MutableLiveData<Map<String, Int>>().apply { value = mapOf() }
+    val openPostDeleteDialog: LiveData<Map<String, Int>> = _openPostDeleteDialog
+
+    private val _finishThisActivity = MutableLiveData<Boolean>().apply { value = false }
+    val finishThisActivity: LiveData<Boolean> = _finishThisActivity
 
     init {
         loadPosts()
@@ -63,12 +77,21 @@ class ViewModelMyPosts(
         }
     }
 
-    fun openMyPostMenu() {
+    fun openMyPostMenuDialog(postId: Int, position: Int) {
+        _openMyPostMenuDialog.value = mapOf("postId" to postId, "position" to position)
+    }
+
+    fun openPostFirstActivity(postId: Int, position: Int) {
+        if (posts.value?.get(position)?.update_available == true) {
+            _openPostFirstActivity.value = mapOf("postId" to postId)
+        } else {
+            _errorDialogMessage.setMessage("가격 평가가 진행된 게시물은 수정할 수 없습니다")
+        }
 
     }
 
-    fun openPostFirstActivity() {
-
+    fun openDeletePostDialog(postId: Int, position: Int) {
+        _openPostDeleteDialog.value = mapOf("postId" to postId, "position" to position)
     }
 
     fun deletePost(postId: Int, position: Int) {
@@ -90,5 +113,9 @@ class ViewModelMyPosts(
             },
             handleError = { e -> _errorCode.setErrorCode(e) }
         )
+    }
+
+    fun finishMyPostsActivity() {
+        _finishThisActivity.enable()
     }
 }
