@@ -31,9 +31,9 @@ class AddEditPostLocalDataSourceImpl(context: Context) : AddEditPostLocalDataSou
         }
     }
 
-    override fun saveAddPostCache(addEditPostLocalCache: AddEditPostLocalCache) {
+    override fun saveAddPostCache(addPostLocalCache: AddEditPostLocalCache) {
         sharedAddPost.edit()
-            .putString(ADD_POST_DATA, GsonBuilder().create().toJson(addEditPostLocalCache))
+            .putString(ADD_POST_DATA, GsonBuilder().create().toJson(addPostLocalCache))
             .commit()
     }
 
@@ -55,12 +55,12 @@ class AddEditPostLocalDataSourceImpl(context: Context) : AddEditPostLocalDataSou
 
     override fun saveEditPostCache(
         postId: Int,
-        addEditPostLocalCache: AddEditPostLocalCache
+        editPostLocalCache: AddEditPostLocalCache
     ) {
         sharedAddPost.edit()
             .putString(
                 "${EDIT_POST_DATA}_$postId",
-                GsonBuilder().create().toJson(addEditPostLocalCache)
+                GsonBuilder().create().toJson(editPostLocalCache)
             )
             .commit()
     }

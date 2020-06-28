@@ -73,7 +73,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
+            android:clipToPadding="false"
             android:orientation="horizontal"
+            android:paddingEnd="30dp"
             android:visibility="gone"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintStart_toStartOf="@id/userImg"
@@ -88,9 +90,9 @@
             android:layout_marginTop="12dp"
             android:textColor="@color/colorBlack"
             android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/contentLine"
             app:layout_constraintTop_toBottomOf="@id/contentImgRV"
-            app:layout_constraintEnd_toEndOf="parent"
             tools:text="본문 내용입니다. 메탈러 스테인리스 카테고리의 어떤 한 게시글인데, 상세페이지로 들어갔을 때 레이아웃화면입니다. 상세페이지에는 탭바 없앴습니다." />
 
         <TextView

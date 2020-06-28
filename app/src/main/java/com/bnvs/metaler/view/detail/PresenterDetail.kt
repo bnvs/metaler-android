@@ -1,6 +1,5 @@
 package com.bnvs.metaler.view.detail
 
-import android.content.Context
 import android.view.View
 import com.bnvs.metaler.data.bookmarks.model.AddBookmarkRequest
 import com.bnvs.metaler.data.bookmarks.model.DeleteBookmarkRequest
@@ -22,8 +21,7 @@ import java.util.*
 
 class PresenterDetail(
     private val postId: Int,
-    private val view: ContractDetail.View,
-    context: Context
+    private val view: ContractDetail.View
 ) : ContractDetail.Presenter, KoinComponent {
 
     private val postDetailsRepository: PostDetailsRepository by inject()

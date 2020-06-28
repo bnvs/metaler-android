@@ -1,6 +1,5 @@
 package com.bnvs.metaler.view.modifycomment
 
-import android.content.Context
 import com.bnvs.metaler.data.comments.model.AddEditCommentRequest
 import com.bnvs.metaler.data.comments.model.Comment
 import com.bnvs.metaler.data.comments.source.repository.CommentsRepository
@@ -11,7 +10,6 @@ import org.koin.core.inject
 class PresenterModifyComment(
     private val postId: Int,
     private val comment: Comment,
-    context: Context,
     private val view: ContractModifyComment.View
 ) : ContractModifyComment.Presenter, KoinComponent {
 

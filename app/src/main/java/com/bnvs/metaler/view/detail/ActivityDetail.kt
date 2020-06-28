@@ -66,7 +66,7 @@ class ActivityDetail : AppCompatActivity(), ContractDetail.View {
             finish()
         }
 
-        presenter = PresenterDetail(postId, this, this)
+        presenter = PresenterDetail(postId, this)
 
         initClickListeners()
         presenter.run {
@@ -157,7 +157,7 @@ class ActivityDetail : AppCompatActivity(), ContractDetail.View {
     override fun showDeletePostDialog() {
         AlertDialog.Builder(this@ActivityDetail)
             .setTitle("게시글을 삭제하시겠습니까?")
-            .setPositiveButton("확인") { dialog, which ->
+            .setPositiveButton("확인") { _, _ ->
                 presenter.deletePost()
             }
             .setNegativeButton("취소") { _, _ ->
@@ -184,7 +184,7 @@ class ActivityDetail : AppCompatActivity(), ContractDetail.View {
     override fun showBookmarkAddDialog() {
         AlertDialog.Builder(this@ActivityDetail)
             .setTitle("이 글을 북마크하시겠습니까?")
-            .setPositiveButton("확인") { dialog, which ->
+            .setPositiveButton("확인") { _, _ ->
                 presenter.addBookmark()
             }
             .setNegativeButton("취소") { _, _ ->
@@ -195,7 +195,7 @@ class ActivityDetail : AppCompatActivity(), ContractDetail.View {
     override fun showBookmarkDeleteDialog() {
         AlertDialog.Builder(this@ActivityDetail)
             .setTitle("북마크를 취소하시겠습니까?")
-            .setPositiveButton("확인") { dialog, which ->
+            .setPositiveButton("확인") { _, _ ->
                 presenter.deleteBookmark()
             }
             .setNegativeButton("취소") { _, _ ->
@@ -339,7 +339,7 @@ class ActivityDetail : AppCompatActivity(), ContractDetail.View {
     override fun showDeleteCommentDialog() {
         AlertDialog.Builder(this@ActivityDetail)
             .setTitle("게시글을 삭제하시겠습니까?")
-            .setPositiveButton("확인") { dialog, which ->
+            .setPositiveButton("확인") { _, _ ->
                 presenter.deleteComment()
             }
             .setNegativeButton("취소") { _, _ ->
