@@ -43,6 +43,8 @@
         <TextView
             android:id="@+id/nicknameBtn"
             style="@style/myPageMenuTextView"
+            android:layout_marginTop="10dp"
+            android:background="?attr/selectableItemBackground"
             android:text="@string/nickname_modify"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/profileEmail" />
@@ -63,6 +65,7 @@
         <TextView
             android:id="@+id/jobBtn"
             style="@style/myPageMenuTextView"
+            android:background="?attr/selectableItemBackground"
             android:text="@string/job_modify"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/nicknameLine" />
@@ -84,6 +87,7 @@
         <TextView
             android:id="@+id/myPostsBtn"
             style="@style/myPageMenuTextView"
+            android:background="?attr/selectableItemBackground"
             android:text="@string/my_posts"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/jobLine" />
@@ -105,6 +109,7 @@
         <TextView
             android:id="@+id/termsBtn"
             style="@style/myPageMenuTextView"
+            android:background="?attr/selectableItemBackground"
             android:text="@string/terms"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/myPostsLine" />
@@ -126,6 +131,7 @@
         <TextView
             android:id="@+id/logoutBtn"
             style="@style/myPageMenuTextView"
+            android:background="?attr/selectableItemBackground"
             android:text="@string/logout"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/termsLine" />
@@ -147,6 +153,7 @@
         <TextView
             android:id="@+id/withdrawalBtn"
             style="@style/myPageMenuTextView"
+            android:background="?attr/selectableItemBackground"
             android:text="@string/withdrawal"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/logoutLine" />
