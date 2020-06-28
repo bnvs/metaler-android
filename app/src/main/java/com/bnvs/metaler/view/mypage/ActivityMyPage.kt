@@ -144,15 +144,19 @@ class ActivityMyPage : BaseTapActivity<ViewModelMyPage>() {
     }
 
     private fun openNicknameModifyDialog() {
+        val content = layoutInflater.inflate(R.layout.dialog_nickname_input, null)
+        val nickname = viewModel.profile.value?.profile_nickname
+        if (nickname != null) {
+            content.findViewById<EditText>(R.id.nicknameInputEditTxt).setText(nickname)
+        }
         AlertDialog.Builder(this@ActivityMyPage)
             .setTitle("별명 변경")
             .setMessage("변경할 별명을 입력해주세요.")
-            .setView(R.layout.dialog_nickname_input)
+            .setView(content)
             .setPositiveButton("확인") { dialog, which ->
                 val f = dialog as Dialog
                 val input: EditText = f.findViewById(R.id.nicknameInputEditTxt)
-                val nickname = input.text.toString()
-                viewModel.modifyNickname(nickname)
+                viewModel.modifyNickname(input.text.toString())
             }
             .setNegativeButton("취소") { _, _ ->
             }

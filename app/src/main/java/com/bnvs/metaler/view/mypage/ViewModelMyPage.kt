@@ -73,12 +73,16 @@ class ViewModelMyPage(
     }
 
     fun modifyNickname(nickname: String) {
+        if (profile.value?.profile_nickname == nickname.trim()) {
+            return
+        }
+
         userModificationRepository.let {
             it.modifyNickname(
-                Nickname(nickname),
+                Nickname(nickname.trim()),
                 onSuccess = {
                     it.modifyLocalNickname(
-                        Nickname(nickname),
+                        Nickname(nickname.trim()),
                         onSuccess = { loadProfile() },
                         onFailure = { _errorToastMessage.setMessage("로컬 닉네임 수정 실패") }
                     )
