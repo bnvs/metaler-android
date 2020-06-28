@@ -70,6 +70,9 @@ class ViewModelBookmarks(
                     index != position
                 }.let {
                     _posts.value = it
+                    if (posts.value.isNullOrEmpty()) {
+                        _errorVisibility.value = true
+                    }
                     _errorToastMessage.setMessage("북마크에서 삭제되었습니다")
                 }
             },
