@@ -65,4 +65,15 @@ class ActivityHome : BasePostsActivity<ViewModelHome>() {
         } else 0
     }
 
+    private var firstTime: Long = 0
+    private var secondTime: Long = 0
+    override fun onBackPressed() {
+        secondTime = System.currentTimeMillis()
+        makeToast("뒤로버튼을 한번 더 누르시면 종료됩니다")
+        if (secondTime - firstTime < 2000) {
+            super.onBackPressed()
+            finishAffinity()
+        }
+        firstTime = System.currentTimeMillis()
+    }
 }
