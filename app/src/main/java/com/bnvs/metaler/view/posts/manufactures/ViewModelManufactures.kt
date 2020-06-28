@@ -182,7 +182,7 @@ class ViewModelManufactures(
     }
 
     override fun getTagSuggestions(input: String) {
-        val type = 1 //TODO: 태그 전체 검색시에는 타입 어떻게 설정해야하는지?
+        val type = 4
         tagsRepository.getTagRecommendations(
             TagsRequest(type, input, 10),
             onSuccess = { response ->
