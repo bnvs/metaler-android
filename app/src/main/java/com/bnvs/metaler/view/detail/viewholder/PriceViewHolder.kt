@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bnvs.metaler.data.postdetails.model.PostDetails
 import com.bnvs.metaler.view.detail.listener.PostRatingListener
 import kotlinx.android.synthetic.main.item_detail_price.view.*
+import java.text.NumberFormat
 
 class PriceViewHolder(
     itemView: View,
@@ -28,7 +29,7 @@ class PriceViewHolder(
 
     fun bind(postDetails: PostDetails) {
         itemView.apply {
-            price.text = postDetails.price.toString()
+            price.text = NumberFormat.getInstance().format(postDetails.price)
             priceType.text = postDetails.price_type
             dislikeNum.text = postDetails.disliked.toString()
             likeNum.text = postDetails.liked.toString()
