@@ -19,7 +19,7 @@ abstract class BasePostsRvViewModel<ITEM> : BasePostsViewModel() {
     protected abstract fun loadPosts()
     abstract fun loadMorePosts()
 
-    abstract fun deleteBookmark(bookmarkId: Int, position: Int)
+    open fun deleteBookmark(bookmarkId: Int, position: Int) {}
 
     protected fun resetPage() {
         page = 0
