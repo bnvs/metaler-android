@@ -1,5 +1,6 @@
 package com.bnvs.metaler.view.bookmarks
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.bnvs.metaler.data.bookmarks.model.Bookmark
 import com.bnvs.metaler.data.bookmarks.model.BookmarksRequest
@@ -13,7 +14,7 @@ class ViewModelBookmarks(
 ) : BasePostsRvViewModel<Bookmark>() {
 
     private val _categoryType = MutableLiveData<String>().apply { value = "materials" }
-    val categoryType: MutableLiveData<String> = _categoryType
+    val categoryType: LiveData<String> = _categoryType
 
     init {
         loadPosts()
