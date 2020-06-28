@@ -137,5 +137,6 @@
 
     <!-- string format -->
     <string name="string_with_hash_tag">&#160;#%1$s</string>
+    <string name="string_with_app_version">app version %1$s</string>
 
 </resources>
