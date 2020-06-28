@@ -95,7 +95,8 @@ class GlobalApplication : Application() {
                 postSecondViewModelModule,
                 bookmarksViewModelModule,
                 myPostsViewModelModule,
-                myPageViewModelModule
+                myPageViewModelModule,
+                jobModifyViewModelModule
             )
         }
     }
