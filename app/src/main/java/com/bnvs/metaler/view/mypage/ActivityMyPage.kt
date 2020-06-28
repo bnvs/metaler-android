@@ -153,7 +153,7 @@ class ActivityMyPage : BaseTapActivity<ViewModelMyPage>() {
             .setTitle("별명 변경")
             .setMessage("변경할 별명을 입력해주세요.")
             .setView(content)
-            .setPositiveButton("확인") { dialog, which ->
+            .setPositiveButton("확인") { dialog, _ ->
                 val f = dialog as Dialog
                 val input: EditText = f.findViewById(R.id.nicknameInputEditTxt)
                 viewModel.modifyNickname(input.text.toString())
@@ -167,7 +167,7 @@ class ActivityMyPage : BaseTapActivity<ViewModelMyPage>() {
         AlertDialog.Builder(this@ActivityMyPage)
             .setTitle("로그아웃")
             .setMessage("로그아웃 하시겠습니까?")
-            .setPositiveButton("로그아웃") { dialog, which ->
+            .setPositiveButton("로그아웃") { _, _ ->
                 viewModel.logout()
             }
             .setNegativeButton("취소") { _, _ ->
@@ -179,7 +179,7 @@ class ActivityMyPage : BaseTapActivity<ViewModelMyPage>() {
         AlertDialog.Builder(this@ActivityMyPage)
             .setTitle("회원 탈퇴")
             .setView(R.layout.dialog_withdrawal_confirm_input)
-            .setPositiveButton("탈퇴") { dialog, which ->
+            .setPositiveButton("탈퇴") { dialog, _ ->
                 val f = dialog as Dialog
                 val input: EditText = f.findViewById(R.id.withdrawalConfirmInputEditTxt)
                 val confirmInput = input.text.toString()

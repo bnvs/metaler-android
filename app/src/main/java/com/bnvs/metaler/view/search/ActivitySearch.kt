@@ -41,7 +41,7 @@ class ActivitySearch : BasePostsRvAdvancedActivity<ViewModelSearch, Post>() {
     override fun setRefreshListener() {}
 
     override fun setTagSearchTextView() {
-        searchInput.setOnEditorActionListener { v, actionId, event ->
+        searchInput.setOnEditorActionListener { v, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 viewModel.searchWithContent()
                 v.clearFocus()

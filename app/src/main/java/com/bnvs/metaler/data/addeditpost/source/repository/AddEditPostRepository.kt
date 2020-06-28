@@ -42,5 +42,5 @@ interface AddEditPostRepository {
         onFailure: () -> Unit
     )
 
-    fun saveEditPostCache(postId: Int, addEditPostLocalCache: AddEditPostLocalCache)
+    fun saveEditPostCache(postId: Int, editPostLocalCache: AddEditPostLocalCache)
 }

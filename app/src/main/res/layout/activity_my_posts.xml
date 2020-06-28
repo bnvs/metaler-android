@@ -93,7 +93,6 @@
             android:clipToPadding="false"
             android:paddingBottom="50dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintBottom_toTopOf="@id/tabBarCard"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/categoryCard"
             bind:setMyPostItems="@{vm.posts}"

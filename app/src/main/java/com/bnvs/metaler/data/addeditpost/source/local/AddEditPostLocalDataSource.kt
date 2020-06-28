@@ -9,7 +9,7 @@ interface AddEditPostLocalDataSource {
         onFailure: () -> Unit
     )
 
-    fun saveAddPostCache(addEditPostLocalCache: AddEditPostLocalCache)
+    fun saveAddPostCache(addPostLocalCache: AddEditPostLocalCache)
 
     fun getEditPostCache(
         postId: Int,
@@ -17,5 +17,5 @@ interface AddEditPostLocalDataSource {
         onFailure: () -> Unit
     )
 
-    fun saveEditPostCache(postId: Int, addEditPostLocalCache: AddEditPostLocalCache)
+    fun saveEditPostCache(postId: Int, editPostLocalCache: AddEditPostLocalCache)
 }

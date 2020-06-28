@@ -9,7 +9,7 @@ abstract class BasePostsRvViewModel<ITEM> : BasePostsViewModel() {
     // 게시물 리스트
     protected val _posts = MutableLiveData<List<ITEM?>>()
     val posts: LiveData<List<ITEM?>> = _posts
-    protected val _hasNextPage = MutableLiveData<Boolean>().apply { false }
+    protected val _hasNextPage = MutableLiveData<Boolean>()
     val hasNextPage: LiveData<Boolean> = _hasNextPage
 
     // 게시글 목록 요청 request 용 데이터
