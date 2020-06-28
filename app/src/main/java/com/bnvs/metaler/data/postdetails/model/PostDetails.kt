@@ -19,5 +19,6 @@ data class PostDetails(
     val tags: List<PostTag>,
     var bookmark_id: Int,
     var comment_count: Int,
-    var rating: Int
+    var rating: Int,
+    val update_available: Boolean
 )

@@ -2,209 +2,158 @@ package com.bnvs.metaler.view.myposts
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bnvs.metaler.R
 import com.bnvs.metaler.data.myposts.model.MyPost
-import com.bnvs.metaler.util.EndlessRecyclerViewScrollListener
+import com.bnvs.metaler.databinding.ActivityMyPostsBinding
+import com.bnvs.metaler.util.base.postsrv.BasePostsRvActivity
 import com.bnvs.metaler.view.addeditpost.postfirst.ActivityPostFirst
+import com.bnvs.metaler.view.myposts.recyclerview.MyPostClickListener
+import com.bnvs.metaler.view.myposts.recyclerview.MyPostsAdapter
 import kotlinx.android.synthetic.main.activity_my_posts.*
+import org.koin.android.ext.android.inject
 
-class ActivityMyPosts : AppCompatActivity(), ContractMyPosts.View {
+class ActivityMyPosts : BasePostsRvActivity<ViewModelMyPosts, MyPost>() {
 
     private val TAG = "ActivityMyPosts"
 
-    override lateinit var presenter: ContractMyPosts.Presenter
+    override val viewModel: ViewModelMyPosts by inject()
 
-    lateinit var myPostAdapter: MyPostsAdapter
-    lateinit var scrollListener: EndlessRecyclerViewScrollListener
-    lateinit var myPostLayoutManager: RecyclerView.LayoutManager
-    var loadMoreMyPosts: MutableList<MyPost?> = mutableListOf()
+    private val myPostsAdapter = MyPostsAdapter(object : MyPostClickListener {
+        override fun onPostClick(postId: Int) {
+            viewModel.openPostDetail(postId)
+        }
+
+        override fun onMoreButtonClick(postId: Int, position: Int) {
+            viewModel.openMyPostMenuDialog(postId, position)
+        }
+    })
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_my_posts)
 
-        presenter = PresenterMyPosts(
-            this@ActivityMyPosts,
-            this@ActivityMyPosts
-        )
-
-        presenter.run {
-            start()
+        DataBindingUtil.setContentView<ActivityMyPostsBinding>(
+            this,
+            R.layout.activity_my_posts
+        ).apply {
+            vm = viewModel
+            lifecycleOwner = this@ActivityMyPosts
+            myPostsRV.adapter = myPostsAdapter
         }
 
-        activeMaterialsCategoryBtn()
-
-        setCategoryButtons()
-
-        setRVAdapter()
-
-        setRVLayoutManager()
-
-        setRVScrollListener()
+        observeViewModel()
+        setListeners()
     }
 
-    /**
-     * 내가 쓴 글 확인 재료/가공 카테고리 눌렀을 때 보여지는 재료/가공 게시물 리사이클러뷰 아이템에 달아줄 클릭리스너입니다
-     * 아이템 클릭 시, 클릭한 게시물의 post_id 를 presenter 에 전달합니다.
-     * onPostClick -> 게시물을 클릭한 경우
-     * onMoreButtonClick -> 더보기 버튼을 클릭한 경우. 수정, 삭제 메뉴 다이얼로그를 실행합니다.
-     * */
-    private var myPostsItemListener: MyPostsItemListener = object : MyPostsItemListener {
-        override fun onPostClick(view: View, clickedPostId: Int) {
-            presenter.openPostDetail(clickedPostId)
-        }
+    override fun observeViewModel() {
+        super.observeViewModel()
+        observeOpenMyPostMenuDialog()
+        observeOpenPostFirstActivity()
+        observeOpenPostDeleteDialog()
+        observeFinishThisActivity()
+    }
 
-        override fun onMoreButtonClick(
-            view: View,
-            clickedPostId: Int,
-            likedNum: Int,
-            dislikedNum: Int,
-            position: Int
-        ) {
-            val array = arrayOf("수정", "삭제")
-            AlertDialog.Builder(this@ActivityMyPosts)
-                .setItems(array) { _, which ->
-                    when (array[which]) {
-                        "수정" -> {
-                            presenter.modifyPost(clickedPostId, likedNum, dislikedNum)
-                        }
-                        "삭제" -> {
-                            showDeletePostDialog(clickedPostId)
-                        }
+    private fun observeOpenMyPostMenuDialog() {
+        viewModel.openMyPostMenuDialog.observe(
+            this,
+            Observer { openDialog ->
+                if (openDialog.isNotEmpty()) {
+                    openMyPostMenuDialog(
+                        openDialog["postId"] as Int,
+                        openDialog["position"] as Int
+                    )
+                }
+            }
+        )
+    }
+
+    private fun observeOpenPostFirstActivity() {
+        viewModel.openPostFirstActivity.observe(
+            this,
+            Observer { startActivity ->
+                if (startActivity.isNotEmpty()) {
+                    openPostFirstActivity(startActivity["postId"] as Int)
+                }
+            }
+        )
+    }
+
+    private fun observeOpenPostDeleteDialog() {
+        viewModel.openPostDeleteDialog.observe(
+            this,
+            Observer { openDialog ->
+                if (openDialog.isNotEmpty()) {
+                    openPostDeleteDialog(
+                        openDialog["postId"] as Int,
+                        openDialog["position"] as Int
+                    )
+                }
+            }
+        )
+    }
+
+    private fun observeFinishThisActivity() {
+        viewModel.finishThisActivity.observe(
+            this,
+            Observer { finish ->
+                if (finish) {
+                    finish()
+                }
+            }
+        )
+    }
+
+    override fun setRecyclerViewScrollListener() {
+        myPostsRV.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                val layoutManager = myPostsRV.layoutManager
+                if (viewModel.hasNextPage.value == true) {
+                    val lastVisibleItem = (layoutManager as LinearLayoutManager)
+                        .findLastCompletelyVisibleItemPosition()
+                    if (layoutManager.itemCount <= lastVisibleItem + 5) {
+                        viewModel.loadMorePosts()
                     }
                 }
-                .show()
-        }
-    }
-
-    //리사이클러뷰
-    private fun setRVAdapter() {
-        myPostAdapter = MyPostsAdapter(myPostsItemListener)
-    }
-
-    private fun setRVLayoutManager() {
-        myPostLayoutManager = LinearLayoutManager(this)
-        postsRV.layoutManager = myPostLayoutManager
-        postsRV.setHasFixedSize(true)
-    }
-
-    private fun setRVScrollListener() {
-        myPostLayoutManager = LinearLayoutManager(this)
-        scrollListener =
-            EndlessRecyclerViewScrollListener(myPostLayoutManager as LinearLayoutManager)
-        scrollListener.setOnLoadMoreListener(object :
-            EndlessRecyclerViewScrollListener.OnLoadMoreListener {
-            override fun onLoadMore() {
-                //loadMoreMyPosts 에 null값을 추가해서 로딩뷰를 만든다.
-                myPostAdapter.addLoadingView()
-                loadMoreMyPosts.add(null)
-
-                //loadMoreMyPosts 리스트에는 다음페이지 데이터가 있을때만 데이터를 추가하기 때문에 조건절로 비어있는지 확인해야함
-                if (!loadMoreMyPosts.isEmpty()) {
-                    //loadMoreMyPosts 마지막 값이 null값이 있으면 무한스크롤 로딩 중이기 때문에 데이터를 받아오고, 로딩뷰를 제거한다.
-
-                }
-
             }
         })
     }
 
-    override fun showMyPostsList(myPosts: List<MyPost>) {
-        Log.d(TAG, "myPosts? : $myPosts")
-        myPostAdapter.addPosts(myPosts)
-        myPostAdapter.notifyDataSetChanged()
-        postsRV.adapter = myPostAdapter
-        postsRV.visibility = View.VISIBLE
+    private fun openMyPostMenuDialog(postId: Int, position: Int) {
+        val array = arrayOf("수정", "삭제")
+        AlertDialog.Builder(this@ActivityMyPosts)
+            .setItems(array) { _, which ->
+                when (array[which]) {
+                    "수정" -> {
+                        viewModel.openPostFirstActivity(postId, position)
+                    }
+                    "삭제" -> {
+                        viewModel.openDeletePostDialog(postId, position)
+                    }
+                }
+            }
+            .show()
     }
 
-    override fun hideError404() {
-        error404Group.visibility = View.INVISIBLE
-    }
-
-    override fun showError404() {
-        error404Group.visibility = View.VISIBLE
-    }
-
-    override fun openEditPostUi(clickedPostId: Int) {
+    private fun openPostFirstActivity(postId: Int) {
         Intent(this, ActivityPostFirst::class.java).apply {
-            putExtra("POST_ID", clickedPostId.toString())
+            putExtra("POST_ID", postId)
             startActivity(this)
         }
     }
 
-    override fun showDeletePostDialog(clickedPostId: Int) {
+    private fun openPostDeleteDialog(postId: Int, position: Int) {
         AlertDialog.Builder(this@ActivityMyPosts)
             .setTitle("게시글을 삭제하시겠습니까?")
-            .setPositiveButton("확인") { dialog, which ->
-                presenter.deletePost(clickedPostId)
+            .setPositiveButton("확인") { _, _ ->
+                viewModel.deletePost(postId, position)
             }
             .setNegativeButton("취소") { _, _ ->
             }
             .show()
-    }
-
-    override fun showPostDeletedToast() {
-        makeToast("게시물이 삭제되었습니다")
-    }
-
-    override fun showCannotModifyRatedPostDialog() {
-        makeAlertDialog("가격 평가가 진행된 게시물은 수정할 수 없습니다")
-    }
-
-    override fun setCategoryButtons() {
-        materialsCategoryBtn.setOnClickListener {
-            activeMaterialsCategoryBtn()
-            myPostAdapter.resetList()
-            presenter.openMaterialsList()
-        }
-
-        manufactureCategoryBtn.setOnClickListener {
-            activeManufactureCategoryBtn()
-            myPostAdapter.resetList()
-            presenter.openManufacturesList()
-        }
-    }
-
-    override fun activeMaterialsCategoryBtn() {
-        materialsCategoryBtn.setTextColor(ContextCompat.getColor(this, R.color.colorPurple))
-        materialsBar.visibility = View.VISIBLE
-        manufactureCategoryBtn.setTextColor(ContextCompat.getColor(this, R.color.colorLightGrey))
-        manufactureBar.visibility = View.INVISIBLE
-    }
-
-    override fun activeManufactureCategoryBtn() {
-        manufactureCategoryBtn.setTextColor(ContextCompat.getColor(this, R.color.colorPurple))
-        manufactureBar.visibility = View.VISIBLE
-        materialsCategoryBtn.setTextColor(ContextCompat.getColor(this, R.color.colorLightGrey))
-        materialsBar.visibility = View.INVISIBLE
-    }
-
-    override fun showErrorToast(errorMessage: String) {
-        makeToast(errorMessage)
-    }
-
-    private fun makeToast(message: String) {
-        Toast.makeText(this@ActivityMyPosts, message, Toast.LENGTH_SHORT).show()
-    }
-
-    private fun makeAlertDialog(message: String) {
-        AlertDialog.Builder(this@ActivityMyPosts)
-            .setTitle("알림")
-            .setMessage(message)
-            .setPositiveButton("확인") { _, _ ->
-            }
-            .show()
-    }
-
-    override fun finishActivity() {
-        finish()
     }
 }

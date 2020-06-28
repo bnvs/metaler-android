@@ -8,6 +8,7 @@ interface MyPostsRemoteDataSource {
     fun getMyPosts(
         request: MyPostsRequest,
         onSuccess: (response: MyPosts) -> Unit,
-        onFailure: (e: Throwable) -> Unit
+        onFailure: (e: Throwable) -> Unit,
+        handleError: (errorCode: Int) -> Unit
     )
 }

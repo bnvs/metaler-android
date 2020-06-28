@@ -85,7 +85,7 @@ class ActivityLogin : AppCompatActivity() {
             UserManagement.getInstance().me(object : MeV2ResponseCallback() {
                 override fun onSuccess(result: MeV2Response?) {
                     if (result != null) {
-                        checkMembership(result)
+                        getSigninToken(result)
                     } else {
                         makeToast(getString(R.string.NO_KAKAO_LOGIN_RESULT))
                     }
@@ -120,6 +120,17 @@ class ActivityLogin : AppCompatActivity() {
 
     private fun saveProfileData(user: User) {
         profileRepository.saveUserInfo(user)
+    }
+
+    private fun getSigninToken(result: MeV2Response) {
+        tokenRepository.getSigninToken(
+            onTokenLoaded = { token ->
+                login(result.id.toString(), token.signin_token)
+            },
+            onTokenNotExist = {
+                checkMembership(result)
+            }
+        )
     }
 
     private fun checkMembership(result: MeV2Response) {
