@@ -5,7 +5,7 @@ import com.bnvs.metaler.data.addeditpost.model.PostTag
 data class MyPost(
     val id: Int,
     val title: String,
-    val is_updated: Boolean,
+    val update_available: Boolean,
     val user_id: Int,
     val date: String,
     val profile_nickname: String,
