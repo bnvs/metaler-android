@@ -359,7 +359,8 @@
                         app:layout_constraintEnd_toStartOf="@id/myPageBtn"
                         app:layout_constraintHorizontal_weight="1"
                         app:layout_constraintStart_toEndOf="@id/manufactureBtn"
-                        app:layout_constraintTop_toTopOf="parent">
+                        app:layout_constraintTop_toTopOf="parent"
+                        bind:onSingleClick="@{()->vm.startBookmarksActivity()}">
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
@@ -393,8 +394,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_weight="1"
                         app:layout_constraintStart_toEndOf="@id/bookmarkBtn"
-                        app:layout_constraintTop_toTopOf="parent"
-                        bind:onSingleClick="@{()->vm.startMyPageActivity()}">
+                        app:layout_constraintTop_toTopOf="parent">
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
