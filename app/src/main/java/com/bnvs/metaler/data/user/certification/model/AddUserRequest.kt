@@ -8,7 +8,8 @@ import java.io.Serializable
  * */
 
 data class AddUserRequest(
-    val kakao_id: String,
+    val unique_id: String,
+    val regi_type: String,
     val profile_nickname: String,
     val profile_image_url: String,
     val profile_email: String?,

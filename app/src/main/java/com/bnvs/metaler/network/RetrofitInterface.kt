@@ -56,19 +56,19 @@ interface RetrofitInterface {
     /*** [1. 유저] ***/
     /*** [1-1. 인증관련] ***/
     // 회원가입 여부 체크
-    @POST("v1/users/check")
+    @POST("v2/users/check")
     fun checkUserMembership(@Body request: CheckMembershipRequest): Call<CheckMembershipResponse>
 
     // 회원가입
-    @POST("v1/users/join")
+    @POST("v2/users/join")
     fun addUser(@Body request: AddUserRequest): Call<AddUserResponse>
 
     // 로그인
-    @POST("v1/users/login")
+    @POST("v2/users/login")
     fun login(@Body request: LoginRequest): Call<LoginResponse>
 
     // 로그아웃
-    @POST("v1/users/logout")
+    @POST("v2/users/logout")
     fun logout(): Call<ResponseBody>
 
     /*** [1-2. 회원정보 수정] ***/

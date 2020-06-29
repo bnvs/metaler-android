@@ -1,5 +1,6 @@
 package com.bnvs.metaler.data.user.certification.model
 
 data class CheckMembershipRequest (
-    val kakao_id: String
+    val unique_id: String,
+    val regi_type: String
 )
