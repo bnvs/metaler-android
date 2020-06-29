@@ -83,7 +83,14 @@ class ActivityPostFirst : BaseAddEditActivity<ViewModelPostFirst>() {
             this,
             Observer { finish ->
                 if (finish) {
-                    finish()
+                    AlertDialog.Builder(this@ActivityPostFirst)
+                        .setMessage("화면을 나가면 지금까지 작성중이던 내용이 모두 사라집니다. 뒤로가시겠습니까?")
+                        .setPositiveButton("예") { _, _ ->
+                            finish()
+                        }
+                        .setNegativeButton("아니오") { _, _ ->
+                        }
+                        .show()
                 }
             }
         )
@@ -339,6 +346,17 @@ class ActivityPostFirst : BaseAddEditActivity<ViewModelPostFirst>() {
         } else {
             makeToast("취소되었습니다")
         }
+    }
+
+    override fun onBackPressed() {
+        AlertDialog.Builder(this@ActivityPostFirst)
+            .setMessage("화면을 나가시면 지금까지 작성중이던 내용이 모두 사라집니다. 뒤로가시겠습니까?")
+            .setPositiveButton("예") { _, _ ->
+                super.onBackPressed()
+            }
+            .setNegativeButton("아니오") { _, _ ->
+            }
+            .show()
     }
 
 }
