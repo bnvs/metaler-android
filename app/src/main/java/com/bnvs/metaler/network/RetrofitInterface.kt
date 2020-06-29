@@ -68,7 +68,7 @@ interface RetrofitInterface {
     fun login(@Body request: LoginRequest): Call<LoginResponse>
 
     // 로그아웃
-    @POST("v2/users/logout")
+    @POST("v1/users/logout")
     fun logout(): Call<ResponseBody>
 
     /*** [1-2. 회원정보 수정] ***/
@@ -89,7 +89,7 @@ interface RetrofitInterface {
     ): Call<ResponseBody>
 
     // 회원탈퇴
-    @DELETE("v1/users")
+    @DELETE("v2/users")
     fun deleteUser(): Call<ResponseBody>
 
 
