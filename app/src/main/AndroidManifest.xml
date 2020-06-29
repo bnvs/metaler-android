@@ -94,7 +94,8 @@
             android:theme="@style/AnimTheme" />
         <activity
             android:name=".view.login.ActivityLogin"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/NoAnimTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
