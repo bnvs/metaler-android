@@ -32,25 +32,25 @@
         <activity
             android:name=".view.home.ActivityHome"
             android:screenOrientation="portrait"
-            android:theme="@style/noAnimTheme" />
+            android:theme="@style/NoAnimTheme" />
         <activity
             android:name=".view.posts.materials.ActivityMaterials"
             android:screenOrientation="portrait"
-            android:theme="@style/noAnimTheme"
+            android:theme="@style/NoAnimTheme"
             android:windowSoftInputMode="adjustNothing" />
         <activity
             android:name=".view.posts.manufactures.ActivityManufactures"
             android:screenOrientation="portrait"
-            android:theme="@style/noAnimTheme"
+            android:theme="@style/NoAnimTheme"
             android:windowSoftInputMode="adjustNothing" />
         <activity
             android:name=".view.bookmarks.ActivityBookmarks"
             android:screenOrientation="portrait"
-            android:theme="@style/noAnimTheme" />
+            android:theme="@style/NoAnimTheme" />
         <activity
             android:name=".view.mypage.ActivityMyPage"
             android:screenOrientation="portrait"
-            android:theme="@style/noAnimTheme" />
+            android:theme="@style/NoAnimTheme" />
         <activity
             android:name=".view.search.ActivitySearch"
             android:screenOrientation="portrait"
