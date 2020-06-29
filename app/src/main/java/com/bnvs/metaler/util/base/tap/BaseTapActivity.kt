@@ -114,10 +114,4 @@ abstract class BaseTapActivity<VM : BaseTapViewModel> : BaseActivity<VM>() {
             startActivity(it)
         }
     }
-
-    private fun finishActivity() {
-        finish()
-        overridePendingTransition(0, 0)
-    }
-
 }
