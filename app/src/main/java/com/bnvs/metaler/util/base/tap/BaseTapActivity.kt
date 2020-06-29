@@ -77,46 +77,41 @@ abstract class BaseTapActivity<VM : BaseTapViewModel> : BaseActivity<VM>() {
 
     private fun startHomeActivity() {
         Intent(this, ActivityHome::class.java).apply {
-            flags = Intent.FLAG_ACTIVITY_NO_ANIMATION
+            flags = Intent.FLAG_ACTIVITY_REORDER_TO_FRONT
         }.also {
             startActivity(it)
-            finishActivity()
         }
     }
 
     private fun startMaterialsActivity() {
         Intent(this, ActivityMaterials::class.java).apply {
-            flags = Intent.FLAG_ACTIVITY_NO_ANIMATION
+            flags = Intent.FLAG_ACTIVITY_REORDER_TO_FRONT
         }.also {
             startActivity(it)
-            finishActivity()
         }
     }
 
     private fun startManufacturesActivity() {
         Intent(this, ActivityManufactures::class.java).apply {
-            flags = Intent.FLAG_ACTIVITY_NO_ANIMATION
+            flags = Intent.FLAG_ACTIVITY_REORDER_TO_FRONT
         }.also {
             startActivity(it)
-            finishActivity()
         }
     }
 
     private fun startBookmarksActivity() {
         Intent(this, ActivityBookmarks::class.java).apply {
-            flags = Intent.FLAG_ACTIVITY_NO_ANIMATION
+            flags = Intent.FLAG_ACTIVITY_REORDER_TO_FRONT
         }.also {
             startActivity(it)
-            finishActivity()
         }
     }
 
     private fun startMyPageActivity() {
         Intent(this, ActivityMyPage::class.java).apply {
-            flags = Intent.FLAG_ACTIVITY_NO_ANIMATION
+            flags = Intent.FLAG_ACTIVITY_REORDER_TO_FRONT
         }.also {
             startActivity(it)
-            finishActivity()
         }
     }
 
