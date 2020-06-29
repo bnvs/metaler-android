@@ -75,7 +75,6 @@ class ActivitySearch : BasePostsRvAdvancedActivity<ViewModelSearch, Post>() {
             Observer { finishActivity ->
                 if (finishActivity) {
                     finish()
-                    overridePendingTransition(0, 0)
                 }
             }
         )

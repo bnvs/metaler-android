@@ -141,7 +141,7 @@ class ActivityLogin : AppCompatActivity() {
         val kakaoGender = makeGenderText(result.kakaoAccount.gender?.toString() ?: "")
 
         userRepository.checkMembership(
-            CheckMembershipRequest(kakaoId),
+            CheckMembershipRequest(kakaoId, "kakao"),
             onSuccess = { response ->
                 when (response.message) {
                     getString(R.string.SIGN_UP) -> {
@@ -179,6 +179,7 @@ class ActivityLogin : AppCompatActivity() {
         val deviceInfo = userRepository.getDeviceInfo()
         val loginRequest = LoginRequest(
             kakao_id,
+            "kakao",
             signin_token,
             getPushToken(),
             deviceInfo.getDeviceId(),

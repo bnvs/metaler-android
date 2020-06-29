@@ -59,11 +59,6 @@ abstract class BasePostsRvAdvancedActivity<VM : BasePostsRvAdvancedViewModel<ITE
         return HashTagSuggestAdapter(this, R.layout.simple_list_item_1)
     }
 
-    override fun onResume() {
-        super.onResume()
-        viewModel.refreshForOnResume()
-    }
-
     private fun observeStartPostFirstActivity() {
         viewModel.openPostFirstActivity.observe(
             this,

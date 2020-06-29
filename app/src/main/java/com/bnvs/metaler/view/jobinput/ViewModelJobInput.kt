@@ -162,6 +162,7 @@ class ViewModelJobInput(
 
         addUserRequest = AddUserRequest(
             kakaoUserInfo.kakao_id,
+            "kakao",
             kakaoUserInfo.profile_nickname,
             kakaoUserInfo.profile_image_url,
             kakaoUserInfo.profile_email,
@@ -193,6 +194,7 @@ class ViewModelJobInput(
         val deviceInfo = userCertificationRepository.getDeviceInfo()
         return LoginRequest(
             kakaoUserInfo.kakao_id,
+            "kakao",
             signinToken,
             "push_token",
             deviceInfo.getDeviceId(),

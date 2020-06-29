@@ -32,8 +32,6 @@ abstract class BasePostsActivity<VM : BasePostsViewModel> : BaseTapActivity<VM>(
         Intent(this, ActivityDetail::class.java)
             .apply { putExtra("POST_ID", postId) }
             .also { startActivity(it) }
-
-        overridePendingTransition(0, 0)
     }
 
 }

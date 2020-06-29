@@ -37,14 +37,10 @@ class ViewModelManufactures(
         loadPosts()
     }
 
-    override fun refreshForOnResume() {
-        super.refreshForOnResume()
-        loadPosts()
-    }
-
     private fun setManufacturesCategoryId() {
         categoriesRepository.getCategories(
             onSuccess = { response ->
+                Log.d("getCategories", "가공 카테고리 설정됨")
                 response.first { it.type == "manufacture" }.id.let {
                     _categoryId.value = it
                     setCategoryTypeCache(it)
@@ -59,10 +55,12 @@ class ViewModelManufactures(
     }
 
     override fun setCategoryTypeCache(categoryId: Int) {
+        Log.d("getCategories", "카테고리 타입 캐시 설정됨")
         categoriesRepository.saveCategoryTypeCache(categoryId)
     }
 
     override fun loadPosts() {
+        Log.d("getCategories", "로드 포스트 - 포스트 로딩됨")
         when (postRequestType) {
             POST_REQUEST_TYPE -> loadPostsNormal()
             POST_REQUEST_WITH_SEARCH_TYPE_TAG -> loadPostsWithSearchTypeTag()
