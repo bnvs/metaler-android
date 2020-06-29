@@ -52,12 +52,6 @@ abstract class BasePostsRvAdvancedViewModel<ITEM> : BasePostsRvViewModel<ITEM>()
         setPostRequestType()
     }
 
-    open fun refreshForOnResume() {
-        _isLoading.value = true
-        _hasNextPage.value = false
-        resetPage()
-    }
-
     protected abstract fun setCategoryTypeCache(categoryId: Int)
 
     protected abstract fun loadPostsNormal()
