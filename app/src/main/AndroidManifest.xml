@@ -54,34 +54,44 @@
         <activity
             android:name=".view.search.ActivitySearch"
             android:screenOrientation="portrait"
+            android:theme="@style/AnimTheme"
             android:windowSoftInputMode="adjustNothing" />
         <activity
             android:name=".view.detail.ActivityDetail"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AnimTheme" />
         <activity
             android:name=".view.addeditpost.postsecond.ActivityPostSecond"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AnimTheme" />
         <activity
             android:name=".view.addeditpost.postfirst.ActivityPostFirst"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AnimTheme" />
         <activity
             android:name=".view.myposts.ActivityMyPosts"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AnimTheme" />
         <activity
             android:name=".view.jobmodify.ActivityJobModify"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AnimTheme" />
         <activity
             android:name=".view.jobinput.ActivityJobInput"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AnimTheme" />
         <activity
             android:name=".view.termsagree.ActivityTermsAgree"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AnimTheme" />
         <activity
             android:name=".view.termscheck.ActivityTermsCheck"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AnimTheme" />
         <activity
             android:name=".view.modifycomment.ActivityModifyComment"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AnimTheme" />
         <activity
             android:name=".view.login.ActivityLogin"
             android:screenOrientation="portrait">

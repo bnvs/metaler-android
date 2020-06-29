@@ -125,15 +125,11 @@ class ActivityMaterials : BasePostsRvAdvancedActivity<ViewModelMaterials, Post>(
     override fun startPostFirstActivity() {
         Intent(this, ActivityPostFirst::class.java)
             .also { startActivity(it) }
-
-        overridePendingTransition(0, 0)
     }
 
     override fun startSearchActivity() {
         Intent(this, ActivitySearch::class.java)
             .also { startActivity(it) }
-
-        overridePendingTransition(0, 0)
     }
 
     private var firstTime: Long = 0
