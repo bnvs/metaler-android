@@ -1,6 +1,7 @@
 # metaler-android
 Metaler 안드로이드 앱   
-금속공예 관련 업체 시세공유 커뮤니티인 "Metaler"의 안드로이드 어플리케이션입니다.   
+금속공예 관련 업체 시세공유 커뮤니티인 "Metaler"의 안드로이드 어플리케이션입니다.
+<image width="500" src="https://user-images.githubusercontent.com/58504556/93610157-acdb7500-fa07-11ea-9be9-d234c6ccd945.png">
    
 ### Git-Commit Message 규칙
 [ADD] : 파일, 변수, 클래스, 함수 등 기능 추가했을 때   
